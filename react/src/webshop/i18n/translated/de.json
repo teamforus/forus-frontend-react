@@ -1524,12 +1524,12 @@
                 "title": "Blockieren Sie Ihren Pass"
             },
             "link_card": {
-                "description": "<br/><br/>Auf Ihrem Pass befindet sich ein QR-Code, darunter Ihr persönlicher Code. Wenn Sie den alten Pass reaktivieren, können Sie ihn weiter benutzen. Brauchen Sie Hilfe?  Rufen Sie 14 050 an, Montag bis Freitag von 9.00 bis 12.00 Uhr.",
                 "subtitle": "Geben Sie Ihren persönlichen Kundencode ein",
                 "title": "Aktivieren Sie Ihren alten Pass",
                 "alt_text": "Körperlicher Pass: {{ fund_name }}",
                 "no_old_card": "Kein alter Pass?",
-                "order_card": "Bestellung eines Passes"
+                "order_card": "Bestellung eines Passes",
+                "description": "Auf Ihrem Pass befindet sich ein persönlicher Code. Geben Sie ihn unten ein.<br/>Wenn Sie den alten Pass reaktivieren, können Sie ihn weiter benutzen."
             },
             "request_card_success": {
                 "description": "Sie haben eine E-Mail mit der Bestätigung Ihrer Bestellung erhalten.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Einstellungen für Benachrichtigungen{{pageTitleSuffix}}",
         "privacy": "Erklärung zum Datenschutz{{pageTitleSuffix}}",
         "product": "{{product_name}} Angebot - von {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Angebot{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Angebot kaufen{{pageTitleSuffix}}",
         "products-show": "Angebot{{pageTitleSuffix}}",
         "provider": "Anbieter - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Anmeldung starten{{pageTitleSuffix}}",
         "terms_and_conditions": "Allgemeine Bedingungen und Konditionen{{pageTitleSuffix}}",
         "voucher": "Ihr Kredit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mein Kredit{{pageTitleSuffix}}"
+        "vouchers": "Mein Kredit{{pageTitleSuffix}}",
+        "products": "Angebot{{pageTitleSuffix}}"
     },
     "page_title": "Forus-Plattform",
     "paginator": {
@@ -3319,8 +3319,8 @@
             },
             "lost_my_pass": "Ich habe meinen Pass verloren",
             "qrcode": {
-                "description": "{{fund_name}} Dies ist Ihr Kredit mit einem QR-Code.",
-                "productdescription": "Dies ist Ihre Reservierung mit einem QR-Code."
+                "productdescription": "Dies ist Ihre Reservierung mit einem QR-Code.",
+                "description": "Dies ist Ihr {{fund_name}} Kredit mit einem QR-Code."
             },
             "share": "Teilen Sie",
             "stop_participation": "Teilnahme stoppen",
@@ -3361,7 +3361,6 @@
             "voucher": "Drucken Sie Ihre Gutschrift aus oder schicken Sie sie sich selbst zu. Bringen Sie den QR-Code zum Anbieter und lassen Sie ihn scannen."
         },
         "physical_card": {
-            "alt": "Physischer Pass: \"{[ Titel ]}",
             "buttons": {
                 "lost_pass": "Ich habe meinen Pass verloren",
                 "reactivate": "Aktivieren Sie"
@@ -3370,7 +3369,8 @@
             "title": "Meinen Pass aktivieren",
             "less_details": "Alle Details ausblenden",
             "more_details": "Alle Details anzeigen",
-            "personal_date": "Persönliche Daten"
+            "personal_date": "Persönliche Daten",
+            "alt": "Physischer Pass: '{{ title }}'"
         },
         "reimbursement": {
             "button": "Coupon einreichen",
@@ -3404,12 +3404,12 @@
         "transactions": {
             "add": "hinzufügen",
             "bank_transfer": "Banküberweisung",
-            "expired_on": "Abgelaufen am {[ Datum ]}",
             "no_spending": "Keine Kosten",
             "reservation": "Buchung",
             "subtract": "Subtraktion",
             "title": "Transaktionen",
-            "top_up": "Verbessert"
+            "top_up": "Verbessert",
+            "expired_on": "Abgelaufen am {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -3429,6 +3429,50 @@
                 },
                 "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Wählen Sie eine Aktion aus, um fortzufahren. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Wählen Sie eine Aktion"
+            },
+            "declaration_request": "Antrag auf Erklärung",
+            "save_qr": "QR-Code speichern",
+            "share_with_provider": "QR-Code mit Anbieter teilen",
+            "view_all_products": "Alle Produkte anzeigen"
+        },
+        "details": {
+            "records": {
+                "email": "E-Mail Adresse:",
+                "number": "Nummer:",
+                "title": "Daten"
+            },
+            "valid_until": "Diese Gutschrift ist gültig bis {{ date }}"
+        },
+        "fund_details": {
+            "title": "Details zum Fonds",
+            "view": "Details zum Fonds anzeigen"
+        },
+        "fund": {
+            "logo_alt": "Logo des Fonds",
+            "logo_alt_named": "Logo der {{ name }}"
+        },
+        "help": {
+            "description": "Sie haben Fragen oder brauchen Hilfe? Bitte kontaktieren Sie uns.",
+            "email": "E-Mail Adresse:",
+            "phone": "Rufnummer:",
+            "title": "Sie haben Fragen oder brauchen Hilfe?"
+        },
+        "how_it_works": {
+            "title": "Wie es funktioniert"
+        },
+        "overview": {
+            "description": "Lesen Sie auf dieser Seite, wie das Guthaben funktioniert, und sehen Sie sich den Saldo und die Ausgaben an. Viel Spaß mit dem Kredit!"
+        },
+        "physical_cards": {
+            "title": "Meine körperlichen Pässe"
+        },
+        "qr_code": {
+            "label": "QR-Code für Kredite {{ number }}"
         }
     },
     "vouchers": {

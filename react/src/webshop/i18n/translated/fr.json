@@ -1524,12 +1524,12 @@
                 "title": "Bloquez votre passage"
             },
             "link_card": {
-                "description": "<br/><br/>Un code QR figure sur votre carte, en dessous se trouve votre code personnel. Si vous réactivez l'ancienne carte, vous pouvez continuer à l'utiliser. Besoin d'aide ?  Appelez le 14 050 du lundi au vendredi de 9h00 à 12h00.",
                 "subtitle": "Entrez votre code client personnel",
                 "title": "Activez votre ancien pass",
                 "alt_text": "Passe physique : {{ fund_name }}",
                 "no_old_card": "Pas d'ancien laissez-passer ?",
-                "order_card": "Commander un laissez-passer"
+                "order_card": "Commander un laissez-passer",
+                "description": "Un code personnel figure sur votre carte. Saisissez-le ci-dessous.<br/>Si vous réactivez l'ancien pass, vous pouvez continuer à l'utiliser."
             },
             "request_card_success": {
                 "description": "Vous avez reçu un e-mail confirmant votre commande.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Préférences de notification{{pageTitleSuffix}}",
         "privacy": "Déclaration de confidentialité{{pageTitleSuffix}}",
         "product": "{{product_name}} Offre - de {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Offre{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Offre d'achat{{pageTitleSuffix}}",
         "products-show": "Offre{{pageTitleSuffix}}",
         "provider": "Fournisseur - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Démarrer la connexion{{pageTitleSuffix}}",
         "terms_and_conditions": "Conditions générales d'utilisation{{pageTitleSuffix}}",
         "voucher": "Votre crédit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mon crédit{{pageTitleSuffix}}"
+        "vouchers": "Mon crédit{{pageTitleSuffix}}",
+        "products": "Offre{{pageTitleSuffix}}"
     },
     "page_title": "Plate-forme Forus",
     "paginator": {
@@ -3319,8 +3319,8 @@
             },
             "lost_my_pass": "J'ai perdu mon laissez-passer",
             "qrcode": {
-                "description": "{{fund_name}} Il s'agit de votre crédit avec un code QR.",
-                "productdescription": "Il s'agit de votre réservation avec un code QR."
+                "productdescription": "Il s'agit de votre réservation avec un code QR.",
+                "description": "Il s'agit de votre crédit {{fund_name}} avec un code QR."
             },
             "share": "Partager",
             "stop_participation": "Arrêter la participation",
@@ -3361,7 +3361,6 @@
             "voucher": "Imprimez votre crédit ou envoyez-le par la poste. Apportez le code QR au fournisseur et faites-le scanner."
         },
         "physical_card": {
-            "alt": "Passe physique : \"{[ title ]}",
             "buttons": {
                 "lost_pass": "J'ai perdu mon laissez-passer",
                 "reactivate": "Activer"
@@ -3370,7 +3369,8 @@
             "title": "Activer mon pass",
             "less_details": "Cacher tous les détails",
             "more_details": "Afficher tous les détails",
-            "personal_date": "Données personnelles"
+            "personal_date": "Données personnelles",
+            "alt": "Passe physique : '{{ title }}'"
         },
         "reimbursement": {
             "button": "Soumettre un coupon",
@@ -3404,12 +3404,12 @@
         "transactions": {
             "add": "Ajouter",
             "bank_transfer": "Virement bancaire",
-            "expired_on": "Expiré le {[ date ]}",
             "no_spending": "Aucune dépense",
             "reservation": "Réservation",
             "subtract": "Soustraction",
             "title": "Transactions",
-            "top_up": "Mise à niveau"
+            "top_up": "Mise à niveau",
+            "expired_on": "Expiré le {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -3429,6 +3429,50 @@
                 },
                 "redirect_to": "Souhaitez-vous toujours demander un remboursement ?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Sélectionnez une action pour continuer. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Choisir une action"
+            },
+            "declaration_request": "Demande de déclaration",
+            "save_qr": "Enregistrer le code QR",
+            "share_with_provider": "Partager le code QR avec le fournisseur",
+            "view_all_products": "Voir tous les produits"
+        },
+        "details": {
+            "records": {
+                "email": "Adresse électronique :",
+                "number": "Nombre :",
+                "title": "Données"
+            },
+            "valid_until": "Ce crédit est valable jusqu'à {{ date }}"
+        },
+        "fund_details": {
+            "title": "Détails du fonds",
+            "view": "Voir les détails du fonds"
+        },
+        "fund": {
+            "logo_alt": "Logo du fonds",
+            "logo_alt_named": "Logo de {{ name }}"
+        },
+        "help": {
+            "description": "Vous avez des questions ou besoin d'aide ? N'hésitez pas à nous contacter.",
+            "email": "Adresse électronique :",
+            "phone": "Numéro de téléphone :",
+            "title": "Vous avez des questions ou besoin d'aide ?"
+        },
+        "how_it_works": {
+            "title": "Comment cela fonctionne-t-il ?"
+        },
+        "overview": {
+            "description": "Lisez le fonctionnement du crédit sur cette page et consultez le solde et les dépenses. Amusez-vous avec le crédit !"
+        },
+        "physical_cards": {
+            "title": "Mes passages physiques"
+        },
+        "qr_code": {
+            "label": "Code QR pour le crédit {{ number }}"
         }
     },
     "vouchers": {

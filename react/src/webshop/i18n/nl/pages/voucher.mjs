@@ -8,10 +8,12 @@ export default {
         voucher: '{{ title }}',
         voucher_physical: 'Uw {{ title }}',
     },
+
     buttons: {
         send: 'E-mail naar mij',
         details: 'Bekijk details',
     },
+
     labels: {
         transactions: 'Uitgaven',
         subtract: 'Af',
@@ -28,6 +30,16 @@ export default {
         productdetail: 'Informatie over het aanbod',
         offers: 'Wilt u graag informatie over het volledige aanbod? Neem dan contact op met de aanbieder.',
     },
+
+    fund: {
+        logo_alt: 'Fondslogo',
+        logo_alt_named: 'Logo van {{ name }}',
+    },
+
+    qr_code: {
+        label: 'QR-code voor tegoed {{ number }}',
+    },
+
     card: {
         header: {
             title: 'Hoe werkt het?',
@@ -57,7 +69,7 @@ export default {
             },
         },
         qrcode: {
-            description: 'Dit is uw     {{fund_name}} tegoed met een QR-code.',
+            description: 'Dit is uw {{fund_name}} tegoed met een QR-code.',
             productdescription: 'Dit is uw reservering met een QR-code.',
         },
         valid_until: 'Geldig t/m',
@@ -72,6 +84,7 @@ export default {
         cancel: 'Annuleren',
         stop_participation: 'Stop deelname',
     },
+
     card_combined: {
         header: {
             title: 'Hoe werkt het?',
@@ -93,9 +106,10 @@ export default {
             },
         },
     },
+
     physical_card: {
         title: 'Activeer mijn pas',
-        alt: "Fysieke pas: '{[ title ]}'",
+        alt: "Fysieke pas: '{{ title }}'",
         card_number: 'Pasnummer',
         personal_date: 'Persoonsgegevens',
         less_details: 'Verberg alle details',
@@ -120,7 +134,7 @@ export default {
 
     transactions: {
         title: 'Transacties',
-        expired_on: 'Verlopen op {[ date ]}',
+        expired_on: 'Verlopen op {{ date }}',
         no_spending: 'Geen uitgaven',
         reservation: 'Reservering',
         bank_transfer: 'Bankoverschrijving',
@@ -153,6 +167,7 @@ export default {
             share_note: 'Bericht voor aanbieder',
         },
     },
+
     delete_voucher: {
         title: 'Annuleer reservering',
         popup_form: {
@@ -163,6 +178,52 @@ export default {
         buttons: {
             submit: 'Bevestigen',
             close: 'Sluit',
+        },
+    },
+
+    overview: {
+        description:
+            'Lees op deze pagina hoe het tegoed werkt en bekijk het saldo en de uitgaven. Veel plezier met het tegoed!',
+    },
+
+    details: {
+        valid_until: 'Dit tegoed is geldig t/m {{ date }}',
+        records: {
+            title: 'Gegevens',
+            number: 'Nummer:',
+            email: 'E-mailadres:',
+        },
+    },
+
+    physical_cards: {
+        title: 'Mijn fysieke passen',
+    },
+
+    how_it_works: {
+        title: 'Hoe het werkt',
+    },
+
+    fund_details: {
+        title: 'Fondsdetails',
+        view: 'Bekijk fondsdetails',
+    },
+
+    help: {
+        title: 'Vragen of hulp nodig?',
+        description: 'Vragen of hulp nodig? Neem contact met ons op.',
+        email: 'E-mailadres:',
+        phone: 'Telefoonnummer:',
+    },
+
+    actions: {
+        view_all_products: 'Bekijk alle producten',
+        save_qr: 'Sla QR-code op',
+        declaration_request: 'Declaratieverzoek',
+        share_with_provider: 'Deel QR-code met aanbieder',
+        choose_action: {
+            title: 'Kies een actie',
+            description:
+                'Selecteer een actie om verder te gaan. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.',
         },
     },
 };

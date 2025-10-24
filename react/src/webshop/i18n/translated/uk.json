@@ -1524,12 +1524,12 @@
                 "title": "Заблокуйте свій пропуск"
             },
             "link_card": {
-                "description": "<br/><br/>На перепустці є QR-код, нижче - ваш особистий код. Якщо ви активуєте стару перепустку, ви можете продовжувати нею користуватися. Потрібна допомога?  Телефонуйте за номером 14 050 з понеділка по п'ятницю з 9.00 до 12.00.",
                 "subtitle": "Введіть свій персональний код клієнта",
                 "title": "Активуйте стару перепустку",
                 "alt_text": "Фізичний пропуск: {{ fund_name }}",
                 "no_old_card": "Старої перепустки немає?",
-                "order_card": "Замовити перепустку"
+                "order_card": "Замовити перепустку",
+                "description": "На вашій перепустці є персональний код. Введіть його нижче.<br/>Якщо ви повторно активуєте стару перепустку, ви зможете продовжувати нею користуватися."
             },
             "request_card_success": {
                 "description": "Ви отримали електронний лист з підтвердженням вашого замовлення.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Налаштування сповіщень{{pageTitleSuffix}}",
         "privacy": "Заява про конфіденційність{{pageTitleSuffix}}",
         "product": "{{product_name}} Пропозиція - від {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Пропозиція{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Пропозиція купівлі{{pageTitleSuffix}}",
         "products-show": "Пропозиція{{pageTitleSuffix}}",
         "provider": "Провайдер - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Почніть входити в систему{{pageTitleSuffix}}",
         "terms_and_conditions": "Загальні положення та умови{{pageTitleSuffix}}",
         "voucher": "Твоя заслуга - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Моя заслуга{{pageTitleSuffix}}"
+        "vouchers": "Моя заслуга{{pageTitleSuffix}}",
+        "products": "Пропозиція{{pageTitleSuffix}}"
     },
     "page_title": "Платформа Forus",
     "paginator": {
@@ -3319,8 +3319,8 @@
             },
             "lost_my_pass": "Я загубив перепустку.",
             "qrcode": {
-                "description": "{{fund_name}} Це ваш кредит з QR-кодом.",
-                "productdescription": "Це ваше бронювання з QR-кодом."
+                "productdescription": "Це ваше бронювання з QR-кодом.",
+                "description": "Це ваш кредит {{fund_name}} з QR-кодом."
             },
             "share": "Поділіться",
             "stop_participation": "Припинити участь",
@@ -3361,7 +3361,6 @@
             "voucher": "Роздрукуйте свій кредит або надішліть його поштою. Віднесіть QR-код постачальнику послуг і відскануйте його."
         },
         "physical_card": {
-            "alt": "Фізичний пропуск: '{[ title ]}'",
             "buttons": {
                 "lost_pass": "Я загубив перепустку.",
                 "reactivate": "Активувати"
@@ -3370,7 +3369,8 @@
             "title": "Активуйте мій пропуск",
             "less_details": "Приховати всі деталі",
             "more_details": "Показати всі деталі",
-            "personal_date": "Персональні дані"
+            "personal_date": "Персональні дані",
+            "alt": "Фізична перепустка: '{{ title }}'"
         },
         "reimbursement": {
             "button": "Надіслати купон",
@@ -3404,12 +3404,12 @@
         "transactions": {
             "add": "Додати",
             "bank_transfer": "Банківський переказ",
-            "expired_on": "Закінчився на {[ дата ]}",
             "no_spending": "Ніяких витрат",
             "reservation": "Бронювання",
             "subtract": "Віднімання",
             "title": "Транзакції",
-            "top_up": "Оновлений"
+            "top_up": "Оновлений",
+            "expired_on": "Термін дії закінчився {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -3429,6 +3429,50 @@
                 },
                 "redirect_to": "Ви все ще хочете подати заявку на відшкодування?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Виберіть дію для продовження. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Виберіть дію"
+            },
+            "declaration_request": "Запит на декларацію",
+            "save_qr": "Зберегти QR-код",
+            "share_with_provider": "Поділіться QR-кодом з провайдером",
+            "view_all_products": "Переглянути всі продукти"
+        },
+        "details": {
+            "records": {
+                "email": "Адреса електронної пошти:",
+                "number": "Номер:",
+                "title": "Дані"
+            },
+            "valid_until": "Цей кредит дійсний до {{ date }}"
+        },
+        "fund_details": {
+            "title": "Реквізити фонду",
+            "view": "Переглянути деталі фонду"
+        },
+        "fund": {
+            "logo_alt": "Логотип фонду",
+            "logo_alt_named": "Логотип {{ name }}"
+        },
+        "help": {
+            "description": "Виникли питання чи потрібна допомога? Будь ласка, зв'яжіться з нами.",
+            "email": "Адреса електронної пошти:",
+            "phone": "Номер телефону:",
+            "title": "Є питання чи потрібна допомога?"
+        },
+        "how_it_works": {
+            "title": "Як це працює"
+        },
+        "overview": {
+            "description": "Прочитайте, як працює кредит на цій сторінці, та перегляньте баланс і витрати. Насолоджуйтесь кредитом!"
+        },
+        "physical_cards": {
+            "title": "Мої фізичні перепустки"
+        },
+        "qr_code": {
+            "label": "QR-код для отримання кредиту {{ number }}"
         }
     },
     "vouchers": {

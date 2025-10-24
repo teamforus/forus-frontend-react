@@ -31,9 +31,7 @@ export type VoucherCardType = Voucher & {
     offices?: Array<Office>;
 };
 
-export default function useComposeVoucherCardData() {
-    const assetUrl = useAssetUrl();
-
+export function useVoucherCombinedTransactionsList() {
     const composeTransactions = useCallback((voucher: Voucher): Array<CardTransaction> => {
         const transactions = voucher.transactions.slice().map((transaction) => ({
             id: transaction.id,
@@ -66,6 +64,15 @@ export default function useComposeVoucherCardData() {
         return [...transactions, ...productVouchers].sort((a, b) => b.timestamp - a.timestamp);
     }, []);
 
+    return (voucher: Voucher) => {
+        return voucher.transactions ? [...composeTransactions(voucher)] : [];
+    };
+}
+
+export default function useComposeVoucherCardData() {
+    const assetUrl = useAssetUrl();
+    const voucherCombinedTransactionsList = useVoucherCombinedTransactionsList();
+
     const getVoucherThumbnail = useCallback(
         (voucher: Voucher) => {
             if (voucher.type == 'regular') {
@@ -95,7 +102,7 @@ export default function useComposeVoucherCardData() {
                 title: product ? product.name : fund.name,
                 subtitle: product ? product.organization.name : fund.organization.name,
                 description: product ? product.description_html : fund.description,
-                transactionsList: voucher.transactions ? [...composeTransactions(voucher)] : [],
+                transactionsList: voucherCombinedTransactionsList(voucher),
                 records_by_key: records?.reduce(
                     (records, record) => ({ ...records, [record.record_type_key]: record.value_locale }),
                     {},
@@ -104,6 +111,6 @@ export default function useComposeVoucherCardData() {
                 offices: voucher.offices || [],
             };
         },
-        [getVoucherThumbnail, composeTransactions],
+        [getVoucherThumbnail, voucherCombinedTransactionsList],
     );
 }

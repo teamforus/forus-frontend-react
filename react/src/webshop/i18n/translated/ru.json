@@ -1524,12 +1524,12 @@
                 "title": "Заблокируйте свой проход"
             },
             "link_card": {
-                "description": "<br/><br/>На вашем пропуске есть QR-код, ниже - ваш персональный код. Если вы активируете старый пропуск, вы сможете продолжать им пользоваться. Нужна помощь?  Позвоните по телефону 14 050 с понедельника по пятницу с 9.00 до 12.00.",
                 "subtitle": "Введите персональный код клиента",
                 "title": "Активируйте свой старый пропуск",
                 "alt_text": "Физический проход: {{ fund_name }}",
                 "no_old_card": "Нет старого пропуска?",
-                "order_card": "Заказать пропуск"
+                "order_card": "Заказать пропуск",
+                "description": "На вашем пропуске есть персональный код. Введите его ниже.<br/>Если вы повторно активируете старый пропуск, вы сможете продолжать им пользоваться."
             },
             "request_card_success": {
                 "description": "Вы получили электронное письмо с подтверждением заказа.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Параметры уведомлений{{pageTitleSuffix}}",
         "privacy": "Заявление о конфиденциальности{{pageTitleSuffix}}",
         "product": "{{product_name}} Предложение - из {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Предложение{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Купить предложение{{pageTitleSuffix}}",
         "products-show": "Предложение{{pageTitleSuffix}}",
         "provider": "Провайдер - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Начните вход в систему{{pageTitleSuffix}}",
         "terms_and_conditions": "Общие положения и условия{{pageTitleSuffix}}",
         "voucher": "Ваш кредит - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Мой кредит{{pageTitleSuffix}}"
+        "vouchers": "Мой кредит{{pageTitleSuffix}}",
+        "products": "Предложение{{pageTitleSuffix}}"
     },
     "page_title": "Платформа Forus",
     "paginator": {
@@ -3319,8 +3319,8 @@
             },
             "lost_my_pass": "Я потерял пропуск.",
             "qrcode": {
-                "description": "{{fund_name}} Это ваш кредит с QR-кодом.",
-                "productdescription": "Это ваша бронь с QR-кодом."
+                "productdescription": "Это ваша бронь с QR-кодом.",
+                "description": "Это ваш кредит {{fund_name}} с QR-кодом."
             },
             "share": "Поделиться",
             "stop_participation": "Прекратить участие",
@@ -3361,7 +3361,6 @@
             "voucher": "Распечатайте кредит или отправьте его себе по почте. Отнесите QR-код поставщику услуг и отсканируйте его."
         },
         "physical_card": {
-            "alt": "Физический пас: '{[ название ]}'",
             "buttons": {
                 "lost_pass": "Я потерял пропуск.",
                 "reactivate": "Активируйте"
@@ -3370,7 +3369,8 @@
             "title": "Активируйте мой пропуск",
             "less_details": "Скрыть все детали",
             "more_details": "Показать все детали",
-            "personal_date": "Персональные данные"
+            "personal_date": "Персональные данные",
+            "alt": "Физический пропуск: '{{ title }}'"
         },
         "reimbursement": {
             "button": "Отправить купон",
@@ -3404,12 +3404,12 @@
         "transactions": {
             "add": "Добавить",
             "bank_transfer": "Банковский перевод",
-            "expired_on": "Срок действия истек {[ дата ]}",
             "no_spending": "Никаких расходов",
             "reservation": "Бронирование",
             "subtract": "Вычитание",
             "title": "Транзакции",
-            "top_up": "Обновленный"
+            "top_up": "Обновленный",
+            "expired_on": "Срок действия истек {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -3429,6 +3429,50 @@
                 },
                 "redirect_to": "Вы все еще хотите подать заявку на возмещение?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Выберите действие для продолжения. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Выберите действие"
+            },
+            "declaration_request": "Запрос декларации",
+            "save_qr": "Сохранить QR-код",
+            "share_with_provider": "Поделитесь QR-кодом с поставщиком",
+            "view_all_products": "Посмотреть все товары"
+        },
+        "details": {
+            "records": {
+                "email": "Адрес электронной почты:",
+                "number": "Номер:",
+                "title": "Данные"
+            },
+            "valid_until": "Этот кредит действителен до {{ date }}"
+        },
+        "fund_details": {
+            "title": "Информация о фонде",
+            "view": "Посмотреть детали фонда"
+        },
+        "fund": {
+            "logo_alt": "Логотип фонда",
+            "logo_alt_named": "Логотип {{ name }}"
+        },
+        "help": {
+            "description": "Вопросы или нужна помощь? Пожалуйста, свяжитесь с нами.",
+            "email": "Адрес электронной почты:",
+            "phone": "Номер телефона:",
+            "title": "Вопросы или помощь?"
+        },
+        "how_it_works": {
+            "title": "Как это работает"
+        },
+        "overview": {
+            "description": "Прочитайте, как работает кредит, на этой странице, просмотрите баланс и расходы. Получайте удовольствие от использования кредита!"
+        },
+        "physical_cards": {
+            "title": "Мои физические данные"
+        },
+        "qr_code": {
+            "label": "QR-код для получения кредита {{ number }}"
         }
     },
     "vouchers": {

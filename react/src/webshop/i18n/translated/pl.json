@@ -1524,12 +1524,12 @@
                 "title": "Zablokować przepustkę"
             },
             "link_card": {
-                "description": "<br/><br/>Na karnecie znajduje się kod QR, poniżej znajduje się Twój osobisty kod. Jeśli ponownie aktywujesz stary karnet, możesz nadal z niego korzystać. Potrzebujesz pomocy?  Zadzwoń pod numer 14 050 od poniedziałku do piątku w godzinach od 9:00 do 12:00.",
                 "subtitle": "Wprowadź swój osobisty kod klienta",
                 "title": "Aktywacja starej przepustki",
                 "alt_text": "Fizyczna przepustka: {{ fund_name }}",
                 "no_old_card": "Brak starej przepustki?",
-                "order_card": "Zamów karnet"
+                "order_card": "Zamów karnet",
+                "description": "Na karnecie znajduje się osobisty kod. Wprowadź go poniżej.<br/>Jeśli ponownie aktywujesz starą przepustkę, możesz nadal z niej korzystać."
             },
             "request_card_success": {
                 "description": "Otrzymałeś wiadomość e-mail z potwierdzeniem zamówienia.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Preferencje powiadomień{{pageTitleSuffix}}",
         "privacy": "Oświadczenie o ochronie prywatności{{pageTitleSuffix}}",
         "product": "{{product_name}} Oferta - of {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Oferta{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Kup ofertę{{pageTitleSuffix}}",
         "products-show": "Oferta{{pageTitleSuffix}}",
         "provider": "Dostawca - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Rozpocznij logowanie{{pageTitleSuffix}}",
         "terms_and_conditions": "Ogólne warunki handlowe{{pageTitleSuffix}}",
         "voucher": "Twój kredyt - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mój kredyt{{pageTitleSuffix}}"
+        "vouchers": "Mój kredyt{{pageTitleSuffix}}",
+        "products": "Oferta{{pageTitleSuffix}}"
     },
     "page_title": "Platforma Forus",
     "paginator": {
@@ -3319,8 +3319,8 @@
             },
             "lost_my_pass": "Straciłem przepustkę",
             "qrcode": {
-                "description": "{{fund_name}} To jest Twój kredyt z kodem QR.",
-                "productdescription": "Jest to rezerwacja z kodem QR."
+                "productdescription": "Jest to rezerwacja z kodem QR.",
+                "description": "Jest to kredyt {{fund_name}} z kodem QR."
             },
             "share": "Udział",
             "stop_participation": "Zaprzestanie uczestnictwa",
@@ -3361,7 +3361,6 @@
             "voucher": "Wydrukuj swój kredyt lub wyślij go sobie pocztą. Zanieś kod QR do dostawcy usług i zeskanuj go."
         },
         "physical_card": {
-            "alt": "Physical pass: '{[ title ]}'",
             "buttons": {
                 "lost_pass": "Straciłem przepustkę",
                 "reactivate": "Aktywuj"
@@ -3370,7 +3369,8 @@
             "title": "Aktywuj moją przepustkę",
             "less_details": "Ukryj wszystkie szczegóły",
             "more_details": "Pokaż wszystkie szczegóły",
-            "personal_date": "Dane osobowe"
+            "personal_date": "Dane osobowe",
+            "alt": "Przepustka fizyczna: '{{ title }}'"
         },
         "reimbursement": {
             "button": "Prześlij kupon",
@@ -3404,12 +3404,12 @@
         "transactions": {
             "add": "Dodaj",
             "bank_transfer": "Przelew bankowy",
-            "expired_on": "Wygasła w dniu {[ data ]}",
             "no_spending": "Brak wydatków",
             "reservation": "Rezerwacja",
             "subtract": "Odejmowanie",
             "title": "Transakcje",
-            "top_up": "Ulepszony"
+            "top_up": "Ulepszony",
+            "expired_on": "Wygasł w dniu {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -3429,6 +3429,50 @@
                 },
                 "redirect_to": "Czy nadal chcesz ubiegać się o zwrot kosztów?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Wybierz akcję, aby kontynuować. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Wybierz działanie"
+            },
+            "declaration_request": "Żądanie deklaracji",
+            "save_qr": "Zapisz kod QR",
+            "share_with_provider": "Udostępnianie kodu QR dostawcy",
+            "view_all_products": "Zobacz wszystkie produkty"
+        },
+        "details": {
+            "records": {
+                "email": "Adres e-mail:",
+                "number": "Numer:",
+                "title": "Dane"
+            },
+            "valid_until": "Ten kredyt jest ważny do {{ date }}"
+        },
+        "fund_details": {
+            "title": "Szczegóły dotyczące funduszu",
+            "view": "Wyświetl szczegóły funduszu"
+        },
+        "fund": {
+            "logo_alt": "Logo funduszu",
+            "logo_alt_named": "Logo {{ name }}"
+        },
+        "help": {
+            "description": "Masz pytania lub potrzebujesz pomocy? Prosimy o kontakt.",
+            "email": "Adres e-mail:",
+            "phone": "Numer telefonu:",
+            "title": "Masz pytania lub potrzebujesz pomocy?"
+        },
+        "how_it_works": {
+            "title": "Jak to działa"
+        },
+        "overview": {
+            "description": "Przeczytaj, jak działa kredyt na tej stronie i zobacz saldo oraz wydatki. Miłej zabawy z kredytem!"
+        },
+        "physical_cards": {
+            "title": "Moje fizyczne przepustki"
+        },
+        "qr_code": {
+            "label": "Kod QR dla kredytu {{ number }}"
         }
     },
     "vouchers": {

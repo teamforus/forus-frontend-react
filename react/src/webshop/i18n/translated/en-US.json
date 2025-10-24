@@ -123,7 +123,6 @@
         "preferences-notifications": "Notification preferences{{pageTitleSuffix}}",
         "privacy": "Privacy Statement{{pageTitleSuffix}}",
         "product": "Offer - {{product_name}} of {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Offer{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Buy Offer{{pageTitleSuffix}}",
         "products-show": "Offer{{pageTitleSuffix}}",
         "provider": "Provider - {{provider_name}}{{pageTitleSuffix}}",
@@ -148,7 +147,8 @@
         "start": "Start sign in{{pageTitleSuffix}}",
         "terms_and_conditions": "General conditions{{pageTitleSuffix}}",
         "voucher": "Your credit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "My credit{{pageTitleSuffix}}"
+        "vouchers": "My credit{{pageTitleSuffix}}",
+        "products": "Offer{{pageTitleSuffix}}"
     },
     "page_title": "Forus platform",
     "test": "{{name}} {{foo}}",
@@ -1678,11 +1678,11 @@
                 "reactivate": "Activate"
             },
             "title": "Activate my pass",
-            "alt": "Physical pass: '{[ title ]}'",
             "card_number": "Pass number",
             "less_details": "Hide all details",
             "more_details": "Show all details",
-            "personal_date": "Personal data"
+            "personal_date": "Personal data",
+            "alt": "Physical pass: '{{ title }}'"
         },
         "share_voucher": {
             "buttons": {
@@ -1742,8 +1742,8 @@
                 "phone": "Phone number:"
             },
             "qrcode": {
-                "description": "This is your {{fund_name}} credit with a QR code.",
-                "productdescription": "This is your reservation with a QR code."
+                "productdescription": "This is your reservation with a QR code.",
+                "description": "This is your {{fund_name}} credit with a QR code."
             },
             "activate_my_pass": "Activate my pass",
             "cancel": "Cancel",
@@ -1764,12 +1764,12 @@
         "transactions": {
             "add": "Add",
             "bank_transfer": "Bank Transfer",
-            "expired_on": "Expired on {[ date ]}",
             "no_spending": "No expenses",
             "reservation": "Reservation",
             "subtract": "Subtraction",
             "title": "Transactions",
-            "top_up": "Upgraded"
+            "top_up": "Upgraded",
+            "expired_on": "Expired on {{ date }}"
         },
         "history": {
             "status": {
@@ -1795,6 +1795,50 @@
                 },
                 "redirect_to": "Do you still want to apply for reimbursement?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Select an action to continue. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Choose an action"
+            },
+            "declaration_request": "Declaration request",
+            "save_qr": "Save QR code",
+            "share_with_provider": "Share QR code with provider",
+            "view_all_products": "See all products"
+        },
+        "details": {
+            "records": {
+                "email": "E-mail address:",
+                "number": "Number:",
+                "title": "Data"
+            },
+            "valid_until": "This credit is valid until {{ date }}"
+        },
+        "fund_details": {
+            "title": "Fund Details",
+            "view": "View fund details"
+        },
+        "fund": {
+            "logo_alt": "Fund logo",
+            "logo_alt_named": "Logo of {{ name }}"
+        },
+        "help": {
+            "description": "Questions or need help? Please contact us.",
+            "email": "E-mail address:",
+            "phone": "Phone number:",
+            "title": "Questions or need help?"
+        },
+        "how_it_works": {
+            "title": "How it works"
+        },
+        "overview": {
+            "description": "Read how the credit works on this page and view the balance and spending. Have fun with the credit!"
+        },
+        "physical_cards": {
+            "title": "My physical passes"
+        },
+        "qr_code": {
+            "label": "QR code for credit {{ number }}"
         }
     },
     "vouchers": {
@@ -3263,12 +3307,12 @@
                 "title": "Block your pass"
             },
             "link_card": {
-                "description": "On your pass is a QR code, below is your personal code.<br/>If you reactivate the old pass you can continue to use it.<br/>Need help?  Call 14 050 Monday through Friday 9 a.m. to noon.",
                 "subtitle": "Enter your personal customer code",
                 "title": "Activate your old pass",
                 "alt_text": "Physical Pass: {{ fund_name }}",
                 "no_old_card": "No old pass?",
-                "order_card": "Order a pass"
+                "order_card": "Order a pass",
+                "description": "There is a personal code on your pass. Enter it below.<br/>If you reactivate the old pass you can continue to use it."
             },
             "request_card_success": {
                 "description": "You have received an email confirming your order.",

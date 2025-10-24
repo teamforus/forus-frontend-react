@@ -49,6 +49,7 @@ import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
 import Profile from '../components/pages/profile/Profile';
 import ProductsShowNext from '../components/pages/products-show/ProductsShowNext';
+import VouchersShowNext from '../components/pages/vouchers-show/VouchersShowNext';
 
 const router = new RouterBuilder();
 
@@ -170,9 +171,15 @@ router.state('vouchers', <Vouchers />, {
     protected: true,
 });
 
-router.state('voucher', <VouchersShow />, {
+router.state('voucher', <VouchersShowNext />, {
     path: `/tegoeden/:number`,
     altPath: `/vouchers/:number`,
+    protected: true,
+});
+
+router.state('voucher', <VouchersShow />, {
+    path: `/tegoeden/:number/old`,
+    altPath: `/vouchers/:number/old`,
     protected: true,
 });
 

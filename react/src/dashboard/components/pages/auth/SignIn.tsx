@@ -12,10 +12,11 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
+import { makeQrCodeContent } from '../../../helpers/utils';
 
 export default function SignIn() {
     const [timer, setTimer] = useState(null);
-    const [qrValue, setQrValue] = useState(null);
+    const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const { token, setToken } = useContext(authContext);
 
     const envData = useEnvData();
@@ -127,7 +128,7 @@ export default function SignIn() {
                             <div className="qr_code-block">
                                 {qrValue ? (
                                     <QrCode
-                                        value={JSON.stringify(qrValue)}
+                                        value={makeQrCodeContent(qrValue.type, qrValue.value)}
                                         logo={assetUrl('/assets/img/me-logo-react.png')}
                                     />
                                 ) : (

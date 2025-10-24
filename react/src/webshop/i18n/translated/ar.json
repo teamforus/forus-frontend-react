@@ -359,7 +359,6 @@
         "preferences-notifications": "تفضيلات الإخطار{{pageTitleSuffix}}",
         "privacy": "بيان الخصوصية{{pageTitleSuffix}}",
         "product": "{{product_name}} العرض - من {{organization_name}}{{pageTitleSuffix}}",
-        "products": "العرض{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "عرض الشراء{{pageTitleSuffix}}",
         "products-show": "العرض{{pageTitleSuffix}}",
         "provider": "الموفر - {{provider_name}}{{pageTitleSuffix}}",
@@ -384,7 +383,8 @@
         "start": "ابدأ تسجيل الدخول{{pageTitleSuffix}}",
         "terms_and_conditions": "الشروط والأحكام العامة{{pageTitleSuffix}}",
         "voucher": "ائتمانك - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "رصيدي{{pageTitleSuffix}}"
+        "vouchers": "رصيدي{{pageTitleSuffix}}",
+        "products": "العرض{{pageTitleSuffix}}"
     },
     "page_title": "منصة فورس",
     "product_bookmark_push": {
@@ -1984,8 +1984,8 @@
             },
             "lost_my_pass": "لقد فقدت بطاقتي",
             "qrcode": {
-                "description": "{{fund_name}} هذا هو رصيدك مع رمز الاستجابة السريعة.",
-                "productdescription": "هذا هو حجزك مع رمز الاستجابة السريعة."
+                "productdescription": "هذا هو حجزك مع رمز الاستجابة السريعة.",
+                "description": "هذا هو رصيدك {{fund_name}} الخاص بك مع رمز الاستجابة السريعة."
             },
             "share": "شارك",
             "stop_participation": "إيقاف المشاركة",
@@ -2026,7 +2026,6 @@
             "voucher": "اطبع رصيدك أو أرسله لنفسك بالبريد. خذ رمز الاستجابة السريعة إلى مقدم الخدمة وقم بمسحه ضوئياً."
         },
         "physical_card": {
-            "alt": "المرور الفعلي: ' {[ العنوان ]}''",
             "buttons": {
                 "lost_pass": "لقد فقدت بطاقتي",
                 "reactivate": "تفعيل"
@@ -2035,7 +2034,8 @@
             "title": "تفعيل بطاقتي",
             "less_details": "إخفاء جميع التفاصيل",
             "more_details": "إظهار كل التفاصيل",
-            "personal_date": "البيانات الشخصية"
+            "personal_date": "البيانات الشخصية",
+            "alt": "المرور الفعلي: '{{ title }}'"
         },
         "reimbursement": {
             "button": "إرسال القسيمة",
@@ -2069,12 +2069,12 @@
         "transactions": {
             "add": "إضافة",
             "bank_transfer": "التحويل المصرفي",
-            "expired_on": "انتهت صلاحيته في {[ التاريخ]}",
             "no_spending": "لا توجد نفقات",
             "reservation": "الحجز",
             "subtract": "الطرح",
             "title": "المعاملات",
-            "top_up": "ترقية"
+            "top_up": "ترقية",
+            "expired_on": "انتهت صلاحيتها في {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -2094,6 +2094,50 @@
                 },
                 "redirect_to": "هل ما زلت ترغب في التقدم بطلب للحصول على تعويض؟"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "حدد إجراءً للمتابعة. Massa risus risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "اختر إجراءً"
+            },
+            "declaration_request": "طلب إعلان",
+            "save_qr": "حفظ رمز الاستجابة السريعة",
+            "share_with_provider": "مشاركة رمز الاستجابة السريعة مع المزود",
+            "view_all_products": "عرض جميع المنتجات"
+        },
+        "details": {
+            "records": {
+                "email": "عنوان البريد الإلكتروني",
+                "number": "الرقم",
+                "title": "البيانات"
+            },
+            "valid_until": "هذا الرصيد صالح حتى {{ date }}"
+        },
+        "fund_details": {
+            "title": "تفاصيل الصندوق",
+            "view": "عرض تفاصيل الصندوق"
+        },
+        "fund": {
+            "logo_alt": "شعار الصندوق",
+            "logo_alt_named": "شعار {{ name }}"
+        },
+        "help": {
+            "description": "هل لديك أسئلة أو تحتاج إلى مساعدة؟ يُرجى الاتصال بنا.",
+            "email": "عنوان البريد الإلكتروني",
+            "phone": "رقم الهاتف",
+            "title": "هل لديك أسئلة أو تحتاج إلى مساعدة؟"
+        },
+        "how_it_works": {
+            "title": "كيف تعمل"
+        },
+        "overview": {
+            "description": "اقرأ كيفية عمل الرصيد في هذه الصفحة واستعرض الرصيد والإنفاق. استمتع باستخدام الرصيد!"
+        },
+        "physical_cards": {
+            "title": "تصاريحي البدنية"
+        },
+        "qr_code": {
+            "label": "رمز الاستجابة السريعة للائتمان {{ number }}"
         }
     },
     "vouchers": {
@@ -2961,12 +3005,12 @@
                 "title": "منع المرور"
             },
             "link_card": {
-                "description": "<br/><br/>يوجد على بطاقتك رمز QR، يوجد أدناه رمزك الشخصي. إذا قمت بإعادة تفعيل البطاقة القديمة يمكنك الاستمرار في استخدامها. هل تحتاج إلى مساعدة؟  اتصل بالرقم 14 050 من الاثنين إلى الجمعة من الساعة 9:00 إلى الساعة 12:00.",
                 "subtitle": "أدخل رمز العميل الشخصي",
                 "title": "تفعيل بطاقتك القديمة",
                 "alt_text": "تمريرة جسدية: {{ fund_name }}",
                 "no_old_card": "لا يوجد تصريح مرور قديم؟",
-                "order_card": "اطلب تصريح مرور"
+                "order_card": "اطلب تصريح مرور",
+                "description": "يوجد رمز شخصي على بطاقتك. أدخله أدناه.<br/>إذا قمت بإعادة تفعيل البطاقة القديمة، يمكنك الاستمرار في استخدامها."
             },
             "request_card_success": {
                 "description": "لقد تلقيت رسالة بريد إلكتروني تؤكد طلبك.",

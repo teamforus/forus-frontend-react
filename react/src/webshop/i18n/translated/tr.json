@@ -359,7 +359,6 @@
         "preferences-notifications": "Bildirim tercihleri{{pageTitleSuffix}}",
         "privacy": "Gizlilik beyanı{{pageTitleSuffix}}",
         "product": "{{product_name}} Teklif - of {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Teklif{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Teklif Satın Al{{pageTitleSuffix}}",
         "products-show": "Teklif{{pageTitleSuffix}}",
         "provider": "Sağlayıcı - {{provider_name}}{{pageTitleSuffix}}",
@@ -384,7 +383,8 @@
         "start": "Oturum açmayı başlat{{pageTitleSuffix}}",
         "terms_and_conditions": "Genel hüküm ve koşullar{{pageTitleSuffix}}",
         "voucher": "Krediniz - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Kredim{{pageTitleSuffix}}"
+        "vouchers": "Kredim{{pageTitleSuffix}}",
+        "products": "Teklif{{pageTitleSuffix}}"
     },
     "page_title": "Forus platformu",
     "product_bookmark_push": {
@@ -1984,8 +1984,8 @@
             },
             "lost_my_pass": "Geçiş kartımı kaybettim.",
             "qrcode": {
-                "description": "{{fund_name}} Bu, QR kodlu kredinizdir.",
-                "productdescription": "Bu, QR kodlu rezervasyonunuzdur."
+                "productdescription": "Bu, QR kodlu rezervasyonunuzdur.",
+                "description": "Bu, QR kodlu {{fund_name}} kredinizdir."
             },
             "share": "Paylaş",
             "stop_participation": "Katılımı durdurun",
@@ -2026,7 +2026,6 @@
             "voucher": "Kredinizin çıktısını alın veya kendinize postalayın. QR kodunu sağlayıcıya götürün ve tarattırın."
         },
         "physical_card": {
-            "alt": "Fiziksel geçiş: '{[ title ]}'",
             "buttons": {
                 "lost_pass": "Geçiş kartımı kaybettim.",
                 "reactivate": "Etkinleştir"
@@ -2035,7 +2034,8 @@
             "title": "Geçiş kartımı etkinleştir",
             "less_details": "Tüm detayları gizle",
             "more_details": "Tüm detayları göster",
-            "personal_date": "Kişisel veriler"
+            "personal_date": "Kişisel veriler",
+            "alt": "Fiziksel geçiş: '{{ title }}'"
         },
         "reimbursement": {
             "button": "Kupon gönder",
@@ -2069,12 +2069,12 @@
         "transactions": {
             "add": "Ekle",
             "bank_transfer": "Banka havalesi",
-            "expired_on": "Süresi {[ tarih ]} tarihinde doldu",
             "no_spending": "Masraf yok",
             "reservation": "Rezervasyon",
             "subtract": "Çıkarma",
             "title": "İşlemler",
-            "top_up": "Yükseltilmiş"
+            "top_up": "Yükseltilmiş",
+            "expired_on": "Son kullanma tarihi {{ date }}"
         },
         "card_combined": {
             "header": {
@@ -2094,6 +2094,50 @@
                 },
                 "redirect_to": "Hala geri ödeme için başvurmak istiyor musunuz?"
             }
+        },
+        "actions": {
+            "choose_action": {
+                "description": "Devam etmek için bir eylem seçin. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
+                "title": "Bir eylem seçin"
+            },
+            "declaration_request": "Beyanname talebi",
+            "save_qr": "QR kodunu kaydet",
+            "share_with_provider": "QR kodunu sağlayıcı ile paylaşın",
+            "view_all_products": "Tüm ürünleri görüntüle"
+        },
+        "details": {
+            "records": {
+                "email": "E-posta adresi:",
+                "number": "Numara:",
+                "title": "Veri"
+            },
+            "valid_until": "Bu kredi şu tarihe kadar geçerlidir {{ date }}"
+        },
+        "fund_details": {
+            "title": "Fon detayları",
+            "view": "Fon detaylarını görüntüle"
+        },
+        "fund": {
+            "logo_alt": "Fon logosu",
+            "logo_alt_named": "Logo {{ name }}"
+        },
+        "help": {
+            "description": "Sorularınız veya yardıma mı ihtiyacınız var? Lütfen bizimle iletişime geçin.",
+            "email": "E-posta adresi:",
+            "phone": "Telefon numarası:",
+            "title": "Sorularınız veya yardıma mı ihtiyacınız var?"
+        },
+        "how_it_works": {
+            "title": "Nasıl çalışır"
+        },
+        "overview": {
+            "description": "Bu sayfada kredinin nasıl çalıştığını okuyun ve bakiye ve harcamaları görüntüleyin. Kredi ile iyi eğlenceler!"
+        },
+        "physical_cards": {
+            "title": "Fiziksel geçişlerim"
+        },
+        "qr_code": {
+            "label": "Kredi için QR kodu {{ number }}"
         }
     },
     "vouchers": {
@@ -2961,12 +3005,12 @@
                 "title": "Pasınızı engelleyin"
             },
             "link_card": {
-                "description": "<br/><br/>Geçiş kartınızın üzerinde bir QR kodu bulunmaktadır, aşağıda kişisel kodunuz yer almaktadır. Eski geçiş kartınızı yeniden etkinleştirirseniz kullanmaya devam edebilirsiniz. Yardıma mı ihtiyacınız var?  Pazartesi - Cuma 9.00 - 12.00 arası 14 050'yi arayın.",
                 "subtitle": "Kişisel müşteri kodunuzu girin",
                 "title": "Eski geçiş kartınızı etkinleştirin",
                 "alt_text": "Fiziksel geçiş: {{ fund_name }}",
                 "no_old_card": "Eski kart yok mu?",
-                "order_card": "Geçiş kartı sipariş edin"
+                "order_card": "Geçiş kartı sipariş edin",
+                "description": "Geçiş kartınızın üzerinde kişisel bir kod bulunmaktadır. Aşağıya girin.<br/>Eski geçiş kartınızı yeniden etkinleştirirseniz, kullanmaya devam edebilirsiniz."
             },
             "request_card_success": {
                 "description": "Siparişinizi onaylayan bir e-posta aldınız.",

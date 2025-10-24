@@ -4225,7 +4225,7 @@
     ],
     [
         "modal_physical_card.modal_section.link_card.description",
-        "Op je pasje staat een QR-code, hieronder staat je persoonlijke code.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.<br/>Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00."
+        "Op je pasje staat een persoonlijke code. Vul deze hieronder in.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken."
     ],
     [
         "modal_physical_card.modal_section.link_card.no_old_card",
@@ -5205,7 +5205,7 @@
     ],
     [
         "page_state_titles.products",
-        "Aanbod{{fund_name}}{{pageTitleSuffix}}"
+        "Aanbod{{pageTitleSuffix}}"
     ],
     [
         "page_state_titles.products-apply",
@@ -8896,6 +8896,30 @@
         "Gebruik dit tegoed voor:"
     ],
     [
+        "voucher.actions.choose_action.description",
+        "Selecteer een actie om verder te gaan. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas."
+    ],
+    [
+        "voucher.actions.choose_action.title",
+        "Kies een actie"
+    ],
+    [
+        "voucher.actions.declaration_request",
+        "Declaratieverzoek"
+    ],
+    [
+        "voucher.actions.save_qr",
+        "Sla QR-code op"
+    ],
+    [
+        "voucher.actions.share_with_provider",
+        "Deel QR-code met aanbieder"
+    ],
+    [
+        "voucher.actions.view_all_products",
+        "Bekijk alle producten"
+    ],
+    [
         "voucher.breadcrumbs.home",
         "Home"
     ],
@@ -9041,7 +9065,7 @@
     ],
     [
         "voucher.card.qrcode.description",
-        "Dit is uw     {{fund_name}} tegoed met een QR-code."
+        "Dit is uw {{fund_name}} tegoed met een QR-code."
     ],
     [
         "voucher.card.qrcode.productdescription",
@@ -9088,12 +9112,64 @@
         "Annuleer reservering"
     ],
     [
+        "voucher.details.records.email",
+        "E-mailadres:"
+    ],
+    [
+        "voucher.details.records.number",
+        "Nummer:"
+    ],
+    [
+        "voucher.details.records.title",
+        "Gegevens"
+    ],
+    [
+        "voucher.details.valid_until",
+        "Dit tegoed is geldig t/m {{ date }}"
+    ],
+    [
+        "voucher.fund_details.title",
+        "Fondsdetails"
+    ],
+    [
+        "voucher.fund_details.view",
+        "Bekijk fondsdetails"
+    ],
+    [
+        "voucher.fund.logo_alt",
+        "Fondslogo"
+    ],
+    [
+        "voucher.fund.logo_alt_named",
+        "Logo van {{ name }}"
+    ],
+    [
+        "voucher.help.description",
+        "Vragen of hulp nodig? Neem contact met ons op."
+    ],
+    [
+        "voucher.help.email",
+        "E-mailadres:"
+    ],
+    [
+        "voucher.help.phone",
+        "Telefoonnummer:"
+    ],
+    [
+        "voucher.help.title",
+        "Vragen of hulp nodig?"
+    ],
+    [
         "voucher.history.status.expired",
         "Verlopen"
     ],
     [
         "voucher.history.title",
         "Uitgaven"
+    ],
+    [
+        "voucher.how_it_works.title",
+        "Hoe het werkt"
     ],
     [
         "voucher.labels.add",
@@ -9148,8 +9224,12 @@
         "Print uw tegoed uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen."
     ],
     [
+        "voucher.overview.description",
+        "Lees op deze pagina hoe het tegoed werkt en bekijk het saldo en de uitgaven. Veel plezier met het tegoed!"
+    ],
+    [
         "voucher.physical_card.alt",
-        "Fysieke pas: '{[ title ]}'"
+        "Fysieke pas: '{{ title }}'"
     ],
     [
         "voucher.physical_card.buttons.lost_pass",
@@ -9178,6 +9258,14 @@
     [
         "voucher.physical_card.title",
         "Activeer mijn pas"
+    ],
+    [
+        "voucher.physical_cards.title",
+        "Mijn fysieke passen"
+    ],
+    [
+        "voucher.qr_code.label",
+        "QR-code voor tegoed {{ number }}"
     ],
     [
         "voucher.reimbursement.button",
@@ -9257,7 +9345,7 @@
     ],
     [
         "voucher.transactions.expired_on",
-        "Verlopen op {[ date ]}"
+        "Verlopen op {{ date }}"
     ],
     [
         "voucher.transactions.no_spending",
