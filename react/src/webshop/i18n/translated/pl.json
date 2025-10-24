@@ -1524,12 +1524,12 @@
                 "title": "Zablokować przepustkę"
             },
             "link_card": {
-                "description": "<br/><br/>Na karnecie znajduje się kod QR, poniżej znajduje się Twój osobisty kod. Jeśli ponownie aktywujesz stary karnet, możesz nadal z niego korzystać. Potrzebujesz pomocy?  Zadzwoń pod numer 14 050 od poniedziałku do piątku w godzinach od 9:00 do 12:00.",
                 "subtitle": "Wprowadź swój osobisty kod klienta",
                 "title": "Aktywacja starej przepustki",
                 "alt_text": "Fizyczna przepustka: {{ fund_name }}",
                 "no_old_card": "Brak starej przepustki?",
-                "order_card": "Zamów karnet"
+                "order_card": "Zamów karnet",
+                "description": "Na karnecie znajduje się osobisty kod. Wprowadź go poniżej.<br/>Jeśli ponownie aktywujesz starą przepustkę, możesz nadal z niej korzystać."
             },
             "request_card_success": {
                 "description": "Otrzymałeś wiadomość e-mail z potwierdzeniem zamówienia.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Preferencje powiadomień{{pageTitleSuffix}}",
         "privacy": "Oświadczenie o ochronie prywatności{{pageTitleSuffix}}",
         "product": "{{product_name}} Oferta - of {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Oferta{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Kup ofertę{{pageTitleSuffix}}",
         "products-show": "Oferta{{pageTitleSuffix}}",
         "provider": "Dostawca - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Rozpocznij logowanie{{pageTitleSuffix}}",
         "terms_and_conditions": "Ogólne warunki handlowe{{pageTitleSuffix}}",
         "voucher": "Twój kredyt - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mój kredyt{{pageTitleSuffix}}"
+        "vouchers": "Mój kredyt{{pageTitleSuffix}}",
+        "products": "Oferta{{pageTitleSuffix}}"
     },
     "page_title": "Platforma Forus",
     "paginator": {
@@ -2511,8 +2511,8 @@
             "map_title": "Wybierz dostawcę, aby uzyskać więcej informacji",
             "provider_type": "Typ dostawcy",
             "result": "Są <div class=\"showcase-result-count\">{{ total }}</div> dostawców.",
-            "search": "Wyszukiwanie",
-            "sort": "Sortuj"
+            "sort": "Sortuj",
+            "search": "Znajdź dostawcę"
         },
         "items": {
             "labels": {
