@@ -1,5 +1,5 @@
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import React, { useCallback, useMemo } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import useSendVoucherEmail from '../hooks/useSendVoucherEmail';
 import useOpenVoucherInMeModal from '../hooks/useOpenVoucherInMeModal';
 import usePrintVoucherQrCodeModal from '../hooks/usePrintVoucherQrCodeModal';
@@ -118,53 +118,61 @@ export default function VoucherActions({
 
     return (
         <div className="card-actions">
-            <div className="action-col">
-                <div
-                    role={'button'}
-                    tabIndex={0}
-                    onKeyDown={clickOnKeyEnter}
-                    className="action-item"
-                    onClick={() => sendVoucherEmail(voucher)}>
-                    <div className="action-item-icon">
-                        <em className="mdi mdi-email-outline" />
+            {voucher.fund.show_qr_code && (
+                <Fragment>
+                    <div className="action-col">
+                        <div
+                            role={'button'}
+                            tabIndex={0}
+                            onKeyDown={clickOnKeyEnter}
+                            className="action-item"
+                            data-dusk="sendVoucherEmail"
+                            onClick={() => sendVoucherEmail(voucher)}>
+                            <div className="action-item-icon">
+                                <em className="mdi mdi-email-outline" />
+                            </div>
+                            <div className="action-item-name">
+                                {translate('modal_physical_card.modal_section.request_new_card.email_to_me')}
+                            </div>
+                        </div>
                     </div>
-                    <div className="action-item-name">
-                        {translate('modal_physical_card.modal_section.request_new_card.email_to_me')}
-                    </div>
-                </div>
-            </div>
-            <div className="action-col">
-                <div
-                    role={'button'}
-                    tabIndex={0}
-                    onKeyDown={clickOnKeyEnter}
-                    className="action-item"
-                    onClick={openVoucherInMeModal}>
-                    <div className="action-item-icon">
-                        <em className="mdi mdi-account-circle" />
-                    </div>
-                    <div className="action-item-name">
-                        {translate('modal_physical_card.modal_section.request_new_card.open_in_app')}
-                    </div>
-                </div>
-            </div>
 
-            {!envData.config.flags.noPrintOption && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
-                        onKeyDown={clickOnKeyEnter}
-                        className="action-item"
-                        onClick={() => printVoucherQrCodeModal(voucher)}>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-printer" />
-                        </div>
-                        <div className="action-item-name">
-                            {translate('modal_physical_card.modal_section.request_new_card.print_pass')}
+                    <div className="action-col">
+                        <div
+                            role={'button'}
+                            tabIndex={0}
+                            onKeyDown={clickOnKeyEnter}
+                            className="action-item"
+                            data-dusk="openVoucherInMeModal"
+                            onClick={openVoucherInMeModal}>
+                            <div className="action-item-icon">
+                                <em className="mdi mdi-account-circle" />
+                            </div>
+                            <div className="action-item-name">
+                                {translate('modal_physical_card.modal_section.request_new_card.open_in_app')}
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    {!envData.config.flags.noPrintOption && (
+                        <div className="action-col">
+                            <div
+                                role={'button'}
+                                tabIndex={0}
+                                onKeyDown={clickOnKeyEnter}
+                                className="action-item"
+                                data-dusk="printVoucherQrCodeModal"
+                                onClick={() => printVoucherQrCodeModal(voucher)}>
+                                <div className="action-item-icon">
+                                    <em className="mdi mdi-printer" />
+                                </div>
+                                <div className="action-item-name">
+                                    {translate('modal_physical_card.modal_section.request_new_card.print_pass')}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </Fragment>
             )}
 
             {showPhysicalCardRequest && (
@@ -233,13 +241,14 @@ export default function VoucherActions({
                 </div>
             )}
 
-            {voucherCard.product && (
+            {voucherCard.product && voucher.fund.show_qr_code && (
                 <div className="action-col">
                     <div
                         role={'button'}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
                         className="action-item"
+                        data-dusk="shareVoucher"
                         onClick={() => shareVoucher(voucher)}>
                         <div className="action-item-icon">
                             <em className="mdi mdi-share-variant" />

@@ -57,6 +57,7 @@ export default interface Fund {
     external?: boolean;
     show_subsidies?: boolean;
     show_qr_limits?: boolean;
+    show_qr_code?: boolean;
     show_requester_limits?: boolean;
     allow_direct_payments?: boolean;
     fund_form_id?: number;

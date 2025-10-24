@@ -49,7 +49,7 @@ export default function VoucherDetailsInternalCard({
                             )}
                         </div>
 
-                        {!voucherCard.external && (
+                        {!voucherCard.external && voucherCard.fund.show_qr_code && (
                             <Fragment>
                                 <div className="card-qr_code show-sm">
                                     {voucher.address && (
@@ -67,7 +67,7 @@ export default function VoucherDetailsInternalCard({
                                         {translate('voucher.card.valid_until')} {voucherCard.last_active_day_locale}
                                     </div>
                                 </div>
-                                <div className="card-qr_code hide-sm">
+                                <div className="card-qr_code hide-sm" data-dusk="voucherQrCode">
                                     {voucher.address && (
                                         <QrCode
                                             value={JSON.stringify({
