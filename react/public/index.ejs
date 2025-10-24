@@ -9,7 +9,6 @@
     <% if (disable_indexing) { %>
     <meta name="robots" content="noindex">
     <% } %>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700">
     <link href="<%= webPath(`/assets/dist/css/materialdesignicons.min.css`) %>" rel="stylesheet">
     <% if (['sponsor', 'provider', 'validator'].includes(type)) { %>
         <link href="<%= webPath(`/assets/dist/js/summernote.${timestamp}.min.css`) %>" rel="stylesheet">
