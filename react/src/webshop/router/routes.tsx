@@ -43,10 +43,11 @@ import Search from '../components/pages/search/Search';
 import AuthLink from '../components/pages/auth/AuthLink';
 import FundRequest from '../components/pages/funds-request/FundRequest';
 import FundActivate from '../components/pages/funds-activate/FundActivate';
-import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
+import FundsPrecheckPage from '../components/pages/funds-pre-check/FundsPrecheckPage';
 import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
 import Profile from '../components/pages/profile/Profile';
+import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
 
 const router = new RouterBuilder();
 
@@ -261,6 +262,12 @@ router.state('bookmarked-products', <BookmarkedProducts />, {
     path: `/verlanglijst`,
     altPath: `/bookmarks`,
     protected: true,
+});
+
+router.state('fund-pre-check-chatbot', <FundsPrecheckPage />, {
+    path: `/regelingencheck-chatbot`,
+    altPath: `/fund-pre-check-chatbot`,
+    protected: false,
 });
 
 router.state('fund-pre-check', <FundsPreCheck />, {

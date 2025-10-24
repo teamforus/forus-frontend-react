@@ -205,7 +205,10 @@ export default function Home() {
                             )}
 
                             <div className="pre-check-banner-actions">
-                                <StateNavLink name={'fund-pre-check'} className="button button-primary">
+                                <StateNavLink
+                                    name={'fund-pre-check'}
+                                    className="button button-primary"
+                                    state={{ from: '/home' }}>
                                     {translate('home.pre_check.take_check')}
                                     <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                 </StateNavLink>
