@@ -1,24 +1,18 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment } from 'react';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useEnvData from '../../../../hooks/useEnvData';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import { useNavigateState } from '../../../../modules/state_router/Router';
 import { TopNavbarDesktopMenuUser } from './TopNavbarDesktopMenuUser';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { strLimit } from '../../../../../dashboard/helpers/string';
+import useStartFundRequest from './hooks/useStartFundRequest';
 
 export const TopNavbarDesktopUser = () => {
     const envData = useEnvData();
-    const translate = useTranslate();
     const authIdentity = useAuthIdentity();
-    const navigateState = useNavigateState();
 
-    const startFundRequest = useCallback(
-        (data = {}) => {
-            navigateState('start', null, data);
-        },
-        [navigateState],
-    );
+    const translate = useTranslate();
+    const startFundRequest = useStartFundRequest();
 
     return (
         <div className="navbar-desktop-user">

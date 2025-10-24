@@ -7,6 +7,7 @@ import InfoBox from '../../../elements/info-box/InfoBox';
 import HtmlDiffBlock from '../../../elements/html-diff/HtmlDiffBlock';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import EmptyValue from '../../../elements/empty-value/EmptyValue';
 
 export default function ProductMonitoredHistoryCardItem({
     item,
@@ -71,14 +72,14 @@ export default function ProductMonitoredHistoryCardItem({
                                                     {fieldKey === 'description' ? (
                                                         <Markdown content={item.fields[fieldKey].from} />
                                                     ) : (
-                                                        item.fields[fieldKey].from
+                                                        item.fields[fieldKey].from || <EmptyValue />
                                                     )}
                                                 </td>
                                                 <td>
                                                     {fieldKey === 'description' ? (
                                                         <Markdown content={item.fields[fieldKey].to} />
                                                     ) : (
-                                                        item.fields[fieldKey].to
+                                                        item.fields[fieldKey].to || <EmptyValue />
                                                     )}
                                                 </td>
                                             </Fragment>

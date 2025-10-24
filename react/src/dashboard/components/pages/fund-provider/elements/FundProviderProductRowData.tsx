@@ -87,7 +87,7 @@ export default function FundProviderProductRowData({
                                   ]
                                 : []),
                         ]}
-                        media={product.photo}
+                        media={product.photos[0]}
                         mediaRound={false}
                         mediaSize={'md'}
                         mediaPlaceholder={'product'}

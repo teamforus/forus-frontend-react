@@ -11,12 +11,14 @@ export default function BlockShowcase({
     className = null,
     loaderElement = null,
     breadcrumbLoaderElement = null,
+    narrow = false,
 }: {
     children?: React.ReactElement | Array<React.ReactElement>;
     breadcrumbItems?: Array<Breadcrumb>;
     className?: string;
     loaderElement?: React.ReactElement;
     breadcrumbLoaderElement?: React.ReactElement;
+    narrow?: boolean;
 }) {
     const breadcrumbs = useMemo(() => {
         if (!breadcrumbItems) {
@@ -38,7 +40,13 @@ export default function BlockShowcase({
     }, [breadcrumbItems]);
 
     return (
-        <div className={classNames('block', 'block-showcase', className)}>
+        <div className={classNames('block', 'block-showcase', narrow && 'block-showcase-narrow', className)}>
+            {children && narrow && (
+                <div className="showcase-splash">
+                    <div className="showcase-splash-shape" />
+                </div>
+            )}
+
             <main id="main-content">
                 {breadcrumbs || breadcrumbLoaderElement || <BlockLoaderBreadcrumbs />}
                 {children || loaderElement || <BlockLoader />}

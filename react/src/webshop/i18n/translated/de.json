@@ -1524,12 +1524,12 @@
                 "title": "Blockieren Sie Ihren Pass"
             },
             "link_card": {
-                "description": "<br/><br/>Auf Ihrem Pass befindet sich ein QR-Code, darunter Ihr persönlicher Code. Wenn Sie den alten Pass reaktivieren, können Sie ihn weiter benutzen. Brauchen Sie Hilfe?  Rufen Sie 14 050 an, Montag bis Freitag von 9.00 bis 12.00 Uhr.",
                 "subtitle": "Geben Sie Ihren persönlichen Kundencode ein",
                 "title": "Aktivieren Sie Ihren alten Pass",
                 "alt_text": "Körperlicher Pass: {{ fund_name }}",
                 "no_old_card": "Kein alter Pass?",
-                "order_card": "Bestellung eines Passes"
+                "order_card": "Bestellung eines Passes",
+                "description": "Auf Ihrem Pass befindet sich ein persönlicher Code. Geben Sie ihn unten ein.<br/>Wenn Sie den alten Pass reaktivieren, können Sie ihn weiter benutzen."
             },
             "request_card_success": {
                 "description": "Sie haben eine E-Mail mit der Bestätigung Ihrer Bestellung erhalten.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Einstellungen für Benachrichtigungen{{pageTitleSuffix}}",
         "privacy": "Erklärung zum Datenschutz{{pageTitleSuffix}}",
         "product": "{{product_name}} Angebot - von {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Angebot{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Angebot kaufen{{pageTitleSuffix}}",
         "products-show": "Angebot{{pageTitleSuffix}}",
         "provider": "Anbieter - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Anmeldung starten{{pageTitleSuffix}}",
         "terms_and_conditions": "Allgemeine Bedingungen und Konditionen{{pageTitleSuffix}}",
         "voucher": "Ihr Kredit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mein Kredit{{pageTitleSuffix}}"
+        "vouchers": "Mein Kredit{{pageTitleSuffix}}",
+        "products": "Angebot{{pageTitleSuffix}}"
     },
     "page_title": "Forus-Plattform",
     "paginator": {
@@ -2275,10 +2275,36 @@
             "pay_from_voucher": "Sie zahlen aus dem Guthaben:",
             "price": "Preis:",
             "payment_option_ideal": "Online bezahlen (iDEAL)",
-            "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_option_reservation": "Online buchen",
             "payment_options": "Zahlungsmöglichkeiten",
-            "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten"
+            "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten",
+            "attention": "Achtung!",
+            "buy_now": "Jetzt kaufen!",
+            "choose_credit": "Wählen Sie den Kredit",
+            "collapse_section": "Abschnitt Falten",
+            "description_card": "Beschreibung",
+            "dont_have_voucher": "Noch kein Kredit?",
+            "duration_of_promotion": "Dauer der Förderung",
+            "expand_section": "Abschnitt erweitern",
+            "expire_by_date": "Gültig bis {{date}}",
+            "how_can_i_pay": "Wie kann ich bezahlen?",
+            "locations_on_map": "Standorte auf der Karte",
+            "login_to_order": "Jetzt anmelden und bestellen",
+            "more_info": "Weitere Informationen",
+            "next_image": "Nächstes Bild",
+            "payment_option_qr": "QR-Code beim Anbieter anzeigen",
+            "payment_options_title": "Zahlungsmöglichkeiten",
+            "previous_image": "Vorheriges Bild",
+            "product_images": "Produktbilder",
+            "provider": "Anbieter",
+            "quantity_limit": "Max {{limit}} p.p.",
+            "request_one_now": "Bewerben Sie sich jetzt!",
+            "show_image_of_total": "Bild anzeigen {{current}} von {{total}}",
+            "when": "Wenn",
+            "where": "Wo",
+            "add_to_favorites": "Zu Favoriten hinzufügen",
+            "ideal_logo_alt": "iDEAL-Logo",
+            "remove_from_favorites": "Aus den Favoriten entfernen"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2295,7 +2321,8 @@
         "price": {
             "free": "Kostenlos",
             "informational": "Nur im Geschäft"
-        }
+        },
+        "other_products": "Das könnte Sie auch interessieren?"
     },
     "products": {
         "breadcrumbs": {

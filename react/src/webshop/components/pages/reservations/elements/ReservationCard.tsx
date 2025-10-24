@@ -38,8 +38,8 @@ export default function ReservationCard({
                 <div className="reservation-image">
                     <img
                         src={
-                            reservation.product?.photo?.sizes?.small ||
-                            reservation.product?.photo?.sizes?.thumbnail ||
+                            reservation.product?.photos[0]?.sizes?.small ||
+                            reservation.product?.photos[0]?.sizes?.thumbnail ||
                             assetUrl('/assets/img/placeholders/product-small.png')
                         }
                         alt=""

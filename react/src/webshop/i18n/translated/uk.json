@@ -1524,12 +1524,12 @@
                 "title": "Заблокуйте свій пропуск"
             },
             "link_card": {
-                "description": "<br/><br/>На перепустці є QR-код, нижче - ваш особистий код. Якщо ви активуєте стару перепустку, ви можете продовжувати нею користуватися. Потрібна допомога?  Телефонуйте за номером 14 050 з понеділка по п'ятницю з 9.00 до 12.00.",
                 "subtitle": "Введіть свій персональний код клієнта",
                 "title": "Активуйте стару перепустку",
                 "alt_text": "Фізичний пропуск: {{ fund_name }}",
                 "no_old_card": "Старої перепустки немає?",
-                "order_card": "Замовити перепустку"
+                "order_card": "Замовити перепустку",
+                "description": "На вашій перепустці є персональний код. Введіть його нижче.<br/>Якщо ви повторно активуєте стару перепустку, ви зможете продовжувати нею користуватися."
             },
             "request_card_success": {
                 "description": "Ви отримали електронний лист з підтвердженням вашого замовлення.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Налаштування сповіщень{{pageTitleSuffix}}",
         "privacy": "Заява про конфіденційність{{pageTitleSuffix}}",
         "product": "{{product_name}} Пропозиція - від {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Пропозиція{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Пропозиція купівлі{{pageTitleSuffix}}",
         "products-show": "Пропозиція{{pageTitleSuffix}}",
         "provider": "Провайдер - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Почніть входити в систему{{pageTitleSuffix}}",
         "terms_and_conditions": "Загальні положення та умови{{pageTitleSuffix}}",
         "voucher": "Твоя заслуга - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Моя заслуга{{pageTitleSuffix}}"
+        "vouchers": "Моя заслуга{{pageTitleSuffix}}",
+        "products": "Пропозиція{{pageTitleSuffix}}"
     },
     "page_title": "Платформа Forus",
     "paginator": {
@@ -2275,10 +2275,36 @@
             "pay_from_voucher": "Ви платите з кредиту:",
             "price": "Ціна:",
             "payment_option_ideal": "Сплачуйте онлайн (iDEAL)",
-            "payment_option_qr": "Показати QR-код у постачальника",
             "payment_option_reservation": "Бронюйте онлайн",
             "payment_options": "Варіанти оплати",
-            "payment_option_link": "Дізнайтеся більше про способи оплати"
+            "payment_option_link": "Дізнайтеся більше про способи оплати",
+            "attention": "Зауважте!",
+            "buy_now": "Купуйте зараз!",
+            "choose_credit": "Виберіть кредит",
+            "collapse_section": "Складання секцій",
+            "description_card": "Опис",
+            "dont_have_voucher": "Кредиту ще немає?",
+            "duration_of_promotion": "Тривалість акції",
+            "expand_section": "Розгорнути розділ",
+            "expire_by_date": "Дійсно до {{date}}",
+            "how_can_i_pay": "Як я можу заплатити?",
+            "locations_on_map": "Розташування на карті",
+            "login_to_order": "Увійдіть, щоб замовити зараз",
+            "more_info": "Більше інформації",
+            "next_image": "Наступне зображення",
+            "payment_option_qr": "Показати QR-код у постачальника",
+            "payment_options_title": "Варіанти оплати",
+            "previous_image": "Попереднє зображення",
+            "product_images": "Зображення продукції",
+            "provider": "Провайдер",
+            "quantity_limit": "Макс {{limit}} п.п.",
+            "request_one_now": "Подайте заявку зараз!",
+            "show_image_of_total": "Показати зображення {{current}} від {{total}}",
+            "when": "Коли",
+            "where": "Де",
+            "add_to_favorites": "Додати в обране Обране",
+            "ideal_logo_alt": "Логотип iDEAL",
+            "remove_from_favorites": "Видалити з обраного"
         },
         "low_amount": "У вас немає кредиту з достатнім балансом.",
         "map": {
@@ -2295,7 +2321,8 @@
         "price": {
             "free": "Безкоштовно",
             "informational": "Тільки в магазині"
-        }
+        },
+        "other_products": "Можливо, вам також сподобається це?"
     },
     "products": {
         "breadcrumbs": {

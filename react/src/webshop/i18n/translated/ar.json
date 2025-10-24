@@ -359,7 +359,6 @@
         "preferences-notifications": "تفضيلات الإخطار{{pageTitleSuffix}}",
         "privacy": "بيان الخصوصية{{pageTitleSuffix}}",
         "product": "{{product_name}} العرض - من {{organization_name}}{{pageTitleSuffix}}",
-        "products": "العرض{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "عرض الشراء{{pageTitleSuffix}}",
         "products-show": "العرض{{pageTitleSuffix}}",
         "provider": "الموفر - {{provider_name}}{{pageTitleSuffix}}",
@@ -384,7 +383,8 @@
         "start": "ابدأ تسجيل الدخول{{pageTitleSuffix}}",
         "terms_and_conditions": "الشروط والأحكام العامة{{pageTitleSuffix}}",
         "voucher": "ائتمانك - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "رصيدي{{pageTitleSuffix}}"
+        "vouchers": "رصيدي{{pageTitleSuffix}}",
+        "products": "العرض{{pageTitleSuffix}}"
     },
     "page_title": "منصة فورس",
     "product_bookmark_push": {
@@ -1834,10 +1834,36 @@
             "pay_from_voucher": "أنت تدفع من الرصيد",
             "price": "السعر:",
             "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL)",
-            "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
             "payment_option_reservation": "احجز عبر الإنترنت",
             "payment_options": "خيارات الدفع",
-            "payment_option_link": "اقرأ المزيد عن خيارات الدفع"
+            "payment_option_link": "اقرأ المزيد عن خيارات الدفع",
+            "attention": "ملاحظة!",
+            "buy_now": "اشتر الآن!",
+            "choose_credit": "اختر الرصيد",
+            "collapse_section": "قسم الطي",
+            "description_card": "الوصف",
+            "dont_have_voucher": "لا يوجد رصيد بعد؟",
+            "duration_of_promotion": "مدة العرض الترويجي",
+            "expand_section": "توسيع القسم",
+            "expire_by_date": "صالحة حتى {{date}}",
+            "how_can_i_pay": "كيف يمكنني الدفع؟",
+            "locations_on_map": "المواقع على الخريطة",
+            "login_to_order": "سجّل الدخول للطلب الآن",
+            "more_info": "المزيد من المعلومات",
+            "next_image": "الصورة التالية",
+            "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
+            "payment_options_title": "خيارات الدفع",
+            "previous_image": "الصورة السابقة",
+            "product_images": "صور المنتج",
+            "provider": "المزود",
+            "quantity_limit": "ماكس {{limit}} ",
+            "request_one_now": "تقدم بطلب للحصول على واحدة الآن!",
+            "show_image_of_total": "إظهار الصورة {{current}} من {{total}}",
+            "when": "عندما",
+            "where": "المكان",
+            "add_to_favorites": "إضافة إلى المفضلة",
+            "ideal_logo_alt": "شعار iDEAL",
+            "remove_from_favorites": "إزالة من المفضلة"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -1854,7 +1880,8 @@
         "price": {
             "free": "مجاناً",
             "informational": "في المتجر فقط"
-        }
+        },
+        "other_products": "قد يعجبك هذا أيضاً؟"
     },
     "records_create": {
         "buttons": {
@@ -2934,12 +2961,12 @@
                 "title": "منع المرور"
             },
             "link_card": {
-                "description": "<br/><br/>يوجد على بطاقتك رمز QR، يوجد أدناه رمزك الشخصي. إذا قمت بإعادة تفعيل البطاقة القديمة يمكنك الاستمرار في استخدامها. هل تحتاج إلى مساعدة؟  اتصل بالرقم 14 050 من الاثنين إلى الجمعة من الساعة 9:00 إلى الساعة 12:00.",
                 "subtitle": "أدخل رمز العميل الشخصي",
                 "title": "تفعيل بطاقتك القديمة",
                 "alt_text": "تمريرة جسدية: {{ fund_name }}",
                 "no_old_card": "لا يوجد تصريح مرور قديم؟",
-                "order_card": "اطلب تصريح مرور"
+                "order_card": "اطلب تصريح مرور",
+                "description": "يوجد رمز شخصي على بطاقتك. أدخله أدناه.<br/>إذا قمت بإعادة تفعيل البطاقة القديمة، يمكنك الاستمرار في استخدامها."
             },
             "request_card_success": {
                 "description": "لقد تلقيت رسالة بريد إلكتروني تؤكد طلبك.",

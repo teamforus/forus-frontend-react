@@ -28,7 +28,10 @@ export default function ProductsListItemList({
         <Fragment>
             <div className="product-photo">
                 <img
-                    src={product.photo?.sizes?.thumbnail || assetUrl('/assets/img/placeholders/product-thumbnail.png')}
+                    src={
+                        product.photos[0]?.sizes?.thumbnail ||
+                        assetUrl('/assets/img/placeholders/product-thumbnail.png')
+                    }
                     alt={productService.transformProductAlternativeText(product)}
                 />
             </div>

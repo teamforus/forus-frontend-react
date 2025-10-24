@@ -4,9 +4,6 @@ import { Location } from 'react-router';
 export enum LayoutType {
     clear,
     dashboard,
-    landing,
-    landingClear,
-    landingClearNew,
 }
 
 export interface RouteStateConfig {

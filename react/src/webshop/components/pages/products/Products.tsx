@@ -11,7 +11,7 @@ import Paginator from '../../../../dashboard/modules/paginator/components/Pagina
 import ProductsList from '../../elements/lists/products-list/ProductsList';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, StringParam, NumericArrayParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
@@ -226,7 +226,7 @@ export default function Products() {
     }, [setTitle, translate]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             dusk="listProductsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
@@ -411,6 +411,6 @@ export default function Products() {
                     </div>
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

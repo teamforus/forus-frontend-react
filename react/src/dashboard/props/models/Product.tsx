@@ -19,7 +19,7 @@ export default interface Product {
     reservation_enabled: boolean;
     reservation_policy: 'global';
     alternative_text?: string;
-    photo?: Media;
+    photos?: Media[];
     price: string;
     price_locale: string;
     organization: Organization;
@@ -100,4 +100,9 @@ export default interface Product {
     updated_at_locale?: string;
     created_at?: string;
     created_at_locale?: string;
+    info_duration?: string;
+    info_when?: string;
+    info_where?: string;
+    info_more_info?: string;
+    info_attention?: string;
 }

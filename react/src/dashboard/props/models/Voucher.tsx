@@ -19,7 +19,7 @@ export interface VoucherProduct {
     price?: string;
     price_locale?: string;
     organization_id?: number;
-    photo?: Media;
+    photos?: Media[];
     organization?: OrganizationBasic;
 }
 

@@ -20,7 +20,7 @@ import FundsListItem from '../../elements/lists/funds-list/FundsListItem';
 import { useVoucherService } from '../../../services/VoucherService';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useSetTitle from '../../../hooks/useSetTitle';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
@@ -156,7 +156,7 @@ export default function Funds() {
     }, [envData, setTitle, translate]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             dusk="listFundsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
@@ -263,6 +263,6 @@ export default function Funds() {
                     </div>
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

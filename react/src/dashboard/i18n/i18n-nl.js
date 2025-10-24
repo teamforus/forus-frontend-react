@@ -936,6 +936,12 @@ export default {
             price: 'Prijs',
             price_type: 'Prijs type',
             price_discount: 'Korting',
+            alternative_text: 'Alt-tekst',
+            info_duration: 'Duur van de promotie',
+            info_when: 'Wanneer loopt de promotie',
+            info_where: 'Locatie',
+            info_more_info: 'Meer informatie',
+            info_attention: 'Let op',
         },
         filters: {
             search: 'Zoeken',

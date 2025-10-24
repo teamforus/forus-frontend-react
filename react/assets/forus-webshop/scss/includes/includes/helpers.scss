@@ -57,6 +57,25 @@
     @include webkit_scrollbar($color);
 }
 
+
+@mixin webkit_scrollbar_horizontal($thumbColor: var(--color-primary), $trackColor: #f1f1f1) {
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $trackColor;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-color: $thumbColor;
+        background-clip: padding-box;
+        box-shadow: inset -1px -1px 0 rgba(0, 0, 0, 0.05), inset 1px 1px 0 rgba(0, 0, 0, 0.05);
+    }
+}
+
+
 @mixin anim_blink() {
     animation: blink 1.5s ease-in-out infinite;
 

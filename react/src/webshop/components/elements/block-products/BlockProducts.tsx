@@ -9,6 +9,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import Section from '../sections/Section';
 
 export default function BlockProducts({
+    title,
     display = 'grid',
     filters = {},
     products = null,
@@ -16,6 +17,7 @@ export default function BlockProducts({
     showLoadMore = true,
     showCustomDescription = false,
 }: {
+    title?: string;
     display?: 'grid' | 'list';
     filters?: object;
     products?: Array<Product>;
@@ -32,7 +34,7 @@ export default function BlockProducts({
             {products?.length > 0 && (
                 <h2 className={'section-title'}>
                     <StateNavLink name={'products'} params={filters}>
-                        {cmsBlock?.title || translate(`block_products.header.title_budget`)}
+                        {title || cmsBlock?.title || translate(`block_products.header.title_budget`)}
                     </StateNavLink>
                 </h2>
             )}

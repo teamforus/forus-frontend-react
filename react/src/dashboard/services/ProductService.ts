@@ -142,6 +142,12 @@ export class ProductService<T = Product> {
             reservation_note: apiResource.reservation_note,
             reservation_note_text: apiResource.reservation_note_text,
             reservation_extra_payments: apiResource.reservation_extra_payments,
+
+            info_duration: apiResource.info_duration,
+            info_when: apiResource.info_when,
+            info_where: apiResource.info_where,
+            info_more_info: apiResource.info_more_info,
+            info_attention: apiResource.info_attention,
         };
     }
 

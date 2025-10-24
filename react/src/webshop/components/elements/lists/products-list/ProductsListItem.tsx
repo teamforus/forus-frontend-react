@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import Product from '../../../../props/models/Product';
 import useBookmarkProductToggle from '../../../../services/helpers/useBookmarkProductToggle';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import ProductsListItemGrid from './templates/ProductsListItemGrid';
 import ProductsListItemList from './templates/ProductsListItemList';
 import ProductsListItemSearch from './templates/ProductsListItemSearch';
-import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import useProductPriceMinLocale from './hooks/useProductPriceMinLocale';
 
 export default function ProductsListItem({
     display,
@@ -19,24 +19,8 @@ export default function ProductsListItem({
     stateParams?: object;
     onToggleBookmark?: (product: Product) => void;
 }) {
-    const translate = useTranslate();
+    const price = useProductPriceMinLocale(product);
     const bookmarkProductToggle = useBookmarkProductToggle();
-
-    const price = useMemo(() => {
-        if (product.price_type === 'informational') {
-            return translate('product.price.informational');
-        }
-
-        if (product.price_type !== 'regular') {
-            return product.price_locale;
-        }
-
-        if (product.price_min == '0.00') {
-            return translate('product.price.free');
-        }
-
-        return product.price_min_locale;
-    }, [product, translate]);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent) => {
