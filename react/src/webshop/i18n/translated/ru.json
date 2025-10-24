@@ -2295,7 +2295,6 @@
             "payment_option_qr": "Показать QR-код у провайдера",
             "payment_options_title": "Варианты оплаты",
             "previous_image": "Предыдущее изображение",
-            "price_from": "С сайта",
             "product_images": "Изображения продуктов",
             "provider": "Поставщик",
             "quantity_limit": "Макс {{limit}} p.p.",
@@ -2322,7 +2321,8 @@
         "price": {
             "free": "Бесплатно",
             "informational": "Только в магазине"
-        }
+        },
+        "other_products": "Вам также может понравиться это?"
     },
     "products": {
         "breadcrumbs": {

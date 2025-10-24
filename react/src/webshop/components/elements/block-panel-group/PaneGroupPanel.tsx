@@ -29,7 +29,14 @@ export default function PaneGroupPanel({
 
     return (
         <div className="panel" ref={elRef}>
-            <div className="panel-header">
+            <button
+                id={buttonId}
+                type="button"
+                className="panel-header"
+                aria-expanded={isOpen}
+                aria-controls={bodyId}
+                aria-labelledby={`${titleId} ${buttonId}`}
+                onClick={() => setIsOpen(!isOpen)}>
                 {icon && (
                     <div className="panel-header-icon" aria-hidden="true">
                         {icon === 'clipboard-text-outline' && <em className="mdi mdi-clipboard-text-outline" />}
@@ -43,22 +50,11 @@ export default function PaneGroupPanel({
                 <h3 className="panel-header-title" id={titleId}>
                     {title}
                 </h3>
-                <button
-                    id={buttonId}
-                    type="button"
-                    className="panel-header-toggle"
-                    aria-expanded={isOpen}
-                    aria-controls={bodyId}
-                    aria-labelledby={`${titleId} ${buttonId}`}
-                    onClick={() => setIsOpen(!isOpen)}>
-                    <em className={`mdi ${isOpen ? 'mdi-chevron-down' : 'mdi-chevron-right'}`} aria-hidden="true" />
-                    <span className="sr-only">
-                        {isOpen
-                            ? translate('product.labels.collapse_section')
-                            : translate('product.labels.expand_section')}
-                    </span>
-                </button>
-            </div>
+                <em className={`mdi ${isOpen ? 'mdi-chevron-down' : 'mdi-chevron-right'}`} aria-hidden="true" />
+                <span className="sr-only">
+                    {isOpen ? translate('product.labels.collapse_section') : translate('product.labels.expand_section')}
+                </span>
+            </button>
             <div className="panel-body" id={bodyId} hidden={!isOpen}>
                 {children}
             </div>

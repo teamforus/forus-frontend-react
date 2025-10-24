@@ -3,14 +3,16 @@ import Product from '../../../../props/models/Product';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { useProductService } from '../../../../services/ProductService';
 
-export default function ProductNextMedia({ product }: { product: Product }) {
+export default function ProductMedia({ product }: { product: Product }) {
     const assetUrl = useAssetUrl();
-    const [activeIndex, setActiveIndex] = useState(0);
     const translate = useTranslate();
+    const productService = useProductService();
 
     const photos = product?.photos || [];
     const previewId = `product-media-img-${product.id}`;
+    const [activeIndex, setActiveIndex] = useState(0);
 
     return (
         <div className="product-overview-media">
@@ -30,7 +32,7 @@ export default function ProductNextMedia({ product }: { product: Product }) {
                 <img
                     className="product-overview-media-img"
                     id={previewId}
-                    alt={product.alternative_text || product.name}
+                    alt={productService.transformProductAlternativeText(product)}
                     src={photos[activeIndex]?.sizes?.large || assetUrl('/assets/img/placeholders/product-large.png')}
                 />
             </div>
@@ -66,7 +68,7 @@ export default function ProductNextMedia({ product }: { product: Product }) {
                                             setActiveIndex(i);
                                         }
                                     }}>
-                                    <img src={media.sizes.small} alt="" />
+                                    <img src={media.sizes.small} alt={''} />
                                 </div>
                             ))}
                         </div>

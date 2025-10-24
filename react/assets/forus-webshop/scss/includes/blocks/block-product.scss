@@ -1,4 +1,4 @@
-.block.block-product-next {
+.block.block-product {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -132,6 +132,7 @@
                 .product-overview-provider-name {
                     display: flex;
                     flex: 1 1 auto;
+                    font: inherit;
                 }
 
                 & > .mdi {
@@ -144,15 +145,7 @@
 
             .product-overview-price {
                 white-space: nowrap;
-                flex-direction: column;
-
-                .product-overview-price-label {
-                    font: 600 12px/20px var(--base-font);
-                }
-
-                .product-overview-price-value {
-                    font: 700 24px/32px var(--base-font);
-                }
+                font: 700 24px/32px var(--base-font);
             }
 
             .product-overview-name {
@@ -464,7 +457,7 @@
                     font: 700 22px/32px var(--base-font);
                 }
 
-                .product-overview-price-value {
+                .product-overview-price {
                     font: 700 20px/28px var(--base-font);
                 }
 

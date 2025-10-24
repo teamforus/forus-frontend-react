@@ -1854,7 +1854,6 @@
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
             "payment_options_title": "Ödeme seçenekleri",
             "previous_image": "Önceki resim",
-            "price_from": "Kimden",
             "product_images": "Ürün görselleri",
             "provider": "Sağlayıcı",
             "quantity_limit": "Max {{limit}} p.p.",
@@ -1881,7 +1880,8 @@
         "price": {
             "free": "Ücretsiz",
             "informational": "Sadece mağazada"
-        }
+        },
+        "other_products": "Bunu da beğenebilirsiniz?"
     },
     "records_create": {
         "buttons": {

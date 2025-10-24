@@ -1854,7 +1854,6 @@
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
             "payment_options_title": "خيارات الدفع",
             "previous_image": "الصورة السابقة",
-            "price_from": "من",
             "product_images": "صور المنتج",
             "provider": "المزود",
             "quantity_limit": "ماكس {{limit}} ",
@@ -1881,7 +1880,8 @@
         "price": {
             "free": "مجاناً",
             "informational": "في المتجر فقط"
-        }
+        },
+        "other_products": "قد يعجبك هذا أيضاً؟"
     },
     "records_create": {
         "buttons": {

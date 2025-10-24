@@ -1555,7 +1555,6 @@
             "payment_option_qr": "Show QR code at provider",
             "payment_options_title": "Payment options",
             "previous_image": "Previous image",
-            "price_from": "From",
             "product_images": "Product Images",
             "provider": "Provider",
             "quantity_limit": "Max. {{limit}} p.p.",
@@ -1582,7 +1581,8 @@
         "price": {
             "free": "Free",
             "informational": "In store only"
-        }
+        },
+        "other_products": "You might also like this?"
     },
     "records_create": {
         "buttons": {

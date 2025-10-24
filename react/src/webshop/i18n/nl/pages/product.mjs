@@ -23,7 +23,6 @@ export default {
         expire: 'Geldig tot en met:',
         pay_from_voucher: 'U betaalt vanuit het tegoed:',
         price: 'Prijs:',
-        price_from: 'Vanaf',
         expire_by_date: 'Geldig t/m {{date}}',
         quantity_limit: 'Max. {{limit}} p.p.',
         discount: 'Korting:',
@@ -66,12 +65,6 @@ export default {
         add_to_favorites: 'Toevoegen aan favorieten',
         ideal_logo_alt: 'iDEAL logo',
     },
-    status: {
-        active: 'Actief',
-        out_of_stock: 'Geen voorraad meer',
-        no_data: 'Geen data',
-        free: 'Gratis',
-    },
     price: {
         free: 'Gratis',
         informational: 'Alleen in winkel',
@@ -92,4 +85,5 @@ export default {
     low_amount: 'U heeft geen tegoed met voldoende saldo.',
     no_vouchers: 'U heeft geen tegoed om dit aanbod mee te reserveren',
     tooltip: 'Hoevaak je nog gebruik kunt maken van dit aanbod',
+    other_products: 'Misschien vind je dit ook leuk?',
 };

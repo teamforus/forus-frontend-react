@@ -114,10 +114,11 @@ export default function ProductsFormMediaUploader({
             <div className="product-media-items">
                 {(!media || media?.length === 0) && (
                     <div className="product-media-items-placeholder">
-                        <div className="product-media-items-placeholder-title">Add Product Images</div>
+                        <div className="product-media-items-placeholder-title">Voeg een afbeelding toe</div>
                         <div className="product-media-items-placeholder-text">
-                            Upload up to 6 images. You can reorder them anytime, the first image will appear as the main
-                            photo.
+                            U heeft de mogelijkheid om tot en met vijf verschillende afbeeldingen toe te voegen. Mocht u
+                            meerdere afbeeldingen hebben geupload, dan kunt de afbeeldingen sorteren. De eerste
+                            afbeelding zal als uitgelichte afbeelding op de webshop worden getoond.
                         </div>
                     </div>
                 )}
@@ -147,7 +148,7 @@ export default function ProductsFormMediaUploader({
                             disabled={disabled}
                             onClick={() => inputRef.current?.click()}>
                             <em className="mdi mdi-upload-outline" />
-                            Add image
+                            Voeg afbeelding toe
                         </button>
                     </div>
                 )}

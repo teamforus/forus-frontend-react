@@ -43,7 +43,7 @@ export default function ProductsFormMediaUploaderItem({
                             onDelete();
                         }}>
                         <em className="mdi mdi-close" />
-                        verwijderen
+                        Verwijderen
                     </button>
                 </div>
             </div>

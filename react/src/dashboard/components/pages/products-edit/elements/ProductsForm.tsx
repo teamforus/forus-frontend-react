@@ -564,11 +564,17 @@ export default function ProductsForm({
                             </FormPane>
 
                             <InfoBox type={'primary'} iconColor={'primary'}>
-                                <h4>Useful Information</h4>
+                                <h4>Handige informatie</h4>
                                 <ul>
-                                    <li>You can upload up to five images to showcase your product.</li>
-                                    <li>Reorder images by dragging the handle icon on the left side of each image.</li>
-                                    <li>The first image in the list will appear as the main image on the webshop.</li>
+                                    <li>U kan tot en met vijf verschillende afbeeldingen uploaden voor het aanbod.</li>
+                                    <li>
+                                        De afbeeldingen kunt u sorteren door op de linkerzijde van de afbeelding te
+                                        slepen.
+                                    </li>
+                                    <li>
+                                        De eerste afbeelding in de lijst zal als uitgelichte afbeelding op de webshop
+                                        worden getoond.
+                                    </li>
                                 </ul>
                             </InfoBox>
                         </FormPane>
@@ -1255,7 +1261,7 @@ export default function ProductsForm({
                             errors={form.errors.product_category_id}
                         />
 
-                        <FormPane title={'Additional information'}>
+                        <FormPane title={'Aanvullende informatie'}>
                             <FormGroupInput
                                 label={translate('product_edit.labels.info_duration')}
                                 error={form.errors.info_duration}
@@ -1281,7 +1287,7 @@ export default function ProductsForm({
                                 setValue={(info_more_info: string) => form.update({ info_more_info })}
                             />
 
-                            <FormPane title={'Attention'}>
+                            <FormPane title={'Belangrijke informatie over het aanbod.'}>
                                 <FormGroupInput
                                     label={translate('product_edit.labels.info_attention')}
                                     error={form.errors.info_attention}

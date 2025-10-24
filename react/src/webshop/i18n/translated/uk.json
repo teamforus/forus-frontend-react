@@ -2295,7 +2295,6 @@
             "payment_option_qr": "Показати QR-код у постачальника",
             "payment_options_title": "Варіанти оплати",
             "previous_image": "Попереднє зображення",
-            "price_from": "Від",
             "product_images": "Зображення продукції",
             "provider": "Провайдер",
             "quantity_limit": "Макс {{limit}} п.п.",
@@ -2322,7 +2321,8 @@
         "price": {
             "free": "Безкоштовно",
             "informational": "Тільки в магазині"
-        }
+        },
+        "other_products": "Можливо, вам також сподобається це?"
     },
     "products": {
         "breadcrumbs": {

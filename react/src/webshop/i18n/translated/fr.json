@@ -2295,7 +2295,6 @@
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_options_title": "Options de paiement",
             "previous_image": "Image précédente",
-            "price_from": "De",
             "product_images": "Images du produit",
             "provider": "Fournisseur",
             "quantity_limit": "Max {{limit}} p.p.",
@@ -2322,7 +2321,8 @@
         "price": {
             "free": "Gratuit",
             "informational": "En magasin uniquement"
-        }
+        },
+        "other_products": "Vous aimerez peut-être aussi ceci ?"
     },
     "products": {
         "breadcrumbs": {
