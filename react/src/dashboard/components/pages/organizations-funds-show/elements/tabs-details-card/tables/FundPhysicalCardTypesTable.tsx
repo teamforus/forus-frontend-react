@@ -21,6 +21,7 @@ import { useEditFundPhysicalCardType } from '../../../hooks/useEditFundPhysicalC
 import { useFundPhysicalCardTypeService } from '../../../../../../services/FundPhysicalCardTypeService';
 import FundPhysicalCardType from '../../../../../../props/models/FundPhysicalCardType';
 import { useDeleteFundPhysicalCardType } from '../../../hooks/useDeleteFundPhysicalCardType';
+import { DashboardRoutes } from '../../../../../../modules/state_router/RouterBuilder';
 
 export default function FundPhysicalCardTypesTable({ fund, organization }: { fund: Fund; organization: Organization }) {
     const translate = useTranslate();
@@ -113,7 +114,7 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
                                     {fundPhysicalCardTypes?.data.map((cardType) => (
                                         <StateNavLink
                                             key={cardType.id}
-                                            name={'physical-card-types-show'}
+                                            name={DashboardRoutes.PHYSICAL_CARD_TYPE}
                                             params={{
                                                 id: cardType.physical_card_type_id,
                                                 organizationId: organization.id,
@@ -142,7 +143,7 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
                                                         content={(e) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
-                                                                    name={'physical-card-types-show'}
+                                                                    name={DashboardRoutes.PHYSICAL_CARD_TYPE}
                                                                     params={{
                                                                         id: cardType.physical_card_type_id,
                                                                         organizationId: organization.id,

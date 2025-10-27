@@ -25,6 +25,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Funds() {
     const envData = useEnvData();
@@ -141,7 +142,7 @@ export default function Funds() {
 
     useEffect(() => {
         if (!appConfigs.funds.list) {
-            return navigateState('home');
+            return navigateState(WebshopRoutes.HOME);
         }
     }, [appConfigs.funds.list, navigateState]);
 
@@ -160,7 +161,7 @@ export default function Funds() {
             dusk="listFundsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: translate(`funds.breadcrumbs.home`), state: 'home' },
+                { name: translate(`funds.breadcrumbs.home`), state: WebshopRoutes.HOME },
                 { name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title') },
             ]}
             aside={

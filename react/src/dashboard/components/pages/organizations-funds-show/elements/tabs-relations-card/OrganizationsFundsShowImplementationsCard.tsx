@@ -20,6 +20,7 @@ import { Permission } from '../../../../../props/models/Organization';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import { useFundService } from '../../../../../services/FundService';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsShowImplementationsCard({
     fund,
@@ -223,7 +224,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                                                                     Permission.MANAGE_IMPLEMENTATION_CMS,
                                                                 ) && (
                                                                     <StateNavLink
-                                                                        name={'implementations-view'}
+                                                                        name={DashboardRoutes.IMPLEMENTATION}
                                                                         params={{
                                                                             id: implementation?.id,
                                                                             organizationId: fund.organization_id,

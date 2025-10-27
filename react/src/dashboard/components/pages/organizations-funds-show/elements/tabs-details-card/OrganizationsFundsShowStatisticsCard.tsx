@@ -8,6 +8,7 @@ import Organization, { Permission } from '../../../../../props/models/Organizati
 import useTranslate from '../../../../../hooks/useTranslate';
 import useOpenModal from '../../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../../hooks/usePushSuccess';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsShowStatisticsCard({
     fund,
@@ -70,7 +71,7 @@ export default function OrganizationsFundsShowStatisticsCard({
                             <div
                                 className="keyvalue-value"
                                 onClick={() => {
-                                    navigateState('employees', { organizationId: fund.organization_id });
+                                    navigateState(DashboardRoutes.EMPLOYEES, { organizationId: fund.organization_id });
                                 }}>
                                 <span>{fund.sponsor_count}</span>
                                 <span className="icon mdi mdi-account-multiple-plus" />
@@ -92,7 +93,7 @@ export default function OrganizationsFundsShowStatisticsCard({
                         <a
                             className={`keyvalue-item col col-lg-3 ${!canAccessFund ? 'keyvalue-item-disabled' : ''}`}
                             onClick={() => {
-                                navigateState('csv-validation', { organizationId: fund.organization_id });
+                                navigateState(DashboardRoutes.CSV_VALIDATION, { organizationId: fund.organization_id });
                             }}>
                             <div className="keyvalue-key">{translate('fund_card_sponsor.labels.applicants')}</div>
                             <div className="keyvalue-value">

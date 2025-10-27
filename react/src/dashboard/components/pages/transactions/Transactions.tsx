@@ -41,6 +41,7 @@ import Label from '../../elements/image_cropper/Label';
 import useConfirmDangerAction from '../../../hooks/useConfirmDangerAction';
 import { Permission } from '../../../props/models/Organization';
 import TransactionBulksCard from './elements/TransactionBulksCard';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -278,7 +279,7 @@ export default function Transactions() {
                             `${bulks.length} bulk betaalopdrachten aangemaakt. Accepteer de transactie in uw bankomgeving.`,
                         );
                     } else if (bulks.length == 1) {
-                        navigateState('transaction-bulk', {
+                        navigateState(DashboardRoutes.TRANSACTION_BULK, {
                             organizationId: activeOrganization.id,
                             id: bulks[0].id,
                         });
@@ -406,7 +407,7 @@ export default function Transactions() {
 
                         {viewType.key == 'transactions' && isProvider && (
                             <StateNavLink
-                                name={'transaction-settings'}
+                                name={DashboardRoutes.TRANSACTION_SETTINGS}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-primary button-sm">
                                 <em className="mdi mdi-cog icon-start" />
@@ -763,7 +764,7 @@ export default function Transactions() {
                                             customElement={'tr'}
                                             className={'tr-clickable'}
                                             key={transaction.id}
-                                            name={'transaction'}
+                                            name={DashboardRoutes.TRANSACTION}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 address: transaction.address,
@@ -778,7 +779,7 @@ export default function Transactions() {
                                             )}
                                             <td>
                                                 <StateNavLink
-                                                    name={'transaction'}
+                                                    name={DashboardRoutes.TRANSACTION}
                                                     params={{
                                                         address: transaction.address,
                                                         organizationId: activeOrganization.id,
@@ -899,7 +900,7 @@ export default function Transactions() {
                                             {isSponsor && transaction.voucher_transaction_bulk_id && (
                                                 <td>
                                                     <StateNavLink
-                                                        name={'transaction-bulk'}
+                                                        name={DashboardRoutes.TRANSACTION_BULK}
                                                         params={{
                                                             organizationId: activeOrganization.id,
                                                             id: transaction.voucher_transaction_bulk_id,
@@ -958,7 +959,7 @@ export default function Transactions() {
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
                                                                 className="dropdown-item"
-                                                                name={'transaction'}
+                                                                name={DashboardRoutes.TRANSACTION}
                                                                 params={{
                                                                     organizationId: activeOrganization.id,
                                                                     address: transaction.address,

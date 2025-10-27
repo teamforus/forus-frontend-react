@@ -30,6 +30,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -212,7 +213,7 @@ export default function Employees() {
                             hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <NavLink
                                     className={'button button-default button-sm'}
-                                    to={getStateRouteUrl('organization-security', {
+                                    to={getStateRouteUrl(DashboardRoutes.ORGANIZATION_SECURITY, {
                                         organizationId: activeOrganization.id,
                                     })}>
                                     <em className="mdi mdi-security icon-start" />

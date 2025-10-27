@@ -22,6 +22,7 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Fund from '../../../../props/models/Fund';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function PayoutsTable({
     filter,
@@ -118,7 +119,7 @@ export default function PayoutsTable({
                                 {transactions.data.map((transaction) => (
                                     <StateNavLink
                                         key={transaction.id}
-                                        name={'payout'}
+                                        name={DashboardRoutes.PAYOUT}
                                         params={{
                                             address: transaction.address,
                                             organizationId: organization.id,
@@ -128,7 +129,7 @@ export default function PayoutsTable({
                                         <td>{transaction.id}</td>
                                         <td title={transaction.fund.name || ''}>
                                             <StateNavLink
-                                                name={'funds-show'}
+                                                name={DashboardRoutes.FUND}
                                                 params={{
                                                     organizationId: organization.id,
                                                     fundId: transaction?.fund?.id,
@@ -193,7 +194,7 @@ export default function PayoutsTable({
                                                 content={({ close }) => (
                                                     <div className="dropdown dropdown-actions">
                                                         <StateNavLink
-                                                            name={'payout'}
+                                                            name={DashboardRoutes.PAYOUT}
                                                             className="dropdown-item"
                                                             params={{
                                                                 organizationId: organization.id,

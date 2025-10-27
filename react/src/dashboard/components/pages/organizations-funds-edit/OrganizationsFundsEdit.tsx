@@ -44,6 +44,7 @@ import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import usePushApiError from '../../../hooks/usePushApiError';
 import FormGroup from '../../elements/forms/elements/FormGroup';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -252,7 +253,7 @@ export default function OrganizationsFundsEdit() {
                 return fundService
                     .update(activeOrganization.id, parseInt(fundId), formValues)
                     .then(() => {
-                        navigateState('funds-show', { organizationId: activeOrganization.id, fundId: fundId });
+                        navigateState(DashboardRoutes.FUND, { organizationId: activeOrganization.id, fundId: fundId });
                         pushSuccess('Gelukt!', 'Het fonds is aangepast!');
                     })
                     .catch((res: ResponseError) => resolveErrors(res))
@@ -261,7 +262,7 @@ export default function OrganizationsFundsEdit() {
                 return fundService
                     .store(activeOrganization.id, formValues)
                     .then(() => {
-                        navigateState('organization-funds', { organizationId: activeOrganization.id });
+                        navigateState(DashboardRoutes.ORGANIZATION_FUNDS, { organizationId: activeOrganization.id });
                         pushSuccess('Gelukt!', 'Het fonds is aangemaakt!');
                     })
                     .catch((res: ResponseError) => resolveErrors(res))
@@ -438,7 +439,7 @@ export default function OrganizationsFundsEdit() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'organization-funds'}
+                    name={DashboardRoutes.ORGANIZATION_FUNDS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -1177,7 +1178,7 @@ export default function OrganizationsFundsEdit() {
                 <div className="card-section card-section-primary">
                     <div className="text-center">
                         <StateNavLink
-                            name={'organization-funds'}
+                            name={DashboardRoutes.ORGANIZATION_FUNDS}
                             params={{ organizationId: activeOrganization.id }}
                             className="button button-default"
                             id="cancel">

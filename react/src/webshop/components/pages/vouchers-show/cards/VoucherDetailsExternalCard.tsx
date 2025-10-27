@@ -5,6 +5,7 @@ import useVoucherData from '../../../../services/helpers/useVoucherData';
 import { strLimit } from '../../../../../dashboard/helpers/string';
 import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherDetailsExternalCard({ voucher }: { voucher: Voucher }) {
     const voucherCard = useVoucherData(voucher);
@@ -69,7 +70,7 @@ export default function VoucherDetailsExternalCard({ voucher }: { voucher: Vouch
                                 {voucherCard.fund.key == 'IIT' && (
                                     <span>
                                         Klik dan{' '}
-                                        <StateNavLink name={'funds'} className="card-description-link">
+                                        <StateNavLink name={WebshopRoutes.FUNDS} className="card-description-link">
                                             hier
                                         </StateNavLink>{' '}
                                         om terug te gaan naar het overzicht van de vergoedingen.
@@ -79,7 +80,7 @@ export default function VoucherDetailsExternalCard({ voucher }: { voucher: Vouch
                                     <span>
                                         Vraag uw kosten terug door een bon in te sturen. Klik{' '}
                                         <StateNavLink
-                                            name={'reimbursements-create'}
+                                            name={WebshopRoutes.REIMBURSEMENT_CREATE}
                                             params={{ voucher_id: voucher.id }}
                                             className="card-description-link">
                                             hier

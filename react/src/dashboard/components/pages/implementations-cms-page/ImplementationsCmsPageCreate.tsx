@@ -8,6 +8,7 @@ import { StringParam, useQueryParam } from 'use-query-params';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { useParams } from 'react-router';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsCmsPageCreate() {
     const { implementationId } = useParams();
@@ -26,7 +27,7 @@ export default function ImplementationsCmsPageCreate() {
             .read(activeOrganization.id, parseInt(implementationId))
             .then((res) => {
                 if (res.data.data.pages.find((page) => page.page_type === type)) {
-                    return navigateState('implementations-cms', {
+                    return navigateState(DashboardRoutes.IMPLEMENTATION_CMS, {
                         id: res.data.data.id,
                         organizationId: activeOrganization.id,
                     });

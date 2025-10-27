@@ -21,13 +21,14 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ExtraPayments() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const pushApiError = usePushApiError('organization-no-permissions');
+    const pushApiError = usePushApiError(DashboardRoutes.ORGANIZATION_NO_PERMISSIONS);
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
@@ -204,7 +205,7 @@ export default function ExtraPayments() {
                                             </td>
                                             <td className="td-narrow text-right">
                                                 <StateNavLink
-                                                    name="extra-payments-show"
+                                                    name={DashboardRoutes.EXTRA_PAYMENT}
                                                     params={{
                                                         organizationId: activeOrganization.id,
                                                         id: extraPayment.id,

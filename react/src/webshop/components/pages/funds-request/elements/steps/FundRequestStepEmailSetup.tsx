@@ -14,6 +14,7 @@ import useAppConfigs from '../../../../../hooks/useAppConfigs';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../../../elements/bind-links-inside/BindLinksInside';
 import { useStateHref } from '../../../../../modules/state_router/Router';
+import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestStepEmailSetup({
     fund,
@@ -36,8 +37,8 @@ export default function FundRequestStepEmailSetup({
     const translate = useTranslate();
     const identityEmailsService = useIdentityEmailsService();
 
-    const termsUrl = useStateHref('terms_and_conditions');
-    const privacyUrl = useStateHref('privacy');
+    const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
+    const privacyUrl = useStateHref(WebshopRoutes.PRIVACY);
 
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [emailSubmitted, setEmailSubmitted] = useState(false);

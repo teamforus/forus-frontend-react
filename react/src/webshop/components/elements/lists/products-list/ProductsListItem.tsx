@@ -7,6 +7,7 @@ import ProductsListItemList from './templates/ProductsListItemList';
 import ProductsListItemSearch from './templates/ProductsListItemSearch';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductsListItem({
     display,
@@ -51,7 +52,7 @@ export default function ProductsListItem({
 
     return (
         <StateNavLink
-            name={'product'}
+            name={WebshopRoutes.PRODUCT}
             params={{ id: product.id }}
             state={stateParams || null}
             className={classNames(display === 'search' ? 'search-item' : 'product-item')}

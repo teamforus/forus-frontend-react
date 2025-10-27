@@ -5,6 +5,7 @@ import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../../../../dashboard/helpers/string';
 import FundsListItemModel from '../../../../../services/types/FundsListItemModel';
 import { uniqueId } from 'lodash';
+import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function FundsListItemList({
     fund,
@@ -112,7 +113,7 @@ export default function FundsListItemList({
                     <div className="fund-actions">
                         <StateNavLink
                             customElement={'button'}
-                            name={'fund-requests'}
+                            name={WebshopRoutes.FUND_REQUESTS}
                             dataDusk="pendingButton"
                             params={{ fund_id: fund.id }}
                             className="button button-text button-xs">

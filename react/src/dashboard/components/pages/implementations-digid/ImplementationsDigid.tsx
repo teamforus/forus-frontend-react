@@ -13,6 +13,7 @@ import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsDigid() {
     const { id } = useParams();
@@ -69,7 +70,7 @@ export default function ImplementationsDigid() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState('implementations', { organizationId: activeOrganization.id });
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);
@@ -99,14 +100,14 @@ export default function ImplementationsDigid() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -193,7 +194,7 @@ export default function ImplementationsDigid() {
                     <div className="card-section card-section-primary">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementations-view'}
+                                name={DashboardRoutes.IMPLEMENTATION}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className="button button-default">
                                 {translate('funds_edit.buttons.cancel')}

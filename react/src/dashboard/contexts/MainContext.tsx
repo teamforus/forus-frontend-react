@@ -6,6 +6,7 @@ import { AppConfigProp, useConfigService } from '../services/ConfigService';
 import { useOrganizationService } from '../services/OrganizationService';
 import useAuthIdentity from '../hooks/useAuthIdentity';
 import { useNavigateState } from '../modules/state_router/Router';
+import { DashboardRoutes } from '../modules/state_router/RouterBuilder';
 
 interface AuthMemoProps {
     envData?: EnvDataProp;
@@ -91,7 +92,7 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
             setActiveOrganization(organization);
 
             if (organizations.length > 0 && !organization) {
-                return navigateState('organizations');
+                return navigateState(DashboardRoutes.ORGANIZATIONS);
             }
         }
     }, [organizationService, organizations, navigateState]);

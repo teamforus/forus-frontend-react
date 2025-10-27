@@ -32,6 +32,7 @@ import classNames from 'classnames';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -225,7 +226,7 @@ export default function OrganizationFunds() {
                     <div className="block block-inline-filters">
                         {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
                             <StateNavLink
-                                name={'funds-create'}
+                                name={DashboardRoutes.FUND_CREATE}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-primary button-sm">
                                 <em className="mdi mdi-plus-circle icon-start" />
@@ -236,7 +237,7 @@ export default function OrganizationFunds() {
                         {activeOrganization.allow_2fa_restrictions &&
                             hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
-                                    name={'organization-security'}
+                                    name={DashboardRoutes.ORGANIZATION_SECURITY}
                                     query={{ view_type: 'funds' }}
                                     params={{ organizationId: activeOrganization.id }}
                                     className="button button-default button-sm">
@@ -375,7 +376,7 @@ export default function OrganizationFunds() {
                                     {funds.data.map((fund) => (
                                         <StateNavLink
                                             key={fund.id}
-                                            name={'funds-show'}
+                                            name={DashboardRoutes.FUND}
                                             params={{ organizationId: activeOrganization.id, fundId: fund.id }}
                                             customElement={'tr'}
                                             className={'tr-clickable'}>
@@ -414,7 +415,7 @@ export default function OrganizationFunds() {
                                                         content={({ close }) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
-                                                                    name={'funds-show'}
+                                                                    name={DashboardRoutes.FUND}
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         fundId: fund.id,
@@ -432,7 +433,7 @@ export default function OrganizationFunds() {
                                                                     false,
                                                                 ) && (
                                                                     <StateNavLink
-                                                                        name={'funds-edit'}
+                                                                        name={DashboardRoutes.FUND_EDIT}
                                                                         className="dropdown-item"
                                                                         params={{
                                                                             organizationId: activeOrganization.id,
@@ -450,7 +451,7 @@ export default function OrganizationFunds() {
                                                                     ) && (
                                                                         <StateNavLink
                                                                             className="dropdown-item"
-                                                                            name={'funds-security'}
+                                                                            name={DashboardRoutes.FUND_SECURITY}
                                                                             params={{
                                                                                 fundId: fund.id,
                                                                                 organizationId: activeOrganization.id,

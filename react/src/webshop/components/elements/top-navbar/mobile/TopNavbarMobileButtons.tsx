@@ -3,6 +3,7 @@ import { mainContext } from '../../../../contexts/MainContext';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../../hooks/useEnvData';
 import { useNavigateState } from '../../../../modules/state_router/Router';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function TopNavbarMobileButtons() {
     const translate = useTranslate();
@@ -19,7 +20,7 @@ export default function TopNavbarMobileButtons() {
     const startFundRequest = useCallback(
         (data: object) => {
             hideMobileMenu();
-            navigateState('start', {}, data);
+            navigateState(WebshopRoutes.START, {}, data);
         },
         [hideMobileMenu, navigateState],
     );

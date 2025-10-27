@@ -30,6 +30,7 @@ import FundsListItemPreCheck from '../../elements/lists/funds-list/templates/Fun
 import useFilter from '../../../../dashboard/hooks/useFilter';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 type PreCheckLocal = PreCheck<{
     label?: string;
@@ -258,7 +259,7 @@ export default function FundsPreCheck() {
     useEffect(() => {
         if (!appConfigs.pre_check_enabled) {
             pushDanger(translate('push.error'), translate('push.pre_check.not_available'));
-            navigateState('home');
+            navigateState(WebshopRoutes.HOME);
         }
     }, [appConfigs.pre_check_enabled, navigateState, pushDanger, translate]);
 
@@ -383,7 +384,7 @@ export default function FundsPreCheck() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('pre_check.breadcrumb.home'), state: 'home' },
+                { name: translate('pre_check.breadcrumb.home'), state: WebshopRoutes.HOME },
                 { name: translate('pre_check.breadcrumb.check') },
             ]}>
             {preChecks && appConfigs && recordTypesByKey && (

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function TableRowActionItem({
     type,
@@ -12,7 +13,7 @@ export default function TableRowActionItem({
     children,
 }: {
     type: 'link' | 'button';
-    name?: string;
+    name?: DashboardRoutes;
     icon?: 'mdi-eye';
     params?: object;
     disable?: boolean;

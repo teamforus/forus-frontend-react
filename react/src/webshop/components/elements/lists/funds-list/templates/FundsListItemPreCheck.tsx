@@ -5,6 +5,7 @@ import { useNavigateState } from '../../../../../modules/state_router/Router';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../../../../dashboard/helpers/string';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsFund }) {
     const [showMore, setShowMore] = useState(false);
@@ -61,7 +62,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
         function (e) {
             e.preventDefault();
 
-            navigateSate('fund-activate', { id: fund.id });
+            navigateSate(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
         },
         [fund, navigateSate],
     );
@@ -86,7 +87,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                 </div>
                 <div className="fund-details">
                     <h2 className="fund-name">
-                        <StateNavLink name={'fund'} params={{ id: fund.id }}>
+                        <StateNavLink name={WebshopRoutes.FUND} params={{ id: fund.id }}>
                             {fund.name}
                         </StateNavLink>
                     </h2>

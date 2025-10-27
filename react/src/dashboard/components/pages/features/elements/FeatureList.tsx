@@ -5,6 +5,7 @@ import { NavLink } from 'react-router';
 import OrganizationFeature from '../../../../services/types/OrganizationFeature';
 import Organization from '../../../../props/models/Organization';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function FeatureList({
     features,
@@ -23,7 +24,7 @@ export default function FeatureList({
                         <NavLink
                             key={feature.key}
                             className={'features-list-item'}
-                            to={getStateRouteUrl('feature', {
+                            to={getStateRouteUrl(DashboardRoutes.FEATURE, {
                                 key: kebabCase(feature.key),
                                 organizationId: organization.id,
                             })}>

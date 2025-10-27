@@ -1,7 +1,8 @@
 import ImplementationPageBlock from './ImplementationPageBlock';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default interface ImplementationPage {
-    page_type?: string;
+    page_type?: WebshopRoutes;
     external: boolean;
     title?: string;
     description_position: 'after' | 'before' | 'replace';

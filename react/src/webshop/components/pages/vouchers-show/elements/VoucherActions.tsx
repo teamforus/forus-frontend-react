@@ -16,6 +16,7 @@ import ModalNotification from '../../../modals/ModalNotification';
 import { useVoucherService } from '../../../../services/VoucherService';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import useShowPhysicalCardsOption from '../hooks/useShowPhysicalCardsOption';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherActions({
     voucher,
@@ -109,7 +110,9 @@ export default function VoucherActions({
                     mdiIconClass={'alert-outline'}
                     cancelBtnText={translate('voucher.delete_voucher.buttons.close')}
                     confirmBtnText={translate('voucher.delete_voucher.buttons.submit')}
-                    onConfirm={() => voucherService.destroy(voucher.number).then(() => navigateState('vouchers'))}
+                    onConfirm={() =>
+                        voucherService.destroy(voucher.number).then(() => navigateState(WebshopRoutes.VOUCHERS))
+                    }
                 />
             ));
         },

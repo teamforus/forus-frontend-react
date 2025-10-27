@@ -2,6 +2,7 @@ import { NavLink, useHref } from 'react-router';
 import React, { HTMLAttributes, ReactNode } from 'react';
 import { getSafeStateRouteUrl, getStateRouteUrl, useNavigateState } from './Router';
 import classNames from 'classnames';
+import { DashboardRoutes } from './RouterBuilder';
 
 export default function StateNavLink({
     name,
@@ -21,7 +22,7 @@ export default function StateNavLink({
     tabIndex = null,
     stopPropagation = true,
 }: HTMLAttributes<HTMLAnchorElement> & {
-    name: string;
+    name: DashboardRoutes;
     dataDusk?: string;
     params?: object;
     query?: object;

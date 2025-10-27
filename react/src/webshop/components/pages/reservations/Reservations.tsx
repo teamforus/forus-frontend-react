@@ -15,6 +15,7 @@ import Paginator from '../../../../dashboard/modules/paginator/components/Pagina
 import ReservationCard from './elements/ReservationCard';
 import { useProductReservationService } from '../../../services/ProductReservationService';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Reservations() {
     const translate = useTranslate();
@@ -98,7 +99,7 @@ export default function Reservations() {
         <BlockShowcaseProfile
             contentDusk="listReservationsContent"
             breadcrumbItems={[
-                { name: translate('reservations.breadcrumbs.home'), state: 'home' },
+                { name: translate('reservations.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('reservations.breadcrumbs.reservations') },
             ]}
             filters={

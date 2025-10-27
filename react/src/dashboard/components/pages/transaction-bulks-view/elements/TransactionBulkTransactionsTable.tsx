@@ -18,6 +18,7 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -117,7 +118,7 @@ export default function TransactionBulkTransactionsTable({
 
                                         <td>
                                             <StateNavLink
-                                                name={'transaction'}
+                                                name={DashboardRoutes.TRANSACTION}
                                                 params={{
                                                     organizationId: organization.id,
                                                     address: transaction.address,
@@ -151,7 +152,7 @@ export default function TransactionBulkTransactionsTable({
                                         </td>
                                         <td>
                                             <StateNavLink
-                                                name={'transaction'}
+                                                name={DashboardRoutes.TRANSACTION}
                                                 params={{
                                                     organizationId: organization.id,
                                                     address: transaction.address,

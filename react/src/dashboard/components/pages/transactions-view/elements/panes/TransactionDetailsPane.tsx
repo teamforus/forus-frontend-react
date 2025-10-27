@@ -19,6 +19,7 @@ import usePushApiError from '../../../../../hooks/usePushApiError';
 import FormPane from '../../../../elements/forms/elements/FormPane';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
 import EmptyValue from '../../../../elements/empty-value/EmptyValue';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function TransactionDetailsPane({
     transaction,
@@ -119,7 +120,7 @@ export default function TransactionDetailsPane({
                     <KeyValueItem label={translate('financial_dashboard_transaction.labels.id')}>
                         {showDetailsPageButton ? (
                             <StateNavLink
-                                name={'transaction'}
+                                name={DashboardRoutes.TRANSACTION}
                                 className="text-primary text-semibold text-inherit text-decoration-link"
                                 params={{
                                     organizationId: activeOrganization.id,
@@ -163,7 +164,7 @@ export default function TransactionDetailsPane({
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.product_name')}>
                             {isSponsor ? (
                                 <StateNavLink
-                                    name={'sponsor-product'}
+                                    name={DashboardRoutes.SPONSOR_PRODUCT}
                                     params={{
                                         organizationId: activeOrganization.id,
                                         productId: transaction.product?.id,
@@ -173,7 +174,7 @@ export default function TransactionDetailsPane({
                                 </StateNavLink>
                             ) : (
                                 <StateNavLink
-                                    name={'products-show'}
+                                    name={DashboardRoutes.PRODUCT}
                                     params={{
                                         organizationId: activeOrganization.id,
                                         id: transaction.product?.id,
@@ -279,7 +280,7 @@ export default function TransactionDetailsPane({
                     {transaction.reservation && isProvider && showReservationPageButton && (
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.reservation')}>
                             <StateNavLink
-                                name={'reservations-show'}
+                                name={DashboardRoutes.RESERVATION}
                                 className="text-primary text-semibold text-inherit text-decoration-link"
                                 params={{
                                     organizationId: activeOrganization.id,
@@ -293,7 +294,7 @@ export default function TransactionDetailsPane({
                     {transaction.voucher_id && transaction.target !== 'payout' && isSponsor && (
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.voucher')}>
                             <StateNavLink
-                                name={'vouchers-show'}
+                                name={DashboardRoutes.VOUCHER}
                                 params={{
                                     organizationId: activeOrganization.id,
                                     id: transaction.product_reservation?.voucher_id || transaction.voucher_id,

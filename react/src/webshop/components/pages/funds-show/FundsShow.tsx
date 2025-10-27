@@ -24,6 +24,7 @@ import useFundMeta from '../../../hooks/meta/useFundMeta';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import Section from '../../elements/sections/Section';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundsShow() {
     const { id } = useParams();
@@ -113,7 +114,7 @@ export default function FundsShow() {
                 return showTakenByPartnerModal();
             }
 
-            navigateState('fund-activate', { id: fund.id });
+            navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
         },
         [navigateState, showTakenByPartnerModal],
     );
@@ -155,10 +156,10 @@ export default function FundsShow() {
             breadcrumbItems={
                 fund && [
                     showBack && { name: translate('fund.breadcrumbs.back'), back: true },
-                    { name: translate('fund.breadcrumbs.home'), state: 'home' },
+                    { name: translate('fund.breadcrumbs.home'), state: WebshopRoutes.HOME },
                     {
                         name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title'),
-                        state: 'funds',
+                        state: WebshopRoutes.FUNDS,
                     },
                     { name: fund?.name },
                 ]
@@ -233,7 +234,7 @@ export default function FundsShow() {
 
                                     {fundMeta.showRequestButton && (
                                         <StateNavLink
-                                            name={'fund-activate'}
+                                            name={WebshopRoutes.FUND_ACTIVATE}
                                             params={{ id: fund.id }}
                                             dataDusk="requestButton"
                                             className="button button-primary">
@@ -255,7 +256,7 @@ export default function FundsShow() {
 
                                     {fundMeta && fundMeta.hasVouchers && (
                                         <StateNavLink
-                                            name={'voucher'}
+                                            name={WebshopRoutes.VOUCHER}
                                             params={{ number: fundMeta.vouchers[0]?.number }}
                                             dataDusk="voucherButton"
                                             className="button button-primary">
@@ -270,7 +271,7 @@ export default function FundsShow() {
 
                                     {fundMeta && fundMeta.hasPayouts && (
                                         <StateNavLink
-                                            name={'payouts'}
+                                            name={WebshopRoutes.PAYOUTS}
                                             className="button button-primary"
                                             dataDusk="payoutsButton">
                                             {translate('funds.buttons.open_payouts')}
@@ -290,7 +291,7 @@ export default function FundsShow() {
                                     </div>
                                     <div className="block-card-actions">
                                         <StateNavLink
-                                            name={'fund-requests'}
+                                            name={WebshopRoutes.FUND_REQUESTS}
                                             params={{ id: fund.id }}
                                             dataDusk="pendingButton"
                                             className="button button-primary">

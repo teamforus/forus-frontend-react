@@ -16,6 +16,7 @@ import Label from '../../elements/image_cropper/Label';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsNotifications() {
     const activeOrganization = useActiveOrganization();
@@ -208,7 +209,7 @@ export default function ImplementationsNotifications() {
                             <div className="button-group">
                                 {activeOrganization.allow_custom_fund_notifications && (
                                     <StateNavLink
-                                        name={'implementation-notifications-send'}
+                                        name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_SEND}
                                         params={{
                                             id: implementation.id,
                                             organizationId: activeOrganization.id,
@@ -220,7 +221,7 @@ export default function ImplementationsNotifications() {
                                 )}
 
                                 <StateNavLink
-                                    name={'implementation-notifications-branding'}
+                                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_BRANDING}
                                     params={{
                                         id: implementation.id,
                                         organizationId: activeOrganization.id,
@@ -321,7 +322,9 @@ export default function ImplementationsNotifications() {
                                                         content={() => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
-                                                                    name={'implementation-notifications-edit'}
+                                                                    name={
+                                                                        DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT
+                                                                    }
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         implementationId: implementation.id,

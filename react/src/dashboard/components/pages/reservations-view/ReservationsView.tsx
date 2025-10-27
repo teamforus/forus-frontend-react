@@ -26,6 +26,7 @@ import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
 import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -155,7 +156,7 @@ export default function ReservationsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'reservations'}
+                    name={DashboardRoutes.RESERVATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

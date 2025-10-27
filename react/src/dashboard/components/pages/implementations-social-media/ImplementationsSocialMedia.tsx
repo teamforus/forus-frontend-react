@@ -24,6 +24,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsSocialMedia() {
     const { id } = useParams();
@@ -66,7 +67,7 @@ export default function ImplementationsSocialMedia() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState('implementations', { organizationId: activeOrganization.id });
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);
@@ -164,21 +165,21 @@ export default function ImplementationsSocialMedia() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     {implementation.name}
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-cms'}
+                    name={DashboardRoutes.IMPLEMENTATION_CMS}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">

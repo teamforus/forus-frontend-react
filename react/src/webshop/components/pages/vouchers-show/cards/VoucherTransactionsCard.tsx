@@ -3,6 +3,7 @@ import Voucher from '../../../../../dashboard/props/models/Voucher';
 import useVoucherData from '../../../../services/helpers/useVoucherData';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher }) {
     const translate = useTranslate();
@@ -58,7 +59,7 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                             <div className="transactions-item-counterpart">
                                                 {translate('voucher.transactions.reservation') + ' '}
                                                 <StateNavLink
-                                                    name={'reservation-show'}
+                                                    name={WebshopRoutes.RESERVATION}
                                                     params={{
                                                         id: transaction.product_reservation.id,
                                                     }}>

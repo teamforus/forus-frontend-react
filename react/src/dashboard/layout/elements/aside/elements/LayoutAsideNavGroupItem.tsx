@@ -1,10 +1,11 @@
 import React, { MouseEventHandler } from 'react';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export interface IdentityMenuGroupItemProps {
     id?: string;
     name?: string;
-    state?: string;
+    state?: DashboardRoutes;
     href?: string;
     stateParams?: object;
     dusk?: string;

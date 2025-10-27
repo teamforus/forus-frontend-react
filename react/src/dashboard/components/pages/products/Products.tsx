@@ -20,6 +20,7 @@ import classNames from 'classnames';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 type ProductsDataLocal = PaginationData<
     Product,
@@ -117,7 +118,7 @@ export default function Products() {
                 <div className="card-header-filters">
                     <div className="block block-inline-filters form">
                         <StateNavLink
-                            name={'products-create'}
+                            name={DashboardRoutes.PRODUCT_CREATE}
                             params={{ organizationId: activeOrganization.id }}
                             className={`button button-primary button-sm ${productHardLimitReached ? 'disabled' : ''}`}
                             id="add_product"
@@ -174,7 +175,7 @@ export default function Products() {
                                 {products?.data.map((product) => (
                                     <StateNavLink
                                         key={product.id}
-                                        name={'products-show'}
+                                        name={DashboardRoutes.PRODUCT}
                                         params={{
                                             id: product.id,
                                             organizationId: activeOrganization.id,
@@ -221,7 +222,7 @@ export default function Products() {
                                                     content={(e) => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
-                                                                name={'products-show'}
+                                                                name={DashboardRoutes.PRODUCT}
                                                                 params={{
                                                                     id: product.id,
                                                                     organizationId: activeOrganization.id,
@@ -232,7 +233,7 @@ export default function Products() {
                                                             </StateNavLink>
 
                                                             <StateNavLink
-                                                                name={'products-edit'}
+                                                                name={DashboardRoutes.PRODUCT_EDIT}
                                                                 params={{
                                                                     id: product.id,
                                                                     organizationId: activeOrganization.id,
@@ -254,7 +255,7 @@ export default function Products() {
                                                                 </div>
                                                             ) : (
                                                                 <StateNavLink
-                                                                    name={'products-show'}
+                                                                    name={DashboardRoutes.PRODUCT}
                                                                     params={{
                                                                         id: product.id,
                                                                         organizationId: activeOrganization.id,
@@ -289,7 +290,7 @@ export default function Products() {
                     <div className="card-subtitle">Er zijn momenteel geen aanbiedingen.</div>
                     <br />
                     <StateNavLink
-                        name={'products-create'}
+                        name={DashboardRoutes.PRODUCT_CREATE}
                         params={{ organizationId: activeOrganization.id }}
                         className="button button-primary">
                         <em className="mdi mdi-plus-circle icon-start" />

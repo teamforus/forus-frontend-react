@@ -23,6 +23,7 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export type SearchResultGroupLocal = SearchResultGroup & {
     shown?: boolean;
@@ -173,7 +174,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                         hideSearchDropdown.current = true;
                     }
 
-                    navigateState('search-result', {}, { q: filters.values.q });
+                    navigateState(WebshopRoutes.SEARCH, {}, { q: filters.values.q });
                     document.querySelector<HTMLInputElement>('#main_search')?.focus();
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
@@ -331,7 +332,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                                 </div>
                                                 {results[itemKey].count > 3 && (
                                                     <StateNavLink
-                                                        name={'search-result'}
+                                                        name={WebshopRoutes.SEARCH}
                                                         query={{ q: lastQuery, [itemKey]: 1 }}
                                                         onClick={() => hideSearchBox()}
                                                         className="search-result-group-link hide-sm">
@@ -362,7 +363,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
 
                                                     {results[itemKey]?.count > 3 && (
                                                         <StateNavLink
-                                                            name="search-result"
+                                                            name={WebshopRoutes.SEARCH}
                                                             query={{ q: lastQuery, [itemKey]: 1 }}
                                                             className="search-result-group-link show-sm">
                                                             {translate('top_navbar_search.result.found_results', {

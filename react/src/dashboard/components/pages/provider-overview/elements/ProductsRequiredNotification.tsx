@@ -6,6 +6,7 @@ import useStorageService from '../../../../modules/storage/useStrorrageService';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import useProviderFundService from '../../../../services/ProviderFundService';
 import Fund from '../../../../props/models/Fund';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductsRequiredNotification({ organization }: { organization: Organization }) {
     const storage = useStorageService();
@@ -16,7 +17,7 @@ export default function ProductsRequiredNotification({ organization }: { organiz
 
     const goToProductCreate = useCallback(() => {
         storage.setCollectionWithExpiry('funds_provider_products_required', 1, 24 * 60);
-        navigateState('products-create', { organizationId: organization.id });
+        navigateState(DashboardRoutes.PRODUCT_CREATE, { organizationId: organization.id });
     }, [organization.id, storage, navigateState]);
 
     const fetchFunds = useCallback(() => {

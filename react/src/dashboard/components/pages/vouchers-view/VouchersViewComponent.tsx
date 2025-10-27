@@ -31,6 +31,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import { Permission } from '../../../props/models/Organization';
 import VoucherReservationsCard from './elements/VoucherReservationsCard';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -287,7 +288,7 @@ export default function VouchersViewComponent() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'vouchers'}
+                    name={DashboardRoutes.VOUCHERS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

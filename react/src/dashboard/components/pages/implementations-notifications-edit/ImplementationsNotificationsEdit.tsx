@@ -13,6 +13,7 @@ import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsNotificationsEdit() {
     const { id, implementationId } = useParams();
@@ -97,7 +98,7 @@ export default function ImplementationsNotificationsEdit() {
         <div className="form">
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementation-notifications'}
+                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

@@ -15,6 +15,7 @@ import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 import Label from '../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 
 type LocalProduct = Product & {
     offer: {
@@ -131,7 +132,7 @@ export default function ModalFundOffers({
                                             <tr key={product.id}>
                                                 <td title={product.name}>
                                                     <StateNavLink
-                                                        name={'products-show'}
+                                                        name={DashboardRoutes.PRODUCT}
                                                         params={{ organizationId: organization.id, id: product.id }}
                                                         target={'_blank'}
                                                         className={'text-primary text-semibold'}>
