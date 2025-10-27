@@ -277,49 +277,58 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
             />
 
             {/* Website(s) */}
-            <LayoutAsideNavGroup
-                id="menu_websites"
-                name={'Website(s)'}
-                icon={<IconWebshops />}
-                iconActive={<IconWebshopsActive />}
-                pinnedGroups={pinnedGroups}
-                setPinnedGroups={setPinnedGroups}
-                items={[
-                    {
-                        name: 'Content',
-                        state: 'implementations',
-                        stateParams: { organizationId: organization?.id },
-                        show: hasPermission(
-                            organization,
-                            [Permission.MANAGE_IMPLEMENTATION, Permission.MANAGE_IMPLEMENTATION_CMS],
-                            false,
-                        ),
-                    },
-                    {
-                        name: 'Vertalingen',
-                        state: 'organizations-translations',
-                        stateParams: { organizationId: organization?.id },
-                        show:
-                            isSponsorPanel &&
-                            organization.allow_translations &&
-                            hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
-                    },
-                    {
-                        name: 'Regelingencheck',
-                        state: 'pre-check',
-                        stateParams: { organizationId: organization?.id },
-                        show:
-                            organization.allow_pre_checks &&
-                            hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
-                    },
-                    {
-                        name: 'Systeemberichten',
-                        state: 'implementation-notifications',
-                        stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS),
-                    },
-                ]}
-            />
+            {organization?.implementations?.length > 0 && (
+                <LayoutAsideNavGroup
+                    id="menu_websites"
+                    name={organization?.implementations?.length > 1 ? 'Websites' : 'Website'}
+                    icon={<IconWebshops />}
+                    iconActive={<IconWebshopsActive />}
+                    pinnedGroups={pinnedGroups}
+                    setPinnedGroups={setPinnedGroups}
+                    items={[
+                        {
+                            name: 'Content',
+                            state:
+                                organization?.implementations?.length > 1 ? 'implementations' : 'implementation-view',
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                organization?.implementations?.length > 0 &&
+                                hasPermission(
+                                    organization,
+                                    [Permission.MANAGE_IMPLEMENTATION, Permission.MANAGE_IMPLEMENTATION_CMS],
+                                    false,
+                                ),
+                        },
+                        {
+                            name: 'Vertalingen',
+                            state: 'organizations-translations',
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                isSponsorPanel &&
+                                organization.allow_translations &&
+                                organization?.implementations?.length === 1 &&
+                                hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
+                        },
+                        {
+                            name: 'Regelingencheck',
+                            state: 'implementation-pre-check',
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                organization.allow_pre_checks &&
+                                organization?.implementations?.length === 1 &&
+                                hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
+                        },
+                        {
+                            name: 'Systeemberichten',
+                            state: 'implementation-notifications',
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                organization?.implementations?.length === 1 &&
+                                hasPermission(organization, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS),
+                        },
+                    ]}
+                />
+            )}
 
             {/* Koppelingen */}
             <LayoutAsideNavGroup

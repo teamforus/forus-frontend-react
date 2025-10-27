@@ -29,8 +29,8 @@ import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import FormPane from '../../../elements/forms/elements/FormPane';
-import FormContainer from '../../../elements/forms/elements/FormContainer';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
+import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
 
 export default function ProductsForm({
     organization,
@@ -492,8 +492,8 @@ export default function ProductsForm({
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary">
-                    <FormContainer>
+                <div className="card-section">
+                    <FormPaneContainer>
                         <FormPane title={'Afbeelding'}>
                             <FormGroup
                                 error={mediaErrors}
@@ -1212,7 +1212,7 @@ export default function ProductsForm({
                             onChange={(product_category_id) => form.update({ product_category_id })}
                             errors={form.errors.product_category_id}
                         />
-                    </FormContainer>
+                    </FormPaneContainer>
                 </div>
 
                 <div className="card-section card-section-primary">

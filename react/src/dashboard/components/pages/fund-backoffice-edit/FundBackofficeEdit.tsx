@@ -198,7 +198,7 @@ export default function FundBackofficeEdit() {
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={'implementation-view'}
                     params={{ organizationId: activeOrganization.id, id: fund.implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -474,7 +474,7 @@ export default function FundBackofficeEdit() {
                     <div className="card-section card-section-primary">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementations-view'}
+                                name={'implementation-view'}
                                 params={{
                                     id: fund.implementation.id,
                                     organizationId: activeOrganization.id,

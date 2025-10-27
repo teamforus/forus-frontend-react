@@ -11,6 +11,9 @@ import Markdown from '../../../../webshop/components/elements/markdown/Markdown'
 import PhotoSelectorBannerControl from './elements/PhotoSelectorBannerControl';
 import { hexToHsva } from '@uiw/color-convert';
 import { useMarkdownService } from '../../../services/MarkdownService';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
+import Implementation from '../../../props/models/Implementation';
+import Organization from '../../../props/models/Organization';
 
 export default function PhotoSelectorBanner({
     disabled,
@@ -22,16 +25,22 @@ export default function PhotoSelectorBanner({
     title,
     description,
     buttonText,
+    showEdit,
+    organization,
+    implementation,
 }: {
     disabled?: boolean;
     thumbnail?: string;
     templateData?: PhotoSelectorData;
     setTemplateData?: React.Dispatch<React.SetStateAction<PhotoSelectorData>>;
-    selectPhoto: (file: Blob) => void;
-    deletePhoto: () => void;
+    selectPhoto?: (file: Blob) => void;
+    deletePhoto?: () => void;
     title?: string;
     description?: string;
     buttonText?: string;
+    showEdit?: boolean;
+    organization: Organization;
+    implementation: Implementation;
 }) {
     const [thumbnailValue, setThumbnailValue] = useState(thumbnail);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -77,7 +86,7 @@ export default function PhotoSelectorBanner({
                     onSubmit={(file, presets) => {
                         const thumbnail = presets.find((preset) => preset.key == 'final');
 
-                        selectPhoto(file);
+                        selectPhoto?.(file);
                         setThumbnailValue(thumbnail?.data);
                     }}
                 />
@@ -176,6 +185,7 @@ export default function PhotoSelectorBanner({
                     templateData={templateData}
                     setTemplateData={setTemplateData}
                     activeKey={activeDropdown}
+                    disabled={disabled}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
                         label={'Tekst positie:'}
@@ -262,6 +272,7 @@ export default function PhotoSelectorBanner({
                     templateData={templateData}
                     setTemplateData={setTemplateData}
                     activeKey={activeDropdown}
+                    disabled={disabled}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
                         label={'Gebruik een overlay:'}
@@ -322,6 +333,7 @@ export default function PhotoSelectorBanner({
                     templateData={templateData}
                     setTemplateData={setTemplateData}
                     activeKey={activeDropdown}
+                    disabled={disabled}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
                         label={'Stijl:'}
@@ -345,6 +357,7 @@ export default function PhotoSelectorBanner({
 
                 <PhotoSelectorBannerControl
                     label={'Achtergrond'}
+                    disabled={disabled}
                     value={templateData.banner_background}
                     valueType={'color'}
                     controlKey={'background'}
@@ -375,6 +388,7 @@ export default function PhotoSelectorBanner({
                     templateData={templateData}
                     setTemplateData={setTemplateData}
                     activeKey={activeDropdown}
+                    disabled={disabled}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
                         label={'Kleur:'}
@@ -387,23 +401,38 @@ export default function PhotoSelectorBanner({
                     />
                 </PhotoSelectorBannerControl>
 
-                <div className="banner-editor-controls-buttons">
-                    {templateData.media && (
-                        <button type={'button'} className="button button-text button-sm" onClick={deletePhoto}>
-                            <em className="mdi mdi-trash-can-outline icon-start" />
-                            Foto verwijderen
-                        </button>
-                    )}
+                {showEdit ? (
+                    <div className="banner-editor-controls-buttons">
+                        <StateNavLink
+                            name="implementation-view-banner"
+                            params={{
+                                organizationId: organization?.id,
+                                id: implementation?.id,
+                            }}
+                            className="button button-primary button-sm">
+                            <em className="mdi mdi-pencil-outline icon-start" />
+                            Banner bewerken
+                        </StateNavLink>
+                    </div>
+                ) : (
+                    <div className="banner-editor-controls-buttons">
+                        {templateData.media && (
+                            <button type={'button'} className="button button-default button-sm" onClick={deletePhoto}>
+                                <em className="mdi mdi-trash-can-outline icon-start" />
+                                Foto verwijderen
+                            </button>
+                        )}
 
-                    <button
-                        type={'button'}
-                        className="button button-default-dashed button-sm"
-                        disabled={disabled}
-                        onClick={() => inputRef.current?.click()}>
-                        <em className="mdi mdi-file-image-plus icon-start" />
-                        Kies foto
-                    </button>
-                </div>
+                        <button
+                            type={'button'}
+                            className="button button-default-dashed button-sm"
+                            disabled={disabled}
+                            onClick={() => inputRef.current?.click()}>
+                            <em className="mdi mdi-file-image-plus icon-start" />
+                            Kies foto
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

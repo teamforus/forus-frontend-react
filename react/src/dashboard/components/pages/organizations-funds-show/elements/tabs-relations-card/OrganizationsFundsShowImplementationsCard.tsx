@@ -223,7 +223,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                                                                     Permission.MANAGE_IMPLEMENTATION_CMS,
                                                                 ) && (
                                                                     <StateNavLink
-                                                                        name={'implementations-view'}
+                                                                        name={'implementation-view'}
                                                                         params={{
                                                                             id: implementation?.id,
                                                                             organizationId: fund.organization_id,
