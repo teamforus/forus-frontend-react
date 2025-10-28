@@ -1625,8 +1625,8 @@
             "map_title": "اختر مزوداً لمزيد من المعلومات",
             "provider_type": "نوع مقدم الخدمة",
             "result": "يوجد <div class=\"showcase-result-count\">{{ total }}</div> مزودين موجودين.",
-            "search": "بحث",
-            "sort": "فرز"
+            "sort": "فرز",
+            "search": "البحث عن مورد"
         },
         "items": {
             "labels": {

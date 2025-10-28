@@ -1357,8 +1357,8 @@
             "map_title": "Select a provider for more information",
             "provider_type": "Type of provider",
             "result": "There are <div class=\"showcase-result-count\">{{ total }}</div> providers found.",
-            "search": "Search",
-            "sort": "Sort"
+            "sort": "Sort",
+            "search": "Find provider"
         },
         "items": {
             "labels": {

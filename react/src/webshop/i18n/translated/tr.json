@@ -1625,8 +1625,8 @@
             "map_title": "Daha fazla bilgi için bir sağlayıcı seçin",
             "provider_type": "Sağlayıcı türü",
             "result": "Şunlar var <div class=\"showcase-result-count\">{{ total }}</div> sağlayıcılar bulundu.",
-            "search": "Arama",
-            "sort": "Sırala"
+            "sort": "Sırala",
+            "search": "Tedarikçi bulun"
         },
         "items": {
             "labels": {

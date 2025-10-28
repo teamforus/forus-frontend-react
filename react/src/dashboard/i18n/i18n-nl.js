@@ -2004,7 +2004,7 @@ export default {
 
     tooltip: {
         product: {
-            limit: 'U kunt ook de inwoner in uw organisatie te woord staan en hem een persoonlijk aanbod aanbieden. U scant dan de QR-code en vult een bedrag in!',
+            limit: 'Vul hier in hoeveel stuks u nog kunt verkopen. Als u dit opslaat, past het systeem de voorraad automatisch aan op basis van wat er al is verkocht en wat er nog over is. Rekensom: Aantal op voorraad = Verkocht + Nog te koop.',
         },
     },
 
