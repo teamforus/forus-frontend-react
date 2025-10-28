@@ -141,6 +141,25 @@
                 align-items: center;
                 justify-content: center;
 
+                .voucher-actions-qr-svg {
+                    flex: 0 0 140px;
+                    height: 140px;
+                    width: 140px;
+                    background-color: #fff;
+                    border-radius: var(--border-radius);
+                    align-items: center;
+                    justify-content: center;
+                    display: flex;
+
+                    svg {
+                        zoom: 1.25;
+                    }
+
+                    .fill-color-primary {
+                        fill: var(--color-primary);
+                    }
+                }
+
                 .block.block-qr-code {
                     padding: 0 0;
 
@@ -395,6 +414,17 @@
             }
 
             .voucher-actions {
+                .voucher-actions-qr {
+                    .voucher-actions-qr-svg {
+                        flex: 0 0 80px;
+                        height: 80px;
+                        width: 80px;
+
+                        svg {
+                            zoom: 1;
+                        }
+                    }
+                }
                 .voucher-actions-buttons {
                     .voucher-actions-button {
                         padding: 13px 25px;

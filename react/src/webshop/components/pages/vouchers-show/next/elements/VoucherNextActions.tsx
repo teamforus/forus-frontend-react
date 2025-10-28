@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router';
 import VoucherNextShareOptions from './VoucherNextShareOptions';
 import useVoucherCard from '../hooks/useVoucherCard';
 import { makeQrCodeContent } from '../../../../../../dashboard/helpers/utils';
+import IconReimbursement from '../../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 
 export default function VoucherNextActions({
     voucher,
@@ -53,21 +54,23 @@ export default function VoucherNextActions({
 
     const showPhysicalCardLink = useMemo(() => {
         return (
-            showPhysicalCardsOption &&
+            !voucherCard.external &&
             !voucher?.physical_card &&
+            showPhysicalCardsOption &&
             fundPhysicalCardTypes?.length === 1 &&
             fundPhysicalCardTypes?.[0]?.allow_physical_card_linking
         );
-    }, [voucher, fundPhysicalCardTypes, showPhysicalCardsOption]);
+    }, [voucherCard.external, voucher?.physical_card, showPhysicalCardsOption, fundPhysicalCardTypes]);
 
     const showPhysicalCardRequest = useMemo(() => {
         return (
-            showPhysicalCardsOption &&
+            !voucherCard.external &&
             !voucher?.physical_card &&
+            showPhysicalCardsOption &&
             fundPhysicalCardTypes?.length === 1 &&
             fundPhysicalCardTypes?.[0]?.allow_physical_card_requests
         );
-    }, [voucher, fundPhysicalCardTypes, showPhysicalCardsOption]);
+    }, [voucherCard.external, voucher?.physical_card, showPhysicalCardsOption, fundPhysicalCardTypes]);
 
     const showPhysicalCardUnlink = useMemo(() => {
         return (
@@ -142,14 +145,19 @@ export default function VoucherNextActions({
     return (
         <div className="voucher-actions">
             <div className="voucher-actions-qr">
-                {voucher.address && (
-                    <QrCode
-                        padding={5}
-                        className={'card-qr_code-element'}
-                        value={makeQrCodeContent('voucher', voucher.address)}
-                        aria-label={translate('voucher.qr_code.label', { number: voucher.number })}
-                    />
-                )}
+                {voucher.address &&
+                    (voucher?.external ? (
+                        <div className="voucher-actions-qr-svg">
+                            <IconReimbursement />
+                        </div>
+                    ) : (
+                        <QrCode
+                            padding={5}
+                            className={'card-qr_code-element'}
+                            value={makeQrCodeContent('voucher', voucher.address)}
+                            aria-label={translate('voucher.qr_code.label', { number: voucher.number })}
+                        />
+                    ))}
             </div>
             <div className="voucher-actions-buttons">
                 {voucherCard?.type === 'regular' && !voucherCard.external && (
@@ -162,7 +170,7 @@ export default function VoucherNextActions({
                     </StateNavLink>
                 )}
 
-                {!envData.config.flags.noPrintOption && (
+                {!envData.config.flags.noPrintOption && !voucher?.external && (
                     <button
                         role={'button'}
                         onKeyDown={clickOnKeyEnter}

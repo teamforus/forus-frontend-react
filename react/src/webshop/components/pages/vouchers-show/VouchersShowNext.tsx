@@ -23,6 +23,7 @@ import { GoogleMap } from '../../../../dashboard/components/elements/google-map/
 import Office from '../../../../dashboard/props/models/Office';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import useAppConfigs from '../../../hooks/useAppConfigs';
+import classNames from 'classnames';
 
 export default function VouchersShow() {
     const { number } = useParams();
@@ -52,16 +53,18 @@ export default function VouchersShow() {
     const showPhysicalCardTypes = useMemo(() => {
         return (
             !voucher?.product &&
+            !voucher?.expired &&
             !voucher?.external &&
             !voucher?.deactivated &&
             (voucher?.physical_card || voucher?.fund?.fund_physical_card_types?.length > 0)
         );
     }, [
         voucher?.product,
+        voucher?.expired,
         voucher?.external,
         voucher?.deactivated,
-        voucher?.fund?.fund_physical_card_types?.length,
         voucher?.physical_card,
+        voucher?.fund?.fund_physical_card_types?.length,
     ]);
 
     const showHowItWorks = useMemo(() => {
@@ -130,7 +133,7 @@ export default function VouchersShow() {
                 <Fragment>
                     <Section type={'voucher_details'}>
                         <div className="block block-voucher-next">
-                            {!voucherCard.deactivated && (
+                            {!voucherCard.deactivated && !voucherCard.expired && (
                                 <Fragment>
                                     <div className="voucher-fund-overview">
                                         <div className="voucher-fund-overview-media">
@@ -159,6 +162,15 @@ export default function VouchersShow() {
                                     <div className="voucher-cards">
                                         <div className="voucher-details">
                                             <div className="voucher-details-info">
+                                                {voucher?.product && (
+                                                    <div
+                                                        className={classNames(
+                                                            'label',
+                                                            voucher?.used ? 'label-default' : 'label-success',
+                                                        )}>
+                                                        {voucher?.used ? 'Gebruikt' : 'Ongebruikt'}
+                                                    </div>
+                                                )}
                                                 <div className="voucher-details-info-fund" data-dusk="voucherTitle">
                                                     {voucherCard.title}
                                                 </div>
@@ -215,13 +227,11 @@ export default function VouchersShow() {
                                             </div>
                                         </div>
 
-                                        {!voucher.external && (
-                                            <VoucherNextActions
-                                                voucher={voucher}
-                                                setVoucher={setVoucher}
-                                                fetchVoucher={fetchVoucher}
-                                            />
-                                        )}
+                                        <VoucherNextActions
+                                            voucher={voucher}
+                                            setVoucher={setVoucher}
+                                            fetchVoucher={fetchVoucher}
+                                        />
                                     </div>
                                 </Fragment>
                             )}
