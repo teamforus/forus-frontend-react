@@ -2538,8 +2538,8 @@
             "map_title": "Sélectionnez un fournisseur pour plus d'informations",
             "provider_type": "Type de prestataire",
             "result": "Il existe des <div class=\"showcase-result-count\">{{ total }}</div> fournisseurs trouvés.",
-            "search": "Recherche",
-            "sort": "Trier"
+            "sort": "Trier",
+            "search": "Trouver un fournisseur"
         },
         "items": {
             "labels": {

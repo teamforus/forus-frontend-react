@@ -2538,8 +2538,8 @@
             "map_title": "Wählen Sie einen Anbieter für weitere Informationen",
             "provider_type": "Typ des Anbieters",
             "result": "Es sind <div class=\"showcase-result-count\">{{ total }}</div> Anbieter gefunden.",
-            "search": "Suche",
-            "sort": "Sortieren"
+            "sort": "Sortieren",
+            "search": "Anbieter finden"
         },
         "items": {
             "labels": {

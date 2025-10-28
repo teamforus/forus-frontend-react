@@ -2538,8 +2538,8 @@
             "map_title": "Wybierz dostawcę, aby uzyskać więcej informacji",
             "provider_type": "Typ dostawcy",
             "result": "Są <div class=\"showcase-result-count\">{{ total }}</div> dostawców.",
-            "search": "Wyszukiwanie",
-            "sort": "Sortuj"
+            "sort": "Sortuj",
+            "search": "Znajdź dostawcę"
         },
         "items": {
             "labels": {
