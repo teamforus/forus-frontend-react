@@ -3,23 +3,36 @@
     height: 40px;
     border-radius: 20px;
     background: #ffff;
-    font: 500 22px/42px arial;
+    line-height: 42px;
     text-align: center;
-    color: #282B39;
+    color: #282b39;
     z-index: 1;
-    transition: color .4s, background-color .4s;
+    transition:
+        color 0.4s,
+        background-color 0.4s;
     border: 1px solid var(--border-color);
     cursor: pointer;
 
     .mdi {
         line-height: 20px;
+        font-size: 20px;
+        height: 20px;
+        display: inline-flex;
     }
 
     &:hover {
-        color: #ED133C;
+        color: #ed133c;
     }
 
     &.active {
-        color: #ED133C;
+        color: #ed133c;
+    }
+
+    &.block-bookmark-toggle-compact {
+        line-height: 20px;
+        height: 20px;
+        width: 20px;
+        border: none;
+        padding: 0;
     }
 }

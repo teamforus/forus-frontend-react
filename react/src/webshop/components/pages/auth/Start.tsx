@@ -24,6 +24,7 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../elements/bind-links-inside/BindLinksInside';
+import { makeQrCodeContent } from '../../../../dashboard/helpers/utils';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -45,7 +46,7 @@ export default function Start() {
     const [timer, setTimer] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [qrValue, setQrValue] = useState(null);
+    const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const [emailValue, setEmailValue] = useState(null);
 
     const [{ reset, logout, restore_with_digid, restore_with_email }, setQueryParams] = useQueryParams(
@@ -660,7 +661,7 @@ export default function Start() {
                                                     <div className="sign_up-pane-auth-qr_code show-sm">
                                                         {qrValue && (
                                                             <QrCode
-                                                                value={JSON.stringify(qrValue)}
+                                                                value={makeQrCodeContent(qrValue.type, qrValue.value)}
                                                                 logo={assetUrl('/assets/img/me-logo.png')}
                                                             />
                                                         )}
@@ -673,7 +674,7 @@ export default function Start() {
                                                 <div className="sign_up-pane-auth-qr_code hide-sm">
                                                     {qrValue && (
                                                         <QrCode
-                                                            value={JSON.stringify(qrValue)}
+                                                            value={makeQrCodeContent(qrValue.type, qrValue.value)}
                                                             logo={assetUrl('/assets/img/me-logo.png')}
                                                         />
                                                     )}

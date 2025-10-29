@@ -5,7 +5,7 @@ export default {
         providers: 'Aanbieders',
     },
     filters: {
-        search: 'Zoeken',
+        search: 'Zoek aanbieder',
         provider_type: 'Type aanbieder',
         sort: 'Sorteer',
         all_types: 'Alle typen...',

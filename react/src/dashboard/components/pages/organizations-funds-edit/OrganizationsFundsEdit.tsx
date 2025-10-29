@@ -176,6 +176,8 @@ export default function OrganizationsFundsEdit() {
         external_link_text?: string;
         external_link_url?: string;
         description_html?: string;
+        how_it_works?: string;
+        how_it_works_html?: string;
         description?: string;
         faq_title?: string;
         description_position?: string;
@@ -833,22 +835,41 @@ export default function OrganizationsFundsEdit() {
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                <div className="form-group">
-                                    <label className="form-label">{translate('funds_edit.labels.description')}</label>
-
-                                    <MarkdownEditor
-                                        value={form.values?.description_html || ''}
-                                        onChange={(description) => form.update({ description })}
-                                        extendedOptions={true}
-                                        placeholder={translate('organization_edit.labels.description')}
-                                    />
-
-                                    <FormError error={form.errors?.description} />
-                                </div>
+                                <FormGroup
+                                    label={translate('funds_edit.labels.description')}
+                                    error={form.errors?.description}
+                                    input={() => (
+                                        <MarkdownEditor
+                                            value={form.values?.description_html || ''}
+                                            onChange={(description) => form.update({ description })}
+                                            extendedOptions={true}
+                                            placeholder={translate('funds_edit.labels.description')}
+                                        />
+                                    )}
+                                />
                             </div>
                         </div>
                     </div>
                 )}
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <FormGroup
+                                label={translate('funds_edit.labels.how_it_works')}
+                                error={form.errors?.how_it_works}
+                                input={() => (
+                                    <MarkdownEditor
+                                        value={form.values?.how_it_works_html || ''}
+                                        onChange={(how_it_works) => form.update({ how_it_works })}
+                                        extendedOptions={true}
+                                        placeholder={translate('funds_edit.labels.how_it_works')}
+                                    />
+                                )}
+                            />
+                        </div>
+                    </div>
+                </div>
 
                 <div className="card-section card-section-primary">
                     <div className="row">

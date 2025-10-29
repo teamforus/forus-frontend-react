@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAssetUrl from '../../../hooks/useAssetUrl';
@@ -13,10 +13,8 @@ import { useProviderService } from '../../../services/ProviderService';
 import Markdown from '../../elements/markdown/Markdown';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import ProvidersListItem from '../../elements/lists/providers-list/ProvidersListItem';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import useBookmarkProductToggle from '../../../services/helpers/useBookmarkProductToggle';
-import ProductFundsCard from './elements/ProductFundsCard';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import useSetTitle from '../../../hooks/useSetTitle';
 import useEnvData from '../../../hooks/useEnvData';
@@ -30,6 +28,16 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import Section from '../../elements/sections/Section';
 import useShowProductPaymentOptionsInfoModal from '../../../hooks/useShowProductPaymentOptionsInfoModal';
 import useProductFeatures from '../../../hooks/useProductFeatures';
+import classNames from 'classnames';
+import useProductPriceMinLocale from '../../elements/lists/products-list/hooks/useProductPriceMinLocale';
+import PaneGroup from '../../elements/block-panel-group/PaneGroup';
+import PaneGroupPanel from '../../elements/block-panel-group/PaneGroupPanel';
+import BlockOrganizationOffices from '../../elements/block-organization-offices/BlockOrganizationOffices';
+import ProductFunds from './elements/ProductFunds';
+import ProductMedia from './elements/ProductMedia';
+import useStartFundRequest from '../../elements/top-navbar/desktop/hooks/useStartFundRequest';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
+import RandomProductsBlock from '../home/elements/RandomProductsBlock';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -43,6 +51,7 @@ export default function ProductsShow() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
+    const startFundRequest = useStartFundRequest();
     const bookmarkProductToggle = useBookmarkProductToggle();
     const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
 
@@ -61,6 +70,8 @@ export default function ProductsShow() {
     const productFeatures = useProductFeatures(product);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
+    const price = useProductPriceMinLocale(product);
+    const fundsRef = useRef<HTMLDivElement>(null);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent, product: Product) => {
@@ -113,14 +124,15 @@ export default function ProductsShow() {
     }, [setProgress, payoutTransactionService]);
 
     const fetchFunds = useCallback(() => {
-        if (!product?.funds.length) {
+        if (!product?.funds.length || product.id !== parseInt(id)) {
+            setFunds(null);
             return;
         }
 
         fundService
             .list({ per_page: 100, check_criteria: 1, fund_ids: product?.funds.map((fund) => fund.id) })
             .then((res) => setFunds(res.data.data));
-    }, [fundService, product?.funds]);
+    }, [fundService, product, id]);
 
     useEffect(() => {
         fetchFunds();
@@ -165,6 +177,7 @@ export default function ProductsShow() {
 
     return (
         <BlockShowcase
+            narrow={true}
             breadcrumbItems={
                 product && [
                     showBack && { name: translate('product.breadcrumbs.back'), back: true },
@@ -174,150 +187,271 @@ export default function ProductsShow() {
                 ]
             }>
             {product && funds && vouchers && (
-                <Section type={'product'}>
-                    <div className="block block-product">
-                        <div className="product-content">
-                            <div className="product-photo">
-                                <img
-                                    src={
-                                        product.photo?.sizes?.large ||
-                                        assetUrl('/assets/img/placeholders/product-large.png')
-                                    }
-                                    alt={productService.transformProductAlternativeText(product)}
-                                />
+                <Fragment>
+                    <Section type={'product'}>
+                        <div className="block block-product">
+                            <div className="product-overview">
+                                <ProductMedia product={product} />
+
+                                <div className="product-overview-details">
+                                    <div className="product-overview-provider">
+                                        <em className="mdi mdi-storefront-outline" aria-hidden="true" />
+                                        <StateNavLink
+                                            name={'provider'}
+                                            params={{ id: product?.organization_id }}
+                                            className="product-overview-provider-name">
+                                            {product?.organization?.name}
+                                        </StateNavLink>
+
+                                        {authIdentity && (
+                                            <button
+                                                type="button"
+                                                className={classNames(
+                                                    'block',
+                                                    'block-bookmark-toggle',
+                                                    'block-bookmark-toggle-compact',
+                                                    product.bookmarked && 'active',
+                                                )}
+                                                onClick={(e) => toggleBookmark(e, product)}
+                                                onKeyDown={clickOnKeyEnter}
+                                                aria-label={
+                                                    product.bookmarked
+                                                        ? translate('product.labels.remove_from_favorites')
+                                                        : translate('product.labels.add_to_favorites')
+                                                }
+                                                aria-pressed={product.bookmarked}>
+                                                {product.bookmarked ? (
+                                                    <em className="mdi mdi-cards-heart" aria-hidden="true" />
+                                                ) : (
+                                                    <em className="mdi mdi-cards-heart-outline" aria-hidden="true" />
+                                                )}
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    <h1 className="product-overview-name" data-dusk="productName">
+                                        {product.name}
+                                    </h1>
+                                    <div className="product-prop-item-category" role="text">
+                                        <em className="mdi mdi-television-classic" aria-hidden="true" />
+                                        <span>{product?.product_category?.name}</span>
+                                    </div>
+
+                                    <div className="product-overview-price">{price}</div>
+
+                                    {authIdentity ? (
+                                        <button
+                                            type="button"
+                                            className="button button-primary button-fill"
+                                            onClick={() => fundsRef?.current?.scrollIntoView({ behavior: 'smooth' })}
+                                            aria-label={translate('product.labels.buy_now')}>
+                                            {translate('product.labels.buy_now')}
+                                        </button>
+                                    ) : (
+                                        <Fragment>
+                                            <button
+                                                type="button"
+                                                className="button button-dark button-fill"
+                                                onClick={() => startFundRequest({ reset: 1 })}
+                                                aria-label={translate('product.labels.login_to_order')}>
+                                                {translate('product.labels.login_to_order')}
+                                            </button>
+
+                                            <div className="product-overview-apply">
+                                                {translate('product.labels.dont_have_voucher')}
+                                                <button
+                                                    type="button"
+                                                    className="product-overview-apply-link"
+                                                    onClick={() => {
+                                                        fundsRef?.current?.scrollIntoView({ behavior: 'smooth' });
+                                                    }}
+                                                    aria-label={translate('product.labels.request_one_now')}>
+                                                    {translate('product.labels.request_one_now')}
+                                                    <em className="mdi mdi-chevron-right" aria-hidden="true" />
+                                                </button>
+                                            </div>
+                                        </Fragment>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="product-details">
-                                <h1 className="product-name">
-                                    <span data-dusk="productName">{product.name}</span>
-
-                                    {!product.deleted && product.sold_out && (
-                                        <span className="label label-danger">
-                                            {translate('product.status.out_of_stock')}
-                                        </span>
-                                    )}
-                                </h1>
-
-                                <div className="organization-name">{product.organization?.name}</div>
-
-                                {authIdentity && (
-                                    <div
-                                        className={`block block-bookmark-toggle ${product.bookmarked ? 'active' : ''}`}
-                                        onClick={(e) => toggleBookmark(e, product)}
-                                        onKeyDown={clickOnKeyEnter}
-                                        role={'button'}
-                                        tabIndex={0}
-                                        aria-label={translate('product.buttons.bookmark')}
-                                        aria-pressed={product.bookmarked}>
-                                        {product.bookmarked ? (
-                                            <em className="mdi mdi-cards-heart" aria-hidden="true" />
-                                        ) : (
-                                            <em className="mdi mdi-cards-heart-outline" aria-hidden="true" />
-                                        )}
+                            <div className="product-props">
+                                {product.info_duration && (
+                                    <div className="product-prop-item">
+                                        <div className="product-prop-item-icon">
+                                            <em className="mdi mdi-calendar-start-outline" aria-hidden="true" />
+                                        </div>
+                                        <div className="product-prop-item-details">
+                                            <h2 className="product-prop-item-title">
+                                                {translate('product.labels.duration_of_promotion')}
+                                            </h2>
+                                            <div className="product-prop-item-description">{product.info_duration}</div>
+                                        </div>
                                     </div>
                                 )}
 
-                                <dl className="product-properties">
-                                    <div className="product-property">
-                                        <dt id="categoryLabel" className="product-property-label">
-                                            {translate('product.labels.category')}
-                                        </dt>
-                                        <dd className="product-property-value">{product.product_category.name}</dd>
+                                <div className="product-prop-item">
+                                    <div className="product-prop-item-icon">
+                                        <em className="mdi mdi-wallet-bifold-outline" aria-hidden="true" />
                                     </div>
-
-                                    <div className="product-property">
-                                        <dt id="paymentOptionsLabel" className="product-property-label">
-                                            {translate('product.labels.payment_options')}
-                                        </dt>
-                                        <dd className="product-property-value flex flex-gap flex-vertical">
-                                            <ul
-                                                className="product-property-icons"
-                                                role="list"
-                                                aria-labelledby="paymentOptionsLabel">
+                                    <div className="product-prop-item-details">
+                                        <h2 className="product-prop-item-title">
+                                            {translate('product.labels.payment_options_title')}
+                                        </h2>
+                                        <div className="product-prop-item-description">
+                                            <div className="product-prop-item-payment-options">
                                                 {productFeatures.feature_scanning_enabled && (
-                                                    <li className="product-property-icons-item">
-                                                        <span aria-hidden="true">
-                                                            <em className="mdi mdi-qrcode-scan" />
-                                                        </span>
-                                                        <span>{translate('product.labels.payment_option_qr')}</span>
-                                                    </li>
+                                                    <div
+                                                        className="product-prop-item-payment-option"
+                                                        title={translate('product.labels.payment_option_qr')}
+                                                        role="img"
+                                                        aria-label={translate('product.labels.payment_option_qr')}>
+                                                        <em className="mdi mdi-qrcode" aria-hidden="true" />
+                                                    </div>
                                                 )}
 
                                                 {productFeatures.feature_reservations_enabled && (
-                                                    <li className="product-property-icons-item">
-                                                        <span aria-hidden="true">
-                                                            <em className="mdi mdi-tag-multiple-outline" />
-                                                        </span>
-                                                        <span>
-                                                            {translate('product.labels.payment_option_reservation')}
-                                                        </span>
-                                                    </li>
+                                                    <div
+                                                        className="product-prop-item-payment-option"
+                                                        title={translate('product.labels.payment_option_reservation')}
+                                                        role="img"
+                                                        aria-label={translate(
+                                                            'product.labels.payment_option_reservation',
+                                                        )}>
+                                                        <em
+                                                            className="mdi mdi-tag-multiple-outline"
+                                                            aria-hidden="true"
+                                                        />
+                                                    </div>
                                                 )}
 
                                                 {productFeatures.feature_reservation_extra_payments_enabled && (
-                                                    <li className="product-property-icons-item">
+                                                    <div
+                                                        className="product-prop-item-payment-option"
+                                                        title={translate('product.labels.payment_option_ideal')}
+                                                        role="img"
+                                                        aria-label={translate('product.labels.payment_option_ideal')}>
                                                         <img
                                                             src={assetUrl('/assets/img/icon-ideal.svg')}
-                                                            alt=""
-                                                            aria-hidden="true"
+                                                            alt={translate('product.labels.ideal_logo_alt')}
                                                         />
-                                                        <span>{translate('product.labels.payment_option_ideal')}</span>
-                                                    </li>
+                                                    </div>
                                                 )}
-                                            </ul>
-
+                                            </div>
                                             <button
                                                 type="button"
-                                                className="product-property-info-link"
-                                                onClick={showProductIconsInfoModal}>
-                                                <em
-                                                    className="mdi mdi-information-variant-circle-outline"
-                                                    aria-hidden="true"
-                                                />
-                                                <span>{translate('product.labels.payment_option_link')}</span>
+                                                onClick={showProductIconsInfoModal}
+                                                className="product-prop-item-payment-info"
+                                                aria-label={translate('product.labels.how_can_i_pay')}>
+                                                {translate('product.labels.how_can_i_pay')}
                                             </button>
-                                        </dd>
+                                        </div>
                                     </div>
-
-                                    <div className="product-property">
-                                        <dt id="descriptionLabel" className="product-property-label">
-                                            {translate('product.labels.description')}
-                                        </dt>
-                                        <dd className="product-property-value">
-                                            <Markdown content={product.description_html} />
-                                        </dd>
-                                    </div>
-                                </dl>
-                            </div>
-                        </div>
-
-                        <ProductFundsCard funds={funds} product={product} vouchers={vouchers} payouts={payouts} />
-
-                        {provider && (
-                            <div className="block block-organizations">
-                                <ProvidersListItem provider={provider} display={'list'} />
-                            </div>
-                        )}
-
-                        {appConfigs?.show_product_map && (
-                            <div className="block block-map_card">
-                                <div className="map_card-header">
-                                    <h2 className="map_card-title">{translate('product.map.title')}</h2>
                                 </div>
-                                <div className="map_card-iframe">
-                                    <GoogleMap
-                                        appConfigs={appConfigs}
-                                        mapPointers={product.offices}
-                                        mapGestureHandling={'greedy'}
-                                        mapGestureHandlingMobile={'none'}
-                                        fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
-                                        markerTemplate={(office: Office) => <MapMarkerProviderOffice office={office} />}
+
+                                {product.info_when && (
+                                    <div className="product-prop-item">
+                                        <div className="product-prop-item-icon">
+                                            <em className="mdi mdi-calendar-month-outline" aria-hidden="true" />
+                                        </div>
+                                        <div className="product-prop-item-details">
+                                            <h2 className="product-prop-item-title">
+                                                {translate('product.labels.when')}
+                                            </h2>
+                                            <div className="product-prop-item-description">{product.info_when}</div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {product.info_more_info && (
+                                    <div className="product-prop-item">
+                                        <div className="product-prop-item-icon">
+                                            <em className="mdi mdi-information-outline" aria-hidden="true" />
+                                        </div>
+                                        <div className="product-prop-item-details">
+                                            <h2 className="product-prop-item-title">
+                                                {translate('product.labels.more_info')}
+                                            </h2>
+                                            <div className="product-prop-item-description">
+                                                {product.info_more_info}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {product.info_where && (
+                                    <div className="product-prop-item">
+                                        <div className="product-prop-item-icon">
+                                            <em className="mdi mdi-store-marker-outline" aria-hidden="true" />
+                                        </div>
+                                        <div className="product-prop-item-details">
+                                            <h2 className="product-prop-item-title">
+                                                {translate('product.labels.where')}
+                                            </h2>
+                                            <div className="product-prop-item-description">{product.info_where}</div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {product.info_attention && (
+                                    <div className="product-prop-item">
+                                        <div className="product-prop-item-icon">
+                                            <em className="mdi mdi-alert-outline" aria-hidden="true" />
+                                        </div>
+                                        <div className="product-prop-item-details">
+                                            <h2 className="product-prop-item-title">
+                                                {translate('product.labels.attention')}
+                                            </h2>
+                                            <div className="product-prop-item-description">
+                                                {product.info_attention}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <PaneGroup>
+                                <PaneGroupPanel title={translate('product.labels.description_card')}>
+                                    <Markdown content={product.description_html} />
+                                </PaneGroupPanel>
+
+                                <PaneGroupPanel title={translate('product.labels.choose_credit')} elRef={fundsRef}>
+                                    <ProductFunds
+                                        funds={funds}
+                                        product={product}
+                                        vouchers={vouchers}
+                                        payouts={payouts}
                                     />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Section>
+                                </PaneGroupPanel>
+
+                                {provider && (
+                                    <PaneGroupPanel title={translate('product.labels.provider')} openByDefault={false}>
+                                        <BlockOrganizationOffices provider={provider} />
+                                    </PaneGroupPanel>
+                                )}
+
+                                <PaneGroupPanel
+                                    title={translate('product.labels.locations_on_map')}
+                                    openByDefault={false}>
+                                    <div className="product-map-container">
+                                        <GoogleMap
+                                            appConfigs={appConfigs}
+                                            mapPointers={product.offices}
+                                            mapGestureHandling={'greedy'}
+                                            mapGestureHandlingMobile={'none'}
+                                            fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
+                                            markerTemplate={(office: Office) => (
+                                                <MapMarkerProviderOffice office={office} />
+                                            )}
+                                        />
+                                    </div>
+                                </PaneGroupPanel>
+                            </PaneGroup>
+                        </div>
+                    </Section>
+
+                    <RandomProductsBlock count={3} title={translate('product.other_products')} />
+                </Fragment>
             )}
         </BlockShowcase>
     );
