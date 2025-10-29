@@ -1,13 +1,13 @@
-import BlockProducts from '../../../../elements/block-products/BlockProducts';
+import BlockProducts from '../../../elements/block-products/BlockProducts';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { PaginationData } from '../../../../../../dashboard/props/ApiResponses';
-import Product from '../../../../../props/models/Product';
-import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import useSetProgress from '../../../../../../dashboard/hooks/useSetProgress';
-import { useProductService } from '../../../../../services/ProductService';
-import useAppConfigs from '../../../../../hooks/useAppConfigs';
+import { PaginationData } from '../../../../../dashboard/props/ApiResponses';
+import Product from '../../../../props/models/Product';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
+import { useProductService } from '../../../../services/ProductService';
+import useAppConfigs from '../../../../hooks/useAppConfigs';
 
-export default function VoucherNextProducts({ voucher }: { voucher: Voucher }) {
+export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
     const appConfigs = useAppConfigs();
     const setProgress = useSetProgress();
 

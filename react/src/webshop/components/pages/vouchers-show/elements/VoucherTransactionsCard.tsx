@@ -1,17 +1,17 @@
 import React from 'react';
-import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import StateNavLink from '../../../../../modules/state_router/StateNavLink';
-import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import TransactionIconBg from '../../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/transaction-icon-bg.svg';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import TransactionIconBg from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/transaction-icon-bg.svg';
 import useVoucherCard from '../hooks/useVoucherCard';
 import classNames from 'classnames';
 
-export default function VoucherNextTransactionsCard({ voucher }: { voucher: Voucher }) {
+export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher }) {
     const translate = useTranslate();
     const voucherCard = useVoucherCard(voucher);
 
     return (
-        <div className="block block-transactions-next">
+        <div className="block block-transactions">
             <div className="transactions-list">
                 {voucherCard.transactionsList?.map((transaction) => (
                     <div

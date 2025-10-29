@@ -12,13 +12,13 @@ import Section from '../../elements/sections/Section';
 import PaneGroup from '../../elements/block-panel-group/PaneGroup';
 import PaneGroupPanel from '../../elements/block-panel-group/PaneGroupPanel';
 import Markdown from '../../elements/markdown/Markdown';
-import VoucherNextProducts from './next/elements/VoucherNextProducts';
-import VoucherNextTransactionsCard from './next/elements/VoucherNextTransactionsCard';
+import VoucherProducts from './elements/VoucherProducts';
+import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import VoucherPhysicalCardsNext from './next/cards/VoucherPhysicalCardsNext';
-import VoucherNextActions from './next/elements/VoucherNextActions';
-import useVoucherCard from './next/hooks/useVoucherCard';
-import VoucherNextHistoryCard from './next/elements/VoucherNextHistoryCard';
+import VoucherPhysicalCards from './cards/VoucherPhysicalCards';
+import VoucherActions from './elements/VoucherActions';
+import useVoucherCard from './hooks/useVoucherCard';
+import VoucherHistoryCard from './elements/VoucherHistoryCard';
 import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
 import Office from '../../../../dashboard/props/models/Office';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
@@ -132,7 +132,7 @@ export default function VouchersShow() {
             {voucher && voucherCard && (
                 <Fragment>
                     <Section type={'voucher_details'}>
-                        <div className="block block-voucher-next">
+                        <div className="block block-voucher">
                             {!voucherCard.deactivated && !voucherCard.expired && (
                                 <Fragment>
                                     <div className="voucher-fund-overview">
@@ -227,7 +227,7 @@ export default function VouchersShow() {
                                             </div>
                                         </div>
 
-                                        <VoucherNextActions
+                                        <VoucherActions
                                             voucher={voucher}
                                             setVoucher={setVoucher}
                                             fetchVoucher={fetchVoucher}
@@ -239,19 +239,19 @@ export default function VouchersShow() {
                             <PaneGroup>
                                 {showHistory && (
                                     <PaneGroupPanel title={translate('voucher.history.title')}>
-                                        <VoucherNextHistoryCard voucher={voucher} />
+                                        <VoucherHistoryCard voucher={voucher} />
                                     </PaneGroupPanel>
                                 )}
 
                                 {showTransactions && (
                                     <PaneGroupPanel title={translate('voucher.transactions.title')}>
-                                        <VoucherNextTransactionsCard voucher={voucher} />
+                                        <VoucherTransactionsCard voucher={voucher} />
                                     </PaneGroupPanel>
                                 )}
 
                                 {showPhysicalCardTypes && (
                                     <PaneGroupPanel title={translate('voucher.physical_cards.title')}>
-                                        <VoucherPhysicalCardsNext
+                                        <VoucherPhysicalCards
                                             voucher={voucher}
                                             setVoucher={setVoucher}
                                             fetchVoucher={fetchVoucher}
@@ -339,7 +339,7 @@ export default function VouchersShow() {
                         </div>
                     </Section>
 
-                    <VoucherNextProducts voucher={voucher} />
+                    <VoucherProducts voucher={voucher} />
                 </Fragment>
             )}
         </BlockShowcase>

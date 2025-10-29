@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
-import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
-import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import useVoucherData from '../../../../../services/helpers/useVoucherData';
-import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import useUnlinkVoucherPhysicalCard from '../../hooks/useUnlinkVoucherPhysicalCard';
-import useLinkVoucherPhysicalCard from '../../hooks/useLinkVoucherPhysicalCard';
-import useShowPhysicalCardsOption from '../../hooks/useShowPhysicalCardsOption';
-import useAssetUrl from '../../../../../hooks/useAssetUrl';
+import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import useVoucherData from '../../../../services/helpers/useVoucherData';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import useUnlinkVoucherPhysicalCard from '../hooks/useUnlinkVoucherPhysicalCard';
+import useLinkVoucherPhysicalCard from '../hooks/useLinkVoucherPhysicalCard';
+import useShowPhysicalCardsOption from '../hooks/useShowPhysicalCardsOption';
+import useAssetUrl from '../../../../hooks/useAssetUrl';
 
-export default function VoucherPhysicalCardsNext({
+export default function VoucherPhysicalCards({
     voucher,
     setVoucher,
     fetchVoucher,

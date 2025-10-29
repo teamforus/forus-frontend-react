@@ -1,20 +1,14 @@
 import React from 'react';
-import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
-import useEnvData from '../../../../../hooks/useEnvData';
-import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import useSendVoucherEmail from '../../hooks/useSendVoucherEmail';
-import useOpenVoucherInMeModal from '../../hooks/useOpenVoucherInMeModal';
-import usePrintVoucherQrCodeModal from '../../hooks/usePrintVoucherQrCodeModal';
-import { ModalState } from '../../../../../../dashboard/modules/modals/context/ModalContext';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
+import useEnvData from '../../../../hooks/useEnvData';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import useSendVoucherEmail from '../hooks/useSendVoucherEmail';
+import useOpenVoucherInMeModal from '../hooks/useOpenVoucherInMeModal';
+import usePrintVoucherQrCodeModal from '../hooks/usePrintVoucherQrCodeModal';
+import { ModalState } from '../../../../../dashboard/modules/modals/context/ModalContext';
 
-export default function VoucherNextShareOptions({
-    voucher,
-    callerModal,
-}: {
-    voucher: Voucher;
-    callerModal: ModalState;
-}) {
+export default function VoucherShareOptions({ voucher, callerModal }: { voucher: Voucher; callerModal: ModalState }) {
     const envData = useEnvData();
     const translate = useTranslate();
 

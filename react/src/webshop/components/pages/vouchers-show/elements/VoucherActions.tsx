@@ -1,25 +1,25 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
-import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import QrCode from '../../../../../../dashboard/components/elements/qr-code/QrCode';
-import StateNavLink from '../../../../../modules/state_router/StateNavLink';
-import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
-import useEnvData from '../../../../../hooks/useEnvData';
-import useLinkVoucherPhysicalCard from '../../hooks/useLinkVoucherPhysicalCard';
-import useUnlinkVoucherPhysicalCard from '../../hooks/useUnlinkVoucherPhysicalCard';
-import useShowPhysicalCardsOption from '../../hooks/useShowPhysicalCardsOption';
-import ModalShareVoucher from '../../../../modals/ModalShareVoucher';
-import ModalDeactivateVoucher from '../../../../modals/ModalDeactivateVoucher';
-import ModalNotification from '../../../../modals/ModalNotification';
-import useOpenModal from '../../../../../../dashboard/hooks/useOpenModal';
-import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import { useVoucherService } from '../../../../../services/VoucherService';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import QrCode from '../../../../../dashboard/components/elements/qr-code/QrCode';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
+import useEnvData from '../../../../hooks/useEnvData';
+import useLinkVoucherPhysicalCard from '../hooks/useLinkVoucherPhysicalCard';
+import useUnlinkVoucherPhysicalCard from '../hooks/useUnlinkVoucherPhysicalCard';
+import useShowPhysicalCardsOption from '../hooks/useShowPhysicalCardsOption';
+import ModalShareVoucher from '../../../modals/ModalShareVoucher';
+import ModalDeactivateVoucher from '../../../modals/ModalDeactivateVoucher';
+import ModalNotification from '../../../modals/ModalNotification';
+import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { useVoucherService } from '../../../../services/VoucherService';
 import { useNavigate } from 'react-router';
-import VoucherNextShareOptions from './VoucherNextShareOptions';
+import VoucherShareOptions from './VoucherShareOptions';
 import useVoucherCard from '../hooks/useVoucherCard';
-import { makeQrCodeContent } from '../../../../../../dashboard/helpers/utils';
-import IconReimbursement from '../../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
+import { makeQrCodeContent } from '../../../../../dashboard/helpers/utils';
+import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 
-export default function VoucherNextActions({
+export default function VoucherActions({
     voucher,
     setVoucher,
     fetchVoucher,
@@ -102,7 +102,7 @@ export default function VoucherNextActions({
                                     {translate('voucher.actions.choose_action.description')}
                                 </div>
                             </div>
-                            <VoucherNextShareOptions voucher={voucher} callerModal={modal} />
+                            <VoucherShareOptions voucher={voucher} callerModal={modal} />
                         </div>
                     }
                 />

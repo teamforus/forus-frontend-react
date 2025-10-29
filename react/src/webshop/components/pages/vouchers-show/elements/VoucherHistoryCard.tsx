@@ -1,13 +1,13 @@
 import React from 'react';
-import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import TransactionIconBg from '../../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/transaction-icon-bg.svg';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import TransactionIconBg from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/transaction-icon-bg.svg';
 import useVoucherCard from '../hooks/useVoucherCard';
 
-export default function VoucherNextHistoryCard({ voucher }: { voucher: Voucher }) {
+export default function VoucherHistoryCard({ voucher }: { voucher: Voucher }) {
     const voucherCard = useVoucherCard(voucher);
 
     return (
-        <div className="block block-transactions-next">
+        <div className="block block-transactions">
             <div className="transactions-list">
                 {voucherCard.history?.map((log) => (
                     <div key={log.id} className="transactions-item transactions-item-out">
