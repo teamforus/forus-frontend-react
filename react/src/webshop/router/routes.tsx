@@ -28,7 +28,6 @@ import ReservationsShow from '../components/pages/reservations-show/Reservations
 import PhysicalCards from '../components/pages/physical_cards/PhysicalCards';
 import BookmarkedProducts from '../components/pages/bookmarked-products/BookmarkedProducts';
 import Vouchers from '../components/pages/vouchers/Vouchers';
-import VouchersShow from '../components/pages/vouchers-show/VouchersShow';
 import Sitemap from '../components/pages/sitemap/Sitemap';
 import MeApp from '../components/pages/me-app/MeApp';
 import Accessibility from '../components/pages/cms-pages/Accessibility';
@@ -167,12 +166,6 @@ router.state('vouchers', <Vouchers />, {
 router.state('voucher', <VouchersShowNext />, {
     path: `/tegoeden/:number`,
     altPath: `/vouchers/:number`,
-    protected: true,
-});
-
-router.state('voucher', <VouchersShow />, {
-    path: `/tegoeden/:number/old`,
-    altPath: `/vouchers/:number/old`,
     protected: true,
 });
 

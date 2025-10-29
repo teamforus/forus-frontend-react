@@ -1571,12 +1571,6 @@
             "title": "Locations on map"
         },
         "no_vouchers": "You have no credit to reserve this offer with",
-        "status": {
-            "active": "Active",
-            "free": "Free",
-            "no_data": "No data",
-            "out_of_stock": "No more stock"
-        },
         "tooltip": "How often you can still take advantage of this offer",
         "price": {
             "free": "Free",
@@ -1658,19 +1652,8 @@
             "title": "Cancel reservation"
         },
         "labels": {
-            "add": "At",
-            "expire": "Valid through:",
-            "fund": "Fund",
-            "info": "<span style='font-style: italic;'>Looking for a provider not on the map? You can ask a provider to participate. A provider can apply throughout the year.</span>",
-            "offers": "Would you like information on the full offer? Then contact the provider.",
             "office": "Locations where you can redeem this reservation.",
-            "offices": "Providers",
-            "productdetail": "Supply information",
-            "requirements": "For terms of this offer contact the provider.",
-            "shopdetail": "Provider information",
-            "subtract": "Off",
-            "transactions": "Expenditures",
-            "voucher": "Print out your credit or mail it to yourself. Take the QR code to the provider and have it scanned."
+            "offices": "Providers"
         },
         "physical_card": {
             "buttons": {
@@ -1679,9 +1662,6 @@
             },
             "title": "Activate my pass",
             "card_number": "Pass number",
-            "less_details": "Hide all details",
-            "more_details": "Show all details",
-            "personal_date": "Personal data",
             "alt": "Physical pass: '{{ title }}'"
         },
         "share_voucher": {
@@ -1713,54 +1693,16 @@
             "vouchers": "My credits"
         },
         "card": {
-            "delete": "Cancel reservation",
-            "expire": "Valid through:",
-            "expired": "Expired",
-            "footer": {
-                "actions": {
-                    "mail": "Email to me",
-                    "open_in_me": "Open in app",
-                    "physical_card_use": "Plastic pass",
-                    "print": "Print",
-                    "share": "Share with provider"
-                },
-                "tooltips": {
-                    "mail": "Email the credit to yourself",
-                    "open_in_me": "Me",
-                    "print": "Print out the credit",
-                    "share": "Share the credit with the provider"
-                }
-            },
             "header": {
                 "title": "How does it work?"
-            },
-            "labels": {
-                "contact_provider": "Do you have questions about this offer? If so, please contact us.",
-                "contact_sponsor": "Questions? Please contact us.",
-                "description": "1. Click on Offer and choose and reserve an activity.<br/>OR<br/>2. Take the QR code to the provider. The provider will scan the QR code and reserve your activity.",
-                "email": "E-mail address:",
-                "phone": "Phone number:"
-            },
-            "qrcode": {
-                "productdescription": "This is your reservation with a QR code.",
-                "description": "This is your {{fund_name}} credit with a QR code."
             },
             "activate_my_pass": "Activate my pass",
             "cancel": "Cancel",
             "lost_my_pass": "I lost my pass",
-            "share": "Share",
-            "stop_participation": "Stop participation",
-            "used": "Used",
-            "used_on": "Used on",
-            "valid_until": "Valid until"
+            "stop_participation": "Stop participation"
         },
         "title": "{{ title }}",
         "title_physical": "Your {{ title }}",
-        "reimbursement": {
-            "button": "Submit coupon",
-            "description": "Reclaim your incurred expenses by submitting the details of your purchase and the bill or receipt.",
-            "title": "Cost recovery"
-        },
         "transactions": {
             "add": "Add",
             "bank_transfer": "Bank Transfer",
@@ -1776,25 +1718,6 @@
                 "expired": "Expired"
             },
             "title": "Expenditures"
-        },
-        "card_combined": {
-            "header": {
-                "title": "How does it work?"
-            },
-            "labels": {
-                "contact_sponsor": "Do you have any questions?",
-                "contact_sponsor_details": "If so, please contact us.",
-                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                "IIT": {
-                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                    "redirect_to": "Do you still want to apply for reimbursement?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
-                    "redirect_to": "Reclaim expenses?"
-                },
-                "redirect_to": "Do you still want to apply for reimbursement?"
-            }
         },
         "actions": {
             "choose_action": {

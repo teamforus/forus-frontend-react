@@ -1870,12 +1870,6 @@
             "title": "Harita üzerindeki konumlar"
         },
         "no_vouchers": "Bu teklifi rezerve etmek için krediniz yok",
-        "status": {
-            "active": "Aktif",
-            "free": "Ücretsiz",
-            "no_data": "Veri yok",
-            "out_of_stock": "Artık stok yok"
-        },
         "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz",
         "price": {
             "free": "Ücretsiz",
@@ -1954,44 +1948,11 @@
         "card": {
             "activate_my_pass": "Geçiş kartımı etkinleştir",
             "cancel": "İptal",
-            "delete": "Rezervasyonu iptal et",
-            "expire": "Şu tarihe kadar geçerlidir:",
-            "expired": "Süresi doldu",
-            "footer": {
-                "actions": {
-                    "mail": "Bana e-posta gönderin",
-                    "open_in_me": "Uygulamada aç",
-                    "physical_card_use": "Plastik geçiş",
-                    "print": "Yazdır",
-                    "share": "Sağlayıcı ile paylaşın"
-                },
-                "tooltips": {
-                    "mail": "Krediyi kendinize e-posta ile gönderin",
-                    "open_in_me": "Ben",
-                    "print": "Kredinin çıktısını alın",
-                    "share": "Krediyi sağlayıcı ile paylaşın"
-                }
-            },
             "header": {
                 "title": "Nasıl çalışıyor?"
             },
-            "labels": {
-                "contact_provider": "Bu teklif hakkında herhangi bir sorunuz var mı? Varsa, lütfen bizimle iletişime geçin.",
-                "contact_sponsor": "Herhangi bir sorunuz var mı? Bize ulaşın.",
-                "description": "1.<br/><br/>Teklif'e tıklayın ve bir etkinlik seçip rezervasyon yapın. VEYA 2. QR kodunu sağlayıcıya götürün. QR kodunu sağlayıcıya götürün. Sağlayıcı QR kodunu tarayacak ve etkinliğinizi rezerve edecektir.",
-                "email": "E-posta adresi:",
-                "phone": "Telefon numarası:"
-            },
             "lost_my_pass": "Geçiş kartımı kaybettim.",
-            "qrcode": {
-                "productdescription": "Bu, QR kodlu rezervasyonunuzdur.",
-                "description": "Bu, QR kodlu {{fund_name}} kredinizdir."
-            },
-            "share": "Paylaş",
-            "stop_participation": "Katılımı durdurun",
-            "used": "Kullanılmış",
-            "used_on": "Kullanılmış",
-            "valid_until": "Şu tarihe kadar geçerlidir"
+            "stop_participation": "Katılımı durdurun"
         },
         "delete_voucher": {
             "buttons": {
@@ -2011,19 +1972,8 @@
             "title": "Harcamalar"
         },
         "labels": {
-            "add": "At",
-            "expire": "Şu tarihe kadar geçerlidir:",
-            "fund": "Fon",
-            "info": "<span style='font-style: italic;'>Haritada olmayan bir sağlayıcı mı arıyorsunuz? Bir sağlayıcıdan katılmasını isteyebilirsiniz. Bir sağlayıcı yıl boyunca başvurabilir.</span>",
-            "offers": "Teklifin tamamı hakkında bilgi almak ister misiniz? O zaman sağlayıcı ile iletişime geçin.",
             "office": "Bu rezervasyonu kullanabileceğiniz yerler.",
-            "offices": "Sağlayıcılar",
-            "productdetail": "Tedarik bilgileri",
-            "requirements": "Bu teklifin hüküm ve koşulları için sağlayıcı ile iletişime geçin.",
-            "shopdetail": "Sağlayıcı bilgileri",
-            "subtract": "Kapalı",
-            "transactions": "Harcamalar",
-            "voucher": "Kredinizin çıktısını alın veya kendinize postalayın. QR kodunu sağlayıcıya götürün ve tarattırın."
+            "offices": "Sağlayıcılar"
         },
         "physical_card": {
             "buttons": {
@@ -2032,15 +1982,7 @@
             },
             "card_number": "Geçiş numarası",
             "title": "Geçiş kartımı etkinleştir",
-            "less_details": "Tüm detayları gizle",
-            "more_details": "Tüm detayları göster",
-            "personal_date": "Kişisel veriler",
             "alt": "Fiziksel geçiş: '{{ title }}'"
-        },
-        "reimbursement": {
-            "button": "Kupon gönder",
-            "description": "Satın alma işleminizin ayrıntılarını ve fatura veya makbuzu göndererek yaptığınız masrafları geri alın.",
-            "title": "Maliyet geri kazanımı"
         },
         "share_voucher": {
             "buttons": {
@@ -2075,25 +2017,6 @@
             "title": "İşlemler",
             "top_up": "Yükseltilmiş",
             "expired_on": "Son kullanma tarihi {{ date }}"
-        },
-        "card_combined": {
-            "header": {
-                "title": "Nasıl çalışıyor?"
-            },
-            "labels": {
-                "contact_sponsor": "Sorusu olan var mı?",
-                "contact_sponsor_details": "O zaman bizimle iletişime geçin.",
-                "how_it_works": "Başvurunuzu aldık. Başvurunuzla ilgili kararı 8 hafta içinde alacaksınız.",
-                "IIT": {
-                    "how_it_works": "Başvurunuzu aldık. Başvurunuzla ilgili kararı 8 hafta içinde alacaksınız.",
-                    "redirect_to": "Hala geri ödeme için başvurmak istiyor musunuz?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Bu program kapsamına giren harcamalar yaptınız mı? Bir makbuz ibraz ederek harcamalarınızı geri talep edin. Onaylandıktan sonra, tutarı kişisel banka hesabınıza alacaksınız.",
-                    "redirect_to": "Geri alma masrafları?"
-                },
-                "redirect_to": "Hala geri ödeme için başvurmak istiyor musunuz?"
-            }
         },
         "actions": {
             "choose_action": {

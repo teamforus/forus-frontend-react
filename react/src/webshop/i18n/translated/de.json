@@ -2311,12 +2311,6 @@
             "title": "Standorte auf der Karte"
         },
         "no_vouchers": "Sie haben kein Guthaben, um dieses Angebot zu reservieren mit",
-        "status": {
-            "active": "Aktiv",
-            "free": "Kostenlos",
-            "no_data": "Keine Daten",
-            "out_of_stock": "Keine Lagerbestände mehr"
-        },
         "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können",
         "price": {
             "free": "Kostenlos",
@@ -3289,44 +3283,11 @@
         "card": {
             "activate_my_pass": "Meinen Pass aktivieren",
             "cancel": "Abbrechen",
-            "delete": "Reservierung stornieren",
-            "expire": "Gültig bis:",
-            "expired": "Abgelaufen",
-            "footer": {
-                "actions": {
-                    "mail": "E-Mail an mich",
-                    "open_in_me": "In der App öffnen",
-                    "physical_card_use": "Plastikpass",
-                    "print": "Drucken",
-                    "share": "Mit Anbieter teilen"
-                },
-                "tooltips": {
-                    "mail": "Mailen Sie sich den Kredit selbst",
-                    "open_in_me": "Ich",
-                    "print": "Drucken Sie den Kredit",
-                    "share": "Teilen Sie den Kredit mit dem Anbieter"
-                }
-            },
             "header": {
                 "title": "Wie funktioniert das?"
             },
-            "labels": {
-                "contact_provider": "Haben Sie Fragen zu diesem Angebot? Dann kontaktieren Sie uns bitte.",
-                "contact_sponsor": "Haben Sie Fragen? Kontaktieren Sie uns.",
-                "description": "1.<br/><br/>Klicken Sie auf Angebot und wählen Sie eine Aktivität aus und buchen Sie sie. ODER 2. Bringen Sie den QR-Code zum Anbieter. Der Anbieter wird den QR-Code scannen und Ihre Aktivität reservieren.",
-                "email": "E-Mail Adresse:",
-                "phone": "Rufnummer:"
-            },
             "lost_my_pass": "Ich habe meinen Pass verloren",
-            "qrcode": {
-                "productdescription": "Dies ist Ihre Reservierung mit einem QR-Code.",
-                "description": "Dies ist Ihr {{fund_name}} Kredit mit einem QR-Code."
-            },
-            "share": "Teilen Sie",
-            "stop_participation": "Teilnahme stoppen",
-            "used": "Gebraucht",
-            "used_on": "Verwendet am",
-            "valid_until": "Gültig bis"
+            "stop_participation": "Teilnahme stoppen"
         },
         "delete_voucher": {
             "buttons": {
@@ -3346,19 +3307,8 @@
             "title": "Ausgaben"
         },
         "labels": {
-            "add": "Unter",
-            "expire": "Gültig bis:",
-            "fund": "Fonds",
-            "info": "<span style='font-style: italic;'>Suchen Sie einen Anbieter, der nicht auf der Karte verzeichnet ist? Sie können einen Anbieter zur Teilnahme auffordern. Ein Anbieter kann sich das ganze Jahr über bewerben.</span>",
-            "offers": "Möchten Sie Informationen über das gesamte Angebot? Dann kontaktieren Sie den Anbieter.",
             "office": "Orte, an denen Sie diese Reservierung einlösen können.",
-            "offices": "Anbieter",
-            "productdetail": "Informationen liefern",
-            "requirements": "Die Bedingungen für dieses Angebot erfahren Sie vom Anbieter.",
-            "shopdetail": "Informationen zum Anbieter",
-            "subtract": "Aus",
-            "transactions": "Ausgaben",
-            "voucher": "Drucken Sie Ihre Gutschrift aus oder schicken Sie sie sich selbst zu. Bringen Sie den QR-Code zum Anbieter und lassen Sie ihn scannen."
+            "offices": "Anbieter"
         },
         "physical_card": {
             "buttons": {
@@ -3367,15 +3317,7 @@
             },
             "card_number": "Pass-Nummer",
             "title": "Meinen Pass aktivieren",
-            "less_details": "Alle Details ausblenden",
-            "more_details": "Alle Details anzeigen",
-            "personal_date": "Persönliche Daten",
             "alt": "Physischer Pass: '{{ title }}'"
-        },
-        "reimbursement": {
-            "button": "Coupon einreichen",
-            "description": "Fordern Sie die Ihnen entstandenen Kosten zurück, indem Sie die Details Ihres Einkaufs und die Rechnung oder Quittung einsenden.",
-            "title": "Kostendeckung"
         },
         "share_voucher": {
             "buttons": {
@@ -3410,25 +3352,6 @@
             "title": "Transaktionen",
             "top_up": "Verbessert",
             "expired_on": "Abgelaufen am {{ date }}"
-        },
-        "card_combined": {
-            "header": {
-                "title": "Wie funktioniert das?"
-            },
-            "labels": {
-                "contact_sponsor": "Haben Sie Fragen?",
-                "contact_sponsor_details": "Dann kontaktieren Sie uns.",
-                "how_it_works": "Wir haben Ihre Bewerbung erhalten. Sie werden innerhalb von 8 Wochen eine Entscheidung über Ihre Bewerbung erhalten.",
-                "IIT": {
-                    "how_it_works": "Wir haben Ihre Bewerbung erhalten. Sie werden innerhalb von 8 Wochen eine Entscheidung über Ihre Bewerbung erhalten.",
-                    "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Rückerstattung Ihrer Ausgaben, indem Sie eine Quittung einreichen. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
-                    "redirect_to": "Kosten zurückfordern?"
-                },
-                "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
-            }
         },
         "actions": {
             "choose_action": {
