@@ -46,7 +46,7 @@ export default function VoucherNextShareOptions({
                     openVoucherInMeModal();
                 }}>
                 <div className="share-option-icon">
-                    <em className="mdi mdi-email-outline" aria-hidden="true" />
+                    <em className="mdi mdi-cellphone" aria-hidden="true" />
                 </div>
                 {translate('modal_physical_card.modal_section.request_new_card.open_in_app')}
             </button>
