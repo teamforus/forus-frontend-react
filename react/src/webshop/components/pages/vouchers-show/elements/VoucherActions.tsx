@@ -168,11 +168,12 @@ export default function VoucherActions({
                     </StateNavLink>
                 )}
 
-                {!voucher?.external && !voucher.fund.show_qr_code && (
+                {!voucher?.external && voucher?.fund?.show_qr_code && (
                     <button
                         role={'button'}
                         onKeyDown={clickOnKeyEnter}
                         className="voucher-actions-button"
+                        data-dusk="openVoucherShareModal"
                         onClick={() => openSaveVoucher(voucher)}>
                         <em className="mdi mdi-qrcode" />
                         {translate('voucher.actions.save_qr')}
@@ -236,10 +237,11 @@ export default function VoucherActions({
                     </StateNavLink>
                 )}
 
-                {voucherCard?.type === 'product' && !voucherCard.external && (
+                {voucherCard?.type === 'product' && !voucherCard?.external && voucher?.fund?.show_qr_code && (
                     <button
                         type={'button'}
                         className="voucher-actions-button"
+                        data-dusk="shareVoucher"
                         onKeyDown={clickOnKeyEnter}
                         onClick={() => shareVoucherWithProvider(voucher)}>
                         <em className="mdi mdi-share-variant-outline" />

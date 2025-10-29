@@ -19,8 +19,9 @@ export default function VoucherShareOptions({ voucher, callerModal }: { voucher:
     return (
         <div className="block block-voucher-share-options">
             <button
-                type={'button'}
+                type="button"
                 className="share-option"
+                data-dusk="sendVoucherEmail"
                 onKeyDown={clickOnKeyEnter}
                 onClick={() => {
                     callerModal?.close();
@@ -32,8 +33,9 @@ export default function VoucherShareOptions({ voucher, callerModal }: { voucher:
                 {translate('modal_physical_card.modal_section.request_new_card.email_to_me')}
             </button>
             <button
-                type={'button'}
+                type="button"
                 className="share-option"
+                data-dusk="openVoucherInMeModal"
                 onKeyDown={clickOnKeyEnter}
                 onClick={() => {
                     callerModal?.close();
@@ -47,8 +49,9 @@ export default function VoucherShareOptions({ voucher, callerModal }: { voucher:
 
             {!envData.config?.flags?.noPrintOption && (
                 <button
-                    type={'button'}
+                    type="button"
                     className="share-option"
+                    data-dusk="printVoucherQrCodeModal"
                     onKeyDown={clickOnKeyEnter}
                     onClick={() => {
                         callerModal?.close();
