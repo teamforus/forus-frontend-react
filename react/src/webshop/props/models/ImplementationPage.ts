@@ -7,6 +7,7 @@ export default interface ImplementationPage {
     description_position: 'after' | 'before' | 'replace';
     description_alignment: 'left' | 'center' | 'right';
     blocks_per_row: number;
+    description: string;
     description_html: string;
     external_url: string;
     blocks: Array<ImplementationPageBlock>;
