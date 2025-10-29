@@ -48,7 +48,6 @@ export enum WebshopRoutes {
     SIGN_OUT = 'sign-out',
     REDIRECT = 'redirect',
     AUTH_LINK = 'auth-link',
-    RECORDS = 'records',
     ERROR = 'error',
     NOT_FOUND = 'not-found',
     THROW = 'throw',

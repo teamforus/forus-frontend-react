@@ -337,20 +337,6 @@ export default function TopNavbarMobileMenu() {
                         </StateNavLink>
                     )}
 
-                    {authIdentity && appConfigs.records.list && (
-                        <StateNavLink
-                            className="mobile-menu-item"
-                            name={WebshopRoutes.RECORDS}
-                            onClick={hideMobileMenu}
-                            aria-current={route.state?.name == WebshopRoutes.RECORDS ? 'true' : undefined}
-                            onKeyDown={clickOnKeyEnter}
-                            tabIndex={0}
-                            role="link">
-                            <em className="mobile-menu-item-icon mdi mdi-format-list-bulleted" />
-                            {translate('top_navbar.buttons.mobile.dropdown.records')}
-                        </StateNavLink>
-                    )}
-
                     {authIdentity && (
                         <a
                             role="button"

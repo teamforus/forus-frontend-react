@@ -99,16 +99,6 @@ export default function ProfileMenu({ className }: { className?: string }) {
                 </StateNavLink>
             )}
 
-            {appConfigs.records.list && (
-                <StateNavLink
-                    className="profile-menu-item"
-                    name={WebshopRoutes.RECORDS}
-                    aria-current={navigateState?.name == WebshopRoutes.RECORDS ? 'page' : null}>
-                    {translate('profile_menu.buttons.records')}
-                    <em className="mdi mdi-arrow-right" aria-hidden="true" />
-                </StateNavLink>
-            )}
-
             <StateNavLink
                 className="profile-menu-item"
                 name={WebshopRoutes.NOTIFICATIONS}

@@ -90,14 +90,6 @@ export default function Sitemap() {
                                 </StateNavLink>
                             </li>
 
-                            {appConfigs?.records.list && (
-                                <li>
-                                    <StateNavLink name={WebshopRoutes.RECORDS}>
-                                        {translate('profile_menu.buttons.records')}
-                                    </StateNavLink>
-                                </li>
-                            )}
-
                             <li>
                                 <StateNavLink name={WebshopRoutes.NOTIFICATIONS}>
                                     {translate('profile_menu.buttons.notifications')}
