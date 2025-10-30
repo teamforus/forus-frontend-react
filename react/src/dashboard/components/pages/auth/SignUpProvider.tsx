@@ -41,13 +41,13 @@ import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { GoogleMap } from '../../elements/google-map/GoogleMap';
 import SignUpOfficeEdit from './elements/SignUpOfficeEdit';
 import SignUpAvailableFunds from './elements/SignUpAvailableFunds';
-import useFilter from '../../../hooks/useFilter';
 import useDemoTransactionService from '../../../services/DemoTransactionService';
 import { uniq } from 'lodash';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useTranslate from '../../../hooks/useTranslate';
 import SignUpFooter from '../../../../webshop/components/elements/sign-up/SignUpFooter';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 type OfficeLocal = Office & { edit?: boolean };
 
@@ -142,7 +142,10 @@ export default function SignUpProvider() {
         organization_id: NumberParam,
     });
 
-    const fundFilter = useFilter({
+    const [fundFilterValues] = useFilterNext<{
+        q?: string;
+        per_page?: number;
+    }>({
         q: '',
         per_page: 10,
         ...fundUrlFilters,
@@ -1967,7 +1970,7 @@ export default function SignUpProvider() {
                                 <SignUpAvailableFunds
                                     organization={organization}
                                     onApply={applyFund}
-                                    externalFilters={fundFilter.values}
+                                    externalFilters={fundFilterValues}
                                 />
                                 {!hasFundApplications && (
                                     <UIControlCheckbox
