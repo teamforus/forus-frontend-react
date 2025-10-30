@@ -7,7 +7,6 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import { hasPermission } from '../../../helpers/utils';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useFilter from '../../../hooks/useFilter';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -20,6 +19,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function ImplementationsView() {
     const { id } = useParams();
@@ -37,7 +37,7 @@ export default function ImplementationsView() {
     const [implementation, setImplementation] = useState(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
 
-    const filter = useFilter({ q: '' });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string }>({ q: '' });
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -58,11 +58,11 @@ export default function ImplementationsView() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filter.activeValues })
+            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filterValuesActive })
             .then((res) => setFunds(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, id, filter.activeValues, pushApiError]);
+    }, [setProgress, fundService, activeOrganization.id, id, filterValuesActive, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();
@@ -176,10 +176,10 @@ export default function ImplementationsView() {
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        value={filter.values.q}
+                                        value={filterValues.q}
                                         placeholder="Zoeken"
                                         className="form-control"
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                     />
                                 </div>
                             </div>

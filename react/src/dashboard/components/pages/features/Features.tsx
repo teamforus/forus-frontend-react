@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import { useFeatureService } from '../../../services/FeaturesService';
-import useFilter from '../../../hooks/useFilter';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import OrganizationFeature from '../../../services/types/OrganizationFeature';
 import FeatureList from './elements/FeatureList';
@@ -10,6 +9,8 @@ import useEnvData from '../../../hooks/useEnvData';
 import ModalFeatureContact from '../../modals/ModalFeatureContact';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useTranslate from '../../../hooks/useTranslate';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { createEnumParam, StringParam } from 'use-query-params';
 
 export default function Features() {
     const translate = useTranslate();
@@ -33,10 +34,21 @@ export default function Features() {
         [featureService],
     );
 
-    const filter = useFilter({
-        q: '',
-        state: 'all',
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        state?: string;
+    }>(
+        {
+            q: '',
+            state: 'all',
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                state: createEnumParam(['all', 'active', 'available']),
+            },
+        },
+    );
 
     const filterByName = useCallback((item: OrganizationFeature, q: string) => item.name.toLowerCase().includes(q), []);
     const filterByDescription = useCallback(
@@ -67,7 +79,7 @@ export default function Features() {
     }, []);
 
     const filterFeatures = useCallback(
-        (features: Array<OrganizationFeature>, value: { q: string; state: string }) => {
+        (features: Array<OrganizationFeature>, value: { q?: string; state?: string }) => {
             const q = value.q.toLowerCase();
 
             const filteredListBySearch = features
@@ -98,8 +110,8 @@ export default function Features() {
     }, [activeOrganization.id, organizationService]);
 
     useEffect(() => {
-        filterFeatures(allFeatures, filter.activeValues);
-    }, [allFeatures, filter.activeValues, filterFeatures]);
+        filterFeatures(allFeatures, filterValuesActive);
+    }, [allFeatures, filterValuesActive, filterFeatures]);
 
     return (
         <Fragment>
@@ -166,9 +178,9 @@ export default function Features() {
                                             <div
                                                 key={viewType.value}
                                                 className={`label-tab label-tab-sm ${
-                                                    filter.values.state == viewType.value ? 'active' : ''
+                                                    filterValues.state == viewType.value ? 'active' : ''
                                                 }`}
-                                                onClick={() => filter.update({ state: viewType.value })}>
+                                                onClick={() => filterUpdate({ state: viewType.value })}>
                                                 {viewType.name}
                                             </div>
                                         ))}
@@ -180,9 +192,9 @@ export default function Features() {
                                     <input
                                         className="form-control"
                                         type="text"
-                                        value={filter.values.q}
+                                        value={filterValues.q}
                                         placeholder={translate('features.labels.search')}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                     />
                                 </div>
                             </div>
