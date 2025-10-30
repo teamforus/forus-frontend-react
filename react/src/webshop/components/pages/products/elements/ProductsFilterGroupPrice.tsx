@@ -32,7 +32,7 @@ export default function ProductsFilterGroupPrice({
     return (
         <ProductsFilterGroup
             dusk={'productFilterGroupPrice'}
-            title={translate('products.filters.fund')}
+            title={translate('products.filters.price')}
             controls={'price_filters'}
             openByDefault={openByDefault}
             content={(isOpen) => (
