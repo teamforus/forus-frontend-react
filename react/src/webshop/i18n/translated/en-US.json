@@ -3649,5 +3649,9 @@
             "archive": "Archive"
         },
         "title": "Physical Pass"
+    },
+    "block_product_categories": {
+        "description": "Click on a theme and you'll immediately see what offerings you can choose from.",
+        "title": "What do you think would be fun to do?"
     }
 }

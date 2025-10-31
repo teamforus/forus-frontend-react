@@ -3649,5 +3649,9 @@
             "archive": "Arşiv"
         },
         "title": "Fiziksel geçiş"
+    },
+    "block_product_categories": {
+        "description": "Bir temaya tıkladığınızda hangi teklifler arasından seçim yapabileceğinizi hemen göreceksiniz.",
+        "title": "Ne yapmaktan hoşlanırsın?"
     }
 }

@@ -19,6 +19,7 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import BlockBanner from '../../elements/block-banner/BlockBanner';
 import Fund from '../../../props/models/Fund';
 import Section from '../../elements/sections/Section';
+import BlockProductCategories from '../../elements/block-product-categories/BlockProductCategories';
 
 export default function Home() {
     const envData = useEnvData();
@@ -216,6 +217,8 @@ export default function Home() {
             </Section>
 
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
+
+            {appConfigs.pages.block_home_product_categories && <BlockProductCategories />}
 
             {appConfigs.show_home_products && products?.data.length > 0 && (
                 <BlockProducts

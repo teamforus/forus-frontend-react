@@ -4,7 +4,6 @@ import useFormBuilder from '../../../../hooks/useFormBuilder';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import usePushDanger from '../../../../hooks/usePushDanger';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import FormError from '../../../elements/forms/errors/FormError';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import { ApiResponseSingle, ResponseError, ResponseErrorData } from '../../../../props/ApiResponses';
 import Implementation from '../../../../props/models/Implementation';
@@ -20,9 +19,12 @@ import FaqEditor from '../../../elements/faq-editor-funds/FaqEditor';
 import Faq from '../../../../props/models/Faq';
 import { uniqueId } from 'lodash';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import ImplementationsHomeProductsBlockEditor from './ImplementationsHomeProductsBlockEditor';
+import ImplementationsInlineBlockEditor from './ImplementationsInlineBlockEditor';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import ImplementationsRootBreadcrumbs from '../../implementations/elements/ImplementationsRootBreadcrumbs';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
+import FormPane from '../../../elements/forms/elements/FormPane';
+import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
 
 export default function ImplementationsPageForm({
     page,
@@ -51,14 +53,13 @@ export default function ImplementationsPageForm({
         page?.blocks?.map((item) => ({ ...item, uid: uniqueId() })) || [],
     );
 
-    const [pageBlock, setPageBlock] = useState<ImplementationPage>(null);
+    const [pageBlockProducts, setPageBlockProducts] = useState<ImplementationPage>(null);
+    const [pageBlockProductCategories, setPageBlockProductCategories] = useState<ImplementationPage>(null);
 
     const cmsBlockEditorRef = useRef<() => Promise<boolean>>();
+    const cmsBlockEditorRef2 = useRef<() => Promise<boolean>>();
     const faqEditorValidateRef = useRef<() => Promise<boolean>>();
     const blockEditorValidateRef = useRef<() => Promise<boolean>>();
-
-    const [showInfoBlockType, setShowInfoBlockType] = useState(false);
-    const [showInfoBlockTypePosition, setShowInfoBlockTypePosition] = useState(false);
 
     const pageTypeConfig = useMemo(
         () => implementation.page_types.find((type) => type.key === pageType),
@@ -116,6 +117,7 @@ export default function ImplementationsPageForm({
             try {
                 if (
                     (cmsBlockEditorRef?.current && !(await cmsBlockEditorRef?.current())) ||
+                    (cmsBlockEditorRef2?.current && !(await cmsBlockEditorRef2?.current())) ||
                     (faqEditorValidateRef?.current && !(await faqEditorValidateRef?.current())) ||
                     (blockEditorValidateRef?.current && !(await blockEditorValidateRef?.current()))
                 ) {
@@ -157,22 +159,28 @@ export default function ImplementationsPageForm({
         },
     );
 
-    const fetchPageByKey = useCallback(
-        (key: string) => {
-            implementationPageService
-                .list(implementation.organization_id, implementation.id, { key })
-                .then((res) => {
-                    setPageBlock(
-                        res.data.data?.find((page) => page.page_type === key) || {
-                            title: '',
-                            description: '',
-                        },
-                    );
-                })
-                .catch(pushApiError);
-        },
-        [implementation, implementationPageService, pushApiError],
-    );
+    const fetchPageBlocks = useCallback(() => {
+        implementationPageService
+            .list(implementation.organization_id, implementation.id)
+            .then((res) => {
+                setPageBlockProducts(
+                    res.data.data?.find((page) => page.page_type === 'block_home_products') || {
+                        state: 'draft',
+                        title: '',
+                        description: '',
+                    },
+                );
+
+                setPageBlockProductCategories(
+                    res.data.data?.find((page) => page.page_type === 'block_home_product_categories') || {
+                        state: 'draft',
+                        title: '',
+                        description: '',
+                    },
+                );
+            })
+            .catch(pushApiError);
+    }, [implementation, implementationPageService, pushApiError]);
 
     useEffect(() => {
         if (!pageTypeConfig?.key) {
@@ -187,11 +195,11 @@ export default function ImplementationsPageForm({
 
     useEffect(() => {
         if (pageTypeConfig?.key === 'home') {
-            fetchPageByKey('block_home_products');
+            fetchPageBlocks();
         }
-    }, [pageTypeConfig?.key, fetchPageByKey]);
+    }, [pageTypeConfig?.key, fetchPageBlocks]);
 
-    if (!pageTypeConfig || (pageTypeConfig?.key === 'home' && !pageBlock)) {
+    if (!pageTypeConfig || (pageTypeConfig?.key === 'home' && !pageBlockProducts)) {
         return <LoadingCard />;
     }
 
@@ -229,87 +237,68 @@ export default function ImplementationsPageForm({
                         </div>
                     </div>
 
-                    <div className="card-section card-section-primary">
-                        <div className="row">
-                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                <div className="form-group tooltipped">
-                                    <label className="form-label">Status</label>
-
+                    <FormPaneContainer className="card-section">
+                        <FormPane title="Page content">
+                            <FormGroup
+                                label="Status"
+                                error={form.errors.state}
+                                input={(id) => (
                                     <SelectControl
+                                        id={id}
                                         className="form-control"
                                         propKey={'value'}
                                         value={form.values?.state}
                                         onChange={(state: string) => form.update({ state })}
                                         options={states}
                                     />
-                                    <FormError error={form.errors.state} />
-                                </div>
-
-                                {pageTypeConfig.type === 'extra' && (
-                                    <div className="form-group tooltipped">
-                                        <label className="form-label">Pagina type</label>
-
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey={'value'}
-                                                    value={form.values?.external}
-                                                    onChange={(external: boolean) => form.update({ external })}
-                                                    options={types}
-                                                />
-                                            </div>
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showInfoBlockType ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setShowInfoBlockType(!showInfoBlockType)}>
-                                                    <em className="mdi mdi-information" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {showInfoBlockType && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        De interne privacyverklaring pagina wordt gehost op ons
-                                                        webshopdomein. Hieronder kunt u de inhoud van de pagina
-                                                        aanpassen. U kunt er ook voor kiezen om een externe
-                                                        privacyverklaring te gebruiken en de doorverwijzingslink op te
-                                                        geven.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <FormError error={form.errors.external} />
-                                    </div>
                                 )}
+                            />
 
-                                {form.values?.external ? (
-                                    <div className="form-group">
-                                        <label className="form-label" htmlFor="external_url">
-                                            Externe url
-                                        </label>
+                            {pageTypeConfig.type === 'extra' && (
+                                <FormGroup
+                                    label="Pagina type"
+                                    info={
+                                        <Fragment>
+                                            De interne privacyverklaring pagina wordt gehost op ons webshopdomein.
+                                            Hieronder kunt u de inhoud van de pagina aanpassen. U kunt er ook voor
+                                            kiezen om een externe privacyverklaring te gebruiken en de
+                                            doorverwijzingslink op te geven.
+                                        </Fragment>
+                                    }
+                                    error={form.errors.external}
+                                    input={(id) => (
+                                        <SelectControl
+                                            id={id}
+                                            className="form-control"
+                                            propKey={'value'}
+                                            value={form.values?.external}
+                                            onChange={(external: boolean) => form.update({ external })}
+                                            options={types}
+                                        />
+                                    )}
+                                />
+                            )}
+
+                            {form.values?.external ? (
+                                <FormGroup
+                                    label="Externe url"
+                                    error={form.errors?.external_url}
+                                    input={(id) => (
                                         <input
-                                            id="external_url"
+                                            id={id}
                                             type="text"
                                             className="form-control"
                                             placeholder={translate(`implementation_edit.placeholders.${pageType}`)}
                                             value={form.values?.external_url || ''}
                                             onChange={(e) => form.update({ external_url: e.target.value })}
                                         />
-                                        <FormError error={form.errors.external_url} />
-                                    </div>
-                                ) : (
-                                    <div className="form-group tooltipped">
-                                        <label className="form-label">
-                                            {translate(`implementation_edit.labels.${pageType}`)}
-                                        </label>
-
+                                    )}
+                                />
+                            ) : (
+                                <FormGroup
+                                    label={translate(`implementation_edit.labels.${pageType}`)}
+                                    error={form.errors?.description}
+                                    input={() => (
                                         <MarkdownEditor
                                             alignment={form.values?.description_alignment}
                                             extendedOptions={true}
@@ -317,81 +306,64 @@ export default function ImplementationsPageForm({
                                             value={form.values?.description_html}
                                             onChange={(value) => form.update({ description: value })}
                                         />
+                                    )}
+                                />
+                            )}
 
-                                        <FormError error={form.errors.description} />
-                                    </div>
-                                )}
+                            {pageTypeConfig.description_position_configurable && !form.values?.external && (
+                                <FormGroup
+                                    label="Positie van de content"
+                                    error={form.errors.description_position}
+                                    info={translate(`implementation_edit.tooltips.${pageType}`)}
+                                    input={(id) => (
+                                        <SelectControl
+                                            id={id}
+                                            className="form-control"
+                                            propKey={'value'}
+                                            value={form.values?.description_position}
+                                            onChange={(description_position: string) => {
+                                                form.update({ description_position });
+                                            }}
+                                            options={descriptionPositions}
+                                        />
+                                    )}
+                                />
+                            )}
+                        </FormPane>
 
-                                {pageTypeConfig.description_position_configurable && !form.values?.external && (
-                                    <div className="form-group">
-                                        <label className="form-label">Positie van de content</label>
+                        {pageTypeConfig.key == 'home' && (
+                            <FormPane title="Aanbod sectie">
+                                <ImplementationsInlineBlockEditor
+                                    blockKey={'block_home_products'}
+                                    activeOrganization={activeOrganization}
+                                    implementation={implementation}
+                                    pageBlock={pageBlockProducts}
+                                    setPageBlock={setPageBlockProducts}
+                                    saveBlockRef={cmsBlockEditorRef}
+                                />
+                            </FormPane>
+                        )}
 
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey={'value'}
-                                                    value={form.values?.description_position}
-                                                    onChange={(description_position: string) => {
-                                                        form.update({ description_position });
-                                                    }}
-                                                    options={descriptionPositions}
-                                                />
-                                            </div>
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showInfoBlockTypePosition ? 'active' : ''
-                                                    }`}
-                                                    onClick={() =>
-                                                        setShowInfoBlockTypePosition(!showInfoBlockTypePosition)
-                                                    }>
-                                                    <em className="mdi mdi-information" />
-                                                </div>
-                                            </div>
-                                        </div>
+                        {pageTypeConfig.key == 'home' && (
+                            <FormPane title="Aanbod categorieën sectie">
+                                <ImplementationsInlineBlockEditor
+                                    blockKey={'block_home_product_categories'}
+                                    state={true}
+                                    markdown={false}
+                                    activeOrganization={activeOrganization}
+                                    implementation={implementation}
+                                    pageBlock={pageBlockProductCategories}
+                                    setPageBlock={setPageBlockProductCategories}
+                                    saveBlockRef={cmsBlockEditorRef2}
+                                />
+                            </FormPane>
+                        )}
 
-                                        {showInfoBlockTypePosition && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <p>{translate(`implementation_edit.tooltips.${pageType}`)}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <FormError error={form.errors.description_position} />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    {pageTypeConfig.key == 'home' && (
-                        <div className="card-section card-section-primary">
-                            <div className="row">
-                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                    <ImplementationsHomeProductsBlockEditor
-                                        activeOrganization={activeOrganization}
-                                        implementation={implementation}
-                                        pageBlock={pageBlock}
-                                        setPageBlock={setPageBlock}
-                                        saveBlockRef={cmsBlockEditorRef}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {pageTypeConfig.blocks && !form.values?.external && (
-                        <div className="card-section card-section-primary">
-                            <div className={'row'}>
-                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                    <div className="form-group">
-                                        <label className="form-label">Blokken</label>
-
+                        {pageTypeConfig.blocks && !form.values?.external && (
+                            <FormPane title="Blokken">
+                                <FormGroup
+                                    label={'Blokken'}
+                                    input={() => (
                                         <ImplementationsBlockEditor
                                             blocks={blocks}
                                             setBlocks={setBlocks}
@@ -400,10 +372,12 @@ export default function ImplementationsPageForm({
                                             createFaqRef={faqEditorValidateRef}
                                             implementation={implementation}
                                         />
-                                    </div>
+                                    )}
+                                />
 
-                                    <div className="form-group">
-                                        <label className="form-label">Blokken per rij</label>
+                                <FormGroup
+                                    label={'Blokken per rij'}
+                                    input={() => (
                                         <SelectControl
                                             className="form-control"
                                             propKey={'value'}
@@ -411,30 +385,28 @@ export default function ImplementationsPageForm({
                                             onChange={(blocks_per_row: number) => form.update({ blocks_per_row })}
                                             options={blocksPerRow}
                                         />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {pageTypeConfig.faq && !form.values?.external && (
-                        <div className="card-section card-section-primary">
-                            <div className="form-group">
-                                <label className="form-label">Veel gestelde vragen</label>
-
-                                <FaqEditor
-                                    faq={faq}
-                                    setFaq={setFaq}
-                                    organization={activeOrganization}
-                                    errors={form?.errors}
-                                    setErrors={(errors: ResponseErrorData) => form.setErrors(errors)}
-                                    createFaqRef={blockEditorValidateRef}
+                                    )}
                                 />
-                            </div>
-                        </div>
-                    )}
+                            </FormPane>
+                        )}
 
-                    <div className="card-section card-section-primary">
+                        {pageTypeConfig.faq && !form.values?.external && (
+                            <FormGroup
+                                label="Veel gestelde vragen"
+                                input={() => (
+                                    <FaqEditor
+                                        faq={faq}
+                                        setFaq={setFaq}
+                                        organization={activeOrganization}
+                                        errors={form?.errors}
+                                        setErrors={(errors: ResponseErrorData) => form.setErrors(errors)}
+                                        createFaqRef={blockEditorValidateRef}
+                                    />
+                                )}
+                            />
+                        )}
+                    </FormPaneContainer>
+                    <div className="card-footer">
                         <div className="button-group flex-center">
                             <StateNavLink
                                 name={'implementation-view'}

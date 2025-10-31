@@ -3649,5 +3649,9 @@
             "archive": "Archiv"
         },
         "title": "Körperlicher Pass"
+    },
+    "block_product_categories": {
+        "description": "Klicken Sie auf ein Thema und Sie sehen sofort, aus welchem Angebot Sie wählen können.",
+        "title": "Was machen Sie gerne?"
     }
 }
