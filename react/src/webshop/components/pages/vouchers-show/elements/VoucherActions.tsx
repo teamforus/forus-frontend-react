@@ -3,7 +3,6 @@ import Voucher from '../../../../../dashboard/props/models/Voucher';
 import QrCode from '../../../../../dashboard/components/elements/qr-code/QrCode';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import useEnvData from '../../../../hooks/useEnvData';
 import useLinkVoucherPhysicalCard from '../hooks/useLinkVoucherPhysicalCard';
 import useUnlinkVoucherPhysicalCard from '../hooks/useUnlinkVoucherPhysicalCard';
 import useShowPhysicalCardsOption from '../hooks/useShowPhysicalCardsOption';
@@ -28,8 +27,6 @@ export default function VoucherActions({
     setVoucher: Dispatch<SetStateAction<Voucher>>;
     fetchVoucher: () => void;
 }) {
-    const envData = useEnvData();
-
     const translate = useTranslate();
     const openModal = useOpenModal();
     const navigateState = useNavigate();
@@ -146,7 +143,7 @@ export default function VoucherActions({
         <div className="voucher-actions">
             <div className="voucher-actions-qr">
                 {voucher.address &&
-                    (voucher?.external ? (
+                    (voucher?.external || !voucherCard.fund.show_qr_code ? (
                         <div className="voucher-actions-qr-svg">
                             <IconReimbursement />
                         </div>
@@ -156,6 +153,7 @@ export default function VoucherActions({
                             className={'card-qr_code-element'}
                             value={makeQrCodeContent('voucher', voucher.address)}
                             aria-label={translate('voucher.qr_code.label', { number: voucher.number })}
+                            dusk="voucherQrCode"
                         />
                     ))}
             </div>
@@ -170,11 +168,12 @@ export default function VoucherActions({
                     </StateNavLink>
                 )}
 
-                {!envData.config.flags.noPrintOption && !voucher?.external && (
+                {!voucher?.external && voucher?.fund?.show_qr_code && (
                     <button
                         role={'button'}
                         onKeyDown={clickOnKeyEnter}
                         className="voucher-actions-button"
+                        data-dusk="openVoucherShareModal"
                         onClick={() => openSaveVoucher(voucher)}>
                         <em className="mdi mdi-qrcode" />
                         {translate('voucher.actions.save_qr')}
@@ -238,10 +237,11 @@ export default function VoucherActions({
                     </StateNavLink>
                 )}
 
-                {voucherCard?.type === 'product' && !voucherCard.external && (
+                {voucherCard?.type === 'product' && !voucherCard?.external && voucher?.fund?.show_qr_code && (
                     <button
                         type={'button'}
                         className="voucher-actions-button"
+                        data-dusk="shareVoucher"
                         onKeyDown={clickOnKeyEnter}
                         onClick={() => shareVoucherWithProvider(voucher)}>
                         <em className="mdi mdi-share-variant-outline" />
