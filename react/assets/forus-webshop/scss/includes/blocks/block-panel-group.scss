@@ -6,6 +6,7 @@
     .panel {
         border: 1px solid var(--border-color);
         border-radius: min(calc(var(--border-radius) * 3), 16px);
+        background-color: #ffffff;
 
         .panel-header {
             display: flex;
@@ -65,14 +66,14 @@
         }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1000px) {
         gap: 8px;
 
         .panel {
             border-radius: min(calc(var(--border-radius) * 2), 12px);
 
             .panel-header {
-                padding: 18px 20px;
+                padding: 20px 25px;
                 gap: 6px;
 
                 .panel-header-icon {
@@ -81,7 +82,7 @@
                 }
 
                 .panel-header-title {
-                    font: 700 18px/24px var(--base-font);
+                    font: 700 20px/24px var(--base-font);
                 }
 
                 .mdi {
@@ -93,7 +94,7 @@
             }
 
             .panel-body {
-                padding: 0 20px 20px;
+                padding: 0 25px 25px;
             }
         }
     }
@@ -106,6 +107,7 @@
 
             .panel-header {
                 gap: 5px;
+                padding: 18px 20px;
 
                 .panel-header-icon {
                     font-size: 20px;
@@ -113,7 +115,7 @@
                 }
 
                 .panel-header-title {
-                    font: 700 16px/22px var(--base-font);
+                    font: 700 18px/22px var(--base-font);
                 }
 
                 .mdi {
@@ -122,6 +124,10 @@
                     width: 26px;
                     line-height: 26px;
                 }
+            }
+
+            .panel-body {
+                padding: 0 20px 20px;
             }
         }
     }

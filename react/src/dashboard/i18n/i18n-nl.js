@@ -532,6 +532,7 @@ export default {
             external_link_text: 'Externe linktekst',
             external_link_url: 'Externe link-url',
             criteria_label_requirement_show: 'Verplichte of optionele vragen',
+            how_it_works: 'Uitleg over het tegoed (extra uitleg op de tegoedenpagina)',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -569,6 +570,7 @@ export default {
             base_card: {
                 header: {
                     description: 'Beschrijving',
+                    how_it_works: 'Uitleg over het tegoed',
                     formulas: 'Rekenregels',
                     statistics: 'Statistieken',
                     criteria: 'Voorwaarden',
