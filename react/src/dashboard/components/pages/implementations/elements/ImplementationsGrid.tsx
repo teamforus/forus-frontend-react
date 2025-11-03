@@ -9,13 +9,14 @@ import FormPaneContainer from '../../../elements/forms/elements/FormPaneContaine
 import { hasPermission } from '../../../../helpers/utils';
 import { Permission } from '../../../../props/models/Organization';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 type GridItem = {
     key: string;
     icon: string;
     name: string;
     description: string;
-    state?: string;
+    state?: DashboardRoutes;
     disabled?: boolean;
 };
 
@@ -43,14 +44,14 @@ export default function ImplementationsGrid() {
                         icon: 'mdi-image-area',
                         name: 'Homepage-banner',
                         description: 'Pas de hero-banner en kopteksten van de webshop aan.',
-                        state: 'implementation-view-banner',
+                        state: DashboardRoutes.IMPLEMENTATION_VIEW_BANNER,
                     },
                     {
                         key: 'pages',
                         icon: 'mdi-file-document-multiple-outline',
                         name: "Pagina's",
                         description: "Beheer pagina's en blokken die zichtbaar zijn voor bezoekers.",
-                        state: 'implementation-view-pages',
+                        state: DashboardRoutes.IMPLEMENTATION_VIEW_PAGES,
                     },
                     showTranslations
                         ? {
@@ -58,7 +59,7 @@ export default function ImplementationsGrid() {
                               icon: 'mdi-translate',
                               name: 'Talen en vertalingen',
                               description: 'Beheer beschikbare talen en vertalingen voor de webshop.',
-                              state: 'implementations-translations',
+                              state: DashboardRoutes.IMPLEMENTATION_TRANSLATIONS,
                           }
                         : null,
                 ].filter((item) => item),
@@ -71,7 +72,7 @@ export default function ImplementationsGrid() {
                         icon: 'mdi-cookie-alert-outline',
                         name: 'Cookiemelding',
                         description: 'Toon cookie-informatie en beheer toestemmingen.',
-                        state: 'implementations-cookies',
+                        state: DashboardRoutes.IMPLEMENTATION_COOKIES,
                     },
                     {
                         key: 'terms-privacy',
@@ -79,28 +80,28 @@ export default function ImplementationsGrid() {
                         name: 'Privacy en voorwaarden',
                         description:
                             'Schakel de toestemmingsvinkjes voor privacy en voorwaarden op de webshop in of uit.',
-                        state: 'implementation-terms-privacy',
+                        state: DashboardRoutes.IMPLEMENTATION_TERMS_PRIVACY,
                     },
                     {
                         key: 'announcements',
                         icon: 'mdi-bullhorn-outline',
                         name: 'Aankondigingen',
                         description: 'Publiceer aankondigingen om belangrijke updates op de webshop uit te lichten.',
-                        state: 'implementation-announcements',
+                        state: DashboardRoutes.IMPLEMENTATION_ANNOUNCEMENTS,
                     },
                     {
                         key: 'email-settings',
                         icon: 'mdi-email-outline',
                         name: 'E-mailinstellingen',
                         description: 'Stel de afzendernaam en het afzenderadres voor webshopmails in.',
-                        state: 'implementations-email',
+                        state: DashboardRoutes.IMPLEMENTATION_EMAIL,
                     },
                     {
                         key: 'social-settings',
                         icon: 'mdi-share-variant-outline',
                         name: 'Socialmediakanalen',
                         description: 'Beheer de socialmedia-links van de webshop.',
-                        state: 'implementations-social-media',
+                        state: DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA,
                     },
                 ].filter((item) => item),
             },
@@ -112,28 +113,28 @@ export default function ImplementationsGrid() {
                         icon: 'mdi-cog-outline',
                         name: 'Webshopinstellingen',
                         description: 'Beheer contactgegevens en algemene configuratiewaarden.',
-                        state: 'implementations-config',
+                        state: DashboardRoutes.IMPLEMENTATION_CONFIG,
                     },
                     {
                         key: 'digid-settings',
                         icon: 'mdi-shield-key-outline',
                         name: 'DigiD-instellingen',
                         description: 'Beheer de DigiD-inloggegevens en schakel webshoptoegang in of uit.',
-                        state: 'implementations-digid',
+                        state: DashboardRoutes.IMPLEMENTATION_DIGID,
                     },
                     {
                         key: 'funds',
                         icon: 'mdi-link-variant',
                         name: 'Gekoppelde fondsen',
                         description: 'Bekijk gekoppelde fondsen en beheer hun backoffice-integratie-instellingen.',
-                        state: 'implementation-funds',
+                        state: DashboardRoutes.IMPLEMENTATION_FUNDS,
                     },
                     {
                         key: 'notifications',
                         icon: 'mdi-message-alert-outline',
                         name: 'Systeemmeldingen',
                         description: 'Bekijk en bewerk systeemmeldingen van de implementatie.',
-                        state: 'implementation-notifications',
+                        state: DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS,
                     },
                     showPreCheck
                         ? {
@@ -141,7 +142,7 @@ export default function ImplementationsGrid() {
                               icon: 'mdi-text-box-search-outline',
                               name: 'Precheck-instellingen voor fondsen',
                               description: 'Configureer precheckvereisten voor fondsen binnen de implementatie.',
-                              state: 'implementation-pre-check',
+                              state: DashboardRoutes.IMPLEMENTATION_PRE_CHECK,
                           }
                         : null,
                 ].filter((item) => item),
@@ -196,7 +197,7 @@ export default function ImplementationsGrid() {
                             {section.items.map((item) => (
                                 <StateNavLink
                                     key={item.key}
-                                    name={item.state || 'implementation-view'}
+                                    name={item.state || DashboardRoutes.IMPLEMENTATION}
                                     params={{
                                         organizationId: activeOrganization.id,
                                         id: id,

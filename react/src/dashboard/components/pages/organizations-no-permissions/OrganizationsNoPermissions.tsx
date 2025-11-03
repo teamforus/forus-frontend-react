@@ -1,6 +1,7 @@
 import React from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 export default function OrganizationsNoPermissions() {
     const activeOrganization = useActiveOrganization();
     const title = 'Geen rechten';
@@ -10,7 +11,7 @@ export default function OrganizationsNoPermissions() {
         <>
             <div data-dusk="noPermissionsPageContent">
                 <div className="block block-breadcrumbs">
-                    <StateNavLink className="breadcrumb-item" name={'organizations'} activeExact={true}>
+                    <StateNavLink className="breadcrumb-item" name={DashboardRoutes.ORGANIZATIONS} activeExact={true}>
                         {activeOrganization.name}
                     </StateNavLink>
                     <div className="breadcrumb-item active">{title}</div>

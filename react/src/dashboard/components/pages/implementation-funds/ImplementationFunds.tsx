@@ -22,6 +22,7 @@ import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import { strLimit } from '../../../helpers/string';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationFunds() {
     const { id } = useParams();
@@ -46,7 +47,9 @@ export default function ImplementationFunds() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    navigate(getStateRouteUrl('implementations', { organizationId: activeOrganization.id }));
+                    navigate(
+                        getStateRouteUrl(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id }),
+                    );
                 }
 
                 pushApiError(err);
@@ -117,7 +120,7 @@ export default function ImplementationFunds() {
                                         {funds.data.map((fund) => (
                                             <StateNavLink
                                                 key={fund.id}
-                                                name={'funds-show'}
+                                                name={DashboardRoutes.FUND}
                                                 className={'tr-clickable'}
                                                 customElement={'tr'}
                                                 params={{ fundId: fund.id, organizationId: activeOrganization.id }}>
@@ -141,7 +144,7 @@ export default function ImplementationFunds() {
                                                             content={() => (
                                                                 <div className="dropdown dropdown-actions">
                                                                     <StateNavLink
-                                                                        name={'funds-show'}
+                                                                        name={DashboardRoutes.FUND}
                                                                         params={{
                                                                             fundId: fund.id,
                                                                             organizationId: activeOrganization.id,
@@ -157,7 +160,9 @@ export default function ImplementationFunds() {
                                                                     ) &&
                                                                         fund.key && (
                                                                             <StateNavLink
-                                                                                name={'fund-backoffice-edit'}
+                                                                                name={
+                                                                                    DashboardRoutes.FUND_BACKOFFICE_EDIT
+                                                                                }
                                                                                 params={{
                                                                                     fundId: fund.id,
                                                                                     organizationId:

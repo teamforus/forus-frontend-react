@@ -14,6 +14,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationNotificationEdit() {
     const { id, implementationId } = useParams();
@@ -99,8 +100,9 @@ export default function ImplementationNotificationEdit() {
             <div className="block block-breadcrumbs">
                 <ImplementationsRootBreadcrumbs implementation={implementation} />
                 <StateNavLink
-                    name={'implementation-notifications'}
+                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
+                    activeExact={true}
                     className="breadcrumb-item">
                     Systeemberichten
                 </StateNavLink>

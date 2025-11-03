@@ -16,6 +16,7 @@ import Fund from '../../../../props/models/Fund';
 import useProductChat from '../hooks/useProductChat';
 import FundProviderProductRowData from './FundProviderProductRowData';
 import useUpdateProduct from '../hooks/useUpdateProduct';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 type ProductLocal = SponsorProduct & {
@@ -116,7 +117,7 @@ export default function FundProviderProducts({
                     <div className="block block-inline-filters">
                         {source === 'sponsor' && (
                             <StateNavLink
-                                name={'fund-provider-product-create'}
+                                name={DashboardRoutes.FUND_PROVIDER_PRODUCT_CREATE}
                                 params={{
                                     fundId: fundProvider.fund_id,
                                     fundProviderId: fundProvider.id,
@@ -162,7 +163,7 @@ export default function FundProviderProducts({
                                 {products.data.map((product) => (
                                     <StateNavLink
                                         customElement={'tr'}
-                                        name={'fund-provider-product'}
+                                        name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
                                         className={'tr-clickable'}
                                         params={{
                                             id: product.id,

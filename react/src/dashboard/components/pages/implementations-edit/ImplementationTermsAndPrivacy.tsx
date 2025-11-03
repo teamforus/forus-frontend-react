@@ -17,6 +17,7 @@ import { ResponseError } from '../../../props/ApiResponses';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 type FormValues = {
     show_privacy_checkbox: boolean;
@@ -194,7 +195,7 @@ export default function ImplementationTermsAndPrivacy() {
                     <div className="card-footer card-footer-primary">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementation-view'}
+                                name={DashboardRoutes.IMPLEMENTATION}
                                 params={{
                                     id: implementation.id,
                                     organizationId: activeOrganization.id,

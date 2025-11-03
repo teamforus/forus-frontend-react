@@ -11,6 +11,7 @@ import useImplementationPageService from '../../../services/ImplementationPageSe
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationPageEdit() {
     const { implementationId, id } = useParams();
@@ -34,7 +35,7 @@ export default function ImplementationPageEdit() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState('implementations', { organizationId: activeOrganization.id });
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);

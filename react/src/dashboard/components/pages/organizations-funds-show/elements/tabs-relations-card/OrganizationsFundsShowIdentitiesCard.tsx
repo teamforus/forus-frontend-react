@@ -18,6 +18,7 @@ import { Permission } from '../../../../../props/models/Organization';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../../elements/tables/TableRowActions';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 
@@ -206,7 +207,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
                                                                     className="dropdown-item"
-                                                                    name={'identities-show'}
+                                                                    name={DashboardRoutes.IDENTITY}
                                                                     params={{
                                                                         organizationId: fund.organization_id,
                                                                         id: identity.id,

@@ -18,6 +18,7 @@ import { Permission } from '../../../../../props/models/Organization';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import { useFundService } from '../../../../../services/FundService';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 
@@ -203,7 +204,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                                                                     Permission.MANAGE_IMPLEMENTATION_CMS,
                                                                 ) && (
                                                                     <StateNavLink
-                                                                        name={'implementation-view'}
+                                                                        name={DashboardRoutes.IMPLEMENTATION}
                                                                         params={{
                                                                             id: implementation?.id,
                                                                             organizationId: fund.organization_id,

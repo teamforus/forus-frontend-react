@@ -23,6 +23,7 @@ import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();
@@ -247,7 +248,7 @@ export default function Search() {
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: translate('search.breadcrumbs.home'), state: 'home' },
+                { name: translate('search.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('search.breadcrumbs.search') },
             ]}
             dusk="searchListContent"

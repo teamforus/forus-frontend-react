@@ -21,6 +21,7 @@ import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
 import FormGroup from '../../elements/forms/elements/FormGroup';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationNotificationsBranding() {
     const { id } = useParams();
@@ -94,7 +95,7 @@ export default function ImplementationNotificationsBranding() {
                 .updateEmailBranding(activeOrganization.id, implementation.id, data)
                 .then(() => {
                     pushSuccess('Gelukt!', 'De aanpassingen zijn opgeslagen!');
-                    navigateState('implementation-notifications', {
+                    navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
                         id: implementation.id,
                     });
@@ -144,7 +145,7 @@ export default function ImplementationNotificationsBranding() {
             <div className="block block-breadcrumbs">
                 <ImplementationsRootBreadcrumbs implementation={implementation} />
                 <StateNavLink
-                    name={'implementation-notifications'}
+                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -222,7 +223,7 @@ export default function ImplementationNotificationsBranding() {
                         <div className="button-group flex-center">
                             <StateNavLink
                                 className="button button-default"
-                                name={'implementation-notifications'}
+                                name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                                 params={{ organizationId: activeOrganization.id, id: implementation.id }}>
                                 Annuleren
                             </StateNavLink>

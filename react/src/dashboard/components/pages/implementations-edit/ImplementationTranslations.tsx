@@ -15,6 +15,7 @@ import ImplementationsRootBreadcrumbs from '../implementations/elements/Implemen
 import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationTranslations() {
     const { id } = useParams();
@@ -81,7 +82,7 @@ export default function ImplementationTranslations() {
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">
                             <StateNavLink
-                                name={'organizations-translations'}
+                                name={DashboardRoutes.ORGANIZATION_TRANSLATIONS}
                                 className={'button button-primary button-sm'}
                                 params={{ organizationId: activeOrganization.id }}>
                                 <em className="mdi mdi-pencil-outline" />
@@ -129,7 +130,7 @@ export default function ImplementationTranslations() {
                 <div className="card-footer card-footer-primary">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementation-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{ id: implementation.id, organizationId: activeOrganization.id }}
                             className="button button-default">
                             Annuleren

@@ -23,6 +23,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ReimbursementStateLabel from '../../elements/resource-states/ReimbursementStateLabel';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -173,7 +174,7 @@ export default function ReimbursementsView() {
             {activeOrganization && (
                 <div className="block block-breadcrumbs">
                     <StateNavLink
-                        name="reimbursements"
+                        name={DashboardRoutes.REIMBURSEMENTS}
                         params={{ organizationId: activeOrganization.id }}
                         activeExact={true}
                         className="breadcrumb-item">

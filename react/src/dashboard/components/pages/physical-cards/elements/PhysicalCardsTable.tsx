@@ -24,6 +24,7 @@ import SponsorPhysicalCard from '../../../../props/models/Sponsor/SponsorPhysica
 import { strLimit } from '../../../../helpers/string';
 import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy';
 import PhysicalCardType from '../../../../props/models/PhysicalCardType';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function PhysicalCardsTable({
     tab,
@@ -150,7 +151,7 @@ export default function PhysicalCardsTable({
                                                 {card?.voucher ? (
                                                     <StateNavLink
                                                         className={'text-primary text-underline text-semibold'}
-                                                        name={'vouchers-show'}
+                                                        name={DashboardRoutes.VOUCHER}
                                                         params={{
                                                             id: card?.voucher.id,
                                                             organizationId: organization.id,
@@ -163,7 +164,7 @@ export default function PhysicalCardsTable({
                                                 {card?.voucher?.fund ? (
                                                     <StateNavLink
                                                         className={'text-primary text-underline text-semibold'}
-                                                        name={'vouchers-show'}
+                                                        name={DashboardRoutes.VOUCHER}
                                                         params={{
                                                             id: card?.voucher.id,
                                                             organizationId: organization.id,
@@ -178,7 +179,7 @@ export default function PhysicalCardsTable({
                                                 {card?.physical_card_type ? (
                                                     <StateNavLink
                                                         className={'text-primary text-underline text-semibold'}
-                                                        name={'physical-card-types-show'}
+                                                        name={DashboardRoutes.PHYSICAL_CARD_TYPE}
                                                         params={{
                                                             id: card?.physical_card_type.id,
                                                             organizationId: organization.id,
@@ -196,7 +197,7 @@ export default function PhysicalCardsTable({
                                                             <div className="dropdown dropdown-actions">
                                                                 {card?.voucher && (
                                                                     <StateNavLink
-                                                                        name={'vouchers-show'}
+                                                                        name={DashboardRoutes.VOUCHER}
                                                                         params={{
                                                                             id: card?.voucher.id,
                                                                             organizationId: organization.id,
@@ -209,7 +210,7 @@ export default function PhysicalCardsTable({
 
                                                                 {card.physical_card_type && (
                                                                     <StateNavLink
-                                                                        name={'physical-card-types-show'}
+                                                                        name={DashboardRoutes.PHYSICAL_CARD_TYPE}
                                                                         params={{
                                                                             id: card.physical_card_type?.id,
                                                                             organizationId: organization.id,

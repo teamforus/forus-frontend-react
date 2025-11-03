@@ -1,5 +1,5 @@
 import React from 'react';
-import RouterBuilder from '../modules/state_router/RouterBuilder';
+import RouterBuilder, { DashboardRoutes } from '../modules/state_router/RouterBuilder';
 import SignIn from '../components/pages/auth/SignIn';
 import SignUp from '../components/pages/auth/SignUp';
 import SignOut from '../components/pages/auth/SignOut';
@@ -107,597 +107,597 @@ import ImplementationTermsAndPrivacy from '../components/pages/implementations-e
 
 const router = new RouterBuilder();
 
-router.state('sign-in', <SignIn />, {
+router.state(DashboardRoutes.SIGN_IN, <SignIn />, {
     path: `/inloggen`,
     altPath: `/sign-in`,
     layout: LayoutType.landingClear,
     protected: false,
 });
 
-router.state('sign-up', <SignUp />, {
+router.state(DashboardRoutes.SIGN_UP, <SignUp />, {
     path: `/aanmelden`,
     altPath: `/sign-up`,
     layout: LayoutType.landingClearNew,
     protected: false,
 });
 
-router.state('sign-out', <SignOut />, {
+router.state(DashboardRoutes.SIGN_OUT, <SignOut />, {
     path: `/uitloggen`,
     altPath: `/sign-out`,
     protected: false,
 });
 
-router.state('auth-2fa', <Auth2FA />, {
+router.state(DashboardRoutes.AUTH_2FA, <Auth2FA />, {
     path: `/tweefactorauthenticatie`,
     altPath: `/auth-2fa`,
     layout: LayoutType.landingClear,
     protected: false,
 });
 
-router.state('identity-restore', <IdentityRestore confirmation={false} />, {
+router.state(DashboardRoutes.IDENTITY_RESTORE, <IdentityRestore confirmation={false} />, {
     path: `/identiteit-herstellen`,
     altPath: `/identity-restore`,
     protected: false,
 });
 
-router.state('identity-confirmation', <IdentityRestore confirmation={true} />, {
+router.state(DashboardRoutes.IDENTITY_CONFIRMATION, <IdentityRestore confirmation={true} />, {
     path: `/bevestiging/email/:token`,
     altPath: `/confirmation/email/:token`,
     protected: false,
 });
 
-router.state('organizations', <Organizations />, {
+router.state(DashboardRoutes.ORGANIZATIONS, <Organizations />, {
     path: `/organisaties`,
     altPath: `/organizations`,
     protected: false,
 });
 
-router.state('organizations-view', <OrganizationsView />, {
+router.state(DashboardRoutes.ORGANIZATION, <OrganizationsView />, {
     path: `/organisaties/:organizationId`,
     altPath: `/organizations/:organizationId`,
     protected: false,
 });
 
-router.state('organizations-create', <OrganizationCreate />, {
+router.state(DashboardRoutes.ORGANIZATION_CREATE, <OrganizationCreate />, {
     path: `/organisaties/aanmaken`,
     altPath: `/organizations/create`,
     protected: false,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('organizations-edit', <OrganizationEdit />, {
+router.state(DashboardRoutes.ORGANIZATION_EDIT, <OrganizationEdit />, {
     path: `/organisaties/:organizationId/bewerken`,
     altPath: `/organizations/:organizationId/edit`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('organization-funds', <OrganizationFunds />, {
+router.state(DashboardRoutes.ORGANIZATION_FUNDS, <OrganizationFunds />, {
     path: `/organisaties/:organizationId/fondsen`,
     altPath: `/organizations/:organizationId/funds`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('fund-backoffice-edit', <FundBackofficeEdit />, {
+router.state(DashboardRoutes.FUND_BACKOFFICE_EDIT, <FundBackofficeEdit />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/backoffice`,
     altPath: `/organizations/:organizationId/funds/:fundId/backoffice`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('funds-show', <OrganizationsFundsShow />, {
+router.state(DashboardRoutes.FUND, <OrganizationsFundsShow />, {
     path: `/organisaties/:organizationId/fondsen/:fundId`,
     altPath: `/organizations/:organizationId/funds/:fundId`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('funds-create', <OrganizationsFundsEdit />, {
+router.state(DashboardRoutes.FUND_CREATE, <OrganizationsFundsEdit />, {
     path: `/organisaties/:organizationId/fondsen/aanmaken`,
     altPath: `/organizations/:organizationId/funds/create`,
 });
 
-router.state('funds-edit', <OrganizationsFundsEdit />, {
+router.state(DashboardRoutes.FUND_EDIT, <OrganizationsFundsEdit />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/bewerken`,
     altPath: `/organizations/:organizationId/funds/:fundId/edit`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('funds-security', <OrganizationsFundsSecurity />, {
+router.state(DashboardRoutes.FUND_SECURITY, <OrganizationsFundsSecurity />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/beveiliging`,
     altPath: `/organizations/:organizationId/funds/:fundId/security`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('sponsor-provider-organizations', <SponsorProviderOrganizations />, {
+router.state(DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS, <SponsorProviderOrganizations />, {
     path: `/organisaties/:organizationId/aanbieders`,
     altPath: `/organizations/:organizationId/providers`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('sponsor-provider-organization', <SponsorProviderOrganization />, {
+router.state(DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION, <SponsorProviderOrganization />, {
     path: `/organisaties/:organizationId/aanbieders/:id`,
     altPath: `/organizations/:organizationId/providers/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('payouts', <Payouts />, {
+router.state(DashboardRoutes.PAYOUTS, <Payouts />, {
     path: `/organisaties/:organizationId/uitbetalingen`,
     altPath: `/organizations/:organizationId/payouts`,
 });
 
-router.state('identities', <Identities />, {
+router.state(DashboardRoutes.IDENTITIES, <Identities />, {
     path: `/organisaties/:organizationId/identiteiten`,
     altPath: `/organizations/:organizationId/identities`,
 });
 
-router.state('identities-show', <IdentitiesShow />, {
+router.state(DashboardRoutes.IDENTITY, <IdentitiesShow />, {
     path: `/organisaties/:organizationId/identiteiten/:id`,
     altPath: `/organizations/:organizationId/identities/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('households', <Households />, {
+router.state(DashboardRoutes.HOUSEHOLDS, <Households />, {
     path: `/organisaties/:organizationId/huishoudens`,
     altPath: `/organizations/:organizationId/households`,
 });
 
-router.state('households-show', <HouseholdsShow />, {
+router.state(DashboardRoutes.HOUSEHOLD, <HouseholdsShow />, {
     path: `/organisaties/:organizationId/huishoudens/:id`,
     altPath: `/organizations/:organizationId/households/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('payout', <PayoutsView />, {
+router.state(DashboardRoutes.PAYOUT, <PayoutsView />, {
     path: `/organisaties/:organizationId/uitbetalingen/:address`,
     altPath: `/organizations/:organizationId/payouts/:address`,
 });
 
-router.state('fund-provider', <FundProvider />, {
+router.state(DashboardRoutes.FUND_PROVIDER, <FundProvider />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:id`,
     altPath: `/organizations/:organizationId/funds/:fundId/providers/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('fund-provider-product-create', <SponsorProductsCreate />, {
+router.state(DashboardRoutes.FUND_PROVIDER_PRODUCT_CREATE, <SponsorProductsCreate />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:fundProviderId/producten/aanmaken`,
     altPath: `/organizations/:organizationId/funds/:fundId/providers/:fundProviderId/products/create`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('fund-provider-product', <FundProviderProductView />, {
+router.state(DashboardRoutes.FUND_PROVIDER_PRODUCT, <FundProviderProductView />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:fundProviderId/producten/:id`,
     altPath: `/organizations/:organizationId/funds/:fundId/providers/:fundProviderId/products/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('fund-provider-product-edit', <SponsorProductsEdit />, {
+router.state(DashboardRoutes.FUND_PROVIDER_PRODUCT_EDIT, <SponsorProductsEdit />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:fundProviderId/producten/:id/bewerken`,
     altPath: `/organizations/:organizationId/funds/:fundId/providers/:fundProviderId/products/:id/edit`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('sponsor-fund-unsubscriptions', <SponsorFundUnsubscriptions />, {
+router.state(DashboardRoutes.SPONSOR_FUND_UNSUBSCRIPTIONS, <SponsorFundUnsubscriptions />, {
     path: `/organisaties/:organizationId/fonds-afmeldingen`,
     altPath: `/organizations/:organizationId/fund-unsubscriptions`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('sponsor-products', <SponsorProducts />, {
+router.state(DashboardRoutes.SPONSOR_PRODUCTS, <SponsorProducts />, {
     path: `/organisaties/:organizationId/sponsor/producten`,
     altPath: `/organizations/:organizationId/sponsor/products`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('sponsor-product', <SponsorProductView />, {
+router.state(DashboardRoutes.SPONSOR_PRODUCT, <SponsorProductView />, {
     path: `/organisaties/:organizationId/sponsor/producten/:productId`,
     altPath: `/organizations/:organizationId/sponsor/products/:productId`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('bank-connections', <BankConnections />, {
+router.state(DashboardRoutes.BANK_CONNECTIONS, <BankConnections />, {
     path: `/organisaties/:organizationId/bank-integraties`,
     altPath: `/organizations/:organizationId/bank-connections`,
 });
 
-router.state('financial-dashboard', <FinancialDashboard />, {
+router.state(DashboardRoutes.FINANCIAL_DASHBOARD, <FinancialDashboard />, {
     path: `/organisaties/:organizationId/financieel-dashboard`,
     altPath: `/organizations/:organizationId/financial-dashboard`,
 });
 
-router.state('financial-dashboard-overview', <FinancialDashboardOverview />, {
+router.state(DashboardRoutes.FINANCIAL_DASHBOARD_OVERVIEW, <FinancialDashboardOverview />, {
     path: `/organisaties/:organizationId/financieel-dashboard-overzicht`,
     altPath: `/organizations/:organizationId/financial-dashboard-overview`,
 });
 
-router.state('vouchers', <Vouchers />, {
+router.state(DashboardRoutes.VOUCHERS, <Vouchers />, {
     path: `/organisaties/:organizationId/tegoeden`,
     altPath: `/organizations/:organizationId/vouchers`,
 });
 
-router.state('vouchers-show', <VouchersViewComponent />, {
+router.state(DashboardRoutes.VOUCHER, <VouchersViewComponent />, {
     path: `/organisaties/:organizationId/tegoeden/:id`,
     altPath: `/organizations/:organizationId/vouchers/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('physical-cards', <PhysicalCards />, {
+router.state(DashboardRoutes.PHYSICAL_CARDS, <PhysicalCards />, {
     path: `/organisaties/:organizationId/fysieke-passen`,
     altPath: `/organizations/:organizationId/physical-cards`,
 });
 
-router.state('physical-card-types-show', <PhysicalCardTypesShow />, {
+router.state(DashboardRoutes.PHYSICAL_CARD_TYPE, <PhysicalCardTypesShow />, {
     path: `/organisaties/:organizationId/fysieke-passen-types/:id`,
     altPath: `/organizations/:organizationId/physical-cards-types/:id`,
 });
 
-router.state('reimbursements', <Reimbursements />, {
+router.state(DashboardRoutes.REIMBURSEMENTS, <Reimbursements />, {
     path: `/organisaties/:organizationId/declaraties`,
     altPath: `/organizations/:organizationId/reimbursements`,
 });
 
-router.state('reimbursements-view', <ReimbursementsView />, {
+router.state(DashboardRoutes.REIMBURSEMENT, <ReimbursementsView />, {
     path: `/organisaties/:organizationId/declaraties/:id`,
     altPath: `/organizations/:organizationId/reimbursements/:id`,
-    fallbackState: 'reimbursements',
+    fallbackState: DashboardRoutes.REIMBURSEMENTS,
 });
 
-router.state('reimbursement-categories', <ReimbursementCategories />, {
+router.state(DashboardRoutes.REIMBURSEMENT_CATEGORIES, <ReimbursementCategories />, {
     path: `/organisaties/:organizationId/declaraties-categorieën`,
     altPath: `/organizations/:organizationId/reimbursement-categories`,
 });
 
-router.state('extra-payments', <ExtraPayments />, {
+router.state(DashboardRoutes.EXTRA_PAYMENTS, <ExtraPayments />, {
     path: `/organisaties/:organizationId/bijbetalingen`,
     altPath: `/organizations/:organizationId/extra-payments`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('extra-payments-show', <ExtraPaymentsView />, {
+router.state(DashboardRoutes.EXTRA_PAYMENT, <ExtraPaymentsView />, {
     path: `/organisaties/:organizationId/bijbetalingen/:id`,
     altPath: `/organizations/:organizationId/extra-payments/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations', <Implementations />, {
+router.state(DashboardRoutes.IMPLEMENTATIONS, <Implementations />, {
     path: `/organisaties/:organizationId/implementaties`,
     altPath: `/organizations/:organizationId/implementations`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-view', <ImplementationView />, {
+router.state(DashboardRoutes.IMPLEMENTATION, <ImplementationView />, {
     path: `/organisaties/:organizationId/implementaties/:id`,
     altPath: `/organizations/:organizationId/implementations/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-funds', <ImplementationFunds />, {
+router.state(DashboardRoutes.IMPLEMENTATION_FUNDS, <ImplementationFunds />, {
     path: `/organisaties/:organizationId/implementaties/:id/fondsen`,
     altPath: `/organizations/:organizationId/implementations/:id/funds`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-view-banner', <ImplementationBanner />, {
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_BANNER, <ImplementationBanner />, {
     path: `/organisaties/:organizationId/implementaties/:id/banner`,
     altPath: `/organizations/:organizationId/implementations/:id/banner`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-view-pages', <ImplementationPages />, {
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_PAGES, <ImplementationPages />, {
     path: `/organisaties/:organizationId/implementaties/:id/paginas`,
     altPath: `/organizations/:organizationId/implementations/:id/pages`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-terms-privacy', <ImplementationTermsAndPrivacy />, {
+router.state(DashboardRoutes.IMPLEMENTATION_TERMS_PRIVACY, <ImplementationTermsAndPrivacy />, {
     path: `/organisaties/:organizationId/implementaties/:id/privacy-voorwaarden`,
     altPath: `/organizations/:organizationId/implementations/:id/terms-and-privacy`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-announcements', <ImplementationAnnouncements />, {
+router.state(DashboardRoutes.IMPLEMENTATION_ANNOUNCEMENTS, <ImplementationAnnouncements />, {
     path: `/organisaties/:organizationId/implementaties/:id/aankondigingen`,
     altPath: `/organizations/:organizationId/implementations/:id/announcements`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-view-page-edit', <ImplementationPageEdit />, {
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT, <ImplementationPageEdit />, {
     path: `/organisaties/:organizationId/implementaties/:implementationId/paginas/:id`,
     altPath: `/organizations/:organizationId/implementations/:implementationId/pages/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-view-page-create', <ImplementationPageCreate />, {
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_CREATE, <ImplementationPageCreate />, {
     path: `/organisaties/:organizationId/implementaties/:implementationId/paginas/aanmaken`,
     altPath: `/organizations/:organizationId/implementations/:implementationId/pages/create`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations-config', <ImplementationConfigs />, {
+router.state(DashboardRoutes.IMPLEMENTATION_CONFIG, <ImplementationConfigs />, {
     path: `/organisaties/:organizationId/implementaties/:id/configuratie`,
     altPath: `/organizations/:organizationId/implementations/:id/config`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations-email', <ImplementationEmail />, {
+router.state(DashboardRoutes.IMPLEMENTATION_EMAIL, <ImplementationEmail />, {
     path: `/organisaties/:organizationId/implementaties/:id/email`,
     altPath: `/organizations/:organizationId/implementations/:id/email`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations-cookies', <ImplementationCookies />, {
+router.state(DashboardRoutes.IMPLEMENTATION_COOKIES, <ImplementationCookies />, {
     path: `/organisaties/:organizationId/implementaties/:id/cookiemelding`,
     altPath: `/organizations/:organizationId/implementations/:id/cookies`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations-translations', <ImplementationTranslations />, {
+router.state(DashboardRoutes.IMPLEMENTATION_TRANSLATIONS, <ImplementationTranslations />, {
     path: `/organisaties/:organizationId/implementaties/:id/vertalingen`,
     altPath: `/organizations/:organizationId/implementations/:id/translations`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations-digid', <ImplementationDigid />, {
+router.state(DashboardRoutes.IMPLEMENTATION_DIGID, <ImplementationDigid />, {
     path: `/organisaties/:organizationId/implementaties/:id/digid`,
     altPath: `/organizations/:organizationId/implementations/:id/digid`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementations-social-media', <ImplementationSocialMediaLinks />, {
+router.state(DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA, <ImplementationSocialMediaLinks />, {
     path: `/organisaties/:organizationId/implementaties/:id/social-media`,
     altPath: `/organizations/:organizationId/implementations/:id/social-media`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-notifications', <ImplementationNotifications />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, <ImplementationNotifications />, {
     path: `/organisaties/:organizationId/implementaties/:id/implementatie-meldingen`,
     altPath: `/organizations/:organizationId/implementations/:id/implementation-notifications`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-notifications-send', <ImplementationNotificationSend />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_SEND, <ImplementationNotificationSend />, {
     path: `/organisaties/:organizationId/implementaties/:id/implementatie-meldingen/versturen`,
     altPath: `/organizations/:organizationId/implementations/:id/implementation-notifications/send`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-notifications-edit', <ImplementationNotificationEdit />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT, <ImplementationNotificationEdit />, {
     path: `/organisaties/:organizationId/implementaties/:implementationId/implementatie-meldingen/:id`,
     altPath: `/organizations/:organizationId/implementations/:implementationId/implementation-notifications/:id`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-notifications-branding', <ImplementationNotificationsBranding />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_BRANDING, <ImplementationNotificationsBranding />, {
     path: `/organisaties/:organizationId/implementaties/:id/meldingen-branding`,
     altPath: `/organizations/:organizationId/implementations/:id/notifications-branding`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('implementation-pre-check', <ImplementationPreCheck />, {
+router.state(DashboardRoutes.IMPLEMENTATION_PRE_CHECK, <ImplementationPreCheck />, {
     path: `/organisaties/:organizationId/implementaties/:id/pre-check`,
     altPath: `/organizations/:organizationId/implementations/:id/pre-check`,
 });
 
-router.state('organization-logs', <EventLogs />, {
+router.state(DashboardRoutes.ORGANIZATION_LOGS, <EventLogs />, {
     path: `/organisaties/:organizationId/logs`,
     altPath: `/organizations/:organizationId/logs`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('bi-connection', <BiConnection />, {
+router.state(DashboardRoutes.BI_CONNECTION, <BiConnection />, {
     path: `/organisaties/:organizationId/bi-integratie`,
     altPath: `/organizations/:organizationId/bi-connection`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('organizations-contacts', <OrganizationsContacts />, {
+router.state(DashboardRoutes.ORGANIZATION_CONTACTS, <OrganizationsContacts />, {
     path: `/organisaties/:organizationId/contacten`,
     altPath: `/organizations/:organizationId/contacts`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('organizations-translations', <OrganizationsTranslations />, {
+router.state(DashboardRoutes.ORGANIZATION_TRANSLATIONS, <OrganizationsTranslations />, {
     path: `/organisaties/:organizationId/vertalingen`,
     altPath: `/organizations/:organizationId/translations`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('offices', <Offices />, {
+router.state(DashboardRoutes.OFFICES, <Offices />, {
     path: `/organisaties/:organizationId/vestigingen`,
     altPath: `/organizations/:organizationId/offices`,
 });
 
-router.state('offices-create', <OfficesCreate />, {
+router.state(DashboardRoutes.OFFICE_CREATE, <OfficesCreate />, {
     path: `/organisaties/:organizationId/vestigingen/aanmaken`,
     altPath: `/organizations/:organizationId/offices/create`,
     protected: false,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('offices-edit', <OfficesEdit />, {
+router.state(DashboardRoutes.OFFICE_EDIT, <OfficesEdit />, {
     path: `/organisaties/:organizationId/vestigingen/:id/bewerken`,
     altPath: `/organizations/:organizationId/offices/:id/edit`,
-    fallbackState: 'organizations',
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state('organization-security', <OrganizationsSecurity />, {
+router.state(DashboardRoutes.ORGANIZATION_SECURITY, <OrganizationsSecurity />, {
     path: `/organisaties/:organizationId/beveiliging`,
     altPath: `/organizations/:organizationId/security`,
 });
 
-router.state('organization-no-permissions', <OrganizationsNoPermissions />, {
+router.state(DashboardRoutes.ORGANIZATION_NO_PERMISSIONS, <OrganizationsNoPermissions />, {
     path: `/organisaties/:organizationId/geen-rechten`,
     altPath: `/organizations/:organizationId/no-permissions`,
 });
 
-router.state('provider-overview', <ProviderOverview />, {
+router.state(DashboardRoutes.PROVIDER_OVERVIEW, <ProviderOverview />, {
     path: `/organisaties/:organizationId/overzicht`,
     altPath: `/organizations/:organizationId/overview`,
 });
 
-router.state('provider-funds', <ProviderFunds />, {
+router.state(DashboardRoutes.PROVIDER_FUNDS, <ProviderFunds />, {
     path: `/organisaties/:organizationId/aanbieder/fondsen`,
     altPath: `/organizations/:organizationId/provider/funds`,
 });
 
-router.state('transactions', <Transactions />, {
+router.state(DashboardRoutes.TRANSACTIONS, <Transactions />, {
     path: `/organisaties/:organizationId/transacties`,
     altPath: `/organizations/:organizationId/transactions`,
 });
 
-router.state('transaction-settings', <TransactionSettings />, {
+router.state(DashboardRoutes.TRANSACTION_SETTINGS, <TransactionSettings />, {
     path: `/organisaties/:organizationId/transactie-instellingen`,
     altPath: `/organizations/:organizationId/transaction-settings`,
 });
 
-router.state('transaction-bulk', <TransactionBulksView />, {
+router.state(DashboardRoutes.TRANSACTION_BULK, <TransactionBulksView />, {
     path: `/organisaties/:organizationId/transactie-bulks/:id`,
     altPath: `/organizations/:organizationId/transaction-bulks/:id`,
 });
 
-router.state('transaction', <TransactionsView />, {
+router.state(DashboardRoutes.TRANSACTION, <TransactionsView />, {
     path: `/organisaties/:organizationId/transacties/:address`,
     altPath: `/organizations/:organizationId/transactions/:address`,
 });
 
-router.state('reservations', <Reservations />, {
+router.state(DashboardRoutes.RESERVATIONS, <Reservations />, {
     path: `/organisaties/:organizationId/reserveringen`,
     altPath: `/organizations/:organizationId/reservations`,
 });
 
-router.state('reservations-show', <ReservationsView />, {
+router.state(DashboardRoutes.RESERVATION, <ReservationsView />, {
     path: `/organisaties/:organizationId/reserveringen/:id`,
     altPath: `/organizations/:organizationId/reservations/:id`,
 });
 
-router.state('reservations-settings', <ReservationsSettings />, {
+router.state(DashboardRoutes.RESERVATIONS_SETTINGS, <ReservationsSettings />, {
     path: `/organisaties/:organizationId/reserveringen/instellingen`,
     altPath: `/organizations/:organizationId/reservations/settings`,
 });
 
-router.state('payment-methods', <PaymentMethods />, {
+router.state(DashboardRoutes.PAYMENT_METHODS, <PaymentMethods />, {
     path: `/organisaties/:organizationId/betaalmethoden`,
     altPath: `/organizations/:organizationId/payment-methods`,
 });
 
-router.state('mollie-privacy', <MolliePrivacy />, {
+router.state(DashboardRoutes.MOLLIE_PRIVACY, <MolliePrivacy />, {
     path: `/organisaties/:organizationId/mollie-privacy`,
     altPath: `/organizations/:organizationId/mollie-privacy`,
 });
 
-router.state('products', <Products />, {
+router.state(DashboardRoutes.PRODUCTS, <Products />, {
     path: `/organisaties/:organizationId/producten`,
     altPath: `/organizations/:organizationId/products`,
 });
 
-router.state('products-show', <ProductView />, {
+router.state(DashboardRoutes.PRODUCT, <ProductView />, {
     path: `/organisaties/:organizationId/producten/:id`,
     altPath: `/organizations/:organizationId/products/:id`,
-    fallbackState: 'products',
+    fallbackState: DashboardRoutes.PRODUCTS,
 });
 
-router.state('products-create', <ProductsCreate />, {
+router.state(DashboardRoutes.PRODUCT_CREATE, <ProductsCreate />, {
     path: `/organisaties/:organizationId/producten/aanmaken`,
     altPath: `/organizations/:organizationId/products/create`,
-    fallbackState: 'products',
+    fallbackState: DashboardRoutes.PRODUCTS,
 });
 
-router.state('products-edit', <ProductsEdit />, {
+router.state(DashboardRoutes.PRODUCT_EDIT, <ProductsEdit />, {
     path: `/organisaties/:organizationId/producten/:id/bewerken`,
     altPath: `/organizations/:organizationId/products/:id/edit`,
-    fallbackState: 'products',
+    fallbackState: DashboardRoutes.PRODUCTS,
 });
 
-router.state('fund-requests', <FundRequests />, {
+router.state(DashboardRoutes.FUND_REQUESTS, <FundRequests />, {
     path: `/organisaties/:organizationId/aanvragen`,
     altPath: `/organizations/:organizationId/requests`,
 });
 
-router.state('fund-request', <FundRequestsView />, {
+router.state(DashboardRoutes.FUND_REQUEST, <FundRequestsView />, {
     path: `/organisaties/:organizationId/aanvragen/:id`,
     altPath: `/organizations/:organizationId/requests/:id`,
-    fallbackState: 'fund-requests',
+    fallbackState: DashboardRoutes.FUND_REQUESTS,
 });
 
-router.state('fund-forms', <FundForms />, {
+router.state(DashboardRoutes.FUND_FORMS, <FundForms />, {
     path: `/organisaties/:organizationId/formulieren`,
     altPath: `/organizations/:organizationId/forms`,
 });
 
-router.state('fund-form', <FundFormsView />, {
+router.state(DashboardRoutes.FUND_FORM, <FundFormsView />, {
     path: `/organisaties/:organizationId/formulieren/:id`,
     altPath: `/organizations/:organizationId/forms/:id`,
 });
 
-router.state('employees', <Employees />, {
+router.state(DashboardRoutes.EMPLOYEES, <Employees />, {
     path: `/organisaties/:organizationId/medewerkers`,
     altPath: `/organizations/:organizationId/employees`,
 });
 
-router.state('organization-notifications', <OrganizationsNotifications />, {
+router.state(DashboardRoutes.ORGANIZATION_NOTIFICATIONS, <OrganizationsNotifications />, {
     path: `/organisaties/:organizationId/notificaties`,
     altPath: `/organizations/:organizationId/notifications`,
 });
 
-router.state('features', <Features />, {
+router.state(DashboardRoutes.FEATURES, <Features />, {
     path: `/organisaties/:organizationId/functionaliteiten`,
     altPath: `/organizations/:organizationId/features`,
 });
 
-router.state('feature', <Feature />, {
+router.state(DashboardRoutes.FEATURE, <Feature />, {
     path: `/organisaties/:organizationId/functionaliteiten/:key`,
     altPath: `/organizations/:organizationId/feature/:key`,
 });
 
-router.state('feedback', <Feedback />, {
+router.state(DashboardRoutes.FEEDBACK, <Feedback />, {
     path: `/organisaties/:organizationId/feedback`,
     altPath: `/organizations/:organizationId/feedback`,
 });
 
-router.state('csv-validation', <Prevalidations />, {
+router.state(DashboardRoutes.CSV_VALIDATION, <Prevalidations />, {
     path: `/organisaties/:organizationId/aanvragers-toevoegen`,
     altPath: `/organizations/:organizationId/csv-validations`,
 });
 
-router.state('preferences-emails', <PreferencesEmails />, {
+router.state(DashboardRoutes.PREFERENCE_EMAILS, <PreferencesEmails />, {
     path: `/voorkeuren/emails`,
     altPath: `/preferences/emails`,
 });
 
-router.state('preferences-notifications', <PreferencesNotifications />, {
+router.state(DashboardRoutes.PREFERENCE_NOTIFICATIONS, <PreferencesNotifications />, {
     path: `/voorkeuren/notificaties`,
     altPath: `/preferences/notifications`,
 });
 
-router.state('security-2fa', <Security2FA />, {
+router.state(DashboardRoutes.SECURITY_2FA, <Security2FA />, {
     path: `/beveiliging/tweefactorauthenticatie`,
     altPath: `/security/2fa`,
 });
 
-router.state('security-sessions', <SecuritySessions />, {
+router.state(DashboardRoutes.SECURITY_SESSIONS, <SecuritySessions />, {
     path: `/beveiliging/sessies`,
     altPath: `/security/sessions`,
 });
 
-router.state('redirect', <Redirect />, {
+router.state(DashboardRoutes.REDIRECT, <Redirect />, {
     path: `/redirect`,
     layout: LayoutType.clear,
     protected: false,
 });
 
-router.state('home', <Home />, {
+router.state(DashboardRoutes.HOME, <Home />, {
     path: `/`,
     protected: false,
 });
 
-router.state('not-found', <NotFound />, {
+router.state(DashboardRoutes.NOT_FOUND, <NotFound />, {
     path: `/not-found`,
     protected: false,
 });
 
-router.state('throw', <ThrowError />, {
+router.state(DashboardRoutes.THROW, <ThrowError />, {
     path: `/throw`,
     protected: false,
 });
 
-router.state('*', <NotFound />, {
+router.state(DashboardRoutes.ANY, <NotFound />, {
     path: `*`,
     protected: false,
 });

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import useEnvData from '../../hooks/useEnvData';
 import { useNavigateState } from '../../modules/state_router/Router';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function ThrowError() {
     const envData = useEnvData();
@@ -8,7 +9,7 @@ export default function ThrowError() {
 
     useEffect(() => {
         if (!envData?.config?.allow_test_errors) {
-            return navigateState('home');
+            return navigateState(WebshopRoutes.HOME);
         }
 
         throw 'Test error';

@@ -14,6 +14,7 @@ import Label from '../../../elements/image_cropper/Label';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { FilterModel } from '../../../../modules/filter_next/types/FilterParams';
 
@@ -94,7 +95,7 @@ export default function VoucherTransactionsCard({
                                             </td>
                                             <td>
                                                 <StateNavLink
-                                                    name={'transaction'}
+                                                    name={DashboardRoutes.TRANSACTION}
                                                     className="text-primary-light"
                                                     params={{
                                                         organizationId: organization.id,
@@ -139,7 +140,7 @@ export default function VoucherTransactionsCard({
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
-                                                                name={'transaction'}
+                                                                name={DashboardRoutes.TRANSACTION}
                                                                 className="dropdown-item"
                                                                 params={{
                                                                     address: transaction.address,

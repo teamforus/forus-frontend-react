@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import Implementation from '../../../../props/models/Implementation';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsRootBreadcrumbs({ implementation }: { implementation: Implementation | null }) {
     const activeOrganization = useActiveOrganization();
@@ -13,7 +14,7 @@ export default function ImplementationsRootBreadcrumbs({ implementation }: { imp
     if (activeOrganization?.implementations.length === 1) {
         return (
             <StateNavLink
-                name={'implementation-view'}
+                name={DashboardRoutes.IMPLEMENTATION}
                 params={{ organizationId: activeOrganization.id, id: activeOrganization.implementations[0]?.id }}
                 activeExact={true}
                 className="breadcrumb-item">
@@ -25,7 +26,7 @@ export default function ImplementationsRootBreadcrumbs({ implementation }: { imp
     return (
         <Fragment>
             <StateNavLink
-                name={'implementations'}
+                name={DashboardRoutes.IMPLEMENTATIONS}
                 params={{ organizationId: activeOrganization.id }}
                 activeExact={true}
                 className="breadcrumb-item">
@@ -33,7 +34,7 @@ export default function ImplementationsRootBreadcrumbs({ implementation }: { imp
             </StateNavLink>
             {implementation && (
                 <StateNavLink
-                    name={'implementation-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">

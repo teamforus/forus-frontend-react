@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import ImplementationPage from '../../../../props/models/ImplementationPage';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 import { useNavigateState } from '../../../../modules/state_router/Router';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function useCmsPage(pageKey: string) {
     const appConfigs = useAppConfigs();
@@ -14,7 +15,7 @@ export default function useCmsPage(pageKey: string) {
         const { external = false, external_url = false } = page ? page : {};
 
         if (!page || (external && !external_url)) {
-            return navigateState('home');
+            return navigateState(WebshopRoutes.HOME);
         } else if (external && external_url) {
             return (document.location = external_url);
         }

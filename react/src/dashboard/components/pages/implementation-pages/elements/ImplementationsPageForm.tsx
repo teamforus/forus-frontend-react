@@ -25,6 +25,7 @@ import ImplementationsRootBreadcrumbs from '../../implementations/elements/Imple
 import FormGroup from '../../../elements/forms/elements/FormGroup';
 import FormPane from '../../../elements/forms/elements/FormPane';
 import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsPageForm({
     page,
@@ -137,7 +138,7 @@ export default function ImplementationsPageForm({
             promise
                 .then((res) => {
                     if (!page) {
-                        return navigateState('implementation-view-page-edit', {
+                        return navigateState(DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT, {
                             organizationId: implementation.organization_id,
                             implementationId: implementation.id,
                             id: res.data.data.id,
@@ -186,7 +187,7 @@ export default function ImplementationsPageForm({
         if (!pageTypeConfig?.key) {
             pushDanger('Mislukt!', 'Ongeldig paginatype.');
 
-            return navigateState('implementation-view', {
+            return navigateState(DashboardRoutes.IMPLEMENTATION, {
                 id: implementation.id,
                 organizationId: activeOrganization.id,
             });
@@ -409,7 +410,7 @@ export default function ImplementationsPageForm({
                     <div className="card-footer">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementation-view'}
+                                name={DashboardRoutes.IMPLEMENTATION}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className="button button-default">
                                 {translate('funds_edit.buttons.cancel')}

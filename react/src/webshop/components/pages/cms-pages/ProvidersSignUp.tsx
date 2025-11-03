@@ -6,6 +6,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProvidersSignUp() {
     const page = useCmsPage('provider');
@@ -36,7 +37,7 @@ export default function ProvidersSignUp() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('provider_sign_up.breadcrumbs.home'), state: 'home' },
+                { name: translate('provider_sign_up.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('provider_sign_up.breadcrumbs.sign_up_provider') },
             ]}>
             {page && (

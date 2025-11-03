@@ -25,6 +25,7 @@ import { useNavigateState } from '../../../modules/state_router/Router';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationBanner() {
     const { id } = useParams();
@@ -93,7 +94,7 @@ export default function ImplementationBanner() {
             })
             .then(() => {
                 pushSuccess('Opgeslagen!');
-                navigateState('implementation-view', {
+                navigateState(DashboardRoutes.IMPLEMENTATION, {
                     organizationId: activeOrganization.id,
                     id: id,
                 });
@@ -228,7 +229,7 @@ export default function ImplementationBanner() {
                             </a>
 
                             <StateNavLink
-                                name={'implementations-config'}
+                                name={DashboardRoutes.IMPLEMENTATION_CONFIG}
                                 params={{
                                     organizationId: activeOrganization.id,
                                     id: implementation.id,
@@ -238,7 +239,7 @@ export default function ImplementationBanner() {
                                 Instellingen
                             </StateNavLink>
                             <StateNavLink
-                                name={'implementations-social-media'}
+                                name={DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA}
                                 params={{
                                     organizationId: activeOrganization.id,
                                     id: implementation.id,
@@ -413,7 +414,7 @@ export default function ImplementationBanner() {
                 <div className="card-footer card-footer-primary">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementation-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{
                                 id: implementation.id,
                                 organizationId: activeOrganization.id,

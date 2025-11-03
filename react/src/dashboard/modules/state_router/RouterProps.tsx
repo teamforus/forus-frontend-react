@@ -1,4 +1,5 @@
 import React from 'react';
+import { DashboardRoutes } from './RouterBuilder';
 
 export enum LayoutType {
     clear,
@@ -13,11 +14,11 @@ export interface RouteStateConfig {
     exact?: boolean;
     layout?: LayoutType;
     protected?: boolean;
-    fallbackState?: string;
+    fallbackState?: DashboardRoutes;
 }
 
 export interface RouteStateProps extends RouteStateConfig {
-    name: string;
+    name: DashboardRoutes;
 }
 
 export interface RouteState {

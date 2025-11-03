@@ -31,6 +31,7 @@ import ImplementationsRootBreadcrumbs from '../implementations/elements/Implemen
 import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
 import FormGroup from '../../elements/forms/elements/FormGroup';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationPreCheck() {
     const { id } = useParams();
@@ -142,7 +143,7 @@ export default function ImplementationPreCheck() {
     }, []);
 
     const storeMedia = useCallback(
-        async (mediaFile): Promise<Media> => {
+        async (mediaFile: Blob): Promise<Media> => {
             if (deleteMedia) {
                 await mediaService.delete(implementation.pre_check_banner.uid);
             }
@@ -263,7 +264,7 @@ export default function ImplementationPreCheck() {
 
     useEffect(() => {
         if (!activeOrganization?.allow_pre_checks) {
-            navigateState('organizations');
+            navigateState(DashboardRoutes.ORGANIZATIONS);
         }
     }, [activeOrganization?.allow_pre_checks, navigateState]);
 
@@ -382,7 +383,7 @@ export default function ImplementationPreCheck() {
                                 text: 'Ga naar de fondsenpagina',
                                 type: 'primary',
                                 icon: 'plus',
-                                to: getStateRouteUrl('funds-create', {
+                                to: getStateRouteUrl(DashboardRoutes.FUND_CREATE, {
                                     organizationId: activeOrganization.id,
                                 }),
                             }}
@@ -513,7 +514,10 @@ export default function ImplementationPreCheck() {
 
                 <div className="card-footer card-footer-primary">
                     <div className="button-group flex-center">
-                        <StateNavLink id="cancel" name={'organizations'} className={'button button-default'}>
+                        <StateNavLink
+                            id="cancel"
+                            name={DashboardRoutes.ORGANIZATIONS}
+                            className={'button button-default'}>
                             {translate('funds_edit.buttons.cancel')}
                         </StateNavLink>
                         <button className="button button-primary" type="submit">

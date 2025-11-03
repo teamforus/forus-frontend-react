@@ -7,6 +7,7 @@ import useTranslate from '../../../../../hooks/useTranslate';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
 import FormPane from '../../../../elements/forms/elements/FormPane';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function ProductDetailsBlockPropertiesPane({
     title = null,
@@ -30,7 +31,7 @@ export default function ProductDetailsBlockPropertiesPane({
                     {viewType === 'provider' && showName && (
                         <KeyValueItem label={translate('product.labels.name')}>
                             <StateNavLink
-                                name={'products-show'}
+                                name={DashboardRoutes.PRODUCT}
                                 params={{
                                     organizationId: product?.organization_id,
                                     id: product?.id,

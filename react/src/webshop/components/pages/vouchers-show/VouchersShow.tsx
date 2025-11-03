@@ -24,6 +24,7 @@ import VoucherRecordsCard from './cards/VoucherRecordsCard';
 import VoucherDetailsInternalCard from './cards/VoucherDetailsInternalCard';
 import VoucherDetailsExternalCard from './cards/VoucherDetailsExternalCard';
 import VoucherProductsCard from './cards/VoucherProductsCard';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function VouchersShow() {
     const { number } = useParams();
@@ -74,8 +75,8 @@ export default function VouchersShow() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('voucher.breadcrumbs.home'), state: 'home' },
-                { name: translate('voucher.breadcrumbs.vouchers'), state: 'vouchers' },
+                { name: translate('voucher.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('voucher.breadcrumbs.vouchers'), state: WebshopRoutes.VOUCHERS },
                 voucher ? { name: breadCrumbName } : null,
             ]}>
             {voucher && voucherCard && (
@@ -162,7 +163,7 @@ export default function VouchersShow() {
                                     <h2 className="pane-head-title">{translate('voucher.labels.productdetail')}</h2>
                                     {voucherCard.returnable && (
                                         <StateNavLink
-                                            name={'product'}
+                                            name={WebshopRoutes.PRODUCT}
                                             params={{ id: voucher.product.id }}
                                             className="pane-head-more">
                                             Bekijk details

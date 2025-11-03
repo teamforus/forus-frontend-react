@@ -10,6 +10,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import OrganizationsFundsShowDetailsCard from './elements/OrganizationsFundsShowDetailsCard';
 import OrganizationsFundsShowRelationsCard from './elements/OrganizationsFundsShowRelationsCard';
 import OrganizationFundsShowOverviewCard from './elements/OrganizationFundsShowOverviewCard';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsShow() {
     const fundId = useParams().fundId;
@@ -44,7 +45,7 @@ export default function OrganizationsFundsShow() {
             <div className="block block-breadcrumbs">
                 <StateNavLink
                     className="breadcrumb-item"
-                    name="organization-funds"
+                    name={DashboardRoutes.ORGANIZATION_FUNDS}
                     activeExact={true}
                     params={{ organizationId: activeOrganization.id }}>
                     {translate('page_state_titles.funds')}

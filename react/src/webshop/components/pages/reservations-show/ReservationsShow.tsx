@@ -13,6 +13,7 @@ import useCancelReservation from '../reservations/hooks/useCancelReservation';
 import { BooleanParam, useQueryParam } from 'use-query-params';
 import classNames from 'classnames';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReservationsShow() {
     const { id } = useParams();
@@ -69,8 +70,8 @@ export default function ReservationsShow() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('reservations.breadcrumbs.home'), state: 'home' },
-                { name: translate('reservations.breadcrumbs.reservations'), state: 'reservations' },
+                { name: translate('reservations.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('reservations.breadcrumbs.reservations'), state: WebshopRoutes.RESERVATIONS },
                 { name: translate('reservations.breadcrumbs.reservation') },
             ]}
             profileHeader={<></>}
@@ -111,7 +112,7 @@ export default function ReservationsShow() {
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewTitle">
                                                     <StateNavLink
-                                                        name={'product'}
+                                                        name={WebshopRoutes.PRODUCT}
                                                         params={{ id: reservation.product.id }}>
                                                         {reservation.product.name}
                                                     </StateNavLink>

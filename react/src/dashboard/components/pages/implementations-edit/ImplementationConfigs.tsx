@@ -16,8 +16,10 @@ import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import SelectControl from '../../elements/select-control/SelectControl';
 import FormPane from '../../elements/forms/elements/FormPane';
 import FormGroup from '../../elements/forms/elements/FormGroup';
+
 import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationConfigs() {
     const { id } = useParams();
@@ -93,7 +95,7 @@ export default function ImplementationConfigs() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState('implementations', { organizationId: activeOrganization.id });
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);
@@ -359,7 +361,7 @@ export default function ImplementationConfigs() {
                 <div className="card-section card-section-primary">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementation-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{ id: implementation.id, organizationId: activeOrganization.id }}
                             className="button button-default">
                             {translate('funds_edit.buttons.cancel')}

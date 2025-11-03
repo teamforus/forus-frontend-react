@@ -18,6 +18,7 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationPages() {
     const { id } = useParams();
@@ -123,7 +124,7 @@ export default function ImplementationPages() {
                                     {pageTypes.map((pageType) => (
                                         <StateNavLink
                                             key={pageType.key}
-                                            name={'implementation-view-page-edit'}
+                                            name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
                                             params={{
                                                 id: pagesByKey?.[pageType.key]?.id,
                                                 organizationId: implementation.organization_id,
@@ -171,7 +172,7 @@ export default function ImplementationPages() {
                                                         <div className="dropdown dropdown-actions">
                                                             {pagesByKey?.[pageType.key]?.id ? (
                                                                 <StateNavLink
-                                                                    name={'implementation-view-page-edit'}
+                                                                    name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
                                                                     params={{
                                                                         id: pagesByKey?.[pageType.key]?.id,
                                                                         implementationId: implementation.id,
@@ -185,7 +186,9 @@ export default function ImplementationPages() {
                                                                 </StateNavLink>
                                                             ) : (
                                                                 <StateNavLink
-                                                                    name={'implementation-view-page-create'}
+                                                                    name={
+                                                                        DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_CREATE
+                                                                    }
                                                                     params={{
                                                                         organizationId: implementation.organization_id,
                                                                         implementationId: implementation.id,

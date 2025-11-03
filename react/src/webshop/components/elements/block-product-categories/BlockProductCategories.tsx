@@ -6,6 +6,7 @@ import SVGShapeTop from '../../../../../assets/forus-webshop/resources/_webshop-
 import SVGShapeBottom from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/product-categories-shape-bottom.svg';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function BlockProductCategories() {
     const appConfigs = useAppConfigs();
@@ -38,7 +39,7 @@ export default function BlockProductCategories() {
                         role="list">
                         {productCategories?.map((category) => (
                             <StateNavLink
-                                name="products"
+                                name={WebshopRoutes.PRODUCTS}
                                 query={{ product_category_ids: category.id }}
                                 className="product-category-item"
                                 key={category.id}

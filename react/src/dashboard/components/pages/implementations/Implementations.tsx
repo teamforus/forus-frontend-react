@@ -19,6 +19,7 @@ import ImplementationsRootBreadcrumbs from './elements/ImplementationsRootBreadc
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../hooks/useSetProgress';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Implementations() {
     const setProgress = useSetProgress();
@@ -125,7 +126,7 @@ export default function Implementations() {
                                             return (
                                                 <StateNavLink
                                                     key={implementation.id}
-                                                    name={'implementation-view'}
+                                                    name={DashboardRoutes.IMPLEMENTATION}
                                                     params={{ id: implementation.id, organizationId }}
                                                     customElement={'tr'}
                                                     className={'tr-clickable'}>
@@ -156,7 +157,7 @@ export default function Implementations() {
                                                             content={(e) => (
                                                                 <div className="dropdown dropdown-actions">
                                                                     <StateNavLink
-                                                                        name={'implementation-view'}
+                                                                        name={DashboardRoutes.IMPLEMENTATION}
                                                                         params={{
                                                                             id: implementation.id,
                                                                             organizationId,
@@ -173,7 +174,9 @@ export default function Implementations() {
                                                                             Permission.MANAGE_IMPLEMENTATION,
                                                                         ) && (
                                                                             <StateNavLink
-                                                                                name={'implementations-translations'}
+                                                                                name={
+                                                                                    DashboardRoutes.IMPLEMENTATION_TRANSLATIONS
+                                                                                }
                                                                                 params={{
                                                                                     id: implementation.id,
                                                                                     organizationId:
@@ -191,7 +194,9 @@ export default function Implementations() {
                                                                         Permission.MANAGE_IMPLEMENTATION,
                                                                     ) && (
                                                                         <StateNavLink
-                                                                            name={'implementations-cookies'}
+                                                                            name={
+                                                                                DashboardRoutes.IMPLEMENTATION_COOKIES
+                                                                            }
                                                                             params={{
                                                                                 id: implementation.id,
                                                                                 organizationId:
@@ -209,7 +214,7 @@ export default function Implementations() {
                                                                         Permission.MANAGE_IMPLEMENTATION,
                                                                     ) && (
                                                                         <StateNavLink
-                                                                            name={'implementations-email'}
+                                                                            name={DashboardRoutes.IMPLEMENTATION_EMAIL}
                                                                             params={{
                                                                                 id: implementation.id,
                                                                                 organizationId: activeOrganization.id,
@@ -226,7 +231,7 @@ export default function Implementations() {
                                                                         Permission.MANAGE_IMPLEMENTATION,
                                                                     ) && (
                                                                         <StateNavLink
-                                                                            name={'implementations-digid'}
+                                                                            name={DashboardRoutes.IMPLEMENTATION_DIGID}
                                                                             params={{
                                                                                 id: implementation.id,
                                                                                 organizationId: activeOrganization.id,

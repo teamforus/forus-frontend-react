@@ -5,6 +5,7 @@ import { ModalState } from '../../../dashboard/modules/modals/context/ModalConte
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../modules/state_router/StateNavLink';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function ModalProductReserveCancel({
     modal,
@@ -74,7 +75,7 @@ export default function ModalProductReserveCancel({
                                         <strong>
                                             {translate('modal_product_reserve_cancel.contact_provider') + ' '}
                                             <StateNavLink
-                                                name={'provider'}
+                                                name={WebshopRoutes.PROVIDER}
                                                 params={{ id: reservation.product?.organization?.id }}
                                                 target="_blank">
                                                 {reservation.product?.organization?.name}

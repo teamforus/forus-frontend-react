@@ -17,6 +17,7 @@ import { ResponseError } from '../../../../props/ApiResponses';
 import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function OfficesForm({ organization, id }: { organization: Organization; id?: number }) {
     const translate = useTranslate();
@@ -84,7 +85,7 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
             promise
                 .then(() => {
-                    navigateState('offices', { organizationId: organization.id });
+                    navigateState(DashboardRoutes.OFFICES, { organizationId: organization.id });
                     pushSuccess('Gelukt!');
                 })
                 .catch((err: ResponseError) => {
@@ -315,7 +316,7 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                 <div className="text-center">
                     <NavLink
                         id="cancel"
-                        to={getStateRouteUrl('offices', { organizationId: organization.id })}
+                        to={getStateRouteUrl(DashboardRoutes.OFFICES, { organizationId: organization.id })}
                         type="button"
                         className="button button-default">
                         {translate('offices_edit.buttons.cancel')}

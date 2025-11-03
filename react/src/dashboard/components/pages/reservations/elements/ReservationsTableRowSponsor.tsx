@@ -10,6 +10,7 @@ import Organization from '../../../../props/models/Organization';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TruncatedMultilineText from '../../../elements/truncated-multiline-text/TruncatedMultilineText';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReservationsTableRowSponsor({
     organization,
@@ -40,7 +41,7 @@ export default function ReservationsTableRowSponsor({
             </td>
             <td>
                 <StateNavLink
-                    name={'sponsor-product'}
+                    name={DashboardRoutes.SPONSOR_PRODUCT}
                     params={{
                         organizationId: organization.id,
                         productId: reservation.product.id,
@@ -53,7 +54,7 @@ export default function ReservationsTableRowSponsor({
 
             <td>
                 <StateNavLink
-                    name={'sponsor-provider-organization'}
+                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                     params={{
                         id: reservation.product.organization_id,
                         organizationId: organization.id,
@@ -101,7 +102,7 @@ export default function ReservationsTableRowSponsor({
             <td>
                 {reservation.voucher_transaction ? (
                     <StateNavLink
-                        name="transaction"
+                        name={DashboardRoutes.TRANSACTION}
                         params={{
                             organizationId: organization.id,
                             address: reservation.voucher_transaction.address,
@@ -127,7 +128,7 @@ export default function ReservationsTableRowSponsor({
                         content={() => (
                             <div className="dropdown dropdown-actions">
                                 <StateNavLink
-                                    name="transaction"
+                                    name={DashboardRoutes.TRANSACTION}
                                     params={{
                                         organizationId: organization.id,
                                         address: reservation.voucher_transaction.address,

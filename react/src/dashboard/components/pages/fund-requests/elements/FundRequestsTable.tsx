@@ -13,6 +13,7 @@ import FundRequest from '../../../../props/models/FundRequest';
 import useTranslate from '../../../../hooks/useTranslate';
 import { useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestsTable({
     filter,
@@ -59,7 +60,7 @@ export default function FundRequestsTable({
                                         customElement={'tr'}
                                         className={'tr-clickable'}
                                         key={fundRequest.id}
-                                        name={'fund-request'}
+                                        name={DashboardRoutes.FUND_REQUEST}
                                         dataDusk={`tableFundRequestRow${fundRequest.id}`}
                                         params={{ organizationId: organization.id, id: fundRequest.id }}>
                                         <td className={'text-strong'}>
@@ -114,7 +115,7 @@ export default function FundRequestsTable({
                                                 content={() => (
                                                     <div className="dropdown dropdown-actions">
                                                         <StateNavLink
-                                                            name={'fund-request'}
+                                                            name={DashboardRoutes.FUND_REQUEST}
                                                             params={{
                                                                 organizationId: organization.id,
                                                                 id: fundRequest.id,

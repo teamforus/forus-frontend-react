@@ -26,6 +26,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReimbursementsTable from './elements/ReimbursementsTable';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -170,7 +171,7 @@ export default function Reimbursements() {
                     <div className={'card-header-filters'}>
                         <div className="block block-inline-filters">
                             <StateNavLink
-                                name="reimbursement-categories"
+                                name={DashboardRoutes.REIMBURSEMENT_CATEGORIES}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-default button-sm">
                                 <em className="mdi mdi-cog icon-start" />
@@ -381,7 +382,7 @@ export default function Reimbursements() {
                             description={'Je hebt momenteel geen fondsen.'}
                             button={{
                                 text: 'Fonds toevoegen',
-                                to: getStateRouteUrl('organization-funds', {
+                                to: getStateRouteUrl(DashboardRoutes.ORGANIZATION_FUNDS, {
                                     organizationId: activeOrganization.id,
                                 }),
                             }}

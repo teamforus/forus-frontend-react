@@ -22,6 +22,7 @@ import InfoBox from '../../elements/info-box/InfoBox';
 import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
 import FormGroup from '../../elements/forms/elements/FormGroup';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 type FormValues = {
     active: boolean;
@@ -95,7 +96,7 @@ export default function ImplementationAnnouncements() {
                 })
                 .then(() => {
                     pushSuccess('Opgeslagen!');
-                    navigateState('implementation-view', {
+                    navigateState(DashboardRoutes.IMPLEMENTATION, {
                         organizationId: activeOrganization.id,
                         id: id,
                     });
@@ -289,7 +290,7 @@ export default function ImplementationAnnouncements() {
                 <div className="card-footer card-footer-primary">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementation-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{
                                 id: implementation.id,
                                 organizationId: activeOrganization.id,

@@ -30,6 +30,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
@@ -276,7 +277,7 @@ export default function ImplementationNotificationSend() {
                     content: implementationNotificationsService.labelsToVars(template.content),
                 })
                 .then(() => {
-                    navigateState('implementation-notifications', {
+                    navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
                         implementationId: implementation.id,
                     });
@@ -363,7 +364,7 @@ export default function ImplementationNotificationSend() {
             .read(activeOrganization.id, parseInt(id))
             .then((res) => {
                 if (!activeOrganization.allow_custom_fund_notifications) {
-                    navigateState('implementation-notifications', {
+                    navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
                         implementationId: res.data.data.id,
                     });
@@ -437,7 +438,7 @@ export default function ImplementationNotificationSend() {
         <div className="block block-breadcrumbs">
             <ImplementationsRootBreadcrumbs implementation={implementation} />
             <StateNavLink
-                name={'implementation-notifications'}
+                name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                 params={{ organizationId: activeOrganization.id, id: implementation?.id }}
                 activeExact={true}
                 className="breadcrumb-item">
@@ -705,7 +706,7 @@ export default function ImplementationNotificationSend() {
                         <div className="card-section card-section-narrow">
                             <div className="button-group flex-center">
                                 <StateNavLink
-                                    name={'implementation-notifications'}
+                                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                                     params={{ organizationId: activeOrganization.id, id: implementation?.id }}
                                     className="button button-default">
                                     <em className="mdi mdi-close icon-start" />

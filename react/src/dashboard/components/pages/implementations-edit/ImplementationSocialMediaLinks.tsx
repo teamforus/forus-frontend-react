@@ -24,6 +24,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationSocialMediaLinks() {
     const { id } = useParams();
@@ -66,7 +67,7 @@ export default function ImplementationSocialMediaLinks() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState('implementations', { organizationId: activeOrganization.id });
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);

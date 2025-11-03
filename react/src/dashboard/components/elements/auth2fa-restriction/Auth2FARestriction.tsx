@@ -3,6 +3,7 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import { get } from 'lodash';
 import Fund from '../../../props/models/Fund';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Auth2FARestriction({
     type,
@@ -45,7 +46,9 @@ export default function Auth2FARestriction({
                             accountaanpassingen kunnen worden gemaakt.
                         </div>
                         <div className="button-group">
-                            <StateNavLink className="button button-primary button-sm" name={'security-2fa'}>
+                            <StateNavLink
+                                className="button button-primary button-sm"
+                                name={DashboardRoutes.SECURITY_2FA}>
                                 <div className="icon-start mdi mdi-lock-outline" />
                                 Tweefactorauthenticatie instellen
                             </StateNavLink>
@@ -65,7 +68,9 @@ export default function Auth2FARestriction({
                             accountaanpassingen kunnen worden gemaakt.
                         </div>
                         <div className="button-group">
-                            <StateNavLink className="button button-primary button-sm" name={'security-2fa'}>
+                            <StateNavLink
+                                className="button button-primary button-sm"
+                                name={DashboardRoutes.SECURITY_2FA}>
                                 <div className="icon-start mdi mdi-lock-outline" />
                                 Tweefactorauthenticatie instellen
                             </StateNavLink>
@@ -85,7 +90,9 @@ export default function Auth2FARestriction({
                             accountaanpassingen kunnen worden gemaakt.
                         </div>
                         <div className="button-group">
-                            <StateNavLink className="button button-primary button-sm" name={'security-2fa'}>
+                            <StateNavLink
+                                className="button button-primary button-sm"
+                                name={DashboardRoutes.SECURITY_2FA}>
                                 <div className="icon-start mdi mdi-lock-outline" />
                                 Tweefactorauthenticatie instellen
                             </StateNavLink>

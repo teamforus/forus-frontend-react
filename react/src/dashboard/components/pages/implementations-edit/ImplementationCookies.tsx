@@ -6,7 +6,7 @@ import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
-import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
+import { useNavigateState } from '../../../modules/state_router/Router';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
@@ -14,6 +14,7 @@ import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
 import useTranslate from '../../../hooks/useTranslate';
 import InfoBox from '../../elements/info-box/InfoBox';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationCookies() {
     const { id } = useParams();
@@ -33,9 +34,7 @@ export default function ImplementationCookies() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState(
-                        getStateRouteUrl('implementations', { organizationId: activeOrganization.id }),
-                    );
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);
@@ -86,7 +85,7 @@ export default function ImplementationCookies() {
                 <div className="card-footer card-footer-primary">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementation-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{ id: implementation.id, organizationId: activeOrganization.id }}
                             className="button button-default">
                             {translate('funds_edit.buttons.cancel')}

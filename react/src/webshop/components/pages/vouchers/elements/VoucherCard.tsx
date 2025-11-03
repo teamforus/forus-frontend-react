@@ -7,6 +7,7 @@ import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
 import ModalNotification from '../../../modals/ModalNotification';
 import useVoucherData from '../../../../services/helpers/useVoucherData';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherCard({
     type = 'voucher',
@@ -54,7 +55,7 @@ export default function VoucherCard({
 
     return (
         <StateNavLink
-            name={'voucher'}
+            name={WebshopRoutes.VOUCHER}
             params={{ number: voucher.number }}
             className="voucher-item"
             dataDusk={`listVouchersRow${voucher.id}`}

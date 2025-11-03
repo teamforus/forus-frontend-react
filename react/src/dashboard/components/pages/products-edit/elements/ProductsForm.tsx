@@ -32,6 +32,8 @@ import FormPane from '../../../elements/forms/elements/FormPane';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
 import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
 
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+
 export default function ProductsForm({
     organization,
     fundProvider,
@@ -166,7 +168,7 @@ export default function ProductsForm({
 
     const goToFundProvider = useCallback(
         (provider: FundProvider) => {
-            navigateState('fund-provider', {
+            navigateState(DashboardRoutes.FUND_PROVIDER, {
                 id: provider.id,
                 fundId: provider.fund_id,
                 organizationId: provider.fund.organization_id,
@@ -211,13 +213,13 @@ export default function ProductsForm({
                 fundService
                     .getProviderProduct(organization.id, fundProvider.fund_id, fundProvider.id, id)
                     .then((res) => setProduct(res.data.data))
-                    .catch(() => navigateState('products', { organizationId: organization.id }))
+                    .catch(() => navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id }))
                     .finally(() => setProgress(100));
             } else {
                 productService
                     .read(organization.id, id)
                     .then((res) => setProduct(res.data.data))
-                    .catch(() => navigateState('products', { organizationId: organization.id }))
+                    .catch(() => navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id }))
                     .finally(() => setProgress(100));
             }
         },
@@ -330,7 +332,7 @@ export default function ProductsForm({
                     pushSuccess('Gelukt!');
 
                     if (!fundProvider) {
-                        return navigateState('products', { organizationId: organization.id });
+                        return navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id });
                     }
 
                     goToFundProvider(fundProvider);
@@ -354,7 +356,7 @@ export default function ProductsForm({
         if (fundProvider) {
             goToFundProvider(fundProvider);
         } else {
-            navigateState('products', { organizationId: organization.id });
+            navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id });
         }
     }, [fundProvider, goToFundProvider, navigateState, organization?.id]);
 
@@ -375,7 +377,7 @@ export default function ProductsForm({
                         modal={modal}
                         title={translate('product_edit.errors.already_added')}
                         buttonCancel={{
-                            onClick: () => navigateState('products', { organizationId: organization.id }),
+                            onClick: () => navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id }),
                         }}
                     />
                 );
@@ -448,21 +450,21 @@ export default function ProductsForm({
             {fundProvider ? (
                 <div className="block block-breadcrumbs">
                     <StateNavLink
-                        name={'sponsor-provider-organizations'}
+                        name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS}
                         params={{ organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
                         {translate('page_state_titles.organization-providers')}
                     </StateNavLink>
                     <StateNavLink
-                        name={'sponsor-provider-organization'}
+                        name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                         params={{ id: fundProvider.organization.id, organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
                         {strLimit(fundProvider.organization.name, 40)}
                     </StateNavLink>
                     <StateNavLink
-                        name={'fund-provider'}
+                        name={DashboardRoutes.FUND_PROVIDER}
                         params={{ id: fundProvider.id, fundId: fundProvider.fund.id, organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
@@ -473,7 +475,7 @@ export default function ProductsForm({
             ) : (
                 <div className="block block-breadcrumbs">
                     <StateNavLink
-                        name={'products'}
+                        name={DashboardRoutes.PRODUCTS}
                         params={{ organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">

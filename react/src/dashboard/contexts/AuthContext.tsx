@@ -10,6 +10,7 @@ import { ResponseError } from '../props/ApiResponses';
 import Identity2FAState from '../props/models/Identity2FAState';
 import { useIdentity2FAService } from '../services/Identity2FAService';
 import useSetProgress from '../hooks/useSetProgress';
+import { DashboardRoutes } from '../modules/state_router/RouterBuilder';
 
 interface AuthMemoProps {
     token?: string;
@@ -96,7 +97,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
         }
 
         if (!token && route?.state?.protected) {
-            navigate(getStateRouteUrl('sign-in'));
+            navigate(getStateRouteUrl(DashboardRoutes.SIGN_IN));
             return;
         }
     }, [updateIdentity, token, navigate, signOut, identity, route?.state?.name, route?.state?.protected]);
@@ -111,11 +112,11 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
 
             if (data.detail.data.error === '2fa') {
                 setIdentity(null);
-                fetchIdentity2FA().then(() => navigate(getStateRouteUrl('auth-2fa')));
+                fetchIdentity2FA().then(() => navigate(getStateRouteUrl(DashboardRoutes.AUTH_2FA)));
                 return;
             }
 
-            return navigate(getStateRouteUrl('sign-out'));
+            return navigate(getStateRouteUrl(DashboardRoutes.SIGN_OUT));
         };
 
         events.subscribe('api-response:401', callback);

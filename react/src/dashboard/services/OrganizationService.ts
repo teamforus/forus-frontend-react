@@ -9,6 +9,7 @@ import { ProviderFinancial } from '../components/pages/financial-dashboard/types
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
+import { DashboardRoutes } from '../modules/state_router/RouterBuilder';
 
 export class OrganizationService<T = Organization> {
     /**
@@ -196,23 +197,28 @@ export class OrganizationService<T = Organization> {
             sponsor: [
                 {
                     permissions: [Permission.MANAGE_FUNDS, Permission.VIEW_FINANCES, Permission.VIEW_FUNDS],
-                    name: 'organization-funds',
+                    name: DashboardRoutes.ORGANIZATION_FUNDS,
                 },
-                { permissions: [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS], name: 'vouchers' },
-                { permissions: [Permission.VIEW_FINANCES], name: 'transactions' },
-                { permissions: [Permission.MANAGE_PAYOUTS], name: 'payouts' },
-                { permissions: [Permission.VALIDATE_RECORDS], name: 'csv-validation' },
-                { permissions: [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES], name: 'identities' },
+                { permissions: [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS], name: DashboardRoutes.VOUCHERS },
+                { permissions: [Permission.VIEW_FINANCES], name: DashboardRoutes.TRANSACTIONS },
+                { permissions: [Permission.MANAGE_PAYOUTS], name: DashboardRoutes.PAYOUTS },
+                { permissions: [Permission.VALIDATE_RECORDS], name: DashboardRoutes.CSV_VALIDATION },
+                {
+                    permissions: [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES],
+                    name: DashboardRoutes.IDENTITIES,
+                },
             ],
             provider: [
-                { permissions: [Permission.MANAGE_EMPLOYEES], name: 'provider-overview' },
-                { permissions: [Permission.MANAGE_OFFICES], name: 'offices' },
-                { permissions: [Permission.MANAGE_PRODUCTS], name: 'products' },
-                { permissions: [Permission.VIEW_FINANCES], name: 'transactions' },
-                { permissions: [Permission.VALIDATE_RECORDS], name: 'csv-validation' },
-                { permissions: [Permission.SCAN_VOUCHERS], name: 'reservations' },
+                { permissions: [Permission.MANAGE_EMPLOYEES], name: DashboardRoutes.PROVIDER_OVERVIEW },
+                { permissions: [Permission.MANAGE_OFFICES], name: DashboardRoutes.OFFICES },
+                { permissions: [Permission.MANAGE_PRODUCTS], name: DashboardRoutes.PRODUCTS },
+                { permissions: [Permission.VIEW_FINANCES], name: DashboardRoutes.TRANSACTIONS },
+                { permissions: [Permission.VALIDATE_RECORDS], name: DashboardRoutes.CSV_VALIDATION },
+                { permissions: [Permission.SCAN_VOUCHERS], name: DashboardRoutes.RESERVATIONS },
             ],
-            validator: [{ permissions: ['validate_records', 'manage_validators'], name: 'fund-requests' }],
+            validator: [
+                { permissions: ['validate_records', 'manage_validators'], name: DashboardRoutes.FUND_REQUESTS },
+            ],
         }[type];
     }
 

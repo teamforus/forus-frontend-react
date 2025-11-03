@@ -31,6 +31,7 @@ import useOpenModal from '../../hooks/useOpenModal';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import useThumbnailUrl from '../../hooks/useThumbnailUrl';
 import useAuthIdentity2FAState from '../../hooks/useAuthIdentity2FAState';
+import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 
 interface IdentityMenuItemProps {
     url?: string;
@@ -181,7 +182,7 @@ export const LayoutHeader = () => {
                                     {activeOrganization && (
                                         <IdentityMenuItem
                                             name={'E-mail instellingen'}
-                                            url={getStateRouteUrl('preferences-emails')}
+                                            url={getStateRouteUrl(DashboardRoutes.PREFERENCE_EMAILS)}
                                             dusk={'btnUserEmails'}
                                             icon={<IconEmail />}
                                         />
@@ -190,7 +191,7 @@ export const LayoutHeader = () => {
                                     {activeOrganization && (
                                         <IdentityMenuItem
                                             name={'Notificatievoorkeuren'}
-                                            url={getStateRouteUrl('preferences-notifications')}
+                                            url={getStateRouteUrl(DashboardRoutes.PREFERENCE_NOTIFICATIONS)}
                                             icon={<IconNotifications />}
                                         />
                                     )}
@@ -198,7 +199,7 @@ export const LayoutHeader = () => {
                                     {(activeOrganization?.allow_2fa_restrictions || authIdentity2FAState?.required) && (
                                         <IdentityMenuItem
                                             name="Beveiliging"
-                                            url={getStateRouteUrl('security-2fa')}
+                                            url={getStateRouteUrl(DashboardRoutes.SECURITY_2FA)}
                                             icon={<IconSecurity />}
                                         />
                                     )}
@@ -206,7 +207,7 @@ export const LayoutHeader = () => {
                                     {activeOrganization && (
                                         <IdentityMenuItem
                                             name="Sessies"
-                                            url={getStateRouteUrl('security-sessions')}
+                                            url={getStateRouteUrl(DashboardRoutes.SECURITY_SESSIONS)}
                                             icon={<IconSessions />}
                                         />
                                     )}
@@ -250,7 +251,7 @@ export const LayoutHeader = () => {
 
                                     <IdentityMenuItem
                                         name="Uitloggen"
-                                        url={getStateRouteUrl('sign-out')}
+                                        url={getStateRouteUrl(DashboardRoutes.SIGN_OUT)}
                                         dusk={'btnUserLogout'}
                                         icon={<IconSignOut />}
                                     />

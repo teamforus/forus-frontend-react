@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect, ChangeEvent, useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ModalPhotoUploader from '../../modals/ModalPhotoUploader';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useAssetUrl from '../../../hooks/useAssetUrl';
@@ -14,6 +14,7 @@ import { useMarkdownService } from '../../../services/MarkdownService';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Implementation from '../../../props/models/Implementation';
 import Organization from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PhotoSelectorBanner({
     disabled,
@@ -404,7 +405,7 @@ export default function PhotoSelectorBanner({
                 {showEdit ? (
                     <div className="banner-editor-controls-buttons">
                         <StateNavLink
-                            name="implementation-view-banner"
+                            name={DashboardRoutes.IMPLEMENTATION_VIEW_BANNER}
                             params={{
                                 organizationId: organization?.id,
                                 id: implementation?.id,

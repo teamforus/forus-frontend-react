@@ -17,6 +17,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import InfoBox from '../../elements/info-box/InfoBox';
 import { useParams } from 'react-router';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationNotifications() {
     const { id } = useParams();
@@ -169,7 +170,7 @@ export default function ImplementationNotifications() {
                         <div className="block block-inline-filters">
                             {activeOrganization.allow_custom_fund_notifications && (
                                 <StateNavLink
-                                    name={'implementation-notifications-send'}
+                                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_SEND}
                                     params={{
                                         id: implementation.id,
                                         organizationId: activeOrganization.id,
@@ -181,7 +182,7 @@ export default function ImplementationNotifications() {
                             )}
 
                             <StateNavLink
-                                name={'implementation-notifications-branding'}
+                                name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_BRANDING}
                                 params={{
                                     organizationId: activeOrganization.id,
                                     id: implementation.id,
@@ -284,7 +285,9 @@ export default function ImplementationNotifications() {
                                                         content={() => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
-                                                                    name={'implementation-notifications-edit'}
+                                                                    name={
+                                                                        DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT
+                                                                    }
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         implementationId: implementation.id,
