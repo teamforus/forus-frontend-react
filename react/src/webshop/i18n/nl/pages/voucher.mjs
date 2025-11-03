@@ -125,8 +125,8 @@ export default {
     },
 
     fund_details: {
-        title: 'Fondsdetails',
-        view: 'Bekijk fondsdetails',
+        title: 'Informatie over de regeling',
+        view: 'Lees meer',
     },
 
     help: {
@@ -139,12 +139,11 @@ export default {
     actions: {
         view_all_products: 'Bekijk alle producten',
         save_qr: 'Sla QR-code op',
-        declaration_request: 'Declaratieverzoek',
+        declaration_request: 'Kosten terugvragen',
         share_with_provider: 'Deel QR-code met aanbieder',
         choose_action: {
             title: 'Kies een actie',
-            description:
-                'Selecteer een actie om verder te gaan. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.',
+            description: 'Selecteer één van onderstaande acties om verder te gaan.',
         },
     },
 };
