@@ -8881,7 +8881,7 @@
     ],
     [
         "voucher.actions.choose_action.description",
-        "Selecteer een actie om verder te gaan. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas."
+        "Selecteer één van onderstaande acties om verder te gaan."
     ],
     [
         "voucher.actions.choose_action.title",
@@ -8889,7 +8889,7 @@
     ],
     [
         "voucher.actions.declaration_request",
-        "Declaratieverzoek"
+        "Kosten terugvragen"
     ],
     [
         "voucher.actions.save_qr",
@@ -8985,11 +8985,11 @@
     ],
     [
         "voucher.fund_details.title",
-        "Fondsdetails"
+        "Informatie over de regeling"
     ],
     [
         "voucher.fund_details.view",
-        "Bekijk fondsdetails"
+        "Lees meer"
     ],
     [
         "voucher.fund.logo_alt",

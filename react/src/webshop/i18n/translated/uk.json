@@ -3355,13 +3355,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "Виберіть дію для продовження. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "Виберіть дію"
+                "title": "Виберіть дію",
+                "description": "Виберіть одну з наведених нижче дій, щоб продовжити."
             },
-            "declaration_request": "Запит на декларацію",
             "save_qr": "Зберегти QR-код",
             "share_with_provider": "Поділіться QR-кодом з провайдером",
-            "view_all_products": "Переглянути всі продукти"
+            "view_all_products": "Переглянути всі продукти",
+            "declaration_request": "Відшкодування витрат"
         },
         "details": {
             "records": {
@@ -3370,10 +3370,6 @@
                 "title": "Дані"
             },
             "valid_until": "Цей кредит дійсний до {{ date }}"
-        },
-        "fund_details": {
-            "title": "Реквізити фонду",
-            "view": "Переглянути деталі фонду"
         },
         "fund": {
             "logo_alt": "Логотип фонду",
@@ -3396,6 +3392,10 @@
         },
         "qr_code": {
             "label": "QR-код для отримання кредиту {{ number }}"
+        },
+        "fund_details": {
+            "title": "Інформація про схему",
+            "view": "Читати далі"
         }
     },
     "vouchers": {

@@ -1721,13 +1721,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "Select an action to continue. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "Choose an action"
+                "title": "Choose an action",
+                "description": "Select one of the actions below to proceed."
             },
-            "declaration_request": "Declaration request",
             "save_qr": "Save QR code",
             "share_with_provider": "Share QR code with provider",
-            "view_all_products": "See all products"
+            "view_all_products": "See all products",
+            "declaration_request": "Cost recovery"
         },
         "details": {
             "records": {
@@ -1736,10 +1736,6 @@
                 "title": "Data"
             },
             "valid_until": "This credit is valid until {{ date }}"
-        },
-        "fund_details": {
-            "title": "Fund Details",
-            "view": "View fund details"
         },
         "fund": {
             "logo_alt": "Fund logo",
@@ -1762,6 +1758,10 @@
         },
         "qr_code": {
             "label": "QR code for credit {{ number }}"
+        },
+        "fund_details": {
+            "title": "Information about the scheme",
+            "view": "Read more"
         }
     },
     "vouchers": {

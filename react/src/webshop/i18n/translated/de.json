@@ -3355,13 +3355,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "Wählen Sie eine Aktion aus, um fortzufahren. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "Wählen Sie eine Aktion"
+                "title": "Wählen Sie eine Aktion",
+                "description": "Wählen Sie eine der folgenden Aktionen, um fortzufahren."
             },
-            "declaration_request": "Antrag auf Erklärung",
             "save_qr": "QR-Code speichern",
             "share_with_provider": "QR-Code mit Anbieter teilen",
-            "view_all_products": "Alle Produkte anzeigen"
+            "view_all_products": "Alle Produkte anzeigen",
+            "declaration_request": "Kostendeckung"
         },
         "details": {
             "records": {
@@ -3370,10 +3370,6 @@
                 "title": "Daten"
             },
             "valid_until": "Diese Gutschrift ist gültig bis {{ date }}"
-        },
-        "fund_details": {
-            "title": "Details zum Fonds",
-            "view": "Details zum Fonds anzeigen"
         },
         "fund": {
             "logo_alt": "Logo des Fonds",
@@ -3396,6 +3392,10 @@
         },
         "qr_code": {
             "label": "QR-Code für Kredite {{ number }}"
+        },
+        "fund_details": {
+            "title": "Informationen über die Regelung",
+            "view": "Mehr lesen"
         }
     },
     "vouchers": {

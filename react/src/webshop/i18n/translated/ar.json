@@ -2020,13 +2020,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "حدد إجراءً للمتابعة. Massa risus risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "اختر إجراءً"
+                "title": "اختر إجراءً",
+                "description": "حدد أحد الإجراءات أدناه للمتابعة."
             },
-            "declaration_request": "طلب إعلان",
             "save_qr": "حفظ رمز الاستجابة السريعة",
             "share_with_provider": "مشاركة رمز الاستجابة السريعة مع المزود",
-            "view_all_products": "عرض جميع المنتجات"
+            "view_all_products": "عرض جميع المنتجات",
+            "declaration_request": "استرداد التكاليف"
         },
         "details": {
             "records": {
@@ -2035,10 +2035,6 @@
                 "title": "البيانات"
             },
             "valid_until": "هذا الرصيد صالح حتى {{ date }}"
-        },
-        "fund_details": {
-            "title": "تفاصيل الصندوق",
-            "view": "عرض تفاصيل الصندوق"
         },
         "fund": {
             "logo_alt": "شعار الصندوق",
@@ -2061,6 +2057,10 @@
         },
         "qr_code": {
             "label": "رمز الاستجابة السريعة للائتمان {{ number }}"
+        },
+        "fund_details": {
+            "title": "معلومات عن المخطط",
+            "view": "اقرأ المزيد"
         }
     },
     "vouchers": {

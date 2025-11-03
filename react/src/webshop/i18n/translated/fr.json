@@ -3355,13 +3355,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "Sélectionnez une action pour continuer. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "Choisir une action"
+                "title": "Choisir une action",
+                "description": "Sélectionnez l'une des actions ci-dessous pour continuer."
             },
-            "declaration_request": "Demande de déclaration",
             "save_qr": "Enregistrer le code QR",
             "share_with_provider": "Partager le code QR avec le fournisseur",
-            "view_all_products": "Voir tous les produits"
+            "view_all_products": "Voir tous les produits",
+            "declaration_request": "Recouvrement des coûts"
         },
         "details": {
             "records": {
@@ -3370,10 +3370,6 @@
                 "title": "Données"
             },
             "valid_until": "Ce crédit est valable jusqu'à {{ date }}"
-        },
-        "fund_details": {
-            "title": "Détails du fonds",
-            "view": "Voir les détails du fonds"
         },
         "fund": {
             "logo_alt": "Logo du fonds",
@@ -3396,6 +3392,10 @@
         },
         "qr_code": {
             "label": "Code QR pour le crédit {{ number }}"
+        },
+        "fund_details": {
+            "title": "Informations sur le régime",
+            "view": "En savoir plus"
         }
     },
     "vouchers": {

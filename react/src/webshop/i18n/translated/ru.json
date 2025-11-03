@@ -3355,13 +3355,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "Выберите действие для продолжения. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "Выберите действие"
+                "title": "Выберите действие",
+                "description": "Выберите одно из следующих действий, чтобы продолжить."
             },
-            "declaration_request": "Запрос декларации",
             "save_qr": "Сохранить QR-код",
             "share_with_provider": "Поделитесь QR-кодом с поставщиком",
-            "view_all_products": "Посмотреть все товары"
+            "view_all_products": "Посмотреть все товары",
+            "declaration_request": "Возмещение затрат"
         },
         "details": {
             "records": {
@@ -3370,10 +3370,6 @@
                 "title": "Данные"
             },
             "valid_until": "Этот кредит действителен до {{ date }}"
-        },
-        "fund_details": {
-            "title": "Информация о фонде",
-            "view": "Посмотреть детали фонда"
         },
         "fund": {
             "logo_alt": "Логотип фонда",
@@ -3396,6 +3392,10 @@
         },
         "qr_code": {
             "label": "QR-код для получения кредита {{ number }}"
+        },
+        "fund_details": {
+            "title": "Информация о схеме",
+            "view": "Читать далее"
         }
     },
     "vouchers": {

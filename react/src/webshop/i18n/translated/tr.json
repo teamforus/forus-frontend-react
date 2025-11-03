@@ -2020,13 +2020,13 @@
         },
         "actions": {
             "choose_action": {
-                "description": "Devam etmek için bir eylem seçin. Massa risus dis nunc viverra quis imperdiet. Dictumst non est tortor facilisi egestas.",
-                "title": "Bir eylem seçin"
+                "title": "Bir eylem seçin",
+                "description": "Devam etmek için aşağıdaki işlemlerden birini seçin."
             },
-            "declaration_request": "Beyanname talebi",
             "save_qr": "QR kodunu kaydet",
             "share_with_provider": "QR kodunu sağlayıcı ile paylaşın",
-            "view_all_products": "Tüm ürünleri görüntüle"
+            "view_all_products": "Tüm ürünleri görüntüle",
+            "declaration_request": "Maliyet geri kazanımı"
         },
         "details": {
             "records": {
@@ -2035,10 +2035,6 @@
                 "title": "Veri"
             },
             "valid_until": "Bu kredi şu tarihe kadar geçerlidir {{ date }}"
-        },
-        "fund_details": {
-            "title": "Fon detayları",
-            "view": "Fon detaylarını görüntüle"
         },
         "fund": {
             "logo_alt": "Fon logosu",
@@ -2061,6 +2057,10 @@
         },
         "qr_code": {
             "label": "Kredi için QR kodu {{ number }}"
+        },
+        "fund_details": {
+            "title": "Program hakkında bilgi",
+            "view": "Daha fazla bilgi edinin"
         }
     },
     "vouchers": {
