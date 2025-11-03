@@ -6,6 +6,7 @@ import StateNavLink from '../state_router/StateNavLink';
 import EnvDataWebshopProp from '../../../props/EnvDataWebshopProp';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../state_router/RouterBuilder';
 
 export default function CookieBanner({
     envData,
@@ -64,7 +65,7 @@ export default function CookieBanner({
                         <br />
                         {translate('cookie_banner.view')}
                         <StateNavLink
-                            name="privacy"
+                            name={WebshopRoutes.PRIVACY}
                             target={'_blank'}
                             className={'cookie-banner-description-link'}
                             tabIndex={1}>

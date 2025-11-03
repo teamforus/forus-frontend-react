@@ -13,6 +13,7 @@ import Organization from '../../../../props/models/Organization';
 import useUpdateProduct from '../hooks/useUpdateProduct';
 import Fund from '../../../../props/models/Fund';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 type ProductLocal = SponsorProduct & {
     allowed?: boolean;
@@ -257,7 +258,7 @@ export default function FundProviderProductRowData({
                         <div className="dropdown dropdown-actions">
                             {!history && (
                                 <StateNavLink
-                                    name={'fund-provider-product'}
+                                    name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
                                     params={{
                                         id: product.id,
                                         fundId: fundProvider.fund_id,
@@ -320,7 +321,7 @@ export default function FundProviderProductRowData({
 
                             {!history && organization.manage_provider_products && (
                                 <StateNavLink
-                                    name={'fund-provider-product-create'}
+                                    name={DashboardRoutes.FUND_PROVIDER_PRODUCT_CREATE}
                                     params={{
                                         fundId: fundProvider.fund_id,
                                         source: product.id,
@@ -337,7 +338,7 @@ export default function FundProviderProductRowData({
                             {!history && product?.sponsor_organization_id && (
                                 <Fragment>
                                     <StateNavLink
-                                        name={'fund-provider-product-edit'}
+                                        name={DashboardRoutes.FUND_PROVIDER_PRODUCT_EDIT}
                                         params={{
                                             id: product.id,
                                             fundId: fundProvider.fund_id,

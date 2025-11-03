@@ -9,6 +9,7 @@ import { useNavigateState } from '../../../modules/state_router/Router';
 import { useIdentityEmailsService } from '../../../services/IdentityEmailService';
 import { authContext } from '../../../contexts/AuthContext';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Redirect() {
     const assetUrl = useAssetUrl();
@@ -43,7 +44,7 @@ export default function Redirect() {
                     'Je bent niet geauthenticeerd, log eerst in om je e-mailadres te bevestigen.',
                 );
 
-                return navigateState('sign-in', {}, {});
+                return navigateState(DashboardRoutes.SIGN_IN, {}, {});
             }
 
             identityEmailsService
@@ -55,7 +56,7 @@ export default function Redirect() {
                 })
                 .catch((err: ResponseError) => {
                     pushApiError(err);
-                    navigateState('organizations', {}, {});
+                    navigateState(DashboardRoutes.ORGANIZATIONS, {}, {});
                 });
             return;
         }
@@ -90,7 +91,7 @@ export default function Redirect() {
 
                     <div className="block-email-confirmed-footer">
                         <StateNavLink
-                            name={'organizations'}
+                            name={DashboardRoutes.ORGANIZATIONS}
                             dataDusk="identityEmailConfirmedButton"
                             className="button button-primary button-lg">
                             Bekijken

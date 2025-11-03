@@ -11,6 +11,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 export default function ProvidersTableItem({
@@ -56,7 +57,7 @@ export default function ProvidersTableItem({
     return (
         <tbody>
             <StateNavLink
-                name={'sponsor-provider-organization'}
+                name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                 className={'tr-clickable'}
                 customElement={'tr'}
                 dataDusk={`tableProviderRow${providerOrganization.id}`}
@@ -105,7 +106,7 @@ export default function ProvidersTableItem({
                         content={() => (
                             <div className="dropdown dropdown-actions">
                                 <StateNavLink
-                                    name={'sponsor-provider-organization'}
+                                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                                     params={{
                                         id: providerOrganization.id,
                                         organizationId: organization.id,

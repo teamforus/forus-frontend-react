@@ -2,6 +2,7 @@ import React from 'react';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import Provider from '../../../../../props/models/Provider';
+import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function ProvidersListItemSearch({
     provider,
@@ -14,7 +15,7 @@ export default function ProvidersListItemSearch({
 
     return (
         <StateNavLink
-            name={'provider'}
+            name={WebshopRoutes.PROVIDER}
             params={{ id: provider?.id }}
             state={stateParams || null}
             className="search-item search-item-provider"

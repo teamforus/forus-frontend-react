@@ -166,7 +166,6 @@ export type AppConfigProp = {
         lat?: number;
     };
     products?: { list: boolean; show?: boolean };
-    records?: { list: boolean };
     funds?: { list: boolean; fund_requests: boolean };
     banner?: Media;
     implementation?: {

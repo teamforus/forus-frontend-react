@@ -24,6 +24,7 @@ import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function BiConnection() {
     const auth2FAState = useAuthIdentity2FAState();
@@ -602,7 +603,10 @@ export default function BiConnection() {
 
                     <div className="card-section">
                         <div className="button-group flex-center">
-                            <StateNavLink id="cancel" name={'organizations'} className={'button button-default'}>
+                            <StateNavLink
+                                id="cancel"
+                                name={DashboardRoutes.ORGANIZATIONS}
+                                className={'button button-default'}>
                                 {translate('bi_connection.buttons.cancel')}
                             </StateNavLink>
 

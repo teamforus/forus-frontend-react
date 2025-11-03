@@ -16,6 +16,7 @@ import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function SecuritySessions() {
@@ -112,7 +113,7 @@ export default function SecuritySessions() {
                 .then(() => {
                     signOut();
                     clearAll();
-                    navigate(getStateRouteUrl('home'));
+                    navigate(getStateRouteUrl(DashboardRoutes.HOME));
                     pushSuccess('Terminated!');
                 })
                 .catch(pushApiError)

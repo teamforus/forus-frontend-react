@@ -29,6 +29,7 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useEditHousehold from './hooks/useEditHousehold';
 import useDeleteHousehold from './hooks/useDeleteHousehold';
 import TableRowActionItem from '../../elements/tables/TableRowActionItem';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Households() {
     const translate = useTranslate();
@@ -226,7 +227,7 @@ export default function Households() {
                                     {households.data.map((household) => (
                                         <StateNavLink
                                             key={household.id}
-                                            name={'households-show'}
+                                            name={DashboardRoutes.HOUSEHOLD}
                                             dataDusk={`tableProfilesRow${household.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
@@ -255,7 +256,7 @@ export default function Households() {
                                                         <div className="dropdown dropdown-actions">
                                                             <TableRowActionItem
                                                                 type="link"
-                                                                name={'households-show'}
+                                                                name={DashboardRoutes.HOUSEHOLD}
                                                                 params={{
                                                                     organizationId: activeOrganization.id,
                                                                     id: household.id,

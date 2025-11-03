@@ -15,6 +15,7 @@ import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 export default function ProviderFinancialTablesTransactions({
@@ -53,7 +54,7 @@ export default function ProviderFinancialTablesTransactions({
     const showTransaction = useCallback(
         (transaction: Transaction) => {
             navigateState(
-                'transaction',
+                DashboardRoutes.TRANSACTION,
                 isSponsor
                     ? { address: transaction.address, organizationId: transaction.fund.organization_id }
                     : transaction,

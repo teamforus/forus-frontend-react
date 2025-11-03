@@ -25,6 +25,7 @@ import ExternalFunds from './items/ExternalFunds';
 import VoucherTopUp from './items/VoucherTopUp';
 import SubsidyFunds from './items/SubsidyFunds';
 import BudgetFunds from './items/BudgetFunds';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Feature() {
     const { key } = useParams();
@@ -72,7 +73,7 @@ export default function Feature() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'features'}
+                    name={DashboardRoutes.FEATURES}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

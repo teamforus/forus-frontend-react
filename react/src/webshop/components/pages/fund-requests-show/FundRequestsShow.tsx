@@ -19,6 +19,7 @@ import ModalFundRequestClarificationResponse from '../../modals/ModalFundRequest
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import useIsMobile from '../../../hooks/useIsMobile';
 import FundRequestClarification from '../../../../dashboard/props/models/FundRequestClarification';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestsShow() {
     const { id } = useParams();
@@ -102,7 +103,7 @@ export default function FundRequestsShow() {
 
     useEffect(() => {
         if (!identity && !token) {
-            navigateState('start', null, null, { state: { target: `fundRequest-${id}` } });
+            navigateState(WebshopRoutes.START, null, null, { state: { target: `fundRequest-${id}` } });
         }
     }, [id, identity, navigateState, token]);
 
@@ -113,8 +114,8 @@ export default function FundRequestsShow() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('fund_request.breadcrumbs.home'), state: 'home' },
-                { name: translate('fund_requests.title'), state: 'fund-requests' },
+                { name: translate('fund_request.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('fund_requests.title'), state: WebshopRoutes.FUND_REQUESTS },
                 { name: translate('fund_request.breadcrumbs.fund_request', { id: fundRequest?.id }) },
             ]}
             profileHeader={

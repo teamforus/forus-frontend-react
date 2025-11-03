@@ -18,6 +18,7 @@ import Tooltip from '../../../elements/tooltip/Tooltip';
 import useFetchAuthIdentity from '../../../../hooks/useFetchAuthIdentity';
 import useFundMetaBuilder from '../../../../hooks/meta/useFundMetaBuilder';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductFundsCard({
     product,
@@ -83,7 +84,7 @@ export default function ProductFundsCard({
                     return showTakenByPartnerModal();
                 }
 
-                navigateState('fund-activate', { id: fund_id });
+                navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund_id });
             });
         },
         [fundService, navigateState, showTakenByPartnerModal],
@@ -110,7 +111,7 @@ export default function ProductFundsCard({
             {productMeta?.funds?.length > 0 && (!onlyAvailableFunds || productMeta?.hasReservableFunds) && (
                 <div className="block block-pane">
                     <div className="pane-head">
-                        <StateNavLink className="pane-head-title" name="vouchers" customElement={'h2'}>
+                        <StateNavLink className="pane-head-title" name={WebshopRoutes.VOUCHERS} customElement={'h2'}>
                             {translate('product.funds.title')}
                         </StateNavLink>
                     </div>
@@ -250,7 +251,7 @@ export default function ProductFundsCard({
                                     {fund.showRequestButton && (
                                         <div className="fund-item-section">
                                             <StateNavLink
-                                                name={'fund-activate'}
+                                                name={WebshopRoutes.FUND_ACTIVATE}
                                                 params={{ id: fund.id }}
                                                 className="button button-primary"
                                                 dataDusk="fundRequest">
@@ -262,7 +263,7 @@ export default function ProductFundsCard({
                                     {fund.showPendingButton && (
                                         <div className="fund-item-section">
                                             <StateNavLink
-                                                name={'fund-requests'}
+                                                name={WebshopRoutes.FUND_REQUESTS}
                                                 params={{ id: fund.id }}
                                                 className="button button-primary-outline"
                                                 dataDusk="fundRequests">
@@ -286,7 +287,7 @@ export default function ProductFundsCard({
                                         <div className="fund-item-section">
                                             {fund.hasVouchers ? (
                                                 <StateNavLink
-                                                    name="voucher"
+                                                    name={WebshopRoutes.VOUCHER}
                                                     params={{ number: fund.vouchers[0].number }}
                                                     dataDusk="voucherButton"
                                                     className="button button-primary">
@@ -327,7 +328,7 @@ export default function ProductFundsCard({
                         </div>
                     </div>
                     <div className="block-card-actions">
-                        <StateNavLink className="button button-primary" name="funds">
+                        <StateNavLink className="button button-primary" name={WebshopRoutes.FUNDS}>
                             {translate('product.labels.funds_card_btn_text')}
                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                         </StateNavLink>

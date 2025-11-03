@@ -17,6 +17,7 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProvidersOffice() {
     const { organization_id, id } = useParams();
@@ -91,9 +92,9 @@ export default function ProvidersOffice() {
         <BlockShowcase
             breadcrumbItems={
                 provider && [
-                    { name: translate('providers_office.breadcrumbs.home'), state: 'home' },
-                    { name: translate('providers_office.breadcrumbs.providers'), state: 'providers' },
-                    { name: provider.name, state: 'provider', stateParams: { id: provider.id } },
+                    { name: translate('providers_office.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                    { name: translate('providers_office.breadcrumbs.providers'), state: WebshopRoutes.PROVIDERS },
+                    { name: provider.name, state: WebshopRoutes.PROVIDER, stateParams: { id: provider.id } },
                     { name: office?.address },
                 ]
             }
@@ -205,7 +206,7 @@ export default function ProvidersOffice() {
                             <div className="pane-section">
                                 <div className="office-organization" onClick={() => setShowOffices(!showOffices)}>
                                     <StateNavLink
-                                        name={'provider'}
+                                        name={WebshopRoutes.PROVIDER}
                                         params={{ id: provider.id }}
                                         className="organization-photo"
                                         onClick={(e: React.MouseEvent) => e.stopPropagation()}>
@@ -221,7 +222,7 @@ export default function ProvidersOffice() {
                                     </StateNavLink>
 
                                     <StateNavLink
-                                        name={'provider'}
+                                        name={WebshopRoutes.PROVIDER}
                                         params={{ id: provider.id }}
                                         className="organization-title"
                                         onClick={(e: React.MouseEvent) => e.stopPropagation()}>
@@ -249,7 +250,7 @@ export default function ProvidersOffice() {
                                             {provider.offices.map((office) => (
                                                 <StateNavLink
                                                     key={office.id}
-                                                    name={'provider-office'}
+                                                    name={WebshopRoutes.PROVIDER_OFFICE}
                                                     params={{
                                                         organization_id: office.organization_id,
                                                         id: office.id,

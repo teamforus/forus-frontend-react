@@ -27,6 +27,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import InfoBox from '../../elements/info-box/InfoBox';
 import PreCheckExclusionsCard from './cards/PreCheckExclusionsCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PreCheck() {
     const activeOrganization = useActiveOrganization();
@@ -262,7 +263,7 @@ export default function PreCheck() {
 
     useEffect(() => {
         if (!activeOrganization?.allow_pre_checks) {
-            navigateState('organizations');
+            navigateState(DashboardRoutes.ORGANIZATIONS);
         }
     }, [activeOrganization?.allow_pre_checks, navigateState]);
 
@@ -413,7 +414,7 @@ export default function PreCheck() {
                                         text: 'Ga naar de fondsenpagina',
                                         type: 'primary',
                                         icon: 'plus',
-                                        to: getStateRouteUrl('funds-create', {
+                                        to: getStateRouteUrl(DashboardRoutes.FUND_CREATE, {
                                             organizationId: activeOrganization.id,
                                         }),
                                     }}
@@ -531,7 +532,10 @@ export default function PreCheck() {
 
                 <div className="card-section">
                     <div className="text-right">
-                        <StateNavLink id="cancel" name={'organizations'} className={'button button-default'}>
+                        <StateNavLink
+                            id="cancel"
+                            name={DashboardRoutes.ORGANIZATIONS}
+                            className={'button button-default'}>
                             {translate('funds_edit.buttons.cancel')}
                         </StateNavLink>
 

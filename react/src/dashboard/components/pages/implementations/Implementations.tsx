@@ -12,6 +12,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -49,7 +50,7 @@ export default function Implementations() {
 
     const goToImplementation = useCallback(
         (implementation: Implementation) => {
-            return navigateState('implementations-view', {
+            return navigateState(DashboardRoutes.IMPLEMENTATION, {
                 id: implementation.id,
                 organizationId: implementation.organization_id,
             });
@@ -128,7 +129,7 @@ export default function Implementations() {
                         {activeOrganization.allow_translations &&
                             hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                                 <StateNavLink
-                                    name={'implementations-translations'}
+                                    name={DashboardRoutes.IMPLEMENTATION_TRANSLATIONS}
                                     params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                     className={`button button-default`}>
                                     <em className="mdi mdi-translate-variant icon-start" />
@@ -138,7 +139,7 @@ export default function Implementations() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-email'}
+                                name={DashboardRoutes.IMPLEMENTATION_EMAIL}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cog icon-start" />
@@ -148,7 +149,7 @@ export default function Implementations() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-digid'}
+                                name={DashboardRoutes.IMPLEMENTATION_DIGID}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cog icon-start" />
@@ -158,7 +159,7 @@ export default function Implementations() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS) && (
                             <StateNavLink
-                                name={'implementations-cms'}
+                                name={DashboardRoutes.IMPLEMENTATION_CMS}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className={`button button-primary`}>
                                 <em className="mdi mdi-text-box icon-start" />

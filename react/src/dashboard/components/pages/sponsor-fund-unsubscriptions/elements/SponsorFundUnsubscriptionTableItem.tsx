@@ -7,6 +7,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import Label from '../../../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function SponsorFundUnsubscriptionTableItem({
     organization,
@@ -21,7 +22,7 @@ export default function SponsorFundUnsubscriptionTableItem({
         <StateNavLink
             customElement={'tr'}
             className={'tr-clickable'}
-            name={'sponsor-provider-organization'}
+            name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
             params={{
                 organizationId: organization.id,
                 id: unsubscription.fund_provider.organization.id,

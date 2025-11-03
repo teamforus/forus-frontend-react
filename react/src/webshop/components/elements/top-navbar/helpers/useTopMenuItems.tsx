@@ -4,6 +4,7 @@ import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { MenuItem } from '../../../../../props/EnvDataWebshopProp';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function useTopMenuItems(onlyEnabled = true) {
     const envData = useEnvData();
@@ -34,7 +35,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
             {
                 id: 'home_page',
                 nameTranslate: `top_navbar.items.home`,
-                state: 'home',
+                state: WebshopRoutes.HOME,
                 stateParams: {},
                 target: '_self',
                 enabled: true,
@@ -43,7 +44,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
                 id: 'funds_page',
                 nameTranslate: `top_navbar.items.${envData.client_key}.funds`,
                 nameTranslateDefault: translate(`top_navbar.items.funds`),
-                state: 'funds',
+                state: WebshopRoutes.FUNDS,
                 stateParams: {},
                 target: '_self',
                 enabled: !!(
@@ -55,7 +56,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
                 id: 'products_page',
                 nameTranslate: `top_navbar.items.${envData.client_key}.products`,
                 nameTranslateDefault: translate(`top_navbar.items.products`),
-                state: 'products',
+                state: WebshopRoutes.PRODUCTS,
                 stateParams: {},
                 target: '_self',
                 enabled: !!(
@@ -67,7 +68,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
             {
                 id: 'providers_page',
                 nameTranslate: `top_navbar.items.providers`,
-                state: 'providers',
+                state: WebshopRoutes.PROVIDERS,
                 stateParams: {},
                 target: '_self',
                 enabled: !!envData.config.flags.providersMenu,
@@ -77,14 +78,14 @@ export default function useTopMenuItems(onlyEnabled = true) {
                 target: appConfigs.pages?.explanation?.external ? '_blank' : '_self',
                 nameTranslate: `top_navbar.items.${envData.client_key}.explanation`,
                 nameTranslateDefault: translate(`top_navbar.items.explanation`),
-                state: 'explanation',
+                state: WebshopRoutes.EXPLANATION,
                 stateParams: {},
                 enabled: true,
             },
             {
                 id: 'providers_sign_up_page',
                 nameTranslate: `top_navbar.items.signup`,
-                state: 'sign-up',
+                state: WebshopRoutes.SIGN_UP,
                 stateParams: {},
                 target: '_self',
                 enabled: !!envData.config.flags.providersSignUpMenu,

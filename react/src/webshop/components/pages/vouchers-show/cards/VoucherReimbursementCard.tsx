@@ -3,6 +3,7 @@ import Voucher from '../../../../../dashboard/props/models/Voucher';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherReimbursementCard({ voucher }: { voucher: Voucher }) {
     const translate = useTranslate();
@@ -20,7 +21,7 @@ export default function VoucherReimbursementCard({ voucher }: { voucher: Voucher
                     </div>
                     <div className="block-card-actions">
                         <StateNavLink
-                            name={'reimbursements-create'}
+                            name={WebshopRoutes.REIMBURSEMENT_CREATE}
                             params={{ voucher_id: voucher.id }}
                             className="button button-primary">
                             <em className="mdi mdi-plus icon-start" />

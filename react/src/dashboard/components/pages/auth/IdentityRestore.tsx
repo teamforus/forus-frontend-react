@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { pushNotificationContext } from '../../../modules/push_notifications/context/PushNotificationsContext';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 const targetHome = 'homeStart';
 const targetNewSignup = 'newSignup';
@@ -29,13 +30,13 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
     const handleAuthTarget = useCallback(
         (target: Array<string>) => {
             if (target[0] == targetHome) {
-                navigate(getStateRouteUrl('home', { confirmed: true }));
+                navigate(getStateRouteUrl(DashboardRoutes.HOME, { confirmed: true }));
                 return true;
             }
 
             if (target[0] == targetNewSignup) {
                 navigate(
-                    getStateRouteUrl('sign-up', {
+                    getStateRouteUrl(DashboardRoutes.SIGN_UP, {
                         organization_id: target[1] || undefined,
                         fund_id: target[2] || undefined,
                         tag: target[3] || undefined,
@@ -60,7 +61,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
                     setToken(res.data.access_token);
 
                     if (typeof target != 'string' || !handleAuthTarget(target.split('-'))) {
-                        navigate(getStateRouteUrl('organizations'));
+                        navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
                     }
                 },
                 () => {
@@ -69,7 +70,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
                         'De link is reeds gebruikt of niet meer geldig, probeer het opnieuw met een andere link.',
                     );
 
-                    navigate(getStateRouteUrl('home'));
+                    navigate(getStateRouteUrl(DashboardRoutes.HOME));
                 },
             );
         },
