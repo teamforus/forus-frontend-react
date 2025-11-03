@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import Fund from '../../../../../props/models/Fund';
-import ClickOutside from '../../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
 import EmptyCard from '../../../../elements/empty-card/EmptyCard';
 import Paginator from '../../../../../modules/paginator/components/Paginator';
@@ -8,7 +7,6 @@ import useTranslate from '../../../../../hooks/useTranslate';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../../../modules/paginator/services/usePaginatorService';
 import { PaginationData } from '../../../../../props/ApiResponses';
-import useFilter from '../../../../../hooks/useFilter';
 import LoadingCard from '../../../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import SponsorIdentity from '../../../../../props/models/Sponsor/SponsorIdentity';
@@ -21,6 +19,8 @@ import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../../elements/tables/TableRowActions';
 import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
+import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 
 export default function OrganizationsFundsShowIdentitiesCard({
     fund,
@@ -49,7 +49,8 @@ export default function OrganizationsFundsShowIdentitiesCard({
 
     const [paginationPerPageKey] = useState('fund_identities_per_page');
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string; per_page?: number }>({
+        q: '',
         per_page: paginatorService.getPerPage(paginationPerPageKey),
     });
 
@@ -62,23 +63,27 @@ export default function OrganizationsFundsShowIdentitiesCard({
         setProgress(0);
 
         fundService
-            .listIdentities(activeOrganization.id, fund.id, filter.activeValues)
+            .listIdentities(activeOrganization.id, fund.id, filterValuesActive)
             .then((res) => {
                 setIdentities(res.data);
                 setIdentitiesActive(res.data.meta.counts['active']);
                 setIdentitiesWithoutEmail(res.data.meta.counts['without_email']);
-                setLastQueryIdentities(filter.activeValues.q);
+                setLastQueryIdentities(filterValuesActive.q);
             })
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, fund.id, filter.activeValues]);
+    }, [setProgress, fundService, activeOrganization.id, fund.id, filterValuesActive]);
 
     const exportIdentities = useCallback(() => {
-        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, filter.activeValues);
-    }, [activeOrganization.id, fund?.id, fundIdentitiesExporter, filter.activeValues]);
+        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, filterValuesActive);
+    }, [activeOrganization.id, fund?.id, fundIdentitiesExporter, filterValuesActive]);
 
     useEffect(() => {
         fetchIdentities();
     }, [fetchIdentities]);
+
+    if (!identities) {
+        return <LoadingCard />;
+    }
 
     return (
         <div className="card" data-dusk="tableIdentityContent">
@@ -119,11 +124,11 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                         <input
                                             type="text"
                                             className="form-control"
-                                            defaultValue={filter.values.q}
+                                            defaultValue={filterValues.q}
                                             placeholder="Zoeken"
                                             data-dusk="tableIdentitySearch"
                                             onChange={(e) =>
-                                                filter.update({
+                                                filterUpdate({
                                                     q: e.target.value,
                                                 })
                                             }
@@ -132,57 +137,36 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                 </div>
                             )}
 
-                            <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
-                                <div className="inline-filters-dropdown pull-right">
-                                    {filter.show && (
-                                        <div className="inline-filters-dropdown-content">
-                                            <div className="arrow-box bg-dim">
-                                                <div className="arrow" />
-                                            </div>
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle
+                                    show={true}
+                                    label={translate('funds_show.top_up_table.filters.search')}>
+                                    <input
+                                        className="form-control"
+                                        value={filterValues.q}
+                                        onChange={(e) =>
+                                            filterUpdate({
+                                                q: e.target.value,
+                                            })
+                                        }
+                                        placeholder={translate('funds_show.top_up_table.filters.search')}
+                                    />
+                                </FilterItemToggle>
 
-                                            <div className="form">
-                                                <FilterItemToggle
-                                                    show={true}
-                                                    label={translate('funds_show.top_up_table.filters.search')}>
-                                                    <input
-                                                        className="form-control"
-                                                        value={filter.values.q}
-                                                        onChange={(e) =>
-                                                            filter.update({
-                                                                q: e.target.value,
-                                                            })
-                                                        }
-                                                        placeholder={translate(
-                                                            'funds_show.top_up_table.filters.search',
-                                                        )}
-                                                    />
-                                                </FilterItemToggle>
-
-                                                <div className="form-actions">
-                                                    <button
-                                                        className="button button-primary button-wide"
-                                                        data-dusk="export"
-                                                        onClick={() => exportIdentities()}>
-                                                        <em className="mdi mdi-download icon-start" />
-                                                        <span>
-                                                            {translate('components.dropdown.export', {
-                                                                total: identities.meta.total,
-                                                            })}
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div
-                                        className="button button-default button-icon"
-                                        data-dusk="showFilters"
-                                        onClick={() => filter.setShow(!filter.show)}>
-                                        <em className="mdi mdi-filter-outline" />
-                                    </div>
+                                <div className="form-actions">
+                                    <button
+                                        className="button button-primary button-wide"
+                                        data-dusk="export"
+                                        onClick={() => exportIdentities()}>
+                                        <em className="mdi mdi-download icon-start" />
+                                        <span>
+                                            {translate('components.dropdown.export', {
+                                                total: identities.meta.total,
+                                            })}
+                                        </span>
+                                    </button>
                                 </div>
-                            </ClickOutside>
+                            </CardHeaderFilter>
                         </div>
                     </div>
                 </div>
@@ -254,8 +238,8 @@ export default function OrganizationsFundsShowIdentitiesCard({
                     <div className="card-section card-section-narrow" hidden={identities.meta.total < 1}>
                         <Paginator
                             meta={identities.meta}
-                            filters={filter.activeValues}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginationPerPageKey}
                         />
                     </div>

@@ -12,7 +12,6 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import Organization from '../../../props/models/Organization';
 import ClickOutside from '../click-outside/ClickOutside';
 import { strLimit } from '../../../helpers/string';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../empty-card/EmptyCard';
@@ -20,6 +19,8 @@ import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTabl
 import TableTopScroller from './TableTopScroller';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 import useEventLogsExporter from '../../../services/exporters/useEventLogsExporter';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { ArrayParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function EventLogsTable({
     organization,
@@ -66,14 +67,34 @@ export default function EventLogsTable({
 
     const { headElement, configsElement } = useConfigurableTable(eventLogService.getColumns(hideEntity));
 
-    const filter = useFilter({
-        q: '',
-        loggable: loggable,
-        loggable_id: loggableId,
-        per_page: paginatorService.getPerPage(perPageKey),
-        order_by: 'created_at',
-        order_dir: 'desc',
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        loggable?: Array<string>;
+        per_page?: number;
+        page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>(
+        {
+            q: '',
+            loggable: loggable,
+            per_page: paginatorService.getPerPage(perPageKey),
+            order_by: 'created_at',
+            order_dir: 'desc',
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                loggable: ArrayParam,
+                per_page: NumberParam,
+                page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
+
+    const { resetFilters: resetFilters } = filter;
 
     const showNoteTooltip = useCallback((e: React.MouseEvent, log: EventLog) => {
         e.stopPropagation();
@@ -88,7 +109,7 @@ export default function EventLogsTable({
 
     const selectLoggable = useCallback(
         (key: string, selected: boolean) => {
-            const values = filter.activeValues.loggable;
+            const values = [...filterValuesActive.loggable];
             const index = values.indexOf(key);
 
             if (index !== -1 && !selected) {
@@ -97,20 +118,20 @@ export default function EventLogsTable({
                 values.push(key);
             }
 
-            filter.update({ loggable: values });
+            filterUpdate({ loggable: values });
         },
-        [filter],
+        [filterUpdate, filterValuesActive.loggable],
     );
 
     const exportLogs = useCallback(() => {
-        eventLogsExporter.exportData(organization.id, filter.activeValues);
-    }, [organization.id, filter.activeValues, eventLogsExporter]);
+        eventLogsExporter.exportData(organization.id, { ...filterValuesActive, loggable_id: loggableId });
+    }, [organization.id, filterValuesActive, eventLogsExporter, loggableId]);
 
     const fetchLogs = useCallback(() => {
         setProgress(0);
 
         eventLogService
-            .list(organization.id, filter.activeValues)
+            .list(organization.id, { ...filterValuesActive, loggable_id: loggableId })
             .then((res) => {
                 const logs = {
                     ...res.data,
@@ -123,7 +144,7 @@ export default function EventLogsTable({
                 setLogs(logs);
             })
             .finally(() => setProgress(100));
-    }, [organization.id, setProgress, eventLogService, filter.activeValues]);
+    }, [organization.id, setProgress, eventLogService, filterValuesActive, loggableId]);
 
     useEffect(() => {
         fetchLogs();
@@ -149,7 +170,7 @@ export default function EventLogsTable({
                     {!hideFilterForm && (
                         <div className="block block-inline-filters">
                             {filter.show && (
-                                <div className="button button-text" onClick={() => filter.resetFilters()}>
+                                <div className="button button-text" onClick={() => resetFilters()}>
                                     <em className="mdi mdi-close icon-start" />
                                     Wis filters
                                 </div>
@@ -160,9 +181,9 @@ export default function EventLogsTable({
                                         <input
                                             type="search"
                                             className="form-control"
-                                            value={filter.values.q}
+                                            value={filterValues.q}
                                             data-dusk="tableEventLogsSearch"
-                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            onChange={(e) => filterUpdate({ q: e.target.value })}
                                             placeholder={translate('event_logs.labels.search')}
                                         />
                                     </div>
@@ -174,35 +195,37 @@ export default function EventLogsTable({
                                     <FilterItemToggle label={translate('event_logs.labels.search')} show={true}>
                                         <input
                                             className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            value={filterValues.q}
+                                            onChange={(e) => filterUpdate({ q: e.target.value })}
                                             placeholder={translate('event_logs.labels.search')}
                                         />
                                     </FilterItemToggle>
 
                                     <FilterItemToggle label={translate('event_logs.labels.entities')}>
-                                        {loggables.map((loggable) => (
-                                            <div key={loggable.key}>
-                                                <label
-                                                    className="checkbox checkbox-narrow"
-                                                    htmlFor={'checkbox_' + loggable.key}>
-                                                    <input
-                                                        onChange={(e) => selectLoggable(loggable.key, e.target.checked)}
-                                                        id={'checkbox_' + loggable.key}
-                                                        type="checkbox"
-                                                        checked={
-                                                            filter.activeValues.loggable.indexOf(loggable.key) !== -1
-                                                        }
-                                                    />
-                                                    <div className="checkbox-label">
-                                                        <div className="checkbox-box">
-                                                            <div className="mdi mdi-check" />
+                                        <div>
+                                            {loggables.map((loggable) => (
+                                                <div key={loggable.key}>
+                                                    <label
+                                                        className="checkbox checkbox-narrow"
+                                                        htmlFor={'checkbox_' + loggable.key}>
+                                                        <input
+                                                            onChange={(e) =>
+                                                                selectLoggable(loggable.key, e.target.checked)
+                                                            }
+                                                            id={'checkbox_' + loggable.key}
+                                                            type="checkbox"
+                                                            checked={filterValues.loggable.indexOf(loggable.key) !== -1}
+                                                        />
+                                                        <div className="checkbox-label">
+                                                            <div className="checkbox-box">
+                                                                <div className="mdi mdi-check" />
+                                                            </div>
+                                                            {loggable.title}
                                                         </div>
-                                                        {loggable.title}
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        ))}
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </FilterItemToggle>
 
                                     <div className="form-actions">
@@ -299,9 +322,9 @@ export default function EventLogsTable({
                 <div className="card-section">
                     <Paginator
                         meta={logs.meta}
-                        filters={filter.values}
+                        filters={filterValues}
                         perPageKey={perPageKey}
-                        updateFilters={filter.update}
+                        updateFilters={filterUpdate}
                     />
                 </div>
             )}

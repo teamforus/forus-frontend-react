@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import useFilter from '../../../hooks/useFilter';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -20,6 +19,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 interface OfficeLocal extends Office {
     scheduleByDay: { [key: string]: OfficeSchedule };
@@ -40,7 +40,7 @@ export default function Offices() {
     const [weekDays] = useState(officeService.scheduleWeekDays());
     const [offices, setOffices] = useState<Array<OfficeLocal>>(null);
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; per_page: number }>({
         q: '',
         per_page: 100,
     });
@@ -49,7 +49,7 @@ export default function Offices() {
         setProgress(0);
 
         officeService
-            .list(organization.id, filter.activeValues)
+            .list(organization.id, filterValuesActive)
             .then((res) => {
                 setOffices(
                     res.data.data.map((office) => ({
@@ -62,7 +62,7 @@ export default function Offices() {
                 );
             })
             .finally(() => setProgress(100));
-    }, [setProgress, officeService, organization.id, filter.activeValues]);
+    }, [setProgress, officeService, organization.id, filterValuesActive]);
 
     const confirmDelete = useCallback(
         (office: Office) => {
@@ -237,8 +237,8 @@ export default function Offices() {
                                             type="text"
                                             className="form-control"
                                             placeholder="Zoeken"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            value={filterValues.q}
+                                            onChange={(e) => filterUpdate({ q: e.target.value })}
                                         />
                                     </div>
                                 </div>

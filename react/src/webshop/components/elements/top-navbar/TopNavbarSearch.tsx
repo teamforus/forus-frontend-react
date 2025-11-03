@@ -10,7 +10,6 @@ import {
     useSearchService,
 } from '../../../services/SearchService';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import IconSearchAll from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-search/all.svg';
 import IconSearchFunds from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-search/funds.svg';
@@ -24,6 +23,7 @@ import classNames from 'classnames';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 
 export type SearchResultGroupLocal = SearchResultGroup & {
     shown?: boolean;
@@ -62,11 +62,11 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
 
     const [lastQuery, setLastQuery] = useState('');
 
-    const filters = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string }>({
         q: '',
     });
 
-    const { resetFilters } = filters;
+    const { resetFilters } = filter;
 
     const hideDropDown = useCallback(() => {
         setDropdown(false);
@@ -121,9 +121,9 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
     }, [setShowSearchBox, hideDropDown]);
 
     useEffect(() => {
-        setLastQuery(filters.activeValues.q);
+        setLastQuery(filterValuesActive.q);
 
-        if (!filters.activeValues.q || filters.activeValues.q?.length == 0) {
+        if (!filterValuesActive.q || filterValuesActive.q?.length == 0) {
             return clearSearch();
         }
 
@@ -131,7 +131,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
         searchingForDropdown.current = true;
 
         searchService
-            .searchWithOverview({ q: filters.activeValues.q, with_external: 1, take: 9 })
+            .searchWithOverview({ q: filterValuesActive.q, with_external: 1, take: 9 })
             .then((res) => {
                 updateResults(res.data.data);
 
@@ -148,7 +148,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                 searchingForDropdown.current = false;
             });
     }, [
-        filters.activeValues.q,
+        filterValuesActive.q,
         searchService,
         clearSearch,
         updateResults,
@@ -174,7 +174,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                         hideSearchDropdown.current = true;
                     }
 
-                    navigateState(WebshopRoutes.SEARCH, {}, { q: filters.values.q });
+                    navigateState(WebshopRoutes.SEARCH, {}, { q: filterValues.q });
                     document.querySelector<HTMLInputElement>('#main_search')?.focus();
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
@@ -200,18 +200,18 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                             )}
                             autoFocus={autoFocus}
                             autoComplete={'off'}
-                            value={filters.values.q}
-                            onChange={(e) => filters.update({ q: e.target.value })}
+                            value={filterValues.q}
+                            onChange={(e) => filterUpdate({ q: e.target.value })}
                             onKeyDown={cancelSearch}
                             aria-labelledby="search-label"
                             aria-haspopup={true}
                         />
-                        {filters.values.q && (
+                        {filterValues.q && (
                             <div
                                 className="search-reset"
                                 onClick={(e) => {
                                     e?.stopPropagation();
-                                    filters.update({ q: '' });
+                                    filterUpdate({ q: '' });
                                     inputRef?.current?.focus();
                                 }}
                                 onKeyDown={(e) => {
@@ -353,7 +353,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                                                 params={{ id: value.id }}
                                                                 className="search-result-item">
                                                                 <TopNavbarSearchResultItem
-                                                                    q={filters.activeValues.q}
+                                                                    q={filterValuesActive.q}
                                                                     name={value.name}
                                                                 />
                                                                 <em className="mdi mdi-chevron-right show-sm" />

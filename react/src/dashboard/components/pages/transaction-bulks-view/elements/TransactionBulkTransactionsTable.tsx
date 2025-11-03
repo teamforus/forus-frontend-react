@@ -8,7 +8,6 @@ import useTransactionExporter from '../../../../services/exporters/useTransactio
 import Organization from '../../../../props/models/Organization';
 import TransactionBulk from '../../../../props/models/TransactionBulk';
 import useTransactionService from '../../../../services/TransactionService';
-import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import useEnvData from '../../../../hooks/useEnvData';
@@ -19,6 +18,8 @@ import Label from '../../../elements/image_cropper/Label';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -41,11 +42,24 @@ export default function TransactionBulkTransactionsTable({
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
     const [perPageKey] = useState('transaction_bulks_transactions');
 
-    const filter = useFilter({
-        per_page: paginationService.getPerPage(perPageKey),
-        order_by: 'created_at',
-        order_dir: 'desc',
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        per_page?: number;
+        order_by: string;
+        order_dir: string;
+    }>(
+        {
+            per_page: paginationService.getPerPage(perPageKey),
+            order_by: 'created_at',
+            order_dir: 'desc',
+        },
+        {
+            queryParams: {
+                per_page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
 
     const { headElement, configsElement } = useConfigurableTable(transactionService.getBulkTransactionsColumns(), {
         filter,
@@ -54,11 +68,11 @@ export default function TransactionBulkTransactionsTable({
 
     const exportTransactions = useCallback(() => {
         transactionExporter.exportData(organization.id, {
-            ...filter.activeValues,
+            ...filterValuesActive,
             voucher_transaction_bulk_id: transactionBulk.id,
             per_page: null,
         });
-    }, [organization.id, filter.activeValues, transactionBulk?.id, transactionExporter]);
+    }, [organization.id, filterValuesActive, transactionBulk?.id, transactionExporter]);
 
     const fetchTransactions = useCallback(
         (id: number) => {
@@ -66,14 +80,14 @@ export default function TransactionBulkTransactionsTable({
 
             transactionService
                 .list(envData.client_type, organization.id, {
-                    ...filter.activeValues,
+                    ...filterValuesActive,
                     voucher_transaction_bulk_id: id,
                 })
                 .then((res) => setTransactions(res.data))
                 .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [setProgress, transactionService, envData.client_type, organization.id, filter.activeValues, pushApiError],
+        [setProgress, transactionService, envData.client_type, organization.id, filterValuesActive, pushApiError],
     );
 
     useEffect(() => {
@@ -173,8 +187,8 @@ export default function TransactionBulkTransactionsTable({
                 <div className="card-section">
                     <Paginator
                         meta={transactions.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={perPageKey}
                     />
                 </div>

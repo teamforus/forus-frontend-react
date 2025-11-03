@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import { useFundService } from '../../../services/FundService';
@@ -23,6 +22,8 @@ import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestri
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function Reimbursements() {
     const envData = useEnvData();
@@ -41,11 +42,33 @@ export default function Reimbursements() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [reimbursements, setReimbursements] = useState<PaginationData<Reimbursement>>(null);
 
-    const filters = useFilter({
-        fund_id: null,
-        archived: 0,
-        state: 'all',
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        state: string;
+        fund_id?: number;
+        archived: 0 | 1;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            state: 'all',
+            fund_id: null,
+            archived: 0,
+            page: 1,
+            per_page: 15,
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                state: StringParam,
+                fund_id: NumberParam,
+                archived: createEnumParam(['0', '1']),
+                page: NumberParam,
+                per_page: NumberParam,
+            },
+        },
+    );
 
     const states = useMemo(() => {
         return [
@@ -80,16 +103,16 @@ export default function Reimbursements() {
 
         reimbursementService
             .list({
-                ...filters.activeValues,
-                state: filters.activeValues.archived
+                ...filterValuesActive,
+                state: filterValuesActive.archived
                     ? null
-                    : filters.activeValues.state === 'all'
+                    : filterValuesActive.state === 'all'
                       ? null
-                      : filters.activeValues.state,
+                      : filterValuesActive.state,
             })
             .then((res) => setReimbursements(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, reimbursementService, filters.activeValues]);
+    }, [setProgress, reimbursementService, filterValuesActive]);
 
     useEffect(() => {
         fetchFunds();
@@ -123,12 +146,12 @@ export default function Reimbursements() {
                                 <SelectControl
                                     id="select_fund"
                                     propKey={'id'}
-                                    value={filters.values.fund_id}
+                                    value={filterValues.fund_id}
                                     options={funds}
                                     multiline={true}
                                     allowSearch={true}
                                     dusk="selectControlFunds"
-                                    onChange={(fund_id?: number) => filters.update({ fund_id })}
+                                    onChange={(fund_id?: number) => filterUpdate({ fund_id })}
                                 />
                             </div>
                         </div>
@@ -148,7 +171,7 @@ export default function Reimbursements() {
                             </div>
                         </div>
                         <div className="block block-label-tabs form pull-right">
-                            {!filters.values.archived && (
+                            {!filterValues.archived && (
                                 <div className="label-tab-set">
                                     {states?.map((state) => (
                                         <div
@@ -156,13 +179,13 @@ export default function Reimbursements() {
                                             role="button"
                                             className={classNames(
                                                 `label-tab label-tab-sm`,
-                                                filters.values.state == state.key && 'active',
+                                                filterValues.state == state.key && 'active',
                                             )}
-                                            onClick={() => filters.update({ state: state.key })}
+                                            onClick={() => filterUpdate({ state: state.key })}
                                             onKeyDown={clickOnKeyEnter}
                                             tabIndex={0}
                                             data-dusk={`reimbursementsFilterState${state.key}`}
-                                            aria-pressed={filters.values.state == state.key}>
+                                            aria-pressed={filterValues.state == state.key}>
                                             {state.name}
                                         </div>
                                     ))}
@@ -171,19 +194,19 @@ export default function Reimbursements() {
 
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${!filters.values.archived ? 'active' : ''}`}
+                                    className={`label-tab label-tab-sm ${!filterValues.archived ? 'active' : ''}`}
                                     role="button"
                                     data-dusk="reimbursementsFilterActive"
-                                    onClick={() => filters.update({ archived: 0 })}
-                                    aria-pressed={!filters.values.archived}>
+                                    onClick={() => filterUpdate({ archived: 0 })}
+                                    aria-pressed={!filterValues.archived}>
                                     {translate('reimbursements.types.active')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${filters.values.archived ? 'active' : ''}`}
-                                    onClick={() => filters.update({ archived: 1 })}
+                                    className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                    onClick={() => filterUpdate({ archived: 1 })}
                                     role="button"
                                     data-dusk="reimbursementsFilterArchived"
-                                    aria-pressed={!!filters.values.archived}>
+                                    aria-pressed={!!filterValues.archived}>
                                     {translate('reimbursements.types.archived')}
                                 </div>
                             </div>
@@ -263,8 +286,8 @@ export default function Reimbursements() {
                             <div className="card-section">
                                 <Paginator
                                     meta={reimbursements.meta}
-                                    filters={filters.values}
-                                    updateFilters={filters.update}
+                                    filters={filterValues}
+                                    updateFilters={filterUpdate}
                                 />
                             </div>
                         </div>

@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
@@ -19,6 +18,8 @@ import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label, { LabelType } from '../../../elements/image_cropper/Label';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_type?: LabelType;
@@ -48,13 +49,32 @@ export default function ProviderFundInvitationsTable({
     const [invitations, setInvitations] = useState<PaginationData<FundProviderInvitationLocal>>(null);
     const [paginatorKey] = useState(`provider_fund_${type}`);
 
-    const filter = useFilter({
-        q: '',
-        from: '',
-        to: '',
-        state: null,
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        from?: string;
+        to?: string;
+        state?: string;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            from: '',
+            to: '',
+            state: null,
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                from: StringParam,
+                to: StringParam,
+                state: StringParam,
+                per_page: NumberParam,
+            },
+        },
+    );
+
+    const { resetFilters: resetFilters } = filter;
 
     const { selected, setSelected, toggleAll, toggle } = useTableToggles();
     const selectedMeta = useMemo(() => {
@@ -69,7 +89,7 @@ export default function ProviderFundInvitationsTable({
     const { headElement, configsElement } = useConfigurableTable(fundProviderInvitationsService.getColumns(), {
         trPrepend: (
             <Fragment>
-                {[null, 'pending'].includes(filter.values.state) && (
+                {[null, 'pending'].includes(filterValues.state) && (
                     <th className="th-narrow">
                         <TableCheckboxControl
                             checked={selected.length == invitations?.data?.length}
@@ -80,23 +100,6 @@ export default function ProviderFundInvitationsTable({
             </Fragment>
         ),
     });
-
-    const acceptInvitations = useCallback(
-        (invitations: Array<FundProviderInvitation> = []) => {
-            const promises = invitations.map((item) => {
-                return fundProviderInvitationsService.acceptInvitationById(organization.id, item.id);
-            });
-
-            Promise.all(promises)
-                .then(() => pushSuccess('Uitnodiging succesvol geaccepteerd!'))
-                .catch(pushApiError)
-                .finally(() => {
-                    filter.touch();
-                    onChange?.();
-                });
-        },
-        [filter, fundProviderInvitationsService, onChange, organization.id, pushApiError, pushSuccess],
-    );
 
     const mapProviderFunds = useCallback(
         (
@@ -122,33 +125,64 @@ export default function ProviderFundInvitationsTable({
         [translate],
     );
 
-    const fetchInvitations = useCallback(
-        async (filters: object) => {
-            setLoading(true);
-            setProgress(0);
-
-            return fundProviderInvitationsService
-                .listInvitations(organization.id, { ...filters, expired: type == 'invitations_archived' ? 1 : 0 })
-                .finally(() => {
-                    setLoading(false);
-                    setProgress(100);
-                });
-        },
-        [organization.id, fundProviderInvitationsService, setProgress, type],
-    );
-
-    useEffect(() => {
+    const fetchInvitations = useCallback(() => {
         setSelected([]);
+        setLoading(true);
+        setProgress(0);
 
-        fetchInvitations(filter.activeValues)
+        fundProviderInvitationsService
+            .listInvitations(organization.id, {
+                ...filterValuesActive,
+                expired: type == 'invitations_archived' ? 1 : 0,
+            })
             .then((res) =>
                 setInvitations({
                     data: mapProviderFunds(res.data.data),
                     meta: res.data.meta,
                 }),
             )
-            .catch(pushApiError);
-    }, [fetchInvitations, filter.activeValues, mapProviderFunds, pushApiError, setSelected]);
+            .catch(pushApiError)
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [
+        setSelected,
+        setProgress,
+        fundProviderInvitationsService,
+        organization.id,
+        filterValuesActive,
+        type,
+        pushApiError,
+        mapProviderFunds,
+    ]);
+
+    const acceptInvitations = useCallback(
+        (invitations: Array<FundProviderInvitation> = []) => {
+            const promises = invitations.map((item) => {
+                return fundProviderInvitationsService.acceptInvitationById(organization.id, item.id);
+            });
+
+            Promise.all(promises)
+                .then(() => pushSuccess('Uitnodiging succesvol geaccepteerd!'))
+                .catch(pushApiError)
+                .finally(() => {
+                    fetchInvitations();
+                    onChange?.();
+                });
+        },
+        [fetchInvitations, fundProviderInvitationsService, onChange, organization.id, pushApiError, pushSuccess],
+    );
+
+    useEffect(() => {
+        fetchInvitations();
+    }, [fetchInvitations]);
+
+    useEffect(() => {
+        return () => {
+            resetFilters();
+        };
+    }, [resetFilters]);
 
     return (
         <div className="card">
@@ -176,8 +210,8 @@ export default function ProviderFundInvitationsTable({
                             <div className="form-group">
                                 <input
                                     className="form-control"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder="Zoeken"
                                 />
                             </div>
@@ -200,7 +234,7 @@ export default function ProviderFundInvitationsTable({
                                         <tr
                                             key={invitation.id}
                                             className={selected.includes(invitation.id) ? 'selected' : ''}>
-                                            {[null, 'pending'].includes(filter.values.state) && (
+                                            {[null, 'pending'].includes(filterValues.state) && (
                                                 <td className="td-narrow">
                                                     <TableCheckboxControl
                                                         checked={selected.includes(invitation.id)}
@@ -295,8 +329,8 @@ export default function ProviderFundInvitationsTable({
                 <div className="card-section">
                     <Paginator
                         meta={invitations.meta}
-                        filters={filter.activeValues}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

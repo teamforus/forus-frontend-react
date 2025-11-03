@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
@@ -25,6 +24,8 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function ProviderFundsTable({
     type,
@@ -50,10 +51,12 @@ export default function ProviderFundsTable({
     const [paginatorKey] = useState(`provider_funds_${type}`);
     const [providerFunds, setProviderFunds] = useState<PaginationData<FundProvider>>(null);
 
-    const filter = useFilter({
-        q: '',
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string; per_page?: number }>(
+        { q: '', per_page: paginatorService.getPerPage(paginatorKey) },
+        { queryParams: { q: StringParam, per_page: NumberParam } },
+    );
+
+    const { resetFilters: resetFilters } = filter;
 
     const { selected, setSelected, toggleAll, toggle } = useTableToggles();
 
@@ -91,6 +94,26 @@ export default function ProviderFundsTable({
         [openModal, organization],
     );
 
+    const fetchFunds = useCallback(() => {
+        setSelected([]);
+        setLoading(true);
+        setProgress(0);
+
+        providerFundService
+            .listFunds(organization.id, {
+                active: type == 'active' ? 1 : 0,
+                pending: type == 'pending_rejected' ? 1 : 0,
+                archived: type == 'archived' ? 1 : 0,
+                ...filterValuesActive,
+            })
+            .then((res) => setProviderFunds(res.data))
+            .catch(pushApiError)
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [filterValuesActive, organization.id, providerFundService, pushApiError, setProgress, setSelected, type]);
+
     const cancelApplications = useCallback(
         (providerFunds: Array<FundProvider>) => {
             const sponsor_organization_name =
@@ -123,7 +146,7 @@ export default function ProviderFundsTable({
                                     .catch(pushApiError)
                                     .finally(() => {
                                         setProgress(100);
-                                        filter.touch();
+                                        fetchFunds();
                                         onChange?.();
                                     });
                             },
@@ -133,7 +156,7 @@ export default function ProviderFundsTable({
             });
         },
         [
-            filter,
+            fetchFunds,
             onChange,
             openModal,
             organization.id,
@@ -153,42 +176,24 @@ export default function ProviderFundsTable({
                     providerFund={providerFund}
                     organization={organization}
                     onUnsubscribe={() => {
-                        filter.touch();
+                        fetchFunds();
                         onChange?.();
                     }}
                 />
             ));
         },
-        [filter, onChange, openModal, organization],
-    );
-
-    const fetchFunds = useCallback(
-        async (filters: object) => {
-            setLoading(true);
-            setProgress(0);
-
-            try {
-                return await providerFundService.listFunds(organization.id, {
-                    active: type == 'active' ? 1 : 0,
-                    pending: type == 'pending_rejected' ? 1 : 0,
-                    archived: type == 'archived' ? 1 : 0,
-                    ...filters,
-                });
-            } finally {
-                setLoading(false);
-                setProgress(100);
-            }
-        },
-        [organization.id, providerFundService, setProgress, type],
+        [fetchFunds, onChange, openModal, organization],
     );
 
     useEffect(() => {
-        setSelected([]);
+        fetchFunds();
+    }, [fetchFunds]);
 
-        fetchFunds(filter.activeValues)
-            .then((res) => setProviderFunds(res.data))
-            .catch(pushApiError);
-    }, [fetchFunds, filter.activeValues, pushApiError, setSelected]);
+    useEffect(() => {
+        return () => {
+            resetFilters();
+        };
+    }, [resetFilters]);
 
     return (
         <div className="card">
@@ -216,8 +221,8 @@ export default function ProviderFundsTable({
                             <div className="form-group">
                                 <input
                                     className="form-control"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder="Zoeken"
                                 />
                             </div>
@@ -402,8 +407,8 @@ export default function ProviderFundsTable({
                 <div className="card-section">
                     <Paginator
                         meta={providerFunds.meta}
-                        filters={filter.activeValues}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

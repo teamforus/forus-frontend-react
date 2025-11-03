@@ -4,7 +4,6 @@ import { useEmployeeService } from '../../../services/EmployeeService';
 import { NavLink } from 'react-router';
 import { hasPermission } from '../../../helpers/utils';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import useFilter from '../../../hooks/useFilter';
 import { strLimit } from '../../../helpers/string';
 import Employee from '../../../props/models/Employee';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -31,6 +30,8 @@ import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -57,24 +58,37 @@ export default function Employees() {
 
     const { headElement, configsElement } = useConfigurableTable(employeeService.getColumns(isProviderPanel));
 
-    const filter = useFilter({
-        q: '',
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        per_page?: number;
+        page?: number;
+    }>(
+        {
+            q: '',
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+        },
+    );
 
     const fetchEmployees = useCallback(() => {
         setLoading(true);
         setProgress(0);
 
         employeeService
-            .list(activeOrganization.id, filter.activeValues)
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setEmployees(res.data))
             .catch(pushApiError)
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [activeOrganization.id, employeeService, filter.activeValues, setProgress, pushApiError]);
+    }, [activeOrganization.id, employeeService, filterValuesActive, setProgress, pushApiError]);
 
     const fetchAdminEmployees = useCallback(() => {
         employeeService
@@ -105,7 +119,7 @@ export default function Employees() {
                     employee={employee}
                     onSubmit={() => {
                         fetchAdminEmployees();
-                        filter.update({ page: employee ? employees.meta.current_page : employees.meta.last_page });
+                        filterUpdate({ page: employee ? employees.meta.current_page : employees.meta.last_page });
 
                         if (!employee) {
                             pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
@@ -120,7 +134,7 @@ export default function Employees() {
             openModal,
             activeOrganization,
             fetchAdminEmployees,
-            filter,
+            filterUpdate,
             employees?.meta.current_page,
             employees?.meta.last_page,
             pushSuccess,
@@ -129,9 +143,9 @@ export default function Employees() {
 
     const exportEmployees = useCallback(() => {
         employeeExporter.exportData(activeOrganization.id, {
-            ...filter.activeValues,
+            ...filterValuesActive,
         });
-    }, [activeOrganization.id, employeeExporter, filter.activeValues]);
+    }, [activeOrganization.id, employeeExporter, filterValuesActive]);
 
     const transferOwnership = useCallback(
         function (adminEmployees: Array<Employee>) {
@@ -167,7 +181,7 @@ export default function Employees() {
                             employeeService
                                 .delete(activeOrganization.id, employee.id)
                                 .then(() => {
-                                    filter.update({});
+                                    filterUpdate({});
                                     pushSuccess('Gelukt!', 'Medewerker verwijderd.');
                                     modal.close();
                                 })
@@ -178,7 +192,7 @@ export default function Employees() {
                 />
             ));
         },
-        [openModal, translate, employeeService, activeOrganization.id, filter, pushSuccess, pushApiError],
+        [openModal, translate, employeeService, activeOrganization.id, filterUpdate, pushSuccess, pushApiError],
     );
 
     const canEditEmployee = useCallback(
@@ -241,11 +255,11 @@ export default function Employees() {
                             <div className="form-group">
                                 <input
                                     type="text"
-                                    value={filter.values.q}
+                                    value={filterValues.q}
                                     placeholder="Zoeken"
                                     data-dusk="tableEmployeeSearch"
                                     className="form-control"
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                 />
                             </div>
                         </div>
@@ -424,8 +438,8 @@ export default function Employees() {
                     <div className="card-section">
                         <Paginator
                             meta={employees.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginatorKey}
                         />
                     </div>

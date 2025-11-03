@@ -10,7 +10,6 @@ import Organization from '../../../../dashboard/props/models/Organization';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import { useFundService } from '../../../services/FundService';
 import { useTagService } from '../../../../dashboard/services/TagService';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
@@ -26,6 +25,8 @@ import UIControlText from '../../../../dashboard/components/elements/forms/ui-co
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function Funds() {
     const envData = useEnvData();
@@ -49,43 +50,62 @@ export default function Funds() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
 
-    const filter = useFilter({
-        q: '',
-        tag_id: null,
-        organization_id: null,
-        per_page: 10,
-        with_external: 1,
-        check_criteria: 1,
-        order_by: 'order',
-        order_dir: 'asc',
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        tag_id?: number;
+        organization_id?: number;
+        page?: number;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>(
+        {
+            q: '',
+            tag_id: null,
+            organization_id: null,
+            per_page: 10,
+            order_by: 'order',
+            order_dir: 'asc',
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                tag_id: NumberParam,
+                organization_id: NumberParam,
+                page: NumberParam,
+                per_page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
 
     const countFiltersApplied = useMemo(() => {
         let count = 0;
 
-        if (filter.values.q) {
+        if (filterValues.q) {
             count++;
         }
 
-        if (filter.values.tag_id) {
+        if (filterValues.tag_id) {
             count++;
         }
 
-        if (filter.values.organization_id) {
+        if (filterValues.organization_id) {
             count++;
         }
 
         return count;
-    }, [filter.values.organization_id, filter.values.q, filter.values.tag_id]);
+    }, [filterValues.organization_id, filterValues.q, filterValues.tag_id]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
 
         fundService
-            .list(filter.activeValues)
+            .list({ ...filterValuesActive, with_external: 1, check_criteria: 1 })
             .then((res) => setFunds(res.data))
             .finally(() => setProgress(100));
-    }, [filter.activeValues, fundService, setProgress]);
+    }, [filterValuesActive, fundService, setProgress]);
 
     const fetchTags = useCallback(() => {
         setProgress(0);
@@ -174,8 +194,8 @@ export default function Funds() {
                             </label>
                             <UIControlText
                                 id="search"
-                                value={filter.values.q}
-                                onChangeValue={(q) => filter.update({ q })}
+                                value={filterValues.q}
+                                onChangeValue={(q) => filterUpdate({ q })}
                                 ariaLabel="Zoeken"
                                 dataDusk="listFundsSearch"
                             />
@@ -187,9 +207,9 @@ export default function Funds() {
                             <SelectControl
                                 id="select_organization"
                                 propKey={'id'}
-                                value={filter.values.organization_id}
+                                value={filterValues.organization_id}
                                 allowSearch={true}
-                                onChange={(organization_id: number) => filter.update({ organization_id })}
+                                onChange={(organization_id: number) => filterUpdate({ organization_id })}
                                 options={organizations || []}
                                 multiline={true}
                                 ariaLabelledby="select_organization_label"
@@ -203,9 +223,9 @@ export default function Funds() {
                             <SelectControl
                                 id="select_category"
                                 propKey={'id'}
-                                value={filter.values.tag_id}
+                                value={filterValues.tag_id}
                                 allowSearch={true}
-                                onChange={(tag_id: number) => filter.update({ tag_id })}
+                                onChange={(tag_id: number) => filterUpdate({ tag_id })}
                                 options={tags || []}
                                 multiline={true}
                                 ariaLabelledby="select_category_label"
@@ -256,9 +276,9 @@ export default function Funds() {
                         <div className="card-section">
                             <Paginator
                                 meta={funds.meta}
-                                filters={filter.values}
+                                filters={filterValues}
                                 count-buttons={5}
-                                updateFilters={filter.update}
+                                updateFilters={filterUpdate}
                             />
                         </div>
                     </div>

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState, MouseEvent } from 'rea
 import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
-import useFilter from '../../../../hooks/useFilter';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -18,6 +17,7 @@ import useProductChat from '../hooks/useProductChat';
 import FundProviderProductRowData from './FundProviderProductRowData';
 import useUpdateProduct from '../hooks/useUpdateProduct';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 type ProductLocal = SponsorProduct & {
     allowed?: boolean;
@@ -48,7 +48,15 @@ export default function FundProviderProducts({
     const tableRef = useRef<HTMLTableElement>(null);
     const fundService = useFundService();
 
-    const filter = useFilter({ q: '', per_page: 15, type: source });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        type?: 'sponsor' | 'provider';
+        per_page?: number;
+    }>({
+        q: '',
+        type: source,
+        per_page: 15,
+    });
 
     const { headElement, configsElement } = useConfigurableTable(
         fundService.getProviderProductColumns(fund, null, false),
@@ -62,7 +70,7 @@ export default function FundProviderProducts({
                 fundProvider.fund.organization_id,
                 fundProvider.fund.id,
                 fundProvider.id,
-                filter.activeValues,
+                filterValuesActive,
             )
             .then((res) =>
                 setProducts({
@@ -72,7 +80,7 @@ export default function FundProviderProducts({
             )
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, fundProvider, filter.activeValues, mapProduct, pushApiError]);
+    }, [setProgress, fundService, fundProvider, filterValuesActive, mapProduct, pushApiError]);
 
     const onStartChat = useCallback(
         (e: MouseEvent<HTMLAnchorElement>, product: SponsorProduct) => {
@@ -124,8 +132,8 @@ export default function FundProviderProducts({
                         <div className="form-group">
                             <input
                                 className="form-control"
-                                value={filter.values.q || ''}
-                                onChange={(e) => filter.update({ q: e.target.value })}
+                                value={filterValues.q || ''}
+                                onChange={(e) => filterUpdate({ q: e.target.value })}
                                 placeholder="Zoeken"
                             />
                         </div>
@@ -187,7 +195,7 @@ export default function FundProviderProducts({
 
             {products.meta && (
                 <div className="card-section card-section-narrow" hidden={products?.meta?.total < 1}>
-                    <Paginator meta={products.meta} filters={filter.values} updateFilters={filter.update} />
+                    <Paginator meta={products.meta} filters={filterValues} updateFilters={filterUpdate} />
                 </div>
             )}
         </div>

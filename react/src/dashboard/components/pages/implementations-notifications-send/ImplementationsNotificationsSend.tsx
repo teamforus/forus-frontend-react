@@ -11,7 +11,6 @@ import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../../elements/select-control/SelectControl';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import SponsorIdentity, { SponsorIdentityCounts } from '../../../props/models/Sponsor/SponsorIdentity';
@@ -31,6 +30,8 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
@@ -106,16 +107,44 @@ export default function ImplementationsNotificationsSend() {
         { value: 'providers_all', name: 'Alle aanbieders' },
     ]);
 
-    const identitiesFilters = useFilter({
-        q: '',
-        target: identityTargets[0].value,
-        with_reservations: 1,
-        per_page: paginatorService.getPerPage(perPageKey),
-        order_by: 'id',
-        order_dir: 'asc',
-    });
+    const [identitiesFilterValues, identitiesFilterValuesActive, identitiesFilterUpdate, identitiesFilter] =
+        useFilterNext<{
+            q: string;
+            target?: string;
+            page?: number;
+            per_page?: number;
+            order_by?: string;
+            order_dir?: string;
+        }>(
+            {
+                q: '',
+                target: identityTargets[0].value,
+                page: 1,
+                per_page: paginatorService.getPerPage(perPageKey),
+                order_by: 'id',
+                order_dir: 'asc',
+            },
+            {
+                queryParams: {
+                    q: StringParam,
+                    target: createEnumParam(['all', 'has_balance']),
+                    page: NumberParam,
+                    per_page: NumberParam,
+                    order_by: StringParam,
+                    order_dir: StringParam,
+                },
+            },
+        );
 
-    const providersFilters = useFilter({
+    const { resetFilters: resetIdentitiesFilters } = identitiesFilter;
+
+    const [providersFilterValues, providersFilterValuesActive, providersFilterUpdate] = useFilterNext<{
+        q: string;
+        target?: string;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>({
         q: '',
         target: providerTargets[0].value,
         per_page: paginatorService.getPerPage(perPageKey),
@@ -127,13 +156,16 @@ export default function ImplementationsNotificationsSend() {
         implementationNotificationsService.getIdentitiesColumns(),
         {
             sortable: true,
-            filter: identitiesFilters,
+            filter: identitiesFilter,
         },
     );
 
     const exportIdentities = useCallback(() => {
-        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, identitiesFilters.activeValues);
-    }, [activeOrganization?.id, fund?.id, fundIdentitiesExporter, identitiesFilters.activeValues]);
+        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, {
+            ...identitiesFilterValuesActive,
+            with_reservations: 1,
+        });
+    }, [activeOrganization?.id, fund?.id, fundIdentitiesExporter, identitiesFilterValuesActive]);
 
     const onTemplateUpdated = useCallback(
         (item: SystemNotification) => {
@@ -229,9 +261,7 @@ export default function ImplementationsNotificationsSend() {
         }
 
         const target =
-            targetGroup == 'identities'
-                ? identitiesFilters?.activeValues.target
-                : providersFilters?.activeValues.target;
+            targetGroup == 'identities' ? identitiesFilterValuesActive.target : providersFilterValuesActive.target;
 
         askConfirmation(target, () => {
             setSubmitting(true);
@@ -239,7 +269,8 @@ export default function ImplementationsNotificationsSend() {
 
             fundService
                 .sendNotification(activeOrganization.id, fund.id, {
-                    ...identitiesFilters.activeValues,
+                    ...identitiesFilterValuesActive,
+                    with_reservations: 1,
                     target: target,
                     subject: implementationNotificationsService.labelsToVars(template.title),
                     content: implementationNotificationsService.labelsToVars(template.content),
@@ -274,9 +305,9 @@ export default function ImplementationsNotificationsSend() {
         template?.content,
         implementation?.id,
         activeOrganization.id,
-        identitiesFilters?.activeValues,
+        identitiesFilterValuesActive,
         implementationNotificationsService,
-        providersFilters?.activeValues?.target,
+        providersFilterValuesActive?.target,
     ]);
 
     const sendToMyself = useCallback(() => {
@@ -365,21 +396,30 @@ export default function ImplementationsNotificationsSend() {
             setProgress(0);
 
             fundService
-                .listIdentities(activeOrganization.id, fund.id, identitiesFilters.activeValues)
+                .listIdentities(activeOrganization.id, fund.id, {
+                    ...identitiesFilterValuesActive,
+                    with_reservations: 1,
+                })
                 .then((res) => setIdentities(res.data))
                 .catch(pushApiError)
                 .finally(() => {
-                    setLastIdentitiesQuery(identitiesFilters.activeValues.q);
+                    setLastIdentitiesQuery(identitiesFilterValuesActive.q);
                     setProgress(100);
                 });
         }
-    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilters?.activeValues, pushApiError]);
+    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilterValuesActive, pushApiError]);
 
     useEffect(() => {
         if (implementation) {
             fetchFunds();
         }
     }, [fetchFunds, implementation]);
+
+    useEffect(() => {
+        if (targetGroup === 'providers') {
+            resetIdentitiesFilters();
+        }
+    }, [resetIdentitiesFilters, targetGroup]);
 
     useEffect(() => {
         fetchImplementation();
@@ -471,9 +511,9 @@ export default function ImplementationsNotificationsSend() {
                                     className="form-control"
                                     propKey={'value'}
                                     allowSearch={false}
-                                    value={identitiesFilters.values.target}
+                                    value={identitiesFilterValues.target}
                                     onChange={(value: string) => {
-                                        identitiesFilters.update({ target: value });
+                                        identitiesFilterUpdate({ target: value });
                                     }}
                                     options={identityTargets}
                                 />
@@ -488,9 +528,9 @@ export default function ImplementationsNotificationsSend() {
                                     className="form-control"
                                     propKey={'value'}
                                     allowSearch={false}
-                                    value={providersFilters.values.target}
+                                    value={providersFilterValues.target}
                                     onChange={(value: string) => {
-                                        providersFilters.update({ target: value });
+                                        providersFilterUpdate({ target: value });
                                     }}
                                     options={providerTargets}
                                 />
@@ -514,12 +554,10 @@ export default function ImplementationsNotificationsSend() {
                                                 <div className="form-group">
                                                     <input
                                                         type="text"
-                                                        value={identitiesFilters.values.q}
+                                                        value={identitiesFilterValues.q}
                                                         placeholder="Zoeken"
                                                         className="form-control"
-                                                        onChange={(e) =>
-                                                            identitiesFilters.update({ q: e.target.value })
-                                                        }
+                                                        onChange={(e) => identitiesFilterUpdate({ q: e.target.value })}
                                                     />
                                                 </div>
                                             </div>
@@ -578,8 +616,8 @@ export default function ImplementationsNotificationsSend() {
                                 <div className="card-section card-section-narrow">
                                     <Paginator
                                         meta={identities.meta}
-                                        filters={identitiesFilters.values}
-                                        updateFilters={identitiesFilters.update}
+                                        filters={identitiesFilterValues}
+                                        updateFilters={identitiesFilterUpdate}
                                         perPageKey={perPageKey}
                                     />
                                 </div>

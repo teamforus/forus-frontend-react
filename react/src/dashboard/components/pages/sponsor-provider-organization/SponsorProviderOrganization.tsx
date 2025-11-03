@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import useFilter from '../../../hooks/useFilter';
 import { PaginationData } from '../../../props/ApiResponses';
 import { useParams } from 'react-router';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -21,6 +20,8 @@ import { useFundService } from '../../../services/FundService';
 import SponsorProviderOffices from './elements/SponsorProviderOffices';
 import SponsorProviderEmployees from './elements/SponsorProviderEmployees';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function SponsorProviderOrganization() {
     const { id } = useParams();
@@ -36,7 +37,24 @@ export default function SponsorProviderOrganization() {
     const [fundProviders, setFundProviders] = useState<PaginationData<FundProvider>>(null);
     const [providerOrganization, setProviderOrganization] = useState<SponsorProviderOrganization>(null);
 
-    const filter = useFilter({ q: '', per_page: 10 });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            page: 1,
+            per_page: 10,
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                page: NumberParam,
+            },
+        },
+    );
+
     const tableRef = useRef<HTMLTableElement>(null);
 
     const { headElement, configsElement } = useConfigurableTable(fundService.getProviderFundColumns());
@@ -54,11 +72,11 @@ export default function SponsorProviderOrganization() {
         setProgress(0);
 
         organizationService
-            .listProviders(activeOrganization.id, { ...filter.activeValues, organization_id: id })
+            .listProviders(activeOrganization.id, { ...filterValuesActive, organization_id: id })
             .then((res) => setFundProviders(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, organizationService, activeOrganization.id, filter.activeValues, id, pushApiError]);
+    }, [setProgress, organizationService, activeOrganization.id, filterValuesActive, id, pushApiError]);
 
     const fetchProviderOrganization = useCallback(() => {
         setProgress(0);
@@ -106,8 +124,8 @@ export default function SponsorProviderOrganization() {
                             <div className="form-group">
                                 <input
                                     className="form-control"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder="Zoeken"
                                 />
                             </div>
@@ -140,7 +158,7 @@ export default function SponsorProviderOrganization() {
 
                 {fundProviders.meta && (
                     <div className="card-section card-section-narrow">
-                        <Paginator meta={fundProviders.meta} filters={filter.values} updateFilters={filter.update} />
+                        <Paginator meta={fundProviders.meta} filters={filterValues} updateFilters={filterUpdate} />
                     </div>
                 )}
             </div>

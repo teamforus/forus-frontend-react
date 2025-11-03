@@ -3,7 +3,7 @@ import Organization from '../../../../props/models/Organization';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { PaginationData } from '../../../../props/ApiResponses';
-import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
+import { FilterModel, FilterScope, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../../helpers/string';
 import TableRowActions from '../../../elements/tables/TableRowActions';
@@ -12,7 +12,6 @@ import FundRequestStateLabel from '../../../elements/resource-states/FundRequest
 import FundRequest from '../../../../props/models/FundRequest';
 import useTranslate from '../../../../hooks/useTranslate';
 import { useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
-import FilterScope from '../../../../types/FilterScope';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 

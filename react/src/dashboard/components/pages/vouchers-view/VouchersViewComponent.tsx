@@ -22,7 +22,6 @@ import usePushDanger from '../../../hooks/usePushDanger';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
 import VoucherRecordsCard from './elements/VoucherRecordsCard';
 import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
-import useFilter from '../../../hooks/useFilter';
 import EventLogsTable from '../../elements/tables/EventLogsTable';
 import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
 import useTranslate from '../../../hooks/useTranslate';
@@ -32,6 +31,7 @@ import Label from '../../elements/image_cropper/Label';
 import { Permission } from '../../../props/models/Organization';
 import VoucherReservationsCard from './elements/VoucherReservationsCard';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -71,7 +71,12 @@ export default function VouchersViewComponent() {
         );
     }, [activeOrganization, fund?.state, voucher]);
 
-    const transactionsFilters = useFilter({
+    const [, transactionsFilterValuesActive] = useFilterNext<{
+        per_page?: number;
+        order_by: string;
+        order_dir: string;
+        voucher_id: number;
+    }>({
         per_page: 20,
         order_by: 'created_at',
         order_dir: 'desc',
@@ -631,7 +636,7 @@ export default function VouchersViewComponent() {
                     <VoucherTransactionsCard
                         organization={activeOrganization}
                         blockTitle={'Betaalopdrachten'}
-                        filterValues={transactionsFilters.activeValues}
+                        filters={transactionsFilterValuesActive}
                         fetchTransactionsRef={transactionsBlock}
                     />
 
