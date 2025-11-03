@@ -24,6 +24,7 @@ import Office from '../../../../dashboard/props/models/Office';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function VouchersShow() {
     const { number } = useParams();
@@ -117,8 +118,8 @@ export default function VouchersShow() {
         <BlockShowcase
             narrow={true}
             breadcrumbItems={[
-                { name: translate('voucher.breadcrumbs.home'), state: 'home' },
-                { name: translate('voucher.breadcrumbs.vouchers'), state: 'vouchers' },
+                { name: translate('voucher.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('voucher.breadcrumbs.vouchers'), state: WebshopRoutes.VOUCHERS },
                 voucher && voucher?.physical_card
                     ? {
                           name: voucher?.physical_card
@@ -276,7 +277,7 @@ export default function VouchersShow() {
 
                                         <div>
                                             <StateNavLink
-                                                name={'fund'}
+                                                name={WebshopRoutes.FUND}
                                                 params={{ id: voucher?.fund_id }}
                                                 className="button button-primary button-sm">
                                                 {translate('voucher.fund_details.view')}

@@ -5,6 +5,7 @@ import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import TransactionIconBg from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/transaction-icon-bg.svg';
 import useVoucherCard from '../hooks/useVoucherCard';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher }) {
     const translate = useTranslate();
@@ -32,7 +33,7 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                 <div className="transactions-item-counterpart">
                                     {translate('voucher.transactions.reservation') + ' '}
                                     <StateNavLink
-                                        name={'reservation-show'}
+                                        name={WebshopRoutes.RESERVATION}
                                         params={{
                                             id: transaction.product_reservation.id,
                                         }}>

@@ -18,6 +18,7 @@ import { useParams } from 'react-router';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsNotificationsBranding() {
     const { id } = useParams();
@@ -91,7 +92,9 @@ export default function ImplementationsNotificationsBranding() {
                 .updateEmailBranding(activeOrganization.id, implementation.id, data)
                 .then(() => {
                     pushSuccess('Gelukt!', 'De aanpassingen zijn opgeslagen!');
-                    navigateState('implementation-notifications', { organizationId: activeOrganization.id });
+                    navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
+                        organizationId: activeOrganization.id,
+                    });
                 })
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
@@ -209,7 +212,7 @@ export default function ImplementationsNotificationsBranding() {
                         <div className="button-group flex-center">
                             <StateNavLink
                                 className="button button-default"
-                                name={'implementation-notifications'}
+                                name={DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS}
                                 params={{ organizationId: activeOrganization.id }}>
                                 Annuleren
                             </StateNavLink>

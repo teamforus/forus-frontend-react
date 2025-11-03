@@ -11,6 +11,7 @@ import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 import useSetProgress from '../../../../hooks/useSetProgress';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function FundProviderTableItem({
     fundProvider,
@@ -75,7 +76,7 @@ export default function FundProviderTableItem({
         <StateNavLink
             customElement={'tr'}
             className={'tr-clickable'}
-            name={'fund-provider'}
+            name={DashboardRoutes.FUND_PROVIDER}
             params={{
                 id: fundProvider.id,
                 fundId: fundProvider.fund_id,
@@ -206,7 +207,7 @@ export default function FundProviderTableItem({
                     content={() => (
                         <div className="dropdown dropdown-actions">
                             <StateNavLink
-                                name={'fund-provider'}
+                                name={DashboardRoutes.FUND_PROVIDER}
                                 params={{
                                     id: fundProvider.id,
                                     fundId: fundProvider.fund_id,

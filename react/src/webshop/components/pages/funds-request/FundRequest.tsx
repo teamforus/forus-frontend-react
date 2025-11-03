@@ -42,6 +42,7 @@ import FundCriterion from '../../../../dashboard/props/models/FundCriterion';
 import { orderBy, sortBy } from 'lodash';
 import FundRequestHelpBlock from './elements/FundRequestHelpBlock';
 import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequestStepPhysicalCardRequestAddress';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -235,7 +236,7 @@ export default function FundRequest() {
                 .apply(fund.id)
                 .then((res) => {
                     fetchAuthIdentity().then(() => {
-                        navigateState('voucher', { number: res.data.data.number });
+                        navigateState(WebshopRoutes.VOUCHER, { number: res.data.data.number });
                         pushSuccess(
                             translate('push.success'),
                             translate('push.fund_activation.success', { fund_name: fund?.name }),
@@ -261,8 +262,8 @@ export default function FundRequest() {
 
                 if (res.data.data.state === 'approved' && active_vouchers.length > 0) {
                     return active_vouchers.length > 1
-                        ? navigateState('vouchers')
-                        : navigateState('voucher', active_vouchers[0]);
+                        ? navigateState(WebshopRoutes.VOUCHERS)
+                        : navigateState(WebshopRoutes.VOUCHER, active_vouchers[0]);
                 }
 
                 if (fund.auto_validation) {
@@ -339,7 +340,7 @@ export default function FundRequest() {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState('error', { errorCode: err.headers('error-code') });
+                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers('error-code') });
                 });
         }
     }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
@@ -401,7 +402,7 @@ export default function FundRequest() {
     }, []);
 
     const goToActivationComponent = useCallback(() => {
-        navigateState('fund-activate', { id: fund.id });
+        navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
     }, [fund?.id, navigateState]);
 
     const submitConfirmCriteria = useCallback(() => {
@@ -556,17 +557,17 @@ export default function FundRequest() {
 
         // Voucher already received, go to the voucher
         if (voucher) {
-            return navigateState('voucher', { number: voucher.number });
+            return navigateState(WebshopRoutes.VOUCHER, { number: voucher.number });
         }
 
         // Hot linking is not allowed
         if (from !== 'fund-activate') {
-            return navigateState('fund-activate', { id: fund.id });
+            return navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
         }
 
         // The user is not authenticated and have to go back to sign-up page
         if (fund.auto_validation && !bsnIsKnown) {
-            return navigateState('start');
+            return navigateState(WebshopRoutes.START);
         }
 
         // Fund requests enabled and user has all meet the requirements

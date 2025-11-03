@@ -6,6 +6,7 @@ import { TopNavbarDesktopMenuUser } from './TopNavbarDesktopMenuUser';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { strLimit } from '../../../../../dashboard/helpers/string';
 import useStartFundRequest from './hooks/useStartFundRequest';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export const TopNavbarDesktopUser = () => {
     const envData = useEnvData();
@@ -57,7 +58,7 @@ export const TopNavbarDesktopUser = () => {
                     <Fragment>
                         {!envData?.config?.flags?.navbarCombined ? (
                             <StateNavLink
-                                name={'vouchers'}
+                                name={WebshopRoutes.VOUCHERS}
                                 className="navbar-desktop-user-button-vouchers button button-primary"
                                 dataDusk="userVouchers"
                                 id="vouchers">

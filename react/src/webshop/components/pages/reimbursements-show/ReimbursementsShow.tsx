@@ -12,6 +12,7 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useConfirmReimbursementDestroy from '../../../services/helpers/useConfirmReimbursementDestroy';
 import ReimbursementDetailsCard from '../reimbursements/elements/ReimbursementDetailsCard';
 import useSetTitle from '../../../hooks/useSetTitle';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementsShow() {
     const { id } = useParams();
@@ -54,7 +55,7 @@ export default function ReimbursementsShow() {
                         .destroy(reimbursement.id)
                         .then(() => {
                             pushSuccess(translate('push.success'), translate('push.reimbursement.canceled'));
-                            navigateState('reimbursements');
+                            navigateState(WebshopRoutes.REIMBURSEMENTS);
                         })
                         .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
                         .finally(() => setProgress(100));
@@ -86,8 +87,8 @@ export default function ReimbursementsShow() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('reimbursements.breadcrumbs.home'), state: 'home' },
-                { name: translate('reimbursements.breadcrumbs.reimbursements'), state: 'reimbursements' },
+                { name: translate('reimbursements.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('reimbursements.breadcrumbs.reimbursements'), state: WebshopRoutes.REIMBURSEMENTS },
                 { name: translate('reimbursements.breadcrumbs.reimbursement') },
             ]}
             contentDusk={'reimbursementDetailsPage'}

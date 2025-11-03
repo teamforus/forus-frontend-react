@@ -14,6 +14,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useFundMeta from '../../../../hooks/meta/useFundMeta';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function FundsListItem({
     fund,
@@ -51,7 +52,7 @@ export default function FundsListItem({
             );
 
             if (funds?.length === 1) {
-                return navigateState('voucher', { number: vouchers.number });
+                return navigateState(WebshopRoutes.VOUCHER, { number: vouchers.number });
             } else {
                 document.location.reload();
             }
@@ -92,7 +93,7 @@ export default function FundsListItem({
     if (display === 'search') {
         return (
             <StateNavLink
-                name={'fund'}
+                name={WebshopRoutes.FUND}
                 params={{ id: fund.id }}
                 state={stateParams || null}
                 className={'search-item search-item-fund'}
@@ -105,7 +106,7 @@ export default function FundsListItem({
 
     return (
         <StateNavLink
-            name={'fund'}
+            name={WebshopRoutes.FUND}
             params={{ id: fund.id }}
             state={stateParams || null}
             className={'fund-item'}

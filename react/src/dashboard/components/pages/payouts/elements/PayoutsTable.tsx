@@ -3,12 +3,11 @@ import Organization from '../../../../props/models/Organization';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { PaginationData } from '../../../../props/ApiResponses';
-import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
+import { FilterModel, FilterScope, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../../helpers/string';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import FilterScope from '../../../../types/FilterScope';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
@@ -22,6 +21,7 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Fund from '../../../../props/models/Fund';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function PayoutsTable({
     filter,
@@ -118,7 +118,7 @@ export default function PayoutsTable({
                                 {transactions.data.map((transaction) => (
                                     <StateNavLink
                                         key={transaction.id}
-                                        name={'payout'}
+                                        name={DashboardRoutes.PAYOUT}
                                         params={{
                                             address: transaction.address,
                                             organizationId: organization.id,
@@ -128,7 +128,7 @@ export default function PayoutsTable({
                                         <td>{transaction.id}</td>
                                         <td title={transaction.fund.name || ''}>
                                             <StateNavLink
-                                                name={'funds-show'}
+                                                name={DashboardRoutes.FUND}
                                                 params={{
                                                     organizationId: organization.id,
                                                     fundId: transaction?.fund?.id,
@@ -193,7 +193,7 @@ export default function PayoutsTable({
                                                 content={({ close }) => (
                                                     <div className="dropdown dropdown-actions">
                                                         <StateNavLink
-                                                            name={'payout'}
+                                                            name={DashboardRoutes.PAYOUT}
                                                             className="dropdown-item"
                                                             params={{
                                                                 organizationId: organization.id,

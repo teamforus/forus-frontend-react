@@ -14,6 +14,7 @@ import useAppConfigs from '../../../../hooks/useAppConfigs';
 import useEnvData from '../../../../hooks/useEnvData';
 import IdentityAvatar from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/identity-avatar.svg';
 import IdentityAvatarAccount from '../../../../../../assets/forus-webshop/resources/webshop-vergoedingen/assets/img/identity-avatar.svg';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export const TopNavbarDesktopMenuUser = () => {
     const authIdentity = useAuthIdentity();
@@ -106,7 +107,11 @@ export const TopNavbarDesktopMenuUser = () => {
 
                             {authIdentity?.email && <div className="auth-user-menu-separator" />}
 
-                            <StateNavLink id="vouchers" name={'vouchers'} className="auth-user-menu-item" tabIndex={0}>
+                            <StateNavLink
+                                id="vouchers"
+                                name={WebshopRoutes.VOUCHERS}
+                                className="auth-user-menu-item"
+                                tabIndex={0}>
                                 <em className="mdi mdi-ticket-percent-outline" />
                                 {translate('top_navbar.user_menu.my_vouchers')}
                             </StateNavLink>
@@ -124,7 +129,7 @@ export const TopNavbarDesktopMenuUser = () => {
 
                             <StateNavLink
                                 id="bookmarked_products"
-                                name={'bookmarked-products'}
+                                name={WebshopRoutes.BOOKMARKED_PRODUCTS}
                                 className="auth-user-menu-item"
                                 tabIndex={0}>
                                 <em className="mdi mdi-cards-heart-outline" />
@@ -133,7 +138,7 @@ export const TopNavbarDesktopMenuUser = () => {
 
                             <StateNavLink
                                 id="reservations"
-                                name={'reservations'}
+                                name={WebshopRoutes.RESERVATIONS}
                                 className="auth-user-menu-item"
                                 dataDusk="btnReservations"
                                 tabIndex={0}>
@@ -144,7 +149,7 @@ export const TopNavbarDesktopMenuUser = () => {
                             {appConfigs.has_physical_cards && (
                                 <StateNavLink
                                     id="physical_cards"
-                                    name={'physical-cards'}
+                                    name={WebshopRoutes.PHYSICAL_CARDS}
                                     className="auth-user-menu-item"
                                     dataDusk="btnPhysicalCards"
                                     tabIndex={0}>
@@ -156,7 +161,7 @@ export const TopNavbarDesktopMenuUser = () => {
                             {appConfigs.has_reimbursements && (
                                 <StateNavLink
                                     id="reimbursements"
-                                    name={'reimbursements'}
+                                    name={WebshopRoutes.REIMBURSEMENTS}
                                     className="auth-user-menu-item"
                                     dataDusk="btnReimbursements"
                                     tabIndex={0}>
@@ -167,7 +172,7 @@ export const TopNavbarDesktopMenuUser = () => {
 
                             <StateNavLink
                                 id="fund-requests"
-                                name={'fund-requests'}
+                                name={WebshopRoutes.FUND_REQUESTS}
                                 className="auth-user-menu-item"
                                 dataDusk="btnFundRequests"
                                 tabIndex={0}>
@@ -178,7 +183,7 @@ export const TopNavbarDesktopMenuUser = () => {
                             {appConfigs.has_payouts && (
                                 <StateNavLink
                                     id="payouts"
-                                    name={'payouts'}
+                                    name={WebshopRoutes.PAYOUTS}
                                     className="auth-user-menu-item"
                                     dataDusk="btnPayouts"
                                     tabIndex={0}>
@@ -187,14 +192,17 @@ export const TopNavbarDesktopMenuUser = () => {
                                 </StateNavLink>
                             )}
 
-                            <StateNavLink name={'notifications'} className="auth-user-menu-item" tabIndex={0}>
+                            <StateNavLink
+                                name={WebshopRoutes.NOTIFICATIONS}
+                                className="auth-user-menu-item"
+                                tabIndex={0}>
                                 <em className="mdi mdi-bell-outline" />
                                 {translate('top_navbar.user_menu.notifications')}
                             </StateNavLink>
 
                             <StateNavLink
                                 id="notification_preferences"
-                                name="preferences-notifications"
+                                name={WebshopRoutes.PREFERENCE_NOTIFICATIONS}
                                 className="auth-user-menu-item"
                                 tabIndex={0}>
                                 <em className="mdi mdi-cog-outline" />
@@ -202,14 +210,21 @@ export const TopNavbarDesktopMenuUser = () => {
                             </StateNavLink>
 
                             {authIdentity?.profile && (
-                                <StateNavLink id="profile" name="profile" className="auth-user-menu-item" tabIndex={0}>
+                                <StateNavLink
+                                    id="profile"
+                                    name={WebshopRoutes.PROFILE}
+                                    className="auth-user-menu-item"
+                                    tabIndex={0}>
                                     <em className="mdi mdi-account-check" />
                                     {translate('top_navbar.user_menu.profile')}
                                 </StateNavLink>
                             )}
 
                             {envData.config.sessions && (
-                                <StateNavLink name={'security-sessions'} className="auth-user-menu-item" tabIndex={0}>
+                                <StateNavLink
+                                    name={WebshopRoutes.SECURITY_SESSIONS}
+                                    className="auth-user-menu-item"
+                                    tabIndex={0}>
                                     <em className="mdi mdi-shield-account" />
                                     {translate('top_navbar.user_menu.security_sessions')}
                                 </StateNavLink>
@@ -217,7 +232,7 @@ export const TopNavbarDesktopMenuUser = () => {
 
                             <StateNavLink
                                 id="identity_emails"
-                                name="identity-emails"
+                                name={WebshopRoutes.IDENTITY_EMAILS}
                                 className="auth-user-menu-item"
                                 dataDusk="btnUserEmails"
                                 tabIndex={0}>
@@ -226,7 +241,10 @@ export const TopNavbarDesktopMenuUser = () => {
                             </StateNavLink>
 
                             {(envData.config.flags.show2FAMenu || auth2faState?.required) && (
-                                <StateNavLink name="security-2fa" className="auth-user-menu-item" tabIndex={0}>
+                                <StateNavLink
+                                    name={WebshopRoutes.SECURITY_2FA}
+                                    className="auth-user-menu-item"
+                                    tabIndex={0}>
                                     <em className="mdi mdi-security" />
                                     {translate('top_navbar.user_menu.security_2fa')}
                                 </StateNavLink>

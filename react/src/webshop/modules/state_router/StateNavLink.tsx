@@ -2,6 +2,7 @@ import { NavLink } from 'react-router';
 import React, { HTMLAttributes, ReactNode } from 'react';
 import { getStateRouteUrl, useNavigateState } from './Router';
 import classNames from 'classnames';
+import { WebshopRoutes } from './RouterBuilder';
 
 export default function StateNavLink({
     name,
@@ -21,7 +22,7 @@ export default function StateNavLink({
     tabIndex = null,
     dataAttributes = null,
 }: HTMLAttributes<HTMLAnchorElement> & {
-    name: string;
+    name: WebshopRoutes;
     dataDusk?: string;
     params?: object;
     query?: object;

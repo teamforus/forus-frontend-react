@@ -13,6 +13,7 @@ import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
 import { makeQrCodeContent } from '../../../helpers/utils';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SignIn() {
     const [timer, setTimer] = useState(null);
@@ -66,7 +67,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (token) {
-            navigate(getStateRouteUrl('organizations'));
+            navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
         }
     }, [token, navigate]);
 
@@ -144,7 +145,7 @@ export default function SignIn() {
                     </div>
                     <div className="block-login-footer">
                         <div className="block-login-footer-title">Nog geen account?</div>
-                        <NavLink to={getStateRouteUrl('sign-up')} className="block-login-footer-button">
+                        <NavLink to={getStateRouteUrl(DashboardRoutes.SIGN_UP)} className="block-login-footer-button">
                             Inschrijven
                         </NavLink>
                     </div>

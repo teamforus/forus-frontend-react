@@ -27,6 +27,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReservationsTableFilters, { ReservationsTableFiltersProps } from './elements/ReservationsTableFilters';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Reservations() {
     const identity = useAuthIdentity();
@@ -296,7 +297,7 @@ export default function Reservations() {
 
                                 {hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                     <StateNavLink
-                                        name="reservations-settings"
+                                        name={DashboardRoutes.RESERVATIONS_SETTINGS}
                                         params={{ organizationId: activeOrganization.id }}
                                         className="button button-primary button-sm">
                                         <em className="mdi mdi-cog icon-start" />

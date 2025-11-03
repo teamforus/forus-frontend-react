@@ -26,6 +26,7 @@ import ProductsFilterGroupDistance from './elements/ProductsFilterGroupDistance'
 import ProductsFilterGroupPrice from './elements/ProductsFilterGroupPrice';
 import ProductsFilterGroupFunds from './elements/ProductsFilterGroupFunds';
 import ProductsFilterGroupProviders from './elements/ProductsFilterGroupProviders';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Products() {
     const appConfigs = useAppConfigs();
@@ -230,7 +231,7 @@ export default function Products() {
             dusk="listProductsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: translate('products.breadcrumbs.home'), state: 'home' },
+                { name: translate('products.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('products.breadcrumbs.products') },
             ]}
             aside={

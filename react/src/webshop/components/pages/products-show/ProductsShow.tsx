@@ -38,6 +38,7 @@ import ProductMedia from './elements/ProductMedia';
 import useStartFundRequest from '../../elements/top-navbar/desktop/hooks/useStartFundRequest';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import RandomProductsBlock from '../home/elements/RandomProductsBlock';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -158,7 +159,7 @@ export default function ProductsShow() {
 
     useEffect(() => {
         if (!appConfigs?.products?.show) {
-            navigateState('home');
+            navigateState(WebshopRoutes.HOME);
             return;
         }
     }, [appConfigs, navigateState]);
@@ -181,8 +182,8 @@ export default function ProductsShow() {
             breadcrumbItems={
                 product && [
                     showBack && { name: translate('product.breadcrumbs.back'), back: true },
-                    { name: translate('product.breadcrumbs.home'), state: 'home' },
-                    { name: translate('product.breadcrumbs.products'), state: 'products' },
+                    { name: translate('product.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                    { name: translate('product.breadcrumbs.products'), state: WebshopRoutes.PRODUCTS },
                     product && { name: product.name },
                 ]
             }>
@@ -197,7 +198,7 @@ export default function ProductsShow() {
                                     <div className="product-overview-provider">
                                         <em className="mdi mdi-storefront-outline" aria-hidden="true" />
                                         <StateNavLink
-                                            name={'provider'}
+                                            name={WebshopRoutes.PROVIDER}
                                             params={{ id: product?.organization_id }}
                                             className="product-overview-provider-name">
                                             {product?.organization?.name}

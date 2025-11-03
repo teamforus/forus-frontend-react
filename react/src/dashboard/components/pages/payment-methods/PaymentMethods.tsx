@@ -23,6 +23,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PaymentMethods() {
     const activeOrganization = useActiveOrganization();
@@ -158,7 +159,7 @@ export default function PaymentMethods() {
                                         onChange={(e) => setPrivacy(e.target.checked)}>
                                         Ik heb de&nbsp;
                                         <StateNavLink
-                                            name={'mollie-privacy'}
+                                            name={DashboardRoutes.MOLLIE_PRIVACY}
                                             params={{ organizationId: activeOrganization.id }}
                                             target="_blank">
                                             Algemene Voorwaarden

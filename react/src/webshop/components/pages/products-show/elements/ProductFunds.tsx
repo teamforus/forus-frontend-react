@@ -18,6 +18,7 @@ import useFetchAuthIdentity from '../../../../hooks/useFetchAuthIdentity';
 import useFundMetaBuilder from '../../../../hooks/meta/useFundMetaBuilder';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductFunds({
     product,
@@ -83,7 +84,7 @@ export default function ProductFunds({
                     return showTakenByPartnerModal();
                 }
 
-                navigateState('fund-activate', { id: fund_id });
+                navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund_id });
             });
         },
         [fundService, navigateState, showTakenByPartnerModal],
@@ -213,7 +214,7 @@ export default function ProductFunds({
                             )}
                             {fund.showRequestButton && (
                                 <StateNavLink
-                                    name={'fund-activate'}
+                                    name={WebshopRoutes.FUND_ACTIVATE}
                                     params={{ id: fund.id }}
                                     className="button button-primary button-sm"
                                     dataDusk="fundRequest">
@@ -223,7 +224,7 @@ export default function ProductFunds({
                             )}
                             {fund.showPendingButton && (
                                 <StateNavLink
-                                    name={'fund-requests'}
+                                    name={WebshopRoutes.FUND_REQUESTS}
                                     params={{ id: fund.id }}
                                     className="button button-primary-outline button-sm"
                                     dataDusk="fundRequests">
@@ -244,7 +245,7 @@ export default function ProductFunds({
                                 <Fragment>
                                     {fund.hasVouchers ? (
                                         <StateNavLink
-                                            name="voucher"
+                                            name={WebshopRoutes.VOUCHER}
                                             params={{ number: fund.vouchers[0].number }}
                                             dataDusk="voucherButton"
                                             className="button button-primary button-sm">

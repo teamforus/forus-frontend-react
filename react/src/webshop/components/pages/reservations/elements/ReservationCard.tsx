@@ -6,6 +6,7 @@ import useComposeStateAndExpires from '../hooks/useComposeStateAndExpires';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import usePayReservationExtra from '../hooks/usePayReservationExtra';
 import useCancelReservation from '../hooks/useCancelReservation';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReservationCard({
     reservation,
@@ -29,7 +30,7 @@ export default function ReservationCard({
 
     return (
         <StateNavLink
-            name={'reservation-show'}
+            name={WebshopRoutes.RESERVATION}
             params={{ id: reservation.id }}
             className="reservation-item"
             dataDusk={`listReservationsRow${reservation.id}`}
@@ -50,7 +51,7 @@ export default function ReservationCard({
                         <div className="reservation-section-column">
                             <div className="reservation-name" role="heading" aria-level={2}>
                                 <StateNavLink
-                                    name={'product'}
+                                    name={WebshopRoutes.PRODUCT}
                                     params={{ id: reservation.product?.id }}
                                     dataDusk="reservationProduct"
                                     role="link"
@@ -67,7 +68,7 @@ export default function ReservationCard({
                                     </Fragment>
                                 )}
                                 <StateNavLink
-                                    name={'provider'}
+                                    name={WebshopRoutes.PROVIDER}
                                     params={{ id: reservation.product?.organization_id }}
                                     role="link"
                                     tabIndex={0}
@@ -387,7 +388,7 @@ export default function ReservationCard({
                                     </li>
                                 </ul>
                                 <StateNavLink
-                                    name={'reservation-show'}
+                                    name={WebshopRoutes.RESERVATION}
                                     params={{ id: reservation.id }}
                                     className="reservation-details-view-all"
                                     customElement={'div'}>

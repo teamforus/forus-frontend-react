@@ -17,6 +17,7 @@ import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import useSelectControlKeyEventHandlers from '../../../../../dashboard/components/elements/select-control/hooks/useSelectControlKeyEventHandlers';
 import TopNavbarMobileButtons from './TopNavbarMobileButtons';
 import useMobileLangSelector from '../../../../hooks/useMobileLangSelector';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function TopNavbarMobileMenu() {
     const translate = useTranslate();
@@ -128,9 +129,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && vouchers?.length > 0 && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="vouchers"
+                            name={WebshopRoutes.VOUCHERS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'vouchers' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.VOUCHERS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -165,9 +166,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="bookmarked-products"
+                            name={WebshopRoutes.BOOKMARKED_PRODUCTS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'bookmarked-products' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.BOOKMARKED_PRODUCTS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -183,9 +184,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="reservations"
+                            name={WebshopRoutes.RESERVATIONS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'reservations' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.RESERVATIONS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -197,9 +198,9 @@ export default function TopNavbarMobileMenu() {
                     {appConfigs.has_physical_cards && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="physical-cards"
+                            name={WebshopRoutes.PHYSICAL_CARDS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'physical-cards' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.PHYSICAL_CARDS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -211,9 +212,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && appConfigs.has_reimbursements && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="reimbursements"
+                            name={WebshopRoutes.REIMBURSEMENTS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'reimbursements' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.REIMBURSEMENTS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -225,9 +226,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="fund-requests"
+                            name={WebshopRoutes.FUND_REQUESTS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'fund-requests' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.FUND_REQUESTS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -239,9 +240,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && appConfigs.has_payouts && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="payouts"
+                            name={WebshopRoutes.PAYOUTS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'payouts' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.PAYOUTS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -253,9 +254,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="notifications"
+                            name={WebshopRoutes.NOTIFICATIONS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'notifications' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.NOTIFICATIONS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -267,9 +268,11 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="preferences-notifications"
+                            name={WebshopRoutes.PREFERENCE_NOTIFICATIONS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'preferences-notifications' ? 'true' : undefined}
+                            aria-current={
+                                route.state?.name == WebshopRoutes.PREFERENCE_NOTIFICATIONS ? 'true' : undefined
+                            }
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -281,9 +284,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity?.profile && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="profile"
+                            name={WebshopRoutes.PROFILE}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'profile' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.PROFILE ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -295,9 +298,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && envData.config.sessions && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="security-sessions"
+                            name={WebshopRoutes.SECURITY_SESSIONS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'security-sessions' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.SECURITY_SESSIONS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -309,9 +312,9 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="identity-emails"
+                            name={WebshopRoutes.IDENTITY_EMAILS}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'identity-emails' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.IDENTITY_EMAILS ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
@@ -323,28 +326,14 @@ export default function TopNavbarMobileMenu() {
                     {authIdentity && (envData.config.flags.show2FAMenu || authIdentity2FAState?.required) && (
                         <StateNavLink
                             className="mobile-menu-item"
-                            name="security-2fa"
+                            name={WebshopRoutes.SECURITY_2FA}
                             onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'security-2fa' ? 'true' : undefined}
+                            aria-current={route.state?.name == WebshopRoutes.SECURITY_2FA ? 'true' : undefined}
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-security" />
                             {translate('top_navbar.buttons.mobile.dropdown.security')}
-                        </StateNavLink>
-                    )}
-
-                    {authIdentity && appConfigs.records.list && (
-                        <StateNavLink
-                            className="mobile-menu-item"
-                            name="records"
-                            onClick={hideMobileMenu}
-                            aria-current={route.state?.name == 'records' ? 'true' : undefined}
-                            onKeyDown={clickOnKeyEnter}
-                            tabIndex={0}
-                            role="link">
-                            <em className="mobile-menu-item-icon mdi mdi-format-list-bulleted" />
-                            {translate('top_navbar.buttons.mobile.dropdown.records')}
                         </StateNavLink>
                     )}
 

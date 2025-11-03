@@ -17,6 +17,7 @@ import VoucherShareOptions from './VoucherShareOptions';
 import useVoucherCard from '../hooks/useVoucherCard';
 import { makeQrCodeContent } from '../../../../../dashboard/helpers/utils';
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherActions({
     voucher,
@@ -133,7 +134,9 @@ export default function VoucherActions({
                     mdiIconClass={'alert-outline'}
                     cancelBtnText={translate('voucher.delete_voucher.buttons.close')}
                     confirmBtnText={translate('voucher.delete_voucher.buttons.submit')}
-                    onConfirm={() => voucherService.destroy(voucher.number).then(() => navigateState('vouchers'))}
+                    onConfirm={() =>
+                        voucherService.destroy(voucher.number).then(() => navigateState(WebshopRoutes.VOUCHERS))
+                    }
                 />
             )),
         [navigateState, openModal, translate, voucherService],
@@ -161,7 +164,7 @@ export default function VoucherActions({
                 {voucherCard?.type === 'regular' && !voucherCard.external && (
                     <StateNavLink
                         className="voucher-actions-button"
-                        name={'products'}
+                        name={WebshopRoutes.PRODUCTS}
                         query={{ fund_id: voucher.fund_id }}>
                         <em className="mdi mdi-tag-heart-outline" />
                         {translate('voucher.actions.view_all_products')}
@@ -230,7 +233,7 @@ export default function VoucherActions({
                 {voucher.fund.allow_reimbursements && !voucher.expired && !voucher.deactivated && (
                     <StateNavLink
                         className="voucher-actions-button"
-                        name={'reimbursements-create'}
+                        name={WebshopRoutes.REIMBURSEMENT_CREATE}
                         params={{ voucher_id: voucher.id }}>
                         <em className="mdi mdi-cash-plus" />
                         {translate('voucher.actions.declaration_request')}

@@ -10,7 +10,6 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import Product from '../../../props/models/Product';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import useFilter from '../../../hooks/useFilter';
 import ModalNotification from '../../modals/ModalNotification';
 import FundProviderChat from '../../../props/models/FundProviderChat';
 import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatProvider';
@@ -27,6 +26,9 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -53,10 +55,24 @@ export default function ProductView() {
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
 
-    const filter = useFilter({
-        q: '',
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            page: 1,
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                page: NumberParam,
+                per_page: NumberParam,
+            },
+        },
+    );
 
     const { headElement, configsElement } = useConfigurableTable(productService.getFundsColumns(product));
 
@@ -73,7 +89,7 @@ export default function ProductView() {
                             modal.close();
 
                             productService.destroy(activeOrganization.id, product.id).then(() => {
-                                navigateState('products', { organizationId: activeOrganization.id });
+                                navigateState(DashboardRoutes.PRODUCTS, { organizationId: activeOrganization.id });
                             });
                         },
                     }}
@@ -132,10 +148,10 @@ export default function ProductView() {
         }
 
         productService
-            .listProductFunds(product.organization_id, product.id, { ...filter.activeValues, organization_id: null })
+            .listProductFunds(product.organization_id, product.id, { ...filterValuesActive, organization_id: null })
             .then(async (res) => setFunds(mapFundsWithChats(res.data, await fetchChats(product))))
             .catch(console.error);
-    }, [fetchChats, filter.activeValues, mapFundsWithChats, product, productService]);
+    }, [fetchChats, filterValuesActive, mapFundsWithChats, product, productService]);
 
     const showTheChat = (fund: ProductFundLocal) => {
         if (!fund.chat) {
@@ -157,7 +173,7 @@ export default function ProductView() {
     useEffect(() => {
         fetchProduct()
             .then()
-            .catch(() => navigateState('products', { organizationId: activeOrganization.id }));
+            .catch(() => navigateState(DashboardRoutes.PRODUCTS, { organizationId: activeOrganization.id }));
     }, [activeOrganization.id, fetchProduct, navigateState]);
 
     useEffect(() => {
@@ -184,7 +200,7 @@ export default function ProductView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'offices'}
+                    name={DashboardRoutes.OFFICES}
                     params={{ id: product.id, organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -206,7 +222,7 @@ export default function ProductView() {
 
                     <StateNavLink
                         className="button button-default"
-                        name={'products-edit'}
+                        name={DashboardRoutes.PRODUCT_EDIT}
                         params={{ organizationId: activeOrganization.id, id: product.id }}>
                         <em className="mdi mdi-pen icon-start"> </em>
                         {translate('product.buttons.edit')}
@@ -226,8 +242,8 @@ export default function ProductView() {
                                     className="form-control"
                                     type="text"
                                     placeholder="Zoeken"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                 />
                             </div>
                         </div>
@@ -345,7 +361,7 @@ export default function ProductView() {
                             <div className="empty-actions">
                                 <div className="button-group">
                                     <StateNavLink
-                                        name={'provider-funds'}
+                                        name={DashboardRoutes.PROVIDER_FUNDS}
                                         params={{ organizationId: activeOrganization.id }}
                                         className="button button-primary">
                                         <em className="mdi mdi-plus icon-start" />
@@ -361,8 +377,8 @@ export default function ProductView() {
                     <div className="card-section">
                         <Paginator
                             meta={funds.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginatorKey}
                         />
                     </div>

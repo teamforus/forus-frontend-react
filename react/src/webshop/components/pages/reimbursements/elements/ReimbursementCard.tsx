@@ -10,6 +10,7 @@ import useConfirmReimbursementDestroy from '../../../../services/helpers/useConf
 import { useReimbursementService } from '../../../../services/ReimbursementService';
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementCard({
     onDelete,
@@ -40,7 +41,7 @@ export default function ReimbursementCard({
                         .destroy(reimbursement.id)
                         .then(() => {
                             pushSuccess(translate('push.success'), translate('push.reimbursement.canceled'));
-                            navigateState('reimbursements');
+                            navigateState(WebshopRoutes.REIMBURSEMENTS);
                             onDelete();
                         })
                         .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
@@ -63,7 +64,7 @@ export default function ReimbursementCard({
 
     return (
         <StateNavLink
-            name={'reimbursement'}
+            name={WebshopRoutes.REIMBURSEMENT}
             params={{ id: reimbursement.id }}
             className="reimbursement-item"
             dataDusk={`listReimbursementsRow${reimbursement.id}`}
@@ -84,7 +85,7 @@ export default function ReimbursementCard({
                     <div className="reimbursement-details">
                         <StateNavLink
                             customElement={'h2'}
-                            name={'reimbursement'}
+                            name={WebshopRoutes.REIMBURSEMENT}
                             params={{ id: reimbursement.id }}
                             className="reimbursement-name"
                             dataDusk="reimbursementsItemTitle">
@@ -92,7 +93,7 @@ export default function ReimbursementCard({
                         </StateNavLink>
                         <StateNavLink
                             customElement={'div'}
-                            name={'reimbursement'}
+                            name={WebshopRoutes.REIMBURSEMENT}
                             params={{ id: reimbursement.id }}
                             className="reimbursement-organization"
                             dataDusk="reimbursementsItemFundName">

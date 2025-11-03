@@ -8,6 +8,7 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import Organization from '../../../../props/models/Organization';
 import { FilterModel, FilterScope } from '../../../../modules/filter_next/types/FilterParams';
 import useTransactionBulkService from '../../../../services/TransactionBulkService';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function TransactionBulksCard({
     bulks,
@@ -39,7 +40,7 @@ export default function TransactionBulksCard({
                                 <StateNavLink
                                     customElement={'tr'}
                                     className={'tr-clickable'}
-                                    name={'transaction-bulk'}
+                                    name={DashboardRoutes.TRANSACTION_BULK}
                                     params={{
                                         organizationId: organization.id,
                                         id: transactionBulk.id,
@@ -87,7 +88,7 @@ export default function TransactionBulksCard({
                                                 <div className="dropdown dropdown-actions">
                                                     <StateNavLink
                                                         className="dropdown-item"
-                                                        name={'transaction-bulk'}
+                                                        name={DashboardRoutes.TRANSACTION_BULK}
                                                         params={{
                                                             organizationId: organization.id,
                                                             id: transactionBulk.id,

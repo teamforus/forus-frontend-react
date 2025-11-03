@@ -25,6 +25,7 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../elements/bind-links-inside/BindLinksInside';
 import { makeQrCodeContent } from '../../../../dashboard/helpers/utils';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -38,8 +39,8 @@ export default function Start() {
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
 
-    const termsUrl = useStateHref('terms_and_conditions');
-    const privacyUrl = useStateHref('privacy');
+    const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
+    const privacyUrl = useStateHref(WebshopRoutes.PRIVACY);
 
     const { target } = useStateParams<{ target?: string }>();
     const [state, setState] = useState<string>('start');
@@ -147,7 +148,7 @@ export default function Start() {
         digIdService
             .startAuthRestore()
             .then((res) => (document.location = res.data.redirect_url))
-            .catch((res: ResponseError) => navigateState('error', { errorCode: res.headers['error-code'] }))
+            .catch((res: ResponseError) => navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] }))
             .finally(() => {
                 setLoading(false);
                 setProgress(100);

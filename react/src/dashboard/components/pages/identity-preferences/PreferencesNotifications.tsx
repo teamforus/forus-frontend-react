@@ -10,6 +10,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PreferencesNotifications() {
     const envData = useEnvData();
@@ -162,7 +163,9 @@ export default function PreferencesNotifications() {
                             <br />
                             |Voeg een e-mailadres toe om berichten te ontvangen
                         </div>
-                        <NavLink to={getStateRouteUrl('preferences-emails')} className="button button-primary">
+                        <NavLink
+                            to={getStateRouteUrl(DashboardRoutes.PREFERENCE_EMAILS)}
+                            className="button button-primary">
                             E-mailadres toevoegen
                         </NavLink>
                     </div>

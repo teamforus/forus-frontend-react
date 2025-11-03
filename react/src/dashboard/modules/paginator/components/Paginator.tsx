@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import FilterModel from '../../../types/FilterModel';
-import FilterSetter from '../../../types/FilterSetter';
 import { ApiPaginationMetaProp } from '../../../props/ApiResponses';
 import usePaginatorService from '../services/usePaginatorService';
 import SelectControl from '../../../components/elements/select-control/SelectControl';
@@ -8,6 +6,7 @@ import { clickOnKeyEnter } from '../../../helpers/wcag';
 import useTranslate from '../../../hooks/useTranslate';
 import classNames from 'classnames';
 import useProgress from '../../../hooks/useProgress';
+import { FilterModel, FilterSetter } from '../../filter_next/types/FilterParams';
 
 export default function Paginator({
     meta,

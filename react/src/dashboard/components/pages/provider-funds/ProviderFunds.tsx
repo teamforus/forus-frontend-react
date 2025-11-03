@@ -8,6 +8,7 @@ import ProviderFundsAvailableTable from './elements/ProviderFundsAvailableTable'
 import ProviderFundInvitationsTable from './elements/ProviderFundInvitationsTable';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { StringParam, useQueryParam } from 'use-query-params';
 
 export default function ProviderFunds() {
     const translate = useTranslate();
@@ -15,7 +16,22 @@ export default function ProviderFunds() {
     const activeOrganization = useActiveOrganization();
     const providerFundService = useProviderFundService();
 
-    const [tab, setTab] = useState('active');
+    const [tabQuery = 'active', setTabQuery] = useQueryParam('tab', StringParam, {
+        removeDefaultsFromUrl: true,
+    });
+
+    const setTab = useCallback(
+        (item: string) => {
+            setTabQuery('none');
+
+            // added timeout to wait while components clear filter query params and avoid reset 'tab' param
+            setTimeout(() => {
+                setTabQuery(item);
+            }, 100);
+        },
+        [setTabQuery],
+    );
+
     const [fundsAvailable, setFundsAvailable] = useState(null);
 
     const fetchFunds = useCallback(() => {
@@ -41,13 +57,13 @@ export default function ProviderFunds() {
                     <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'active' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'active' ? 'active' : ''}`}
                                 data-dusk="fundsActiveTab"
                                 onClick={() => setTab('active')}>
                                 {translate('provider_funds.tabs.active')} ({fundsAvailable.meta.totals.active})
                             </div>
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'pending_rejected' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'pending_rejected' ? 'active' : ''}`}
                                 data-dusk="fundsPendingTab"
                                 onClick={() => setTab('pending_rejected')}>
                                 {translate('provider_funds.tabs.pending_rejected')} (
@@ -55,14 +71,14 @@ export default function ProviderFunds() {
                             </div>
 
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'available' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'available' ? 'active' : ''}`}
                                 data-dusk="fundsAvailableTab"
                                 onClick={() => setTab('available')}>
                                 {translate('provider_funds.tabs.available')} ({fundsAvailable.meta.totals.available})
                             </div>
 
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'archived' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'archived' ? 'active' : ''}`}
                                 data-dusk="fundsArchivedTab"
                                 onClick={() => setTab('archived')}>
                                 {translate('provider_funds.tabs.archived')} ({fundsAvailable.meta.totals.archived})
@@ -74,14 +90,14 @@ export default function ProviderFunds() {
                     <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'invitations' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'invitations' ? 'active' : ''}`}
                                 onClick={() => setTab('invitations')}>
                                 {translate('provider_funds.tabs.invitations')} ({fundsAvailable.meta.totals.invitations}
                                 )
                             </div>
 
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'invitations_archived' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'invitations_archived' ? 'active' : ''}`}
                                 onClick={() => setTab('invitations_archived')}>
                                 {translate('provider_funds.tabs.invitations_archived')} (
                                 {fundsAvailable.meta.totals.invitations_archived})
@@ -93,7 +109,7 @@ export default function ProviderFunds() {
                     <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
-                                className={`label-tab label-tab-sm ${tab == 'unsubscriptions' ? 'active' : ''}`}
+                                className={`label-tab label-tab-sm ${tabQuery == 'unsubscriptions' ? 'active' : ''}`}
                                 onClick={() => setTab('unsubscriptions')}>
                                 <em className="mdi mdi-close-circle-outline label-tab-icon-start" />
                                 {translate('provider_funds.tabs.unsubscriptions')} (
@@ -104,28 +120,30 @@ export default function ProviderFunds() {
                 </div>
             </div>
 
+            {tabQuery == 'none' && <LoadingCard />}
+
             {/* Active funds */}
-            {tab == 'active' && (
+            {tabQuery == 'active' && (
                 <ProviderFundsTable type={'active'} organization={activeOrganization} onChange={fetchFunds} />
             )}
 
             {/* Pending and rejected funds */}
-            {tab == 'pending_rejected' && (
+            {tabQuery == 'pending_rejected' && (
                 <ProviderFundsTable type={'pending_rejected'} organization={activeOrganization} onChange={fetchFunds} />
             )}
 
             {/* Archived funds */}
-            {tab == 'archived' && (
+            {tabQuery == 'archived' && (
                 <ProviderFundsTable type={'archived'} organization={activeOrganization} onChange={fetchFunds} />
             )}
 
             {/* Fund unsubscription requests */}
-            {tab == 'unsubscriptions' && (
+            {tabQuery == 'unsubscriptions' && (
                 <ProviderFundUnsubscriptionsTable organization={activeOrganization} onChange={fetchFunds} />
             )}
 
             {/* Available funds */}
-            {tab == 'available' && (
+            {tabQuery == 'available' && (
                 <ProviderFundsAvailableTable
                     organization={activeOrganization}
                     onChange={() => {
@@ -136,7 +154,7 @@ export default function ProviderFunds() {
             )}
 
             {/* Fund invitations */}
-            {tab == 'invitations' && (
+            {tabQuery == 'invitations' && (
                 <ProviderFundInvitationsTable
                     type="invitations"
                     organization={activeOrganization}
@@ -148,7 +166,7 @@ export default function ProviderFunds() {
             )}
 
             {/* Expired and close funds (archive) */}
-            {tab == 'invitations_archived' && (
+            {tabQuery == 'invitations_archived' && (
                 <ProviderFundInvitationsTable
                     type="invitations_archived"
                     organization={activeOrganization}

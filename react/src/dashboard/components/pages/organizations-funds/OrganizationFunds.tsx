@@ -8,7 +8,6 @@ import { useFundService } from '../../../services/FundService';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useImplementationService from '../../../services/ImplementationService';
@@ -18,7 +17,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
-import { StringParam, useQueryParams, withDefault } from 'use-query-params';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ModalFundTopUp from '../../modals/ModalFundTopUp';
 import useTranslate from '../../../hooks/useTranslate';
@@ -32,6 +31,8 @@ import classNames from 'classnames';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -59,22 +60,13 @@ export default function OrganizationFunds() {
         { key: 'closed', name: translate(`components.organization_funds.states.closed`) },
     ]);
 
-    const [{ funds_type }, setQueryParams] = useQueryParams(
-        { funds_type: withDefault(StringParam, 'active') },
-        { removeDefaultsFromUrl: true },
-    );
-
-    const { headElement, configsElement } = useConfigurableTable(
-        fundService.getColumns(activeOrganization, funds_type),
-    );
-
-    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
         page: number;
         state: string;
         per_page: number;
         funds_type: string;
-        implementation_id: string;
+        implementation_id: number;
         physical_card_type_id?: number;
     }>(
         {
@@ -82,20 +74,26 @@ export default function OrganizationFunds() {
             page: 1,
             state: null,
             per_page: paginatorService.getPerPage(paginatorKey),
-            funds_type: null,
+            funds_type: 'active',
             implementation_id: null,
             physical_card_type_id: null,
         },
         {
             queryParams: {
                 q: StringParam,
-                state: StringParam,
-                funds_type: StringParam,
-                implementation_id: StringParam,
-                page: StringParam,
-                per_page: StringParam,
+                page: NumberParam,
+                per_page: NumberParam,
+                state: createEnumParam(['active', 'paused', 'closed']),
+                funds_type: createEnumParam(['active', 'archived']),
+                implementation_id: NumberParam,
             },
         },
+    );
+
+    const { resetFilters: resetFilters } = filter;
+
+    const { headElement, configsElement } = useConfigurableTable(
+        fundService.getColumns(activeOrganization, filterValues.funds_type),
     );
 
     const fetchFunds = useCallback(() => {
@@ -103,17 +101,17 @@ export default function OrganizationFunds() {
 
         fundService
             .list(activeOrganization.id, {
-                ...filterActiveValues,
+                ...filterValuesActive,
                 with_archived: 1,
                 with_external: 1,
                 stats: 'min',
-                archived: funds_type == 'archived' ? 1 : 0,
-                per_page: filterActiveValues.per_page,
+                archived: filterValuesActive.funds_type == 'archived' ? 1 : 0,
+                per_page: filterValuesActive.per_page,
             })
             .then((res) => setFunds(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, filterActiveValues, fundService, funds_type, pushApiError, setProgress]);
+    }, [activeOrganization.id, filterValuesActive, fundService, pushApiError, setProgress]);
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);
@@ -156,14 +154,14 @@ export default function OrganizationFunds() {
                 fundService
                     .archive(fund.organization_id, fund.id)
                     .then(() => {
-                        setQueryParams({ funds_type: 'archived' });
+                        filterUpdate({ funds_type: 'archived' });
                         pushSuccess('Opgeslagen!');
                     })
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             });
         },
-        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, setQueryParams],
+        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, filterUpdate],
     );
 
     const restoreFund = useCallback(
@@ -177,14 +175,14 @@ export default function OrganizationFunds() {
                 fundService
                     .unarchive(fund.organization_id, fund.id)
                     .then(() => {
-                        setQueryParams({ funds_type: 'active' });
+                        filterUpdate({ funds_type: 'active' });
                         pushSuccess('Opgeslagen!');
                     })
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             });
         },
-        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, setQueryParams],
+        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, filterUpdate],
     );
 
     const topUpModal = useCallback(
@@ -225,7 +223,7 @@ export default function OrganizationFunds() {
                     <div className="block block-inline-filters">
                         {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
                             <StateNavLink
-                                name={'funds-create'}
+                                name={DashboardRoutes.FUND_CREATE}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-primary button-sm">
                                 <em className="mdi mdi-plus-circle icon-start" />
@@ -236,7 +234,7 @@ export default function OrganizationFunds() {
                         {activeOrganization.allow_2fa_restrictions &&
                             hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
-                                    name={'organization-security'}
+                                    name={DashboardRoutes.ORGANIZATION_SECURITY}
                                     query={{ view_type: 'funds' }}
                                     params={{ organizationId: activeOrganization.id }}
                                     className="button button-default button-sm">
@@ -251,17 +249,17 @@ export default function OrganizationFunds() {
                                     <div className="block block-label-tabs">
                                         <div className="label-tab-set">
                                             <div
-                                                onClick={() => setQueryParams({ funds_type: 'active' })}
+                                                onClick={() => filterUpdate({ funds_type: 'active' })}
                                                 className={`label-tab label-tab-sm ${
-                                                    funds_type == 'active' ? 'active' : ''
+                                                    filterValues.funds_type == 'active' ? 'active' : ''
                                                 }`}>
                                                 Lopend ({funds.meta.unarchived_funds_total})
                                             </div>
 
                                             <div
-                                                onClick={() => setQueryParams({ funds_type: 'archived' })}
+                                                onClick={() => filterUpdate({ funds_type: 'archived' })}
                                                 className={`label-tab label-tab-sm ${
-                                                    funds_type == 'archived' ? 'active' : ''
+                                                    filterValues.funds_type == 'archived' ? 'active' : ''
                                                 }`}>
                                                 Archief ({funds.meta.archived_funds_total})
                                             </div>
@@ -273,7 +271,7 @@ export default function OrganizationFunds() {
 
                         <div className="flex">
                             {filter.show && (
-                                <div className="button button-text" onClick={filter.resetFilters}>
+                                <div className="button button-text" onClick={() => resetFilters()}>
                                     <em className="mdi mdi-close icon-start" />
                                     Wis filters
                                 </div>
@@ -286,73 +284,48 @@ export default function OrganizationFunds() {
                                             type="text"
                                             className="form-control"
                                             placeholder="Zoeken"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            value={filterValues.q}
+                                            onChange={(e) => filterUpdate({ q: e.target.value })}
                                         />
                                     </div>
                                 </div>
                             )}
 
-                            <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
-                                <div className="inline-filters-dropdown pull-right">
-                                    {filter.show && (
-                                        <div className="inline-filters-dropdown-content">
-                                            <div className="arrow-box bg-dim">
-                                                <div className="arrow" />
-                                            </div>
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle
+                                    show={true}
+                                    label={translate('components.organization_funds.filters.search')}>
+                                    <input
+                                        className="form-control"
+                                        value={filterValues.q}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
+                                        placeholder={translate('components.organization_funds.filters.search')}
+                                    />
+                                </FilterItemToggle>
 
-                                            <div className="form">
-                                                <FilterItemToggle
-                                                    show={true}
-                                                    label={translate('components.organization_funds.filters.search')}>
-                                                    <input
-                                                        className="form-control"
-                                                        value={filterValues.q}
-                                                        onChange={(e) => filterUpdate({ q: e.target.value })}
-                                                        placeholder={translate(
-                                                            'components.organization_funds.filters.search',
-                                                        )}
-                                                    />
-                                                </FilterItemToggle>
+                                <FilterItemToggle label={translate('components.organization_funds.filters.state')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'key'}
+                                        allowSearch={false}
+                                        value={filterValues.state}
+                                        options={statesOptions}
+                                        onChange={(state: string) => filterUpdate({ state })}
+                                    />
+                                </FilterItemToggle>
 
-                                                <FilterItemToggle
-                                                    label={translate('components.organization_funds.filters.state')}>
-                                                    <SelectControl
-                                                        className="form-control"
-                                                        propKey={'key'}
-                                                        allowSearch={false}
-                                                        value={filterValues.state}
-                                                        options={statesOptions}
-                                                        onChange={(state: string) => filterUpdate({ state })}
-                                                    />
-                                                </FilterItemToggle>
-
-                                                <FilterItemToggle
-                                                    label={translate(
-                                                        'components.organization_funds.filters.implementation',
-                                                    )}>
-                                                    <SelectControl
-                                                        className="form-control"
-                                                        propKey={'id'}
-                                                        allowSearch={false}
-                                                        value={filterValues.implementation_id}
-                                                        options={implementations}
-                                                        onChange={(implementation_id: string) =>
-                                                            filterUpdate({ implementation_id })
-                                                        }
-                                                    />
-                                                </FilterItemToggle>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div
-                                        className="button button-default button-icon"
-                                        onClick={() => filter.setShow(!filter.show)}>
-                                        <em className="mdi mdi-filter-outline" />
-                                    </div>
-                                </div>
-                            </ClickOutside>
+                                <FilterItemToggle
+                                    label={translate('components.organization_funds.filters.implementation')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'id'}
+                                        allowSearch={false}
+                                        value={filterValues.implementation_id}
+                                        options={implementations}
+                                        onChange={(implementation_id: number) => filterUpdate({ implementation_id })}
+                                    />
+                                </FilterItemToggle>
+                            </CardHeaderFilter>
                         </div>
                     </div>
                 </div>
@@ -375,7 +348,7 @@ export default function OrganizationFunds() {
                                     {funds.data.map((fund) => (
                                         <StateNavLink
                                             key={fund.id}
-                                            name={'funds-show'}
+                                            name={DashboardRoutes.FUND}
                                             params={{ organizationId: activeOrganization.id, fundId: fund.id }}
                                             customElement={'tr'}
                                             className={'tr-clickable'}>
@@ -392,7 +365,7 @@ export default function OrganizationFunds() {
                                                 {fund?.implementation?.name || <TableEmptyValue />}
                                             </td>
 
-                                            {funds_type == 'active' && (
+                                            {filterValues.funds_type == 'active' && (
                                                 <Fragment>
                                                     {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                                                         <td>{fund.budget?.left_locale}</td>
@@ -414,7 +387,7 @@ export default function OrganizationFunds() {
                                                         content={({ close }) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
-                                                                    name={'funds-show'}
+                                                                    name={DashboardRoutes.FUND}
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         fundId: fund.id,
@@ -432,7 +405,7 @@ export default function OrganizationFunds() {
                                                                     false,
                                                                 ) && (
                                                                     <StateNavLink
-                                                                        name={'funds-edit'}
+                                                                        name={DashboardRoutes.FUND_EDIT}
                                                                         className="dropdown-item"
                                                                         params={{
                                                                             organizationId: activeOrganization.id,
@@ -450,7 +423,7 @@ export default function OrganizationFunds() {
                                                                     ) && (
                                                                         <StateNavLink
                                                                             className="dropdown-item"
-                                                                            name={'funds-security'}
+                                                                            name={DashboardRoutes.FUND_SECURITY}
                                                                             params={{
                                                                                 fundId: fund.id,
                                                                                 organizationId: activeOrganization.id,

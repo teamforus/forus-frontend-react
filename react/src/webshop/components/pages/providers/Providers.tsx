@@ -26,6 +26,7 @@ import ProductsFilterGroupDistance from '../products/elements/ProductsFilterGrou
 import FormGroup from '../../elements/forms/FormGroup';
 import ProductsFilterGroupFunds from '../products/elements/ProductsFilterGroupFunds';
 import ProvidersFilterGroupBusinessTypes from '../products/elements/ProvidersFilterGroupBusinessTypes';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Providers() {
     const translate = useTranslate();
@@ -163,7 +164,7 @@ export default function Providers() {
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={
                 !filterValues.show_map && [
-                    { name: translate('providers.breadcrumbs.home'), state: 'home' },
+                    { name: translate('providers.breadcrumbs.home'), state: WebshopRoutes.HOME },
                     { name: translate('providers.breadcrumbs.providers') },
                 ]
             }
@@ -223,7 +224,7 @@ export default function Providers() {
 
                     {!filterValues.show_map && appConfigs?.pages?.provider && showProviderSignUp && (
                         <StateNavLink
-                            name={'sign-up'}
+                            name={WebshopRoutes.SIGN_UP}
                             className="button button-primary hide-sm"
                             dataDusk="providerSignUpLink">
                             <em className="mdi mdi-store-outline" aria-hidden="true" />

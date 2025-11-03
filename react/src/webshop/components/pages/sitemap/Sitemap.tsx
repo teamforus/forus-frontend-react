@@ -6,6 +6,7 @@ import useEnvData from '../../../hooks/useEnvData';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import Section from '../../elements/sections/Section';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Sitemap() {
     const envData = useEnvData();
@@ -17,7 +18,7 @@ export default function Sitemap() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('sitemap.breadcrumbs.home'), state: 'home' },
+                { name: translate('sitemap.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('sitemap.breadcrumbs.sitemap') },
             ]}>
             <Section type={'default'}>
@@ -25,12 +26,12 @@ export default function Sitemap() {
                     <h1>{translate('sitemap.title')}</h1>
                     <ul>
                         <li>
-                            <StateNavLink name="home">{translate('top_navbar.items.home')}</StateNavLink>
+                            <StateNavLink name={WebshopRoutes.HOME}>{translate('top_navbar.items.home')}</StateNavLink>
                         </li>
                         {envData.config.flags.fundsMenu &&
                             (authIdentity || envData.config.flags.fundsMenuIfLoggedOut) && (
                                 <li>
-                                    <StateNavLink name="funds">
+                                    <StateNavLink name={WebshopRoutes.FUNDS}>
                                         {translate(
                                             `top_navbar.items.${envData.client_key}.funds`,
                                             null,
@@ -43,7 +44,7 @@ export default function Sitemap() {
                             appConfigs?.products.list &&
                             (envData.config.flags.productsMenu || authIdentity) && (
                                 <li>
-                                    <StateNavLink name="products">
+                                    <StateNavLink name={WebshopRoutes.PRODUCTS}>
                                         {translate('top_navbar.items.products')}
                                     </StateNavLink>
                                 </li>
@@ -51,22 +52,26 @@ export default function Sitemap() {
 
                         {envData.config.flags.providersMenu && (
                             <li>
-                                <StateNavLink name="providers">{translate('top_navbar.items.providers')}</StateNavLink>
+                                <StateNavLink name={WebshopRoutes.PROVIDERS}>
+                                    {translate('top_navbar.items.providers')}
+                                </StateNavLink>
                             </li>
                         )}
 
                         <li>
                             <StateNavLink
-                                name="explanation"
+                                name={WebshopRoutes.EXPLANATION}
                                 target={appConfigs?.pages?.explanation?.external ? '_blank' : '_self'}>
                                 {translate('top_navbar.items.explanation')}
                             </StateNavLink>
                         </li>
                         <li>
-                            <StateNavLink name="me-app">{translate('profile_menu.buttons.me_app')}</StateNavLink>
+                            <StateNavLink name={WebshopRoutes.ME_APP}>
+                                {translate('profile_menu.buttons.me_app')}
+                            </StateNavLink>
                         </li>
                         <li>
-                            <StateNavLink name="sign-up">
+                            <StateNavLink name={WebshopRoutes.SIGN_UP}>
                                 {translate('profile_menu.buttons.provider_sign_up')}
                             </StateNavLink>
                         </li>
@@ -74,44 +79,36 @@ export default function Sitemap() {
                     {authIdentity && (
                         <ul>
                             <li>
-                                <StateNavLink name="vouchers">
+                                <StateNavLink name={WebshopRoutes.VOUCHERS}>
                                     {translate('profile_menu.buttons.vouchers')}
                                 </StateNavLink>
                             </li>
 
                             <li>
-                                <StateNavLink name="reservations">
+                                <StateNavLink name={WebshopRoutes.RESERVATIONS}>
                                     {translate('profile_menu.buttons.reservations')}
                                 </StateNavLink>
                             </li>
 
-                            {appConfigs?.records.list && (
-                                <li>
-                                    <StateNavLink name="records">
-                                        {translate('profile_menu.buttons.records')}
-                                    </StateNavLink>
-                                </li>
-                            )}
-
                             <li>
-                                <StateNavLink name="notifications">
+                                <StateNavLink name={WebshopRoutes.NOTIFICATIONS}>
                                     {translate('profile_menu.buttons.notifications')}
                                 </StateNavLink>
                             </li>
                             <li>
-                                <StateNavLink name="preferences-notifications">
+                                <StateNavLink name={WebshopRoutes.PREFERENCE_NOTIFICATIONS}>
                                     {translate('profile_menu.buttons.notification_preferences')}
                                 </StateNavLink>
                             </li>
                             {envData.config.sessions && (
                                 <li>
-                                    <StateNavLink name="security-sessions">
+                                    <StateNavLink name={WebshopRoutes.SECURITY_SESSIONS}>
                                         {translate('profile_menu.buttons.sessions')}
                                     </StateNavLink>
                                 </li>
                             )}
                             <li>
-                                <StateNavLink name="identity-emails">
+                                <StateNavLink name={WebshopRoutes.IDENTITY_EMAILS}>
                                     {translate('profile_menu.buttons.email_settings')}
                                 </StateNavLink>
                             </li>

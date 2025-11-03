@@ -25,6 +25,7 @@ import ClickOutside from '../../../elements/click-outside/ClickOutside';
 import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { Permission } from '../../../../props/models/Organization';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physicalCardType: PhysicalCardType }) {
     const translate = useTranslate();
@@ -104,7 +105,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
                         <StateNavLink
-                            name={'organization-funds'}
+                            name={DashboardRoutes.ORGANIZATION_FUNDS}
                             params={{ organizationId: activeOrganization.id }}
                             className="button button-primary button-sm">
                             <em className="mdi mdi-view-list icon-start" />
@@ -199,7 +200,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
                                     {funds.data.map((fund) => (
                                         <StateNavLink
                                             key={fund.id}
-                                            name={'funds-show'}
+                                            name={DashboardRoutes.FUND}
                                             params={{ organizationId: activeOrganization.id, fundId: fund.id }}
                                             customElement={'tr'}
                                             className={'tr-clickable'}>
@@ -237,7 +238,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
-                                                                name={'funds-show'}
+                                                                name={DashboardRoutes.FUND}
                                                                 params={{
                                                                     organizationId: activeOrganization.id,
                                                                     fundId: fund.id,

@@ -14,6 +14,7 @@ import BlockInfoBox from '../../../elements/block-info-box/BlockInfoBox';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { getStateRouteUrl } from '../../../../modules/state_router/Router';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function IdentityContactInformationCard({
     profile,
@@ -112,7 +113,7 @@ export default function IdentityContactInformationCard({
                             <BlockInfoBox>
                                 <TranslateHtml
                                     i18n={'profile.contacts.extra_email_info'}
-                                    values={{ link_url: getStateRouteUrl('identity-emails') }}
+                                    values={{ link_url: getStateRouteUrl(WebshopRoutes.IDENTITY_EMAILS) }}
                                 />
                             </BlockInfoBox>
                         </div>

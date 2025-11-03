@@ -7,6 +7,7 @@ import { PaginationData } from '../../../props/ApiResponses';
 import Notification from '../../../props/models/Notification';
 import useEnvData from '../../../hooks/useEnvData';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function HeaderNotifications({ organization }: { organization: Organization }) {
     const envData = useEnvData();
@@ -100,7 +101,7 @@ export default function HeaderNotifications({ organization }: { organization: Or
                                 <span>{` (${notifications.meta.total_unseen} nieuw)`}</span>
                             )}
                             <StateNavLink
-                                name={'organization-notifications'}
+                                name={DashboardRoutes.ORGANIZATION_NOTIFICATIONS}
                                 params={{ organizationId: organization.id }}
                                 onClick={() => setShowNotifications(false)}
                                 className="notifications-menu-header-link">

@@ -13,6 +13,7 @@ import OrganizationsFundsSecurityAuth2FAForm from './elements/OrganizationsFunds
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsSecurity() {
     const fundId = parseInt(useParams().fundId);
@@ -96,7 +97,7 @@ export default function OrganizationsFundsSecurity() {
             <div className="block block-breadcrumbs">
                 <StateNavLink
                     className="breadcrumb-item"
-                    name={'organization-funds'}
+                    name={DashboardRoutes.ORGANIZATION_FUNDS}
                     activeExact={true}
                     params={{ organizationId: activeOrganization.id }}>
                     Fondsen
@@ -166,7 +167,7 @@ export default function OrganizationsFundsSecurity() {
                     <div className="card-section card-section-primary">
                         <div className="text-center">
                             <StateNavLink
-                                name={'organization-funds'}
+                                name={DashboardRoutes.ORGANIZATION_FUNDS}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-default">
                                 Annuleer

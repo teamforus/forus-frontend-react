@@ -4,6 +4,7 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function BlockOrganizationOffices({ provider }: { provider: Provider }) {
     const assetUrl = useAssetUrl();
@@ -28,7 +29,7 @@ export default function BlockOrganizationOffices({ provider }: { provider: Provi
                     <div className="organization-title">
                         <span className="organization-title-value">{provider.name}</span>
                         <StateNavLink
-                            name="provider"
+                            name={WebshopRoutes.PROVIDER}
                             params={{ id: provider.id }}
                             state={null}
                             className="organization-page-link"
@@ -61,7 +62,7 @@ export default function BlockOrganizationOffices({ provider }: { provider: Provi
                         <StateNavLink
                             key={office.id}
                             params={{ organization_id: office.organization_id, id: office.id }}
-                            name={'provider-office'}
+                            name={WebshopRoutes.PROVIDER_OFFICE}
                             className="organization-office-item">
                             <div className="organization-office-item-map-icon">
                                 <em className="mdi mdi-map-marker" />
