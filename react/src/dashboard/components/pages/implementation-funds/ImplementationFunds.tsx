@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router';
 import { hasPermission } from '../../../helpers/utils';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useFilter from '../../../hooks/useFilter';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -22,6 +21,7 @@ import { Permission } from '../../../props/models/Organization';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import { strLimit } from '../../../helpers/string';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function ImplementationFunds() {
     const { id } = useParams();
@@ -38,7 +38,7 @@ export default function ImplementationFunds() {
     const [implementation, setImplementation] = useState(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
 
-    const filter = useFilter({ q: '' });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string }>({ q: '' });
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -59,11 +59,11 @@ export default function ImplementationFunds() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filter.activeValues })
+            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filterValuesActive })
             .then((res) => setFunds(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, id, filter.activeValues, pushApiError]);
+    }, [setProgress, fundService, activeOrganization.id, id, filterValuesActive, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();
@@ -93,10 +93,10 @@ export default function ImplementationFunds() {
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        value={filter.values.q}
+                                        value={filterValues.q}
                                         placeholder="Zoeken"
                                         className="form-control"
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                     />
                                 </div>
                             </div>

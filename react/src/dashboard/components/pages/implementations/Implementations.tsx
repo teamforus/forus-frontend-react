@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { PaginationData } from '../../../props/ApiResponses';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import { hasPermission } from '../../../helpers/utils';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -17,8 +16,12 @@ import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import Media from '../../../props/models/Media';
 import ImplementationsRootBreadcrumbs from './elements/ImplementationsRootBreadcrumbs';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
+import useSetProgress from '../../../hooks/useSetProgress';
 
 export default function Implementations() {
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
@@ -27,22 +30,34 @@ export default function Implementations() {
 
     const [paginatorKey] = useState('implementations');
     const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
-    const [loading, setLoading] = useState<boolean>(false);
 
-    const filter = useFilter({
-        q: '',
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        per_page?: number;
+        page?: number;
+    }>(
+        {
+            q: '',
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+        },
+    );
 
     const fetchImplementations = useCallback(() => {
-        setLoading(true);
+        setProgress(0);
 
         implementationService
-            .list(activeOrganization.id, filter.activeValues)
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setImplementations(res.data))
             .catch(pushApiError)
-            .finally(() => setLoading(false));
-    }, [activeOrganization.id, filter.activeValues, implementationService, pushApiError]);
+            .finally(() => setProgress(100));
+    }, [activeOrganization.id, filterValuesActive, implementationService, pushApiError, setProgress]);
 
     useEffect(() => {
         fetchImplementations();
@@ -66,10 +81,10 @@ export default function Implementations() {
                             <div className="form-group">
                                 <input
                                     type="text"
-                                    value={filter.values.q}
+                                    value={filterValues.q}
                                     placeholder="Zoeken"
                                     className="form-control"
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                 />
                             </div>
                         </div>
@@ -77,7 +92,7 @@ export default function Implementations() {
                 </div>
 
                 <LoaderTableCard
-                    loading={loading}
+                    loading={!implementations}
                     empty={implementations?.meta?.total === 0}
                     emptyTitle={'Geen webshops'}
                     emptyDescription={'Geen webshops gevonden.'}>
