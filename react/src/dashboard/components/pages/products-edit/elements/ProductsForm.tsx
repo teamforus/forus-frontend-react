@@ -1298,7 +1298,7 @@ export default function ProductsForm({
                                 />
                             </FormPane>
                         </FormPane>
-                    </FormContainer>
+                    </FormPaneContainer>
                 </div>
 
                 <div className="card-section card-section-primary">
