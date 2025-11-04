@@ -137,6 +137,7 @@ module.exports = {
     globalConfigs: globalConfigs,
     enableOnly: ['webshop.general', 'dashboard.sponsor', 'dashboard.provider', 'dashboard.validator'],
     disableOnly: [],
+    httpsCA: null,
     httpsKey: null,
     httpsCert: null,
     buildGzipFiles: false,
