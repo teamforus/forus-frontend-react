@@ -31,6 +31,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import { useMarkdownService } from '../../../services/MarkdownService';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
@@ -48,6 +49,7 @@ export default function ImplementationsNotificationsSend() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
     const fundService = useFundService();
+    const markdownService = useMarkdownService();
     const implementationNotificationsService = useImplementationNotificationService();
 
     const [fund, setFund] = useState<Fund>(null);
@@ -85,6 +87,7 @@ export default function ImplementationsNotificationsSend() {
                 '<br>',
                 ':webshop_button',
             ].join('\n'),
+            markdownService,
         ),
     );
 

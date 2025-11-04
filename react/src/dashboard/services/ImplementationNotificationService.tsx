@@ -6,7 +6,7 @@ import NotificationTemplate from '../props/models/NotificationTemplate';
 import { QRCodeSVG } from 'qrcode.react';
 import variables from './constants/notification_templates/variables.json';
 import React from 'react';
-import { useMarkdownService } from './MarkdownService';
+import { MarkdownService } from './MarkdownService';
 import { renderToString } from 'react-dom/server';
 import Implementation from '../props/models/Implementation';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -87,8 +87,7 @@ export class ImplementationNotificationService<T = SystemNotification> {
         );
     }
 
-    public makeCustomNotification = (title: string, template_html: string) => {
-        const markdownService = useMarkdownService();
+    public makeCustomNotification = (title: string, template_html: string, markdownService: MarkdownService) => {
         template_html = this.varsToLabels(template_html);
 
         return {
