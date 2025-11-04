@@ -18,7 +18,7 @@ export default function useBookmarkProductToggle() {
 
     const showBookmarkPush = useCallback(
         (product: Product) => {
-            const media = product?.photo || null;
+            const media = product?.photos[0] || null;
             const productImgSrc =
                 media?.sizes?.small || media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
 

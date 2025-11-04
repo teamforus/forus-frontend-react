@@ -204,7 +204,7 @@ export default function Products() {
                                             <TableEntityMain
                                                 title={product.name}
                                                 titleLimit={64}
-                                                media={product.photo}
+                                                media={product.photos[0]}
                                                 mediaRound={false}
                                                 mediaSize={'md'}
                                                 mediaPlaceholder={'product'}

@@ -44,7 +44,7 @@ export default function ProductsListItemGrid({
             )}
             <div className="product-photo">
                 <img
-                    src={product.photo?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
+                    src={product.photos[0]?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
                     alt={productService.transformProductAlternativeText(product)}
                 />
             </div>

@@ -10,6 +10,7 @@ import { useMarkdownService } from './MarkdownService';
 import { renderToString } from 'react-dom/server';
 import Implementation from '../props/models/Implementation';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { makeQrCodeContent } from '../helpers/utils';
 
 export class ImplementationNotificationService<T = SystemNotification> {
     /**
@@ -162,7 +163,7 @@ export class ImplementationNotificationService<T = SystemNotification> {
                 '[qr_code]',
                 renderToString(
                     <QRCodeSVG
-                        value={JSON.stringify({ type: 'voucher', value: '0xbfeb14d52b8f8fb8b95d377a21c2260f33bf2362' })}
+                        value={makeQrCodeContent('voucher', '0xbfeb14d52b8f8fb8b95d377a21c2260f33bf2362')}
                         level={'M'}
                         size={300}
                     />,

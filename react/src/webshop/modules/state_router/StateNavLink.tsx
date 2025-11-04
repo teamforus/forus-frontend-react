@@ -78,7 +78,7 @@ export default function StateNavLink({
             end={activeExact}
             tabIndex={tabIndex}
             className={({ isActive, isPending }) => {
-                return classNames('state-nav-link', className, isPending && 'pending', isActive && activeClass);
+                return classNames(className, 'state-nav-link', isPending && 'pending', isActive && activeClass);
             }}
             state={state}
             to={getStateRouteUrl(name, params, query)}

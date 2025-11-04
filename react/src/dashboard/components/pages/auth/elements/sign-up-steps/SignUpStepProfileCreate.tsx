@@ -12,6 +12,7 @@ import useEnvData from '../../../../../hooks/useEnvData';
 import ProgressStorage from '../../../../../helpers/ProgressStorage';
 import { authContext } from '../../../../../contexts/AuthContext';
 import useTranslate from '../../../../../hooks/useTranslate';
+import { makeQrCodeContent } from '../../../../../helpers/utils';
 
 export default function SignUpStepProfileCreate({ panelType }: { panelType: 'sponsor' | 'validator' }) {
     const envData = useEnvData();
@@ -173,10 +174,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                                 {tmpAuthToken && (
                                     <QrCode
                                         logo={assetUrl('/assets/img/me-logo-react.png')}
-                                        value={JSON.stringify({
-                                            type: 'auth_token',
-                                            value: tmpAuthToken,
-                                        })}
+                                        value={makeQrCodeContent('auth_token', tmpAuthToken)}
                                     />
                                 )}
                             </div>
@@ -195,7 +193,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                             {tmpAuthToken && (
                                 <QrCode
                                     logo={assetUrl('/assets/img/me-logo-react.png')}
-                                    value={JSON.stringify({ type: 'auth_token', value: tmpAuthToken })}
+                                    value={makeQrCodeContent('auth_token', tmpAuthToken)}
                                 />
                             )}
                         </div>
