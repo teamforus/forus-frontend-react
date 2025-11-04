@@ -24,6 +24,7 @@ import usePaginatorService from '../../../../modules/paginator/services/usePagin
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import useHouseholdProfilesService from '../../../../services/HouseholdProfilesService';
 import HouseholdProfile from '../../../../props/models/Sponsor/HouseholdProfile';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function HouseholdIdentitiesCard({ household }: { household: Household }) {
     const setProgress = useSetProgress();
@@ -160,7 +161,7 @@ export default function HouseholdIdentitiesCard({ household }: { household: Hous
                                     {householdMembers.data.map((member) => (
                                         <StateNavLink
                                             key={member?.identity.id}
-                                            name={'identities-show'}
+                                            name={DashboardRoutes.IDENTITY}
                                             dataDusk={`tableProfilesRow${member?.identity.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
@@ -175,7 +176,7 @@ export default function HouseholdIdentitiesCard({ household }: { household: Hous
                                                             <div className="dropdown dropdown-actions">
                                                                 <TableRowActionItem
                                                                     type={'link'}
-                                                                    name={'identities-show'}
+                                                                    name={DashboardRoutes.IDENTITY}
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         id: member?.identity.id,

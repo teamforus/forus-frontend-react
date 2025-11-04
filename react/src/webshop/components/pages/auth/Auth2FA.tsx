@@ -9,6 +9,7 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Auth2FA() {
     const openModal = useOpenModal();
@@ -24,7 +25,7 @@ export default function Auth2FA() {
         useState<Array<{ type: 'phone' | 'authenticator'; title: string; subtitle: string }>>(null);
 
     const goDashboard = useCallback(() => {
-        return navigate(getStateRouteUrl('home'));
+        return navigate(getStateRouteUrl(WebshopRoutes.HOME));
     }, [navigate]);
 
     const hidePane = useCallback(() => {
@@ -124,7 +125,7 @@ export default function Auth2FA() {
                             <div className="sign_up-pane-body text-center">
                                 <div
                                     className="button button-sm button-primary"
-                                    onClick={() => navigate(getStateRouteUrl('sign-out'))}>
+                                    onClick={() => navigate(getStateRouteUrl(WebshopRoutes.SIGN_OUT))}>
                                     {translate('auth.logout')}
                                 </div>
                             </div>
@@ -167,7 +168,7 @@ export default function Auth2FA() {
                             <div className="sign_up-pane-body text-center">
                                 <div
                                     className="button button-sm button-primary"
-                                    onClick={() => navigate(getStateRouteUrl('sign-out'))}>
+                                    onClick={() => navigate(getStateRouteUrl(WebshopRoutes.SIGN_OUT))}>
                                     {translate('auth.logout')}
                                 </div>
                             </div>

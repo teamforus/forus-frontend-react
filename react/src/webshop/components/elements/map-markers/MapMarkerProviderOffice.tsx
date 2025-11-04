@@ -3,6 +3,7 @@ import Office from '../../../../dashboard/props/models/Office';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function MapMarkerProviderOffice({ office }: { office: Office }) {
     const assetUrl = useAssetUrl();
@@ -47,7 +48,7 @@ export default function MapMarkerProviderOffice({ office }: { office: Office }) 
                     )}
                 </div>
                 <StateNavLink
-                    name={'provider-office'}
+                    name={WebshopRoutes.PROVIDER_OFFICE}
                     params={{ organization_id: office.organization_id, id: office.id }}
                     className="map-card-button">
                     {translate('global.map_marker.view_details')}

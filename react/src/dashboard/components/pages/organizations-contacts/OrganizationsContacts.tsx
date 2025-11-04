@@ -11,6 +11,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { ResponseError } from '../../../props/ApiResponses';
 import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsContacts() {
     const activeOrganization = useActiveOrganization();
@@ -168,7 +169,10 @@ export default function OrganizationsContacts() {
 
                 <div className="card-section card-section-primary">
                     <div className="text-center">
-                        <StateNavLink name={'organizations'} className="button button-default" id="cancel">
+                        <StateNavLink
+                            name={DashboardRoutes.ORGANIZATIONS}
+                            className="button button-default"
+                            id="cancel">
                             {translate('organization_contacts.buttons.cancel')}
                         </StateNavLink>
                         <button className="button button-primary" type="submit">

@@ -2275,27 +2275,48 @@
             "pay_from_voucher": "Płacisz z kredytu:",
             "price": "Cena:",
             "payment_option_ideal": "Płatność online (iDEAL)",
-            "payment_option_qr": "Pokaż kod QR u dostawcy",
             "payment_option_reservation": "Zarezerwuj online",
             "payment_options": "Opcje płatności",
-            "payment_option_link": "Więcej informacji o opcjach płatności"
+            "payment_option_link": "Więcej informacji o opcjach płatności",
+            "attention": "Uwaga!",
+            "buy_now": "Kup teraz!",
+            "choose_credit": "Wybierz kredyt",
+            "collapse_section": "Składanie sekcji",
+            "description_card": "Opis",
+            "dont_have_voucher": "Nie masz jeszcze kredytu?",
+            "duration_of_promotion": "Czas trwania promocji",
+            "expand_section": "Rozwiń sekcję",
+            "expire_by_date": "Ważne do {{date}}",
+            "how_can_i_pay": "Jak mogę zapłacić?",
+            "locations_on_map": "Lokalizacje na mapie",
+            "login_to_order": "Zaloguj się, aby zamówić teraz",
+            "more_info": "Więcej informacji",
+            "next_image": "Następny obraz",
+            "payment_option_qr": "Pokaż kod QR u dostawcy",
+            "payment_options_title": "Opcje płatności",
+            "previous_image": "Poprzedni obraz",
+            "product_images": "Zdjęcia produktów",
+            "provider": "Dostawca",
+            "quantity_limit": "Max {{limit}} p.p.",
+            "request_one_now": "Złóż wniosek już teraz!",
+            "show_image_of_total": "Pokaż obraz {{current}} z {{total}}",
+            "when": "Kiedy",
+            "where": "Gdzie",
+            "add_to_favorites": "Dodaj do ulubionych",
+            "ideal_logo_alt": "Logo iDEAL",
+            "remove_from_favorites": "Usuń z ulubionych"
         },
         "low_amount": "Nie masz kredytu z wystarczającym saldem.",
         "map": {
             "title": "Lokalizacje na mapie"
         },
         "no_vouchers": "Nie masz kredytu, aby zarezerwować tę ofertę",
-        "status": {
-            "active": "Aktywny",
-            "free": "Darmowy",
-            "no_data": "Brak danych",
-            "out_of_stock": "Koniec z zapasami"
-        },
         "tooltip": "Ile razy jeszcze możesz skorzystać z tej oferty?",
         "price": {
             "free": "Darmowy",
             "informational": "Tylko w sklepie"
-        }
+        },
+        "other_products": "Może ci się również spodobać?"
     },
     "products": {
         "breadcrumbs": {
@@ -3262,44 +3283,11 @@
         "card": {
             "activate_my_pass": "Aktywuj moją przepustkę",
             "cancel": "Anuluj",
-            "delete": "Anuluj rezerwację",
-            "expire": "Ważne do:",
-            "expired": "Wygasł",
-            "footer": {
-                "actions": {
-                    "mail": "Email do mnie",
-                    "open_in_me": "Otwórz w aplikacji",
-                    "physical_card_use": "Plastikowa przepustka",
-                    "print": "Drukuj",
-                    "share": "Udostępnianie dostawcy"
-                },
-                "tooltips": {
-                    "mail": "Wyślij kredyt do siebie pocztą e-mail",
-                    "open_in_me": "Ja",
-                    "print": "Wydrukuj kredyt",
-                    "share": "Podziel się kredytem z dostawcą"
-                }
-            },
             "header": {
                 "title": "Jak to działa?"
             },
-            "labels": {
-                "contact_provider": "Czy masz jakieś pytania dotyczące tej oferty? Jeśli tak, prosimy o kontakt.",
-                "contact_sponsor": "Masz pytania? Skontaktuj się z nami.",
-                "description": "1.<br/><br/>Kliknij Ofertę, wybierz i zarezerwuj aktywność. LUB 2. Zabierz kod QR do dostawcy. Dostawca zeskanuje kod QR i zarezerwuje aktywność.",
-                "email": "Adres e-mail:",
-                "phone": "Numer telefonu:"
-            },
             "lost_my_pass": "Straciłem przepustkę",
-            "qrcode": {
-                "description": "{{fund_name}} To jest Twój kredyt z kodem QR.",
-                "productdescription": "Jest to rezerwacja z kodem QR."
-            },
-            "share": "Udział",
-            "stop_participation": "Zaprzestanie uczestnictwa",
-            "used": "Używany",
-            "used_on": "Używany na",
-            "valid_until": "Ważne do"
+            "stop_participation": "Zaprzestanie uczestnictwa"
         },
         "delete_voucher": {
             "buttons": {
@@ -3319,36 +3307,17 @@
             "title": "Wydatki"
         },
         "labels": {
-            "add": "Przy",
-            "expire": "Ważne do:",
-            "fund": "Fundusz",
-            "info": "<span style='font-style: italic;'>Szukasz dostawcy, którego nie ma na mapie? Możesz poprosić dostawcę o udział. Dostawca może składać wnioski przez cały rok.</span>",
-            "offers": "Chcesz uzyskać informacje na temat pełnej oferty? Skontaktuj się z dostawcą.",
             "office": "Lokalizacje, w których można zrealizować rezerwację.",
-            "offices": "Dostawcy",
-            "productdetail": "Informacje o dostawie",
-            "requirements": "Aby zapoznać się z warunkami tej oferty, należy skontaktować się z dostawcą.",
-            "shopdetail": "Informacje o dostawcy",
-            "subtract": "Wył.",
-            "transactions": "Wydatki",
-            "voucher": "Wydrukuj swój kredyt lub wyślij go sobie pocztą. Zanieś kod QR do dostawcy usług i zeskanuj go."
+            "offices": "Dostawcy"
         },
         "physical_card": {
-            "alt": "Physical pass: '{[ title ]}'",
             "buttons": {
                 "lost_pass": "Straciłem przepustkę",
                 "reactivate": "Aktywuj"
             },
             "card_number": "Numer przepustki",
             "title": "Aktywuj moją przepustkę",
-            "less_details": "Ukryj wszystkie szczegóły",
-            "more_details": "Pokaż wszystkie szczegóły",
-            "personal_date": "Dane osobowe"
-        },
-        "reimbursement": {
-            "button": "Prześlij kupon",
-            "description": "Odzyskaj poniesione koszty, przesyłając szczegóły zakupu oraz rachunek lub paragon.",
-            "title": "Zwrot kosztów"
+            "alt": "Przepustka fizyczna: '{{ title }}'"
         },
         "share_voucher": {
             "buttons": {
@@ -3377,31 +3346,56 @@
         "transactions": {
             "add": "Dodaj",
             "bank_transfer": "Przelew bankowy",
-            "expired_on": "Wygasła w dniu {[ data ]}",
             "no_spending": "Brak wydatków",
             "reservation": "Rezerwacja",
             "subtract": "Odejmowanie",
             "title": "Transakcje",
-            "top_up": "Ulepszony"
+            "top_up": "Ulepszony",
+            "expired_on": "Wygasł w dniu {{ date }}"
         },
-        "card_combined": {
-            "header": {
-                "title": "Jak to działa?"
+        "actions": {
+            "choose_action": {
+                "title": "Wybierz działanie",
+                "description": "Wybierz jedną z poniższych akcji, aby kontynuować."
             },
-            "labels": {
-                "contact_sponsor": "Jakieś pytania?",
-                "contact_sponsor_details": "Następnie skontaktuj się z nami.",
-                "how_it_works": "Otrzymaliśmy Twoje zgłoszenie. Decyzję w sprawie wniosku otrzymasz w ciągu 8 tygodni.",
-                "IIT": {
-                    "how_it_works": "Otrzymaliśmy Twoje zgłoszenie. Decyzję w sprawie wniosku otrzymasz w ciągu 8 tygodni.",
-                    "redirect_to": "Czy nadal chcesz ubiegać się o zwrot kosztów?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Czy poniosłeś wydatki objęte tym programem? Złóż wniosek o zwrot wydatków, przedstawiając paragon. Po zatwierdzeniu otrzymasz kwotę na swoje osobiste konto bankowe.",
-                    "redirect_to": "Odzyskać koszty?"
-                },
-                "redirect_to": "Czy nadal chcesz ubiegać się o zwrot kosztów?"
-            }
+            "save_qr": "Zapisz kod QR",
+            "share_with_provider": "Udostępnianie kodu QR dostawcy",
+            "view_all_products": "Zobacz wszystkie produkty",
+            "declaration_request": "Zwrot kosztów"
+        },
+        "details": {
+            "records": {
+                "email": "Adres e-mail:",
+                "number": "Numer:",
+                "title": "Dane"
+            },
+            "valid_until": "Ten kredyt jest ważny do {{ date }}"
+        },
+        "fund": {
+            "logo_alt": "Logo funduszu",
+            "logo_alt_named": "Logo {{ name }}"
+        },
+        "help": {
+            "description": "Masz pytania lub potrzebujesz pomocy? Prosimy o kontakt.",
+            "email": "Adres e-mail:",
+            "phone": "Numer telefonu:",
+            "title": "Masz pytania lub potrzebujesz pomocy?"
+        },
+        "how_it_works": {
+            "title": "Jak to działa"
+        },
+        "overview": {
+            "description": "Przeczytaj, jak działa kredyt na tej stronie i zobacz saldo oraz wydatki. Miłej zabawy z kredytem!"
+        },
+        "physical_cards": {
+            "title": "Moje fizyczne przepustki"
+        },
+        "qr_code": {
+            "label": "Kod QR dla kredytu {{ number }}"
+        },
+        "fund_details": {
+            "title": "Informacje o programie",
+            "view": "Czytaj więcej"
         }
     },
     "vouchers": {

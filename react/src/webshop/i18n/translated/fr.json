@@ -2275,27 +2275,48 @@
             "pay_from_voucher": "Vous payez à partir du crédit :",
             "price": "Prix :",
             "payment_option_ideal": "Payer en ligne (iDEAL)",
-            "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
             "payment_options": "Options de paiement",
-            "payment_option_link": "En savoir plus sur les options de paiement"
+            "payment_option_link": "En savoir plus sur les options de paiement",
+            "attention": "Remarque !",
+            "buy_now": "Acheter maintenant !",
+            "choose_credit": "Choisir le crédit",
+            "collapse_section": "Pliage de la section",
+            "description_card": "Description",
+            "dont_have_voucher": "Pas encore de crédit ?",
+            "duration_of_promotion": "Durée de la promotion",
+            "expand_section": "Agrandir la section",
+            "expire_by_date": "Valable jusqu'au {{date}}",
+            "how_can_i_pay": "Comment puis-je payer ?",
+            "locations_on_map": "Localisation sur la carte",
+            "login_to_order": "Se connecter pour commander",
+            "more_info": "Plus d'informations",
+            "next_image": "Image suivante",
+            "payment_option_qr": "Afficher le code QR au fournisseur",
+            "payment_options_title": "Options de paiement",
+            "previous_image": "Image précédente",
+            "product_images": "Images du produit",
+            "provider": "Fournisseur",
+            "quantity_limit": "Max {{limit}} p.p.",
+            "request_one_now": "Demandez-en un dès maintenant !",
+            "show_image_of_total": "Afficher l'image {{current}} à partir de {{total}}",
+            "when": "Quand",
+            "where": "Où",
+            "add_to_favorites": "Ajouter aux favoris",
+            "ideal_logo_alt": "Logo iDEAL",
+            "remove_from_favorites": "Supprimer des favoris"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
             "title": "Localisation sur la carte"
         },
         "no_vouchers": "Vous ne disposez d'aucun crédit pour réserver cette offre auprès de",
-        "status": {
-            "active": "Actif",
-            "free": "Gratuit",
-            "no_data": "Pas de données",
-            "out_of_stock": "Plus de stock"
-        },
         "tooltip": "Combien de fois encore pouvez-vous profiter de cette offre ?",
         "price": {
             "free": "Gratuit",
             "informational": "En magasin uniquement"
-        }
+        },
+        "other_products": "Vous aimerez peut-être aussi ceci ?"
     },
     "products": {
         "breadcrumbs": {
@@ -3262,44 +3283,11 @@
         "card": {
             "activate_my_pass": "Activer mon pass",
             "cancel": "Annuler",
-            "delete": "Annuler la réservation",
-            "expire": "Valable jusqu'au :",
-            "expired": "Expiré",
-            "footer": {
-                "actions": {
-                    "mail": "Envoyez-moi un courriel",
-                    "open_in_me": "Ouvrir dans l'application",
-                    "physical_card_use": "Passe en plastique",
-                    "print": "Imprimer",
-                    "share": "Partager avec le fournisseur"
-                },
-                "tooltips": {
-                    "mail": "Envoyez le crédit par courriel à vous-même",
-                    "open_in_me": "Moi",
-                    "print": "Imprimer le crédit",
-                    "share": "Partager le mérite avec le fournisseur"
-                }
-            },
             "header": {
                 "title": "Comment cela fonctionne-t-il ?"
             },
-            "labels": {
-                "contact_provider": "Vous avez des questions sur cette offre ? Si c'est le cas, veuillez nous contacter.",
-                "contact_sponsor": "Vous avez des questions ? Contactez nous.",
-                "description": "1.<br/><br/>Cliquez sur Offre, choisissez et réservez une activité OU 2. Apportez le code QR au prestataire. Le prestataire scannera le code QR et réservera votre activité.",
-                "email": "Adresse électronique :",
-                "phone": "Numéro de téléphone :"
-            },
             "lost_my_pass": "J'ai perdu mon laissez-passer",
-            "qrcode": {
-                "description": "{{fund_name}} Il s'agit de votre crédit avec un code QR.",
-                "productdescription": "Il s'agit de votre réservation avec un code QR."
-            },
-            "share": "Partager",
-            "stop_participation": "Arrêter la participation",
-            "used": "Utilisé",
-            "used_on": "Utilisé le",
-            "valid_until": "Valable jusqu'à"
+            "stop_participation": "Arrêter la participation"
         },
         "delete_voucher": {
             "buttons": {
@@ -3319,36 +3307,17 @@
             "title": "Dépenses"
         },
         "labels": {
-            "add": "Au",
-            "expire": "Valable jusqu'au :",
-            "fund": "Fonds",
-            "info": "<span style='font-style: italic;'>Vous cherchez un fournisseur qui ne figure pas sur la carte ? Vous pouvez demander à un prestataire de participer. Un prestataire peut poser sa candidature tout au long de l'année.</span>",
-            "offers": "Vous souhaitez obtenir des informations sur l'offre complète ? Contactez le fournisseur.",
             "office": "Lieux où vous pouvez utiliser cette réservation.",
-            "offices": "Fournisseurs",
-            "productdetail": "Informations sur les fournitures",
-            "requirements": "Pour connaître les conditions de cette offre, contactez le fournisseur.",
-            "shopdetail": "Informations sur le fournisseur",
-            "subtract": "Arrêt",
-            "transactions": "Dépenses",
-            "voucher": "Imprimez votre crédit ou envoyez-le par la poste. Apportez le code QR au fournisseur et faites-le scanner."
+            "offices": "Fournisseurs"
         },
         "physical_card": {
-            "alt": "Passe physique : \"{[ title ]}",
             "buttons": {
                 "lost_pass": "J'ai perdu mon laissez-passer",
                 "reactivate": "Activer"
             },
             "card_number": "Numéro de passage",
             "title": "Activer mon pass",
-            "less_details": "Cacher tous les détails",
-            "more_details": "Afficher tous les détails",
-            "personal_date": "Données personnelles"
-        },
-        "reimbursement": {
-            "button": "Soumettre un coupon",
-            "description": "Récupérez les frais encourus en envoyant les détails de votre achat et la facture ou le reçu.",
-            "title": "Recouvrement des coûts"
+            "alt": "Passe physique : '{{ title }}'"
         },
         "share_voucher": {
             "buttons": {
@@ -3377,31 +3346,56 @@
         "transactions": {
             "add": "Ajouter",
             "bank_transfer": "Virement bancaire",
-            "expired_on": "Expiré le {[ date ]}",
             "no_spending": "Aucune dépense",
             "reservation": "Réservation",
             "subtract": "Soustraction",
             "title": "Transactions",
-            "top_up": "Mise à niveau"
+            "top_up": "Mise à niveau",
+            "expired_on": "Expiré le {{ date }}"
         },
-        "card_combined": {
-            "header": {
-                "title": "Comment cela fonctionne-t-il ?"
+        "actions": {
+            "choose_action": {
+                "title": "Choisir une action",
+                "description": "Sélectionnez l'une des actions ci-dessous pour continuer."
             },
-            "labels": {
-                "contact_sponsor": "Des questions ?",
-                "contact_sponsor_details": "Dans ce cas, contactez-nous.",
-                "how_it_works": "Nous avons reçu votre demande. Vous recevrez une décision concernant votre demande dans un délai de 8 semaines.",
-                "IIT": {
-                    "how_it_works": "Nous avons reçu votre demande. Vous recevrez une décision concernant votre demande dans un délai de 8 semaines.",
-                    "redirect_to": "Souhaitez-vous toujours demander un remboursement ?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Vous avez engagé des dépenses qui relèvent de ce régime ? Demandez le remboursement de vos dépenses en présentant un justificatif. Après approbation, vous recevrez le montant sur votre compte bancaire personnel.",
-                    "redirect_to": "Coûts de récupération ?"
-                },
-                "redirect_to": "Souhaitez-vous toujours demander un remboursement ?"
-            }
+            "save_qr": "Enregistrer le code QR",
+            "share_with_provider": "Partager le code QR avec le fournisseur",
+            "view_all_products": "Voir tous les produits",
+            "declaration_request": "Recouvrement des coûts"
+        },
+        "details": {
+            "records": {
+                "email": "Adresse électronique :",
+                "number": "Nombre :",
+                "title": "Données"
+            },
+            "valid_until": "Ce crédit est valable jusqu'à {{ date }}"
+        },
+        "fund": {
+            "logo_alt": "Logo du fonds",
+            "logo_alt_named": "Logo de {{ name }}"
+        },
+        "help": {
+            "description": "Vous avez des questions ou besoin d'aide ? N'hésitez pas à nous contacter.",
+            "email": "Adresse électronique :",
+            "phone": "Numéro de téléphone :",
+            "title": "Vous avez des questions ou besoin d'aide ?"
+        },
+        "how_it_works": {
+            "title": "Comment cela fonctionne-t-il ?"
+        },
+        "overview": {
+            "description": "Lisez le fonctionnement du crédit sur cette page et consultez le solde et les dépenses. Amusez-vous avec le crédit !"
+        },
+        "physical_cards": {
+            "title": "Mes passages physiques"
+        },
+        "qr_code": {
+            "label": "Code QR pour le crédit {{ number }}"
+        },
+        "fund_details": {
+            "title": "Informations sur le régime",
+            "view": "En savoir plus"
         }
     },
     "vouchers": {

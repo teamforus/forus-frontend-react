@@ -16,6 +16,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../helpers/string';
 import { useEditPhysicalCardType } from './hooks/useEditPhysicalCardType';
 import PhysicalCardTypeFundsTable from './elements/PhysicalCardTypeFundsTable';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PhysicalCardTypesShow() {
     const { id } = useParams();
@@ -54,7 +55,7 @@ export default function PhysicalCardTypesShow() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'physical-cards'}
+                    name={DashboardRoutes.PHYSICAL_CARDS}
                     query={{ type: 1 }}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
@@ -116,7 +117,7 @@ export default function PhysicalCardTypesShow() {
                                 onClick={() => {
                                     deletePhysicalCardType(physicalCardType, () =>
                                         navigateState(
-                                            'physical-cards',
+                                            DashboardRoutes.PHYSICAL_CARDS,
                                             { organizationId: activeOrganization.id },
                                             { type: 1 },
                                         ),

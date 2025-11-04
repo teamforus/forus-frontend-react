@@ -26,6 +26,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 
@@ -88,7 +89,7 @@ export default function ProductView() {
                             modal.close();
 
                             productService.destroy(activeOrganization.id, product.id).then(() => {
-                                navigateState('products', { organizationId: activeOrganization.id });
+                                navigateState(DashboardRoutes.PRODUCTS, { organizationId: activeOrganization.id });
                             });
                         },
                     }}
@@ -172,7 +173,7 @@ export default function ProductView() {
     useEffect(() => {
         fetchProduct()
             .then()
-            .catch(() => navigateState('products', { organizationId: activeOrganization.id }));
+            .catch(() => navigateState(DashboardRoutes.PRODUCTS, { organizationId: activeOrganization.id }));
     }, [activeOrganization.id, fetchProduct, navigateState]);
 
     useEffect(() => {
@@ -199,7 +200,7 @@ export default function ProductView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'offices'}
+                    name={DashboardRoutes.OFFICES}
                     params={{ id: product.id, organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -221,7 +222,7 @@ export default function ProductView() {
 
                     <StateNavLink
                         className="button button-default"
-                        name={'products-edit'}
+                        name={DashboardRoutes.PRODUCT_EDIT}
                         params={{ organizationId: activeOrganization.id, id: product.id }}>
                         <em className="mdi mdi-pen icon-start"> </em>
                         {translate('product.buttons.edit')}
@@ -360,7 +361,7 @@ export default function ProductView() {
                             <div className="empty-actions">
                                 <div className="button-group">
                                     <StateNavLink
-                                        name={'provider-funds'}
+                                        name={DashboardRoutes.PROVIDER_FUNDS}
                                         params={{ organizationId: activeOrganization.id }}
                                         className="button button-primary">
                                         <em className="mdi mdi-plus icon-start" />

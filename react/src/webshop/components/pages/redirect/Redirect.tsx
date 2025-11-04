@@ -8,6 +8,7 @@ import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { authContext } from '../../../contexts/AuthContext';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Redirect() {
     const translate = useTranslate();
@@ -41,7 +42,7 @@ export default function Redirect() {
                     translate('push.email_verification_auth_error.description'),
                 );
 
-                return navigateState('start', {}, {});
+                return navigateState(WebshopRoutes.START, {}, {});
             }
 
             identityEmailsService
@@ -52,21 +53,21 @@ export default function Redirect() {
                         translate('push.email_verification_success.title'),
                         translate('push.email_verification_success.description'),
                     );
-                    navigateState('identity-emails', {}, {});
+                    navigateState(WebshopRoutes.IDENTITY_EMAILS, {}, {});
                 })
                 .catch((err: ResponseError) => {
                     pushDanger(
                         translate('push.error'),
                         err.data?.message || translate('push.email_verification_auth_unknown_error.description'),
                     );
-                    navigateState('home', {}, {});
+                    navigateState(WebshopRoutes.HOME, {}, {});
                 });
             return;
         }
 
         if (!hasToken || !target || !handleAuthTarget(target)) {
             setResolved(true);
-            return navigateState('start', {}, {});
+            return navigateState(WebshopRoutes.START, {}, {});
         }
     }, [
         target,

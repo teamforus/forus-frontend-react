@@ -4,6 +4,7 @@ import LayoutAsideNavGroupItem, { IdentityMenuGroupItemProps } from './LayoutAsi
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { getStateRouteUrl, useStateRoutes } from '../../../../modules/state_router/Router';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 const isSubPath = (basePath: string, path: string) => {
     const normalizedBasePath = basePath.endsWith('/') ? basePath : `${basePath}/`;
@@ -30,7 +31,7 @@ export default function LayoutAsideNavGroup({
     icon: ReactNode;
     iconActive?: ReactNode;
     dusk?: string;
-    state?: string;
+    state?: DashboardRoutes;
     stateParams?: object;
     show?: boolean;
     pinnedGroups: Array<string>;

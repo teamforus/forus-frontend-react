@@ -19,6 +19,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../services/FundService';
 import SponsorProviderOffices from './elements/SponsorProviderOffices';
 import SponsorProviderEmployees from './elements/SponsorProviderEmployees';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 
@@ -103,7 +104,7 @@ export default function SponsorProviderOrganization() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'sponsor-provider-organizations'}
+                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

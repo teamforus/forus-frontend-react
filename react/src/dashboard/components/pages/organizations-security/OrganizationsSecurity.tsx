@@ -12,6 +12,7 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import { authContext } from '../../../contexts/AuthContext';
 import { StringParam, useQueryParam } from 'use-query-params';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsSecurity() {
     const activeOrganization = useActiveOrganization();
@@ -79,7 +80,7 @@ export default function OrganizationsSecurity() {
         <>
             <div>
                 <div className="block block-breadcrumbs">
-                    <StateNavLink className="breadcrumb-item" name={'organizations'} activeExact={true}>
+                    <StateNavLink className="breadcrumb-item" name={DashboardRoutes.ORGANIZATIONS} activeExact={true}>
                         {activeOrganization.name}
                     </StateNavLink>
                     <div className="breadcrumb-item active">Beveiliging</div>
@@ -270,7 +271,7 @@ export default function OrganizationsSecurity() {
                         <div className="card-section card-section-primary">
                             <div className="text-center">
                                 <StateNavLink
-                                    name={'employees'}
+                                    name={DashboardRoutes.EMPLOYEES}
                                     className="button button-default"
                                     params={{ organizationId: activeOrganization.id }}>
                                     Annuleer

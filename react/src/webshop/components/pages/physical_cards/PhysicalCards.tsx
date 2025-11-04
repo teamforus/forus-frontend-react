@@ -12,6 +12,7 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import { usePhysicalCardsService } from '../../../services/PhysicalCardsService';
 import PhysicalCard from '../../../../dashboard/props/models/PhysicalCard';
 import useAppConfigs from '../../../hooks/useAppConfigs';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PhysicalCards() {
     const appConfigs = useAppConfigs();
@@ -50,7 +51,7 @@ export default function PhysicalCards() {
 
     useEffect(() => {
         if (!appConfigs.has_physical_cards) {
-            return navigateState('home');
+            return navigateState(WebshopRoutes.HOME);
         }
     }, [appConfigs.has_physical_cards, navigateState]);
 
@@ -62,7 +63,7 @@ export default function PhysicalCards() {
         <BlockShowcaseProfile
             contentDusk="listPhysicalCardsContent"
             breadcrumbItems={[
-                { name: translate('physical_cards.breadcrumbs.home'), state: 'home' },
+                { name: translate('physical_cards.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('physical_cards.breadcrumbs.vouchers') },
             ]}
             profileHeader={
@@ -137,7 +138,7 @@ export default function PhysicalCards() {
                                 icon: 'arrow-right',
                                 type: 'primary',
                                 iconEnd: true,
-                                onClick: () => navigateState('start'),
+                                onClick: () => navigateState(WebshopRoutes.START),
                             }}
                         />
                     )}

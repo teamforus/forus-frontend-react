@@ -6,6 +6,7 @@ import { getStateRouteUrl, useStateParams } from '../../../modules/state_router/
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Error() {
     const params = useParams();
@@ -18,9 +19,9 @@ export default function Error() {
 
     const transParams = useMemo(() => {
         return {
-            url_webshop_home: getStateRouteUrl('home', {}),
-            url_webshop_start: getStateRouteUrl('start', {}),
-            url_webshop_start_logout: getStateRouteUrl('start', {}, { logout: 1, restore_with_digid: 1 }),
+            url_webshop_home: getStateRouteUrl(WebshopRoutes.HOME, {}),
+            url_webshop_start: getStateRouteUrl(WebshopRoutes.START, {}),
+            url_webshop_start_logout: getStateRouteUrl(WebshopRoutes.START, {}, { logout: 1, restore_with_digid: 1 }),
         };
     }, []);
 
@@ -49,12 +50,12 @@ export default function Error() {
                                     {(!hideHomeLinkButton || errorCode == 'digid_uid_used') && (
                                         <p className="sign_up-pane-text">
                                             {errorCode != 'digid_uid_used' ? (
-                                                <StateNavLink name={'home'} className="sign_up-pane-link">
+                                                <StateNavLink name={WebshopRoutes.HOME} className="sign_up-pane-link">
                                                     {translate('error.home_button')}
                                                 </StateNavLink>
                                             ) : (
                                                 <StateNavLink
-                                                    name="start"
+                                                    name={WebshopRoutes.START}
                                                     query={{ logout: 1, restore_with_digid: 1 }}
                                                     className="button button-primary">
                                                     {translate('error.start_button')}

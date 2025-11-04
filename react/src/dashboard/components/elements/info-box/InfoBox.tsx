@@ -9,7 +9,7 @@ export default function InfoBox({
 }: {
     type?: 'default' | 'primary' | 'warning';
     borderType?: 'dashed' | 'none';
-    children: ReactNode;
+    children: ReactNode | ReactNode[];
     iconColor?: 'primary' | 'warning';
 }) {
     return (

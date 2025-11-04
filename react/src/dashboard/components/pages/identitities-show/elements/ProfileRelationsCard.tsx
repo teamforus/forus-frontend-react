@@ -22,6 +22,7 @@ import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import SponsorProfileRelation from '../../../../props/models/Sponsor/SponsorProfileRelation';
 import ProfileRelationsTableRowItem from './ProfileRelationsTableRowItem';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProfileRelationsCard({
     organization,
@@ -148,7 +149,7 @@ export default function ProfileRelationsCard({
                                 <tbody>
                                     {relations.data.map((relation) => (
                                         <StateNavLink
-                                            name={'identities-show'}
+                                            name={DashboardRoutes.IDENTITY}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 id:
@@ -166,7 +167,7 @@ export default function ProfileRelationsCard({
                                                             <div className="dropdown dropdown-actions">
                                                                 <TableRowActionItem
                                                                     type={'link'}
-                                                                    name={'identities-show'}
+                                                                    name={DashboardRoutes.IDENTITY}
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         id:
