@@ -9,7 +9,6 @@ import IdentityRestore from '../components/pages/auth/IdentityRestore';
 import Products from '../components/pages/products/Products';
 import Providers from '../components/pages/providers/Providers';
 import ProvidersShow from '../components/pages/providers-show/ProvidersShow';
-import ProductsShow from '../components/pages/products-show/ProductsShow';
 import Explanation from '../components/pages/cms-pages/Explanation';
 import PreferencesEmails from '../components/pages/identity-emails/PreferencesEmails';
 import Redirect from '../components/pages/redirect/Redirect';
@@ -28,7 +27,6 @@ import ReservationsShow from '../components/pages/reservations-show/Reservations
 import PhysicalCards from '../components/pages/physical_cards/PhysicalCards';
 import BookmarkedProducts from '../components/pages/bookmarked-products/BookmarkedProducts';
 import Vouchers from '../components/pages/vouchers/Vouchers';
-import VouchersShow from '../components/pages/vouchers-show/VouchersShow';
 import Sitemap from '../components/pages/sitemap/Sitemap';
 import MeApp from '../components/pages/me-app/MeApp';
 import Accessibility from '../components/pages/cms-pages/Accessibility';
@@ -47,6 +45,8 @@ import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
 import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
 import Profile from '../components/pages/profile/Profile';
+import VouchersShow from '../components/pages/vouchers-show/VouchersShow';
+import ProductsShow from '../components/pages/products-show/ProductsShow';
 import RouterBuilder, { WebshopRoutes } from '../modules/state_router/RouterBuilder';
 
 const router = new RouterBuilder();

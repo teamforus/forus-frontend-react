@@ -1,24 +1,23 @@
 import React from 'react';
-import Fund from '../../../../../props/models/Fund';
 import TranslateHtml from '../../../../elements/translate-html/TranslateHtml';
 
-export default function OrganizationsFundsShowDescriptionCard({ fund }: { fund: Fund }) {
+export default function OrganizationsFundsShowMarkdownCard({ html }: { html: string }) {
     return (
         <div className="card-section">
             <div className="fund-description">
-                {fund.description_html && (
+                {html && (
                     <div className="description-body">
                         <div className="arrow-box border bg-dim">
                             <div className="arrow" />
                         </div>
 
                         <div className="block block-markdown">
-                            <TranslateHtml i18n={fund.description_html} />
+                            <TranslateHtml i18n={html} />
                         </div>
                     </div>
                 )}
 
-                {!fund.description_html && (
+                {!html && (
                     <div className="description-body">
                         <div className="arrow-box border bg-dim">
                             <div className="arrow" />

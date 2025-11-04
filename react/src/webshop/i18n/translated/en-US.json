@@ -1535,27 +1535,48 @@
             "pay_from_voucher": "You pay from the credit:",
             "price": "Price:",
             "payment_option_ideal": "Online additional payment (iDEAL)",
-            "payment_option_qr": "Show QR code at provider",
             "payment_option_reservation": "Online booking",
             "payment_options": "Payment options",
-            "payment_option_link": "Read more about payment options"
+            "payment_option_link": "Read more about payment options",
+            "attention": "Note!",
+            "buy_now": "Buy now!",
+            "choose_credit": "Choose the credit",
+            "collapse_section": "Section Collapse",
+            "description_card": "Description",
+            "dont_have_voucher": "No credit yet?",
+            "duration_of_promotion": "Duration of promotion",
+            "expand_section": "Expand section",
+            "expire_by_date": "Valid until {{date}}",
+            "how_can_i_pay": "How can I pay?",
+            "locations_on_map": "Locations on map",
+            "login_to_order": "Log in to order now",
+            "more_info": "Learn more",
+            "next_image": "Next image",
+            "payment_option_qr": "Show QR code at provider",
+            "payment_options_title": "Payment options",
+            "previous_image": "Previous image",
+            "product_images": "Product Images",
+            "provider": "Provider",
+            "quantity_limit": "Max. {{limit}} p.p.",
+            "request_one_now": "Apply for one now!",
+            "show_image_of_total": "Show image {{current}} from {{total}}",
+            "when": "When",
+            "where": "Where",
+            "add_to_favorites": "Add to Favorites",
+            "ideal_logo_alt": "iDEAL logo",
+            "remove_from_favorites": "Remove from favorites"
         },
         "low_amount": "You do not have a credit with sufficient balance.",
         "map": {
             "title": "Locations on map"
         },
         "no_vouchers": "You have no credit to reserve this offer with",
-        "status": {
-            "active": "Active",
-            "free": "Free",
-            "no_data": "No data",
-            "out_of_stock": "No more stock"
-        },
         "tooltip": "How often you can still take advantage of this offer",
         "price": {
             "free": "Free",
             "informational": "In store only"
-        }
+        },
+        "other_products": "You might also like this?"
     },
     "records_create": {
         "buttons": {
@@ -1631,19 +1652,8 @@
             "title": "Cancel reservation"
         },
         "labels": {
-            "add": "At",
-            "expire": "Valid through:",
-            "fund": "Fund",
-            "info": "<span style='font-style: italic;'>Looking for a provider not on the map? You can ask a provider to participate. A provider can apply throughout the year.</span>",
-            "offers": "Would you like information on the full offer? Then contact the provider.",
             "office": "Locations where you can redeem this reservation.",
-            "offices": "Providers",
-            "productdetail": "Supply information",
-            "requirements": "For terms of this offer contact the provider.",
-            "shopdetail": "Provider information",
-            "subtract": "Off",
-            "transactions": "Expenditures",
-            "voucher": "Print out your credit or mail it to yourself. Take the QR code to the provider and have it scanned."
+            "offices": "Providers"
         },
         "physical_card": {
             "buttons": {
@@ -1651,11 +1661,8 @@
                 "reactivate": "Activate"
             },
             "title": "Activate my pass",
-            "alt": "Physical pass: '{[ title ]}'",
             "card_number": "Pass number",
-            "less_details": "Hide all details",
-            "more_details": "Show all details",
-            "personal_date": "Personal data"
+            "alt": "Physical pass: '{{ title }}'"
         },
         "share_voucher": {
             "buttons": {
@@ -1686,63 +1693,25 @@
             "vouchers": "My credits"
         },
         "card": {
-            "delete": "Cancel reservation",
-            "expire": "Valid through:",
-            "expired": "Expired",
-            "footer": {
-                "actions": {
-                    "mail": "Email to me",
-                    "open_in_me": "Open in app",
-                    "physical_card_use": "Plastic pass",
-                    "print": "Print",
-                    "share": "Share with provider"
-                },
-                "tooltips": {
-                    "mail": "Email the credit to yourself",
-                    "open_in_me": "Me",
-                    "print": "Print out the credit",
-                    "share": "Share the credit with the provider"
-                }
-            },
             "header": {
                 "title": "How does it work?"
-            },
-            "labels": {
-                "contact_provider": "Do you have questions about this offer? If so, please contact us.",
-                "contact_sponsor": "Questions? Please contact us.",
-                "description": "1. Click on Offer and choose and reserve an activity.<br/>OR<br/>2. Take the QR code to the provider. The provider will scan the QR code and reserve your activity.",
-                "email": "E-mail address:",
-                "phone": "Phone number:"
-            },
-            "qrcode": {
-                "description": "This is your {{fund_name}} credit with a QR code.",
-                "productdescription": "This is your reservation with a QR code."
             },
             "activate_my_pass": "Activate my pass",
             "cancel": "Cancel",
             "lost_my_pass": "I lost my pass",
-            "share": "Share",
-            "stop_participation": "Stop participation",
-            "used": "Used",
-            "used_on": "Used on",
-            "valid_until": "Valid until"
+            "stop_participation": "Stop participation"
         },
         "title": "{{ title }}",
         "title_physical": "Your {{ title }}",
-        "reimbursement": {
-            "button": "Submit coupon",
-            "description": "Reclaim your incurred expenses by submitting the details of your purchase and the bill or receipt.",
-            "title": "Cost recovery"
-        },
         "transactions": {
             "add": "Add",
             "bank_transfer": "Bank Transfer",
-            "expired_on": "Expired on {[ date ]}",
             "no_spending": "No expenses",
             "reservation": "Reservation",
             "subtract": "Subtraction",
             "title": "Transactions",
-            "top_up": "Upgraded"
+            "top_up": "Upgraded",
+            "expired_on": "Expired on {{ date }}"
         },
         "history": {
             "status": {
@@ -1750,24 +1719,49 @@
             },
             "title": "Expenditures"
         },
-        "card_combined": {
-            "header": {
-                "title": "How does it work?"
+        "actions": {
+            "choose_action": {
+                "title": "Choose an action",
+                "description": "Select one of the actions below to proceed."
             },
-            "labels": {
-                "contact_sponsor": "Do you have any questions?",
-                "contact_sponsor_details": "If so, please contact us.",
-                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                "IIT": {
-                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                    "redirect_to": "Do you still want to apply for reimbursement?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
-                    "redirect_to": "Reclaim expenses?"
-                },
-                "redirect_to": "Do you still want to apply for reimbursement?"
-            }
+            "save_qr": "Save QR code",
+            "share_with_provider": "Share QR code with provider",
+            "view_all_products": "See all products",
+            "declaration_request": "Cost recovery"
+        },
+        "details": {
+            "records": {
+                "email": "E-mail address:",
+                "number": "Number:",
+                "title": "Data"
+            },
+            "valid_until": "This credit is valid until {{ date }}"
+        },
+        "fund": {
+            "logo_alt": "Fund logo",
+            "logo_alt_named": "Logo of {{ name }}"
+        },
+        "help": {
+            "description": "Questions or need help? Please contact us.",
+            "email": "E-mail address:",
+            "phone": "Phone number:",
+            "title": "Questions or need help?"
+        },
+        "how_it_works": {
+            "title": "How it works"
+        },
+        "overview": {
+            "description": "Read how the credit works on this page and view the balance and spending. Have fun with the credit!"
+        },
+        "physical_cards": {
+            "title": "My physical passes"
+        },
+        "qr_code": {
+            "label": "QR code for credit {{ number }}"
+        },
+        "fund_details": {
+            "title": "Information about the scheme",
+            "view": "Read more"
         }
     },
     "vouchers": {

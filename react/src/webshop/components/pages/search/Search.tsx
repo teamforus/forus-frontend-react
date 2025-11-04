@@ -14,7 +14,7 @@ import Paginator from '../../../../dashboard/modules/paginator/components/Pagina
 import SearchItemsList from './elements/SearchItemsList';
 import { useVoucherService } from '../../../services/VoucherService';
 import Voucher from '../../../../dashboard/props/models/Voucher';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
@@ -245,7 +245,7 @@ export default function Search() {
     }, [doSearch, filterValuesActive, sortByOptions]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
                 { name: translate('search.breadcrumbs.home'), state: WebshopRoutes.HOME },
@@ -443,6 +443,6 @@ export default function Search() {
                     </div>
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

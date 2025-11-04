@@ -5,9 +5,6 @@ import { WebshopRoutes } from './RouterBuilder';
 export enum LayoutType {
     clear,
     dashboard,
-    landing,
-    landingClear,
-    landingClearNew,
 }
 
 export interface RouteStateConfig {

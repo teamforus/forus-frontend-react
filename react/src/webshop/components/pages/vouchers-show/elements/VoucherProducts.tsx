@@ -1,18 +1,19 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import Voucher from '../../../../../dashboard/props/models/Voucher';
 import BlockProducts from '../../../elements/block-products/BlockProducts';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { PaginationData } from '../../../../../dashboard/props/ApiResponses';
 import Product from '../../../../props/models/Product';
-import { useProductService } from '../../../../services/ProductService';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
+import { useProductService } from '../../../../services/ProductService';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 
-export default function VoucherProductsCard({ voucher }: { voucher: Voucher }) {
+export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
     const appConfigs = useAppConfigs();
     const setProgress = useSetProgress();
-    const productService = useProductService();
 
     const [products, setProducts] = useState<PaginationData<Product>>(null);
+
+    const productService = useProductService();
 
     const showProducts = useMemo(
         () =>
@@ -42,11 +43,8 @@ export default function VoucherProductsCard({ voucher }: { voucher: Voucher }) {
         }
     }, [fetchProducts, voucher]);
 
-    return (
-        <Fragment>
-            {showProducts && products && (
-                <BlockProducts products={products.data} filters={{ fund_id: voucher.fund_id }} />
-            )}
-        </Fragment>
-    );
+    if (!showProducts || !products) {
+        return;
+    }
+    return <BlockProducts products={products.data} filters={{ fund_id: voucher.fund_id }} />;
 }
