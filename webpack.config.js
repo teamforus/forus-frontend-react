@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
         fronts,
         enableOnly = null,
         disableOnly = null,
+        httpsCA = null,
         httpsKey = null,
         httpsCert = null,
         buildGzipFiles = false,
@@ -183,6 +184,7 @@ module.exports = (env, argv) => {
                     ? {
                           type: 'https',
                           options: {
+                              ca: httpsCA ? fs.readFileSync(httpsCA) : undefined,
                               key: fs.readFileSync(httpsKey),
                               cert: fs.readFileSync(httpsCert),
                           },
