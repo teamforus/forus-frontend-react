@@ -11,7 +11,7 @@ export default function ProductsListItemSearch({ product }: { product?: Product 
         <Fragment>
             <div className="search-media">
                 <img
-                    src={product.photo?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
+                    src={product.photos[0]?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
                     alt={product.alternative_text}
                 />
             </div>

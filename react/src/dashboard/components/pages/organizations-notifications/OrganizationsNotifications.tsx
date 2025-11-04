@@ -4,11 +4,11 @@ import Notification from '../../../props/models/Notification';
 import { useNotificationService } from '../../../services/NotificationService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import useFilter from '../../../hooks/useFilter';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function OrganizationsNotifications() {
     const setProgress = useSetProgress();
@@ -20,7 +20,7 @@ export default function OrganizationsNotifications() {
     const [notifications, setNotifications] = useState<PaginationData<Notification>>(null);
     const [timeoutThreshold] = useState(2500);
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
@@ -30,7 +30,7 @@ export default function OrganizationsNotifications() {
 
             notificationsService
                 .list({
-                    ...filter.activeValues,
+                    ...filterValuesActive,
                     organization_id: activeOrganization?.id,
                     mark_read: mark_read ? 1 : 0,
                 })
@@ -40,7 +40,7 @@ export default function OrganizationsNotifications() {
                 })
                 .finally(() => setProgress(100));
         },
-        [notificationsService, filter?.activeValues, setProgress, activeOrganization],
+        [notificationsService, filterValuesActive, setProgress, activeOrganization],
     );
 
     useEffect(() => {
@@ -107,8 +107,8 @@ export default function OrganizationsNotifications() {
                 <div className="card-section">
                     <Paginator
                         meta={notifications.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

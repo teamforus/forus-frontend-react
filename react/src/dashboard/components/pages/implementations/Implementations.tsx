@@ -3,7 +3,6 @@ import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { PaginationData } from '../../../props/ApiResponses';
 import { useNavigateState } from '../../../modules/state_router/Router';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { hasPermission } from '../../../helpers/utils';
@@ -13,9 +12,14 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
+import useSetProgress from '../../../hooks/useSetProgress';
 
 export default function Implementations() {
     const assetUrl = useAssetUrl();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
@@ -26,14 +30,27 @@ export default function Implementations() {
     const [paginatorKey] = useState('implementations');
     const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
 
-    const filter = useFilter({
-        q: '',
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        per_page?: number;
+        page?: number;
+    }>(
+        {
+            q: '',
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+        },
+    );
 
     const goToImplementation = useCallback(
         (implementation: Implementation) => {
-            return navigateState('implementations-view', {
+            return navigateState(DashboardRoutes.IMPLEMENTATION, {
                 id: implementation.id,
                 organizationId: implementation.organization_id,
             });
@@ -42,11 +59,14 @@ export default function Implementations() {
     );
 
     const fetchImplementations = useCallback(() => {
+        setProgress(0);
+
         implementationService
-            .list(activeOrganization.id, filter.activeValues)
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setImplementations(res.data))
+            .finally(() => setProgress(100))
             .catch(pushApiError);
-    }, [activeOrganization.id, filter.activeValues, implementationService, pushApiError]);
+    }, [activeOrganization.id, filterValuesActive, implementationService, pushApiError, setProgress]);
 
     useEffect(() => {
         fetchImplementations();
@@ -65,10 +85,10 @@ export default function Implementations() {
                         <div className="form-group">
                             <input
                                 type="text"
-                                value={filter.values.q}
+                                value={filterValues.q}
                                 placeholder="Zoeken"
                                 className="form-control"
-                                onChange={(e) => filter.update({ q: e.target.value })}
+                                onChange={(e) => filterUpdate({ q: e.target.value })}
                             />
                         </div>
                     </div>
@@ -109,7 +129,7 @@ export default function Implementations() {
                         {activeOrganization.allow_translations &&
                             hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                                 <StateNavLink
-                                    name={'implementations-translations'}
+                                    name={DashboardRoutes.IMPLEMENTATION_TRANSLATIONS}
                                     params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                     className={`button button-default`}>
                                     <em className="mdi mdi-translate-variant icon-start" />
@@ -119,7 +139,7 @@ export default function Implementations() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-email'}
+                                name={DashboardRoutes.IMPLEMENTATION_EMAIL}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cog icon-start" />
@@ -129,7 +149,7 @@ export default function Implementations() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-digid'}
+                                name={DashboardRoutes.IMPLEMENTATION_DIGID}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cog icon-start" />
@@ -139,7 +159,7 @@ export default function Implementations() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS) && (
                             <StateNavLink
-                                name={'implementations-cms'}
+                                name={DashboardRoutes.IMPLEMENTATION_CMS}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className={`button button-primary`}>
                                 <em className="mdi mdi-text-box icon-start" />

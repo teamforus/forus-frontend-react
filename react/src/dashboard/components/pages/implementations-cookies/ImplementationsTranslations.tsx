@@ -12,6 +12,7 @@ import useFormBuilder from '../../../hooks/useFormBuilder';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
 import usePushSuccess from '../../../hooks/usePushSuccess';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsTranslations() {
     const { id } = useParams();
@@ -69,14 +70,14 @@ export default function ImplementationsTranslations() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -122,7 +123,7 @@ export default function ImplementationsTranslations() {
                 <div className="card-footer">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementations-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{ id: implementation.id, organizationId: activeOrganization.id }}
                             className="button button-default">
                             Annuleren

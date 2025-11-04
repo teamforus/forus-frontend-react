@@ -2,10 +2,8 @@ import Transaction from '../../../../props/models/Transaction';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useEnvData from '../../../../hooks/useEnvData';
 import Paginator from '../../../../modules/paginator/components/Paginator';
-import useFilter from '../../../../hooks/useFilter';
 import { currencyFormat, strLimit } from '../../../../helpers/string';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import FilterModel from '../../../../types/FilterModel';
 import useTransactionService from '../../../../services/TransactionService';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
@@ -16,16 +14,19 @@ import Label from '../../../elements/image_cropper/Label';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { FilterModel } from '../../../../modules/filter_next/types/FilterParams';
 
 export default function VoucherTransactionsCard({
     blockTitle,
     organization,
-    filterValues,
+    filters,
     fetchTransactionsRef = null,
 }: {
     blockTitle: string;
     organization: Organization;
-    filterValues: FilterModel;
+    filters: FilterModel;
     fetchTransactionsRef?: React.MutableRefObject<() => void>;
 }) {
     const envData = useEnvData();
@@ -38,7 +39,7 @@ export default function VoucherTransactionsCard({
         return envData.client_type == 'sponsor';
     }, [envData.client_type]);
 
-    const filter = useFilter(filterValues);
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext(filters);
 
     const { headElement, configsElement } = useConfigurableTable(transactionService.getColumnsForVoucher(isSponsor), {
         filter,
@@ -49,10 +50,10 @@ export default function VoucherTransactionsCard({
         setProgress(100);
 
         transactionService
-            .list(envData.client_type, organization.id, filter.activeValues)
+            .list(envData.client_type, organization.id, filterValuesActive)
             .then((res) => setTransactions(res.data))
             .finally(() => setProgress(100));
-    }, [envData.client_type, filter.activeValues, organization.id, transactionService, setProgress]);
+    }, [envData.client_type, filterValuesActive, organization.id, transactionService, setProgress]);
 
     useEffect(() => {
         fetchTransactions();
@@ -94,7 +95,7 @@ export default function VoucherTransactionsCard({
                                             </td>
                                             <td>
                                                 <StateNavLink
-                                                    name={'transaction'}
+                                                    name={DashboardRoutes.TRANSACTION}
                                                     className="text-primary-light"
                                                     params={{
                                                         organizationId: organization.id,
@@ -139,7 +140,7 @@ export default function VoucherTransactionsCard({
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
-                                                                name={'transaction'}
+                                                                name={DashboardRoutes.TRANSACTION}
                                                                 className="dropdown-item"
                                                                 params={{
                                                                     address: transaction.address,
@@ -164,7 +165,7 @@ export default function VoucherTransactionsCard({
                 <EmptyCard title={'Geen transacties gevonden'} type={'card-section'} />
             ) : (
                 <div className="card-section">
-                    <Paginator meta={transactions.meta} filters={filter.activeValues} updateFilters={filter.update} />
+                    <Paginator meta={transactions.meta} filters={filterValues} updateFilters={filterUpdate} />
                 </div>
             )}
         </div>

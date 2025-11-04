@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import Fund from '../../../../../props/models/Fund';
-import ClickOutside from '../../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
 import EmptyCard from '../../../../elements/empty-card/EmptyCard';
 import Paginator from '../../../../../modules/paginator/components/Paginator';
@@ -8,7 +7,6 @@ import useTranslate from '../../../../../hooks/useTranslate';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../../../modules/paginator/services/usePaginatorService';
 import { PaginationData } from '../../../../../props/ApiResponses';
-import useFilter from '../../../../../hooks/useFilter';
 import LoadingCard from '../../../../elements/loading-card/LoadingCard';
 import TableRowActions from '../../../../elements/tables/TableRowActions';
 import { hasPermission } from '../../../../../helpers/utils';
@@ -20,6 +18,9 @@ import { Permission } from '../../../../../props/models/Organization';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import { useFundService } from '../../../../../services/FundService';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
+import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 
 export default function OrganizationsFundsShowImplementationsCard({
     fund,
@@ -43,15 +44,17 @@ export default function OrganizationsFundsShowImplementationsCard({
     const [lastQueryImplementations, setLastQueryImplementations] = useState<string>('');
     const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string; per_page?: number }>({
         q: '',
         per_page: paginatorService.getPerPage(paginationPerPageKey),
     });
 
+    const { resetFilters: resetFilters } = filter;
+
     const { headElement, configsElement } = useConfigurableTable(fundService.getImplementationsColumns());
 
     const transformImplementations = useCallback(() => {
-        const { q = '', per_page } = filter.activeValues;
+        const { q = '', per_page } = filterValuesActive;
         const links = { active: false, label: '', url: '' };
 
         setLastQueryImplementations(q);
@@ -70,7 +73,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                 meta: { total: 0, current_page: 1, per_page, from: 0, to: 0, last_page: 1, path: '', links },
             });
         }
-    }, [filter.activeValues, fund?.implementation]);
+    }, [filterValuesActive, fund?.implementation]);
 
     useEffect(() => {
         transformImplementations();
@@ -103,7 +106,7 @@ export default function OrganizationsFundsShowImplementationsCard({
 
                         <div className="block block-inline-filters">
                             {filter.show && (
-                                <div className="button button-text" onClick={() => filter.resetFilters()}>
+                                <div className="button button-text" onClick={() => resetFilters()}>
                                     <em className="mdi mdi-close icon-start" />
                                     Wis filters
                                 </div>
@@ -115,10 +118,10 @@ export default function OrganizationsFundsShowImplementationsCard({
                                         <input
                                             type="text"
                                             className="form-control"
-                                            defaultValue={filter.values.q}
+                                            defaultValue={filterValues.q}
                                             placeholder="Zoeken"
                                             onChange={(e) =>
-                                                filter.update({
+                                                filterUpdate({
                                                     q: e.target.value,
                                                 })
                                             }
@@ -127,44 +130,22 @@ export default function OrganizationsFundsShowImplementationsCard({
                                 </div>
                             )}
 
-                            <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
-                                <div className="inline-filters-dropdown pull-right">
-                                    {filter.show && (
-                                        <div className="inline-filters-dropdown-content">
-                                            <div className="arrow-box bg-dim">
-                                                <div className="arrow" />
-                                            </div>
-
-                                            <div className="form">
-                                                <FilterItemToggle
-                                                    show={true}
-                                                    label={translate(
-                                                        'funds_show.implementations_table.filters.search',
-                                                    )}>
-                                                    <input
-                                                        className="form-control"
-                                                        value={filter.values.q}
-                                                        onChange={(e) =>
-                                                            filter.update({
-                                                                q: e.target.value,
-                                                            })
-                                                        }
-                                                        placeholder={translate(
-                                                            'funds_show.implementations_table.filters.search',
-                                                        )}
-                                                    />
-                                                </FilterItemToggle>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div
-                                        className="button button-default button-icon"
-                                        onClick={() => filter.setShow(!filter.show)}>
-                                        <em className="mdi mdi-filter-outline" />
-                                    </div>
-                                </div>
-                            </ClickOutside>
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle
+                                    show={true}
+                                    label={translate('funds_show.implementations_table.filters.search')}>
+                                    <input
+                                        className="form-control"
+                                        value={filterValues.q}
+                                        onChange={(e) =>
+                                            filterUpdate({
+                                                q: e.target.value,
+                                            })
+                                        }
+                                        placeholder={translate('funds_show.implementations_table.filters.search')}
+                                    />
+                                </FilterItemToggle>
+                            </CardHeaderFilter>
                         </div>
                     </div>
                 </div>
@@ -223,7 +204,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                                                                     Permission.MANAGE_IMPLEMENTATION_CMS,
                                                                 ) && (
                                                                     <StateNavLink
-                                                                        name={'implementations-view'}
+                                                                        name={DashboardRoutes.IMPLEMENTATION}
                                                                         params={{
                                                                             id: implementation?.id,
                                                                             organizationId: fund.organization_id,
@@ -258,8 +239,8 @@ export default function OrganizationsFundsShowImplementationsCard({
                     <div className="card-section card-section-narrow" hidden={implementations?.meta?.last_page < 2}>
                         <Paginator
                             meta={implementations.meta}
-                            filters={filter.activeValues}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginationPerPageKey}
                         />
                     </div>

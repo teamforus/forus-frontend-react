@@ -6,7 +6,6 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import Organization from '../../../../dashboard/props/models/Organization';
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
 import Reservation from '../../../../dashboard/props/models/Reservation';
@@ -15,6 +14,9 @@ import Paginator from '../../../../dashboard/modules/paginator/components/Pagina
 import ReservationCard from './elements/ReservationCard';
 import { useProductReservationService } from '../../../services/ProductReservationService';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function Reservations() {
     const translate = useTranslate();
@@ -38,12 +40,36 @@ export default function Reservations() {
         ];
     }, [translate]);
 
-    const filters = useFilter({
-        state: 'all',
-        fund_id: null,
-        organization_id: null,
-        archived: 0,
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        state: string;
+        fund_id?: number;
+        organization_id?: number;
+        archived: 0 | 1;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            state: 'all',
+            fund_id: null,
+            organization_id: null,
+            archived: 0,
+            page: 1,
+            per_page: 15,
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                state: StringParam,
+                fund_id: NumberParam,
+                organization_id: NumberParam,
+                archived: createEnumParam(['0', '1']),
+                page: NumberParam,
+                per_page: NumberParam,
+            },
+        },
+    );
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -75,12 +101,12 @@ export default function Reservations() {
 
         productReservationService
             .list({
-                ...filters.activeValues,
-                state: filters.activeValues?.state === 'all' ? null : filters.activeValues?.state,
+                ...filterValuesActive,
+                state: filterValuesActive?.state === 'all' ? null : filterValuesActive?.state,
             })
             .then((res) => setReservations(res.data))
             .finally(() => setProgress(100));
-    }, [filters.activeValues, productReservationService, setProgress]);
+    }, [filterValuesActive, productReservationService, setProgress]);
 
     useEffect(() => {
         fetchFunds();
@@ -98,7 +124,7 @@ export default function Reservations() {
         <BlockShowcaseProfile
             contentDusk="listReservationsContent"
             breadcrumbItems={[
-                { name: translate('reservations.breadcrumbs.home'), state: 'home' },
+                { name: translate('reservations.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('reservations.breadcrumbs.reservations') },
             ]}
             filters={
@@ -111,8 +137,8 @@ export default function Reservations() {
 
                             <UIControlText
                                 id="products_search"
-                                value={filters.values.q}
-                                onChangeValue={(q) => filters.update({ q })}
+                                value={filterValues.q}
+                                onChangeValue={(q) => filterUpdate({ q })}
                                 dataDusk="listReservationsSearch"
                                 ariaLabel={translate('reservations.filters.search_aria_label')}
                             />
@@ -125,12 +151,12 @@ export default function Reservations() {
                             <SelectControl
                                 id="select_fund"
                                 propKey={'id'}
-                                value={filters.values.fund_id}
+                                value={filterValues.fund_id}
                                 options={funds}
                                 multiline={true}
                                 allowSearch={true}
                                 dusk="selectControlFunds"
-                                onChange={(fund_id?: number) => filters.update({ fund_id })}
+                                onChange={(fund_id?: number) => filterUpdate({ fund_id })}
                             />
                         </div>
                         <div className="form-group">
@@ -140,10 +166,10 @@ export default function Reservations() {
 
                             <SelectControl
                                 id="select_provider"
-                                value={filters.values.organization_id}
+                                value={filterValues.organization_id}
                                 propKey={'id'}
                                 options={organizations}
-                                onChange={(organization_id?: number) => filters.update({ organization_id })}
+                                onChange={(organization_id?: number) => filterUpdate({ organization_id })}
                                 multiline={true}
                                 allowSearch={true}
                                 dusk="selectControlOrganizations"
@@ -156,10 +182,10 @@ export default function Reservations() {
 
                             <SelectControl
                                 id="select_state"
-                                value={filters.values.state}
+                                value={filterValues.state}
                                 propKey={'value'}
                                 options={states}
-                                onChange={(state?: string) => filters.update({ state })}
+                                onChange={(state?: string) => filterUpdate({ state })}
                                 multiline={true}
                                 allowSearch={true}
                                 dusk="selectControlStates"
@@ -184,17 +210,17 @@ export default function Reservations() {
                             <div className="block block-label-tabs form pull-right">
                                 <div className="label-tab-set">
                                     <div
-                                        className={`label-tab label-tab-sm ${!filters.values.archived ? 'active' : ''}`}
-                                        onClick={() => filters.update({ archived: 0 })}
-                                        aria-pressed={!filters.values.archived}
+                                        className={`label-tab label-tab-sm ${!filterValues.archived ? 'active' : ''}`}
+                                        onClick={() => filterUpdate({ archived: 0 })}
+                                        aria-pressed={!filterValues.archived}
                                         data-dusk="reservationsFilterActive"
                                         role="button">
                                         {translate('reservations.types.active')}
                                     </div>
                                     <div
-                                        className={`label-tab label-tab-sm ${filters.values.archived ? 'active' : ''}`}
-                                        onClick={() => filters.update({ archived: 1 })}
-                                        aria-pressed={!!filters.values.archived}
+                                        className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                        onClick={() => filterUpdate({ archived: 1 })}
+                                        aria-pressed={!!filterValues.archived}
                                         data-dusk="reservationsFilterArchived"
                                         role="button">
                                         {translate('reservations.types.archived')}
@@ -234,11 +260,7 @@ export default function Reservations() {
 
                     <div className="card" hidden={reservations?.meta?.last_page < 2}>
                         <div className="card-section">
-                            <Paginator
-                                meta={reservations.meta}
-                                filters={filters.values}
-                                updateFilters={filters.update}
-                            />
+                            <Paginator meta={reservations.meta} filters={filterValues} updateFilters={filterUpdate} />
                         </div>
                     </div>
                 </Fragment>

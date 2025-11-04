@@ -4225,7 +4225,7 @@
     ],
     [
         "modal_physical_card.modal_section.link_card.description",
-        "Op je pasje staat een QR-code, hieronder staat je persoonlijke code.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.<br/>Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00."
+        "Op je pasje staat een persoonlijke code. Vul deze hieronder in.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken."
     ],
     [
         "modal_physical_card.modal_section.link_card.no_old_card",
@@ -5205,7 +5205,7 @@
     ],
     [
         "page_state_titles.products",
-        "Aanbod{{fund_name}}{{pageTitleSuffix}}"
+        "Aanbod{{pageTitleSuffix}}"
     ],
     [
         "page_state_titles.products-apply",
@@ -6332,20 +6332,60 @@
         "Tegoeden"
     ],
     [
+        "product.labels.add_to_favorites",
+        "Toevoegen aan favorieten"
+    ],
+    [
+        "product.labels.attention",
+        "Let op!"
+    ],
+    [
+        "product.labels.buy_now",
+        "Koop nu!"
+    ],
+    [
         "product.labels.category",
         "Categorie:"
+    ],
+    [
+        "product.labels.choose_credit",
+        "Kies het tegoed"
+    ],
+    [
+        "product.labels.collapse_section",
+        "Sectie samenvouwen"
     ],
     [
         "product.labels.description",
         "Omschrijving:"
     ],
     [
+        "product.labels.description_card",
+        "Omschrijving"
+    ],
+    [
         "product.labels.discount",
         "Korting:"
     ],
     [
+        "product.labels.dont_have_voucher",
+        "Nog geen tegoed?"
+    ],
+    [
+        "product.labels.duration_of_promotion",
+        "Duur van de promotie"
+    ],
+    [
+        "product.labels.expand_section",
+        "Sectie uitklappen"
+    ],
+    [
         "product.labels.expire",
         "Geldig tot en met:"
+    ],
+    [
+        "product.labels.expire_by_date",
+        "Geldig t/m {{date}}"
     ],
     [
         "product.labels.expire_prefix",
@@ -6372,12 +6412,36 @@
         "Informatie over tegoeden"
     ],
     [
+        "product.labels.how_can_i_pay",
+        "Hoe kan ik betalen?"
+    ],
+    [
+        "product.labels.ideal_logo_alt",
+        "iDEAL logo"
+    ],
+    [
         "product.labels.limit",
         "Resterend tegoed:"
     ],
     [
+        "product.labels.locations_on_map",
+        "Locaties op kaart"
+    ],
+    [
+        "product.labels.login_to_order",
+        "Log in om nu te bestellen"
+    ],
+    [
         "product.labels.max_limit",
         "Maximaal per persoon:"
+    ],
+    [
+        "product.labels.more_info",
+        "Meer informatie"
+    ],
+    [
+        "product.labels.next_image",
+        "Volgende afbeelding"
     ],
     [
         "product.labels.pay_from_voucher",
@@ -6393,7 +6457,7 @@
     ],
     [
         "product.labels.payment_option_qr",
-        "QR‑code tonen bij aanbieder"
+        "QR-code tonen bij aanbieder"
     ],
     [
         "product.labels.payment_option_reservation",
@@ -6404,8 +6468,48 @@
         "Betaalopties"
     ],
     [
+        "product.labels.payment_options_title",
+        "Betaalopties"
+    ],
+    [
+        "product.labels.previous_image",
+        "Vorige afbeelding"
+    ],
+    [
         "product.labels.price",
         "Prijs:"
+    ],
+    [
+        "product.labels.product_images",
+        "Productafbeeldingen"
+    ],
+    [
+        "product.labels.provider",
+        "Aanbieder"
+    ],
+    [
+        "product.labels.quantity_limit",
+        "Max. {{limit}} p.p."
+    ],
+    [
+        "product.labels.remove_from_favorites",
+        "Verwijder uit favorieten"
+    ],
+    [
+        "product.labels.request_one_now",
+        "Vraag er nu een aan!"
+    ],
+    [
+        "product.labels.show_image_of_total",
+        "Toon afbeelding {{current}} van {{total}}"
+    ],
+    [
+        "product.labels.when",
+        "Wanneer"
+    ],
+    [
+        "product.labels.where",
+        "Waar"
     ],
     [
         "product.low_amount",
@@ -6420,28 +6524,16 @@
         "U heeft geen tegoed om dit aanbod mee te reserveren"
     ],
     [
+        "product.other_products",
+        "Misschien vind je dit ook leuk?"
+    ],
+    [
         "product.price.free",
         "Gratis"
     ],
     [
         "product.price.informational",
         "Alleen in winkel"
-    ],
-    [
-        "product.status.active",
-        "Actief"
-    ],
-    [
-        "product.status.free",
-        "Gratis"
-    ],
-    [
-        "product.status.no_data",
-        "Geen data"
-    ],
-    [
-        "product.status.out_of_stock",
-        "Geen voorraad meer"
     ],
     [
         "product.tooltip",
@@ -7025,7 +7117,7 @@
     ],
     [
         "providers.filters.search",
-        "Zoeken"
+        "Zoek aanbieder"
     ],
     [
         "providers.filters.sort",
@@ -8788,6 +8880,30 @@
         "Gebruik dit tegoed voor:"
     ],
     [
+        "voucher.actions.choose_action.description",
+        "Selecteer één van onderstaande acties om verder te gaan."
+    ],
+    [
+        "voucher.actions.choose_action.title",
+        "Kies een actie"
+    ],
+    [
+        "voucher.actions.declaration_request",
+        "Kosten terugvragen"
+    ],
+    [
+        "voucher.actions.save_qr",
+        "Sla QR-code op"
+    ],
+    [
+        "voucher.actions.share_with_provider",
+        "Deel QR-code met aanbieder"
+    ],
+    [
+        "voucher.actions.view_all_products",
+        "Bekijk alle producten"
+    ],
+    [
         "voucher.breadcrumbs.home",
         "Home"
     ],
@@ -8812,42 +8928,6 @@
         "E-mail naar mij"
     ],
     [
-        "voucher.card_combined.header.title",
-        "Hoe werkt het?"
-    ],
-    [
-        "voucher.card_combined.labels.contact_sponsor",
-        "Heeft u vragen?"
-    ],
-    [
-        "voucher.card_combined.labels.contact_sponsor_details",
-        "Neem dan contact met ons op."
-    ],
-    [
-        "voucher.card_combined.labels.how_it_works",
-        "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag."
-    ],
-    [
-        "voucher.card_combined.labels.IIT.how_it_works",
-        "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag."
-    ],
-    [
-        "voucher.card_combined.labels.IIT.redirect_to",
-        "Wilt u nog een vergoeding aanvragen?"
-    ],
-    [
-        "voucher.card_combined.labels.meedoenregeling_volwassenen_ww.how_it_works",
-        "Heeft u kosten gemaakt die binnen deze regeling vallen? Vraag uw kosten terug door een bon in te sturen. Na goedkeuring ontvangt u het bedrag op uw persoonlijke bankrekening."
-    ],
-    [
-        "voucher.card_combined.labels.meedoenregeling_volwassenen_ww.redirect_to",
-        "Kosten terugvragen?"
-    ],
-    [
-        "voucher.card_combined.labels.redirect_to",
-        "Wilt u nog een vergoeding aanvragen?"
-    ],
-    [
         "voucher.card.activate_my_pass",
         "Activeer mijn pas"
     ],
@@ -8856,108 +8936,16 @@
         "Annuleren"
     ],
     [
-        "voucher.card.delete",
-        "Annuleer reservering"
-    ],
-    [
-        "voucher.card.expire",
-        "Geldig tot en met:"
-    ],
-    [
-        "voucher.card.expired",
-        "Verlopen"
-    ],
-    [
-        "voucher.card.footer.actions.mail",
-        "E-mail naar mij"
-    ],
-    [
-        "voucher.card.footer.actions.open_in_me",
-        "Open in app"
-    ],
-    [
-        "voucher.card.footer.actions.physical_card_use",
-        "Plastic pas"
-    ],
-    [
-        "voucher.card.footer.actions.print",
-        "Print"
-    ],
-    [
-        "voucher.card.footer.actions.share",
-        "Deel met aanbieder"
-    ],
-    [
-        "voucher.card.footer.tooltips.mail",
-        "E-mail het tegoed naar uzelf"
-    ],
-    [
-        "voucher.card.footer.tooltips.open_in_me",
-        "Me"
-    ],
-    [
-        "voucher.card.footer.tooltips.print",
-        "Print het tegoed uit"
-    ],
-    [
-        "voucher.card.footer.tooltips.share",
-        "Deel het tegoed met de aanbieder"
-    ],
-    [
         "voucher.card.header.title",
         "Hoe werkt het?"
-    ],
-    [
-        "voucher.card.labels.contact_provider",
-        "Heeft u vragen over dit aanbod? Neem dan contact met ons op."
-    ],
-    [
-        "voucher.card.labels.contact_sponsor",
-        "Vragen? Neem contact met ons op."
-    ],
-    [
-        "voucher.card.labels.description",
-        "1. Klik op Aanbod en kies en reserveer een activiteit.<br/>OF<br/>2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit."
-    ],
-    [
-        "voucher.card.labels.email",
-        "E-mailadres:"
-    ],
-    [
-        "voucher.card.labels.phone",
-        "Telefoonnummer:"
     ],
     [
         "voucher.card.lost_my_pass",
         "Ik ben mijn pas kwijt"
     ],
     [
-        "voucher.card.qrcode.description",
-        "Dit is uw     {{fund_name}} tegoed met een QR-code."
-    ],
-    [
-        "voucher.card.qrcode.productdescription",
-        "Dit is uw reservering met een QR-code."
-    ],
-    [
-        "voucher.card.share",
-        "Delen"
-    ],
-    [
         "voucher.card.stop_participation",
         "Stop deelname"
-    ],
-    [
-        "voucher.card.used",
-        "Gebruikt"
-    ],
-    [
-        "voucher.card.used_on",
-        "Gebruikt op"
-    ],
-    [
-        "voucher.card.valid_until",
-        "Geldig t/m"
     ],
     [
         "voucher.delete_voucher.buttons.close",
@@ -8980,6 +8968,54 @@
         "Annuleer reservering"
     ],
     [
+        "voucher.details.records.email",
+        "E-mailadres:"
+    ],
+    [
+        "voucher.details.records.number",
+        "Nummer:"
+    ],
+    [
+        "voucher.details.records.title",
+        "Gegevens"
+    ],
+    [
+        "voucher.details.valid_until",
+        "Dit tegoed is geldig t/m {{ date }}"
+    ],
+    [
+        "voucher.fund_details.title",
+        "Informatie over de regeling"
+    ],
+    [
+        "voucher.fund_details.view",
+        "Lees meer"
+    ],
+    [
+        "voucher.fund.logo_alt",
+        "Fondslogo"
+    ],
+    [
+        "voucher.fund.logo_alt_named",
+        "Logo van {{ name }}"
+    ],
+    [
+        "voucher.help.description",
+        "Vragen of hulp nodig? Neem contact met ons op."
+    ],
+    [
+        "voucher.help.email",
+        "E-mailadres:"
+    ],
+    [
+        "voucher.help.phone",
+        "Telefoonnummer:"
+    ],
+    [
+        "voucher.help.title",
+        "Vragen of hulp nodig?"
+    ],
+    [
         "voucher.history.status.expired",
         "Verlopen"
     ],
@@ -8988,24 +9024,8 @@
         "Uitgaven"
     ],
     [
-        "voucher.labels.add",
-        "Bij"
-    ],
-    [
-        "voucher.labels.expire",
-        "Geldig tot en met:"
-    ],
-    [
-        "voucher.labels.fund",
-        "Fonds"
-    ],
-    [
-        "voucher.labels.info",
-        "<span style='font-style: italic;'>Zoek je een aanbieder die niet op de kaart staat? Je kunt een aanbieder vragen om deel te nemen. Een aanbieder kan zich het hele jaar door aanmelden.</span>"
-    ],
-    [
-        "voucher.labels.offers",
-        "Wilt u graag informatie over het volledige aanbod? Neem dan contact op met de aanbieder."
+        "voucher.how_it_works.title",
+        "Hoe het werkt"
     ],
     [
         "voucher.labels.office",
@@ -9016,32 +9036,12 @@
         "Aanbieders"
     ],
     [
-        "voucher.labels.productdetail",
-        "Informatie over het aanbod"
-    ],
-    [
-        "voucher.labels.requirements",
-        "Voor voorwaarden van dit aanbod neem contact op met de aanbieder."
-    ],
-    [
-        "voucher.labels.shopdetail",
-        "Informatie over de aanbieder"
-    ],
-    [
-        "voucher.labels.subtract",
-        "Af"
-    ],
-    [
-        "voucher.labels.transactions",
-        "Uitgaven"
-    ],
-    [
-        "voucher.labels.voucher",
-        "Print uw tegoed uit of mail hem naar uzelf toe. Ga met de QR-code naar de aanbieder en laat hem scannen."
+        "voucher.overview.description",
+        "Lees op deze pagina hoe het tegoed werkt en bekijk het saldo en de uitgaven. Veel plezier met het tegoed!"
     ],
     [
         "voucher.physical_card.alt",
-        "Fysieke pas: '{[ title ]}'"
+        "Fysieke pas: '{{ title }}'"
     ],
     [
         "voucher.physical_card.buttons.lost_pass",
@@ -9056,32 +9056,16 @@
         "Pasnummer"
     ],
     [
-        "voucher.physical_card.less_details",
-        "Verberg alle details"
-    ],
-    [
-        "voucher.physical_card.more_details",
-        "Toon alle details"
-    ],
-    [
-        "voucher.physical_card.personal_date",
-        "Persoonsgegevens"
-    ],
-    [
         "voucher.physical_card.title",
         "Activeer mijn pas"
     ],
     [
-        "voucher.reimbursement.button",
-        "Bon insturen"
+        "voucher.physical_cards.title",
+        "Mijn fysieke passen"
     ],
     [
-        "voucher.reimbursement.description",
-        "Vraag uw gemaakte kosten terug door de gegevens van uw aankoop en de rekening of kassabon in te sturen."
-    ],
-    [
-        "voucher.reimbursement.title",
-        "Kosten terugvragen"
+        "voucher.qr_code.label",
+        "QR-code voor tegoed {{ number }}"
     ],
     [
         "voucher.share_voucher.buttons.cancel",
@@ -9149,7 +9133,7 @@
     ],
     [
         "voucher.transactions.expired_on",
-        "Verlopen op {[ date ]}"
+        "Verlopen op {{ date }}"
     ],
     [
         "voucher.transactions.no_spending",

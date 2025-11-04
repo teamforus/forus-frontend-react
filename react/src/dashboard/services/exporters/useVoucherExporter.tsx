@@ -12,6 +12,7 @@ import QRCode from 'easyqrcodejs';
 import useTranslate from '../../hooks/useTranslate';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import usePushApiError from '../../hooks/usePushApiError';
+import { makeQrCodeContent } from '../../helpers/utils';
 
 export default function useVoucherExporter() {
     const pushDanger = usePushDanger();
@@ -64,7 +65,7 @@ export default function useVoucherExporter() {
         $el.id = elementId;
         $el.style.display = 'none';
 
-        new QRCode(elementId, { text: JSON.stringify({ type: 'voucher', value: qrValue }) });
+        new QRCode(elementId, { text: makeQrCodeContent('voucher', qrValue) });
 
         return document.getElementById(elementId).querySelector('canvas').toDataURL();
     }, []);

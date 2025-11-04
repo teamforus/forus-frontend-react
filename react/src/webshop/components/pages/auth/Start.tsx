@@ -24,6 +24,8 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../elements/bind-links-inside/BindLinksInside';
+import { makeQrCodeContent } from '../../../../dashboard/helpers/utils';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -37,15 +39,15 @@ export default function Start() {
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
 
-    const termsUrl = useStateHref('terms_and_conditions');
-    const privacyUrl = useStateHref('privacy');
+    const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
+    const privacyUrl = useStateHref(WebshopRoutes.PRIVACY);
 
     const { target } = useStateParams<{ target?: string }>();
     const [state, setState] = useState<string>('start');
     const [timer, setTimer] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [qrValue, setQrValue] = useState(null);
+    const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const [emailValue, setEmailValue] = useState(null);
 
     const [{ reset, logout, restore_with_digid, restore_with_email }, setQueryParams] = useQueryParams(
@@ -146,7 +148,7 @@ export default function Start() {
         digIdService
             .startAuthRestore()
             .then((res) => (document.location = res.data.redirect_url))
-            .catch((res: ResponseError) => navigateState('error', { errorCode: res.headers['error-code'] }))
+            .catch((res: ResponseError) => navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] }))
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
@@ -660,7 +662,7 @@ export default function Start() {
                                                     <div className="sign_up-pane-auth-qr_code show-sm">
                                                         {qrValue && (
                                                             <QrCode
-                                                                value={JSON.stringify(qrValue)}
+                                                                value={makeQrCodeContent(qrValue.type, qrValue.value)}
                                                                 logo={assetUrl('/assets/img/me-logo.png')}
                                                             />
                                                         )}
@@ -673,7 +675,7 @@ export default function Start() {
                                                 <div className="sign_up-pane-auth-qr_code hide-sm">
                                                     {qrValue && (
                                                         <QrCode
-                                                            value={JSON.stringify(qrValue)}
+                                                            value={makeQrCodeContent(qrValue.type, qrValue.value)}
                                                             logo={assetUrl('/assets/img/me-logo.png')}
                                                         />
                                                     )}

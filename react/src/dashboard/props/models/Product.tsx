@@ -20,7 +20,7 @@ export default interface Product {
     reservation_enabled: boolean;
     reservation_policy: 'global';
     alternative_text?: string;
-    photo?: Media;
+    photos?: Media[];
     price: string;
     price_locale: string;
     organization: Organization;
@@ -103,4 +103,9 @@ export default interface Product {
     created_at_locale?: string;
     reservation_fields_config: 'global' | 'no' | 'yes';
     reservation_fields: Array<ReservationField>;
+    info_duration?: string;
+    info_when?: string;
+    info_where?: string;
+    info_more_info?: string;
+    info_attention?: string;
 }

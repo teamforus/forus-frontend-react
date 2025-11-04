@@ -532,6 +532,7 @@ export default {
             external_link_text: 'Externe linktekst',
             external_link_url: 'Externe link-url',
             criteria_label_requirement_show: 'Verplichte of optionele vragen',
+            how_it_works: 'Uitleg over het tegoed (extra uitleg op de tegoedenpagina)',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -569,6 +570,7 @@ export default {
             base_card: {
                 header: {
                     description: 'Beschrijving',
+                    how_it_works: 'Uitleg over het tegoed',
                     formulas: 'Rekenregels',
                     statistics: 'Statistieken',
                     criteria: 'Voorwaarden',
@@ -936,6 +938,12 @@ export default {
             price: 'Prijs',
             price_type: 'Prijs type',
             price_discount: 'Korting',
+            alternative_text: 'Alt-tekst',
+            info_duration: 'Duur van de promotie',
+            info_when: 'Wanneer loopt de promotie',
+            info_where: 'Locatie',
+            info_more_info: 'Meer informatie',
+            info_attention: 'Let op',
         },
         filters: {
             search: 'Zoeken',
@@ -1998,7 +2006,7 @@ export default {
 
     tooltip: {
         product: {
-            limit: 'U kunt ook de inwoner in uw organisatie te woord staan en hem een persoonlijk aanbod aanbieden. U scant dan de QR-code en vult een bedrag in!',
+            limit: 'Vul hier in hoeveel stuks u nog kunt verkopen. Als u dit opslaat, past het systeem de voorraad automatisch aan op basis van wat er al is verkocht en wat er nog over is. Rekensom: Aantal op voorraad = Verkocht + Nog te koop.',
         },
     },
 

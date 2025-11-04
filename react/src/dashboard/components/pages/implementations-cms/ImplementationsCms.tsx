@@ -28,6 +28,7 @@ import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import ModalNotification from '../../modals/ModalNotification';
 import usePushApiError from '../../../hooks/usePushApiError';
 import InfoBox from '../../elements/info-box/InfoBox';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsCms() {
     const { id } = useParams();
@@ -305,14 +306,14 @@ export default function ImplementationsCms() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -337,7 +338,7 @@ export default function ImplementationsCms() {
                                 </a>
 
                                 <StateNavLink
-                                    name={'implementations-config'}
+                                    name={DashboardRoutes.IMPLEMENTATION_CONFIG}
                                     params={{
                                         organizationId: activeOrganization.id,
                                         id: implementation.id,
@@ -348,7 +349,7 @@ export default function ImplementationsCms() {
                                 </StateNavLink>
 
                                 <StateNavLink
-                                    name={'implementations-social-media'}
+                                    name={DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA}
                                     params={{
                                         organizationId: activeOrganization.id,
                                         id: implementation.id,
@@ -818,7 +819,7 @@ export default function ImplementationsCms() {
                     <div className="card-section card-section-primary">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementations-view'}
+                                name={DashboardRoutes.IMPLEMENTATION}
                                 params={{
                                     id: implementation.id,
                                     organizationId: activeOrganization.id,

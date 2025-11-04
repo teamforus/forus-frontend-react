@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import IconReimbursement from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
@@ -14,6 +13,9 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import VoucherCard from './elements/VoucherCard';
 import useEnvData from '../../../hooks/useEnvData';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function Vouchers() {
     const envData = useEnvData();
@@ -27,23 +29,39 @@ export default function Vouchers() {
     const [vouchers, setVouchers] = useState<PaginationData<Voucher>>(null);
     const [reimbursementVouchers, setReimbursementVouchers] = useState<PaginationData<Voucher>>(null);
 
-    const filter = useFilter<{
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         archived: 0 | 1;
-    }>({
-        per_page: 15,
-        archived: 0,
-        order_by: 'voucher_type',
-        order_dir: 'desc',
-    });
+        page?: number;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>(
+        {
+            page: 1,
+            per_page: 15,
+            archived: 0,
+            order_by: 'voucher_type',
+            order_dir: 'desc',
+        },
+        {
+            queryParams: {
+                archived: createEnumParam(['0', '1']),
+                page: NumberParam,
+                per_page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
 
     const fetchVouchers = useCallback(() => {
         setProgress(0);
 
         voucherService
-            .list(filter.activeValues)
+            .list(filterValuesActive)
             .then((res) => setVouchers(res.data))
             .finally(() => setProgress(100));
-    }, [filter.activeValues, setProgress, voucherService]);
+    }, [filterValuesActive, setProgress, voucherService]);
 
     const fetchReimbursementVouchers = useCallback(() => {
         setProgress(0);
@@ -71,7 +89,7 @@ export default function Vouchers() {
         <BlockShowcaseProfile
             contentDusk="listVouchersContent"
             breadcrumbItems={[
-                { name: translate('vouchers.breadcrumbs.home'), state: 'home' },
+                { name: translate('vouchers.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('vouchers.breadcrumbs.vouchers') },
             ]}
             profileHeader={
@@ -86,21 +104,21 @@ export default function Vouchers() {
                         <div className="block block-label-tabs form pull-right">
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${filter.values.archived ? '' : 'active'}`}
-                                    onClick={() => filter.update({ archived: 0 })}
+                                    className={`label-tab label-tab-sm ${filterValues.archived ? '' : 'active'}`}
+                                    onClick={() => filterUpdate({ archived: 0 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
-                                    aria-pressed={!filter.values.archived}
+                                    aria-pressed={!filterValues.archived}
                                     data-dusk="vouchersFilterActive"
                                     role="button">
                                     {translate('vouchers.filters.active')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${filter.values.archived ? 'active' : ''}`}
-                                    onClick={() => filter.update({ archived: 1 })}
+                                    className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                    onClick={() => filterUpdate({ archived: 1 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
-                                    aria-pressed={!!filter.values.archived}
+                                    aria-pressed={!!filterValues.archived}
                                     data-dusk="vouchersFilterArchived"
                                     role="button">
                                     {translate('vouchers.filters.archive')}
@@ -126,8 +144,8 @@ export default function Vouchers() {
                                 <div className="card-section">
                                     <Paginator
                                         meta={vouchers.meta}
-                                        filters={filter.values}
-                                        updateFilters={filter.update}
+                                        filters={filterValues}
+                                        updateFilters={filterUpdate}
                                     />
                                 </div>
                             </div>
@@ -143,7 +161,7 @@ export default function Vouchers() {
                                         </h2>
                                     </div>
                                     <div className="block-card-actions">
-                                        <StateNavLink name="reimbursements-create">
+                                        <StateNavLink name={WebshopRoutes.REIMBURSEMENT_CREATE}>
                                             <div className="button button-primary-outline">
                                                 {translate('vouchers.reimbursement.button')}
                                             </div>
@@ -165,7 +183,7 @@ export default function Vouchers() {
                                 icon: 'arrow-right',
                                 type: 'primary',
                                 iconEnd: true,
-                                onClick: () => navigateState('start'),
+                                onClick: () => navigateState(WebshopRoutes.START),
                             }}
                         />
                     )}

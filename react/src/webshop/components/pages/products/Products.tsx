@@ -11,7 +11,7 @@ import Paginator from '../../../../dashboard/modules/paginator/components/Pagina
 import ProductsList from '../../elements/lists/products-list/ProductsList';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, StringParam, NumericArrayParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
@@ -26,6 +26,7 @@ import ProductsFilterGroupDistance from './elements/ProductsFilterGroupDistance'
 import ProductsFilterGroupPrice from './elements/ProductsFilterGroupPrice';
 import ProductsFilterGroupFunds from './elements/ProductsFilterGroupFunds';
 import ProductsFilterGroupProviders from './elements/ProductsFilterGroupProviders';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Products() {
     const appConfigs = useAppConfigs();
@@ -226,11 +227,11 @@ export default function Products() {
     }, [setTitle, translate]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             dusk="listProductsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: translate('products.breadcrumbs.home'), state: 'home' },
+                { name: translate('products.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('products.breadcrumbs.products') },
             ]}
             aside={
@@ -411,6 +412,6 @@ export default function Products() {
                     </div>
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

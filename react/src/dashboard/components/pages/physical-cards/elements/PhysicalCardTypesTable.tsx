@@ -26,6 +26,7 @@ import { strLimit } from '../../../../helpers/string';
 import { useDeletePhysicalCardType } from '../hooks/useDeletePhysicalCardType';
 import classNames from 'classnames';
 import { useEditPhysicalCardType } from '../hooks/useEditPhysicalCardType';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function PhysicalCardTypesTable({
     tab = 'physical_cards',
@@ -146,7 +147,7 @@ export default function PhysicalCardTypesTable({
                                     {physicalCardTypes?.data.map((cardType) => (
                                         <StateNavLink
                                             key={cardType.id}
-                                            name={'physical-card-types-show'}
+                                            name={DashboardRoutes.PHYSICAL_CARD_TYPE}
                                             params={{
                                                 id: cardType.id,
                                                 organizationId: organization.id,
@@ -173,7 +174,7 @@ export default function PhysicalCardTypesTable({
                                                         content={(e) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <StateNavLink
-                                                                    name={'physical-card-types-show'}
+                                                                    name={DashboardRoutes.PHYSICAL_CARD_TYPE}
                                                                     params={{
                                                                         id: cardType.id,
                                                                         organizationId: organization.id,

@@ -14,7 +14,7 @@ import ProvidersListItem from '../../elements/lists/providers-list/ProvidersList
 import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import Provider from '../../../props/models/Provider';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, NumericArrayParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
@@ -26,6 +26,7 @@ import ProductsFilterGroupDistance from '../products/elements/ProductsFilterGrou
 import FormGroup from '../../elements/forms/FormGroup';
 import ProductsFilterGroupFunds from '../products/elements/ProductsFilterGroupFunds';
 import ProvidersFilterGroupBusinessTypes from '../products/elements/ProvidersFilterGroupBusinessTypes';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Providers() {
     const translate = useTranslate();
@@ -156,14 +157,14 @@ export default function Providers() {
     }, [filterActiveValues, fetchProvidersMap, fetchProviders, buildQuery, filterValues?.show_map]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             dusk="listProvidersContent"
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={
                 !filterValues.show_map && [
-                    { name: translate('providers.breadcrumbs.home'), state: 'home' },
+                    { name: translate('providers.breadcrumbs.home'), state: WebshopRoutes.HOME },
                     { name: translate('providers.breadcrumbs.providers') },
                 ]
             }
@@ -176,7 +177,7 @@ export default function Providers() {
 
                         <FormGroup
                             id={'providers_search'}
-                            label={translate('products.filters.search')}
+                            label={translate('providers.filters.search')}
                             error={errors?.q}
                             input={(id) => (
                                 <UIControlText
@@ -223,7 +224,7 @@ export default function Providers() {
 
                     {!filterValues.show_map && appConfigs?.pages?.provider && showProviderSignUp && (
                         <StateNavLink
-                            name={'sign-up'}
+                            name={WebshopRoutes.SIGN_UP}
                             className="button button-primary hide-sm"
                             dataDusk="providerSignUpLink">
                             <em className="mdi mdi-store-outline" aria-hidden="true" />
@@ -358,6 +359,6 @@ export default function Providers() {
                     )}
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

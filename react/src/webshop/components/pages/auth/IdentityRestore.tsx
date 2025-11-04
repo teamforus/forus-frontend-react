@@ -7,6 +7,7 @@ import { useIdentityService } from '../../../../dashboard/services/IdentityServi
 import { useAuthService } from '../../../services/AuthService';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalIdentityProxyExpired from '../../modals/ModalIdentityProxyExpired';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 const targetVoucher = 'voucher';
 const targetFundRequest = 'fundRequest';
@@ -36,9 +37,9 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
         (target: Array<string>) => {
             if (target[0] == targetFundRequest) {
                 if (target?.[1]) {
-                    navigateState('fund-request-show', { id: target[1] });
+                    navigateState(WebshopRoutes.FUND_REQUEST_SHOW, { id: target[1] });
                 } else {
-                    navigateState('start');
+                    navigateState(WebshopRoutes.START);
                 }
 
                 return true;
@@ -46,9 +47,9 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
 
             if (target[0] == targetVoucher) {
                 if (target?.[1]) {
-                    navigateState('voucher', { number: target[1] });
+                    navigateState(WebshopRoutes.VOUCHER, { number: target[1] });
                 } else {
-                    navigateState('start');
+                    navigateState(WebshopRoutes.START);
                 }
 
                 return true;
@@ -56,13 +57,13 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
 
             if (target[0] == targetRequestClarification) {
                 if (target?.[1] && target?.[2] && target?.[3]) {
-                    navigateState('fund-request-clarification', {
+                    navigateState(WebshopRoutes.FUND_REQUEST_CLARIFICATION, {
                         fund_id: target[1],
                         request_id: target[2],
                         clarification_id: target[3],
                     });
                 } else {
-                    navigateState('start');
+                    navigateState(WebshopRoutes.START);
                 }
 
                 return true;
@@ -70,9 +71,9 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
 
             if (target[0] == targetProductReservation) {
                 if (target?.[1]) {
-                    navigateState('product', { id: target[1] });
+                    navigateState(WebshopRoutes.PRODUCT, { id: target[1] });
                 } else {
-                    navigateState('start');
+                    navigateState(WebshopRoutes.START);
                 }
 
                 return true;
@@ -98,7 +99,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
                     }
                 })
                 .catch(() => {
-                    navigateState('home');
+                    navigateState(WebshopRoutes.HOME);
                     openModal((modal) => <ModalIdentityProxyExpired modal={modal} />);
                 });
         },

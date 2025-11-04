@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Fund from '../../../../props/models/Fund';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestGoBackButton({
     fund,
@@ -21,7 +22,7 @@ export default function FundRequestGoBackButton({
             {step <= 0 ? (
                 <StateNavLink
                     className="button button-text button-text-padless"
-                    name="fund-activate"
+                    name={WebshopRoutes.FUND_ACTIVATE}
                     params={{ id: fund?.id }}
                     role="link"
                     dataDusk="prevStepButton"
