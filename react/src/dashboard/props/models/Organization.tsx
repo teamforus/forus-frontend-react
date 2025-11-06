@@ -173,4 +173,5 @@ export default interface Organization {
         bank_separator?: string;
     };
     has_person_bsn_api?: boolean;
+    implementations?: Array<{ id: number; name: string }>;
 }

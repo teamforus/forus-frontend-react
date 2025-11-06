@@ -43,45 +43,45 @@
 @import '../../../forus-webshop/scss/includes/blocks/block-sign_up';
 @import '../../../forus-webshop/scss/includes/blocks/block-exception';
 
-.block {
-    @import 'blocks/block-app_download.scss';
-    @import 'blocks/block-app_links.scss';
-    @import 'blocks/block-timeframe.scss';
-    @import 'blocks/block-financial-dashboard.scss';
-    @import 'blocks/block-markdownable.scss';
-    @import 'blocks/block-markdown.scss';
-    @import 'blocks/block-switch-table.scss';
-    @import 'blocks/block-system-notification-editor.scss';
-    @import 'blocks/block-mail_preview.scss';
-    @import 'blocks/block-photo-selector-notifications.scss';
-    @import 'blocks/block-feedback-result.scss';
-    @import 'blocks/block-permissions-list.scss';
-    @import 'blocks/block-announcements.scss';
-    @import 'blocks/block-implementation-blocks-editor';
-    @import 'blocks/block-auth-2fa.scss';
-    @import 'blocks/block-2fa-restriction.scss';
-    @import 'blocks/block-bi-info.scss';
-    @import 'blocks/block-pincode.scss';
-    @import 'blocks/block-voucher-records-editor.scss';
-    @import 'blocks/block-content.scss';
+@import 'blocks/block-app_download.scss';
+@import 'blocks/block-app_links.scss';
+@import 'blocks/block-timeframe.scss';
+@import 'blocks/block-financial-dashboard.scss';
+@import 'blocks/block-markdownable.scss';
+@import 'blocks/block-markdown.scss';
+@import 'blocks/block-switch-table.scss';
+@import 'blocks/block-system-notification-editor.scss';
+@import 'blocks/block-mail_preview.scss';
+@import 'blocks/block-photo-selector-notifications.scss';
+@import 'blocks/block-feedback-result.scss';
+@import 'blocks/block-permissions-list.scss';
+@import 'blocks/block-announcements.scss';
+@import 'blocks/block-implementation-blocks-editor';
+@import 'blocks/block-auth-2fa.scss';
+@import 'blocks/block-2fa-restriction.scss';
+@import 'blocks/block-bi-info.scss';
+@import 'blocks/block-pincode.scss';
+@import 'blocks/block-voucher-records-editor.scss';
+@import 'blocks/block-content.scss';
 
-    // Marketplace feature blocks
-    @import 'blocks/marketplace-features/block-features-overview.scss';
-    @import 'blocks/marketplace-features/block-features-demo-banner.scss';
-    @import 'blocks/marketplace-features/block-feature-icons.scss';
-    @import 'blocks/marketplace-features/block-feature-steps.scss';
-    @import 'blocks/marketplace-features/block-feature-list.scss';
-    @import 'blocks/marketplace-features/block-feature-text-image-columns.scss';
-    @import 'blocks/marketplace-features/block-features.scss';
-    @import 'blocks/marketplace-features/block-feature.scss';
-    @import 'blocks/marketplace-features/block-feature-faq.scss';
+// Marketplace feature blocks
+@import 'blocks/marketplace-features/block-features-overview.scss';
+@import 'blocks/marketplace-features/block-features-demo-banner.scss';
+@import 'blocks/marketplace-features/block-feature-icons.scss';
+@import 'blocks/marketplace-features/block-feature-steps.scss';
+@import 'blocks/marketplace-features/block-feature-list.scss';
+@import 'blocks/marketplace-features/block-feature-list-row.scss';
+@import 'blocks/marketplace-features/block-feature-text-image-columns.scss';
+@import 'blocks/marketplace-features/block-features.scss';
+@import 'blocks/marketplace-features/block-feature.scss';
+@import 'blocks/marketplace-features/block-feature-faq.scss';
 
-    @import 'blocks/block-payment-connection.scss';
-    @import 'blocks/block-pre-checks-blocks-editor';
-    @import 'blocks/block-table-config.scss';
-    @import 'blocks/block-toast.scss';
-}
+@import 'blocks/block-payment-connection.scss';
+@import 'blocks/block-pre-checks-blocks-editor';
+@import 'blocks/block-table-config.scss';
+@import 'blocks/block-toast.scss';
 
+@import 'blocks/block-cms-menu';
 @import 'blocks/block-banner-editor';
 @import 'blocks/block-color-picker';
 @import 'blocks/block-info-box.scss';
@@ -1088,11 +1088,12 @@ body {
     }
 
     .card-section {
+        display: flex;
+        flex-direction: column;
         padding: 20px;
         position: relative;
         cursor: inherit;
         font: 500 13px var(--base-font);
-        @include cf();
 
         .card-title {
             font: 500 16px/30px var(--base-font);
@@ -1269,14 +1270,6 @@ body {
         &.card-section-no-border,
         &:last-child {
             border-bottom: 0;
-        }
-
-        &.card-section-settings {
-            .card-title {
-                font: 600 14px/20px var(--base-font);
-                margin: 0 0 15px;
-                color: #282b39;
-            }
         }
     }
 
@@ -2214,67 +2207,6 @@ body {
                     padding-top: 20px;
                 }
             }
-        }
-    }
-
-    &.card-block-implementation {
-        display: flex;
-        padding: 20px;
-        margin: -20px;
-        cursor: pointer;
-
-        .card-block-implementation-logo {
-            img {
-                width: 70px;
-                height: 70px;
-                border: 1px solid #e7e7e7;
-                border-radius: 70px;
-                overflow: hidden;
-                background-color: #f1f4f7;
-            }
-        }
-
-        .card-block-implementation-details {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            padding-left: 20px;
-            align-self: center;
-            font: 500 18px/22px var(--base-font);
-
-            .card-block-implementation-desc {
-                font: 600 11px/13px var(--base-font);
-                color: #134478;
-                padding-top: 15px;
-            }
-
-            .card-block-implementation-status {
-                font: 600 12px/15px var(--base-font);
-                padding-left: 20px;
-            }
-
-            .card-block-implementation-website {
-                a {
-                    font: 600 13px/16px var(--base-font);
-                    text-decoration: underline;
-                    color: #009ef4;
-                }
-            }
-        }
-
-        &:hover {
-            background: lighten($color: #f3f4f5, $amount: 2);
-        }
-
-        &.card-block-implementation-collapsed {
-            cursor: inherit;
-            background: none;
-        }
-    }
-
-    &.card-implementation-edit {
-        .card-block-details {
-            font: 500 16px/20px var(--base-font);
         }
     }
 

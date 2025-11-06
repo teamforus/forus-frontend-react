@@ -28,8 +28,9 @@ import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import FormPane from '../../../elements/forms/elements/FormPane';
-import FormContainer from '../../../elements/forms/elements/FormContainer';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
+import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
+
 import FormGroupInput from '../../../elements/forms/elements/FormGroupInput';
 import ProductsFormMediaUploader from './ProductsFormMediaUploader';
 import Media from '../../../../props/models/Media';
@@ -530,8 +531,8 @@ export default function ProductsForm({
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary">
-                    <FormContainer>
+                <div className="card-section">
+                    <FormPaneContainer>
                         <FormPane title={'Afbeelding'}>
                             <FormGroup
                                 error={mediaErrors}
@@ -1297,7 +1298,7 @@ export default function ProductsForm({
                                 />
                             </FormPane>
                         </FormPane>
-                    </FormContainer>
+                    </FormPaneContainer>
                 </div>
 
                 <div className="card-section card-section-primary">

@@ -29,7 +29,7 @@
         position: relative;
 
         .form-pane-title {
-            font: 600 11px/20px var(--base-font);
+            font: 600 14px/20px var(--base-font);
             padding: 0 0;
             position: relative;
             display: flex;
@@ -63,7 +63,7 @@
         .form-pane-content {
             border: 1px solid var(--border-color);
             border-top: none;
-            padding: 5px 15px 15px;
+            padding: 8px 15px 15px;
             border-bottom-left-radius: var(--border-radius);
             border-bottom-right-radius: var(--border-radius);
             display: flex;
@@ -447,7 +447,7 @@
     }
 
     .form-error {
-        font: 400 13px/20px var(--base-font);
+        font: 500 13px/20px var(--base-font);
         color: var(--color-danger);
         margin: 0;
 
