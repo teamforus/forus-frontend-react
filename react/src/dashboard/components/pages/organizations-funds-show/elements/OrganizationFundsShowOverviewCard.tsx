@@ -11,6 +11,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import { useFundService } from '../../../../services/FundService';
 import classNames from 'classnames';
 import { Permission } from '../../../../props/models/Organization';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationFundsShowOverviewCard({
     fund,
@@ -44,7 +45,9 @@ export default function OrganizationFundsShowOverviewCard({
                         onClick: () => {
                             fundService.destroy(activeOrganization.id, fund.id).then(() => {
                                 modal.close();
-                                navigateState('organization-funds', { organizationId: activeOrganization.id });
+                                navigateState(DashboardRoutes.ORGANIZATION_FUNDS, {
+                                    organizationId: activeOrganization.id,
+                                });
                             });
                         },
                     }}
@@ -78,7 +81,7 @@ export default function OrganizationFundsShowOverviewCard({
 
                                 {compact && (
                                     <StateNavLink
-                                        name={'funds-show'}
+                                        name={DashboardRoutes.FUND}
                                         params={{ organizationId: activeOrganization.id, fundId: fund.id }}
                                         className={'button button-default'}>
                                         <em className="mdi mdi-eye icon-start" />
@@ -95,7 +98,7 @@ export default function OrganizationFundsShowOverviewCard({
                                 {canManageFunds && fund.fund_form_id && (
                                     <StateNavLink
                                         className="button button-default"
-                                        name="fund-form"
+                                        name={DashboardRoutes.FUND_FORM}
                                         params={{ organizationId: activeOrganization.id, id: fund.fund_form_id }}>
                                         <em className="mdi mdi-account-check-outline icon-start" />
                                         {translate('fund_card_sponsor.buttons.criteria')}
@@ -105,7 +108,7 @@ export default function OrganizationFundsShowOverviewCard({
                                 {canManageFunds && activeOrganization.allow_2fa_restrictions && (
                                     <StateNavLink
                                         className="button button-default"
-                                        name="funds-security"
+                                        name={DashboardRoutes.FUND_SECURITY}
                                         params={{ organizationId: activeOrganization.id, fundId: fund.id }}>
                                         <em className="mdi mdi-security icon-start" />
                                         {translate('fund_card_sponsor.buttons.security')}
@@ -125,7 +128,7 @@ export default function OrganizationFundsShowOverviewCard({
                                 ]) && (
                                     <StateNavLink
                                         className="button button-default"
-                                        name="funds-edit"
+                                        name={DashboardRoutes.FUND_EDIT}
                                         params={{ organizationId: activeOrganization.id, fundId: fund.id }}>
                                         <em className="mdi mdi-pencil icon-start" />
                                         Bewerken

@@ -12,6 +12,7 @@ import FormError from '../../../../dashboard/components/elements/forms/errors/Fo
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PreferencesEmails() {
     const translate = useTranslate();
@@ -135,7 +136,7 @@ export default function PreferencesEmails() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate(`preferences_emails.breadcrumbs.home`), state: 'home' },
+                { name: translate(`preferences_emails.breadcrumbs.home`), state: WebshopRoutes.HOME },
                 { name: translate('preferences_emails.breadcrumbs.preferences_emails') },
             ]}
             profileHeader={

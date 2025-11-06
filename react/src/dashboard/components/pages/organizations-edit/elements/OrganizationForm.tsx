@@ -25,6 +25,7 @@ import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import SelectControlOptionsFD from '../../../elements/select-control/templates/SelectControlOptionsFD';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationForm() {
     const { organizationId } = useParams();
@@ -123,7 +124,7 @@ export default function OrganizationForm() {
 
             promise
                 .then((res) => {
-                    navigateState('organizations');
+                    navigateState(DashboardRoutes.ORGANIZATIONS);
                     pushSuccess('Gelukt!');
                     fetchOrganizations().then(() => {
                         organizationService.use(res.data.data.id);
@@ -397,13 +398,13 @@ export default function OrganizationForm() {
                 <div className="text-center">
                     {organization ? (
                         <StateNavLink
-                            name={isProvider ? 'offices' : 'organizations'}
+                            name={isProvider ? DashboardRoutes.OFFICES : DashboardRoutes.ORGANIZATIONS}
                             params={{ organizationId: organization.id }}
                             className="button button-default">
                             {translate('organization_edit.buttons.cancel')}
                         </StateNavLink>
                     ) : (
-                        <StateNavLink name={'organizations'} className="button button-default">
+                        <StateNavLink name={DashboardRoutes.ORGANIZATIONS} className="button button-default">
                             {translate('organization_edit.buttons.cancel')}
                         </StateNavLink>
                     )}

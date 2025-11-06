@@ -15,6 +15,7 @@ import Announcements from '../../announcements/Announcements';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 import { useElementSize } from '../../../../hooks/useElementSize';
 import { layoutContext } from '../../../../contexts/LayoutContext';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export const TopNavbarMobile = () => {
     const { showSearchBox, setShowSearchBox, mobileMenuOpened, setMobileMenuOpened } = useContext(mainContext);
@@ -86,10 +87,10 @@ export const TopNavbarMobile = () => {
                 </div>
 
                 <StateNavLink
-                    name={'home'}
+                    name={WebshopRoutes.HOME}
                     className="navbar-mobile-logo"
                     title={translate('top_navbar.open_home')}
-                    disabled={route?.state?.name === 'home'}
+                    disabled={route?.state?.name === WebshopRoutes.HOME}
                     tabIndex={0}>
                     <img
                         src={assetUrl(`/assets/img/logo-normal-mobile.svg`)}

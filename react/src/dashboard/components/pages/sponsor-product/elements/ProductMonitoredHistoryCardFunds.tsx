@@ -10,6 +10,7 @@ import Organization from '../../../../props/models/Organization';
 import classNames from 'classnames';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import Label from '../../../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductMonitoredHistoryCardFunds({
     type = 'card',
@@ -34,7 +35,7 @@ export default function ProductMonitoredHistoryCardFunds({
                     {product.funds?.map((fund) => (
                         <StateNavLink
                             disabled={!fund.fund_provider_id}
-                            name={'fund-provider-product'}
+                            name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
                             params={{
                                 id: product.id,
                                 fundId: fund.id,
@@ -92,7 +93,7 @@ export default function ProductMonitoredHistoryCardFunds({
                                         <div className="dropdown dropdown-actions">
                                             {fund.fund_provider_id && (
                                                 <StateNavLink
-                                                    name={'fund-provider-product'}
+                                                    name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
                                                     params={{
                                                         id: product.id,
                                                         fundId: fund.id,
@@ -106,7 +107,7 @@ export default function ProductMonitoredHistoryCardFunds({
 
                                             {fund.fund_provider_id && (
                                                 <StateNavLink
-                                                    name={'fund-provider'}
+                                                    name={DashboardRoutes.FUND_PROVIDER}
                                                     params={{
                                                         id: fund.fund_provider_id,
                                                         fundId: fund.id,
@@ -149,7 +150,7 @@ export default function ProductMonitoredHistoryCardFunds({
                     <div className="block block-inline-filters">
                         <StateNavLink
                             className="button button-primary"
-                            name={'sponsor-provider-organization'}
+                            name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                             params={{ organizationId: activeOrganization.id, id: product.organization_id }}>
                             <em className="mdi mdi-store-outline icon-start" />
                             Bekijk fondsen van de aanbieder

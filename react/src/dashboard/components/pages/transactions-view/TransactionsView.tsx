@@ -12,6 +12,7 @@ import ReservationExtraPaymentDetailsPane from '../reservations-view/elements/pa
 import useTranslate from '../../../hooks/useTranslate';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function TransactionsView() {
     const { address } = useParams();
@@ -47,7 +48,7 @@ export default function TransactionsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'transactions'}
+                    name={DashboardRoutes.TRANSACTIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -58,7 +59,7 @@ export default function TransactionsView() {
 
                 {isSponsor && (
                     <StateNavLink
-                        name={'transactions'}
+                        name={DashboardRoutes.TRANSACTIONS}
                         params={{ organizationId: activeOrganization.id }}
                         activeExact={true}
                         className="breadcrumb-item">

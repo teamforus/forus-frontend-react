@@ -8,6 +8,7 @@ import LayoutAsideGroupOrganization from './groups/LayoutAsideGroupOrganization'
 import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
 import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
 import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function LayoutAsideValidator({ organization }: { organization: Organization }) {
     const appConfigs = useAppConfigs();
@@ -29,7 +30,7 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                     {
                         id: 'fund_requests',
                         name: 'Aanvragen',
-                        state: 'fund-requests',
+                        state: DashboardRoutes.FUND_REQUESTS,
                         stateParams: { organizationId: organization?.id },
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
@@ -43,7 +44,7 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                     {
                         id: 'requesters',
                         name: 'Klaarzetten',
-                        state: 'csv-validation',
+                        state: DashboardRoutes.CSV_VALIDATION,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(
                             organization,

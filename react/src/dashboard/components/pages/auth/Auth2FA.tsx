@@ -6,6 +6,7 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import Modal2FASetup from '../../modals/Modal2FASetup';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Auth2FA() {
     const [step, setStep] = useState(null);
@@ -25,7 +26,7 @@ export default function Auth2FA() {
     const navigate = useNavigate();
 
     const goDashboard = useCallback(() => {
-        return navigate(getStateRouteUrl('organizations'));
+        return navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
     }, [navigate]);
 
     const hidePane = useCallback(() => {
@@ -129,7 +130,7 @@ export default function Auth2FA() {
                             <div className="landing-style">
                                 <div
                                     className="button button-primary"
-                                    onClick={() => navigate(getStateRouteUrl('sign-out'))}>
+                                    onClick={() => navigate(getStateRouteUrl(DashboardRoutes.SIGN_OUT))}>
                                     Uitloggen
                                 </div>
                             </div>
@@ -172,7 +173,7 @@ export default function Auth2FA() {
                             <div className="landing-style">
                                 <div
                                     className="button button-primary"
-                                    onClick={() => navigate(getStateRouteUrl('sign-out'))}>
+                                    onClick={() => navigate(getStateRouteUrl(DashboardRoutes.SIGN_OUT))}>
                                     Uitloggen
                                 </div>
                             </div>

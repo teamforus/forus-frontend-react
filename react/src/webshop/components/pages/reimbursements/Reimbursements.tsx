@@ -21,6 +21,7 @@ import IconReimbursement from '../../../../../assets/forus-webshop/resources/_we
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
@@ -131,7 +132,7 @@ export default function Reimbursements() {
         <BlockShowcaseProfile
             contentDusk="listReimbursementsContent"
             breadcrumbItems={[
-                { name: translate('reimbursements.breadcrumbs.home'), state: 'home' },
+                { name: translate('reimbursements.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('reimbursements.breadcrumbs.reimbursements') },
             ]}
             filters={
@@ -248,7 +249,7 @@ export default function Reimbursements() {
                                 </div>
 
                                 <div className="block-card-actions">
-                                    <StateNavLink name="reimbursements-create">
+                                    <StateNavLink name={WebshopRoutes.REIMBURSEMENT_CREATE}>
                                         <div className="button button-primary-outline">
                                             {translate('reimbursements.create_card.button')}
                                         </div>
@@ -273,7 +274,7 @@ export default function Reimbursements() {
                                               onClick: (e) => {
                                                   e?.preventDefault();
                                                   e?.stopPropagation();
-                                                  navigateState('reimbursements-create');
+                                                  navigateState(WebshopRoutes.REIMBURSEMENT_CREATE);
                                               },
                                           }
                                         : null

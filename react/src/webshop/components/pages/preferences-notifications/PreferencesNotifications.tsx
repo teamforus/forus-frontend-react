@@ -4,6 +4,7 @@ import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcasePro
 import NotificationPreferencesCards from './elements/NotificationPreferencesCards';
 import PushNotificationPreferencesCard from './elements/PushNotificationPreferencesCard';
 import { useParams } from 'react-router';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PreferencesNotifications() {
     const { section = null } = useParams();
@@ -36,7 +37,7 @@ export default function PreferencesNotifications() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('preferences_notifications.breadcrumbs.home'), state: 'home' },
+                { name: translate('preferences_notifications.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('preferences_notifications.breadcrumbs.preferences_notifications') },
             ]}
             profileHeader={

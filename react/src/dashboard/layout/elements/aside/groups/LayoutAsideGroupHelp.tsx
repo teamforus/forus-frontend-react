@@ -3,6 +3,7 @@ import Organization from '../../../../props/models/Organization';
 import LayoutAsideNavGroup from '../elements/LayoutAsideNavGroup';
 import { IconHelp, IconHelpActive } from '../icons/LayoutAsideIcons';
 import useEnvData from '../../../../hooks/useEnvData';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function LayoutAsideGroupHelp({
     organization,
@@ -26,7 +27,7 @@ export default function LayoutAsideGroupHelp({
             items={[
                 {
                     name: 'Feedback',
-                    state: 'feedback',
+                    state: DashboardRoutes.FEEDBACK,
                     stateParams: { organizationId: organization?.id },
                     show: true,
                 },

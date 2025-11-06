@@ -9,6 +9,7 @@ import ProductMonitoredHistoryCardFunds from '../../sponsor-product/elements/Pro
 import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 import Organization from '../../../../props/models/Organization';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function SponsorProductsChangesTable({
     columns,
@@ -41,7 +42,7 @@ export default function SponsorProductsChangesTable({
                     {products?.map((product, index) => (
                         <Fragment key={index}>
                             <StateNavLink
-                                name={'sponsor-product'}
+                                name={DashboardRoutes.SPONSOR_PRODUCT}
                                 params={{ productId: product?.id, organizationId: activeOrganization.id }}
                                 className={'tr-clickable'}
                                 customElement={'tr'}>
@@ -49,7 +50,7 @@ export default function SponsorProductsChangesTable({
                                     <TableEntityMain
                                         title={strLimit(product.name, 64)}
                                         subtitle={strLimit(product.organization.name, 64)}
-                                        media={product.photo}
+                                        media={product.photos[0]}
                                         mediaSize={'md'}
                                         mediaRound={false}
                                         mediaPlaceholder={'product'}
@@ -81,7 +82,7 @@ export default function SponsorProductsChangesTable({
                                             <div className="dropdown dropdown-actions">
                                                 <StateNavLink
                                                     className="dropdown-item"
-                                                    name={'sponsor-product'}
+                                                    name={DashboardRoutes.SPONSOR_PRODUCT}
                                                     params={{
                                                         productId: product?.id,
                                                         organizationId: activeOrganization.id,

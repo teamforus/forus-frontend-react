@@ -14,7 +14,7 @@ import Paginator from '../../../../dashboard/modules/paginator/components/Pagina
 import SearchItemsList from './elements/SearchItemsList';
 import { useVoucherService } from '../../../services/VoucherService';
 import Voucher from '../../../../dashboard/props/models/Voucher';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
@@ -23,6 +23,7 @@ import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();
@@ -244,10 +245,10 @@ export default function Search() {
     }, [doSearch, filterValuesActive, sortByOptions]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: translate('search.breadcrumbs.home'), state: 'home' },
+                { name: translate('search.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('search.breadcrumbs.search') },
             ]}
             dusk="searchListContent"
@@ -442,6 +443,6 @@ export default function Search() {
                     </div>
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

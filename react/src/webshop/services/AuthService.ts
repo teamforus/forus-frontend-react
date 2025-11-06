@@ -3,6 +3,7 @@ import { useFundService } from './FundService';
 import { useVoucherService } from './VoucherService';
 import useEnvData from '../hooks/useEnvData';
 import { useNavigateState } from '../modules/state_router/Router';
+import { WebshopRoutes } from '../modules/state_router/RouterBuilder';
 
 export function useAuthService() {
     const envData = useEnvData();
@@ -12,7 +13,7 @@ export function useAuthService() {
     const voucherService = useVoucherService();
 
     const onAuthRedirect = useCallback(
-        async (defaultState: false | string = 'home', defaultStateParams = {}) => {
+        async (defaultState: false | WebshopRoutes = WebshopRoutes.HOME, defaultStateParams = {}) => {
             const funds = await fundService.list().then((res) => res.data.data);
             const vouchers = await voucherService.list({ per_page: 100 }).then((res) => res.data.data);
 
@@ -25,24 +26,24 @@ export function useAuthService() {
             if (fundsNoVouchers.length > 0) {
                 // Apply to the first form the list
                 if (envData.config.flags.activateFirstFund || (funds.length === 1 && fundsNoVouchers.length == 1)) {
-                    return navigateState('fund-activate', { id: fundsNoVouchers[0].id });
+                    return navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fundsNoVouchers[0].id });
                 }
 
                 // Go to funds list
-                return navigateState('funds');
+                return navigateState(WebshopRoutes.FUNDS);
             }
 
             // There are funds with vouchers
             if (fundsWithVouchers.length > 0) {
                 // Go to the first vouchers
                 if (fundsWithVouchers.length === 1) {
-                    return navigateState('voucher', {
+                    return navigateState(WebshopRoutes.VOUCHER, {
                         number: vouchers.find((voucher) => voucher.fund_id === fundsWithVouchers[0].id).number,
                     });
                 }
 
                 // Go to vouchers list
-                return navigateState('vouchers');
+                return navigateState(WebshopRoutes.VOUCHERS);
             }
 
             // Otherwise go home
@@ -57,27 +58,27 @@ export function useAuthService() {
 
             if (target && target[0] == 'fundRequest') {
                 if (target[1]) {
-                    navigateState('fund-request', { id: target[1] });
+                    navigateState(WebshopRoutes.FUND_REQUEST, { id: target[1] });
                 } else {
-                    navigateState('start', {});
+                    navigateState(WebshopRoutes.START, {});
                 }
                 return true;
             }
 
             if (target && target[0] == 'voucher') {
-                navigateState('voucher', { number: target[1] });
+                navigateState(WebshopRoutes.VOUCHER, { number: target[1] });
                 return true;
             }
 
             if (target && target[0] == 'requestClarification') {
                 if (target[1]) {
-                    navigateState('fund-request-clarification', {
+                    navigateState(WebshopRoutes.FUND_REQUEST_CLARIFICATION, {
                         fund_id: target[1],
                         request_id: target[2],
                         clarification_id: target[3],
                     });
                 } else {
-                    navigateState('start', {});
+                    navigateState(WebshopRoutes.START, {});
                 }
 
                 return true;
@@ -85,9 +86,9 @@ export function useAuthService() {
 
             if (target && target[0] == 'productReservation') {
                 if (target[1]) {
-                    navigateState('product', { id: target[1] });
+                    navigateState(WebshopRoutes.PRODUCT, { id: target[1] });
                 } else {
-                    navigateState('start', {});
+                    navigateState(WebshopRoutes.START, {});
                 }
                 return true;
             }

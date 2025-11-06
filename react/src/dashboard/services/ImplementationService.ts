@@ -74,7 +74,7 @@ export class ImplementationService<T = Implementation> {
     }
 
     public getColumns(): Array<ConfigurableTableColumn> {
-        const list = ['name', 'state'].filter((item) => item);
+        const list = ['name', 'implementation', 'state'].filter((item) => item);
 
         return list.map((key) => ({
             key,

@@ -13,6 +13,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import VoucherCard from './elements/VoucherCard';
 import useEnvData from '../../../hooks/useEnvData';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
@@ -88,7 +89,7 @@ export default function Vouchers() {
         <BlockShowcaseProfile
             contentDusk="listVouchersContent"
             breadcrumbItems={[
-                { name: translate('vouchers.breadcrumbs.home'), state: 'home' },
+                { name: translate('vouchers.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('vouchers.breadcrumbs.vouchers') },
             ]}
             profileHeader={
@@ -160,7 +161,7 @@ export default function Vouchers() {
                                         </h2>
                                     </div>
                                     <div className="block-card-actions">
-                                        <StateNavLink name="reimbursements-create">
+                                        <StateNavLink name={WebshopRoutes.REIMBURSEMENT_CREATE}>
                                             <div className="button button-primary-outline">
                                                 {translate('vouchers.reimbursement.button')}
                                             </div>
@@ -182,7 +183,7 @@ export default function Vouchers() {
                                 icon: 'arrow-right',
                                 type: 'primary',
                                 iconEnd: true,
-                                onClick: () => navigateState('start'),
+                                onClick: () => navigateState(WebshopRoutes.START),
                             }}
                         />
                     )}

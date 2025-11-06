@@ -3,10 +3,11 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router';
 import Section from '../sections/Section';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export type Breadcrumb = {
     name: string;
-    state?: string;
+    state?: WebshopRoutes;
     stateQuery?: object;
     stateParams?: object;
     className?: string;

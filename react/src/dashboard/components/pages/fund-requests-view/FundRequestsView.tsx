@@ -38,6 +38,7 @@ import useEmailLogService from '../../../services/EmailLogService';
 import { Permission } from '../../../props/models/Organization';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -470,7 +471,7 @@ export default function FundRequestsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'fund-requests'}
+                    name={DashboardRoutes.FUND_REQUESTS}
                     params={{ organizationId: activeOrganization?.id }}
                     activeExact={true}
                     className="breadcrumb-item">

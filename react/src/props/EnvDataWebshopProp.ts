@@ -1,4 +1,5 @@
 import AwsRumProps from './AwsRumProps';
+import { WebshopRoutes } from '../webshop/modules/state_router/RouterBuilder';
 
 export type MenuItem = {
     id?: string;
@@ -7,7 +8,7 @@ export type MenuItem = {
     nameTranslate?: string;
     nameTranslateDefault?: string;
     href?: string;
-    state?: string;
+    state?: WebshopRoutes;
     stateParams?: object;
     target?: string;
     enabled?: boolean;

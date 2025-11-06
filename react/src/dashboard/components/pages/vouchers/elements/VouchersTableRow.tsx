@@ -10,6 +10,7 @@ import Fund from '../../../../props/models/Fund';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { hasPermission } from '../../../../helpers/utils';
 import useShowVoucherQrCode from '../hooks/useShowVoucherQrCode';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VouchersTableRow({
     funds,
@@ -39,7 +40,7 @@ export default function VouchersTableRow({
             key={voucher.id}
             customElement={'tr'}
             className="tr-clickable"
-            name={'vouchers-show'}
+            name={DashboardRoutes.VOUCHER}
             params={{ id: voucher.id, organizationId: organization.id }}
             dataDusk={`tableVoucherRow${voucher.id}`}>
             <td>#{voucher.number}</td>
@@ -177,7 +178,7 @@ export default function VouchersTableRow({
                         <div className="dropdown dropdown-actions">
                             <StateNavLink
                                 className="dropdown-item"
-                                name={'vouchers-show'}
+                                name={DashboardRoutes.VOUCHER}
                                 params={{ organizationId: organization.id, id: voucher.id }}>
                                 <em className={'mdi mdi-eye icon-start'} />
                                 Bekijken

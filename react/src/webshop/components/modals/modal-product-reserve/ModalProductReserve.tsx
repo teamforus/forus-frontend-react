@@ -31,6 +31,7 @@ import { ErrorResponse } from 'react-router';
 import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
 import classNames from 'classnames';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 type VoucherType = Voucher & {
     amount_extra: number;
@@ -198,7 +199,7 @@ export default function ModalProductReserve({
 
     const finish = useCallback(() => {
         modal.close();
-        navigateState('reservations');
+        navigateState(WebshopRoutes.RESERVATIONS);
     }, [modal, navigateState]);
 
     const onError = useCallback(
@@ -265,7 +266,7 @@ export default function ModalProductReserve({
 
     const goToReservation = useCallback(() => {
         modal.close();
-        navigateState('reservation-show', { id: reservationId });
+        navigateState(WebshopRoutes.RESERVATION, { id: reservationId });
     }, [modal, navigateState, reservationId]);
 
     const goToFinishStep = useCallback(() => {
@@ -355,7 +356,7 @@ export default function ModalProductReserve({
     );
 
     const addEmail = useCallback(() => {
-        navigateState('identity-emails');
+        navigateState(WebshopRoutes.IDENTITY_EMAILS);
         modal.close();
     }, [modal, navigateState]);
 

@@ -3,6 +3,7 @@ import { ModalState } from '../../../dashboard/modules/modals/context/ModalConte
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import { useNavigateState } from '../../modules/state_router/Router';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState }) {
     const translate = useTranslate();
@@ -10,12 +11,12 @@ export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState
 
     const cancel = useCallback(() => {
         modal.close();
-        navigateState('home');
+        navigateState(WebshopRoutes.HOME);
     }, [modal, navigateState]);
 
     const openLoginModal = useCallback(() => {
         modal.close();
-        navigateState('start');
+        navigateState(WebshopRoutes.START);
     }, [modal, navigateState]);
 
     return (

@@ -6,6 +6,7 @@ import { useNavigateState } from '../../modules/state_router/Router';
 import { useProductService } from '../ProductService';
 import usePopNotification from '../../../dashboard/hooks/usePopNotification';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function useBookmarkProductToggle() {
     const pushRaw = usePushRaw();
@@ -17,7 +18,7 @@ export default function useBookmarkProductToggle() {
 
     const showBookmarkPush = useCallback(
         (product: Product) => {
-            const media = product?.photo || null;
+            const media = product?.photos[0] || null;
             const productImgSrc =
                 media?.sizes?.small || media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
 
@@ -32,7 +33,7 @@ export default function useBookmarkProductToggle() {
                         icon: 'cards-heart-outline',
                         text: translate('product_bookmark_push.go_to_bookmarks'),
                         onClick: () => {
-                            navigateState('bookmarked-products');
+                            navigateState(WebshopRoutes.BOOKMARKED_PRODUCTS);
                             popNotification(id);
                         },
                     },

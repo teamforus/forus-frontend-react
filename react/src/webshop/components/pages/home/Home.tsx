@@ -4,11 +4,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useFundService } from '../../../services/FundService';
-import { PaginationData } from '../../../../dashboard/props/ApiResponses';
-import Product from '../../../../dashboard/props/models/Product';
-import { useProductService } from '../../../services/ProductService';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
-import BlockProducts from '../../elements/block-products/BlockProducts';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
@@ -19,6 +15,9 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import BlockBanner from '../../elements/block-banner/BlockBanner';
 import Fund from '../../../props/models/Fund';
 import Section from '../../elements/sections/Section';
+import BlockProductCategories from '../../elements/block-product-categories/BlockProductCategories';
+import RandomProductsBlock from './elements/RandomProductsBlock';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Home() {
     const envData = useEnvData();
@@ -33,10 +32,8 @@ export default function Home() {
     const { closeModal } = useContext(modalsContext);
 
     const fundService = useFundService();
-    const productService = useProductService();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
-    const [products, setProducts] = useState<PaginationData<Product>>(null);
 
     const [digidResponse] = useQueryParams({
         digid_error: StringParam,
@@ -56,24 +53,13 @@ export default function Home() {
             .finally(() => setProgress(100));
     }, [fundService, setProgress]);
 
-    const fetchProducts = useCallback(() => {
-        setProgress(0);
-
-        productService
-            .sample()
-            .then((res) => setProducts(res.data))
-            .catch((e) => console.error(e))
-            .finally(() => setProgress(100));
-    }, [productService, setProgress]);
-
     useEffect(() => {
         fetchFunds();
-        fetchProducts();
-    }, [fetchFunds, fetchProducts]);
+    }, [fetchFunds]);
 
     useEffect(() => {
         if (digidResponse?.digid_error) {
-            navigateState('error', { errorCode: 'digid_' + digidResponse?.digid_error });
+            navigateState(WebshopRoutes.ERROR, { errorCode: 'digid_' + digidResponse?.digid_error });
         }
     }, [digidResponse, navigateState]);
 
@@ -94,7 +80,7 @@ export default function Home() {
                 mdiIconType="primary"
                 mdiIconClass={'information-outline'}
                 confirmBtnText={translate('modal.logout.confirm')}
-                onConfirm={() => navigateState('start', {}, { reload: true })}
+                onConfirm={() => navigateState(WebshopRoutes.START, {}, { reload: true })}
             />
         ));
 
@@ -205,7 +191,7 @@ export default function Home() {
                             )}
 
                             <div className="pre-check-banner-actions">
-                                <StateNavLink name={'fund-pre-check'} className="button button-primary">
+                                <StateNavLink name={WebshopRoutes.FUND_PRE_CHECK} className="button button-primary">
                                     {translate('home.pre_check.take_check')}
                                     <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                 </StateNavLink>
@@ -216,15 +202,8 @@ export default function Home() {
             </Section>
 
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
-
-            {appConfigs.show_home_products && products?.data.length > 0 && (
-                <BlockProducts
-                    products={products.data}
-                    setProducts={(list) => setProducts({ ...products, data: list })}
-                    display="grid"
-                    showCustomDescription={true}
-                />
-            )}
+            {appConfigs.pages.block_home_product_categories && <BlockProductCategories />}
+            {appConfigs.show_home_products && <RandomProductsBlock count={6} showCustomDescription={true} />}
 
             {appConfigs.show_home_map && (
                 <Section type={'map'} id="map_block">
@@ -234,7 +213,7 @@ export default function Home() {
                             <div className="block-description">{translate('home.map.subtitle')}</div>
                             <StateNavLink
                                 id="show_map"
-                                name={'providers'}
+                                name={WebshopRoutes.PROVIDERS}
                                 query={{ show_map: 1 }}
                                 className="button button-primary block-map-button">
                                 {translate('home.map.show')}

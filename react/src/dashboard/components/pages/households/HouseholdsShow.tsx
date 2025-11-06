@@ -14,6 +14,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import FormPane from '../../elements/forms/elements/FormPane';
 import useEditHousehold from './hooks/useEditHousehold';
 import HouseholdIdentitiesCard from './elements/HouseholdIdentitiesCard';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function HouseholdsShow() {
     const setProgress = useSetProgress();
@@ -50,7 +51,7 @@ export default function HouseholdsShow() {
             <div className="block block-breadcrumbs">
                 <StateNavLink
                     className="breadcrumb-item"
-                    name="households"
+                    name={DashboardRoutes.HOUSEHOLDS}
                     activeExact={true}
                     params={{ organizationId: activeOrganization.id }}>
                     Huishoudens

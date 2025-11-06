@@ -425,7 +425,7 @@ export default {
     // EDIT IMPLEMENTATION = implementation-edit.pug
     implementation_edit: {
         header: {
-            title: 'Webshop instellingen',
+            title: 'Website instellingen',
         },
         labels: {
             header_title: 'Header titel',
@@ -460,10 +460,10 @@ export default {
             accessibility_url: 'Toegankelijkheidsverklaring',
             terms_and_conditions_url: 'Algemene voorwaarden',
 
-            footer_contact_details: 'Footer contact content',
-            footer_opening_times: 'Footer openingstijden content',
-            footer_app_info: 'Footer download de Me-app content',
-            cms_media_links: 'Social media links',
+            footer_contact_details: 'Footer contactgegevens',
+            footer_opening_times: 'Footer openingstijden',
+            footer_app_info: 'Footer download de Me-app',
+            cms_media_links: 'Socialmediakanalen',
             show_terms_checkbox: 'Toon voorwaarden checkbox',
             show_privacy_checkbox: 'Toon privacy checkbox',
         },
@@ -481,10 +481,10 @@ export default {
         },
         placeholders: {
             provider: 'Aanbiederpagina content',
-            privacy: 'bijv. http://uwgemeente.nl/privacyverklaring',
-            explanation: 'bijv. http://uwgemeente.nl/uitleg-regeling',
-            accessibility: 'bijv. http://uwgemeente.nl/toegankelijkheid',
-            terms_and_conditions: 'bijv. http://uwgemeente.nl/algemene-voorwaarden',
+            privacy: 'bijv. https://uwgemeente.nl/privacyverklaring',
+            explanation: 'bijv. https://uwgemeente.nl/uitleg-regeling',
+            accessibility: 'bijv. https://uwgemeente.nl/toegankelijkheid',
+            terms_and_conditions: 'bijv. https://uwgemeente.nl/algemene-voorwaarden',
         },
         tooltips: {
             provider:
@@ -532,6 +532,7 @@ export default {
             external_link_text: 'Externe linktekst',
             external_link_url: 'Externe link-url',
             criteria_label_requirement_show: 'Verplichte of optionele vragen',
+            how_it_works: 'Uitleg over het tegoed (extra uitleg op de tegoedenpagina)',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -569,6 +570,7 @@ export default {
             base_card: {
                 header: {
                     description: 'Beschrijving',
+                    how_it_works: 'Uitleg over het tegoed',
                     formulas: 'Rekenregels',
                     statistics: 'Statistieken',
                     criteria: 'Voorwaarden',
@@ -936,6 +938,12 @@ export default {
             price: 'Prijs',
             price_type: 'Prijs type',
             price_discount: 'Korting',
+            alternative_text: 'Alt-tekst',
+            info_duration: 'Duur van de promotie',
+            info_when: 'Wanneer loopt de promotie',
+            info_where: 'Locatie',
+            info_more_info: 'Meer informatie',
+            info_attention: 'Let op',
         },
         filters: {
             search: 'Zoeken',
@@ -1515,13 +1523,13 @@ export default {
     // Organization-employees.pug
     implementation_funds: {
         labels: {
-            image: 'Afbeelding',
             name: 'Naam',
+            implementation: 'Implementatie',
             state: 'Status',
         },
         tooltips: {
-            image: 'Afbeelding',
             name: 'Naam van de gekoppelde regeling.',
+            implementation: 'Gekoppelde implementatie/webshop.',
             state: 'Status van de regeling op de webshop.',
         },
     },

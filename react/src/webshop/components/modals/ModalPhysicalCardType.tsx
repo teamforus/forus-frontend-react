@@ -346,6 +346,7 @@ export default function ModalPhysicalCardType({
                                                 </div>
                                             </div>
                                         )}
+
                                         <div
                                             className="physical-card-item physical-card-item-sm"
                                             onClick={openInMeModal}>

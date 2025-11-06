@@ -65,7 +65,7 @@ export default interface SponsorProduct {
     reservation_enabled: boolean;
     reservation_policy: 'global';
     alternative_text?: string;
-    photo?: Media;
+    photos?: Media[];
     price: string;
     price_locale: string;
     organization: Organization;
@@ -85,13 +85,14 @@ export default interface SponsorProduct {
     price_type: ProductPriceType;
     price_discount: string;
     price_discount_locale: string;
-    reservation_fields: boolean;
+    reservation_fields_enabled?: boolean;
     reservation_phone: 'global' | 'no' | 'optional' | 'required';
     reservation_address: 'global' | 'no' | 'optional' | 'required';
     reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
     reservation_note: 'global' | 'no' | 'custom';
     reservation_note_text: string;
     reservation_extra_payments: 'global' | 'no' | 'yes';
+    reservation_fields_config?: 'global' | 'no' | 'yes';
     sponsor_organization_id?: number;
     sponsor_organization?: {
         id: number;
@@ -112,4 +113,9 @@ export default interface SponsorProduct {
     created_at_locale?: string;
     last_monitored_changed_at?: string;
     last_monitored_changed_at_locale?: string;
+    info_duration?: string;
+    info_when?: string;
+    info_where?: string;
+    info_more_info?: string;
+    info_attention?: string;
 }

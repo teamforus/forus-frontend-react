@@ -13,6 +13,7 @@ import { useProfileService } from '../../../../dashboard/services/ProfileService
 import { differenceInYears } from 'date-fns';
 import { dateParse } from '../../../../dashboard/helpers/dates';
 import IdentityAddressCard from './cards/IdentityAddressCard';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Profile() {
     const translate = useTranslate();
@@ -60,7 +61,7 @@ export default function Profile() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('profile.breadcrumbs.home'), state: 'home' },
+                { name: translate('profile.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('profile.breadcrumbs.profile') },
             ]}
             profileHeader={

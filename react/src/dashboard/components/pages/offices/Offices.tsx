@@ -18,6 +18,7 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 interface OfficeLocal extends Office {
@@ -106,7 +107,7 @@ export default function Offices() {
                     text: translate('offices.confirm_has_employees.buttons.confirm'),
                     onClick: () => {
                         modal.close();
-                        navigate(getStateRouteUrl('employees', { organizationId: organization.id }));
+                        navigate(getStateRouteUrl(DashboardRoutes.EMPLOYEES, { organizationId: organization.id }));
                     },
                 }}
             />
@@ -140,7 +141,9 @@ export default function Offices() {
                         {hasPermission(organization, Permission.MANAGE_ORGANIZATION) && (
                             <NavLink
                                 id="edit_office"
-                                to={getStateRouteUrl('organizations-edit', { organizationId: organization.id })}
+                                to={getStateRouteUrl(DashboardRoutes.ORGANIZATION_EDIT, {
+                                    organizationId: organization.id,
+                                })}
                                 className="button button-default">
                                 <em className="mdi mdi-pen icon-start" />
                                 {translate('offices.buttons.adjust')}
@@ -160,7 +163,9 @@ export default function Offices() {
                         <div className="provider-details">
                             <NavLink
                                 className="provider-title"
-                                to={getStateRouteUrl('organizations-edit', { organizationId: organization.id })}>
+                                to={getStateRouteUrl(DashboardRoutes.ORGANIZATION_EDIT, {
+                                    organizationId: organization.id,
+                                })}>
                                 {organization.name}
                             </NavLink>
                         </div>
@@ -219,7 +224,7 @@ export default function Offices() {
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
                                 <StateNavLink
-                                    name={'offices-create'}
+                                    name={DashboardRoutes.OFFICE_CREATE}
                                     params={{ organizationId: organization.id }}
                                     className="button button-primary">
                                     <em className="mdi mdi-plus-circle icon-start" />
@@ -259,7 +264,7 @@ export default function Offices() {
                             <div className="provider-details">
                                 <NavLink
                                     className="provider-title"
-                                    to={getStateRouteUrl('offices-edit', {
+                                    to={getStateRouteUrl(DashboardRoutes.OFFICE_EDIT, {
                                         id: office.id,
                                         organizationId: office.organization_id,
                                     })}>
@@ -271,7 +276,7 @@ export default function Offices() {
                                 <div className="button-group">
                                     <NavLink
                                         className="button button-default"
-                                        to={getStateRouteUrl('offices-edit', {
+                                        to={getStateRouteUrl(DashboardRoutes.OFFICE_EDIT, {
                                             id: office.id,
                                             organizationId: office.organization_id,
                                         })}>
@@ -376,7 +381,7 @@ export default function Offices() {
                     description={'Je hebt momenteel geen vestigingen.'}
                     button={{
                         text: 'Vestiging toevoegen',
-                        to: getStateRouteUrl('offices-create', { organizationId: organization.id }),
+                        to: getStateRouteUrl(DashboardRoutes.OFFICE_CREATE, { organizationId: organization.id }),
                     }}
                 />
             )}

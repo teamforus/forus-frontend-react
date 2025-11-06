@@ -17,6 +17,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ExtraPaymentsView() {
     const { id } = useParams();
@@ -77,7 +78,7 @@ export default function ExtraPaymentsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'extra-payments'}
+                    name={DashboardRoutes.EXTRA_PAYMENTS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

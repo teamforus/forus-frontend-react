@@ -15,6 +15,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SponsorFundUnsubscriptions() {
     const activeOrganization = useActiveOrganization();
@@ -84,7 +85,7 @@ export default function SponsorFundUnsubscriptions() {
         <Fragment>
             <StateNavLink
                 className="button button-text"
-                name={'sponsor-provider-organizations'}
+                name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS}
                 params={{ organizationId: activeOrganization.id }}>
                 <em className="mdi mdi-arrow-left icon-start" />
                 Terug naar de vorige pagina

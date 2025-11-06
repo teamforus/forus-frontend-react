@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
@@ -29,8 +28,18 @@ import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import FormPane from '../../../elements/forms/elements/FormPane';
-import FormContainer from '../../../elements/forms/elements/FormContainer';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
+import ReservationFieldsEditor from '../../reservations/elements/ReservationFieldsEditor';
+import { uniqueId } from 'lodash';
+import ReservationField from '../../../../props/models/ReservationField';
+import useEnvData from '../../../../hooks/useEnvData';
+import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
+
+import FormGroupInput from '../../../elements/forms/elements/FormGroupInput';
+import ProductsFormMediaUploader from './ProductsFormMediaUploader';
+import Media from '../../../../props/models/Media';
+import InfoBox from '../../../elements/info-box/InfoBox';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductsForm({
     organization,
@@ -43,12 +52,11 @@ export default function ProductsForm({
     sourceId?: number;
     id?: number;
 }) {
+    const envData = useEnvData();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
-
-    const [mediaFile, setMediaFile] = useState<Blob>(null);
 
     const mediaService = useMediaService();
     const fundService = useFundService();
@@ -58,6 +66,8 @@ export default function ProductsForm({
     const navigateState = useNavigateState();
     const openModal = useOpenModal();
     const appConfigs = useAppConfigs();
+
+    const [media, setMedia] = useState<Media[]>([]);
 
     const [reservationPoliciesText] = useState({
         accept: 'Automatisch accepteren',
@@ -78,6 +88,12 @@ export default function ProductsForm({
     const [reservationNoteOptionText] = useState(() => [
         { value: 'no', label: 'Geen' },
         { value: 'custom', label: 'Aangepaste aankoopnotitie' },
+    ]);
+
+    const [reservationFieldsConfigOptions] = useState(() => [
+        { value: 'global', label: 'Gebruik standaard instelling' },
+        { value: 'no', label: 'Nee' },
+        { value: 'yes', label: 'Ja' },
     ]);
 
     const [reservationFieldOptions] = useState(() => [
@@ -157,6 +173,8 @@ export default function ProductsForm({
     const [product, setProduct] = useState<Product | SponsorProduct>(null);
     const [sourceProduct, setSourceProduct] = useState<Product | SponsorProduct>(null);
     const [products, setProducts] = useState<Product[]>(null);
+    const [fields, setFields] = useState<Array<ReservationField>>([]);
+    const isProvider = useMemo(() => envData.client_type == 'provider', [envData.client_type]);
 
     const allowsExtraPayments = useMemo(() => {
         return (
@@ -166,7 +184,7 @@ export default function ProductsForm({
 
     const goToFundProvider = useCallback(
         (provider: FundProvider) => {
-            navigateState('fund-provider', {
+            navigateState(DashboardRoutes.FUND_PROVIDER, {
                 id: provider.id,
                 fundId: provider.fund_id,
                 organizationId: provider.fund.organization_id,
@@ -175,33 +193,42 @@ export default function ProductsForm({
         [navigateState],
     );
 
-    const uploadMedia = useCallback(() => {
+    const uploadMedia = useCallback((): Promise<string[]> => {
         const syncPresets = ['thumbnail', 'small'];
 
         return new Promise((resolve, reject) => {
-            if (mediaFile) {
+            if (!product && sourceProduct?.photos?.length > 0) {
+                const sourceUids = sourceProduct?.photos;
+
+                const promises = sourceUids.map((photo: Media) =>
+                    mediaService.clone(photo?.uid, syncPresets).then((res) => [photo?.uid, res.data.data.uid]),
+                );
+
                 setProgress(0);
 
-                return mediaService
-                    .store('product_photo', mediaFile, syncPresets)
-                    .then((res) => resolve(res.data.data.uid))
+                Promise.all(promises)
+                    .then((uids) => {
+                        const mediaUids = media.map((item) => item.uid);
+
+                        uids.forEach(([oldUid, newUid]) => {
+                            const index = mediaUids.indexOf(oldUid);
+
+                            if (index !== -1) {
+                                mediaUids[index] = newUid;
+                            }
+                        });
+
+                        resolve(mediaUids);
+                    })
                     .catch((err) => reject(err.data.errors.file))
                     .finally(() => setProgress(100));
-            }
 
-            if (!product && sourceProduct?.photo?.uid) {
-                setProgress(0);
-
-                return mediaService
-                    .clone(sourceProduct.photo?.uid, syncPresets)
-                    .then((res) => resolve(res.data.data.uid))
-                    .catch((err) => reject(err.data.errors.file))
-                    .finally(() => setProgress(100));
+                return;
             }
 
             return resolve(null);
         });
-    }, [mediaFile, product, sourceProduct?.photo?.uid, setProgress, mediaService]);
+    }, [product, sourceProduct?.photos, setProgress, mediaService, media]);
 
     const fetchProduct = useCallback(
         (id: number) => {
@@ -210,14 +237,21 @@ export default function ProductsForm({
             if (fundProvider) {
                 fundService
                     .getProviderProduct(organization.id, fundProvider.fund_id, fundProvider.id, id)
-                    .then((res) => setProduct(res.data.data))
-                    .catch(() => navigateState('products', { organizationId: organization.id }))
+                    .then((res) => {
+                        setProduct(res.data.data);
+                        setMedia(res.data.data.photos);
+                    })
+                    .catch(() => navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id }))
                     .finally(() => setProgress(100));
             } else {
                 productService
                     .read(organization.id, id)
-                    .then((res) => setProduct(res.data.data))
-                    .catch(() => navigateState('products', { organizationId: organization.id }))
+                    .then((res) => {
+                        setProduct(res.data.data);
+                        setFields(res.data.data.reservation_fields.map((item) => ({ ...item, uid: uniqueId() })));
+                        setMedia(res.data.data.photos);
+                    })
+                    .catch(() => navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id }))
                     .finally(() => setProgress(100));
             }
         },
@@ -230,7 +264,10 @@ export default function ProductsForm({
 
             fundService
                 .getProviderProduct(organization.id, fundProvider.fund_id, fundProvider.id, id)
-                .then((res) => setSourceProduct(res.data.data))
+                .then((res) => {
+                    setSourceProduct(res.data.data);
+                    setMedia(res.data.data.photos);
+                })
                 .finally(() => setProgress(100));
         },
         [fundService, organization, setProgress, fundProvider],
@@ -269,7 +306,13 @@ export default function ProductsForm({
         reservation_extra_payments: 'global' | 'no' | 'yes';
         reservation_policy?: 'global' | 'accept' | 'review';
         reservation_note?: 'global' | 'no' | 'custom';
+        reservation_fields_config?: 'global' | 'yes' | 'no';
         reservation_note_text?: string;
+        info_duration?: null;
+        info_when?: null;
+        info_where?: null;
+        info_more_info?: null;
+        info_attention?: null;
     }>(null, (values) => {
         if (product && !product.unlimited_stock && form.values.stock_amount < 0) {
             form.setIsLocked(false);
@@ -279,69 +322,76 @@ export default function ProductsForm({
             });
         }
 
-        uploadMedia().then((media_uid: string) => {
-            setProgress(0);
-            let promise: Promise<ApiResponseSingle<Product | SponsorProduct>>;
-            const valueData = { ...values, media_uid };
+        uploadMedia()
+            .then((media_uids: string[]) => {
+                setProgress(0);
+                let promise: Promise<ApiResponseSingle<Product | SponsorProduct>>;
 
-            if (nonExpiring) {
-                valueData.expire_at = null;
-            }
+                const valueData = {
+                    ...values,
+                    media_uids: media_uids ? media_uids : media.map((item) => item.uid),
+                    fields,
+                };
 
-            if (values.price_type !== 'regular') {
-                delete valueData.price;
-            }
-
-            if (values.price_type === 'regular' || values.price_type === 'free') {
-                delete valueData.price_discount;
-            }
-
-            if (values.unlimited_stock) {
-                delete valueData.total_amount;
-            }
-
-            if (product) {
-                const updateValues = { ...valueData, total_amount: values.sold_amount + values.stock_amount };
-
-                if (!fundProvider) {
-                    promise = productService.update(organization.id, product.id, updateValues);
-                } else {
-                    promise = organizationService.sponsorProductUpdate(
-                        organization.id,
-                        fundProvider.organization_id,
-                        product.id,
-                        updateValues,
-                    );
+                if (nonExpiring) {
+                    valueData.expire_at = null;
                 }
-            } else {
-                if (!fundProvider) {
-                    promise = productService.store(organization.id, valueData);
-                } else {
-                    promise = organizationService.sponsorStoreProduct(
-                        organization.id,
-                        fundProvider.organization_id,
-                        valueData,
-                    );
-                }
-            }
 
-            promise
-                .then(() => {
-                    pushSuccess('Gelukt!');
+                if (values.price_type !== 'regular') {
+                    delete valueData.price;
+                }
+
+                if (values.price_type === 'regular' || values.price_type === 'free') {
+                    delete valueData.price_discount;
+                }
+
+                if (values.unlimited_stock) {
+                    delete valueData.total_amount;
+                }
+
+                if (product) {
+                    const updateValues = { ...valueData, total_amount: values.sold_amount + values.stock_amount };
 
                     if (!fundProvider) {
-                        return navigateState('products', { organizationId: organization.id });
+                        promise = productService.update(organization.id, product.id, updateValues);
+                    } else {
+                        promise = organizationService.sponsorProductUpdate(
+                            organization.id,
+                            fundProvider.organization_id,
+                            product.id,
+                            updateValues,
+                        );
                     }
+                } else {
+                    if (!fundProvider) {
+                        promise = productService.store(organization.id, valueData);
+                    } else {
+                        promise = organizationService.sponsorStoreProduct(
+                            organization.id,
+                            fundProvider.organization_id,
+                            valueData,
+                        );
+                    }
+                }
 
-                    goToFundProvider(fundProvider);
-                })
-                .catch((err: ResponseError) => {
-                    form.setIsLocked(false);
-                    form.setErrors(err.data.errors);
-                    pushApiError(err);
-                })
-                .finally(() => setProgress(100));
-        });
+                promise
+                    .then(() => {
+                        pushSuccess('Gelukt!');
+
+                        if (!fundProvider) {
+                            return navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id });
+                        }
+
+                        goToFundProvider(fundProvider);
+                    })
+                    .catch((err: ResponseError) => {
+                        form.setIsLocked(false);
+                        form.setErrors(err.data.errors);
+                        pushApiError(err);
+                    })
+                    .finally(() => setProgress(100));
+            })
+            .catch(pushApiError);
     });
 
     const { update: updateForm } = form;
@@ -354,7 +404,7 @@ export default function ProductsForm({
         if (fundProvider) {
             goToFundProvider(fundProvider);
         } else {
-            navigateState('products', { organizationId: organization.id });
+            navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id });
         }
     }, [fundProvider, goToFundProvider, navigateState, organization?.id]);
 
@@ -375,7 +425,7 @@ export default function ProductsForm({
                         modal={modal}
                         title={translate('product_edit.errors.already_added')}
                         buttonCancel={{
-                            onClick: () => navigateState('products', { organizationId: organization.id }),
+                            onClick: () => navigateState(DashboardRoutes.PRODUCTS, { organizationId: organization.id }),
                         }}
                     />
                 );
@@ -426,7 +476,7 @@ export default function ProductsForm({
                       alternative_text: '',
                       qr_enabled: true,
                       reservation_enabled: false,
-                      reservation_fields: false,
+                      reservation_fields_enabled: false,
                       product_category_id: null,
                       reservation_phone: 'global',
                       reservation_address: 'global',
@@ -435,6 +485,12 @@ export default function ProductsForm({
                       reservation_policy: 'global',
                       reservation_note: 'global',
                       reservation_note_text: '',
+                      reservation_fields_config: 'global',
+                      info_duration: null,
+                      info_when: null,
+                      info_where: null,
+                      info_more_info: null,
+                      info_attention: null,
                   },
         );
     }, [product, sourceProduct, updateForm, productService, id, sourceId, organization]);
@@ -448,21 +504,21 @@ export default function ProductsForm({
             {fundProvider ? (
                 <div className="block block-breadcrumbs">
                     <StateNavLink
-                        name={'sponsor-provider-organizations'}
+                        name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS}
                         params={{ organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
                         {translate('page_state_titles.organization-providers')}
                     </StateNavLink>
                     <StateNavLink
-                        name={'sponsor-provider-organization'}
+                        name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                         params={{ id: fundProvider.organization.id, organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
                         {strLimit(fundProvider.organization.name, 40)}
                     </StateNavLink>
                     <StateNavLink
-                        name={'fund-provider'}
+                        name={DashboardRoutes.FUND_PROVIDER}
                         params={{ id: fundProvider.id, fundId: fundProvider.fund.id, organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
@@ -473,7 +529,7 @@ export default function ProductsForm({
             ) : (
                 <div className="block block-breadcrumbs">
                     <StateNavLink
-                        name={'products'}
+                        name={DashboardRoutes.PRODUCTS}
                         params={{ organizationId: organization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
@@ -492,43 +548,54 @@ export default function ProductsForm({
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary">
-                    <FormContainer>
+                <div className="card-section">
+                    <FormPaneContainer>
                         <FormPane title={'Afbeelding'}>
                             <FormGroup
                                 error={mediaErrors}
                                 input={() => (
-                                    <PhotoSelector
-                                        type="office_photo"
-                                        disabled={!isEditable}
-                                        thumbnail={product?.photo?.sizes?.thumbnail}
-                                        selectPhoto={(file) => setMediaFile(file)}
-                                    />
+                                    <ProductsFormMediaUploader media={media} setMedia={(media) => setMedia(media)} />
                                 )}
                             />
 
-                            <FormGroup
-                                label={translate('product_edit.labels.alternative_text')}
-                                error={form.errors?.alternative_text}
-                                info={
-                                    <Fragment>
-                                        Geef een korte beschrijving van de afbeelding. Deze wordt getoond of voorgelezen
-                                        wanneer de afbeelding niet zichtbaar is, bijvoorbeeld bij gebruik van een
-                                        schermlezer voor mensen met een visuele beperking.
-                                    </Fragment>
-                                }
-                                input={(id) => (
-                                    <input
-                                        id={id}
-                                        className="form-control"
-                                        disabled={!isEditable}
-                                        onChange={(e) => form.update({ alternative_text: e.target.value })}
-                                        value={form.values.alternative_text || ''}
-                                        type="text"
-                                        placeholder={translate('product_edit.labels.alternative_text_placeholder')}
-                                    />
-                                )}
-                            />
+                            <FormPane title={translate('product_edit.labels.alternative_text')}>
+                                <FormGroup
+                                    error={form.errors?.alternative_text}
+                                    info={
+                                        <Fragment>
+                                            Geef een korte beschrijving van de afbeelding. Deze wordt getoond of
+                                            voorgelezen wanneer de afbeelding niet zichtbaar is, bijvoorbeeld bij
+                                            gebruik van een schermlezer voor mensen met een visuele beperking.
+                                        </Fragment>
+                                    }
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            className="form-control"
+                                            disabled={!isEditable}
+                                            onChange={(e) => form.update({ alternative_text: e.target.value })}
+                                            value={form.values.alternative_text || ''}
+                                            type="text"
+                                            placeholder={translate('product_edit.labels.alternative_text_placeholder')}
+                                        />
+                                    )}
+                                />
+                            </FormPane>
+
+                            <InfoBox type={'primary'} iconColor={'primary'}>
+                                <h4>Handige informatie</h4>
+                                <ul>
+                                    <li>U kan tot en met vijf verschillende afbeeldingen uploaden voor het aanbod.</li>
+                                    <li>
+                                        De afbeeldingen kunt u sorteren door op de linkerzijde van de afbeelding te
+                                        slepen.
+                                    </li>
+                                    <li>
+                                        De eerste afbeelding in de lijst zal als uitgelichte afbeelding op de webshop
+                                        worden getoond.
+                                    </li>
+                                </ul>
+                            </InfoBox>
                         </FormPane>
 
                         <FormPane title={'Beschrijving'}>
@@ -1095,90 +1162,125 @@ export default function ProductsForm({
                                         />
                                     )}
 
-                                    <FormGroup
-                                        label={'Klantgegevens uitvragen'}
-                                        error={form.errors.reservation_fields}
-                                        info={translate('product_edit.tooltips.reservation_fields')}
-                                        input={(id) => (
-                                            <SelectControl
-                                                id={id}
-                                                disabled={!isEditable}
-                                                propKey={'value'}
-                                                propValue={'label'}
-                                                value={form.values.reservation_fields}
-                                                options={[
-                                                    {
-                                                        value: true,
-                                                        label: 'Aanvullende klantgegevens nodig',
-                                                    },
-                                                    {
-                                                        value: false,
-                                                        label: 'Geen aanvullende klantgegevens nodig',
-                                                    },
-                                                ]}
-                                                onChange={(value: boolean) => {
-                                                    form.update({ reservation_fields: value });
-                                                }}
-                                            />
-                                        )}
-                                    />
-
-                                    {form.values.reservation_fields && (
-                                        <FormPane title={'Klantgegevens'}>
+                                    {isProvider && (
+                                        <Fragment>
                                             <FormGroup
-                                                label={'Telefoonnummer klant'}
-                                                error={form.errors.reservation_phone}
+                                                label={'Klantgegevens uitvragen'}
+                                                error={form.errors.reservation_fields_enabled}
+                                                info={translate('product_edit.tooltips.reservation_fields_enabled')}
                                                 input={(id) => (
                                                     <SelectControl
                                                         id={id}
-                                                        className="form-control"
+                                                        disabled={!isEditable}
                                                         propKey={'value'}
                                                         propValue={'label'}
-                                                        value={form.values.reservation_phone}
-                                                        onChange={(reservation_phone: string) => {
-                                                            form.update({ reservation_phone });
+                                                        value={form.values.reservation_fields_enabled}
+                                                        options={[
+                                                            {
+                                                                value: true,
+                                                                label: 'Aanvullende klantgegevens nodig',
+                                                            },
+                                                            {
+                                                                value: false,
+                                                                label: 'Geen aanvullende klantgegevens nodig',
+                                                            },
+                                                        ]}
+                                                        onChange={(value: boolean) => {
+                                                            form.update({ reservation_fields_enabled: value });
                                                         }}
-                                                        options={reservationPhoneOptions}
                                                     />
                                                 )}
                                             />
 
-                                            <FormGroup
-                                                label={'Adres klant'}
-                                                error={form.errors.reservation_address}
-                                                input={(id) => (
-                                                    <SelectControl
-                                                        id={id}
-                                                        className="form-control"
-                                                        propKey={'value'}
-                                                        propValue={'label'}
-                                                        value={form.values.reservation_address}
-                                                        onChange={(reservation_address: string) => {
-                                                            form.update({ reservation_address });
-                                                        }}
-                                                        options={reservationAddressOptions}
+                                            {form.values.reservation_fields_enabled && (
+                                                <FormPane title={'Klantgegevens'}>
+                                                    <FormGroup
+                                                        label={'Telefoonnummer klant'}
+                                                        error={form.errors.reservation_phone}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_phone}
+                                                                onChange={(reservation_phone: string) => {
+                                                                    form.update({ reservation_phone });
+                                                                }}
+                                                                options={reservationPhoneOptions}
+                                                            />
+                                                        )}
                                                     />
-                                                )}
-                                            />
 
-                                            <FormGroup
-                                                label={'Geboortedatum klant'}
-                                                error={form.errors.reservation_birth_date}
-                                                input={(id) => (
-                                                    <SelectControl
-                                                        id={id}
-                                                        className="form-control"
-                                                        propKey={'value'}
-                                                        propValue={'label'}
-                                                        value={form.values.reservation_birth_date}
-                                                        onChange={(reservation_birth_date: string) => {
-                                                            form.update({ reservation_birth_date });
-                                                        }}
-                                                        options={reservationBirthDateOptions}
+                                                    <FormGroup
+                                                        label={'Adres klant'}
+                                                        error={form.errors.reservation_address}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_address}
+                                                                onChange={(reservation_address: string) => {
+                                                                    form.update({ reservation_address });
+                                                                }}
+                                                                options={reservationAddressOptions}
+                                                            />
+                                                        )}
                                                     />
-                                                )}
-                                            />
-                                        </FormPane>
+
+                                                    <FormGroup
+                                                        label={'Geboortedatum klant'}
+                                                        error={form.errors.reservation_birth_date}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_birth_date}
+                                                                onChange={(reservation_birth_date: string) => {
+                                                                    form.update({ reservation_birth_date });
+                                                                }}
+                                                                options={reservationBirthDateOptions}
+                                                            />
+                                                        )}
+                                                    />
+
+                                                    <FormGroup
+                                                        label={'Aangepaste velden'}
+                                                        error={form.errors.reservation_fields_config}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_fields_config}
+                                                                onChange={(reservation_fields_config: string) => {
+                                                                    form.update({ reservation_fields_config });
+                                                                }}
+                                                                options={reservationFieldsConfigOptions}
+                                                            />
+                                                        )}
+                                                    />
+
+                                                    {form.values.reservation_fields_config === 'yes' && (
+                                                        <FormGroup
+                                                            label={translate('reservation_settings.labels.fields')}
+                                                            input={() => (
+                                                                <ReservationFieldsEditor
+                                                                    fields={fields}
+                                                                    onChange={setFields}
+                                                                    errors={form.errors}
+                                                                />
+                                                            )}
+                                                        />
+                                                    )}
+                                                </FormPane>
+                                            )}
+                                        </Fragment>
                                     )}
                                 </FormPane>
                             )}
@@ -1212,7 +1314,43 @@ export default function ProductsForm({
                             onChange={(product_category_id) => form.update({ product_category_id })}
                             errors={form.errors.product_category_id}
                         />
-                    </FormContainer>
+
+                        <FormPane title={'Aanvullende informatie'}>
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_duration')}
+                                error={form.errors.info_duration}
+                                value={form.values.info_duration || ''}
+                                setValue={(info_duration: string) => form.update({ info_duration })}
+                            />
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_when')}
+                                error={form.errors.info_when}
+                                value={form.values.info_when || ''}
+                                setValue={(info_when: string) => form.update({ info_when })}
+                            />
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_where')}
+                                error={form.errors.info_where}
+                                value={form.values.info_where || ''}
+                                setValue={(info_where: string) => form.update({ info_where })}
+                            />
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_more_info')}
+                                error={form.errors.info_more_info}
+                                value={form.values.info_more_info || ''}
+                                setValue={(info_more_info: string) => form.update({ info_more_info })}
+                            />
+
+                            <FormPane title={'Belangrijke informatie over het aanbod.'}>
+                                <FormGroupInput
+                                    label={translate('product_edit.labels.info_attention')}
+                                    error={form.errors.info_attention}
+                                    value={form.values.info_attention || ''}
+                                    setValue={(info_attention: string) => form.update({ info_attention })}
+                                />
+                            </FormPane>
+                        </FormPane>
+                    </FormPaneContainer>
                 </div>
 
                 <div className="card-section card-section-primary">
