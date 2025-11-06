@@ -211,7 +211,7 @@ export default function ImplementationBanner() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <ImplementationsRootBreadcrumbs implementation={implementation} />
-                <div className="breadcrumb-item active">Homepage-banner</div>
+                <div className="breadcrumb-item active">Homepagina banner</div>
             </div>
 
             <form className="form card" onSubmit={form.submit}>
@@ -275,12 +275,9 @@ export default function ImplementationBanner() {
 
                 <FormPaneContainer className="card-section">
                     <InfoBox type={'primary'}>
-                        Zorg ervoor dat tekst voor iedereen leesbaar blijft door een sterk contrast tussen titels en hun
-                        achtergrond te gebruiken. Volgens de verplichte toegankelijksheidsrichtlijnen moet de
-                        contrastverhouding ten minste 4,5:1 zijn voor normale tekst en 3:1 voor grote tekst. Plaats
-                        tekst niet direct op drukke of kleurrijke afbeeldingen en gebruik overlays of effen
-                        achtergronden om de duidelijkheid te verbeteren. Dit zorgt voor toegankelijkheid voor gebruikers
-                        met visuele beperkingen en draagt bij aan de gebruiksvriendelijkheid van de website.
+                        Zorg dat tekst goed leesbaar is met genoeg contrast tussen tekst en achtergrond. Gebruik geen
+                        drukke of felle afbeeldingen achter de tekst. Zo blijft de website duidelijk en toegankelijk
+                        voor iedereen.
                     </InfoBox>
 
                     <FormPane title={'Tekst en paginatitel'}>

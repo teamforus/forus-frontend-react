@@ -105,7 +105,7 @@ export default function ImplementationPages() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <ImplementationsRootBreadcrumbs implementation={implementation} />
-                <div className="breadcrumb-item active">Pages</div>
+                <div className="breadcrumb-item active">Webshop pagina</div>
             </div>
 
             <div className="card">

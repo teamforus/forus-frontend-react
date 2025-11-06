@@ -132,7 +132,7 @@ export default function ImplementationConfigs() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <ImplementationsRootBreadcrumbs implementation={implementation} />
-                <div className="breadcrumb-item active">Implementation page configs</div>
+                <div className="breadcrumb-item active">Website instellingen</div>
             </div>
 
             <form className="card form" onSubmit={form.submit}>
