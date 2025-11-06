@@ -3643,5 +3643,9 @@
             "archive": "Archives"
         },
         "title": "Passe physique"
+    },
+    "block_product_categories": {
+        "description": "Cliquez sur un thème et vous verrez immédiatement l'offre que vous pouvez choisir.",
+        "title": "Qu'aimez-vous faire ?"
     }
 }
