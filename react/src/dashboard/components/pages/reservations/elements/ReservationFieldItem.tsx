@@ -3,12 +3,13 @@ import ReservationField from '../../../../props/models/ReservationField';
 import { ResponseErrorData } from '../../../../props/ApiResponses';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
-import FormError from '../../../elements/forms/errors/FormError';
-import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import useTranslate from '../../../../hooks/useTranslate';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
+import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
+import FormPane from '../../../elements/forms/elements/FormPane';
 
 type FieldsLocal = ReservationField & { expanded?: boolean };
 
@@ -118,50 +119,54 @@ export default function ReservationFieldItem({
                 </div>
             </div>
             {field.expanded && (
-                <div className="question-body">
-                    <div className="form">
-                        <div className="form-group">
-                            <label className="form-label form-label-required">
-                                {translate('reservation_settings.labels.label')}
-                            </label>
-                            <FormGroupInfo
-                                info={
-                                    <Fragment>
-                                        <h4>Voeg een juist label toe</h4>
-                                        <p>
-                                            Vul voor het label een passende tekst toe. Het label geeft aan om wat voor
-                                            een reservering het gaat.
-                                        </p>
-                                    </Fragment>
-                                }>
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    value={field.label}
-                                    onChange={(e) => {
-                                        field.label = e.target.value;
-                                        onChange([...fields]);
-                                    }}
-                                    placeholder={translate('reservation_settings.labels.label')}
-                                />
-                            </FormGroupInfo>
-                            <div className="form-hint">Max. 200 tekens</div>
-                            <FormError error={errors['fields.' + index + '.label']} />
-                        </div>
+                <div className="question-body form">
+                    <FormPane title={'Beschrijving'}>
+                        <FormGroup
+                            label={translate('reservation_settings.labels.label')}
+                            error={errors['fields.' + index + '.label']}
+                            hint="Max. 200 tekens"
+                            info={
+                                <Fragment>
+                                    <p className={'text-strong'}>Voeg een juist label toe</p>
+                                    <p>
+                                        Vul voor het label een passende tekst toe. Het label geeft aan om wat voor een
+                                        reservering het gaat.
+                                    </p>
+                                </Fragment>
+                            }
+                            input={(id) => (
+                                <Fragment>
+                                    <input
+                                        id={id}
+                                        className="form-control"
+                                        type="text"
+                                        value={field.label}
+                                        onChange={(e) => {
+                                            field.label = e.target.value;
+                                            onChange([...fields]);
+                                        }}
+                                        placeholder={translate('reservation_settings.labels.label')}
+                                    />
+                                </Fragment>
+                            )}
+                        />
 
-                        <div className="form-group">
-                            <label className="form-label">{translate('reservation_settings.labels.description')}</label>
-                            <FormGroupInfo
-                                info={
-                                    <Fragment>
-                                        <h4>Voeg een beschrijving toe</h4>
-                                        <p>
-                                            Geef in de beschrijving aan wat dient te worden ingevuld tijdens het maken
-                                            van een reservering.
-                                        </p>
-                                    </Fragment>
-                                }>
+                        <FormGroup
+                            label={translate('reservation_settings.labels.description')}
+                            error={errors['fields.' + index + '.description']}
+                            hint="Max. 1000 tekens"
+                            info={
+                                <Fragment>
+                                    <p className={'text-strong'}>Voeg een beschrijving toe</p>
+                                    <p>
+                                        Geef in de beschrijving aan wat dient te worden ingevuld tijdens het maken van
+                                        een reservering.
+                                    </p>
+                                </Fragment>
+                            }
+                            input={(id) => (
                                 <textarea
+                                    id={id}
                                     className="form-control r-n"
                                     value={field.description}
                                     onChange={(e) => {
@@ -170,26 +175,22 @@ export default function ReservationFieldItem({
                                     }}
                                     placeholder={translate('reservation_settings.labels.description')}
                                 />
-                            </FormGroupInfo>
-                            <div className="form-hint">Max. 1000 tekens</div>
-                            <FormError error={errors['fields.' + index + '.description']} />
-                        </div>
+                            )}
+                        />
 
-                        <div className="form-group">
-                            <label className="form-label form-label-required">
-                                {translate('reservation_settings.labels.type')}
-                            </label>
-
-                            <FormGroupInfo
-                                info={
-                                    <Fragment>
-                                        <h4>Kies de juiste instelling</h4>
-                                        <p>
-                                            Geef aan of het om een tekstveld gaat of dat er een nummer dient te worden
-                                            ingevuld.
-                                        </p>
-                                    </Fragment>
-                                }>
+                        <FormGroup
+                            label={translate('reservation_settings.labels.type')}
+                            error={errors['fields.' + index + '.type']}
+                            info={
+                                <Fragment>
+                                    <p className={'text-strong'}>Kies de juiste instelling</p>
+                                    <p>
+                                        Geef aan of het om een tekstveld gaat of dat er een nummer dient te worden
+                                        ingevuld.
+                                    </p>
+                                </Fragment>
+                            }
+                            input={() => (
                                 <SelectControl
                                     className="form-control"
                                     propKey={'key'}
@@ -201,30 +202,19 @@ export default function ReservationFieldItem({
                                     }}
                                     options={types}
                                 />
-                            </FormGroupInfo>
+                            )}
+                        />
 
-                            <FormError error={errors['fields.' + index + '.type']} />
-                        </div>
-                        <div className="form-group">
-                            <label className="checkbox checkbox-narrow" htmlFor={`required_${index}`}>
-                                <input
-                                    type="checkbox"
-                                    checked={field.required}
-                                    onChange={(e) => {
-                                        field.required = e.target.checked;
-                                        onChange([...fields]);
-                                    }}
-                                    id={`required_${index}`}
-                                />
-                                <div className="checkbox-label">
-                                    <div className="checkbox-box">
-                                        <div className="mdi mdi-check" />
-                                    </div>
-                                    {translate('reservation_settings.labels.required')}
-                                </div>
-                            </label>
-                        </div>
-                    </div>
+                        <CheckboxControl
+                            id={`required_${index}`}
+                            checked={field.required}
+                            onChange={(e) => {
+                                field.required = e.target.checked;
+                                onChange([...fields]);
+                            }}
+                            title={translate('reservation_settings.labels.required')}
+                        />
+                    </FormPane>
                 </div>
             )}
         </div>

@@ -8,6 +8,7 @@ import ModalFundEditPhysicalCardSettings from '../../../../modals/ModalFundEditP
 import Organization from '../../../../../props/models/Organization';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import FundPhysicalCardTypesTable from './tables/FundPhysicalCardTypesTable';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsShowPhysicalCardTypesCard({
     fund,
@@ -44,7 +45,7 @@ export default function OrganizationsFundsShowPhysicalCardTypesCard({
                         {fund.allow_physical_cards && (
                             <StateNavLink
                                 className="button button-text"
-                                name={'fund-form'}
+                                name={DashboardRoutes.FUND_FORM}
                                 params={{
                                     organizationId: fund.organization_id,
                                     id: fund.fund_form_id,

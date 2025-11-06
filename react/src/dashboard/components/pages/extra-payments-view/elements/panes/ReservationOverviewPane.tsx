@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import Reservation from '../../../../../props/models/Reservation';
 import Organization from '../../../../../props/models/Organization';
+import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function ReservationOverviewPane({
     reservation,
@@ -27,7 +28,7 @@ export default function ReservationOverviewPane({
                 </KeyValueItem>
                 <KeyValueItem label={translate('reservation.labels.product')}>
                     <StateNavLink
-                        name={'sponsor-product'}
+                        name={DashboardRoutes.SPONSOR_PRODUCT}
                         params={{
                             organizationId: organization.id,
                             productId: reservation.product?.id,

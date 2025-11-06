@@ -5,6 +5,7 @@ import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { get } from 'lodash';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Auth2FARestriction({
     type,
@@ -43,7 +44,9 @@ export default function Auth2FARestriction({
                             {translate('global.2fa_restriction.emails.description')}
                         </div>
                         <div className="button-group">
-                            <NavLink className="button button-primary button-sm" to={getStateRouteUrl('security-2fa')}>
+                            <NavLink
+                                className="button button-primary button-sm"
+                                to={getStateRouteUrl(WebshopRoutes.SECURITY_2FA)}>
                                 <div className="icon-start mdi mdi-lock-outline" />
                                 {translate('global.2fa_restriction.emails.button')}
                             </NavLink>
@@ -60,7 +63,9 @@ export default function Auth2FARestriction({
                             {translate('global.2fa_restriction.sessions.description')}
                         </div>
                         <div className="button-group">
-                            <NavLink className="button button-primary button-sm" to={getStateRouteUrl('security-2fa')}>
+                            <NavLink
+                                className="button button-primary button-sm"
+                                to={getStateRouteUrl(WebshopRoutes.SECURITY_2FA)}>
                                 <div className="icon-start mdi mdi-lock-outline" />
                                 {translate('global.2fa_restriction.sessions.button')}
                             </NavLink>
@@ -77,7 +82,9 @@ export default function Auth2FARestriction({
                             {translate('global.2fa_restriction.reimbursements.description')}
                         </div>
                         <div className="button-group">
-                            <NavLink className="button button-primary button-sm" to={getStateRouteUrl('security-2fa')}>
+                            <NavLink
+                                className="button button-primary button-sm"
+                                to={getStateRouteUrl(WebshopRoutes.SECURITY_2FA)}>
                                 <div className="icon-start mdi mdi-lock-outline" />
                                 {translate('global.2fa_restriction.reimbursements.button')}
                             </NavLink>

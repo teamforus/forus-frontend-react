@@ -8,6 +8,7 @@ import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function NotificationPreferencesCards({
     cardRef,
@@ -112,7 +113,7 @@ export default function NotificationPreferencesCards({
                         <div className="card-heading">
                             {translate('preferences_notifications.no_email_description')}
                         </div>
-                        <StateNavLink name="identity-emails" className="button button-primary">
+                        <StateNavLink name={WebshopRoutes.IDENTITY_EMAILS} className="button button-primary">
                             {translate('preferences_notifications.no_email_button')}
                         </StateNavLink>
                     </div>

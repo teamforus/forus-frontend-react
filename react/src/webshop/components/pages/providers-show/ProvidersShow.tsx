@@ -21,6 +21,7 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import Section from '../../elements/sections/Section';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProvidersShow() {
     const { id } = useParams();
@@ -83,8 +84,8 @@ export default function ProvidersShow() {
             breadcrumbItems={
                 provider && [
                     showBack && { name: translate('provider.breadcrumbs.back'), back: true },
-                    { name: translate('provider.breadcrumbs.home'), state: 'home' },
-                    { name: translate('provider.breadcrumbs.providers'), state: 'providers' },
+                    { name: translate('provider.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                    { name: translate('provider.breadcrumbs.providers'), state: WebshopRoutes.PROVIDERS },
                     { name: provider.name },
                 ]
             }
@@ -198,7 +199,7 @@ export default function ProvidersShow() {
                                             {provider.offices?.map((office) => (
                                                 <StateNavLink
                                                     key={office.id}
-                                                    name={'provider-office'}
+                                                    name={WebshopRoutes.PROVIDER_OFFICE}
                                                     params={{
                                                         organization_id: office.organization_id,
                                                         id: office.id,

@@ -16,6 +16,7 @@ import useOpenPrintable from '../../hooks/useOpenPrintable';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import Fund from '../../props/models/Fund';
 import usePushApiError from '../../hooks/usePushApiError';
+import { makeQrCodeContent } from '../../helpers/utils';
 
 export default function ModalVoucherQRCode({
     fund,
@@ -169,7 +170,9 @@ export default function ModalVoucherQRCode({
                                 <div className="voucher_qr-title">
                                     {translate('modals.modal_voucher_qr_code.title')}
                                 </div>
-                                <QrCode value={JSON.stringify({ type: 'voucher', value: qrCodeValue })} />
+
+                                <QrCode value={makeQrCodeContent('voucher', qrCodeValue)} />
+
                                 <div className="voucher_qr-actions">
                                     <div className="row">
                                         <div className="col col-lg-6">

@@ -2,6 +2,7 @@ import React, { Fragment, useCallback } from 'react';
 import { useNavigateState } from '../../../../../modules/state_router/Router';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestStepDone({
     finishError,
@@ -17,7 +18,7 @@ export default function FundRequestStepDone({
     const translate = useTranslate();
 
     const finish = useCallback(() => {
-        navigateState('funds');
+        navigateState(WebshopRoutes.FUNDS);
     }, [navigateState]);
 
     return (

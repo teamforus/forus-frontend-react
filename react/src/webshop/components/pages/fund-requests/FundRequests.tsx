@@ -15,6 +15,7 @@ import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcasePro
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundRequests() {
     const translate = useTranslate();
@@ -79,7 +80,7 @@ export default function FundRequests() {
         <BlockShowcaseProfile
             contentDusk="listFundRequestsContent"
             breadcrumbItems={[
-                { name: translate('fund_requests.breadcrumbs.home'), state: 'home' },
+                { name: translate('fund_requests.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('fund_requests.breadcrumbs.fund_requests') },
             ]}
             profileHeader={
@@ -163,7 +164,7 @@ export default function FundRequests() {
                                 onClick: (e) => {
                                     e?.preventDefault();
                                     e?.stopPropagation();
-                                    navigateState('funds');
+                                    navigateState(WebshopRoutes.FUNDS);
                                 },
                             }}
                         />

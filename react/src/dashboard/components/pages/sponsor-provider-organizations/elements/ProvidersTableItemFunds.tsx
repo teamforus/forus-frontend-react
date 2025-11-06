@@ -9,6 +9,7 @@ import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useOrganizationService } from '../../../../services/OrganizationService';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 
 export default function ProvidersTableItemFunds({
@@ -39,7 +40,7 @@ export default function ProvidersTableItemFunds({
                             <tbody>
                                 {fundProviders.data.map((fundProvider) => (
                                     <StateNavLink
-                                        name={'fund-provider'}
+                                        name={DashboardRoutes.FUND_PROVIDER}
                                         params={{
                                             id: fundProvider.id,
                                             fundId: fundProvider.fund_id,
@@ -93,7 +94,7 @@ export default function ProvidersTableItemFunds({
                                                 content={() => (
                                                     <div className="dropdown dropdown-actions">
                                                         <StateNavLink
-                                                            name={'fund-provider'}
+                                                            name={DashboardRoutes.FUND_PROVIDER}
                                                             params={{
                                                                 id: fundProvider.id,
                                                                 fundId: fundProvider.fund_id,

@@ -8,6 +8,7 @@ import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 
 export default function Notifications() {
@@ -55,7 +56,7 @@ export default function Notifications() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('notifications.breadcrumbs.home'), state: 'home' },
+                { name: translate('notifications.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('notifications.breadcrumbs.notifications') },
             ]}
             profileHeader={

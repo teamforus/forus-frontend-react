@@ -2,26 +2,21 @@ import React, { useCallback, useContext } from 'react';
 import { mainContext } from '../../../../contexts/MainContext';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../../hooks/useEnvData';
-import { useNavigateState } from '../../../../modules/state_router/Router';
+import useStartFundRequest from '../desktop/hooks/useStartFundRequest';
 
 export default function TopNavbarMobileButtons() {
-    const translate = useTranslate();
-
     const envData = useEnvData();
-    const navigateState = useNavigateState();
-
     const { setMobileMenuOpened } = useContext(mainContext);
 
-    const hideMobileMenu = useCallback(() => {
-        setMobileMenuOpened(false);
-    }, [setMobileMenuOpened]);
+    const translate = useTranslate();
+    const startFundRequest = useStartFundRequest();
 
-    const startFundRequest = useCallback(
+    const startFundRequestMobile = useCallback(
         (data: object) => {
-            hideMobileMenu();
-            navigateState('start', {}, data);
+            setMobileMenuOpened(false);
+            startFundRequest(data);
         },
-        [hideMobileMenu, navigateState],
+        [setMobileMenuOpened, startFundRequest],
     );
 
     return (
@@ -29,7 +24,7 @@ export default function TopNavbarMobileButtons() {
             {envData.config.flags.showStartButton && (
                 <button
                     className="navbar-mobile-auth-button button button-primary-outline"
-                    onClick={() => startFundRequest({ restore_with_email: 1 })}
+                    onClick={() => startFundRequestMobile({ restore_with_email: 1 })}
                     aria-label={translate('top_navbar.start_button.' + envData.client_key, null, 'top_navbar.start')}
                     role="button">
                     <em className="mdi mdi-plus-circle icon-start" />
@@ -39,7 +34,7 @@ export default function TopNavbarMobileButtons() {
 
             <button
                 className="navbar-mobile-auth-button button button-primary"
-                onClick={() => startFundRequest({ reset: 1 })}
+                onClick={() => startFundRequestMobile({ reset: 1 })}
                 role="button"
                 aria-label={translate('top_navbar.buttons.login')}
                 id="login_mobile">

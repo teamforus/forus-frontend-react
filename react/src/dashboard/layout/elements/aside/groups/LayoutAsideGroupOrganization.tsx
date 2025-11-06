@@ -4,6 +4,7 @@ import LayoutAsideNavGroup from '../elements/LayoutAsideNavGroup';
 import { IconOrganization, IconOrganizationActive } from '../icons/LayoutAsideIcons';
 import { hasPermission } from '../../../../helpers/utils';
 import useEnvData from '../../../../hooks/useEnvData';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function LayoutAsideGroupOrganization({
     organization,
@@ -29,7 +30,7 @@ export default function LayoutAsideGroupOrganization({
                 {
                     id: 'employees',
                     name: 'Medewerkers',
-                    state: 'employees',
+                    state: DashboardRoutes.EMPLOYEES,
                     stateParams: { organizationId: organization?.id },
                     show: hasPermission(organization, Permission.MANAGE_EMPLOYEES),
                     dusk: 'employeesPage',
@@ -37,7 +38,7 @@ export default function LayoutAsideGroupOrganization({
                 {
                     id: 'organization-security',
                     name: 'Beveiliging',
-                    state: 'organization-security',
+                    state: DashboardRoutes.ORGANIZATION_SECURITY,
                     stateParams: { organizationId: organization?.id },
                     show:
                         organization.allow_2fa_restrictions &&
@@ -46,7 +47,7 @@ export default function LayoutAsideGroupOrganization({
                 {
                     id: 'organization-logs',
                     name: 'Activiteitenlogboek',
-                    state: 'organization-logs',
+                    state: DashboardRoutes.ORGANIZATION_LOGS,
                     stateParams: { organizationId: organization?.id },
                     show: envData.client_type == 'sponsor',
                     dusk: 'eventLogsPage',
@@ -54,20 +55,20 @@ export default function LayoutAsideGroupOrganization({
                 {
                     id: 'offices',
                     name: 'Vestigingen',
-                    state: 'offices',
+                    state: DashboardRoutes.OFFICES,
                     stateParams: { organizationId: organization?.id },
                     show: envData.client_type == 'provider' && hasPermission(organization, Permission.MANAGE_OFFICES),
                 },
                 {
                     id: 'organization_settings',
                     name: 'Instellingen',
-                    state: 'organizations-edit',
+                    state: DashboardRoutes.ORGANIZATION_EDIT,
                     stateParams: { organizationId: organization?.id },
                     show: hasPermission(organization, Permission.MANAGE_ORGANIZATION),
                 },
                 {
                     name: 'Marketplace',
-                    state: 'features',
+                    state: DashboardRoutes.FEATURES,
                     stateParams: { organizationId: organization?.id },
                     show: envData.client_type == 'sponsor' && !envData.config.features_hide,
                 },

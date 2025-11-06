@@ -29,6 +29,7 @@ import useEditProfileRecords from '../../identitities-show/hooks/useEditProfileR
 import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
 import { hasPermission } from '../../../../helpers/utils';
 import { Permission } from '../../../../props/models/Organization';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function IdentitiesTable() {
     const translate = useTranslate();
@@ -296,7 +297,7 @@ export default function IdentitiesTable() {
                                     {identities.data.map((identity) => (
                                         <StateNavLink
                                             key={identity.id}
-                                            name={'identities-show'}
+                                            name={DashboardRoutes.IDENTITY}
                                             dataDusk={`tableProfilesRow${identity.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
@@ -311,7 +312,7 @@ export default function IdentitiesTable() {
                                                             <div className="dropdown dropdown-actions">
                                                                 <TableRowActionItem
                                                                     type={'link'}
-                                                                    name={'identities-show'}
+                                                                    name={DashboardRoutes.IDENTITY}
                                                                     params={{
                                                                         organizationId: activeOrganization.id,
                                                                         id: identity.id,

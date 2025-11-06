@@ -19,11 +19,12 @@ import FundsListItem from '../../elements/lists/funds-list/FundsListItem';
 import { useVoucherService } from '../../../services/VoucherService';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useSetTitle from '../../../hooks/useSetTitle';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 
@@ -161,7 +162,7 @@ export default function Funds() {
 
     useEffect(() => {
         if (!appConfigs.funds.list) {
-            return navigateState('home');
+            return navigateState(WebshopRoutes.HOME);
         }
     }, [appConfigs.funds.list, navigateState]);
 
@@ -176,11 +177,11 @@ export default function Funds() {
     }, [envData, setTitle, translate]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             dusk="listFundsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: translate(`funds.breadcrumbs.home`), state: 'home' },
+                { name: translate(`funds.breadcrumbs.home`), state: WebshopRoutes.HOME },
                 { name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title') },
             ]}
             aside={
@@ -283,6 +284,6 @@ export default function Funds() {
                     </div>
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

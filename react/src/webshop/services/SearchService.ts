@@ -1,6 +1,7 @@
 import { ApiResponse, ApiResponseSingle } from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
+import { WebshopRoutes } from '../modules/state_router/RouterBuilder';
 
 export type SearchItem = {
     id: number;
@@ -13,7 +14,7 @@ export type SearchItem = {
 export type SearchResultGroupItem = {
     id: number;
     name: string;
-    item_type: 'fund' | 'product' | 'provider';
+    item_type: WebshopRoutes.FUND | WebshopRoutes.PRODUCT | WebshopRoutes.PROVIDER;
 };
 
 export type SearchResultGroup = {

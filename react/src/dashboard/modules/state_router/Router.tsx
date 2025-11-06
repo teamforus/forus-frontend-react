@@ -3,6 +3,7 @@ import { createSearchParams, generatePath, matchRoutes, useLocation, useNavigate
 import { CurrentRoute, RouteState } from './RouterProps';
 import router from '../../router/routes';
 import { NavigateOptions } from 'react-router';
+import { DashboardRoutes } from './RouterBuilder';
 
 const useCurrentRoute = (routes: Array<RouteState>): CurrentRoute => {
     const location = useLocation();
@@ -24,7 +25,7 @@ export const getRoutes = (): Array<RouteState> => {
     return router.getRoutes();
 };
 
-export const getStateRouteUrl = (name: string, params = {}, query = {}): string | null => {
+export const getStateRouteUrl = (name: DashboardRoutes, params = {}, query = {}): string | null => {
     const route = getRoutes().find((route) => route.state?.name == name);
     const routePath = route ? generatePath(route.state.path, params) : null;
     const routeQuery = createSearchParams(query).toString();
@@ -36,7 +37,7 @@ export const getStateRouteUrl = (name: string, params = {}, query = {}): string 
     return `${routePath}${routeQuery ? `?${routeQuery}` : ''}`;
 };
 
-export const getSafeStateRouteUrl = (name: string, params = {}, query = {}) => {
+export const getSafeStateRouteUrl = (name: DashboardRoutes, params = {}, query = {}) => {
     try {
         return getStateRouteUrl(name, params, query);
     } catch {
@@ -48,7 +49,7 @@ export const useNavigateState = () => {
     const navigate = useNavigate();
 
     return useCallback(
-        (name: string, params: object = null, query: object = null, options: NavigateOptions = null) => {
+        (name: DashboardRoutes, params: object = null, query: object = null, options: NavigateOptions = null) => {
             navigate(getStateRouteUrl(name, params || {}, query || {}), options || {});
         },
         [navigate],

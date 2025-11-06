@@ -10,6 +10,7 @@ import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransact
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import PayoutCard from './elements/PayoutCard';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Payouts() {
     const translate = useTranslate();
@@ -42,7 +43,7 @@ export default function Payouts() {
         <BlockShowcaseProfile
             contentDusk="listPayoutsContent"
             breadcrumbItems={[
-                { name: translate('payouts.breadcrumbs.home'), state: 'home' },
+                { name: translate('payouts.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('payouts.breadcrumbs.payouts') },
             ]}
             profileHeader={
@@ -99,7 +100,7 @@ export default function Payouts() {
                                 onClick: (e) => {
                                     e?.preventDefault();
                                     e?.stopPropagation();
-                                    navigateState('funds');
+                                    navigateState(WebshopRoutes.FUNDS);
                                 },
                             }}
                         />

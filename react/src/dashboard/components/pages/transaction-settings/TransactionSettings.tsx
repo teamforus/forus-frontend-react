@@ -8,6 +8,7 @@ import { useOrganizationService } from '../../../services/OrganizationService';
 import SelectControl from '../../elements/select-control/SelectControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function TransactionSettings() {
     const activeOrganization = useActiveOrganization();
@@ -399,7 +400,7 @@ export default function TransactionSettings() {
                     <div className="card-section card-section-primary">
                         <div className="text-center">
                             <StateNavLink
-                                name={'transactions'}
+                                name={DashboardRoutes.TRANSACTIONS}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-default">
                                 Annuleer

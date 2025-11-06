@@ -22,6 +22,7 @@ import FundRequestsTable from './elements/FundRequestsTable';
 import { NumberParam, StringParam } from 'use-query-params';
 import useFundRequestExporter from '../../../services/exporters/useFundRequestExporter';
 import CardHeaderFilterNext from '../../elements/tables/elements/CardHeaderFilterNext';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundRequests() {
     const appConfigs = useAppConfigs();
@@ -152,7 +153,7 @@ export default function FundRequests() {
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {
-            navigate(getStateRouteUrl('organizations'));
+            navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
         }
     }, [appConfigs.organizations?.funds?.fund_requests, navigate]);
 

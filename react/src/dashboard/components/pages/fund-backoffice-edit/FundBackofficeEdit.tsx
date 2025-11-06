@@ -15,6 +15,7 @@ import Tooltip from '../../elements/tooltip/Tooltip';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundBackofficeEdit() {
     const { fundId } = useParams();
@@ -191,14 +192,14 @@ export default function FundBackofficeEdit() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: fund.implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -474,7 +475,7 @@ export default function FundBackofficeEdit() {
                     <div className="card-section card-section-primary">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementations-view'}
+                                name={DashboardRoutes.IMPLEMENTATION}
                                 params={{
                                     id: fund.implementation.id,
                                     organizationId: activeOrganization.id,

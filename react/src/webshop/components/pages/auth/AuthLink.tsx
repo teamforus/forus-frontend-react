@@ -6,6 +6,7 @@ import { useAuthService } from '../../../services/AuthService';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function AuthLink() {
     const { setToken } = useContext(authContext);
@@ -33,7 +34,7 @@ export default function AuthLink() {
             })
             .catch(() => {
                 pushDanger(translate('push.error'), translate('auth.push.link_used.title'));
-                navigateState('home');
+                navigateState(WebshopRoutes.HOME);
             });
     }, [
         handleAuthTarget,

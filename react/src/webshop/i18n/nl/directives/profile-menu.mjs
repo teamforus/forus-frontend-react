@@ -14,7 +14,6 @@ export default {
         reservations: 'Reserveringen',
         physical_cards: 'Fysieke pas',
         reimbursements: 'Kosten terugvragen',
-        records: 'Persoonsgegevens',
         funds: 'Aanvragen',
         notifications: 'Notificaties',
         notification_preferences: 'Notificatievoorkeuren',

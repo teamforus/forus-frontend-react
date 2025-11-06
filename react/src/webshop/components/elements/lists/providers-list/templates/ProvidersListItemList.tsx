@@ -4,6 +4,7 @@ import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import Provider from '../../../../../props/models/Provider';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
 
 export default function ProvidersListItemList({
     provider,
@@ -20,7 +21,7 @@ export default function ProvidersListItemList({
         <div className="organization-item" data-dusk={`listProvidersRow${provider.id}`} data-search-item="1">
             <div className={`organization-pane`}>
                 <StateNavLink
-                    name="provider"
+                    name={WebshopRoutes.PROVIDER}
                     params={{ id: provider.id }}
                     state={stateParams || null}
                     className="organization-pane-info"
@@ -70,7 +71,7 @@ export default function ProvidersListItemList({
                             <StateNavLink
                                 key={office.id}
                                 params={{ organization_id: office.organization_id, id: office.id }}
-                                name={'provider-office'}
+                                name={WebshopRoutes.PROVIDER_OFFICE}
                                 className="office-item">
                                 <div className="office-item-map-icon">
                                     <em className="mdi mdi-map-marker" />

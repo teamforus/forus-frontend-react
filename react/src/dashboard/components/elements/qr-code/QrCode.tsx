@@ -1,6 +1,7 @@
 import React, { DOMAttributes, HTMLAttributes, useRef, useState } from 'react';
 import { useEffect } from 'react';
 import QRCode from 'easyqrcodejs';
+import classNames from 'classnames';
 
 export default function QrCode({
     value,
@@ -13,6 +14,7 @@ export default function QrCode({
     logoHeight = 80,
     className = '',
     qrCodeAttrs = null,
+    dusk = null,
 }: {
     value: string;
     background?: string;
@@ -24,6 +26,7 @@ export default function QrCode({
     logoHeight?: number;
     className?: string;
     qrCodeAttrs?: DOMAttributes<HTMLDivElement> | HTMLAttributes<HTMLDivElement>;
+    dusk?: string;
 }) {
     const code = useRef<HTMLDivElement>();
     const [, setQrCode] = useState(null);
@@ -50,7 +53,7 @@ export default function QrCode({
     }, [code, padding, dotScale, value, background, description, logo, setQrCode, logoWidth, logoHeight]);
 
     return (
-        <div className={`block block-qr-code ${className || ''}`}>
+        <div className={classNames('block block-qr-code', className)} data-dusk={dusk}>
             <div className="qr_code" ref={code} {...qrCodeAttrs} />
             {description && <div className="qr_code-desc">description</div>}
         </div>

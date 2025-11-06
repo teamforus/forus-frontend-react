@@ -7,6 +7,7 @@ import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { useHelperService } from '../../../../../dashboard/services/HelperService';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { useNavigateState } from '../../../../modules/state_router/Router';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function useSendVoucherEmail() {
     const authIdentity = useAuthIdentity();
@@ -21,7 +22,7 @@ export default function useSendVoucherEmail() {
     return useCallback(
         function (voucher: Voucher) {
             if (!authIdentity.email) {
-                return navigateState('identity-emails');
+                return navigateState(WebshopRoutes.IDENTITY_EMAILS);
             }
 
             openModal((modal) => (

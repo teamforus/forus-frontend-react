@@ -12,6 +12,7 @@ import ProductMonitoredHistoryCardFunds from '../../sponsor-product/elements/Pro
 import Organization from '../../../../props/models/Organization';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function SponsorProductsTable({
     columns = null,
@@ -45,7 +46,7 @@ export default function SponsorProductsTable({
                     {products?.map((product) => (
                         <Fragment key={product.id}>
                             <StateNavLink
-                                name={'sponsor-product'}
+                                name={DashboardRoutes.SPONSOR_PRODUCT}
                                 params={{ productId: product?.id, organizationId: activeOrganization.id }}
                                 className={'tr-clickable'}
                                 customElement={'tr'}>
@@ -53,7 +54,7 @@ export default function SponsorProductsTable({
                                     <TableEntityMain
                                         title={strLimit(product.name, 64)}
                                         subtitle={strLimit(product.organization.name, 64)}
-                                        media={product.photo}
+                                        media={product.photos[0]}
                                         mediaRound={false}
                                         mediaSize={'md'}
                                         mediaPlaceholder={'product'}
@@ -103,7 +104,7 @@ export default function SponsorProductsTable({
                                             <div className="dropdown dropdown-actions">
                                                 <StateNavLink
                                                     className="dropdown-item"
-                                                    name={'sponsor-provider-organization'}
+                                                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                                                     params={{
                                                         organizationId: activeOrganization.id,
                                                         id: product.organization_id,
@@ -113,7 +114,7 @@ export default function SponsorProductsTable({
                                                 </StateNavLink>
                                                 <StateNavLink
                                                     className="dropdown-item"
-                                                    name={'sponsor-product'}
+                                                    name={DashboardRoutes.SPONSOR_PRODUCT}
                                                     params={{
                                                         productId: product?.id,
                                                         organizationId: activeOrganization.id,

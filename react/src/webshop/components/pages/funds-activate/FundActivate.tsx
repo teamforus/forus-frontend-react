@@ -42,6 +42,7 @@ import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -135,7 +136,7 @@ export default function FundActivate() {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState('error', { errorCode: err.headers['error-code'] });
+                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
                 });
         },
         [digIdService, navigateState, pushDanger, translate],
@@ -157,11 +158,11 @@ export default function FundActivate() {
                         translate('push.success'),
                         translate('push.fund_activation.success', { fund_name: res.data.data.fund.name }),
                     );
-                    navigateState('voucher', { number: res.data.data.number });
+                    navigateState(WebshopRoutes.VOUCHER, { number: res.data.data.number });
                 })
                 .catch((err: ResponseError) => {
                     pushDanger(translate('push.error'), err.data.message);
-                    navigateState('fund', { id: fund.id });
+                    navigateState(WebshopRoutes.FUND, { id: fund.id });
                 });
         },
         [applyingFund, fundService, navigateState, pushDanger, pushSuccess, translate],
@@ -183,10 +184,12 @@ export default function FundActivate() {
             .redeem(code)
             .then((res) => {
                 if (res.data.vouchers.length === 1) {
-                    return navigateState('voucher', res.data.vouchers[0]);
+                    return navigateState(WebshopRoutes.VOUCHER, res.data.vouchers[0]);
                 }
 
-                return res.data.vouchers.length > 0 ? navigateState('vouchers') : navigateState('funds');
+                return res.data.vouchers.length > 0
+                    ? navigateState(WebshopRoutes.VOUCHERS)
+                    : navigateState(WebshopRoutes.FUNDS);
             })
             .catch((err: ResponseError) => {
                 if ((err.status == 404 || err.status === 403) && err.data.meta) {
@@ -267,11 +270,16 @@ export default function FundActivate() {
 
                         if (prevalidation_vouchers.length > 0) {
                             return prevalidation_vouchers.length > 1
-                                ? navigateState('vouchers')
-                                : navigateState('voucher', prevalidation_vouchers[0]);
+                                ? navigateState(WebshopRoutes.VOUCHERS)
+                                : navigateState(WebshopRoutes.VOUCHER, prevalidation_vouchers[0]);
                         }
 
-                        navigateState('fund-request', { id: fund.id }, {}, { state: { from: 'fund-activate' } });
+                        navigateState(
+                            WebshopRoutes.FUND_REQUEST,
+                            { id: fund.id },
+                            {},
+                            { state: { from: 'fund-activate' } },
+                        );
                     })
                     .catch((err: ResponseError) => {
                         if (err.status === 403 && err.data.message) {
@@ -355,7 +363,7 @@ export default function FundActivate() {
             };
 
             navigateState(
-                'error',
+                WebshopRoutes.ERROR,
                 { errorCode: `digid_${digid_error}` },
                 {},
                 {
@@ -432,7 +440,7 @@ export default function FundActivate() {
             .then((res) => setFundRequests(res.data.data))
             .catch((err: ResponseError) => {
                 pushDanger(translate('push.error'), err.data.message);
-                navigateState('fund', { id: id });
+                navigateState(WebshopRoutes.FUND, { id: id });
             })
             .finally(() => setProgress(100));
     }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress, translate]);
@@ -468,11 +476,11 @@ export default function FundActivate() {
             }
 
             if (options.length == 0) {
-                return navigateState('funds');
+                return navigateState(WebshopRoutes.FUNDS);
             }
 
             if (options[0] === 'request') {
-                return navigateState('fund-request', fund, {}, { state: { from: 'fund-activate' } });
+                return navigateState(WebshopRoutes.FUND_REQUEST, fund, {}, { state: { from: 'fund-activate' } });
             }
 
             if (options.length === 1 && options[0] !== 'digid') {
@@ -537,12 +545,12 @@ export default function FundActivate() {
 
         // Voucher already received, go to the voucher
         if (vouchersActive?.length > 0) {
-            return navigateState('voucher', { number: vouchersActive[0]?.number });
+            return navigateState(WebshopRoutes.VOUCHER, { number: vouchersActive[0]?.number });
         }
 
         // Payout already received, go to the payouts
         if (payoutsActive?.length > 0) {
-            return navigateState('payouts');
+            return navigateState(WebshopRoutes.PAYOUTS);
         }
 
         // All the criteria are meet, request the voucher
@@ -655,9 +663,9 @@ export default function FundActivate() {
 
                                         {options?.includes('request') && (
                                             <StateNavLink
-                                                name="fund-request"
+                                                name={WebshopRoutes.FUND_REQUEST}
                                                 params={{ id: fund?.id }}
-                                                state={{ from: 'fund-activate' }}
+                                                state={{ from: WebshopRoutes.FUND_ACTIVATE }}
                                                 tabIndex={0}
                                                 onKeyDown={clickOnKeyEnter}
                                                 dataDusk="requestOption"
@@ -833,7 +841,7 @@ export default function FundActivate() {
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
-                                            name={'funds'}
+                                            name={WebshopRoutes.FUNDS}
                                             className="button button-text button-text-primary button-text-padless">
                                             {translate('fund_activate.cards.back')}
                                         </StateNavLink>
@@ -872,7 +880,7 @@ export default function FundActivate() {
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
-                                            name={'funds'}
+                                            name={WebshopRoutes.FUNDS}
                                             className="button button-text button-text-primary button-text-padless">
                                             {translate('fund_activate.cards.back')}
                                         </StateNavLink>
@@ -917,7 +925,7 @@ export default function FundActivate() {
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
-                                            name={'funds'}
+                                            name={WebshopRoutes.FUNDS}
                                             className="button button-text button-text-primary button-text-padless">
                                             {translate('fund_activate.cards.back')}
                                         </StateNavLink>
@@ -956,7 +964,7 @@ export default function FundActivate() {
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
-                                            name="funds"
+                                            name={WebshopRoutes.FUNDS}
                                             className="button button-text button-text-primary button-text-padless">
                                             {translate('fund_activate.cards.back')}
                                         </StateNavLink>
@@ -999,7 +1007,7 @@ export default function FundActivate() {
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
-                                            name={'funds'}
+                                            name={WebshopRoutes.FUNDS}
                                             className="button button-text button-text-primary button-text-padless">
                                             {translate('fund_activate.cards.back')}
                                         </StateNavLink>
@@ -1038,7 +1046,7 @@ export default function FundActivate() {
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
-                                            name={'funds'}
+                                            name={WebshopRoutes.FUNDS}
                                             className="button button-text button-text-primary button-text-padless">
                                             {translate('fund_activate.cards.back')}
                                         </StateNavLink>
@@ -1144,7 +1152,7 @@ export default function FundActivate() {
 
                                 <div className="sign_up-pane-footer text-center">
                                     <StateNavLink
-                                        name={'fund-request-show'}
+                                        name={WebshopRoutes.FUND_REQUEST_SHOW}
                                         params={{ id: fundRequest.id }}
                                         className="button button-primary">
                                         {translate(
