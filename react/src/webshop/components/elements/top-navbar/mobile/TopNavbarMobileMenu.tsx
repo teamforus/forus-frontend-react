@@ -195,7 +195,7 @@ export default function TopNavbarMobileMenu() {
                         </StateNavLink>
                     )}
 
-                    {appConfigs.has_physical_cards && (
+                    {authIdentity && appConfigs.has_physical_cards && (
                         <StateNavLink
                             className="mobile-menu-item"
                             name={WebshopRoutes.PHYSICAL_CARDS}
