@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function MolliePrivacy() {
     const activeOrganization = useActiveOrganization();
@@ -9,7 +10,7 @@ export default function MolliePrivacy() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'payment-methods'}
+                    name={DashboardRoutes.PAYMENT_METHODS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

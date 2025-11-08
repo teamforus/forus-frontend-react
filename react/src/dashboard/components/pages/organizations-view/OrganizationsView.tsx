@@ -3,6 +3,7 @@ import { useOrganizationService } from '../../../services/OrganizationService';
 import { useParams } from 'react-router';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { mainContext } from '../../../contexts/MainContext';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsView() {
     const { id } = useParams();
@@ -20,7 +21,7 @@ export default function OrganizationsView() {
             }
 
             setOrganizations(organizations);
-            navigateState('organizations');
+            navigateState(DashboardRoutes.ORGANIZATIONS);
         });
     }, [fetchOrganizations, navigateState, organizationService, setActiveOrganization, setOrganizations, id]);
 

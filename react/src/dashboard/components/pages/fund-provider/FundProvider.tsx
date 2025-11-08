@@ -15,6 +15,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundProvider() {
     const { fundId, id } = useParams();
@@ -83,14 +84,14 @@ export default function FundProvider() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'sponsor-provider-organizations'}
+                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     {translate('page_state_titles.organization-providers')}
                 </StateNavLink>
                 <StateNavLink
-                    name={'sponsor-provider-organization'}
+                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                     params={{ id: fundProvider.organization.id, organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

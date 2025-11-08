@@ -16,4 +16,5 @@ export default interface ImplementationPage {
     implementation_id?: number;
     description_position?: string;
     description_alignment?: 'left' | 'center' | 'right';
+    implementation?: { id: number; name: string; organization_id: number; url_webshop: string };
 }

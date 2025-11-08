@@ -4,6 +4,7 @@ import StateNavLink from '../../../../webshop/modules/state_router/StateNavLink'
 import classNames from 'classnames';
 import useTranslate from '../../../hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../helpers/wcag';
+import { WebshopRoutes } from '../../../../webshop/modules/state_router/RouterBuilder';
 
 export default function PushNotificationsGroup({
     group = 'default',
@@ -57,7 +58,10 @@ export default function PushNotificationsGroup({
                         ? translate('push_notification_group.auto_close_after', { dismissTime })
                         : translate('push_notification_group.auto_close_disabled')}
                     <div className="notification-setting-separator" />
-                    <StateNavLink name={'preferences-notifications'} params={{ section: 'push' }} target={'_blank'}>
+                    <StateNavLink
+                        name={WebshopRoutes.PREFERENCE_NOTIFICATIONS}
+                        params={{ section: 'push' }}
+                        target={'_blank'}>
                         {translate('push_notification_group.adjust')}
                     </StateNavLink>
                 </div>
@@ -95,7 +99,9 @@ export default function PushNotificationsGroup({
                                     ? translate('push_notification_group.auto_close_after', { dismissTime })
                                     : translate('push_notification_group.auto_close_disabled')}
 
-                                <StateNavLink name={'preferences-notifications'} params={{ section: 'push' }}>
+                                <StateNavLink
+                                    name={WebshopRoutes.PREFERENCE_NOTIFICATIONS}
+                                    params={{ section: 'push' }}>
                                     {translate('push_notification_group.adjust')}
                                 </StateNavLink>
                             </div>

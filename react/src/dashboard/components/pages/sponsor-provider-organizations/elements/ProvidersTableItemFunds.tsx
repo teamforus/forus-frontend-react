@@ -3,21 +3,23 @@ import { strLimit } from '../../../../helpers/string';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
-import FilterScope from '../../../../types/FilterScope';
-import FilterModel from '../../../../types/FilterModel';
 import FundProvider from '../../../../props/models/FundProvider';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useOrganizationService } from '../../../../services/OrganizationService';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 
 export default function ProvidersTableItemFunds({
-    filter,
+    filterValues,
+    filterUpdate,
     organization,
     fundProviders,
 }: {
-    filter: FilterScope<FilterModel>;
+    filterValues: FilterModel;
+    filterUpdate: FilterSetter;
     organization: Organization;
     fundProviders: PaginationData<FundProvider>;
 }) {
@@ -38,7 +40,7 @@ export default function ProvidersTableItemFunds({
                             <tbody>
                                 {fundProviders.data.map((fundProvider) => (
                                     <StateNavLink
-                                        name={'fund-provider'}
+                                        name={DashboardRoutes.FUND_PROVIDER}
                                         params={{
                                             id: fundProvider.id,
                                             fundId: fundProvider.fund_id,
@@ -92,7 +94,7 @@ export default function ProvidersTableItemFunds({
                                                 content={() => (
                                                     <div className="dropdown dropdown-actions">
                                                         <StateNavLink
-                                                            name={'fund-provider'}
+                                                            name={DashboardRoutes.FUND_PROVIDER}
                                                             params={{
                                                                 id: fundProvider.id,
                                                                 fundId: fundProvider.fund_id,
@@ -114,8 +116,8 @@ export default function ProvidersTableItemFunds({
                                     <td colSpan={5}>
                                         <Paginator
                                             meta={fundProviders.meta}
-                                            filters={filter.values}
-                                            updateFilters={filter.update}
+                                            filters={filterValues}
+                                            updateFilters={filterUpdate}
                                         />
                                     </td>
                                 </tr>

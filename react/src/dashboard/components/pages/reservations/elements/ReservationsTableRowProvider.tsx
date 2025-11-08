@@ -10,6 +10,7 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import Reservation from '../../../../props/models/Reservation';
 import useReservationsTableActions from '../hooks/useReservationsTableActions';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReservationsTableRowProvider({
     fetchReservations,
@@ -31,7 +32,7 @@ export default function ReservationsTableRowProvider({
 
     return (
         <StateNavLink
-            name="reservations-show"
+            name={DashboardRoutes.RESERVATION}
             params={{
                 organizationId: organization.id,
                 id: reservation.id,
@@ -51,7 +52,7 @@ export default function ReservationsTableRowProvider({
 
             <td>
                 <StateNavLink
-                    name={'reservations-show'}
+                    name={DashboardRoutes.RESERVATION}
                     params={{
                         organizationId: organization.id,
                         id: reservation.id,
@@ -60,7 +61,7 @@ export default function ReservationsTableRowProvider({
             </td>
             <td>
                 <StateNavLink
-                    name={'products-show'}
+                    name={DashboardRoutes.PRODUCT}
                     disabled={!hasPermission(organization, Permission.MANAGE_PRODUCTS)}
                     params={{
                         organizationId: reservation.product.organization_id,
@@ -112,7 +113,7 @@ export default function ReservationsTableRowProvider({
                     content={(e) => (
                         <div className="dropdown dropdown-actions">
                             <StateNavLink
-                                name="reservations-show"
+                                name={DashboardRoutes.RESERVATION}
                                 params={{
                                     organizationId: organization.id,
                                     id: reservation.id,

@@ -1,193 +1,97 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import { useNavigateState } from '../../../modules/state_router/Router';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import { useVoucherService } from '../../../services/VoucherService';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
-import useEnvData from '../../../hooks/useEnvData';
-import useComposeVoucherCardData from '../../../services/helpers/useComposeVoucherCardData';
 import { useParams } from 'react-router';
-import { strLimit } from '../../../../dashboard/helpers/string';
-import QrCode from '../../../../dashboard/components/elements/qr-code/QrCode';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useAssetUrl from '../../../hooks/useAssetUrl';
-import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
-import BlockVoucherRecords from '../../elements/block-voucher-records/BlockVoucherRecords';
-import IconVoucherRecords from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-voucher-records.svg';
-import IconReimbursement from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
-import BlockProducts from '../../elements/block-products/BlockProducts';
-import useAppConfigs from '../../../hooks/useAppConfigs';
-import Product from '../../../props/models/Product';
-import { PaginationData } from '../../../../dashboard/props/ApiResponses';
-import { useProductService } from '../../../services/ProductService';
-import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
-import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
-import Office from '../../../../dashboard/props/models/Office';
-import Markdown from '../../elements/markdown/Markdown';
-import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
-import ModalNotification from '../../modals/ModalNotification';
-import { useHelperService } from '../../../../dashboard/services/HelperService';
-import ModalOpenInMe from '../../modals/ModalOpenInMe';
-import ModalShareVoucher from '../../modals/ModalShareVoucher';
-import ModalDeactivateVoucher from '../../modals/ModalDeactivateVoucher';
-import ModalPhysicalCardUnlink from '../../modals/ModalPhysicalCardUnlink';
-import ModalPhysicalCardType from '../../modals/ModalPhysicalCardType';
-import useOpenPrintable from '../../../../dashboard/hooks/useOpenPrintable';
-import VoucherQrCodePrintable from '../../printable/VoucherQrCodePrintable';
 import useSetTitle from '../../../hooks/useSetTitle';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
-import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import Section from '../../elements/sections/Section';
+import PaneGroup from '../../elements/block-panel-group/PaneGroup';
+import PaneGroupPanel from '../../elements/block-panel-group/PaneGroupPanel';
+import Markdown from '../../elements/markdown/Markdown';
+import VoucherProducts from './elements/VoucherProducts';
+import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
+import VoucherPhysicalCards from './cards/VoucherPhysicalCards';
+import VoucherActions from './elements/VoucherActions';
+import useVoucherCard from './hooks/useVoucherCard';
+import VoucherHistoryCard from './elements/VoucherHistoryCard';
+import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
+import Office from '../../../../dashboard/props/models/Office';
+import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
+import useAppConfigs from '../../../hooks/useAppConfigs';
+import classNames from 'classnames';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function VouchersShow() {
     const { number } = useParams();
-    const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
 
     const assetUrl = useAssetUrl();
     const setTitle = useSetTitle();
-    const openModal = useOpenModal();
-    const openPrintable = useOpenPrintable();
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const navigateState = useNavigateState();
-    const composeVoucherCardData = useComposeVoucherCardData();
 
-    const helperService = useHelperService();
-    const productService = useProductService();
     const voucherService = useVoucherService();
 
     const [voucher, setVoucher] = useState<Voucher>(null);
-    const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [showRecords, setShowRecords] = useState<boolean>(null);
 
-    const voucherCard = useMemo(() => {
-        return voucher ? composeVoucherCardData(voucher) : null;
-    }, [voucher, composeVoucherCardData]);
+    const voucherCard = useVoucherCard(voucher);
 
     const showHistory = useMemo(
         () => voucher?.history.filter((history) => !history.event.startsWith('created_')).length > 0,
         [voucher?.history],
     );
 
-    const showProducts = useMemo(
-        () =>
-            !voucher?.expired &&
-            !voucher?.deactivated &&
+    const showTransactions = useMemo(() => {
+        return !voucher?.external && !voucherCard?.product && voucherCard?.transactionsList?.length > 0;
+    }, [voucher?.external, voucherCard?.product, voucherCard?.transactionsList?.length]);
+
+    const showPhysicalCardTypes = useMemo(() => {
+        return (
             !voucher?.product &&
+            !voucher?.expired &&
             !voucher?.external &&
-            appConfigs?.products.list,
-        [appConfigs, voucher],
-    );
+            !voucher?.deactivated &&
+            (voucher?.physical_card || voucher?.fund?.fund_physical_card_types?.length > 0)
+        );
+    }, [
+        voucher?.product,
+        voucher?.expired,
+        voucher?.external,
+        voucher?.deactivated,
+        voucher?.physical_card,
+        voucher?.fund?.fund_physical_card_types?.length,
+    ]);
 
-    const physicalCardIsLinkable = useMemo(() => {
-        return voucher?.fund?.allow_physical_cards && voucher?.type === 'regular';
-    }, [voucher]);
+    const showHowItWorks = useMemo(() => {
+        return !voucher?.deactivated && voucher?.fund?.how_it_works_html;
+    }, [voucher?.deactivated, voucher?.fund?.how_it_works_html]);
 
-    const showPhysicalCardsOption = useMemo(() => {
-        return physicalCardIsLinkable && !voucher.physical_card && !voucher?.expired;
-    }, [physicalCardIsLinkable, voucher?.expired, voucher?.physical_card]);
+    const showFundDetails = useMemo(() => {
+        return !voucher?.deactivated && voucher?.fund?.description_short;
+    }, [voucher?.deactivated, voucher?.fund?.description_short]);
 
-    const deleteVoucher = useCallback(
-        function (voucher: Voucher) {
-            openModal((modal) => (
-                <ModalNotification
-                    modal={modal}
-                    type={'confirm'}
-                    title={translate('voucher.delete_voucher.title')}
-                    description={translate('voucher.delete_voucher.popup_form.description')}
-                    mdiIconType={'warning'}
-                    mdiIconClass={'alert-outline'}
-                    cancelBtnText={translate('voucher.delete_voucher.buttons.close')}
-                    confirmBtnText={translate('voucher.delete_voucher.buttons.submit')}
-                    onConfirm={() => voucherService.destroy(voucher.number).then(() => navigateState('vouchers'))}
-                />
-            ));
-        },
-        [navigateState, openModal, translate, voucherService],
-    );
-
-    const printQrCode = useCallback(
-        (voucher: Voucher) => {
-            openPrintable((printable) => (
-                <VoucherQrCodePrintable
-                    printable={printable}
-                    voucher={voucher}
-                    webshopUrl={appConfigs?.fronts.url_webshop}
-                    organization={!voucher.product ? voucher.fund.organization : voucher.product.organization}
-                    assetUrl={assetUrl}
-                />
-            ));
-        },
-        [appConfigs?.fronts?.url_webshop, assetUrl, openPrintable],
-    );
-
-    const sendVoucherEmail = useCallback(
-        function (voucher: Voucher) {
-            if (!authIdentity.email) {
-                return navigateState('identity-emails');
-            }
-
-            openModal((modal) => (
-                <ModalNotification
-                    modal={modal}
-                    type={'confirm'}
-                    title={translate('modal.email_voucher_to_me.title')}
-                    mdiIconType="primary"
-                    mdiIconClass={'email-open-outline'}
-                    description={translate('modal.email_voucher_to_me.description')}
-                    onConfirm={() => {
-                        voucherService.sendToEmail(voucher.number).then(() => {
-                            const emailServiceUrl = helperService.getEmailServiceProviderUrl(authIdentity?.email);
-
-                            openModal((modal) => (
-                                <ModalNotification
-                                    modal={modal}
-                                    type="action-result"
-                                    title={translate('modal.email_voucher_to_me.title')}
-                                    header={translate('popup_auth.notifications.confirmation')}
-                                    mdiIconType="success"
-                                    mdiIconClass="check-circle-outline"
-                                    description={translate('popup_auth.notifications.voucher_email')}
-                                    confirmBtnText={translate(
-                                        emailServiceUrl ? 'email_service_switch.confirm' : 'buttons.close',
-                                    )}
-                                    onConfirm={() => helperService.openInNewTab(emailServiceUrl)}
-                                />
-                            ));
-                        });
-                    }}
-                />
-            ));
-        },
-        [authIdentity?.email, helperService, navigateState, openModal, translate, voucherService],
-    );
-
-    const openInMeModal = useCallback(() => {
-        openModal((modal) => <ModalOpenInMe modal={modal} />);
-    }, [openModal]);
-
-    const shareVoucher = useCallback(
-        (voucher: Voucher) => {
-            openModal((modal) => <ModalShareVoucher modal={modal} voucher={voucher} />);
-        },
-        [openModal],
-    );
-
-    const deactivateVoucher = useCallback(
-        (voucher: Voucher) => {
-            openModal((modal) => (
-                <ModalDeactivateVoucher
-                    modal={modal}
-                    voucher={voucher}
-                    onDeactivated={(voucher) => setVoucher(voucher)}
-                />
-            ));
-        },
-        [openModal],
-    );
+    const showProductMap = useMemo(() => {
+        return (
+            !voucherCard?.expired &&
+            !voucherCard?.external &&
+            !voucherCard?.deactivated &&
+            (!voucherCard?.product || voucherCard?.offices.length) &&
+            appConfigs?.show_voucher_map
+        );
+    }, [
+        voucherCard?.expired,
+        voucherCard?.external,
+        voucherCard?.deactivated,
+        voucherCard?.product,
+        voucherCard?.offices.length,
+        appConfigs?.show_voucher_map,
+    ]);
 
     const fetchVoucher = useCallback(() => {
         setProgress(0);
@@ -198,68 +102,11 @@ export default function VouchersShow() {
             .finally(() => setProgress(100));
     }, [number, setProgress, voucherService]);
 
-    const fetchProducts = useCallback(
-        (voucher: Voucher) => {
-            setProgress(0);
-
-            productService
-                .list({ sample: 1, per_page: 6, fund_id: voucher.fund_id })
-                .then((res) => setProducts(res.data))
-                .finally(() => setProgress(100));
-        },
-        [setProgress, productService],
-    );
-
-    const linkPhysicalCard = useCallback(
-        (voucher: Voucher, state?: 'select_type' | 'card_code') => {
-            openModal((modal) => (
-                <ModalPhysicalCardType
-                    modal={modal}
-                    voucher={voucher}
-                    initialState={state}
-                    onSendVoucherEmail={(voucher) => sendVoucherEmail(voucher)}
-                    onOpenInMeModal={openInMeModal}
-                    onPrintQrCode={printQrCode}
-                    onAttached={() => fetchVoucher()}
-                />
-            ));
-        },
-        [fetchVoucher, openInMeModal, openModal, printQrCode, sendVoucherEmail],
-    );
-
-    const unlinkPhysicalCard = useCallback(
-        (voucher: Voucher) => {
-            openModal((modal) => (
-                <ModalPhysicalCardUnlink
-                    modal={modal}
-                    voucher={voucher}
-                    onPhysicalCardUnlinked={() => fetchVoucher()}
-                    onClose={(requestNew) => {
-                        voucherService.get(voucher.number).then((res) => {
-                            setVoucher(res.data.data);
-
-                            if (requestNew) {
-                                linkPhysicalCard(res.data.data, 'select_type');
-                            }
-                        });
-                    }}
-                />
-            ));
-        },
-        [fetchVoucher, linkPhysicalCard, openModal, voucherService],
-    );
-
     useEffect(() => {
         if (authIdentity) {
             fetchVoucher();
         }
     }, [fetchVoucher, authIdentity]);
-
-    useEffect(() => {
-        if (voucher && !voucher.product && !voucher?.fund?.external) {
-            fetchProducts(voucher);
-        }
-    }, [fetchProducts, voucher]);
 
     useEffect(() => {
         if (voucher?.fund) {
@@ -269,10 +116,11 @@ export default function VouchersShow() {
 
     return (
         <BlockShowcase
+            narrow={true}
             breadcrumbItems={[
-                { name: translate('voucher.breadcrumbs.home'), state: 'home' },
-                { name: translate('voucher.breadcrumbs.vouchers'), state: 'vouchers' },
-                voucher
+                { name: translate('voucher.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('voucher.breadcrumbs.vouchers'), state: WebshopRoutes.VOUCHERS },
+                voucher && voucher?.physical_card
                     ? {
                           name: voucher?.physical_card
                               ? translate('voucher.breadcrumbs.voucher_physical', {
@@ -283,833 +131,217 @@ export default function VouchersShow() {
                     : null,
             ]}>
             {voucher && voucherCard && (
-                <div className="page page-voucher">
+                <Fragment>
                     <Section type={'voucher_details'}>
-                        {/* Internal vouchers */}
-                        {!voucherCard.deactivated && !voucher?.expired && !voucherCard.external && (
-                            <div className="block block-voucher">
-                                <h1 className="sr-only">Jouw tegoed</h1>
-                                <div className="base-card base-card-voucher">
-                                    <div className="card-inner">
-                                        <div className="card-body">
-                                            <div className="card-photo">
-                                                <img className="voucher-img" src={voucherCard.thumbnail} alt={''} />
-                                            </div>
-                                            <div className="card-section">
-                                                <h2 className="card-title" data-dusk="voucherTitle">
-                                                    {strLimit(voucherCard.title, 40)}
-                                                </h2>
-
-                                                {!voucherCard.product ? (
-                                                    <div className="card-subtitle">
-                                                        {voucherCard.fund.organization.name}
-                                                    </div>
-                                                ) : (
-                                                    <div className="card-subtitle">
-                                                        {voucherCard.product.organization.name}
-                                                    </div>
-                                                )}
-
-                                                {voucherCard.type === 'regular' && (
-                                                    <div>
-                                                        <div className="card-value euro">
-                                                            {voucherCard.amount_locale}
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            {!voucherCard.external && (
-                                                <Fragment>
-                                                    <div className="card-qr_code show-sm">
-                                                        {voucher.address && (
-                                                            <QrCode
-                                                                padding={5}
-                                                                className={'card-qr_code-element'}
-                                                                value={JSON.stringify({
-                                                                    type: 'voucher',
-                                                                    value: voucher.address,
-                                                                })}
-                                                            />
-                                                        )}
-
-                                                        <div className="card-qr_code-desc">
-                                                            {translate('voucher.card.valid_until')}{' '}
-                                                            {voucherCard.last_active_day_locale}
-                                                        </div>
-                                                    </div>
-                                                    <div className="card-qr_code hide-sm">
-                                                        {voucher.address && (
-                                                            <QrCode
-                                                                value={JSON.stringify({
-                                                                    type: 'voucher',
-                                                                    value: voucher.address,
-                                                                })}
-                                                            />
-                                                        )}
-
-                                                        {!voucherCard.used && (
-                                                            <div className="card-qr_code-desc">
-                                                                {translate('voucher.card.valid_until')}{' '}
-                                                                {voucherCard.last_active_day_locale}
-                                                            </div>
-                                                        )}
-
-                                                        {voucherCard.product && voucherCard.used && (
-                                                            <div className="card-qr_code-desc">
-                                                                {translate('voucher.card.used')}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </Fragment>
-                                            )}
+                        <div className="block block-voucher">
+                            {!voucherCard.deactivated && !voucherCard.expired && (
+                                <Fragment>
+                                    <div className="voucher-fund-overview">
+                                        <div className="voucher-fund-overview-media">
+                                            <img
+                                                src={
+                                                    voucher?.fund?.logo?.sizes?.thumbnail ??
+                                                    assetUrl('/assets/img/placeholders/fund-thumbnail.png')
+                                                }
+                                                alt={
+                                                    voucher?.fund?.name
+                                                        ? translate('voucher.fund.logo_alt_named', {
+                                                              name: voucher.fund.name,
+                                                          })
+                                                        : translate('voucher.fund.logo_alt')
+                                                }
+                                            />
                                         </div>
+                                        <div className="voucher-fund-overview-content">
+                                            <div className="voucher-fund-overview-title">{voucher?.fund?.name}</div>
+                                            <div className="voucher-fund-overview-description">
+                                                {translate('voucher.overview.description')}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        <div className="card-footer">
-                                            {voucherCard.product && (
-                                                <Fragment>
-                                                    {voucherCard.transactions.map((transaction) => (
-                                                        <div key={transaction.id} className="card-section">
-                                                            <div className="card-label">
-                                                                {translate('voucher.card.used_on')}:
+                                    <div className="voucher-cards">
+                                        <div className="voucher-details">
+                                            <div className="voucher-details-info">
+                                                {voucher?.product && (
+                                                    <div
+                                                        className={classNames(
+                                                            'label',
+                                                            voucher?.used ? 'label-default' : 'label-success',
+                                                        )}>
+                                                        {voucher?.used ? 'Gebruikt' : 'Ongebruikt'}
+                                                    </div>
+                                                )}
+                                                <div className="voucher-details-info-fund" data-dusk="voucherTitle">
+                                                    {voucherCard.title}
+                                                </div>
+                                                <div className="voucher-details-info-sponsor">
+                                                    {voucher?.product
+                                                        ? voucher?.product?.organization?.name
+                                                        : voucher?.fund?.name}
+                                                </div>
+                                                <div className="voucher-details-info-date">
+                                                    {translate('voucher.details.valid_until', {
+                                                        date: voucherCard?.expire_at_locale,
+                                                    })}
+                                                </div>
+                                                {!voucher?.product && (
+                                                    <div className="voucher-details-info-amount">
+                                                        {voucherCard?.amount_locale}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="voucher-details-records">
+                                                <div className="voucher-details-records-title">
+                                                    {translate('voucher.details.records.title')}
+                                                </div>
+                                                <div className="voucher-details-records-list">
+                                                    <div className="voucher-details-records-item">
+                                                        <div className="voucher-details-records-item-label">
+                                                            {translate('voucher.details.records.number')}
+                                                        </div>
+                                                        <div className="voucher-details-records-item-value">
+                                                            {`#${voucher?.number}`}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="voucher-details-records-item">
+                                                        <div className="voucher-details-records-item-label">
+                                                            {translate('voucher.details.records.email')}
+                                                        </div>
+                                                        <div className="voucher-details-records-item-value">
+                                                            {authIdentity?.email}
+                                                        </div>
+                                                    </div>
+
+                                                    {voucherCard?.records?.map((record, index) => (
+                                                        <div className="voucher-details-records-item" key={index}>
+                                                            <div className="voucher-details-records-item-label">
+                                                                {record.record_type_name}:
                                                             </div>
-                                                            <div className="card-value">
-                                                                {transaction?.created_at_locale}
+                                                            <div className="voucher-details-records-item-value">
+                                                                {record.value_locale}
                                                             </div>
                                                         </div>
                                                     ))}
-                                                </Fragment>
-                                            )}
-
-                                            <div className="card-actions">
-                                                <div className="action-col">
-                                                    <div
-                                                        role={'button'}
-                                                        tabIndex={0}
-                                                        onKeyDown={clickOnKeyEnter}
-                                                        className="action-item"
-                                                        onClick={() => sendVoucherEmail(voucher)}>
-                                                        <div className="action-item-icon">
-                                                            <em className="mdi mdi-email-outline" />
-                                                        </div>
-                                                        <div className="action-item-name">
-                                                            {translate(
-                                                                'modal_physical_card.modal_section.request_new_card.email_to_me',
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="action-col">
-                                                    <div
-                                                        role={'button'}
-                                                        tabIndex={0}
-                                                        onKeyDown={clickOnKeyEnter}
-                                                        className="action-item"
-                                                        onClick={openInMeModal}>
-                                                        <div className="action-item-icon">
-                                                            <em className="mdi mdi-account-circle" />
-                                                        </div>
-                                                        <div className="action-item-name">
-                                                            {translate(
-                                                                'modal_physical_card.modal_section.request_new_card.open_in_app',
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {!envData.config.flags.noPrintOption && (
-                                                    <div className="action-col">
-                                                        <div
-                                                            role={'button'}
-                                                            tabIndex={0}
-                                                            onKeyDown={clickOnKeyEnter}
-                                                            className="action-item"
-                                                            onClick={() => printQrCode(voucher)}>
-                                                            <div className="action-item-icon">
-                                                                <em className="mdi mdi-printer" />
-                                                            </div>
-                                                            <div className="action-item-name">
-                                                                {translate(
-                                                                    'modal_physical_card.modal_section.request_new_card.print_pass',
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {voucher.fund.allow_physical_cards &&
-                                                    voucher.type === 'regular' &&
-                                                    !voucher.physical_card && (
-                                                        <div className="action-col">
-                                                            <div
-                                                                role={'button'}
-                                                                tabIndex={0}
-                                                                onKeyDown={clickOnKeyEnter}
-                                                                className="action-item"
-                                                                onClick={() => linkPhysicalCard(voucher)}>
-                                                                <div className="action-item-icon">
-                                                                    <em className="mdi mdi-card-bulleted-outline" />
-                                                                </div>
-                                                                <div className="action-item-name">
-                                                                    {translate(
-                                                                        'modal_physical_card.modal_section.type_selection.card_new.title',
-                                                                    )}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                {showPhysicalCardsOption && (
-                                                    <div className="action-col">
-                                                        <div
-                                                            role={'button'}
-                                                            tabIndex={0}
-                                                            onKeyDown={clickOnKeyEnter}
-                                                            className="action-item"
-                                                            onClick={() => linkPhysicalCard(voucher, 'card_code')}>
-                                                            <div className="action-item-icon">
-                                                                <em className="mdi mdi-card-bulleted-outline" />
-                                                            </div>
-                                                            <div className="action-item-name">
-                                                                {translate('voucher.card.activate_my_pass')}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {voucher.physical_card && (
-                                                    <div className="action-col">
-                                                        <div
-                                                            role={'button'}
-                                                            tabIndex={0}
-                                                            onKeyDown={clickOnKeyEnter}
-                                                            className="action-item"
-                                                            onClick={() => unlinkPhysicalCard(voucher)}>
-                                                            <div className="action-item-icon">
-                                                                <em className="mdi mdi-card-bulleted-outline" />
-                                                            </div>
-                                                            <div className="action-item-name">
-                                                                {translate('voucher.card.lost_my_pass')}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {voucherCard.product && (
-                                                    <div className="action-col">
-                                                        <div
-                                                            role={'button'}
-                                                            tabIndex={0}
-                                                            onKeyDown={clickOnKeyEnter}
-                                                            className="action-item"
-                                                            onClick={() => shareVoucher(voucher)}>
-                                                            <div className="action-item-icon">
-                                                                <em className="mdi mdi-share-variant" />
-                                                            </div>
-                                                            <div className="action-item-name">
-                                                                {translate('voucher.card.share')}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {!voucherCard.used && voucherCard.product && voucherCard.returnable && (
-                                                    <div className="action-col">
-                                                        <div
-                                                            role={'button'}
-                                                            tabIndex={0}
-                                                            onKeyDown={clickOnKeyEnter}
-                                                            className="action-item"
-                                                            onClick={() => deleteVoucher(voucher)}>
-                                                            <div className="action-item-icon">
-                                                                <em className="mdi mdi-cancel" />
-                                                            </div>
-                                                            <div className="action-item-name">
-                                                                {translate('voucher.card.cancel')}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {!voucher.expired && voucher.fund.allow_blocking_vouchers && (
-                                                    <div className="action-col">
-                                                        <div
-                                                            role={'button'}
-                                                            tabIndex={0}
-                                                            onKeyDown={clickOnKeyEnter}
-                                                            className="action-item"
-                                                            onClick={() => deactivateVoucher(voucher)}>
-                                                            <div className="action-item-icon">
-                                                                <em className="mdi mdi-logout" />
-                                                            </div>
-                                                            <div className="action-item-name">
-                                                                {translate('voucher.card.stop_participation')}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {!voucherCard.product && (
-                                    <div className="base-card base-card-sponsor">
-                                        <div className="card-inner">
-                                            <div className="card-body">
-                                                <div className="card-photo">
-                                                    <img
-                                                        src={
-                                                            voucherCard?.fund?.organization?.logo?.sizes?.large ||
-                                                            assetUrl('/assets/img/placeholders/organization-large.png')
-                                                        }
-                                                        alt={voucherCard.fund?.organization?.name}
-                                                    />
-                                                </div>
-                                                <div className="card-section">
-                                                    <h2 className="card-title">
-                                                        {translate('voucher.card.header.title')}
-                                                    </h2>
-                                                    <div className="card-description">
-                                                        <TranslateHtml
-                                                            i18n={'voucher.card.labels.description'}
-                                                            values={{ fund_name: voucherCard.title }}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card-footer">
-                                                <div className="card-label">
-                                                    {translate('voucher.card.labels.contact_sponsor', {
-                                                        fund_name: voucherCard.title,
-                                                    })}
-                                                </div>
-                                                <div className="card-value card-value-sm">
-                                                    {translate('voucher.card.labels.email') + ' '}
-                                                    <strong>{voucherCard.fund?.organization?.email}</strong>
-                                                    <br />
-                                                    {translate('voucher.card.labels.phone') + ' '}
-                                                    <strong>{voucherCard.fund?.organization?.phone}</strong>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )}
 
-                                {voucherCard.product && (
-                                    <div className="base-card base-card-sponsor">
-                                        <div className="card-inner">
-                                            <div className="card-body">
-                                                <div className="card-photo">
-                                                    <img
-                                                        src={
-                                                            voucherCard?.product?.organization?.logo?.sizes?.large ||
-                                                            assetUrl('/assets/img/placeholders/organization-large.png')
-                                                        }
-                                                        alt={voucherCard.fund?.organization?.name}
-                                                    />
-                                                </div>
-                                                <div className="card-section">
-                                                    <h2 className="card-title">
-                                                        {translate('voucher.card.header.title')}
-                                                    </h2>
-                                                    <div className="card-description">
-                                                        <TranslateHtml i18n={'voucher.card.labels.description'} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card-footer">
-                                                <div className="card-label">
-                                                    {translate('voucher.card.labels.contact_sponsor')}
-                                                </div>
-                                                <div className="card-value card-value-sm">
-                                                    {translate('voucher.card.labels.email') + ' '}
-                                                    <strong>{voucherCard.product.organization.email}</strong>
-                                                    <br />
-                                                    {translate('voucher.card.labels.phone') + ' '}
-                                                    <strong>{voucherCard.product.organization.phone}</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        {/* External vouchers */}
-                        {!voucherCard.deactivated && !voucher?.expired && !!voucherCard.external && (
-                            <div className="block block-voucher block-voucher-combined">
-                                <h1 className="sr-only">Jouw tegoed</h1>
-                                <div className="base-card base-card-voucher">
-                                    <div className="card-inner">
-                                        <div className="card-body">
-                                            <div className="card-photo">
-                                                <img className="voucher-img" src={voucherCard.thumbnail} alt={''} />
-                                            </div>
-                                            <div className="card-section">
-                                                <h2 className="card-title">{strLimit(voucherCard.title, 40)}</h2>
-
-                                                {!voucherCard.product ? (
-                                                    <div className="card-subtitle">
-                                                        {voucherCard.fund?.organization?.name}
-                                                    </div>
-                                                ) : (
-                                                    <div className="card-subtitle">
-                                                        {voucherCard.product?.organization?.name}
-                                                    </div>
-                                                )}
-
-                                                {voucherCard.type === 'regular' && (
-                                                    <div>
-                                                        <div className="card-value euro">
-                                                            {voucherCard.amount_locale}
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="card-footer">
-                                            <div className="card-section">
-                                                <h2 className="card-title">
-                                                    {translate('voucher.card_combined.header.title')}
-                                                </h2>
-                                                <div className="card-description">
-                                                    <TranslateHtml
-                                                        i18n={`voucher.card_combined.labels.${voucherCard.fund?.key}.how_it_works`}
-                                                        i18nDefault={'voucher.card_combined.labels.how_it_works'}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="card-section">
-                                                <div className="card-title">
-                                                    {translate('voucher.card_combined.labels.contact_sponsor')}
-                                                </div>
-                                                <div className="card-description">
-                                                    <span>
-                                                        {translate(
-                                                            'voucher.card_combined.labels.contact_sponsor_details',
-                                                        )}
-                                                    </span>
-                                                    <br />
-                                                    E-mailadres: <span>{voucherCard.fund.organization.email}</span>
-                                                    <br />
-                                                    Telefoonnummer: <span>{voucherCard.fund.organization.phone}</span>
-                                                    <br />
-                                                    <br />
-                                                    <strong>
-                                                        {translate(
-                                                            `voucher.card_combined.labels.${voucherCard.fund.key}.redirect_to`,
-                                                            null,
-                                                            'voucher.card_combined.labels.redirect_to',
-                                                        )}
-                                                    </strong>
-                                                    <br />
-                                                    {voucherCard.fund.key == 'IIT' && (
-                                                        <span>
-                                                            Klik dan{' '}
-                                                            <StateNavLink
-                                                                name={'funds'}
-                                                                className="card-description-link">
-                                                                hier
-                                                            </StateNavLink>{' '}
-                                                            om terug te gaan naar het overzicht van de vergoedingen.
-                                                        </span>
-                                                    )}
-                                                    {voucherCard.fund.key == 'meedoenregeling_volwassenen_ww' && (
-                                                        <span>
-                                                            Vraag uw kosten terug door een bon in te sturen. Klik{' '}
-                                                            <StateNavLink
-                                                                name={'reimbursements-create'}
-                                                                params={{ voucher_id: voucher.id }}
-                                                                className="card-description-link">
-                                                                hier
-                                                            </StateNavLink>{' '}
-                                                            om uw bon in te sturen.{' '}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Voucher records */}
-                        {voucherCard.records?.length > 0 && (
-                            <div className="block block-action-card block-action-card-compact">
-                                <div className="block-card-body">
-                                    <div className="block-card-section">
-                                        <div className="block-card-logo">
-                                            <IconVoucherRecords />
-                                        </div>
-                                        {voucherCard.records_title ? (
-                                            <div className="block-card-details">
-                                                <h3 className="block-card-title block-card-title-sm text-muted-dim">
-                                                    {translate('voucher.physical_card.personal_date')}
-                                                </h3>
-                                                <h2 className="block-card-title block-card-title-lg">
-                                                    <strong>{voucherCard.records_title}</strong>
-                                                    {voucherCard.records_by_key.birth_date && (
-                                                        <Fragment>
-                                                            <span className="text-separator" />
-                                                            <span className="text-muted-dim">
-                                                                {voucherCard.records_by_key.birth_date}
-                                                            </span>
-                                                        </Fragment>
-                                                    )}
-                                                </h2>
-                                            </div>
-                                        ) : (
-                                            <div className="block-card-details">
-                                                <h3 className="block-card-title">
-                                                    {translate('voucher.physical_card.personal_date')}
-                                                </h3>
-                                            </div>
-                                        )}
-
-                                        <div className="block-card-actions">
-                                            <div
-                                                className="button button-primary-outline button-sm"
-                                                onClick={() => setShowRecords(!showRecords)}>
-                                                {showRecords
-                                                    ? translate('voucher.physical_card.less_details')
-                                                    : translate('voucher.physical_card.more_details')}
-                                                {showRecords ? (
-                                                    <em className="mdi mdi-chevron-up icon-right" />
-                                                ) : (
-                                                    <em className="mdi mdi-chevron-right icon-right" />
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {showRecords && (
-                                        <div className="block-card-section">
-                                            <BlockVoucherRecords voucher={voucher} />
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Voucher physical card linking */}
-                        {!voucherCard.deactivated && showPhysicalCardsOption && (
-                            <div className="block block-action-card">
-                                <div className="block-card-logo">
-                                    <img
-                                        src={assetUrl(
-                                            '/assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png',
-                                        )}
-                                        alt={`Fysieke pas: '${voucherCard.title}'`}
-                                    />
-                                </div>
-                                <div className="block-card-details">
-                                    <h3 className="block-card-title">{translate('voucher.physical_card.title')}</h3>
-                                </div>
-                                <div className="block-card-actions">
-                                    <div
-                                        role="button"
-                                        tabIndex={0}
-                                        onKeyDown={clickOnKeyEnter}
-                                        className="button button-primary"
-                                        onClick={() => linkPhysicalCard(voucher, 'card_code')}>
-                                        {translate('voucher.physical_card.buttons.reactivate')}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Voucher physical card linked */}
-                        {!voucherCard.deactivated && voucher.physical_card && (
-                            <div className="block block-action-card">
-                                <div className="block-card-logo">
-                                    <img
-                                        src={assetUrl(
-                                            '/assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png',
-                                        )}
-                                        alt={translate('voucher.physical_card.alt', {
-                                            title: voucherCard.title,
-                                        })}
-                                    />
-                                </div>
-                                <div className="block-card-details">
-                                    <div className="block-card-code">
-                                        {translate('voucher.physical_card.card_number')}: {voucher.physical_card.code}
-                                    </div>
-                                </div>
-                                <div className="block-card-actions">
-                                    <div
-                                        className="button button-primary-outline"
-                                        onClick={() => unlinkPhysicalCard(voucher)}>
-                                        {translate('voucher.physical_card.buttons.lost_pass')}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Make reimbursement request card */}
-                        {voucher.fund.allow_reimbursements && !voucher.expired && !voucher.deactivated && (
-                            <div className="block block-action-card">
-                                <div className="block-card-logo block-card-logo-background">
-                                    <IconReimbursement />
-                                </div>
-                                <div className="block-card-details">
-                                    <h3 className="block-card-title">{translate('voucher.reimbursement.title')}</h3>
-                                    <div className="block-card-description">
-                                        {translate('voucher.reimbursement.description')}
-                                    </div>
-                                </div>
-                                <div className="block-card-actions">
-                                    <StateNavLink
-                                        name={'reimbursements-create'}
-                                        params={{ voucher_id: voucher.id }}
-                                        className="button button-primary">
-                                        <em className="mdi mdi-plus icon-start" />
-                                        {translate('voucher.reimbursement.button')}
-                                    </StateNavLink>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Voucher history */}
-                        {showHistory && (
-                            <div className="block block-transactions">
-                                <div className="transactions-header">
-                                    <h2 className="transactions-title">{translate('voucher.history.title')}</h2>
-                                    {voucher.expired ? (
-                                        <div className="label label-danger">
-                                            {translate('voucher.history.status.expired')}
-                                        </div>
-                                    ) : (
-                                        <div
-                                            className={`label ${voucherCard.deactivated ? 'label-light' : 'label-primary'}`}>
-                                            {voucherCard.state_locale}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="transactions-body">
-                                    <div className="transactions-list">
-                                        {voucherCard.history?.map((log) => (
-                                            <div key={log.id} className="transactions-item transactions-item-out">
-                                                {log.event.startsWith('created') && (
-                                                    <div className="transactions-item-icon text-primary">
-                                                        <em className="mdi mdi-ticket-confirmation" />
-                                                    </div>
-                                                )}
-                                                {log.event.startsWith('expired') && (
-                                                    <div className="transactions-item-icon text-danger">
-                                                        <em className="mdi mdi-close-octagon-outline" />
-                                                    </div>
-                                                )}
-                                                {log.event == 'activated' && (
-                                                    <div className="transactions-item-icon text-primary">
-                                                        <em className="mdi mdi-ticket" />
-                                                    </div>
-                                                )}
-                                                {log.event == 'deactivated' && (
-                                                    <div className="transactions-item-icon text-danger">
-                                                        <em className="mdi mdi-close-octagon-outline" />
-                                                    </div>
-                                                )}
-                                                <div className="transactions-item-details">
-                                                    <div className="transactions-item-counterpart">
-                                                        {log.event_locale}
-                                                    </div>
-                                                    <div className="transactions-item-date">
-                                                        {log.created_at_locale}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Voucher transactions */}
-                        {!voucherCard.product && (voucherCard.transactionsList.length > 0 || voucher.expired) && (
-                            <div className="block block-transactions">
-                                <div className="transactions-header">
-                                    <h2 className="transactions-title">
-                                        {translate('voucher.transactions.title')}
-                                        {voucher.expired && (
-                                            <span className="text-strong-half">
-                                                {translate('voucher.transactions.expired_on', {
-                                                    date: voucherCard.last_active_day_locale,
-                                                })}
-                                            </span>
-                                        )}
-                                    </h2>
-                                </div>
-
-                                {voucher.expired && voucherCard.transactionsList?.length == 0 && (
-                                    <div className="transactions-body">
-                                        <div className="transactions-list">
-                                            <div className="transactions-item">
-                                                <div className="transactions-item-details">
-                                                    <div className="transactions-item-empty">
-                                                        {translate('voucher.transactions.no_spending')}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="transactions-body">
-                                    <div className="transactions-list">
-                                        {voucherCard.transactionsList?.map((transaction) => (
-                                            <div
-                                                key={transaction.unique_id}
-                                                className={`transactions-item ${transaction.incoming ? '' : 'transactions-item-out'}`}>
-                                                <div className="transactions-item-icon">
-                                                    {transaction.incoming ? (
-                                                        <em className="mdi mdi-arrow-down" />
-                                                    ) : (
-                                                        <em className="mdi mdi-arrow-up" />
-                                                    )}
-                                                </div>
-
-                                                <div className="transactions-item-details">
-                                                    {transaction.type == 'product_voucher' &&
-                                                        transaction.product_reservation && (
-                                                            <div className="transactions-item-counterpart">
-                                                                {translate('voucher.transactions.reservation') + ' '}
-                                                                <StateNavLink
-                                                                    name={'reservation-show'}
-                                                                    params={{
-                                                                        id: transaction.product_reservation.id,
-                                                                    }}>
-                                                                    #{transaction.product_reservation.code}
-                                                                </StateNavLink>
-                                                            </div>
-                                                        )}
-
-                                                    {transaction.type == 'product_voucher' &&
-                                                        !transaction.product_reservation && (
-                                                            <div className="transactions-item-counterpart">
-                                                                {transaction.product.name}
-                                                            </div>
-                                                        )}
-
-                                                    {transaction.type == 'transaction' &&
-                                                        transaction.target == 'provider' && (
-                                                            <div className="transactions-item-counterpart">
-                                                                {transaction.organization.name}
-                                                            </div>
-                                                        )}
-
-                                                    {transaction.type == 'transaction' &&
-                                                        transaction.target == 'iban' && (
-                                                            <div className="transactions-item-counterpart">
-                                                                {translate('voucher.transactions.bank_transfer')}
-                                                            </div>
-                                                        )}
-
-                                                    {transaction.type == 'transaction' &&
-                                                        transaction.target == 'top_up' && (
-                                                            <div className="transactions-item-counterpart">
-                                                                {translate('voucher.transactions.top_up')}
-                                                            </div>
-                                                        )}
-
-                                                    <div className="transactions-item-date">
-                                                        {transaction.created_at_locale}
-                                                    </div>
-                                                </div>
-
-                                                <div className="transactions-item-amount">
-                                                    <div className="transactions-item-value">
-                                                        {(transaction.incoming ? '' : '-') +
-                                                            ' ' +
-                                                            transaction.amount_locale}
-                                                    </div>
-                                                    <div className="transactions-item-type">
-                                                        {translate(
-                                                            transaction.incoming
-                                                                ? 'voucher.transactions.add'
-                                                                : 'voucher.transactions.subtract',
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </Section>
-
-                    {/* Voucher available budget products */}
-                    {showProducts && products && (
-                        <BlockProducts products={products.data} filters={{ fund_id: voucher.fund_id }} />
-                    )}
-
-                    <Section type={'map'}>
-                        {/* Providers map */}
-                        {!voucherCard.deactivated &&
-                            !voucher?.expired &&
-                            appConfigs.show_voucher_map &&
-                            !voucherCard.external &&
-                            (voucherCard.offices.length || !voucherCard.product) && (
-                                <div className="block block-map_card">
-                                    <div className="map_card-header">
-                                        <h2 className="map_card-title">
-                                            {translate(
-                                                voucherCard.product
-                                                    ? 'voucher.labels.office'
-                                                    : 'voucher.labels.offices',
-                                            )}
-                                        </h2>
-                                    </div>
-
-                                    <div className="map_card-iframe">
-                                        <GoogleMap
-                                            appConfigs={appConfigs}
-                                            mapPointers={voucherCard.offices}
-                                            markerTemplate={(office: Office) => (
-                                                <MapMarkerProviderOffice office={office} />
-                                            )}
-                                            mapGestureHandling={'greedy'}
-                                            mapGestureHandlingMobile={'none'}
-                                            centerType={'avg'}
-                                            fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
+                                        <VoucherActions
+                                            voucher={voucher}
+                                            setVoucher={setVoucher}
+                                            fetchVoucher={fetchVoucher}
                                         />
                                     </div>
-
-                                    {!voucherCard.product && (
-                                        <div className="map_card-footer">
-                                            <div className="map_card-subtitle">
-                                                <TranslateHtml i18n={'voucher.labels.info'} />
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
+                                </Fragment>
                             )}
 
-                        {!voucherCard.deactivated && voucherCard.product && (
-                            <div className="block block-pane">
-                                <div className="pane-head">
-                                    <h2 className="pane-head-title">{translate('voucher.labels.productdetail')}</h2>
-                                    {voucherCard.returnable && (
-                                        <StateNavLink
-                                            name={'product'}
-                                            params={{ id: voucher.product.id }}
-                                            className="pane-head-more">
-                                            Bekijk details
-                                            <em className="mdi mdi-arrow-right icon-start" aria-hidden="true" />
-                                        </StateNavLink>
-                                    )}
-                                </div>
-                                <div className="pane-section">
-                                    <Markdown content={voucherCard.description} />
-                                </div>
-                            </div>
-                        )}
+                            <PaneGroup>
+                                {showHistory && (
+                                    <PaneGroupPanel title={translate('voucher.history.title')}>
+                                        <VoucherHistoryCard voucher={voucher} />
+                                    </PaneGroupPanel>
+                                )}
+
+                                {showTransactions && (
+                                    <PaneGroupPanel title={translate('voucher.transactions.title')}>
+                                        <VoucherTransactionsCard voucher={voucher} />
+                                    </PaneGroupPanel>
+                                )}
+
+                                {showPhysicalCardTypes && (
+                                    <PaneGroupPanel title={translate('voucher.physical_cards.title')}>
+                                        <VoucherPhysicalCards
+                                            voucher={voucher}
+                                            setVoucher={setVoucher}
+                                            fetchVoucher={fetchVoucher}
+                                        />
+                                    </PaneGroupPanel>
+                                )}
+
+                                {showHowItWorks && (
+                                    <PaneGroupPanel title={translate('voucher.how_it_works.title')}>
+                                        <Markdown content={voucher.fund.how_it_works_html} />
+                                    </PaneGroupPanel>
+                                )}
+
+                                {showFundDetails && (
+                                    <PaneGroupPanel
+                                        title={translate('voucher.fund_details.title')}
+                                        openByDefault={false}>
+                                        <div className="block block-markdown">
+                                            <h4 className={'text-strong'}>{voucher?.fund?.name}</h4>
+                                            <p>{voucher?.fund?.description_short}</p>
+                                        </div>
+
+                                        <div>
+                                            <StateNavLink
+                                                name={WebshopRoutes.FUND}
+                                                params={{ id: voucher?.fund_id }}
+                                                className="button button-primary button-sm">
+                                                {translate('voucher.fund_details.view')}
+                                                <em className="mdi mdi-arrow-right icon-right" />
+                                            </StateNavLink>
+                                        </div>
+                                    </PaneGroupPanel>
+                                )}
+
+                                <PaneGroupPanel title={translate('voucher.help.title')} openByDefault={false}>
+                                    <div className="voucher-help">
+                                        <div className="voucher-help-title">
+                                            {translate('voucher.help.description')}
+                                        </div>
+
+                                        <div className="voucher-help-props">
+                                            <div className="voucher-help-prop">
+                                                <div className="voucher-help-prop-label">
+                                                    {translate('voucher.help.email')}
+                                                </div>
+                                                <div className="voucher-help-prop-value voucher-help-prop-value-link">
+                                                    {voucherCard.fund.organization.email}
+                                                </div>
+                                            </div>
+
+                                            <div className="voucher-help-prop">
+                                                <div className="voucher-help-prop-label">
+                                                    {translate('voucher.help.phone')}
+                                                </div>
+                                                <div className="voucher-help-prop-value">
+                                                    {voucherCard.fund.organization.phone}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PaneGroupPanel>
+
+                                {showProductMap && (
+                                    <PaneGroupPanel
+                                        title={translate(
+                                            voucherCard.product ? 'voucher.labels.office' : 'voucher.labels.offices',
+                                        )}
+                                        openByDefault={false}>
+                                        <div className="voucher-map-container">
+                                            <GoogleMap
+                                                appConfigs={appConfigs}
+                                                mapPointers={voucherCard.offices}
+                                                markerTemplate={(office: Office) => (
+                                                    <MapMarkerProviderOffice office={office} />
+                                                )}
+                                                mapGestureHandling={'greedy'}
+                                                mapGestureHandlingMobile={'none'}
+                                                centerType={'avg'}
+                                                fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
+                                            />
+                                        </div>
+                                    </PaneGroupPanel>
+                                )}
+                            </PaneGroup>
+                        </div>
                     </Section>
-                </div>
+
+                    <VoucherProducts voucher={voucher} />
+                </Fragment>
             )}
         </BlockShowcase>
     );

@@ -9,6 +9,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
 import PayoutTransactionDetails from '../transactions-view/elements/PayoutTransactionDetails';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PayoutsView() {
     const { address } = useParams();
@@ -42,7 +43,7 @@ export default function PayoutsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'payouts'}
+                    name={DashboardRoutes.PAYOUTS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

@@ -8,15 +8,16 @@ import { useParams } from 'react-router';
 import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
-import TransactionDetails from '../transactions-view/elements/TransactionDetails';
+import TransactionDetailsPane from '../transactions-view/elements/panes/TransactionDetailsPane';
 import useExtraPaymentService from '../../../services/ExtraPaymentService';
 import ExtraPayment from '../../../props/models/ExtraPayment';
-import ReservationExtraPaymentDetails from '../reservations-view/elements/ReservationExtraPaymentDetails';
+import ReservationExtraPaymentDetailsPane from '../reservations-view/elements/panes/ReservationExtraPaymentDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
-import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
+import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ExtraPaymentsView() {
     const { id } = useParams();
@@ -77,7 +78,7 @@ export default function ExtraPaymentsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'extra-payments'}
+                    name={DashboardRoutes.EXTRA_PAYMENTS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -88,135 +89,46 @@ export default function ExtraPaymentsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex flex-vertical">
-                        <div className="card-title">
-                            <div className="flex-grow">
-                                <span className="text-muted">Product name:&nbsp;</span>
-                                {extraPayment.reservation.product.name}
-                                &nbsp;&nbsp;
-                            </div>
-                            <div className="flex-center">
-                                <ReservationStateLabel reservation={extraPayment.reservation} />
-                            </div>
-                        </div>
-                        <div className="card-subtitle">
-                            <div className="flex">
-                                <div className="mdi mdi-clock-outline" />
-                                {extraPayment.reservation.created_at_locale}
-                            </div>
-                        </div>
+                    <div className="flex flex-grow card-title flex-align-items-center flex-gap">
+                        <span>{`#${extraPayment.reservation.code}`}</span>
+                        <ReservationStateLabel reservation={extraPayment.reservation} />
                     </div>
                 </div>
 
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table table-fixed">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.price')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">
-                                                {extraPayment.reservation.price_locale}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.fund')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{extraPayment.reservation.fund.name}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.sponsor_organization')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">
-                                                {extraPayment.reservation.fund.organization.name}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.product')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">
-                                                {extraPayment.reservation.product.name}
-                                            </strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.created_at')}
-                                            </strong>
-
-                                            <br />
-                                            <strong className="text-black">
-                                                {extraPayment.reservation.created_at_locale}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.expire_at')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">
-                                                {extraPayment.reservation.expire_at_locale}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.accepted_at')}
-                                            </strong>
-                                            <br />
-                                            {extraPayment.reservation.accepted_at ? (
-                                                <strong className="text-black">
-                                                    {extraPayment.reservation.accepted_at_locale}
-                                                </strong>
-                                            ) : (
-                                                <TableEmptyValue />
-                                            )}
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.rejected_at')}
-                                            </strong>
-                                            <br />
-                                            {extraPayment.reservation.rejected_at ? (
-                                                <strong className="text-black">
-                                                    {extraPayment.reservation.rejected_at_locale}
-                                                </strong>
-                                            ) : (
-                                                <TableEmptyValue />
-                                            )}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div className="card-section form">
+                    <div className="flex flex-gap flex-vertical form">
+                        <ReservationOverviewPane
+                            reservation={extraPayment.reservation}
+                            organization={activeOrganization}
+                        />
                     </div>
                 </div>
             </div>
 
-            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
-                <TransactionDetails
-                    transaction={transaction}
-                    setTransaction={setTransaction}
-                    showDetailsPageButton={true}
-                    showAmount={false}
-                />
-            )}
+            <div className="card card-wrapped">
+                <div className="card-header">
+                    <div className="flex flex-grow card-title">
+                        {translate('financial_dashboard_transaction.labels.details')}
+                    </div>
+                </div>
+                <div className="card-section form">
+                    <div className="flex flex-gap flex-vertical form">
+                        {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
+                            <TransactionDetailsPane
+                                transaction={transaction}
+                                setTransaction={setTransaction}
+                                showDetailsPageButton={true}
+                            />
+                        )}
 
-            <ReservationExtraPaymentDetails
-                organization={activeOrganization}
-                reservation={extraPayment.reservation}
-                payment={extraPayment}
-            />
+                        <ReservationExtraPaymentDetailsPane
+                            organization={activeOrganization}
+                            reservation={extraPayment.reservation}
+                            payment={extraPayment}
+                        />
+                    </div>
+                </div>
+            </div>
         </Fragment>
     );
 }

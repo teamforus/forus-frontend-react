@@ -22,7 +22,6 @@ import usePushDanger from '../../../hooks/usePushDanger';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
 import VoucherRecordsCard from './elements/VoucherRecordsCard';
 import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
-import useFilter from '../../../hooks/useFilter';
 import EventLogsTable from '../../elements/tables/EventLogsTable';
 import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
 import useTranslate from '../../../hooks/useTranslate';
@@ -31,6 +30,8 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import { Permission } from '../../../props/models/Organization';
 import VoucherReservationsCard from './elements/VoucherReservationsCard';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -70,7 +71,12 @@ export default function VouchersViewComponent() {
         );
     }, [activeOrganization, fund?.state, voucher]);
 
-    const transactionsFilters = useFilter({
+    const [, transactionsFilterValuesActive] = useFilterNext<{
+        per_page?: number;
+        order_by: string;
+        order_dir: string;
+        voucher_id: number;
+    }>({
         per_page: 20,
         order_by: 'created_at',
         order_dir: 'desc',
@@ -196,7 +202,7 @@ export default function VouchersViewComponent() {
             <ModalDangerZone
                 modal={modal}
                 title={translate('modals.modal_voucher_physical_card.delete_card.title', {
-                    code: voucher.physical_card.code,
+                    code: voucher.physical_card.code_locale,
                 })}
                 description={translate('modals.modal_voucher_physical_card.delete_card.description')}
                 buttonCancel={{
@@ -208,7 +214,7 @@ export default function VouchersViewComponent() {
                         modal.close();
 
                         physicalCardService
-                            .delete(activeOrganization.id, voucher.id, voucher.physical_card.id)
+                            .deleteVoucher(activeOrganization.id, voucher.id, voucher.physical_card.id)
                             .then(() => fetchVoucher());
                     },
                     text: translate('modals.modal_voucher_physical_card.delete_card.confirmButton'),
@@ -222,7 +228,7 @@ export default function VouchersViewComponent() {
         physicalCardService,
         translate,
         voucher?.id,
-        voucher?.physical_card.code,
+        voucher?.physical_card.code_locale,
         voucher?.physical_card.id,
     ]);
 
@@ -287,7 +293,7 @@ export default function VouchersViewComponent() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'vouchers'}
+                    name={DashboardRoutes.VOUCHERS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -343,19 +349,23 @@ export default function VouchersViewComponent() {
                                     </div>
                                 )}
 
-                                {physicalCardsAvailable && !voucher.expired && (
-                                    <div className="button button-default button-sm" onClick={orderPhysicalCard}>
-                                        <em className="mdi mdi-card-text-outline icon-start" />
-                                        Plastic pas bestellen
-                                    </div>
-                                )}
+                                {physicalCardsAvailable &&
+                                    !voucher.expired &&
+                                    voucher?.fund?.fund_physical_card_types?.length > 0 && (
+                                        <div className="button button-default button-sm" onClick={orderPhysicalCard}>
+                                            <em className="mdi mdi-card-text-outline icon-start" />
+                                            Plastic pas bestellen
+                                        </div>
+                                    )}
 
-                                {physicalCardsAvailable && !voucher.physical_card && (
-                                    <div className="button button-default button-sm" onClick={addPhysicalCard}>
-                                        <em className="mdi mdi-ticket-account icon-start" />
-                                        {translate('vouchers.buttons.physical_card_add')}
-                                    </div>
-                                )}
+                                {physicalCardsAvailable &&
+                                    !voucher.physical_card &&
+                                    voucher?.fund?.fund_physical_card_types?.length > 0 && (
+                                        <div className="button button-default button-sm" onClick={addPhysicalCard}>
+                                            <em className="mdi mdi-ticket-account icon-start" />
+                                            {translate('vouchers.buttons.physical_card_add')}
+                                        </div>
+                                    )}
 
                                 {physicalCardsAvailable && voucher.physical_card && (
                                     <div className="button button-default button-sm" onClick={deletePhysicalCard}>
@@ -422,7 +432,7 @@ export default function VouchersViewComponent() {
                         {voucher.physical_card && (
                             <div className="keyvalue-item">
                                 <div className="keyvalue-key">{translate('vouchers.labels.physical_card')}</div>
-                                <div className="keyvalue-value">{voucher.physical_card.code}</div>
+                                <div className="keyvalue-value">{voucher.physical_card.code_locale}</div>
                             </div>
                         )}
 
@@ -626,7 +636,7 @@ export default function VouchersViewComponent() {
                     <VoucherTransactionsCard
                         organization={activeOrganization}
                         blockTitle={'Betaalopdrachten'}
-                        filterValues={transactionsFilters.activeValues}
+                        filters={transactionsFilterValuesActive}
                         fetchTransactionsRef={transactionsBlock}
                     />
 

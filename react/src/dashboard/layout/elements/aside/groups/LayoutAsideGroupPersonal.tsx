@@ -5,6 +5,7 @@ import { IconPersonal, IconPersonalActive } from '../icons/LayoutAsideIcons';
 import ModalAuthPincode from '../../../../components/modals/ModalAuthPincode';
 import useAuthIdentity2FAState from '../../../../hooks/useAuthIdentity2FAState';
 import useOpenModal from '../../../../hooks/useOpenModal';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function LayoutAsideGroupPersonal({
     organization,
@@ -29,17 +30,17 @@ export default function LayoutAsideGroupPersonal({
             items={[
                 {
                     name: 'E-mail instellingen',
-                    state: 'preferences-emails',
+                    state: DashboardRoutes.PREFERENCE_EMAILS,
                     show: !!organization,
                 },
                 {
                     name: 'Beveiliging',
-                    state: 'security-2fa',
+                    state: DashboardRoutes.SECURITY_2FA,
                     show: organization?.allow_2fa_restrictions || authIdentity2FAState?.required,
                 },
                 {
                     name: 'Notificatievoorkeuren',
-                    state: 'preferences-notifications',
+                    state: DashboardRoutes.PREFERENCE_NOTIFICATIONS,
                     show: !!organization,
                 },
                 {
@@ -54,7 +55,7 @@ export default function LayoutAsideGroupPersonal({
                 },
                 {
                     name: 'Sessies',
-                    state: 'security-sessions',
+                    state: DashboardRoutes.SECURITY_SESSIONS,
                     show: !!organization,
                 },
             ]}

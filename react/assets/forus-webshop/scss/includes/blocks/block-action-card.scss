@@ -30,31 +30,19 @@
 
     .block-card-logo {
         margin: 0 25px 0 0;
+        width: 100px;
+        height: 100px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         
         img {
             display: block;
-            max-width: 230px;
-            margin-left: -20px;
-            margin-bottom: -10px;
         }
 
         svg {
             .fill-color-primary {
                 fill: var(--color-primary);
-            }
-        }
-
-        &.block-card-logo-background {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            background-color: rgba($color: var(--color-primary), $alpha: .075);
-
-            svg {
-                margin: auto;
             }
         }
     }

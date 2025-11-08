@@ -29,6 +29,7 @@ import Tooltip from '../../elements/tooltip/Tooltip';
 import useSetTitle from '../../../hooks/useSetTitle';
 import useFetchAuthIdentity from '../../../hooks/useFetchAuthIdentity';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementsEdit() {
     const { id, voucher_id } = useParams();
@@ -100,7 +101,7 @@ export default function ReimbursementsEdit() {
                         pushSuccess(translate('push.success'), translate('push.reimbursement_edit.saved'));
                     }
 
-                    navigateState('reimbursements');
+                    navigateState(WebshopRoutes.REIMBURSEMENTS);
                 })
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
@@ -216,7 +217,7 @@ export default function ReimbursementsEdit() {
 
     useEffect(() => {
         if (auth2FAState?.restrictions?.reimbursements?.restricted) {
-            return navigateState('reimbursements');
+            return navigateState(WebshopRoutes.REIMBURSEMENTS);
         }
     }, [auth2FAState?.restrictions?.reimbursements?.restricted, navigateState]);
 
@@ -229,8 +230,8 @@ export default function ReimbursementsEdit() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('reimbursements.breadcrumbs.home'), state: 'home' },
-                { name: translate('reimbursements.breadcrumbs.reimbursements'), state: 'reimbursements' },
+                { name: translate('reimbursements.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                { name: translate('reimbursements.breadcrumbs.reimbursements'), state: WebshopRoutes.REIMBURSEMENTS },
                 { name: translate('reimbursements.breadcrumbs.reimbursement') },
             ]}
             profileHeader={
@@ -260,7 +261,7 @@ export default function ReimbursementsEdit() {
                                 </div>
                                 <div className="card-text">
                                     <StateNavLink
-                                        name={'identity-emails'}
+                                        name={WebshopRoutes.IDENTITY_EMAILS}
                                         className="button button-primary button-sm"
                                         dataDusk="reimbursementNoEmailAddBtn">
                                         {translate('reimbursements.no_email.add_email')}
@@ -446,7 +447,7 @@ export default function ReimbursementsEdit() {
                                     <div className="flex flex-horizontal">
                                         <div className="flex hide-sm">
                                             <StateNavLink
-                                                name={'reimbursements'}
+                                                name={WebshopRoutes.REIMBURSEMENTS}
                                                 className="button button-light button-sm"
                                                 data-dusk="reimbursementFormCancel"
                                                 disabled={form.isLocked}>

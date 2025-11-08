@@ -3,6 +3,7 @@ import Reimbursement from '../../../../props/models/Reimbursement';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { currencyFormat } from '../../../../../dashboard/helpers/string';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementDetailsCard({
     compact = false,
@@ -131,7 +132,7 @@ export default function ReimbursementDetailsCard({
 
                     {reimbursement.state === 'draft' && (
                         <StateNavLink
-                            name={'reimbursements-edit'}
+                            name={WebshopRoutes.REIMBURSEMENT_EDIT}
                             params={{ id: reimbursement.id }}
                             className="button button-primary-outline button-sm flex flex-center"
                             dataDusk="reimbursementOverviewEditButton">

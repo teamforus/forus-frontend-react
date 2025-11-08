@@ -10,6 +10,7 @@ import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
 import ProductMonitoredHistoryCard from './elements/ProductMonitoredHistoryCard';
 import ProductMonitoredHistoryCardFunds from './elements/ProductMonitoredHistoryCardFunds';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SponsorProductView() {
     const { productId } = useParams();
@@ -44,7 +45,7 @@ export default function SponsorProductView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'sponsor-products'}
+                    name={DashboardRoutes.SPONSOR_PRODUCTS}
                     params={{ organizationId: activeOrganization.id }}
                     query={{ view: 'history' }}
                     activeExact={true}

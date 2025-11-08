@@ -1,4 +1,4 @@
-&.block-feature-list {
+.block.block-feature-list {
     color: #282b39;
     margin-bottom: 32px;
 
@@ -116,20 +116,5 @@
 
     &:last-child {
         margin-bottom: 0;
-    }
-}
-
-&.block-feature-list-row {
-    display: flex;
-    gap: 24px;
-
-    .block-feature-list-col {
-        .block-feature-list-quaternary {
-            height: 100%;
-
-            .block-feature-list-items-wrapper {
-                height: 100%;
-            }
-        }
     }
 }

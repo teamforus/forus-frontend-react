@@ -4,8 +4,9 @@ import { ResponseError } from '../props/ApiResponses';
 import { useNavigateState } from '../modules/state_router/Router';
 import useActiveOrganization from './useActiveOrganization';
 import useTranslate from './useTranslate';
+import { DashboardRoutes } from '../modules/state_router/RouterBuilder';
 
-export default function usePushApiError(redirectStateName?: string) {
+export default function usePushApiError(redirectStateName?: DashboardRoutes) {
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const navigateSate = useNavigateState();

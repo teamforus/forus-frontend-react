@@ -29,6 +29,7 @@ import voucher from './nl/pages/voucher.mjs';
 import vouchers from './nl/pages/vouchers.mjs';
 import reservations from './nl/pages/reservations.mjs';
 import reservation from './nl/pages/reservation.mjs';
+import physical_cards from './nl/pages/physical-cards.mjs';
 import payouts from './nl/pages/payouts.mjs';
 import reimbursements from './nl/pages/reimbursements.mjs';
 import profile from './nl/pages/profile.mjs';
@@ -79,6 +80,7 @@ import modal_product_price_type_options_info from './nl/modals/modal_product_pri
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
+import block_product_categories from './nl/directives/block-product-categories.mjs';
 import block_funds from './nl/directives/block-funds.mjs';
 import block_notifications from './nl/directives/block-notifications.mjs';
 import block_providers from './nl/directives/block-providers.mjs';
@@ -122,7 +124,7 @@ export default {
         portfolio: 'Portfolio{{pageTitleSuffix}}',
         kindpakket: 'Portfolio - Kindpakket{{pageTitleSuffix}}',
         product: 'Aanbod - {{product_name}} van {{organization_name}}{{pageTitleSuffix}}',
-        products: 'Aanbod{{fund_name}}{{pageTitleSuffix}}',
+        products: 'Aanbod{{pageTitleSuffix}}',
         actions: 'Aanbod{{fund_name}}{{pageTitleSuffix}}',
         providers: 'Aanbieders{{pageTitleSuffix}}',
         'products-show': 'Aanbieding{{pageTitleSuffix}}',
@@ -493,6 +495,7 @@ export default {
     // DIRECTIVES
     app_footer: app_footer,
     block_products: block_products,
+    block_product_categories: block_product_categories,
     block_funds: block_funds,
     block_notifications: block_notifications,
     block_providers: block_providers,
@@ -500,6 +503,7 @@ export default {
     fund_criterion: fund_criterion,
     maps: maps,
     profile_menu: profile_menu,
+    physical_cards: physical_cards,
     top_navbar_search: top_navbar_search,
     paginator: paginator,
 };

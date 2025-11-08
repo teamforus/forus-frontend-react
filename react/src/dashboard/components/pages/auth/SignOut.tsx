@@ -3,6 +3,7 @@ import { authContext } from '../../../contexts/AuthContext';
 import { mainContext } from '../../../contexts/MainContext';
 import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SignOut() {
     const { signOut, token } = useContext(authContext);
@@ -14,7 +15,7 @@ export default function SignOut() {
             signOut();
             clearAll();
         } else {
-            navigate(getStateRouteUrl('home'));
+            navigate(getStateRouteUrl(DashboardRoutes.HOME));
         }
     }, [signOut, clearAll, token, navigate]);
 

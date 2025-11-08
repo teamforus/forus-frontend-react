@@ -3,6 +3,7 @@ import { generatePath, matchRoutes, useLocation, useNavigate, createSearchParams
 import { CurrentRoute, RouteState } from './RouterProps';
 import router from '../../router/routes';
 import { NavigateOptions } from 'react-router';
+import { WebshopRoutes } from './RouterBuilder';
 
 const useCurrentRoute = (routes: Array<RouteState>): CurrentRoute => {
     const location = useLocation();
@@ -24,7 +25,7 @@ export const getRoutes = (): Array<RouteState> => {
     return router.getRoutes();
 };
 
-export const getStateRouteUrl = (name: string, params = {}, query = {}): string | null => {
+export const getStateRouteUrl = (name: WebshopRoutes, params = {}, query = {}): string | null => {
     const route = getRoutes().find((route) => route.state?.name == name);
     const routePath = route ? generatePath(route.state.path, params) : null;
     const routeQuery = createSearchParams(query).toString();
@@ -40,14 +41,14 @@ export const useNavigateState = () => {
     const navigate = useNavigate();
 
     return useCallback(
-        (name: string, params: object = null, query: object = null, options: NavigateOptions = null) => {
+        (name: WebshopRoutes, params: object = null, query: object = null, options: NavigateOptions = null) => {
             navigate(getStateRouteUrl(name, params || {}, query || {}), options || {});
         },
         [navigate],
     );
 };
 
-export const useStateHref = (name: string, params = {}, query = {}) => {
+export const useStateHref = (name: WebshopRoutes, params = {}, query = {}) => {
     return useHref(getStateRouteUrl(name, params, query));
 };
 

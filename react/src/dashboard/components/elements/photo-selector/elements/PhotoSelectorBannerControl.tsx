@@ -15,6 +15,7 @@ export default function PhotoSelectorBannerControl({
     children,
     templateData,
     setTemplateData,
+    disabled = false,
 }: {
     label: string;
     value: string;
@@ -27,6 +28,7 @@ export default function PhotoSelectorBannerControl({
     children?: React.ReactNode | React.ReactNode[];
     templateData?: PhotoSelectorData;
     setTemplateData?: React.Dispatch<React.SetStateAction<PhotoSelectorData>>;
+    disabled?: boolean;
 }) {
     const [templateDataBackup, setTemplateDataBackup] = useState<PhotoSelectorData>(null);
 
@@ -46,8 +48,13 @@ export default function PhotoSelectorBannerControl({
                 className={classNames(
                     valueType === 'string' && 'banner-editor-control-value',
                     valueType === 'color' && 'banner-editor-control-color',
+                    disabled && 'disabled',
                 )}
                 onClick={() => {
+                    if (disabled) {
+                        return;
+                    }
+
                     const newKey = activeKey === controlKey ? null : controlKey;
 
                     setActiveKey(newKey);

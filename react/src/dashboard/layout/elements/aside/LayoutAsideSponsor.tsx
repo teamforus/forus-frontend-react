@@ -28,6 +28,7 @@ import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
 import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
 import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
 import useIsSponsorPanel from '../../../hooks/useIsSponsorPanel';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function LayoutAsideSponsor({ organization }: { organization: Organization }) {
     const appConfigs = useAppConfigs();
@@ -41,7 +42,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
             <LayoutAsideNavGroup
                 id="menu_funds"
                 name={'Fondsen'}
-                state={'organization-funds'}
+                state={DashboardRoutes.ORGANIZATION_FUNDS}
                 stateParams={{ organizationId: organization?.id }}
                 show={hasPermission(
                     organization,
@@ -67,7 +68,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'requesters',
                         name: 'Klaarzetten',
-                        state: 'csv-validation',
+                        state: DashboardRoutes.CSV_VALIDATION,
                         dusk: 'csvValidationPage',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(
@@ -79,7 +80,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'fund_requests',
                         name: 'Aanvragen',
-                        state: 'fund-requests',
+                        state: DashboardRoutes.FUND_REQUESTS,
                         dusk: 'fundRequestsPage',
                         stateParams: { organizationId: organization?.id },
                         show:
@@ -93,7 +94,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'fund_forms',
                         name: 'E-formulieren',
-                        state: 'fund-forms',
+                        state: DashboardRoutes.FUND_FORMS,
                         stateParams: { organizationId: organization?.id },
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
@@ -115,7 +116,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'products',
                         name: 'Aanbod',
-                        state: 'sponsor-products',
+                        state: DashboardRoutes.SPONSOR_PRODUCTS,
                         stateParams: { organizationId: organization?.id },
                         show:
                             organization.allow_product_updates &&
@@ -124,7 +125,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'providers',
                         name: 'Aanbieders',
-                        state: 'sponsor-provider-organizations',
+                        state: DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS,
                         dusk: 'providersPage',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_PROVIDERS),
@@ -145,7 +146,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'identities',
                         name: 'Personen',
-                        state: 'identities',
+                        state: DashboardRoutes.IDENTITIES,
                         stateParams: { organizationId: organization?.id },
                         dusk: 'identitiesPage',
                         show:
@@ -159,7 +160,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'households',
                         name: 'Huishoudens',
-                        state: 'households',
+                        state: DashboardRoutes.HOUSEHOLDS,
                         stateParams: { organizationId: organization?.id },
                         dusk: 'householdsPage',
                         show:
@@ -186,7 +187,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'vouchers',
                         name: 'Tegoeden',
-                        state: 'vouchers',
+                        state: DashboardRoutes.VOUCHERS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]),
                         dusk: 'vouchersPage',
@@ -194,7 +195,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'reimbursements',
                         name: 'Declaraties',
-                        state: 'reimbursements',
+                        state: DashboardRoutes.REIMBURSEMENTS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_REIMBURSEMENTS),
                         dusk: 'reimbursementsPage',
@@ -202,9 +203,18 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'payouts',
                         name: 'Uitbetalingen',
-                        state: 'payouts',
+                        state: DashboardRoutes.PAYOUTS,
                         stateParams: { organizationId: organization?.id },
                         show: organization.allow_payouts && hasPermission(organization, Permission.MANAGE_PAYOUTS),
+                    },
+                    {
+                        id: 'physical_cards',
+                        name: 'Fysieke passen',
+                        state: DashboardRoutes.PHYSICAL_CARDS,
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]) &&
+                            organization.allow_physical_cards,
                     },
                 ]}
             />
@@ -222,7 +232,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'transactions',
                         name: 'Betaalopdrachten',
-                        state: 'transactions',
+                        state: DashboardRoutes.TRANSACTIONS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.VIEW_FINANCES),
                         dusk: 'transactionsPage',
@@ -230,7 +240,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'extra-payments',
                         name: 'Bijbetalingen',
-                        state: 'extra-payments',
+                        state: DashboardRoutes.EXTRA_PAYMENTS,
                         show: hasPermission(organization, Permission.VIEW_FUNDS_EXTRA_PAYMENTS),
                         stateParams: { organizationId: organization?.id },
                         dusk: 'extraPaymentsPage',
@@ -251,7 +261,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'financial_dashboard',
                         name: 'Statistieken',
-                        state: 'financial-dashboard',
+                        state: DashboardRoutes.FINANCIAL_DASHBOARD,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.VIEW_FINANCES),
                         dusk: 'financialDashboardPage',
@@ -259,7 +269,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     {
                         id: 'financial_dashboard_overview',
                         name: 'Financieel overzicht',
-                        state: 'financial-dashboard-overview',
+                        state: DashboardRoutes.FINANCIAL_DASHBOARD_OVERVIEW,
                         show: hasPermission(organization, Permission.VIEW_FINANCES),
                         stateParams: { organizationId: organization?.id },
                         dusk: 'financialDashboardOverviewPage',
@@ -268,49 +278,60 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
             />
 
             {/* Website(s) */}
-            <LayoutAsideNavGroup
-                id="menu_websites"
-                name={'Website(s)'}
-                icon={<IconWebshops />}
-                iconActive={<IconWebshopsActive />}
-                pinnedGroups={pinnedGroups}
-                setPinnedGroups={setPinnedGroups}
-                items={[
-                    {
-                        name: 'Content',
-                        state: 'implementations',
-                        stateParams: { organizationId: organization?.id },
-                        show: hasPermission(
-                            organization,
-                            [Permission.MANAGE_IMPLEMENTATION, Permission.MANAGE_IMPLEMENTATION_CMS],
-                            false,
-                        ),
-                    },
-                    {
-                        name: 'Vertalingen',
-                        state: 'organizations-translations',
-                        stateParams: { organizationId: organization?.id },
-                        show:
-                            isSponsorPanel &&
-                            organization.allow_translations &&
-                            hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
-                    },
-                    {
-                        name: 'Regelingencheck',
-                        state: 'pre-check',
-                        stateParams: { organizationId: organization?.id },
-                        show:
-                            organization.allow_pre_checks &&
-                            hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
-                    },
-                    {
-                        name: 'Systeemberichten',
-                        state: 'implementation-notifications',
-                        stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS),
-                    },
-                ]}
-            />
+            {organization?.implementations?.length > 0 && (
+                <LayoutAsideNavGroup
+                    id="menu_websites"
+                    name={organization?.implementations?.length > 1 ? 'Websites' : 'Website'}
+                    icon={<IconWebshops />}
+                    iconActive={<IconWebshopsActive />}
+                    pinnedGroups={pinnedGroups}
+                    setPinnedGroups={setPinnedGroups}
+                    items={[
+                        {
+                            name: 'Content',
+                            state:
+                                organization?.implementations?.length > 1
+                                    ? DashboardRoutes.IMPLEMENTATIONS
+                                    : DashboardRoutes.IMPLEMENTATION,
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                organization?.implementations?.length > 0 &&
+                                hasPermission(
+                                    organization,
+                                    [Permission.MANAGE_IMPLEMENTATION, Permission.MANAGE_IMPLEMENTATION_CMS],
+                                    false,
+                                ),
+                        },
+                        {
+                            name: 'Vertalingen',
+                            state: DashboardRoutes.ORGANIZATION_TRANSLATIONS,
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                isSponsorPanel &&
+                                organization.allow_translations &&
+                                organization?.implementations?.length === 1 &&
+                                hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
+                        },
+                        {
+                            name: 'Regelingencheck',
+                            state: DashboardRoutes.IMPLEMENTATION_PRE_CHECK,
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                organization.allow_pre_checks &&
+                                organization?.implementations?.length === 1 &&
+                                hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
+                        },
+                        {
+                            name: 'Systeemberichten',
+                            state: DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS,
+                            stateParams: { organizationId: organization?.id, id: organization?.implementations[0]?.id },
+                            show:
+                                organization?.implementations?.length === 1 &&
+                                hasPermission(organization, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS),
+                        },
+                    ]}
+                />
+            )}
 
             {/* Koppelingen */}
             <LayoutAsideNavGroup
@@ -323,13 +344,13 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 items={[
                     {
                         name: 'Bank',
-                        state: 'bank-connections',
+                        state: DashboardRoutes.BANK_CONNECTIONS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_BANK_CONNECTIONS),
                     },
                     {
                         name: 'BI-tool',
-                        state: 'bi-connection',
+                        state: DashboardRoutes.BI_CONNECTION,
                         stateParams: { organizationId: organization?.id },
                         show:
                             organization.allow_bi_connection &&

@@ -55,14 +55,14 @@
 @import 'includes/blocks/fund_criteria';
 @import 'includes/blocks/map';
 @import 'includes/blocks/phone-number';
-@import 'includes/blocks/product';
+@import 'includes/blocks/block-product';
 @import 'includes/blocks/record_categories';
 @import 'includes/blocks/records';
-@import 'includes/blocks/transactions';
+@import 'includes/blocks/block-transactions';
 @import 'includes/blocks/validations';
 @import 'includes/blocks/validators';
-@import 'includes/blocks/voucher-product';
-@import 'includes/blocks/voucher';
+@import 'includes/blocks/block-voucher';
+@import 'includes/blocks/block-voucher-share-options';
 @import 'includes/blocks/vouchers';
 @import 'includes/blocks/fund-add-records';
 @import 'includes/blocks/block-profile';
@@ -76,11 +76,13 @@
 @import 'includes/blocks/block-show-more';
 @import 'includes/blocks/block-warning';
 @import 'includes/blocks/block-qr-code';
+@import 'includes/blocks/block-panel-group';
 
 @import 'includes/blocks/block-markdown';
 @import 'includes/blocks/block-showcase';
 @import 'includes/blocks/block-label-tabs';
 @import 'includes/blocks/block-organizations';
+@import 'includes/blocks/block-organization-offices';
 @import 'includes/blocks/block-offices';
 @import 'includes/blocks/block-office';
 @import 'includes/blocks/block-provider';
@@ -143,6 +145,8 @@
 @import 'includes/blocks/block-lang-control';
 @import 'includes/blocks/block-reservation-address';
 @import 'includes/blocks/block-banner';
+@import 'includes/blocks/block-product-category-filter';
+@import 'includes/blocks/block-product-categories';
 
 @import 'includes/modals/modal-file-preview';
 @import 'includes/modals/modal-photo-cropper';

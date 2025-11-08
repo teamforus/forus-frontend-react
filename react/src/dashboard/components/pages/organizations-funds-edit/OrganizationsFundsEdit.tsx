@@ -44,6 +44,7 @@ import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import usePushApiError from '../../../hooks/usePushApiError';
 import FormGroup from '../../elements/forms/elements/FormGroup';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -176,6 +177,8 @@ export default function OrganizationsFundsEdit() {
         external_link_text?: string;
         external_link_url?: string;
         description_html?: string;
+        how_it_works?: string;
+        how_it_works_html?: string;
         description?: string;
         faq_title?: string;
         description_position?: string;
@@ -252,7 +255,7 @@ export default function OrganizationsFundsEdit() {
                 return fundService
                     .update(activeOrganization.id, parseInt(fundId), formValues)
                     .then(() => {
-                        navigateState('funds-show', { organizationId: activeOrganization.id, fundId: fundId });
+                        navigateState(DashboardRoutes.FUND, { organizationId: activeOrganization.id, fundId: fundId });
                         pushSuccess('Gelukt!', 'Het fonds is aangepast!');
                     })
                     .catch((res: ResponseError) => resolveErrors(res))
@@ -261,7 +264,7 @@ export default function OrganizationsFundsEdit() {
                 return fundService
                     .store(activeOrganization.id, formValues)
                     .then(() => {
-                        navigateState('organization-funds', { organizationId: activeOrganization.id });
+                        navigateState(DashboardRoutes.ORGANIZATION_FUNDS, { organizationId: activeOrganization.id });
                         pushSuccess('Gelukt!', 'Het fonds is aangemaakt!');
                     })
                     .catch((res: ResponseError) => resolveErrors(res))
@@ -438,7 +441,7 @@ export default function OrganizationsFundsEdit() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'organization-funds'}
+                    name={DashboardRoutes.ORGANIZATION_FUNDS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -833,22 +836,41 @@ export default function OrganizationsFundsEdit() {
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                <div className="form-group">
-                                    <label className="form-label">{translate('funds_edit.labels.description')}</label>
-
-                                    <MarkdownEditor
-                                        value={form.values?.description_html || ''}
-                                        onChange={(description) => form.update({ description })}
-                                        extendedOptions={true}
-                                        placeholder={translate('organization_edit.labels.description')}
-                                    />
-
-                                    <FormError error={form.errors?.description} />
-                                </div>
+                                <FormGroup
+                                    label={translate('funds_edit.labels.description')}
+                                    error={form.errors?.description}
+                                    input={() => (
+                                        <MarkdownEditor
+                                            value={form.values?.description_html || ''}
+                                            onChange={(description) => form.update({ description })}
+                                            extendedOptions={true}
+                                            placeholder={translate('funds_edit.labels.description')}
+                                        />
+                                    )}
+                                />
                             </div>
                         </div>
                     </div>
                 )}
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <FormGroup
+                                label={translate('funds_edit.labels.how_it_works')}
+                                error={form.errors?.how_it_works}
+                                input={() => (
+                                    <MarkdownEditor
+                                        value={form.values?.how_it_works_html || ''}
+                                        onChange={(how_it_works) => form.update({ how_it_works })}
+                                        extendedOptions={true}
+                                        placeholder={translate('funds_edit.labels.how_it_works')}
+                                    />
+                                )}
+                            />
+                        </div>
+                    </div>
+                </div>
 
                 <div className="card-section card-section-primary">
                     <div className="row">
@@ -1177,7 +1199,7 @@ export default function OrganizationsFundsEdit() {
                 <div className="card-section card-section-primary">
                     <div className="text-center">
                         <StateNavLink
-                            name={'organization-funds'}
+                            name={DashboardRoutes.ORGANIZATION_FUNDS}
                             params={{ organizationId: activeOrganization.id }}
                             className="button button-default"
                             id="cancel">

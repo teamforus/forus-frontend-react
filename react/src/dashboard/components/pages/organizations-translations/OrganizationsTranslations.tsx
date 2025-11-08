@@ -38,6 +38,7 @@ import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import TranslationStatsTable from './elements/TranslationStatsTable';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyValue from '../../elements/empty-value/EmptyValue';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function OrganizationsTranslations() {
     const activeOrganization = useActiveOrganization();
@@ -365,7 +366,10 @@ export default function OrganizationsTranslations() {
                     </div>
                     <div className="card-section card-section-primary">
                         <div className="text-center">
-                            <StateNavLink name={'organizations'} className="button button-default" id="cancel">
+                            <StateNavLink
+                                name={DashboardRoutes.ORGANIZATIONS}
+                                className="button button-default"
+                                id="cancel">
                                 {translate('organization_translations.buttons.cancel')}
                             </StateNavLink>
                             <button className="button button-primary" type="submit">

@@ -1,4 +1,4 @@
-import OrganizationsFundsShowDescriptionCard from './tabs-details-card/OrganizationsFundsShowDescriptionCard';
+import OrganizationsFundsShowMarkdownCard from './tabs-details-card/OrganizationsFundsShowMarkdownCard';
 import OrganizationsFundsShowFormulasCard from './tabs-details-card/OrganizationsFundsShowFormulasCard';
 import OrganizationsFundsShowStatisticsCard from './tabs-details-card/OrganizationsFundsShowStatisticsCard';
 import React, { useMemo } from 'react';
@@ -9,6 +9,7 @@ import Organization, { Permission } from '../../../../props/models/Organization'
 import Fund from '../../../../props/models/Fund';
 import classNames from 'classnames';
 import OrganizationsFundsShowConfigsCard from './tabs-details-card/OrganizationsFundsShowConfigsCard';
+import OrganizationsFundsShowPhysicalCardTypesCard from './tabs-details-card/OrganizationsFundsShowPhysicalCardTypesCard';
 
 export default function OrganizationsFundsShowDetailsCard({
     fund,
@@ -33,14 +34,20 @@ export default function OrganizationsFundsShowDetailsCard({
         return hasPermission(organization, Permission.VIEW_FINANCES);
     }, [organization]);
 
+    const canManagePhysicalCards = useMemo(() => {
+        return hasPermission(organization, Permission.MANAGE_FUNDS) && organization.allow_physical_cards;
+    }, [organization]);
+
     const tabs = useMemo(() => {
         return [
             'description',
+            'how_it_works',
             canViewFinances ? 'statistics' : null,
             canManageFunds ? 'formulas' : null,
             canManagePayouts ? 'configs' : null,
+            canManagePhysicalCards ? 'physical_cards' : null,
         ].filter((tab) => tab);
-    }, [canManageFunds, canManagePayouts, canViewFinances]);
+    }, [canManageFunds, canManagePayouts, canViewFinances, canManagePhysicalCards]);
 
     const [viewType, setViewType] = useQueryParam(
         'view',
@@ -71,12 +78,20 @@ export default function OrganizationsFundsShowDetailsCard({
                 </div>
             </div>
 
-            {viewType == 'description' && <OrganizationsFundsShowDescriptionCard fund={fund} />}
+            {viewType == 'description' && <OrganizationsFundsShowMarkdownCard html={fund.description_html} />}
+            {viewType == 'how_it_works' && <OrganizationsFundsShowMarkdownCard html={fund.how_it_works_html} />}
             {viewType == 'statistics' && (
                 <OrganizationsFundsShowStatisticsCard fund={fund} organization={organization} />
             )}
             {viewType == 'formulas' && <OrganizationsFundsShowFormulasCard fund={fund} />}
             {viewType == 'configs' && <OrganizationsFundsShowConfigsCard fund={fund} setFund={setFund} />}
+            {viewType == 'physical_cards' && (
+                <OrganizationsFundsShowPhysicalCardTypesCard
+                    fund={fund}
+                    setFund={setFund}
+                    organization={organization}
+                />
+            )}
         </div>
     );
 }

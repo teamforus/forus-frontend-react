@@ -5,6 +5,7 @@ import useCmsPage from './hooks/useCmsPage';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Privacy() {
     const envData = useEnvData();
@@ -15,7 +16,7 @@ export default function Privacy() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('privacy.breadcrumbs.home'), state: 'home' },
+                { name: translate('privacy.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('privacy.breadcrumbs.privacy') },
             ]}>
             {page && (

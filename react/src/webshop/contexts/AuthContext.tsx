@@ -13,6 +13,7 @@ import useOpenModal from '../../dashboard/hooks/useOpenModal';
 import ModalNotification from '../components/modals/ModalNotification';
 import useAppConfigs from '../hooks/useAppConfigs';
 import useTranslate from '../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../modules/state_router/RouterBuilder';
 
 interface AuthMemoProps {
     token?: string;
@@ -62,7 +63,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
             e: React.MouseEvent = null,
             needConfirmation = false,
             deleteToken = true,
-            redirect: boolean | string | (() => void) = 'home',
+            redirect: boolean | WebshopRoutes | (() => void) = WebshopRoutes.HOME,
         ) => {
             e?.preventDefault();
             e?.stopPropagation();
@@ -148,7 +149,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
         }
 
         if (!token && route?.state?.protected) {
-            navigateState('start');
+            navigateState(WebshopRoutes.START);
             return;
         }
     }, [updateIdentity, token, navigateState, signOut, identity, route?.state?.name, route?.state?.protected]);
@@ -160,10 +161,10 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
             setProgress(100);
 
             if (data.detail.data.error === '2fa') {
-                if (route?.state?.name !== 'auth-2fa') {
+                if (route?.state?.name !== WebshopRoutes.AUTH_2FA) {
                     setIdentity(null);
                     fetchIdentity2FA().then();
-                    navigateState('auth-2fa');
+                    navigateState(WebshopRoutes.AUTH_2FA);
                 }
 
                 return;
@@ -172,7 +173,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
             if (!last401ErrorTime.current || Date.now() - last401ErrorTime.current > last401ErrorThreshold) {
                 last401ErrorTime.current = Date.now();
 
-                navigateState('sign-out', null, null, {
+                navigateState(WebshopRoutes.SIGN_OUT, null, null, {
                     state: { session_expired: data.detail.data.message == 'session_expired' },
                 });
             }

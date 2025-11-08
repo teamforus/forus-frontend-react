@@ -12,10 +12,12 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
+import { makeQrCodeContent } from '../../../helpers/utils';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SignIn() {
     const [timer, setTimer] = useState(null);
-    const [qrValue, setQrValue] = useState(null);
+    const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const { token, setToken } = useContext(authContext);
 
     const envData = useEnvData();
@@ -65,7 +67,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (token) {
-            navigate(getStateRouteUrl('organizations'));
+            navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
         }
     }, [token, navigate]);
 
@@ -127,7 +129,7 @@ export default function SignIn() {
                             <div className="qr_code-block">
                                 {qrValue ? (
                                     <QrCode
-                                        value={JSON.stringify(qrValue)}
+                                        value={makeQrCodeContent(qrValue.type, qrValue.value)}
                                         logo={assetUrl('/assets/img/me-logo-react.png')}
                                     />
                                 ) : (
@@ -143,7 +145,7 @@ export default function SignIn() {
                     </div>
                     <div className="block-login-footer">
                         <div className="block-login-footer-title">Nog geen account?</div>
-                        <NavLink to={getStateRouteUrl('sign-up')} className="block-login-footer-button">
+                        <NavLink to={getStateRouteUrl(DashboardRoutes.SIGN_UP)} className="block-login-footer-button">
                             Inschrijven
                         </NavLink>
                     </div>

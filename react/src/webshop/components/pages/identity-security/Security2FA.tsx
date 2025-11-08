@@ -13,6 +13,7 @@ import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcasePro
 import Modal2FADeactivate from '../../modals/Modal2FADeactivate';
 import Modal2FASetup from '../../modals/Modal2FASetup';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Security2FA() {
     const openModal = useOpenModal();
@@ -118,7 +119,7 @@ export default function Security2FA() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('security_2fa.breadcrumbs.home'), state: 'home' },
+                { name: translate('security_2fa.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('security_2fa.breadcrumbs.security_2fa') },
             ]}
             profileHeader={

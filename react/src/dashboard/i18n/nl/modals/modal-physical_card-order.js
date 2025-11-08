@@ -3,7 +3,7 @@ export default {
         request_new_card: {
             title: 'Bestel een pas',
             subtitle: 'Je digitale pas:',
-            description: 'Vul je adresgegevens in. De pas wordt via de post naar je verstuurd.',
+            description: 'Vul de adresgegevens in. De pas wordt via de post naar de deelnemer verstuurd.',
             order: 'Bestellen',
             postcode: 'Postcode',
             postcode_placeholder: 'Postcode',

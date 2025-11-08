@@ -10,7 +10,7 @@ import Reimbursement from '../../../props/models/Reimbursement';
 import File from '../../../props/models/File';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import TransactionDetails from '../transactions-view/elements/TransactionDetails';
+import TransactionDetailsPane from '../transactions-view/elements/panes/TransactionDetailsPane';
 import { hasPermission } from '../../../helpers/utils';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
@@ -23,6 +23,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ReimbursementStateLabel from '../../elements/resource-states/ReimbursementStateLabel';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -173,7 +174,7 @@ export default function ReimbursementsView() {
             {activeOrganization && (
                 <div className="block block-breadcrumbs">
                     <StateNavLink
-                        name="reimbursements"
+                        name={DashboardRoutes.REIMBURSEMENTS}
                         params={{ organizationId: activeOrganization.id }}
                         activeExact={true}
                         className="breadcrumb-item">
@@ -578,11 +579,22 @@ export default function ReimbursementsView() {
             )}
 
             {reimbursement.voucher_transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
-                <TransactionDetails
-                    transaction={reimbursement.voucher_transaction}
-                    setTransaction={setTransaction}
-                    showReservationPageButton={true}
-                />
+                <div className="card card-wrapped">
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">
+                            {translate('financial_dashboard_transaction.labels.details')}
+                        </div>
+                    </div>
+                    <div className="card-section form">
+                        <div className="flex flex-gap flex-vertical form">
+                            <TransactionDetailsPane
+                                transaction={reimbursement.voucher_transaction}
+                                setTransaction={setTransaction}
+                                showReservationPageButton={true}
+                            />
+                        </div>
+                    </div>
+                </div>
             )}
 
             <BlockCardNotes

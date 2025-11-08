@@ -121,6 +121,7 @@ export type AppConfigProp = {
     };
     has_internal_funds: boolean;
     has_reimbursements: boolean;
+    has_physical_cards: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;
     digid: boolean;
@@ -165,11 +166,11 @@ export type AppConfigProp = {
         lat?: number;
     };
     products?: { list: boolean; show?: boolean };
-    records?: { list: boolean };
     funds?: { list: boolean; fund_requests: boolean };
     banner?: Media;
     implementation?: {
         name?: string;
+        root_product_category_id?: number;
     };
     products_hard_limit?: number;
     products_soft_limit?: number;
@@ -182,6 +183,7 @@ export type AppConfigProp = {
         providers: ImplementationPage;
         explanation: ImplementationPage;
         block_home_products: ImplementationPage;
+        block_home_product_categories: ImplementationPage;
         footer_app_info: ImplementationPage;
         footer_opening_times: ImplementationPage;
         terms_and_conditions: ImplementationPage;

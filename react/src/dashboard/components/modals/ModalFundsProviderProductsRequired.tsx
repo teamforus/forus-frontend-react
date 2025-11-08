@@ -7,6 +7,7 @@ import { useNavigateState } from '../../modules/state_router/Router';
 import useActiveOrganization from '../../hooks/useActiveOrganization';
 import Fund from '../../props/models/Fund';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function ModalFundsProviderProductsRequired({ modal, funds }: { modal: ModalState; funds: Fund[] }) {
     const storage = useStorageService();
@@ -21,7 +22,7 @@ export default function ModalFundsProviderProductsRequired({ modal, funds }: { m
 
     const goToProductCreate = useCallback(() => {
         closeModal();
-        navigateState('products-create', { organizationId: activeOrganization.id });
+        navigateState(DashboardRoutes.PRODUCT_CREATE, { organizationId: activeOrganization.id });
     }, [activeOrganization.id, closeModal, navigateState]);
 
     return (

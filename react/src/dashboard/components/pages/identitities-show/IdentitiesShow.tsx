@@ -26,6 +26,7 @@ import IdentityPerson from '../fund-requests-view/elements/IdentityPerson';
 import ProfileRelationsCard from './elements/ProfileRelationsCard';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function IdentitiesShow() {
     const setProgress = useSetProgress();
@@ -102,7 +103,7 @@ export default function IdentitiesShow() {
             <div className="block block-breadcrumbs">
                 <StateNavLink
                     className="breadcrumb-item"
-                    name="identities"
+                    name={DashboardRoutes.IDENTITIES}
                     activeExact={true}
                     params={{ organizationId: activeOrganization.id }}>
                     Personen

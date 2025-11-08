@@ -5,6 +5,7 @@ import useCmsPage from './hooks/useCmsPage';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Accessibility() {
     const envData = useEnvData();
@@ -26,7 +27,7 @@ export default function Accessibility() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('accessibility.breadcrumbs.home'), state: 'home' },
+                { name: translate('accessibility.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('accessibility.breadcrumbs.accessibility') },
             ]}>
             {page && (
