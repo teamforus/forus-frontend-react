@@ -12,6 +12,7 @@ export default function UIControlStep({
     onChange,
     step = 1,
     className,
+    disabled = false,
 }: {
     id?: string;
     dataDusk?: string;
@@ -23,18 +24,23 @@ export default function UIControlStep({
     step?: number;
     onChange: (value?: number) => void;
     className?: string;
+    disabled?: boolean;
 }) {
     const decrease = useCallback(() => {
-        onChange(min !== null ? Math.max(value - step, min) : value - step);
-    }, [min, onChange, step, value]);
+        if (!disabled) {
+            onChange(min !== null ? Math.max(value - step, min) : value - step);
+        }
+    }, [disabled, min, onChange, step, value]);
 
     const increase = useCallback(() => {
-        onChange(max !== null ? Math.min(value + step, max) : value + step);
-    }, [max, onChange, step, value]);
+        if (!disabled) {
+            onChange(max !== null ? Math.min(value + step, max) : value + step);
+        }
+    }, [disabled, max, onChange, step, value]);
 
     return (
         <div
-            className={classNames(`ui-control ui-control-step`, className)}
+            className={classNames(`ui-control ui-control-step`, className, disabled && 'ui-control-step-disabled')}
             role={role}
             data-dusk={dataDusk}
             aria-label="Aanpassen"

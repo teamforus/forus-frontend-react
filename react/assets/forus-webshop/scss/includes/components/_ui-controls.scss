@@ -180,6 +180,14 @@
                 font-size: 20px;
             }
         }
+
+        &.ui-control-step-disabled {
+            pointer-events: none;
+
+            .ui-control-step-icon {
+                cursor: default;
+            }
+        }
     }
 
     &.ui-control-checkbox {

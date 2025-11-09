@@ -233,6 +233,7 @@ export default function FundRequestStepCriteria({
                                         'fund_request.sign_up.fund_request_step_criteria.make_a_choice',
                                     )}
                                     multiline={true}
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
@@ -250,6 +251,7 @@ export default function FundRequestStepCriteria({
                                             input_value: checked ? criterion.value : null,
                                         });
                                     }}
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
@@ -264,6 +266,7 @@ export default function FundRequestStepCriteria({
                                     min={0}
                                     max={32}
                                     dataDusk="controlStep"
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
@@ -282,6 +285,7 @@ export default function FundRequestStepCriteria({
                                     }}
                                     id={`criterion_${criterion.id}`}
                                     dataDusk="controlDate"
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
@@ -295,6 +299,7 @@ export default function FundRequestStepCriteria({
                                     onChangeValue={(value) => {
                                         setCriterion(criterion.id, { input_value: (value || '').toString() });
                                     }}
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
@@ -308,6 +313,7 @@ export default function FundRequestStepCriteria({
                                     onChange={(e) => {
                                         setCriterion(criterion.id, { input_value: e.target.value });
                                     }}
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
@@ -322,6 +328,7 @@ export default function FundRequestStepCriteria({
                                     onChangeValue={(value) => {
                                         setCriterion(criterion.id, { input_value: (value || '').toString() });
                                     }}
+                                    disabled={criterion.disabled}
                                 />
                             )}
 
