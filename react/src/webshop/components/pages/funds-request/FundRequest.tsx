@@ -55,6 +55,7 @@ export type LocalCriterion = FundCriterion & {
     control_type?: string;
     record_type_options?: { [key: string]: RecordTypeOption };
     requested?: boolean;
+    disabled?: boolean;
 };
 
 type FundCriteriaStepLocal = FundCriteriaStep & {
@@ -503,9 +504,12 @@ export default function FundRequest() {
             setPendingCriteria((criteria) => {
                 return [
                     ...criteria.map((criterion) => {
-                        criterion.input_value =
-                            res.data.filter((item) => item.record_type_key === criterion.record_type_key)[0]?.value ||
-                            criterion.input_value;
+                        const prefillItem = res.data.filter(
+                            (item) => item.record_type_key === criterion.record_type_key,
+                        )[0];
+
+                        criterion.input_value = prefillItem?.value || criterion.input_value;
+                        criterion.disabled = !!prefillItem;
 
                         return criterion;
                     }),
@@ -561,7 +565,7 @@ export default function FundRequest() {
         const invalidCriteria = fund.criteria.filter((criterion) => !criterion.is_valid);
         const pendingCriteria = fund.criteria
             .filter((criterion) => !criterion.is_valid || !criterion.has_record)
-            .map((criterion) => ({ ...criterion, requested: true }));
+            .map((criterion) => ({ ...criterion, requested: true, disabled: false }));
 
         // Voucher already received, go to the voucher
         if (voucher) {
@@ -628,10 +632,12 @@ export default function FundRequest() {
 
                 if (shouldRequestRecord(item) && !item.requested && personPrefills) {
                     addedData.push(item.record_type_key);
+                    const prefillItem = personPrefills.filter(
+                        (prefill) => prefill.record_type_key === item.record_type_key,
+                    )[0];
 
-                    item.input_value =
-                        personPrefills.filter((prefill) => prefill.record_type_key === item.record_type_key)[0]
-                            ?.value || item.input_value;
+                    item.input_value = prefillItem?.value || item.input_value;
+                    item.disabled = !!prefillItem;
                 }
 
                 if (!shouldRequestRecord(item) && item.input_value != defaultValue) {

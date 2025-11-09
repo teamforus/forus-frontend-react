@@ -11,6 +11,7 @@ export default function UIControlDate({
     placeholder = null,
     className,
     dataDusk = null,
+    disabled = false,
 }: {
     id?: string;
     dateMin?: Date;
@@ -21,6 +22,7 @@ export default function UIControlDate({
     placeholder?: string;
     className?: string;
     dataDusk?: string;
+    disabled?: boolean;
 }) {
     const reset = useCallback(() => {
         onChange(null);
@@ -36,17 +38,20 @@ export default function UIControlDate({
                 dateInitial={dateMin}
                 placeholder={placeholder}
                 onChange={onChange}
+                disabled={disabled}
             />
 
-            <div
-                onClick={reset}
-                onKeyDown={(e) => (e.key == 'Enter' ? reset() : null)}
-                className="ui-control-clear"
-                aria-label="Annuleren"
-                role={'button'}
-                tabIndex={0}>
-                <div className="mdi mdi-close-circle" />
-            </div>
+            {!disabled && (
+                <div
+                    onClick={reset}
+                    onKeyDown={(e) => (e.key == 'Enter' ? reset() : null)}
+                    className="ui-control-clear"
+                    aria-label="Annuleren"
+                    role={'button'}
+                    tabIndex={0}>
+                    <div className="mdi mdi-close-circle" />
+                </div>
+            )}
         </div>
     );
 }
