@@ -49,16 +49,15 @@ import ExtraPaymentsView from '../components/pages/extra-payments-view/ExtraPaym
 import Features from '../components/pages/features/Features';
 import Feature from '../components/pages/feature/Feature';
 import EventLogs from '../components/pages/eventLogs/EventLogs';
-import ImplementationsView from '../components/pages/implementations-view/ImplementationsView';
-import ImplementationsEmail from '../components/pages/implementations-email/ImplementationsEmail';
-import ImplementationsDigid from '../components/pages/implementations-digid/ImplementationsDigid';
-import ImplementationsCookies from '../components/pages/implementations-cookies/ImplementationsCookies';
+import ImplementationFunds from '../components/pages/implementation-funds/ImplementationFunds';
+import ImplementationEmail from '../components/pages/implementations-edit/ImplementationEmail';
+import ImplementationDigid from '../components/pages/implementations-edit/ImplementationDigid';
+import ImplementationCookies from '../components/pages/implementations-edit/ImplementationCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
-import ImplementationsCms from '../components/pages/implementations-cms/ImplementationsCms';
-import ImplementationsConfig from '../components/pages/implementations-config/ImplementationsConfig';
-import ImplementationsSocialMedia from '../components/pages/implementations-social-media/ImplementationsSocialMedia';
-import ImplementationsCmsPageEdit from '../components/pages/implementations-cms-page/ImplementationsCmsPageEdit';
-import ImplementationsCmsPageCreate from '../components/pages/implementations-cms-page/ImplementationsCmsPageCreate';
+import ImplementationConfigs from '../components/pages/implementations-edit/ImplementationConfigs';
+import ImplementationSocialMediaLinks from '../components/pages/implementations-edit/ImplementationSocialMediaLinks';
+import ImplementationPageEdit from '../components/pages/implementation-pages/ImplementationPageEdit';
+import ImplementationPageCreate from '../components/pages/implementation-pages/ImplementationPageCreate';
 import FinancialDashboard from '../components/pages/financial-dashboard/FinancialDashboard';
 import FinancialDashboardOverview from '../components/pages/financial-dashboard-overview/FinancialDashboardOverview';
 import TransactionBulksView from '../components/pages/transaction-bulks-view/TransactionBulksView';
@@ -71,10 +70,10 @@ import FundProvider from '../components/pages/fund-provider/FundProvider';
 import SponsorProductsCreate from '../components/pages/sponsor-product-edit/SponsorProductsCreate';
 import SponsorProductsEdit from '../components/pages/sponsor-product-edit/SponsorProductsEdit';
 import FundProviderProductView from '../components/pages/fund-provider-product-view/FundProviderProductView';
-import ImplementationsNotifications from '../components/pages/implementations-notifications/ImplementationsNotifications';
-import ImplementationsNotificationsSend from '../components/pages/implementations-notifications-send/ImplementationsNotificationsSend';
-import ImplementationsNotificationsEdit from '../components/pages/implementations-notifications-edit/ImplementationsNotificationsEdit';
-import ImplementationsNotificationsBranding from '../components/pages/implementations-notifications-branding/ImplementationsNotificationsBranding';
+import ImplementationNotifications from '../components/pages/implementation-notifications/ImplementationNotifications';
+import ImplementationNotificationSend from '../components/pages/implementation-notifications/ImplementationNotificationSend';
+import ImplementationNotificationEdit from '../components/pages/implementation-notifications/ImplementationNotificationEdit';
+import ImplementationNotificationsBranding from '../components/pages/implementation-notifications/ImplementationNotificationsBranding';
 import OrganizationFunds from '../components/pages/organizations-funds/OrganizationFunds';
 import OrganizationsFundsShow from '../components/pages/organizations-funds-show/OrganizationsFundsShow';
 import OrganizationsFundsEdit from '../components/pages/organizations-funds-edit/OrganizationsFundsEdit';
@@ -83,10 +82,8 @@ import Identities from '../components/pages/identities/Identities';
 import IdentitiesShow from '../components/pages/identitities-show/IdentitiesShow';
 import Households from '../components/pages/households/Households';
 import HouseholdsShow from '../components/pages/households/HouseholdsShow';
-import PreCheck from '../components/pages/pre-check/PreCheck';
 import BiConnection from '../components/pages/bi-connection/BiConnection';
 import ThrowError from '../components/pages_system/ThrowError';
-import Implementations from '../components/pages/implementations/Implementations';
 import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubscriptions/SponsorFundUnsubscriptions';
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
 import Payouts from '../components/pages/payouts/Payouts';
@@ -95,11 +92,18 @@ import Products from '../components/pages/products/Products';
 import SponsorProducts from '../components/pages/sponsor-products/SponsorProducts';
 import SponsorProductView from '../components/pages/sponsor-product/SponsorProductView';
 import OrganizationsTranslations from '../components/pages/organizations-translations/OrganizationsTranslations';
-import ImplementationsTranslations from '../components/pages/implementations-cookies/ImplementationsTranslations';
 import FundForms from '../components/pages/fund-forms/FundForms';
 import FundFormsView from '../components/pages/fund-forms-view/FundFormsView';
 import PhysicalCards from '../components/pages/physical-cards/PhysicalCards';
 import PhysicalCardTypesShow from '../components/pages/physical-cards/PhysicalCardTypesShow';
+import Implementations from '../components/pages/implementations/Implementations';
+import ImplementationView from '../components/pages/implementations/ImplementationView';
+import ImplementationPages from '../components/pages/implementation-pages/ImplementationPages';
+import ImplementationBanner from '../components/pages/implementations-edit/ImplementationBanner';
+import ImplementationPreCheck from '../components/pages/implementation-pre-check/ImplementationPreCheck';
+import ImplementationTranslations from '../components/pages/implementations-edit/ImplementationTranslations';
+import ImplementationAnnouncements from '../components/pages/implementations-edit/ImplementationAnnouncements';
+import ImplementationTermsAndPrivacy from '../components/pages/implementations-edit/ImplementationTermsAndPrivacy';
 
 const router = new RouterBuilder();
 
@@ -200,11 +204,6 @@ router.state(DashboardRoutes.FUND_SECURITY, <OrganizationsFundsSecurity />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/beveiliging`,
     altPath: `/organizations/:organizationId/funds/:fundId/security`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
-});
-
-router.state(DashboardRoutes.PRE_CHECK, <PreCheck />, {
-    path: `/organisaties/:organizationId/pre-check`,
-    altPath: `/organizations/:organizationId/pre-check`,
 });
 
 router.state(DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS, <SponsorProviderOrganizations />, {
@@ -363,88 +362,117 @@ router.state(DashboardRoutes.IMPLEMENTATIONS, <Implementations />, {
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION, <ImplementationsView />, {
+router.state(DashboardRoutes.IMPLEMENTATION, <ImplementationView />, {
     path: `/organisaties/:organizationId/implementaties/:id`,
     altPath: `/organizations/:organizationId/implementations/:id`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_CMS, <ImplementationsCms />, {
-    path: `/organisaties/:organizationId/implementaties/:id/cms`,
-    altPath: `/organizations/:organizationId/implementations/:id/cms`,
+router.state(DashboardRoutes.IMPLEMENTATION_FUNDS, <ImplementationFunds />, {
+    path: `/organisaties/:organizationId/implementaties/:id/fondsen`,
+    altPath: `/organizations/:organizationId/implementations/:id/funds`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_CMS_PAGE_EDIT, <ImplementationsCmsPageEdit />, {
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_BANNER, <ImplementationBanner />, {
+    path: `/organisaties/:organizationId/implementaties/:id/banner`,
+    altPath: `/organizations/:organizationId/implementations/:id/banner`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_PAGES, <ImplementationPages />, {
+    path: `/organisaties/:organizationId/implementaties/:id/paginas`,
+    altPath: `/organizations/:organizationId/implementations/:id/pages`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_TERMS_PRIVACY, <ImplementationTermsAndPrivacy />, {
+    path: `/organisaties/:organizationId/implementaties/:id/privacy-voorwaarden`,
+    altPath: `/organizations/:organizationId/implementations/:id/terms-and-privacy`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_ANNOUNCEMENTS, <ImplementationAnnouncements />, {
+    path: `/organisaties/:organizationId/implementaties/:id/aankondigingen`,
+    altPath: `/organizations/:organizationId/implementations/:id/announcements`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT, <ImplementationPageEdit />, {
     path: `/organisaties/:organizationId/implementaties/:implementationId/paginas/:id`,
     altPath: `/organizations/:organizationId/implementations/:implementationId/pages/:id`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_CMS_PAGE_CREATE, <ImplementationsCmsPageCreate />, {
+router.state(DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_CREATE, <ImplementationPageCreate />, {
     path: `/organisaties/:organizationId/implementaties/:implementationId/paginas/aanmaken`,
     altPath: `/organizations/:organizationId/implementations/:implementationId/pages/create`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_CONFIG, <ImplementationsConfig />, {
+router.state(DashboardRoutes.IMPLEMENTATION_CONFIG, <ImplementationConfigs />, {
     path: `/organisaties/:organizationId/implementaties/:id/configuratie`,
     altPath: `/organizations/:organizationId/implementations/:id/config`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_EMAIL, <ImplementationsEmail />, {
+router.state(DashboardRoutes.IMPLEMENTATION_EMAIL, <ImplementationEmail />, {
     path: `/organisaties/:organizationId/implementaties/:id/email`,
     altPath: `/organizations/:organizationId/implementations/:id/email`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_COOKIES, <ImplementationsCookies />, {
+router.state(DashboardRoutes.IMPLEMENTATION_COOKIES, <ImplementationCookies />, {
     path: `/organisaties/:organizationId/implementaties/:id/cookiemelding`,
     altPath: `/organizations/:organizationId/implementations/:id/cookies`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_TRANSLATIONS, <ImplementationsTranslations />, {
+router.state(DashboardRoutes.IMPLEMENTATION_TRANSLATIONS, <ImplementationTranslations />, {
     path: `/organisaties/:organizationId/implementaties/:id/vertalingen`,
     altPath: `/organizations/:organizationId/implementations/:id/translations`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_DIGID, <ImplementationsDigid />, {
+router.state(DashboardRoutes.IMPLEMENTATION_DIGID, <ImplementationDigid />, {
     path: `/organisaties/:organizationId/implementaties/:id/digid`,
     altPath: `/organizations/:organizationId/implementations/:id/digid`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA, <ImplementationsSocialMedia />, {
+router.state(DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA, <ImplementationSocialMediaLinks />, {
     path: `/organisaties/:organizationId/implementaties/:id/social-media`,
     altPath: `/organizations/:organizationId/implementations/:id/social-media`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, <ImplementationsNotifications />, {
-    path: `/organisaties/:organizationId/implementatie-meldingen`,
-    altPath: `/organizations/:organizationId/implementation-notifications`,
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, <ImplementationNotifications />, {
+    path: `/organisaties/:organizationId/implementaties/:id/implementatie-meldingen`,
+    altPath: `/organizations/:organizationId/implementations/:id/implementation-notifications`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_SEND, <ImplementationsNotificationsSend />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_SEND, <ImplementationNotificationSend />, {
     path: `/organisaties/:organizationId/implementaties/:id/implementatie-meldingen/versturen`,
     altPath: `/organizations/:organizationId/implementations/:id/implementation-notifications/send`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT, <ImplementationsNotificationsEdit />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT, <ImplementationNotificationEdit />, {
     path: `/organisaties/:organizationId/implementaties/:implementationId/implementatie-meldingen/:id`,
     altPath: `/organizations/:organizationId/implementations/:implementationId/implementation-notifications/:id`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
-router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_BRANDING, <ImplementationsNotificationsBranding />, {
+router.state(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS_BRANDING, <ImplementationNotificationsBranding />, {
     path: `/organisaties/:organizationId/implementaties/:id/meldingen-branding`,
     altPath: `/organizations/:organizationId/implementations/:id/notifications-branding`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_PRE_CHECK, <ImplementationPreCheck />, {
+    path: `/organisaties/:organizationId/implementaties/:id/pre-check`,
+    altPath: `/organizations/:organizationId/implementations/:id/pre-check`,
 });
 
 router.state(DashboardRoutes.ORGANIZATION_LOGS, <EventLogs />, {

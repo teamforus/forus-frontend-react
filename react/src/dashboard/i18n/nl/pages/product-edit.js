@@ -43,7 +43,7 @@ export default {
             '4. Gratis: gratis toegang voor een film.',
             '5. Informatief: Schoolartikelen (bekijk het aanbod in de winkel).',
         ].join('\n'),
-        reservation_fields: [
+        reservation_fields_enabled: [
             'Vraag de klant om aanvullende informatie op te geven bij het maken van een reservering.',
             'Let op: Er zijn ook algemene instellingen voor alle reserveringen.',
             'Kijk hiervoor bij: Reserveringen > Instellingen.',

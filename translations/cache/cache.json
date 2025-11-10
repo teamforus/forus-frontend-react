@@ -500,6 +500,14 @@
         "Notificaties"
     ],
     [
+        "block_product_categories.description",
+        "Klik op een thema en je ziet meteen uit welk aanbod je kan kiezen."
+    ],
+    [
+        "block_product_categories.title",
+        "Wat lijkt jou leuk om te doen?"
+    ],
+    [
         "block_products.buttons.more",
         "Bekijk meer"
     ],

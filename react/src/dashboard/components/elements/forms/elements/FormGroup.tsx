@@ -10,6 +10,7 @@ export default function FormGroup({
     label,
     input,
     info,
+    hint,
     required,
     className = '',
 }: {
@@ -18,6 +19,7 @@ export default function FormGroup({
     label?: string | React.ReactElement | Array<React.ReactElement>;
     input?: (input_id: string) => React.ReactElement;
     info?: string | React.ReactElement | Array<React.ReactElement>;
+    hint?: string | React.ReactElement | Array<React.ReactElement>;
     required?: boolean;
     className?: string;
 }) {
@@ -33,6 +35,7 @@ export default function FormGroup({
 
             {info ? <FormGroupInfo info={info}>{input && input(input_id)}</FormGroupInfo> : input && input(input_id)}
             {error && <FormError error={error} />}
+            {hint && <div className="form-hint">{hint}</div>}
         </div>
     );
 }

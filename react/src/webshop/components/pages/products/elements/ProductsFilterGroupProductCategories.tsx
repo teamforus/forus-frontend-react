@@ -1,12 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import ProductCategory from '../../../../../dashboard/props/models/ProductCategory';
-import useProductCategoryService from '../../../../../dashboard/services/ProductCategoryService';
-import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
-import useAppConfigs from '../../../../hooks/useAppConfigs';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
+import useRootProductCategories from '../hooks/useRootProductCategories';
 
 export default function ProductsFilterGroupProductCategories({
     value,
@@ -18,51 +15,9 @@ export default function ProductsFilterGroupProductCategories({
     openByDefault?: boolean;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
-    const appConfig = useAppConfigs();
-    const [productCategories, setProductCategories] = useState<Array<ProductCategory>>(null);
+    const { productCategoriesIconMap, productCategories } = useRootProductCategories();
 
-    const productCategoryService = useProductCategoryService();
-
-    const iconMap = {
-        'learning-and-courses': <em className="mdi mdi-laptop" />,
-        'art-and-culture': <em className="mdi mdi-music" />,
-        'trips-and-attractions': <em className="mdi mdi-nature-people-outline" />,
-        'sports-and-exercise': <em className="mdi mdi-soccer" />,
-        'wellbeing-and-care': <em className="mdi mdi-face-man-shimmer-outline" />,
-        'clothing-and-fashion': <em className="mdi mdi-tshirt-crew-outline" />,
-        'family-and-care': <em className="mdi mdi-human-male-female-child" />,
-        'kids-and-fun': <em className="mdi mdi-teddy-bear" />,
-        electronics: <em className="mdi mdi-television-classic" />,
-        'hobbies-and-leisure': <em className="mdi mdi-palette-outline" />,
-        'library-and-reading': <em className="mdi mdi-book-open-blank-variant-outline" />,
-        'bicycle-and-transport': <em className="mdi mdi-bicycle" />,
-        animals: <em className="mdi mdi-paw" />,
-        education: <em className="mdi mdi-school-outline" />,
-        'participation-and-socializing': <em className="mdi mdi-crowd" />,
-        'help-and-advice': <em className="mdi mdi-handshake" />,
-        appliances: <em className="mdi mdi-fridge-outline" />,
-        shopping: <em className="mdi mdi-shopping-outline" />,
-    };
-
-    const fetchProductCategories = useCallback(() => {
-        setProgress(0);
-
-        productCategoryService
-            .list({
-                parent_id: appConfig?.implementation?.root_product_category_id ?? 'null',
-                per_page: 1000,
-                used: 1,
-            })
-            .then((res) => setProductCategories(res.data.data))
-            .finally(() => setProgress(100));
-    }, [appConfig?.implementation?.root_product_category_id, productCategoryService, setProgress]);
-
-    useEffect(() => {
-        fetchProductCategories();
-    }, [fetchProductCategories]);
-
-    if (appConfig?.implementation?.root_product_category_id) {
+    if (productCategoriesIconMap === null) {
         return (
             <ProductsFilterGroup
                 dusk={'productFilterGroupProductCategories'}
@@ -150,7 +105,7 @@ export default function ProductsFilterGroupProductCategories({
                                         )
                                     }>
                                     <span aria-hidden="true" className="category-filter-item-icon">
-                                        {iconMap[category.key]}
+                                        {productCategoriesIconMap[category.key]}
                                     </span>
                                     <span className="category-filter-item-name">{category.name}</span>
                                 </button>
