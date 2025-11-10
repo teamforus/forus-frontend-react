@@ -33,6 +33,7 @@ import ImplementationsRootBreadcrumbs from '../implementations/elements/Implemen
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import { useMarkdownService } from '../../../services/MarkdownService';
 
 export default function ImplementationNotificationSend() {
     const { id } = useParams();
@@ -50,6 +51,7 @@ export default function ImplementationNotificationSend() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
     const fundService = useFundService();
+    const markdownService = useMarkdownService();
     const implementationNotificationsService = useImplementationNotificationService();
 
     const [fund, setFund] = useState<Fund>(null);
@@ -87,6 +89,7 @@ export default function ImplementationNotificationSend() {
                 '<br>',
                 ':webshop_button',
             ].join('\n'),
+            markdownService,
         ),
     );
 
