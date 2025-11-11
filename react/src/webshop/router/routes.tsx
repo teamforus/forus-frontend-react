@@ -48,6 +48,7 @@ import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
 import Profile from '../components/pages/profile/Profile';
 import RouterBuilder, { WebshopRoutes } from '../modules/state_router/RouterBuilder';
+import FundsPrecheckPage from '../components/pages/funds-pre-check/FundsPrecheckPage';
 
 const router = new RouterBuilder();
 
@@ -273,6 +274,12 @@ router.state(WebshopRoutes.BOOKMARKED_PRODUCTS, <BookmarkedProducts />, {
 router.state(WebshopRoutes.FUND_PRE_CHECK, <FundsPreCheck />, {
     path: `/regelingencheck`,
     altPath: `/fund-pre-check`,
+    protected: false,
+});
+
+router.state(WebshopRoutes.FUND_PRE_CHECK_CHATBOT, <FundsPrecheckPage />, {
+    path: `/regelingencheck-chatbot`,
+    altPath: `/fund-pre-check-chatbot`,
     protected: false,
 });
 

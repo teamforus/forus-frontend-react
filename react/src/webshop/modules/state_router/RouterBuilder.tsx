@@ -42,6 +42,7 @@ export enum WebshopRoutes {
     PROFILE = 'profile',
     BOOKMARKED_PRODUCTS = 'bookmarked-products',
     FUND_PRE_CHECK = 'fund-pre-check',
+    FUND_PRE_CHECK_CHATBOT = 'fund-pre-check-chatbot',
     SITEMAP = 'sitemap',
     SECURITY_2FA = 'security-2fa',
     SECURITY_SESSIONS = 'security-sessions',

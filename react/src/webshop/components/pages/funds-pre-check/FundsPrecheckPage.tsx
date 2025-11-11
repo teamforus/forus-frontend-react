@@ -12,8 +12,7 @@ export default function FundsPrecheckPage() {
     const translate = useTranslate();
 
     return (
-        <BlockShowcase
-            breadcrumbItems={[{ name: translate('products.breadcrumbs.home'), state: 'home' }, { name: 'Chatbot' }]}>
+        <BlockShowcase breadcrumbItems={[{ name: translate('products.breadcrumbs.home') }, { name: 'Chatbot' }]}>
             <Section type={`pre-check`}>
                 <div className="block block-fund-pre-check-chatbot">
                     <h1 className="block-title">{translate('precheck_chatbot.title')}</h1>
