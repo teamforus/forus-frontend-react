@@ -8,6 +8,7 @@ import { useOrganizationService } from '../../../services/OrganizationService';
 import SelectControl from '../../elements/select-control/SelectControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function TransactionSettings() {
     const activeOrganization = useActiveOrganization();
@@ -30,6 +31,7 @@ export default function TransactionSettings() {
         bank_fund_name: 'Fondsnaam',
         bank_reservation_first_name: 'John',
         bank_reservation_last_name: 'Doe',
+        bank_reservation_invoice_number: '123456768',
         bank_note: 'Voorbeeld van een notitie van een medewerker',
     });
 
@@ -64,6 +66,7 @@ export default function TransactionSettings() {
             form.values.bank_fund_name ? testData.bank_fund_name : null,
             form.values.bank_reservation_first_name ? testData.bank_reservation_first_name : null,
             form.values.bank_reservation_last_name ? testData.bank_reservation_last_name : null,
+            form.values.bank_reservation_invoice_number ? testData.bank_reservation_invoice_number : null,
             form.values.bank_note ? testData.bank_note : null,
         ]
             .filter((value) => value)
@@ -219,6 +222,21 @@ export default function TransactionSettings() {
                                                 }
                                             />
                                         </div>
+                                        <div className="form-group form-group-last tooltipped">
+                                            <CheckboxControl
+                                                id="bank_reservation_invoice_number"
+                                                title="Factuurnummer"
+                                                checked={!!form.values?.bank_reservation_invoice_number}
+                                                onChange={(e) =>
+                                                    form.update({ bank_reservation_invoice_number: e.target.checked })
+                                                }
+                                            />
+                                            <Tooltip
+                                                text={
+                                                    'Factuurnummer wordt alleen weergegeven wanneer de transactie is gestart via een reservering en het factuurnummer ook daadwerkelijk bij de reservering door u is ingevuld.'
+                                                }
+                                            />
+                                        </div>
                                         <CheckboxControl
                                             id="bank_note"
                                             title="Notitie"
@@ -359,6 +377,13 @@ export default function TransactionSettings() {
                                                 </li>
 
                                                 <li className="block-info-list-item">
+                                                    Factuurnummer:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_reservation_invoice_number} • 3-30 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
                                                     Notitie:
                                                     <span className="block-info-list-item-value">
                                                         {testData.bank_note} • 255 karakters
@@ -375,7 +400,7 @@ export default function TransactionSettings() {
                     <div className="card-section card-section-primary">
                         <div className="text-center">
                             <StateNavLink
-                                name={'transactions'}
+                                name={DashboardRoutes.TRANSACTIONS}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-default">
                                 Annuleer

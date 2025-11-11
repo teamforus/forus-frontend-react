@@ -1,5 +1,6 @@
 import React from 'react';
 import { Location } from 'react-router';
+import { WebshopRoutes } from './RouterBuilder';
 
 export enum LayoutType {
     clear,
@@ -14,11 +15,11 @@ export interface RouteStateConfig {
     exact?: boolean;
     layout?: LayoutType;
     protected?: boolean;
-    fallbackState?: string;
+    fallbackState?: WebshopRoutes;
 }
 
 export interface RouteStateProps extends RouteStateConfig {
-    name: string;
+    name: WebshopRoutes;
 }
 
 export interface RouteState {

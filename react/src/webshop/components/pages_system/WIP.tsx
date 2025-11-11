@@ -1,6 +1,7 @@
 import React from 'react';
 import BlockShowcase from '../elements/block-showcase/BlockShowcase';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function WIP() {
     const translate = useTranslate();
@@ -8,7 +9,7 @@ export default function WIP() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('wip.breadcrumbs.home'), state: 'home' },
+                { name: translate('wip.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('wip.breadcrumbs.wip') },
             ]}>
             <div className="card">

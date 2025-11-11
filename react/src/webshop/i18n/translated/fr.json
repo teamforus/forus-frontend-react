@@ -622,6 +622,18 @@
                 "reason": "Raison :",
                 "sent": "Envoyé !",
                 "sign_up": "S'inscrire"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Nous enverrons votre carte physique à l'adresse que vous avez indiquée dès qu'elle sera prête à être utilisée.",
+                "heading": "Entrez votre adresse",
+                "labels": {
+                    "city": "Localisation",
+                    "house_nr": "Numéro de maison",
+                    "house_nr_addition": "Ajout d'un numéro de maison",
+                    "postal_code": "Code postal",
+                    "street": "Rue"
+                },
+                "title": "Coordonnées"
             }
         },
         "steps": {
@@ -1512,12 +1524,12 @@
                 "title": "Bloquez votre passage"
             },
             "link_card": {
-                "description": "<br/><br/>Un code QR figure sur votre carte, en dessous se trouve votre code personnel. Si vous réactivez l'ancienne carte, vous pouvez continuer à l'utiliser. Besoin d'aide ?  Appelez le 14 050 du lundi au vendredi de 9h00 à 12h00.",
                 "subtitle": "Entrez votre code client personnel",
                 "title": "Activez votre ancien pass",
                 "alt_text": "Passe physique : {{ fund_name }}",
                 "no_old_card": "Pas d'ancien laissez-passer ?",
-                "order_card": "Commander un laissez-passer"
+                "order_card": "Commander un laissez-passer",
+                "description": "Un code personnel figure sur votre carte. Saisissez-le ci-dessous.<br/>Si vous réactivez l'ancien pass, vous pouvez continuer à l'utiliser."
             },
             "request_card_success": {
                 "description": "Vous avez reçu un e-mail confirmant votre commande.",
@@ -1837,7 +1849,6 @@
         "preferences-notifications": "Préférences de notification{{pageTitleSuffix}}",
         "privacy": "Déclaration de confidentialité{{pageTitleSuffix}}",
         "product": "{{product_name}} Offre - de {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Offre{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Offre d'achat{{pageTitleSuffix}}",
         "products-show": "Offre{{pageTitleSuffix}}",
         "provider": "Fournisseur - {{provider_name}}{{pageTitleSuffix}}",
@@ -1862,7 +1873,8 @@
         "start": "Démarrer la connexion{{pageTitleSuffix}}",
         "terms_and_conditions": "Conditions générales d'utilisation{{pageTitleSuffix}}",
         "voucher": "Votre crédit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mon crédit{{pageTitleSuffix}}"
+        "vouchers": "Mon crédit{{pageTitleSuffix}}",
+        "products": "Offre{{pageTitleSuffix}}"
     },
     "page_title": "Plate-forme Forus",
     "paginator": {
@@ -2307,14 +2319,12 @@
             "all_providers": "Sélectionnez le fournisseur...",
             "all_sub_categories": "Sélectionnez une sous-catégorie...",
             "bookmarked": "Ma liste de souhaits",
-            "category": "Catégorie",
             "distance": "Distance",
             "fund": "Crédit",
             "postcode": "Code postal",
             "providers": "Prestataires",
             "search": "Offre de recherche",
             "sort": "Trier",
-            "sub_category": "Sous-catégorie",
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
             "payment_options": "Options de paiement",
@@ -2329,7 +2339,8 @@
             "price_type_option_informational": "En magasin uniquement",
             "price_type_option_regular": "Prix",
             "price_type_options": "Type d'offre",
-            "price_type_options_info": "En savoir plus sur les types d'offres"
+            "price_type_options_info": "En savoir plus sur les types d'offres",
+            "category": "Catégories"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2366,7 +2377,8 @@
             "share": "Partager",
             "vouchers": "Crédit",
             "me_app": "Me-app",
-            "provider_sign_up": "S'inscrire en tant que fournisseur"
+            "provider_sign_up": "S'inscrire en tant que fournisseur",
+            "physical_cards": "Passe physique"
         },
         "header": {
             "subtitle": "Faites scanner votre code QR personnel par un évaluateur.",
@@ -2494,35 +2506,13 @@
             "home": "Accueil",
             "providers": "Prestataires"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Partout"
-        },
         "filters": {
-            "all_categories": "Sélectionner une catégorie...",
-            "all_funds": "Tous les crédits...",
-            "all_products": "Offre complète",
-            "all_providers": "Sélectionnez le fournisseur...",
-            "all_sub_categories": "Sélectionnez une sous-catégorie...",
             "all_types": "Tous les types...",
-            "bookmarked": "Ma liste de souhaits",
-            "category": "Catégorie",
-            "distance": "Distance",
-            "fund": "Crédit",
             "map_title": "Sélectionnez un fournisseur pour plus d'informations",
-            "postcode": "Code postal",
             "provider_type": "Type de prestataire",
-            "providers": "Prestataires",
             "result": "Il existe des <div class=\"showcase-result-count\">{{ total }}</div> fournisseurs trouvés.",
-            "search": "Recherche",
             "sort": "Trier",
-            "sub_category": "Sous-catégorie"
+            "search": "Trouver un fournisseur"
         },
         "items": {
             "labels": {
@@ -3103,7 +3093,8 @@
                     "winterswijk": {
                         "funds": "Activer"
                     },
-                    "profile": "Données"
+                    "profile": "Données",
+                    "physical_cards": "Passe physique"
                 },
                 "groningen": {
                     "voucher": "Ma carte de ville"
@@ -3212,7 +3203,8 @@
             "security_sessions": "Sessions",
             "aria_label": "Menu utilisateur",
             "title": "Personnel",
-            "profile": "Données"
+            "profile": "Données",
+            "physical_cards": "Passe physique"
         },
         "main_menu": "Menu principal",
         "open_home": "Retour à la page principale",
@@ -3641,5 +3633,21 @@
         "aria_label_text": "Signe {{current}} de la {{total}}",
         "aria_labelledby_num": "Tapez le code de {{total}} chiffres",
         "aria_labelledby_text": "Tapez le code de {{total}} caractères"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Accueil",
+            "vouchers": "Passe physique"
+        },
+        "empty": {
+            "button": "Activer ou demander un laissez-passer physique",
+            "subtitle": "Actuellement, vous ne disposez pas d'un laissez-passer physique",
+            "title": "Pas de laissez-passer physique"
+        },
+        "filters": {
+            "active": "Actif",
+            "archive": "Archives"
+        },
+        "title": "Passe physique"
     }
 }

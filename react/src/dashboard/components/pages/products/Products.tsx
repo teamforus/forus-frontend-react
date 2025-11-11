@@ -6,7 +6,6 @@ import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
 import { PaginationData } from '../../../props/ApiResponses';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import useFilter from '../../../hooks/useFilter';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -20,6 +19,9 @@ import classNames from 'classnames';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 type ProductsDataLocal = PaginationData<
     Product,
@@ -53,11 +55,27 @@ export default function Products() {
         return maxProductSoftLimit > 0 && products?.meta?.total_provider >= maxProductSoftLimit;
     }, [maxProductSoftLimit, products?.meta?.total_provider]);
 
-    const filter = useFilter({
-        q: '',
-        source: 'provider',
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        source: 'provider' | 'sponsor' | 'archive';
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            source: 'provider',
+            page: 1,
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                source: createEnumParam(['provider', 'sponsor', 'archive']),
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+        },
+    );
 
     const { headElement, configsElement } = useConfigurableTable(productService.getColumns(), {
         sortable: true,
@@ -91,13 +109,13 @@ export default function Products() {
         setLoading(true);
 
         productService
-            .list(activeOrganization.id, filter.activeValues)
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setProducts(res.data))
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [productService, activeOrganization.id, setProgress, filter?.activeValues]);
+    }, [productService, activeOrganization.id, setProgress, filterValuesActive]);
 
     useEffect(() => {
         fetchProducts();
@@ -117,7 +135,7 @@ export default function Products() {
                 <div className="card-header-filters">
                     <div className="block block-inline-filters form">
                         <StateNavLink
-                            name={'products-create'}
+                            name={DashboardRoutes.PRODUCT_CREATE}
                             params={{ organizationId: activeOrganization.id }}
                             className={`button button-primary button-sm ${productHardLimitReached ? 'disabled' : ''}`}
                             id="add_product"
@@ -130,8 +148,8 @@ export default function Products() {
                         </StateNavLink>
 
                         <BlockLabelTabs
-                            value={filter.values.source}
-                            setValue={(value) => filter.update({ source: value })}
+                            value={filterValues.source}
+                            setValue={(value: 'provider' | 'sponsor' | 'archive') => filterUpdate({ source: value })}
                             tabs={[
                                 { value: 'provider', label: `In uw beheer (${products?.meta?.total_provider})` },
                                 { value: 'sponsor', label: `In beheer van sponsor (${products?.meta?.total_sponsor})` },
@@ -143,8 +161,8 @@ export default function Products() {
                                 <input
                                     className="form-control"
                                     type="text"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     data-dusk="searchTransaction"
                                     placeholder={translate('transactions.labels.search')}
                                 />
@@ -174,7 +192,7 @@ export default function Products() {
                                 {products?.data.map((product) => (
                                     <StateNavLink
                                         key={product.id}
-                                        name={'products-show'}
+                                        name={DashboardRoutes.PRODUCT}
                                         params={{
                                             id: product.id,
                                             organizationId: activeOrganization.id,
@@ -216,12 +234,12 @@ export default function Products() {
                                         </td>
 
                                         <td className={'table-td-actions text-right'}>
-                                            {filter.values.source != 'archive' ? (
+                                            {filterValues.source != 'archive' ? (
                                                 <TableRowActions
                                                     content={(e) => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
-                                                                name={'products-show'}
+                                                                name={DashboardRoutes.PRODUCT}
                                                                 params={{
                                                                     id: product.id,
                                                                     organizationId: activeOrganization.id,
@@ -232,7 +250,7 @@ export default function Products() {
                                                             </StateNavLink>
 
                                                             <StateNavLink
-                                                                name={'products-edit'}
+                                                                name={DashboardRoutes.PRODUCT_EDIT}
                                                                 params={{
                                                                     id: product.id,
                                                                     organizationId: activeOrganization.id,
@@ -254,7 +272,7 @@ export default function Products() {
                                                                 </div>
                                                             ) : (
                                                                 <StateNavLink
-                                                                    name={'products-show'}
+                                                                    name={DashboardRoutes.PRODUCT}
                                                                     params={{
                                                                         id: product.id,
                                                                         organizationId: activeOrganization.id,
@@ -284,12 +302,12 @@ export default function Products() {
                 </div>
             )}
 
-            {!loading && filter.values.source == 'provider' && products.meta.total == 0 && !filter.activeValues.q && (
+            {!loading && filterValues.source == 'provider' && products.meta.total == 0 && !filterValuesActive.q && (
                 <div className="card-section text-center">
                     <div className="card-subtitle">Er zijn momenteel geen aanbiedingen.</div>
                     <br />
                     <StateNavLink
-                        name={'products-create'}
+                        name={DashboardRoutes.PRODUCT_CREATE}
                         params={{ organizationId: activeOrganization.id }}
                         className="button button-primary">
                         <em className="mdi mdi-plus-circle icon-start" />
@@ -298,19 +316,19 @@ export default function Products() {
                 </div>
             )}
 
-            {!loading && filter.values.source == 'provider' && products.meta.total == 0 && filter.activeValues.q && (
+            {!loading && filterValues.source == 'provider' && products.meta.total == 0 && filterValuesActive.q && (
                 <div className="card-section text-center">
                     <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
                 </div>
             )}
 
-            {!loading && filter.values.source == 'sponsor' && products.meta.total == 0 && (
+            {!loading && filterValues.source == 'sponsor' && products.meta.total == 0 && (
                 <div className="card-section">
                     <div className="card-subtitle text-center">Er zijn momenteel geen aanbiedingen.</div>
                 </div>
             )}
 
-            {!loading && filter.values.source == 'archive' && products.meta.total == 0 && (
+            {!loading && filterValues.source == 'archive' && products.meta.total == 0 && (
                 <div className="card-section">
                     <div className="card-subtitle text-center">Er zijn momenteel geen aanbiedingen.</div>
                 </div>
@@ -320,8 +338,8 @@ export default function Products() {
                 <div className="card-section">
                     <Paginator
                         meta={products.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

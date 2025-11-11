@@ -14,6 +14,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import classNames from 'classnames';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsCmsPages({ implementation }: { implementation: Implementation }) {
     const translate = useTranslate();
@@ -125,7 +126,7 @@ export default function ImplementationsCmsPages({ implementation }: { implementa
                                                     <div className="dropdown dropdown-actions">
                                                         {pagesByKey?.[pageType.key]?.id ? (
                                                             <StateNavLink
-                                                                name={'implementations-cms-page-edit'}
+                                                                name={DashboardRoutes.IMPLEMENTATION_CMS_PAGE_EDIT}
                                                                 params={{
                                                                     id: pagesByKey?.[pageType.key]?.id,
                                                                     implementationId: implementation.id,
@@ -139,7 +140,7 @@ export default function ImplementationsCmsPages({ implementation }: { implementa
                                                             </StateNavLink>
                                                         ) : (
                                                             <StateNavLink
-                                                                name={'implementations-cms-page-create'}
+                                                                name={DashboardRoutes.IMPLEMENTATION_CMS_PAGE_CREATE}
                                                                 params={{
                                                                     organizationId: implementation.organization_id,
                                                                     implementationId: implementation.id,

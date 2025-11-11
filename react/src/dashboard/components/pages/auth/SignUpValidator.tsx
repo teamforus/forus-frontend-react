@@ -14,6 +14,7 @@ import SignUpStepOrganizationSelect from './elements/sign-up-steps/SignUpStepOrg
 import SignUpStepOrganizationAdd from './elements/sign-up-steps/SignUpStepOrganizationAdd';
 import useTranslate from '../../../hooks/useTranslate';
 import SignUpFooter from '../../../../webshop/components/elements/sign-up/SignUpFooter';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SignUpValidator() {
     const assetUrl = useAssetUrl();
@@ -132,11 +133,11 @@ export default function SignUpValidator() {
     }, [goToStep, step]);
 
     const finish = useCallback(() => {
-        navigate(getStateRouteUrl('organizations-view', { organizationId: organization.id }));
+        navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATION, { organizationId: organization.id }));
     }, [navigate, organization?.id]);
 
     const openAuthPopup = useCallback(() => {
-        navigate(getStateRouteUrl('home'));
+        navigate(getStateRouteUrl(DashboardRoutes.HOME));
     }, [navigate]);
 
     useEffect(() => {
@@ -178,7 +179,7 @@ export default function SignUpValidator() {
             <div className="block-wrapper">
                 <div className="sign_up-header">
                     <div className="sign_up-header-item flex-grow">
-                        <NavLink to={getStateRouteUrl('home')} className="sign_up-header-item-button">
+                        <NavLink to={getStateRouteUrl(DashboardRoutes.HOME)} className="sign_up-header-item-button">
                             <em className="mdi mdi-chevron-left" />
                             Verlaat het formulier
                         </NavLink>

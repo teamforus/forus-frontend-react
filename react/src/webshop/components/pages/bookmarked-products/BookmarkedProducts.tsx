@@ -11,6 +11,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function BookmarkedProducts() {
     const translate = useTranslate();
@@ -61,7 +62,7 @@ export default function BookmarkedProducts() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('bookmarked_products.breadcrumbs.home'), state: 'home' },
+                { name: translate('bookmarked_products.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('bookmarked_products.title') },
             ]}
             profileHeader={
@@ -129,7 +130,7 @@ export default function BookmarkedProducts() {
                                 icon: 'arrow-right',
                                 type: 'primary',
                                 text: translate('bookmarked_products.empty.button'),
-                                onClick: () => navigateState('products'),
+                                onClick: () => navigateState(WebshopRoutes.PRODUCTS),
                             }}
                         />
                     )}

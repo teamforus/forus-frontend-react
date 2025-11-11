@@ -22,6 +22,7 @@ import { uniqueId } from 'lodash';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import ImplementationsCmsHomeProductsBlockEditor from './ImplementationsCmsHomeProductsBlockEditor';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsCmsPageForm({
     page,
@@ -134,7 +135,7 @@ export default function ImplementationsCmsPageForm({
             promise
                 .then((res) => {
                     if (!page) {
-                        return navigateState('implementations-cms-page-edit', {
+                        return navigateState(DashboardRoutes.IMPLEMENTATION_CMS_PAGE_EDIT, {
                             organizationId: implementation.organization_id,
                             implementationId: implementation.id,
                             id: res.data.data.id,
@@ -177,7 +178,7 @@ export default function ImplementationsCmsPageForm({
         if (!pageTypeConfig?.key) {
             pushDanger('Mislukt!', 'Ongeldig paginatype.');
 
-            return navigateState('implementations-cms', {
+            return navigateState(DashboardRoutes.IMPLEMENTATION_CMS, {
                 id: implementation.id,
                 organizationId: activeOrganization.id,
             });
@@ -198,21 +199,21 @@ export default function ImplementationsCmsPageForm({
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     {implementation.name}
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-cms'}
+                    name={DashboardRoutes.IMPLEMENTATION_CMS}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -456,7 +457,7 @@ export default function ImplementationsCmsPageForm({
                     <div className="card-section card-section-primary">
                         <div className="button-group flex-center">
                             <StateNavLink
-                                name={'implementations-cms'}
+                                name={DashboardRoutes.IMPLEMENTATION_CMS}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
                                 className="button button-default">
                                 {translate('funds_edit.buttons.cancel')}

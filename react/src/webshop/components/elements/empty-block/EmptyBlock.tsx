@@ -3,6 +3,7 @@ import IconReimbursements from '../../../../../assets/forus-webshop/resources/_w
 import IconFundRequest from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-fund-request.svg';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import ButtonType from '../../../../props/elements/ButtonType';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function EmptyBlock({
     title,
@@ -38,7 +39,7 @@ export default function EmptyBlock({
             {description && <p className="block-description">{description}</p>}
 
             {!hideLink && (
-                <StateNavLink className="block-link" name="start">
+                <StateNavLink className="block-link" name={WebshopRoutes.START}>
                     {text}
                     <em className="mdi mdi-arrow-right" aria-hidden="true" />
                 </StateNavLink>

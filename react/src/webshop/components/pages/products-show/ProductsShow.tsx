@@ -30,6 +30,7 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import Section from '../../elements/sections/Section';
 import useShowProductPaymentOptionsInfoModal from '../../../hooks/useShowProductPaymentOptionsInfoModal';
 import useProductFeatures from '../../../hooks/useProductFeatures';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -146,7 +147,7 @@ export default function ProductsShow() {
 
     useEffect(() => {
         if (!appConfigs?.products?.show) {
-            navigateState('home');
+            navigateState(WebshopRoutes.HOME);
             return;
         }
     }, [appConfigs, navigateState]);
@@ -168,8 +169,8 @@ export default function ProductsShow() {
             breadcrumbItems={
                 product && [
                     showBack && { name: translate('product.breadcrumbs.back'), back: true },
-                    { name: translate('product.breadcrumbs.home'), state: 'home' },
-                    { name: translate('product.breadcrumbs.products'), state: 'products' },
+                    { name: translate('product.breadcrumbs.home'), state: WebshopRoutes.HOME },
+                    { name: translate('product.breadcrumbs.products'), state: WebshopRoutes.PRODUCTS },
                     product && { name: product.name },
                 ]
             }>

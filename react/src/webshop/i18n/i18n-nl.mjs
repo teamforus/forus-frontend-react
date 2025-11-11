@@ -29,6 +29,7 @@ import voucher from './nl/pages/voucher.mjs';
 import vouchers from './nl/pages/vouchers.mjs';
 import reservations from './nl/pages/reservations.mjs';
 import reservation from './nl/pages/reservation.mjs';
+import physical_cards from './nl/pages/physical-cards.mjs';
 import payouts from './nl/pages/payouts.mjs';
 import reimbursements from './nl/pages/reimbursements.mjs';
 import profile from './nl/pages/profile.mjs';
@@ -124,7 +125,7 @@ export default {
         portfolio: 'Portfolio{{pageTitleSuffix}}',
         kindpakket: 'Portfolio - Kindpakket{{pageTitleSuffix}}',
         product: 'Aanbod - {{product_name}} van {{organization_name}}{{pageTitleSuffix}}',
-        products: 'Aanbod{{fund_name}}{{pageTitleSuffix}}',
+        products: 'Aanbod{{pageTitleSuffix}}',
         actions: 'Aanbod{{fund_name}}{{pageTitleSuffix}}',
         providers: 'Aanbieders{{pageTitleSuffix}}',
         'products-show': 'Aanbieding{{pageTitleSuffix}}',
@@ -504,6 +505,7 @@ export default {
     fund_criterion: fund_criterion,
     maps: maps,
     profile_menu: profile_menu,
+    physical_cards: physical_cards,
     top_navbar_search: top_navbar_search,
     paginator: paginator,
 };

@@ -15,6 +15,7 @@ import Reimbursement from '../../../../props/models/Reimbursement';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import ReimbursementStateLabel from '../../../elements/resource-states/ReimbursementStateLabel';
 import Label from '../../../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementsTable({
     loading,
@@ -52,7 +53,7 @@ export default function ReimbursementsTable({
                                 {reimbursements.data.map((reimbursement) => (
                                     <StateNavLink
                                         customElement={'tr'}
-                                        name={'reimbursements-view'}
+                                        name={DashboardRoutes.REIMBURSEMENT}
                                         params={{ id: reimbursement.id, organizationId: organization.id }}
                                         key={reimbursement.id}
                                         dataDusk={`tableReimbursementRow${reimbursement.id}`}
@@ -141,7 +142,7 @@ export default function ReimbursementsTable({
                                                 content={() => (
                                                     <div className="dropdown dropdown-actions">
                                                         <StateNavLink
-                                                            name={'reimbursements-view'}
+                                                            name={DashboardRoutes.REIMBURSEMENT}
                                                             className="dropdown-item"
                                                             params={{
                                                                 id: reimbursement.id,

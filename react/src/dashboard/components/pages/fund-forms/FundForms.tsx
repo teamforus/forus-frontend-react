@@ -28,6 +28,7 @@ import FundForm from '../../../props/models/FundForm';
 import FundFormStateLabels from '../../elements/resource-states/FundFormStateLabels';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import { NumberParam, StringParam } from 'use-query-params';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundForms() {
     const translate = useTranslate();
@@ -235,7 +236,7 @@ export default function FundForms() {
                                     {fundForms.data.map((fundForm) => (
                                         <StateNavLink
                                             key={fundForm.id}
-                                            name={'fund-form'}
+                                            name={DashboardRoutes.FUND_FORM}
                                             params={{ organizationId: activeOrganization.id, id: fundForm.id }}
                                             customElement={'tr'}
                                             className={'tr-clickable'}>
@@ -280,7 +281,7 @@ export default function FundForms() {
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
-                                                                name={'fund-form'}
+                                                                name={DashboardRoutes.FUND_FORM}
                                                                 params={{
                                                                     organizationId: activeOrganization.id,
                                                                     id: fundForm.id,

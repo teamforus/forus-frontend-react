@@ -239,8 +239,9 @@ export default function MarkdownEditor({
 
                             showLinkDialog(type, { url, text }).then(
                                 (data) => {
+                                    const url = fixUrl(data.url);
                                     context.invoke('editor.restoreRange');
-                                    context.invoke('editor.createLink', { ...linkInfo, ...data });
+                                    context.invoke('editor.createLink', { ...linkInfo, ...data, url });
                                 },
                                 () => context.invoke('editor.restoreRange'),
                             );
@@ -281,6 +282,24 @@ export default function MarkdownEditor({
                         }
                     },
                 });
+
+                const fixUrl = function (url: string) {
+                    // temp solution while it will be fixed in summernote as known issue
+                    // https://github.com/summernote/summernote/issues/4746
+                    const MAILTO_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    const TEL_PATTERN = /^(\+?\d{1,3}[\s-]?)?(\d{1,4})[\s-]?(\d{1,4})[\s-]?(\d{1,4})$/;
+
+                    // Remove accidental "://"
+                    url = url.replace(/^mailto:\/*/i, 'mailto:').replace(/^tel:\/*/i, 'tel:');
+
+                    if (MAILTO_PATTERN.test(url)) {
+                        return 'mailto:' + url;
+                    } else if (TEL_PATTERN.test(url)) {
+                        return 'tel:' + url;
+                    }
+
+                    return url;
+                };
 
                 return button.render(); // return button as jquery object
             };

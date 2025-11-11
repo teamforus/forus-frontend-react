@@ -6,9 +6,10 @@ import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
-import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
+import { useNavigateState } from '../../../modules/state_router/Router';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ImplementationsCookies() {
     const { id } = useParams();
@@ -27,9 +28,7 @@ export default function ImplementationsCookies() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    return navigateState(
-                        getStateRouteUrl('implementations', { organizationId: activeOrganization.id }),
-                    );
+                    return navigateState(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id });
                 }
 
                 pushApiError(err);
@@ -48,14 +47,14 @@ export default function ImplementationsCookies() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Webshops
                 </StateNavLink>
                 <StateNavLink
-                    name={'implementations-view'}
+                    name={DashboardRoutes.IMPLEMENTATION}
                     params={{ organizationId: activeOrganization.id, id: implementation.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -109,7 +108,7 @@ export default function ImplementationsCookies() {
                 <div className="card-footer">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'implementations-view'}
+                            name={DashboardRoutes.IMPLEMENTATION}
                             params={{ id: implementation.id, organizationId: activeOrganization.id }}
                             className="button button-default">
                             Ga terug

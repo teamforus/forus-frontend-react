@@ -41,13 +41,14 @@ import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { GoogleMap } from '../../elements/google-map/GoogleMap';
 import SignUpOfficeEdit from './elements/SignUpOfficeEdit';
 import SignUpAvailableFunds from './elements/SignUpAvailableFunds';
-import useFilter from '../../../hooks/useFilter';
 import useDemoTransactionService from '../../../services/DemoTransactionService';
 import { uniq } from 'lodash';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useTranslate from '../../../hooks/useTranslate';
 import SignUpFooter from '../../../../webshop/components/elements/sign-up/SignUpFooter';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 type OfficeLocal = Office & { edit?: boolean };
 
@@ -142,7 +143,10 @@ export default function SignUpProvider() {
         organization_id: NumberParam,
     });
 
-    const fundFilter = useFilter({
+    const [fundFilterValues] = useFilterNext<{
+        q?: string;
+        per_page?: number;
+    }>({
         q: '',
         per_page: 10,
         ...fundUrlFilters,
@@ -507,7 +511,7 @@ export default function SignUpProvider() {
     }, [STEPS, goToStep, step]);
 
     const finish = useCallback(() => {
-        navigate(getStateRouteUrl('organizations-view', { organizationId: organization.id }));
+        navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATION, { organizationId: organization.id }));
     }, [navigate, organization?.id]);
 
     const cancelAddOrganization = useCallback(() => {
@@ -743,7 +747,7 @@ export default function SignUpProvider() {
             <div className="block-wrapper">
                 <div className="sign_up-header">
                     <div className="sign_up-header-item flex-grow">
-                        <NavLink to={getStateRouteUrl('home')} className="sign_up-header-item-button">
+                        <NavLink to={getStateRouteUrl(DashboardRoutes.HOME)} className="sign_up-header-item-button">
                             <em className="mdi mdi-chevron-left" />
                             Verlaat het formulier
                         </NavLink>
@@ -751,12 +755,12 @@ export default function SignUpProvider() {
 
                     <div className="sign_up-header-item">
                         {!authToken ? (
-                            <StateNavLink name={'sign-in'} className="sign_up-header-item-button">
+                            <StateNavLink name={DashboardRoutes.SIGN_IN} className="sign_up-header-item-button">
                                 Inloggen
                                 <em className="mdi mdi-login icon-end" />
                             </StateNavLink>
                         ) : (
-                            <StateNavLink name={'organizations'} className="sign_up-header-item-button">
+                            <StateNavLink name={DashboardRoutes.ORGANIZATIONS} className="sign_up-header-item-button">
                                 Open beheeromgeving
                             </StateNavLink>
                         )}
@@ -802,7 +806,7 @@ export default function SignUpProvider() {
                                         <h5 className="sign_up-pane-heading">
                                             {translate('sign_up_provider.header.title_step_1_paragrah_2')}
                                         </h5>
-                                        <StateNavLink name={'sign-in'} className="sign_up-pane-link">
+                                        <StateNavLink name={DashboardRoutes.SIGN_IN} className="sign_up-pane-link">
                                             Klik hier&nbsp;
                                         </StateNavLink>
                                         {translate('sign_up_provider.header.subtitle_step_1_paragrah_2')}
@@ -1967,7 +1971,7 @@ export default function SignUpProvider() {
                                 <SignUpAvailableFunds
                                     organization={organization}
                                     onApply={applyFund}
-                                    externalFilters={fundFilter.values}
+                                    externalFilters={fundFilterValues}
                                 />
                                 {!hasFundApplications && (
                                     <UIControlCheckbox

@@ -7,7 +7,6 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import { hasPermission } from '../../../helpers/utils';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useFilter from '../../../hooks/useFilter';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -20,6 +19,8 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function ImplementationsView() {
     const { id } = useParams();
@@ -37,7 +38,7 @@ export default function ImplementationsView() {
     const [implementation, setImplementation] = useState(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
 
-    const filter = useFilter({ q: '' });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string }>({ q: '' });
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -45,7 +46,9 @@ export default function ImplementationsView() {
             .then((res) => setImplementation(res.data.data))
             .catch((err: ResponseError) => {
                 if (err.status === 403) {
-                    navigate(getStateRouteUrl('implementations', { organizationId: activeOrganization.id }));
+                    navigate(
+                        getStateRouteUrl(DashboardRoutes.IMPLEMENTATIONS, { organizationId: activeOrganization.id }),
+                    );
                 }
 
                 pushApiError(err);
@@ -58,11 +61,11 @@ export default function ImplementationsView() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filter.activeValues })
+            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filterValuesActive })
             .then((res) => setFunds(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, id, filter.activeValues, pushApiError]);
+    }, [setProgress, fundService, activeOrganization.id, id, filterValuesActive, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();
@@ -80,7 +83,7 @@ export default function ImplementationsView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'implementations'}
+                    name={DashboardRoutes.IMPLEMENTATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
@@ -116,7 +119,7 @@ export default function ImplementationsView() {
                         {activeOrganization.allow_translations &&
                             hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                                 <StateNavLink
-                                    name={'implementations-translations'}
+                                    name={DashboardRoutes.IMPLEMENTATION_TRANSLATIONS}
                                     params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                     className={`button button-default`}>
                                     <em className="mdi mdi-translate-variant icon-start" />
@@ -126,7 +129,7 @@ export default function ImplementationsView() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-cookies'}
+                                name={DashboardRoutes.IMPLEMENTATION_COOKIES}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cookie icon-start" />
@@ -136,7 +139,7 @@ export default function ImplementationsView() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-email'}
+                                name={DashboardRoutes.IMPLEMENTATION_EMAIL}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cog icon-start" />
@@ -146,7 +149,7 @@ export default function ImplementationsView() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
-                                name={'implementations-digid'}
+                                name={DashboardRoutes.IMPLEMENTATION_DIGID}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                 className={`button button-default`}>
                                 <em className="mdi mdi-cog icon-start" />
@@ -156,7 +159,7 @@ export default function ImplementationsView() {
 
                         {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS) && (
                             <StateNavLink
-                                name={'implementations-cms'}
+                                name={DashboardRoutes.IMPLEMENTATION_CMS}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                 className={`button button-primary`}>
                                 <em className="mdi mdi-text-box icon-start" />
@@ -176,10 +179,10 @@ export default function ImplementationsView() {
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        value={filter.values.q}
+                                        value={filterValues.q}
                                         placeholder="Zoeken"
                                         className="form-control"
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                     />
                                 </div>
                             </div>
@@ -200,7 +203,7 @@ export default function ImplementationsView() {
                                         {funds.data.map((fund) => (
                                             <StateNavLink
                                                 key={fund.id}
-                                                name={'funds-show'}
+                                                name={DashboardRoutes.FUND}
                                                 className={'tr-clickable'}
                                                 customElement={'tr'}
                                                 params={{ fundId: fund.id, organizationId: activeOrganization.id }}>
@@ -229,7 +232,7 @@ export default function ImplementationsView() {
                                                             content={() => (
                                                                 <div className="dropdown dropdown-actions">
                                                                     <StateNavLink
-                                                                        name={'funds-show'}
+                                                                        name={DashboardRoutes.FUND}
                                                                         params={{
                                                                             fundId: fund.id,
                                                                             organizationId: activeOrganization.id,
@@ -245,7 +248,9 @@ export default function ImplementationsView() {
                                                                     ) &&
                                                                         fund.key && (
                                                                             <StateNavLink
-                                                                                name={'fund-backoffice-edit'}
+                                                                                name={
+                                                                                    DashboardRoutes.FUND_BACKOFFICE_EDIT
+                                                                                }
                                                                                 params={{
                                                                                     fundId: fund.id,
                                                                                     organizationId:

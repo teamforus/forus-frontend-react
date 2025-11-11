@@ -26,6 +26,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import classNames from 'classnames';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useProviderExporter from '../../../services/exporters/useProviderExporter';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -201,7 +202,7 @@ export default function SponsorProviderOrganizations() {
                         requestsPending > 0 && 'card-block-requests-warning',
                     )}>
                     <StateNavLink
-                        name={'sponsor-fund-unsubscriptions'}
+                        name={DashboardRoutes.SPONSOR_FUND_UNSUBSCRIPTIONS}
                         params={{ organizationId: activeOrganization.id }}
                         className="card-section flex">
                         {requestsExpired > 0 && (

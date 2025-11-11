@@ -5,6 +5,7 @@ import { useOrganizationService } from '../../../services/OrganizationService';
 import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import Organization from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Organizations() {
     const { envData, organizations } = useContext(mainContext);
@@ -31,7 +32,7 @@ export default function Organizations() {
                 .map((route) => route.name);
 
             if (routes.length == 0) {
-                return navigate(getStateRouteUrl('organization-no-permissions', { organizationId }));
+                return navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATION_NO_PERMISSIONS, { organizationId }));
             }
 
             navigate(getStateRouteUrl(routes[0], { organizationId }));
@@ -50,7 +51,7 @@ export default function Organizations() {
                     redirectToDashboard(selectedOrganizationId, organizations);
                 }
             } else {
-                navigate(getStateRouteUrl('organizations-create'));
+                navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATION_CREATE));
             }
         },
         [getLastUsedOrganization, organizationService, redirectToDashboard, navigate],
@@ -58,7 +59,7 @@ export default function Organizations() {
 
     useEffect(() => {
         if (!token) {
-            navigate(getStateRouteUrl('home'));
+            navigate(getStateRouteUrl(DashboardRoutes.HOME));
             return;
         }
 
