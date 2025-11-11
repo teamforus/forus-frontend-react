@@ -22,6 +22,7 @@ import EmptyCard from '../../elements/empty-card/EmptyCard';
 import FormPane from '../../elements/forms/elements/FormPane';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import EmptyValue from '../../elements/empty-value/EmptyValue';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundProviderProductView() {
     const { id, fundId, fundProviderId } = useParams();
@@ -120,14 +121,14 @@ export default function FundProviderProductView() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'sponsor-provider-organizations'}
+                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">
                     {translate('page_state_titles.organization-providers')}
                 </StateNavLink>
                 <StateNavLink
-                    name={'sponsor-provider-organization'}
+                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
                     params={{
                         id: fundProvider.organization.id,
                         organizationId: activeOrganization.id,
@@ -137,7 +138,7 @@ export default function FundProviderProductView() {
                     {strLimit(fundProvider.organization.name, 40)}
                 </StateNavLink>
                 <StateNavLink
-                    name={'fund-provider'}
+                    name={DashboardRoutes.FUND_PROVIDER}
                     params={{
                         id: fundProvider.id,
                         fundId: fund.id,
@@ -239,7 +240,7 @@ export default function FundProviderProductView() {
                     {product.sponsor_organization_id === activeOrganization.id && (
                         <StateNavLink
                             className="button button-primary"
-                            name={'fund-provider-product-edit'}
+                            name={DashboardRoutes.FUND_PROVIDER_PRODUCT_EDIT}
                             params={{
                                 id: product.id,
                                 fundId: fundProvider.fund_id,

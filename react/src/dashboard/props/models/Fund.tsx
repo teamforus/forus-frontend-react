@@ -5,6 +5,7 @@ import Tag from './Tag';
 import Faq from './Faq';
 import FundFormula from '../../../webshop/props/models/FundFormula';
 import FundCriterion from './FundCriterion';
+import PhysicalCardType from './PhysicalCardType';
 
 interface FundVoucherStatistics {
     active_vouchers_amount?: string;
@@ -22,14 +23,26 @@ interface FundVoucherStatistics {
     children_count?: number;
 }
 
+export interface InlineFundPhysicalCardType {
+    id: number;
+    fund_id: number;
+    physical_card_type_id: number;
+    allow_physical_card_linking: boolean;
+    allow_physical_card_requests: boolean;
+    allow_physical_card_deactivation: boolean;
+    physical_card_type: PhysicalCardType;
+}
+
 export default interface Fund {
     id: number;
     key?: string;
     name?: string;
     logo?: Media;
     description?: string;
-    description_short?: string;
     description_html: string;
+    description_short?: string;
+    how_it_works?: string;
+    how_it_works_html?: string;
     organization_id: number;
     organization?: Organization;
     products_count_all?: number;
@@ -46,6 +59,7 @@ export default interface Fund {
     external?: boolean;
     show_subsidies?: boolean;
     show_qr_limits?: boolean;
+    show_qr_code?: boolean;
     show_requester_limits?: boolean;
     allow_direct_payments?: boolean;
     fund_form_id?: number;
@@ -148,4 +162,7 @@ export default interface Fund {
     help_enabled?: boolean;
     allow_provider_sign_up?: boolean;
     outcome_type?: 'voucher' | 'payout';
+    fund_request_physical_card_enable?: boolean;
+    fund_request_physical_card_type_id?: number;
+    fund_physical_card_types?: Array<InlineFundPhysicalCardType>;
 }

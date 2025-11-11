@@ -1,0 +1,263 @@
+//TODO: refactor towards:
+.class_name {
+  // attributes
+  // nested classes
+  //hover, active, etc.
+  //types
+  //media
+}
+.block.block-fund-pre-check-chatbot {
+  --spacing: 4px;
+  height: 75vh;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  .block-title {
+    font: 500 36px/36px var(--base-font), sans-serif;
+    margin: 0 0 10px;
+    text-align: center;
+    color: #191A1C;
+  }
+
+  .chatbot-header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: calc(var(--spacing) * 4);
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: calc(var(--spacing) * 6);
+    background: #9e9e9e;
+    border-radius: calc(infinity * 1px);
+    overflow: hidden;
+    flex: 1;
+
+    .inner-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: mediumblue;
+      transition-duration: 300ms;
+      border-radius: calc(infinity * 1px);
+      color: #fff;
+      font: var(--base-font);
+      font-size: 18px;
+    }
+  }
+
+  .chatbot-messages,
+  .message-list {
+    overflow-x: hidden;
+  }
+
+  .chatbot-messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: calc(var(--spacing) * 2);
+
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .message-list {
+      flex: 1;
+      overflow-y: auto;
+      height: 100%;
+      padding-inline: calc(var(--spacing) * 1);
+
+      p {
+        margin-bottom: 0;
+        font-weight: 600;
+      }
+
+      .thinking {
+        display: flex;
+        justify-content: start;
+        font-size: 12px;
+      }
+
+      .message-wrapper {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: calc(var(--spacing) * 2);
+
+        .message-avatar {
+          margin-right: calc(var(--spacing) * 2);
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+          height: fit-content;
+          border-radius : calc(infinity * 1px);
+          align-items: center;
+          justify-content: center;
+          color: black;
+          font-weight: bold;
+
+          .avatar-icon {
+            font-size: 1.75rem;
+          }
+
+          .avatar-name {
+            font-size: 0.875rem;
+            font-family: var(--base-font), sans-serif;
+          }
+        }
+
+        .message-content {
+          flex: 1;
+          justify-items: start;
+          width: 100%;
+
+          .message-slots {
+            margin-top: var(--spacing);
+            list-style: disc;
+            padding-left: calc(var(--spacing) * 4);
+          }
+
+          .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing);
+
+            @media (min-width: 1024px) {
+              flex-direction: row;
+            }
+
+            .answer-button {
+              background: blue;
+              color: white;
+
+              //&.disabled {
+              //  cursor: not-allowed;
+              //  background: var(--button-disabled-background, gray);
+              //}
+
+              &--is-selected {
+                background: purple !important;
+                color: white !important;
+              }
+
+              &:hover {
+                background: var(--color-default-light);
+              }
+
+            }
+          }
+
+          .advice-button {
+            margin-top: calc(var(--spacing) * 2);
+            margin-left: 0;
+          }
+
+          .answer-input-wrapper {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            align-items: center;
+            width: calc(3/4 * 100%);
+
+            .answer-input {
+              width: 100%;
+              text-align: center;
+              border: 3px solid gray;
+              padding-inline: 3px;
+              border-radius: calc(var(--spacing) * 2);
+              font: 400 16px/1.5em var(--base-font);
+              background: transparent;
+            }
+            .answer-input::placeholder {
+              font: 300 16px/1.5em var(--base-font);
+            }
+
+            .answer-input-icon {
+              //position: absolute;
+              cursor: pointer;
+              font-size: 1.5rem;
+              line-height: 1;
+              background: transparent;
+              //right: 8px;
+              color: gray;
+              padding: 0 2px 0 2px;
+              margin-inline: 6px 3px;
+              margin-top: 2px;
+              width: auto;
+            }
+            .answer-send-button-icon.mdi {
+              float: none;
+            }
+
+            .button-icon:hover {
+              color: black;
+            }
+          }
+        }
+      }
+      .message-item {
+        padding: calc(var(--spacing) * 2);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        width: fit-content;
+        max-width: 100%;
+        margin-bottom: calc(var(--spacing) * 2);
+        margin-right: calc(var(--spacing) * 2);
+
+        white-space: pre-line;
+        word-wrap: break-word;
+
+        @media (min-width: 640px) {
+          max-width: 80%;
+          margin-bottom: var(--spacing);
+          margin-right: 0;
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        @media (min-width: 1024px) {
+          max-width: 60%;
+        }
+
+        ul {
+          list-style-type: disc;
+          list-style-position: inside;
+        }
+
+        &--error {
+          background: color-mix(in srgb, var(--color-danger) 50%, white) !important;
+          border: 2px solid color-mix(in srgb, var(--color-danger) 50%, black);
+          color: color-mix(in srgb, var(--color-danger) 50%, black);
+        }
+
+        &--user {
+          background: #ddd6fe;
+          margin-left: auto;
+          text-align: right;
+          border-bottom-left-radius: 8px;
+          justify-content: end;
+        }
+
+        &--bot {
+          justify-content: start;
+          background: #c7d2fe;
+          text-align: left;
+          border-bottom-right-radius: 8px;
+        }
+
+        &--in-progress {
+          font-style: italic;
+          color: #6b7280;
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import BlockReimbursementCategories from '../../elements/block-reimbursement-categories/BlockReimbursementCategories';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementCategories() {
     const activeOrganization = useActiveOrganization();
@@ -10,7 +11,7 @@ export default function ReimbursementCategories() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name="reimbursements"
+                    name={DashboardRoutes.REIMBURSEMENTS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className="breadcrumb-item">

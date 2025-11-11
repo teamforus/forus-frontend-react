@@ -7,8 +7,10 @@ import ProductsList from '../lists/products-list/ProductsList';
 import CmsBlocks from '../cms-blocks/CmsBlocks';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Section from '../sections/Section';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function BlockProducts({
+    title,
     display = 'grid',
     filters = {},
     products = null,
@@ -16,6 +18,7 @@ export default function BlockProducts({
     showLoadMore = true,
     showCustomDescription = false,
 }: {
+    title?: string;
     display?: 'grid' | 'list';
     filters?: object;
     products?: Array<Product>;
@@ -31,8 +34,8 @@ export default function BlockProducts({
         <Section type="products" id="products">
             {products?.length > 0 && (
                 <h2 className={'section-title'}>
-                    <StateNavLink name={'products'} params={filters}>
-                        {cmsBlock?.title || translate(`block_products.header.title_budget`)}
+                    <StateNavLink name={WebshopRoutes.PRODUCTS} params={filters}>
+                        {title || cmsBlock?.title || translate(`block_products.header.title_budget`)}
                     </StateNavLink>
                 </h2>
             )}
@@ -52,7 +55,10 @@ export default function BlockProducts({
 
             {showLoadMore && (
                 <div className="block block-show-more">
-                    <StateNavLink className="button button-primary show-more-button" name={'products'} query={filters}>
+                    <StateNavLink
+                        className="button button-primary show-more-button"
+                        name={WebshopRoutes.PRODUCTS}
+                        query={filters}>
                         {translate(`block_products.buttons.more`)}
                         <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                     </StateNavLink>

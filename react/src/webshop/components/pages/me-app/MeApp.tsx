@@ -6,6 +6,7 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import Section from '../../elements/sections/Section';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function MeApp() {
     const envData = useEnvData();
@@ -15,7 +16,7 @@ export default function MeApp() {
     return (
         <BlockShowcase
             breadcrumbItems={[
-                { name: translate('me.breadcrumbs.home'), state: 'home' },
+                { name: translate('me.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('me.breadcrumbs.me') },
             ]}>
             <Section type={'default'}>

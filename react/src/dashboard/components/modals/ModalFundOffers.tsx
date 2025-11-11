@@ -6,7 +6,6 @@ import Product from '../../props/models/Product';
 import { PaginationData } from '../../props/ApiResponses';
 import useProductService from '../../services/ProductService';
 import useProviderFundService from '../../services/ProviderFundService';
-import useFilter from '../../hooks/useFilter';
 import Paginator from '../../modules/paginator/components/Paginator';
 import { strLimit } from '../../helpers/string';
 import StateNavLink from '../../modules/state_router/StateNavLink';
@@ -15,6 +14,8 @@ import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 import Label from '../elements/image_cropper/Label';
+import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../modules/filter_next/useFilterNext';
 
 type LocalProduct = Product & {
     offer: {
@@ -48,7 +49,7 @@ export default function ModalFundOffers({
     const [paginatorKey] = useState('modal_fund_offers');
     const [enabledProducts, setEnabledProducts] = useState<number[]>([]);
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
@@ -89,10 +90,10 @@ export default function ModalFundOffers({
     }, [organization.id, providerFund.id, providerFundService]);
 
     useEffect(() => {
-        productService.list(organization.id, filter.activeValues).then((res) => {
+        productService.list(organization.id, filterValuesActive).then((res) => {
             setOffers(mapOffersAllowedProperty(res.data));
         });
-    }, [filter.activeValues, mapOffersAllowedProperty, organization.id, productService]);
+    }, [filterValuesActive, mapOffersAllowedProperty, organization.id, productService]);
 
     return (
         <div
@@ -131,7 +132,7 @@ export default function ModalFundOffers({
                                             <tr key={product.id}>
                                                 <td title={product.name}>
                                                     <StateNavLink
-                                                        name={'products-show'}
+                                                        name={DashboardRoutes.PRODUCT}
                                                         params={{ organizationId: organization.id, id: product.id }}
                                                         target={'_blank'}
                                                         className={'text-primary text-semibold'}>
@@ -203,8 +204,8 @@ export default function ModalFundOffers({
                         <Paginator
                             className={'flex-grow'}
                             meta={offers.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginatorKey}
                         />
                     )}

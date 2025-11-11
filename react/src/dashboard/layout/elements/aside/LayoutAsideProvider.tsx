@@ -14,6 +14,7 @@ import LayoutAsideGroupOrganization from './groups/LayoutAsideGroupOrganization'
 import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
 import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
 import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function LayoutAsideProvider({ organization }: { organization: Organization }) {
     const [pinnedGroups, setPinnedGroups] = usePinnedMenuGroups('pinnedMenuGroupsProvider');
@@ -24,7 +25,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
             <LayoutAsideNavGroup
                 id="menu_overview"
                 name="Overzicht"
-                state="provider-overview"
+                state={DashboardRoutes.PROVIDER_OVERVIEW}
                 stateParams={{ organizationId: organization?.id }}
                 show={hasPermission(organization, Permission.MANAGE_EMPLOYEES)}
                 icon={<IconOverview />}
@@ -46,14 +47,14 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                     {
                         id: 'products',
                         name: 'Aanbod',
-                        state: 'products',
+                        state: DashboardRoutes.PRODUCTS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_PRODUCTS),
                     },
                     {
                         id: 'reservations',
                         name: 'Reserveringen',
-                        state: 'reservations',
+                        state: DashboardRoutes.RESERVATIONS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.SCAN_VOUCHERS),
                         dusk: 'reservationsPage',
@@ -61,7 +62,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                     {
                         id: 'funds',
                         name: 'Fondsen',
-                        state: 'provider-funds',
+                        state: DashboardRoutes.PROVIDER_FUNDS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_PROVIDER_FUNDS),
                         dusk: 'fundsPage',
@@ -82,7 +83,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                     {
                         id: 'transactions',
                         name: 'Transacties',
-                        state: 'transactions',
+                        state: DashboardRoutes.TRANSACTIONS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.VIEW_FINANCES),
                         dusk: 'transactionsPage',
@@ -90,7 +91,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                     {
                         id: 'payment-methods',
                         name: 'Bijbetaalmethoden',
-                        state: 'payment-methods',
+                        state: DashboardRoutes.PAYMENT_METHODS,
                         stateParams: { organizationId: organization?.id },
                         show:
                             organization?.can_view_provider_extra_payments &&

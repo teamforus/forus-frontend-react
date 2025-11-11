@@ -3,6 +3,7 @@ import FundRequest from '../../../../../dashboard/props/models/FundRequest';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequest }) {
     const assetUrl = useAssetUrl();
@@ -18,7 +19,7 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
         <StateNavLink
             className="fund-request-item"
             dataDusk={`listFundRequestsRow${fundRequest.id}`}
-            name={'fund-request-show'}
+            name={WebshopRoutes.FUND_REQUEST_SHOW}
             params={{ id: fundRequest.id }}
             dataAttributes={{ 'data-search-item': 1 }}>
             <div className="fund-request-image">

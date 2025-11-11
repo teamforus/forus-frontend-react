@@ -1,0 +1,114 @@
+import React, { CSSProperties, useCallback, useState } from 'react';
+import BlockShowcase from './BlockShowcase';
+import BlockLoader from '../block-loader/BlockLoader';
+import ErrorBoundaryHandler from '../../../../dashboard/components/elements/error-boundary-handler/ErrorBoundaryHandler';
+import classNames from 'classnames';
+import BlockBreadcrumbs, { Breadcrumb } from '../block-breadcrumbs/BlockBreadcrumbs';
+import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
+import useIsMobile from '../../../hooks/useIsMobile';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import { useNavbarHeaderHeight } from '../../../hooks/useNavbarHeaderHeight';
+
+export default function BlockShowcaseList({
+    dusk = null,
+    aside = null,
+    children = null,
+    contentStyles = null,
+    breadcrumbItems = null,
+    showCaseClassName = null,
+    countFiltersApplied = null,
+}: {
+    dusk?: string;
+    aside?: React.ReactElement | Array<React.ReactElement>;
+    children?: React.ReactElement | Array<React.ReactElement>;
+    contentStyles?: CSSProperties;
+    breadcrumbItems?: Array<Breadcrumb>;
+    showCaseClassName?: string;
+    countFiltersApplied?: number;
+}) {
+    const isMobile = useIsMobile(1000);
+    const translate = useTranslate();
+    const navbarHeaderHeight = useNavbarHeaderHeight();
+
+    const [showModalFilters, setShowModalFilters] = useState(false);
+
+    const showMobileMenu = useCallback(() => {
+        setShowModalFilters(true);
+    }, []);
+
+    const hideMobileMenu = () => {
+        setShowModalFilters(false);
+    };
+
+    const toggleMobileMenu = useCallback(() => {
+        return showModalFilters ? hideMobileMenu() : showMobileMenu();
+    }, [showMobileMenu, showModalFilters]);
+    return (
+        <BlockShowcase className={showCaseClassName} breadcrumbItems={[]}>
+            <div
+                className="showcase-wrapper"
+                style={{ '--top-navbar-height': `${navbarHeaderHeight}px` } as CSSProperties}>
+                <div className={classNames('showcase-mobile-filters', 'rs_skip', countFiltersApplied && 'active')}>
+                    <div className="mobile-filters-count">
+                        <div className="mobile-filters-count-value">{countFiltersApplied}</div>
+                    </div>
+                    <div className="mobile-filters-title">{translate('global.showcase.filters')}</div>
+                    <div
+                        className="mobile-filters-icon"
+                        onClick={toggleMobileMenu}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={clickOnKeyEnter}
+                        aria-label={translate('global.showcase.filters')}
+                        aria-expanded={showModalFilters}
+                        aria-controls={'aside-mobile'}>
+                        <em className="mdi mdi-filter-outline" />
+                    </div>
+                </div>
+
+                {breadcrumbItems?.length > 0 && (
+                    <div className="hide-sm">
+                        <BlockBreadcrumbs
+                            items={breadcrumbItems}
+                            after={
+                                <ReadSpeakerButton className={'breadcrumb-read-speaker'} targetId={'main-content'} />
+                            }
+                        />
+                    </div>
+                )}
+
+                <ErrorBoundaryHandler>
+                    <div className="showcase-layout">
+                        <div
+                            className={classNames(
+                                'showcase-aside form form-compact',
+                                showModalFilters && 'show-mobile',
+                                isMobile && 'rs_skip',
+                            )}
+                            id={'aside-mobile'}>
+                            {aside || <BlockLoader />}
+                        </div>
+
+                        <div className="showcase-content" style={contentStyles} data-dusk={dusk}>
+                            <div className="show-sm">
+                                {breadcrumbItems?.length > 0 && (
+                                    <BlockBreadcrumbs
+                                        items={breadcrumbItems}
+                                        after={
+                                            <ReadSpeakerButton
+                                                className={'breadcrumb-read-speaker'}
+                                                targetId={'main-content'}
+                                            />
+                                        }
+                                    />
+                                )}
+                            </div>
+                            <ErrorBoundaryHandler>{children || <BlockLoader />}</ErrorBoundaryHandler>
+                        </div>
+                    </div>
+                </ErrorBoundaryHandler>
+            </div>
+        </BlockShowcase>
+    );
+}

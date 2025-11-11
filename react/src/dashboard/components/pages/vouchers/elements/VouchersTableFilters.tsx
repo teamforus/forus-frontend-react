@@ -6,7 +6,6 @@ import ClickOutside from '../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
-import FilterScope from '../../../../types/FilterScope';
 import useTranslate from '../../../../hooks/useTranslate';
 import useVoucherService from '../../../../services/VoucherService';
 import useVoucherTableOptions from '../hooks/useVoucherTableOptions';
@@ -15,6 +14,7 @@ import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Fund from '../../../../props/models/Fund';
 import { keyBy } from 'lodash';
+import { FilterScope } from '../../../../modules/filter_next/types/FilterParams';
 
 export type VouchersTableFiltersProps = {
     q?: string;

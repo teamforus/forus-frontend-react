@@ -9,13 +9,14 @@ import { authContext } from '../../../contexts/AuthContext';
 import { PaginationData, ResponseError } from '../../../../dashboard/props/ApiResponses';
 import SessionModel from '../../../../dashboard/props/models/Session';
 import { useSessionService } from '../../../../dashboard/services/SessionService';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import { ModalState } from '../../../../dashboard/modules/modals/context/ModalContext';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import ModalNotification from '../../modals/ModalNotification';
 import Auth2FARestriction from '../../../components/elements/auth2fa-restriction/Auth2FARestriction';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
@@ -29,7 +30,7 @@ export default function SecuritySessions() {
 
     const { signOut } = useContext(authContext);
 
-    const filter = useFilter({ per_page: 100 });
+    const [, filterValuesActive] = useFilterNext<{ per_page?: number }>({ per_page: 100 });
     const sessionService = useSessionService();
     const [sessions, setSessions] = useState<PaginationData<SessionModel>>(null);
     const [shownLocations, setShownLocations] = useState({});
@@ -51,10 +52,10 @@ export default function SecuritySessions() {
         setProgress(0);
 
         sessionService
-            .list(filter?.activeValues)
+            .list(filterValuesActive)
             .then((res) => setSessions(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, sessionService, filter?.activeValues]);
+    }, [setProgress, sessionService, filterValuesActive]);
 
     const findIcon = useCallback((session: SessionModel) => {
         const device = session.last_request.device?.device;
@@ -114,7 +115,7 @@ export default function SecuritySessions() {
                 .terminateAll()
                 .then(() => {
                     signOut();
-                    navigateState('home');
+                    navigateState(WebshopRoutes.HOME);
                     pushSuccess(translate('push.success'), translate('push.sessions.terminated'));
                 })
                 .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data?.message))
@@ -141,7 +142,7 @@ export default function SecuritySessions() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: translate('security_sessions.breadcrumbs.home'), state: 'home' },
+                { name: translate('security_sessions.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('security_sessions.breadcrumbs.security_sessions') },
             ]}
             profileHeader={

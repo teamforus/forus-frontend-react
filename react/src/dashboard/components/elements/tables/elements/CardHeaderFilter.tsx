@@ -1,14 +1,13 @@
 import React from 'react';
 import ClickOutside from '../../click-outside/ClickOutside';
-import FilterScope from '../../../../types/FilterScope';
-import FilterModel from '../../../../types/FilterModel';
+import { FilterModel, FilterScope } from '../../../../modules/filter_next/types/FilterParams';
 
 export default function CardHeaderFilter({
     filter,
     children,
 }: {
     filter: FilterScope<FilterModel>;
-    children: React.ReactElement | Array<React.ReactElement>;
+    children: React.ReactNode | Array<React.ReactNode>;
 }) {
     return (
         <div className="form inline-filters-dropdown pull-right">

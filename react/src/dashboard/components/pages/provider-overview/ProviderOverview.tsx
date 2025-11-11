@@ -13,6 +13,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import { hasPermission } from '../../../helpers/utils';
 import ProductsRequiredNotification from './elements/ProductsRequiredNotification';
 import { Permission } from '../../../props/models/Organization';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProviderOverview() {
     const envData = useEnvData();
@@ -98,7 +99,7 @@ export default function ProviderOverview() {
                                         </div>
                                         <div className="chart-action">
                                             <StateNavLink
-                                                name={'products-create'}
+                                                name={DashboardRoutes.PRODUCT_CREATE}
                                                 params={{ organizationId: activeOrganization.id }}
                                                 className={`button button-primary ${
                                                     productHardLimitReached ? 'disabled' : ''
@@ -128,7 +129,7 @@ export default function ProviderOverview() {
                                         </div>
                                         <div className="chart-action">
                                             <StateNavLink
-                                                name={'provider-funds'}
+                                                name={DashboardRoutes.PROVIDER_FUNDS}
                                                 params={{ organizationId: activeOrganization.id }}
                                                 className="button button-primary">
                                                 <em className="mdi mdi-eye-outline icon-start" />
@@ -151,7 +152,7 @@ export default function ProviderOverview() {
                                         </div>
                                         <div className="chart-action">
                                             <StateNavLink
-                                                name={'transactions'}
+                                                name={DashboardRoutes.TRANSACTIONS}
                                                 params={{ organizationId: activeOrganization.id }}
                                                 className="button button-primary">
                                                 <em className="mdi mdi-eye-outline icon-start" />
@@ -174,7 +175,7 @@ export default function ProviderOverview() {
                                         </div>
                                         <div className="chart-action">
                                             <StateNavLink
-                                                name={'employees'}
+                                                name={DashboardRoutes.EMPLOYEES}
                                                 params={{ organizationId: activeOrganization.id }}
                                                 className="button button-primary">
                                                 <em className="mdi mdi-eye-outline icon-start" />

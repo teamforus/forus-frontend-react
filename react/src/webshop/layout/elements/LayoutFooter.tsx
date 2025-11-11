@@ -10,6 +10,7 @@ import AppLinks from '../../components/elements/app-links/AppLinks';
 import Icon from '../../../../assets/forus-webshop/resources/_webshop-common/assets/img/me-logo.svg';
 import Section from '../../components/elements/sections/Section';
 import classNames from 'classnames';
+import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
 export default function LayoutFooter() {
     const translate = useTranslate();
@@ -83,7 +84,7 @@ export default function LayoutFooter() {
                                     <h3>{translate('app_footer.columns.links')}</h3>
                                     <nav className="footer-nav">
                                         <div className="footer-nav-item">
-                                            <StateNavLink name="sign-up" target="_self">
+                                            <StateNavLink name={WebshopRoutes.SIGN_UP} target="_self">
                                                 {translate('app_footer.provider_sign_up')}
                                             </StateNavLink>
                                         </div>
@@ -119,7 +120,7 @@ export default function LayoutFooter() {
                                                             <span aria-hidden="true">
                                                                 <Icon />
                                                             </span>
-                                                            <StateNavLink name="me-app" target="_blank">
+                                                            <StateNavLink name={WebshopRoutes.ME_APP} target="_blank">
                                                                 {translate('app_footer.me_app_more_info')}
                                                             </StateNavLink>
                                                         </div>
@@ -158,7 +159,7 @@ export default function LayoutFooter() {
                                 </div>
                             ))}
                             <div className="link-item">
-                                <StateNavLink name="sitemap" target="_self">
+                                <StateNavLink name={WebshopRoutes.SITEMAP} target="_self">
                                     {translate('app_footer.links.sitemap')}
                                 </StateNavLink>
                             </div>

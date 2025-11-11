@@ -10,6 +10,7 @@ import Fund from '../../../../props/models/Fund';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { hasPermission } from '../../../../helpers/utils';
 import useShowVoucherQrCode from '../hooks/useShowVoucherQrCode';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VouchersTableRow({
     funds,
@@ -39,7 +40,7 @@ export default function VouchersTableRow({
             key={voucher.id}
             customElement={'tr'}
             className="tr-clickable"
-            name={'vouchers-show'}
+            name={DashboardRoutes.VOUCHER}
             params={{ id: voucher.id, organizationId: organization.id }}
             dataDusk={`tableVoucherRow${voucher.id}`}>
             <td>#{voucher.number}</td>
@@ -61,11 +62,11 @@ export default function VouchersTableRow({
 
                     {(voucher.client_uid ||
                         (!voucher.identity_email && voucher.activation_code) ||
-                        (!voucher.identity_bsn && !voucher.relation_bsn && voucher.physical_card.code)) && (
+                        (!voucher.identity_bsn && !voucher.relation_bsn && voucher.physical_card.code_locale)) && (
                         <span>
                             NR:&nbsp;
                             <span className="text-muted-dark">
-                                {voucher.client_uid || voucher.physical_card.code || 'Nee'}
+                                {voucher.client_uid || voucher.physical_card.code_locale || 'Nee'}
                             </span>
                             &nbsp;
                         </span>
@@ -177,7 +178,7 @@ export default function VouchersTableRow({
                         <div className="dropdown dropdown-actions">
                             <StateNavLink
                                 className="dropdown-item"
-                                name={'vouchers-show'}
+                                name={DashboardRoutes.VOUCHER}
                                 params={{ organizationId: organization.id, id: voucher.id }}>
                                 <em className={'mdi mdi-eye icon-start'} />
                                 Bekijken

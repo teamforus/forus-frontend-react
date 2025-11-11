@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
@@ -23,6 +22,8 @@ import useTranslate from '../../../../hooks/useTranslate';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function ProviderFundsAvailableTable({
     organization,
@@ -55,16 +56,41 @@ export default function ProviderFundsAvailableTable({
         return { selected: funds?.data?.filter((item) => selected?.includes(item.id)) };
     }, [funds?.data, selected]);
 
-    const filter = useFilter({
-        q: '',
-        tag: null,
-        page: 1,
-        per_page: paginatorService.getPerPage(paginatorKey),
-        organization_id: null,
-        implementation_id: null,
-        order_by: 'organization_name',
-        order_dir: 'asc',
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        tag?: string;
+        organization_id?: number;
+        implementation_id?: number;
+        page?: number;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>(
+        {
+            q: '',
+            tag: null,
+            page: 1,
+            per_page: paginatorService.getPerPage(paginatorKey),
+            organization_id: null,
+            implementation_id: null,
+            order_by: 'organization_name',
+            order_dir: 'asc',
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                tag: StringParam,
+                organization_id: NumberParam,
+                implementation_id: NumberParam,
+                page: NumberParam,
+                per_page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
+
+    const { resetFilters: resetFilters } = filter;
 
     const { headElement, configsElement } = useConfigurableTable(providerFundService.getColumnsAvailable(), {
         filter: filter,
@@ -108,61 +134,15 @@ export default function ProviderFundsAvailableTable({
         ));
     }, [openModal, translate]);
 
-    const applyFunds = useCallback(
-        (funds) => {
-            if (organization.offices_count == 0) {
-                return failOfficesCheck();
-            }
-
-            const promises = funds.map((fund: Fund) => {
-                return providerFundService.applyForFund(organization.id, fund.id);
-            });
-
-            Promise.all(promises)
-                .then(() => {
-                    successApplying();
-                    setSelected([]);
-                })
-                .catch(pushApiError)
-                .finally(() => {
-                    filter.touch();
-                    onChange?.();
-                });
-        },
-        [
-            failOfficesCheck,
-            filter,
-            onChange,
-            organization.id,
-            organization.offices_count,
-            providerFundService,
-            pushApiError,
-            setSelected,
-            successApplying,
-        ],
-    );
-
-    const fetchFunds = useCallback(
-        async (filters: object) => {
-            setLoading(true);
-            setProgress(0);
-
-            try {
-                return await providerFundService.listAvailableFunds(organization.id, {
-                    ...filters,
-                });
-            } finally {
-                setLoading(false);
-                setProgress(100);
-            }
-        },
-        [organization.id, providerFundService, setProgress],
-    );
-
-    useEffect(() => {
+    const fetchFunds = useCallback(() => {
         setSelected([]);
+        setLoading(true);
+        setProgress(0);
 
-        fetchFunds(filter.activeValues)
+        providerFundService
+            .listAvailableFunds(organization.id, {
+                ...filterValuesActive,
+            })
             .then((res) => {
                 setFunds(res.data);
 
@@ -199,8 +179,56 @@ export default function ProviderFundsAvailableTable({
                     ];
                 });
             })
-            .catch(pushApiError);
-    }, [fetchFunds, filter.activeValues, organization, pushApiError, setSelected, translate]);
+            .catch(pushApiError)
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [filterValuesActive, organization.id, providerFundService, pushApiError, setProgress, setSelected, translate]);
+
+    const applyFunds = useCallback(
+        (funds: Array<Fund>) => {
+            if (organization.offices_count == 0) {
+                return failOfficesCheck();
+            }
+
+            const promises = funds.map((fund: Fund) => {
+                return providerFundService.applyForFund(organization.id, fund.id);
+            });
+
+            Promise.all(promises)
+                .then(() => {
+                    successApplying();
+                    setSelected([]);
+                })
+                .catch(pushApiError)
+                .finally(() => {
+                    fetchFunds();
+                    onChange?.();
+                });
+        },
+        [
+            failOfficesCheck,
+            fetchFunds,
+            onChange,
+            organization.id,
+            organization.offices_count,
+            providerFundService,
+            pushApiError,
+            setSelected,
+            successApplying,
+        ],
+    );
+
+    useEffect(() => {
+        fetchFunds();
+    }, [fetchFunds]);
+
+    useEffect(() => {
+        return () => {
+            resetFilters();
+        };
+    }, [resetFilters]);
 
     return (
         <div className="card" data-dusk="tableFundsAvailableContent">
@@ -224,7 +252,7 @@ export default function ProviderFundsAvailableTable({
                             </button>
                         )}
                         {filter.show && (
-                            <div className="button button-text" onClick={filter.resetFilters}>
+                            <div className="button button-text" onClick={() => resetFilters()}>
                                 <em className="mdi mdi-close icon-start" />
                                 Wis filters
                             </div>
@@ -235,9 +263,9 @@ export default function ProviderFundsAvailableTable({
                                 <div className="form-group">
                                     <input
                                         className="form-control"
-                                        value={filter.values.q}
+                                        value={filterValues.q}
                                         data-dusk="tableFundsAvailableSearch"
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder="Zoeken"
                                     />
                                 </div>
@@ -248,8 +276,8 @@ export default function ProviderFundsAvailableTable({
                             <FilterItemToggle label={translate('provider_funds.filters.labels.search')} show={true}>
                                 <input
                                     className="form-control"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder="Zoeken"
                                 />
                             </FilterItemToggle>
@@ -258,12 +286,12 @@ export default function ProviderFundsAvailableTable({
                                 dusk="selectControlImplementationsToggle"
                                 label={translate('provider_funds.filters.labels.implementations')}>
                                 <SelectControl
-                                    value={filter.values.implementation_id}
+                                    value={filterValues.implementation_id}
                                     options={implementations}
                                     propKey={'id'}
                                     propValue={'name'}
                                     dusk="selectControlImplementations"
-                                    onChange={(implementation_id?: number) => filter.update({ implementation_id })}
+                                    onChange={(implementation_id?: number) => filterUpdate({ implementation_id })}
                                 />
                             </FilterItemToggle>
 
@@ -271,12 +299,12 @@ export default function ProviderFundsAvailableTable({
                                 dusk="selectControlOrganizationsToggle"
                                 label={translate('provider_funds.filters.labels.organizations')}>
                                 <SelectControl
-                                    value={filter.values.organization_id}
+                                    value={filterValues.organization_id}
                                     options={organizations}
                                     propKey={'id'}
                                     propValue={'name'}
                                     dusk="selectControlOrganizations"
-                                    onChange={(organization_id?: number) => filter.update({ organization_id })}
+                                    onChange={(organization_id?: number) => filterUpdate({ organization_id })}
                                 />
                             </FilterItemToggle>
 
@@ -284,12 +312,12 @@ export default function ProviderFundsAvailableTable({
                                 dusk="selectControlTagsToggle"
                                 label={translate('provider_funds.filters.labels.tags')}>
                                 <SelectControl
-                                    value={filter.values.tag}
+                                    value={filterValues.tag}
                                     options={tags}
                                     propKey={'key'}
                                     propValue={'name'}
                                     dusk="selectControlTags"
-                                    onChange={(tag?: string) => filter.update({ tag })}
+                                    onChange={(tag?: string) => filterUpdate({ tag })}
                                 />
                             </FilterItemToggle>
                         </CardHeaderFilter>
@@ -399,8 +427,8 @@ export default function ProviderFundsAvailableTable({
                 <div className="card-section">
                     <Paginator
                         meta={funds.meta}
-                        filters={filter.activeValues}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

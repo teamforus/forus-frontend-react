@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import Transaction from '../../../props/models/Transaction';
@@ -6,7 +6,6 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import useTransactionService from '../../../services/TransactionService';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useEnvData from '../../../hooks/useEnvData';
-import useFilter from '../../../hooks/useFilter';
 import useTransactionBulkService from '../../../services/TransactionBulkService';
 import { PaginationData } from '../../../props/ApiResponses';
 import { strLimit } from '../../../helpers/string';
@@ -41,6 +40,9 @@ import Label from '../../elements/image_cropper/Label';
 import useConfirmDangerAction from '../../../hooks/useConfirmDangerAction';
 import { Permission } from '../../../props/models/Organization';
 import TransactionBulksCard from './elements/TransactionBulksCard';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -109,10 +111,31 @@ export default function Transactions() {
     ]);
 
     const [viewType, setViewType] = useState(viewTypes[0]);
+    const prevViewType = useRef<string>(null);
     const [paginatorTransactionsKey] = useState('transactions');
     const [paginatorTransactionBulkKey] = useState('transaction_bulks');
 
-    const filter = useFilter(
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        state: string;
+        fund_id?: number;
+        fund_state?: string;
+        from?: string;
+        to?: string;
+        amount_min?: string;
+        amount_max?: string;
+        transfer_in_min?: string;
+        transfer_in_max?: string;
+        non_cancelable_from?: string;
+        non_cancelable_to?: string;
+        execution_date_from?: string;
+        execution_date_to?: string;
+        bulk_state?: string;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+        page?: number;
+    }>(
         {
             q: '',
             state: states[0].key,
@@ -133,7 +156,30 @@ export default function Transactions() {
             order_by: 'created_at',
             order_dir: 'desc',
         },
-        ['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max'],
+        {
+            queryParams: {
+                q: StringParam,
+                to: StringParam,
+                from: StringParam,
+                state: createEnumParam(['pending', 'success']),
+                fund_id: NumberParam,
+                fund_state: createEnumParam(['closed', 'active']),
+                amount_min: NumberParam,
+                amount_max: NumberParam,
+                transfer_in_min: NumberParam,
+                transfer_in_max: NumberParam,
+                non_cancelable_from: StringParam,
+                non_cancelable_to: StringParam,
+                execution_date_from: StringParam,
+                execution_date_to: StringParam,
+                bulk_state: createEnumParam(['draft', 'error', 'pending', 'accepted', 'rejected']),
+                order_by: StringParam,
+                order_dir: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+            throttledValues: ['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max'],
+        },
     );
 
     const { headElement, configsElement } = useConfigurableTable(transactionService.getColumns(isSponsor, isProvider), {
@@ -142,7 +188,19 @@ export default function Transactions() {
         sortableExclude: ['method', 'branch_name', 'branch_number', 'amount_extra'],
     });
 
-    const bulkFilter = useFilter(
+    const [bulkFilterValues, bulkFilterValuesActive, bulkFilterUpdate, bulkFilter] = useFilterNext<{
+        from?: string;
+        to?: string;
+        amount_min?: string;
+        amount_max?: string;
+        quantity_min?: string;
+        quantity_max?: string;
+        state?: string;
+        page?: number;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>(
         {
             from: null,
             to: null,
@@ -155,7 +213,22 @@ export default function Transactions() {
             order_by: 'created_at',
             order_dir: 'desc',
         },
-        ['q', 'amount_min', 'amount_max', 'quantity_min', 'quantity_max'],
+        {
+            queryParams: {
+                to: StringParam,
+                from: StringParam,
+                state: createEnumParam(['pending', 'success']),
+                amount_min: NumberParam,
+                amount_max: NumberParam,
+                quantity_min: NumberParam,
+                quantity_max: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+            throttledValues: ['amount_min', 'amount_max', 'quantity_min', 'quantity_max'],
+        },
     );
 
     const fetchFunds = useCallback(
@@ -204,27 +277,27 @@ export default function Transactions() {
         setShow(false);
 
         transactionExporter.exportData(activeOrganization.id, {
-            ...filter.activeValues,
+            ...filterValuesActive,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, setShow, transactionExporter]);
+    }, [activeOrganization.id, filterValuesActive, setShow, transactionExporter]);
 
     const exportTransactionBulks = useCallback(() => {
         setShowBulk(false);
 
         transactionBulkExporter.exportData(activeOrganization.id, {
-            ...bulkFilter.activeValues,
+            ...bulkFilterValuesActive,
             per_page: null,
         });
-    }, [activeOrganization.id, bulkFilter.activeValues, setShowBulk, transactionBulkExporter]);
+    }, [activeOrganization.id, bulkFilterValuesActive, setShowBulk, transactionBulkExporter]);
 
     const updateHasPendingBulking = useCallback(() => {
         fetchTransactions({
-            ...filter.activeValues,
+            ...filterValuesActive,
             pending_bulking: 1,
             per_page: 1,
         }).then((res) => setPendingBulkingMeta(res.data.meta));
-    }, [fetchTransactions, filter.activeValues]);
+    }, [fetchTransactions, filterValuesActive]);
 
     const uploadTransactions = useCallback(() => {
         openModal((modal) => (
@@ -232,7 +305,7 @@ export default function Transactions() {
                 modal={modal}
                 organization={activeOrganization}
                 onCreated={() => {
-                    fetchTransactions(filter.activeValues).then((res) => setTransactions(res.data));
+                    fetchTransactions(filterValuesActive).then((res) => setTransactions(res.data));
 
                     if (isSponsor && activeOrganization?.has_bank_connection) {
                         updateHasPendingBulking();
@@ -240,7 +313,7 @@ export default function Transactions() {
                 }}
             />
         ));
-    }, [activeOrganization, fetchTransactions, filter.activeValues, isSponsor, openModal, updateHasPendingBulking]);
+    }, [activeOrganization, fetchTransactions, filterValuesActive, isSponsor, openModal, updateHasPendingBulking]);
 
     const confirmBulkNow = useCallback(() => {
         const total = pendingBulkingMeta.total;
@@ -266,7 +339,7 @@ export default function Transactions() {
             setProgress(0);
 
             transactionBulkService
-                .bulkNow(activeOrganization.id, filter.activeValues)
+                .bulkNow(activeOrganization.id, filterValuesActive)
                 .then((res) => {
                     const bulks = res.data.data;
 
@@ -274,16 +347,16 @@ export default function Transactions() {
                         setViewType(viewTypes.find((viewType) => viewType.key == 'bulks'));
 
                         pushSuccess(
-                            'Succes!',
-                            `${bulks.length} bulk betaalopdrachten aangemaakt. Accepteer de transactie in uw mobiele app van bunq.`,
+                            'Gelukt!',
+                            `${bulks.length} bulk betaalopdrachten aangemaakt. Accepteer de transactie in uw bankomgeving.`,
                         );
                     } else if (bulks.length == 1) {
-                        navigateState('transaction-bulk', {
+                        navigateState(DashboardRoutes.TRANSACTION_BULK, {
                             organizationId: activeOrganization.id,
                             id: bulks[0].id,
                         });
 
-                        pushSuccess(`Succes!`, `Accepteer de transactie in uw mobiele app van bunq.`);
+                        pushSuccess(`Gelukt!`, `Accepteer de transactie in uw bankomgeving.`);
                     }
                 })
                 .catch(pushApiError)
@@ -296,7 +369,7 @@ export default function Transactions() {
     }, [
         activeOrganization.id,
         confirmBulkNow,
-        filter.activeValues,
+        filterValuesActive,
         navigateState,
         pushApiError,
         pushSuccess,
@@ -308,9 +381,9 @@ export default function Transactions() {
 
     useEffect(() => {
         if (viewType.key === 'bulks') {
-            fetchTransactionBulks(bulkFilter.activeValues).then((res) => setTransactionBulks(res.data));
+            fetchTransactionBulks(bulkFilterValuesActive).then((res) => setTransactionBulks(res.data));
         } else {
-            fetchTransactions(filter.activeValues).then((res) => setTransactions(res.data));
+            fetchTransactions(filterValuesActive).then((res) => setTransactions(res.data));
 
             if (isSponsor && activeOrganization?.has_bank_connection) {
                 updateHasPendingBulking();
@@ -320,8 +393,8 @@ export default function Transactions() {
         isSponsor,
         fetchTransactionBulks,
         fetchTransactions,
-        bulkFilter.activeValues,
-        filter.activeValues,
+        bulkFilterValuesActive,
+        filterValuesActive,
         viewType.key,
         activeOrganization?.has_bank_connection,
         updateHasPendingBulking,
@@ -330,6 +403,18 @@ export default function Transactions() {
     useEffect(() => {
         fetchFunds({ per_page: 100 }).then((funds) => setFunds(funds));
     }, [fetchFunds]);
+
+    useEffect(() => {
+        if (prevViewType.current === 'bulks') {
+            resetBulkFilters();
+        }
+
+        if (prevViewType.current === 'transactions') {
+            resetFilters();
+        }
+
+        prevViewType.current = viewType?.key;
+    }, [resetFilters, resetBulkFilters, viewType?.key]);
 
     if (
         (viewType.key === 'transactions' && !transactions) ||
@@ -406,7 +491,7 @@ export default function Transactions() {
 
                         {viewType.key == 'transactions' && isProvider && (
                             <StateNavLink
-                                name={'transaction-settings'}
+                                name={DashboardRoutes.TRANSACTION_SETTINGS}
                                 params={{ organizationId: activeOrganization.id }}
                                 className="button button-primary button-sm">
                                 <em className="mdi mdi-cog icon-start" />
@@ -419,8 +504,8 @@ export default function Transactions() {
                                 <div className="form-group">
                                     <input
                                         className="form-control"
-                                        value={filter.values.q}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        value={filterValues.q}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                         data-dusk="tableTransactionSearch"
                                         placeholder={translate('transactions.labels.search')}
                                     />
@@ -433,8 +518,8 @@ export default function Transactions() {
                                 <FilterItemToggle label={translate('transactions.labels.search')} show={true}>
                                     <input
                                         className="form-control"
-                                        value={filter.values.q}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        value={filterValues.q}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('transactions.labels.search')}
                                     />
                                 </FilterItemToggle>
@@ -446,9 +531,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={filter.values.amount_min || ''}
+                                                value={filterValues.amount_min || ''}
                                                 onChange={(e) =>
-                                                    filter.update({
+                                                    filterUpdate({
                                                         amount_min: e.target.value,
                                                     })
                                                 }
@@ -460,9 +545,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={filter.values.amount_max || ''}
+                                                value={filterValues.amount_max || ''}
                                                 onChange={(e) =>
-                                                    filter.update({
+                                                    filterUpdate({
                                                         amount_max: e.target.value,
                                                     })
                                                 }
@@ -477,9 +562,9 @@ export default function Transactions() {
                                         className="form-control"
                                         propKey={'key'}
                                         allowSearch={false}
-                                        value={filter.values.state}
+                                        value={filterValues.state}
                                         options={states}
-                                        onChange={(state: string) => filter.update({ state })}
+                                        onChange={(state: string) => filterUpdate({ state })}
                                     />
                                 </FilterItemToggle>
 
@@ -493,27 +578,28 @@ export default function Transactions() {
                                             allowSearch={false}
                                             options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
                                             dusk="fundSelect"
-                                            onChange={(fund_id: number) => filter.update({ fund_id })}
+                                            value={filterValues.fund_id}
+                                            onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                         />
                                     )}
                                 </FilterItemToggle>
 
                                 <FilterItemToggle label={translate('transactions.labels.from')}>
                                     <DatePickerControl
-                                        value={dateParse(filter.values.from)}
+                                        value={dateParse(filterValues.from)}
                                         placeholder={translate('jjjj-MM-dd')}
                                         onChange={(from: Date) => {
-                                            filter.update({ from: dateFormat(from) });
+                                            filterUpdate({ from: dateFormat(from) });
                                         }}
                                     />
                                 </FilterItemToggle>
 
                                 <FilterItemToggle label={translate('transactions.labels.to')}>
                                     <DatePickerControl
-                                        value={dateParse(filter.values.to)}
+                                        value={dateParse(filterValues.to)}
                                         placeholder={translate('jjjj-MM-dd')}
                                         onChange={(to: Date) => {
-                                            filter.update({ to: dateFormat(to) });
+                                            filterUpdate({ to: dateFormat(to) });
                                         }}
                                     />
                                 </FilterItemToggle>
@@ -525,10 +611,10 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={filter.values.transfer_in_min || ''}
+                                                value={filterValues.transfer_in_min || ''}
                                                 onChange={(e) => {
                                                     if (!e.target.value || parseInt(e.target.value) >= 0) {
-                                                        filter.update({ transfer_in_min: e.target.value });
+                                                        filterUpdate({ transfer_in_min: e.target.value });
                                                     }
                                                 }}
                                                 placeholder={translate('transactions.labels.transfer_in_min')}
@@ -539,10 +625,10 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={filter.values.transfer_in_max || ''}
+                                                value={filterValues.transfer_in_max || ''}
                                                 onChange={(e) => {
                                                     if (!e.target.value || parseInt(e.target.value) <= 14) {
-                                                        filter.update({ transfer_in_max: e.target.value });
+                                                        filterUpdate({ transfer_in_max: e.target.value });
                                                     }
                                                 }}
                                                 placeholder={translate('transactions.labels.transfer_in_max')}
@@ -555,40 +641,40 @@ export default function Transactions() {
                                     <Fragment>
                                         <FilterItemToggle label={translate('transactions.labels.non_cancelable_from')}>
                                             <DatePickerControl
-                                                value={dateParse(filter.values.non_cancelable_from)}
+                                                value={dateParse(filterValues.non_cancelable_from)}
                                                 placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(from: Date) => {
-                                                    filter.update({ non_cancelable_from: dateFormat(from) });
+                                                    filterUpdate({ non_cancelable_from: dateFormat(from) });
                                                 }}
                                             />
                                         </FilterItemToggle>
 
                                         <FilterItemToggle label={translate('transactions.labels.non_cancelable_to')}>
                                             <DatePickerControl
-                                                value={dateParse(filter.values.non_cancelable_to)}
+                                                value={dateParse(filterValues.non_cancelable_to)}
                                                 placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(to: Date) => {
-                                                    filter.update({ non_cancelable_to: dateFormat(to) });
+                                                    filterUpdate({ non_cancelable_to: dateFormat(to) });
                                                 }}
                                             />
                                         </FilterItemToggle>
 
                                         <FilterItemToggle label={translate('transactions.labels.execution_date_from')}>
                                             <DatePickerControl
-                                                value={dateParse(filter.values.execution_date_from)}
+                                                value={dateParse(filterValues.execution_date_from)}
                                                 placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(from: Date) => {
-                                                    filter.update({ execution_date_from: dateFormat(from) });
+                                                    filterUpdate({ execution_date_from: dateFormat(from) });
                                                 }}
                                             />
                                         </FilterItemToggle>
 
                                         <FilterItemToggle label={translate('transactions.labels.execution_date_to')}>
                                             <DatePickerControl
-                                                value={dateParse(filter.values.execution_date_to)}
+                                                value={dateParse(filterValues.execution_date_to)}
                                                 placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(to: Date) => {
-                                                    filter.update({ execution_date_to: dateFormat(to) });
+                                                    filterUpdate({ execution_date_to: dateFormat(to) });
                                                 }}
                                             />
                                         </FilterItemToggle>
@@ -598,9 +684,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 propKey={'key'}
                                                 allowSearch={false}
-                                                value={filter.values.bulk_state}
+                                                value={filterValues.bulk_state}
                                                 options={bulkStates}
-                                                onChange={(bulk_state: string) => filter.update({ bulk_state })}
+                                                onChange={(bulk_state: string) => filterUpdate({ bulk_state })}
                                             />
                                         </FilterItemToggle>
                                     </Fragment>
@@ -611,9 +697,9 @@ export default function Transactions() {
                                         className="form-control"
                                         propKey={'key'}
                                         allowSearch={false}
-                                        value={filter.values.fund_state}
+                                        value={filterValues.fund_state}
                                         options={fundStates}
-                                        onChange={(fund_state: string) => filter.update({ fund_state })}
+                                        onChange={(fund_state: string) => filterUpdate({ fund_state })}
                                     />
                                 </FilterItemToggle>
 
@@ -640,9 +726,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={bulkFilter.values.amount_min || ''}
+                                                value={bulkFilterValues.amount_min || ''}
                                                 onChange={(e) =>
-                                                    bulkFilter.update({
+                                                    bulkFilterUpdate({
                                                         amount_min: e.target.value,
                                                     })
                                                 }
@@ -654,9 +740,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={bulkFilter.values.amount_max || ''}
+                                                value={bulkFilterValues.amount_max || ''}
                                                 onChange={(e) =>
-                                                    bulkFilter.update({
+                                                    bulkFilterUpdate({
                                                         amount_max: e.target.value,
                                                     })
                                                 }
@@ -673,9 +759,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={bulkFilter.values.quantity_min || ''}
+                                                value={bulkFilterValues.quantity_min || ''}
                                                 onChange={(e) =>
-                                                    bulkFilter.update({
+                                                    bulkFilterUpdate({
                                                         quantity_min: e.target.value,
                                                     })
                                                 }
@@ -687,9 +773,9 @@ export default function Transactions() {
                                                 className="form-control"
                                                 min={0}
                                                 type="number"
-                                                value={bulkFilter.values.quantity_max || ''}
+                                                value={bulkFilterValues.quantity_max || ''}
                                                 onChange={(e) =>
-                                                    bulkFilter.update({
+                                                    bulkFilterUpdate({
                                                         quantity_max: e.target.value,
                                                     })
                                                 }
@@ -704,28 +790,28 @@ export default function Transactions() {
                                         className="form-control"
                                         propKey={'key'}
                                         allowSearch={false}
-                                        value={bulkFilter.values.state}
+                                        value={bulkFilterValues.state}
                                         options={bulkStates}
-                                        onChange={(state: string) => bulkFilter.update({ state })}
+                                        onChange={(state: string) => bulkFilterUpdate({ state })}
                                     />
                                 </FilterItemToggle>
 
                                 <FilterItemToggle label={translate('transactions.labels.from')}>
                                     <DatePickerControl
-                                        value={dateParse(bulkFilter.values.from)}
+                                        value={dateParse(bulkFilterValues.from)}
                                         placeholder={translate('jjjj-MM-dd')}
                                         onChange={(from: Date) => {
-                                            bulkFilter.update({ from: dateFormat(from) });
+                                            bulkFilterUpdate({ from: dateFormat(from) });
                                         }}
                                     />
                                 </FilterItemToggle>
 
                                 <FilterItemToggle label={translate('transactions.labels.to')}>
                                     <DatePickerControl
-                                        value={dateParse(bulkFilter.values.to)}
+                                        value={dateParse(bulkFilterValues.to)}
                                         placeholder={translate('jjjj-MM-dd')}
                                         onChange={(to: Date) => {
-                                            bulkFilter.update({ to: dateFormat(to) });
+                                            bulkFilterUpdate({ to: dateFormat(to) });
                                         }}
                                     />
                                 </FilterItemToggle>
@@ -763,7 +849,7 @@ export default function Transactions() {
                                             customElement={'tr'}
                                             className={'tr-clickable'}
                                             key={transaction.id}
-                                            name={'transaction'}
+                                            name={DashboardRoutes.TRANSACTION}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 address: transaction.address,
@@ -778,7 +864,7 @@ export default function Transactions() {
                                             )}
                                             <td>
                                                 <StateNavLink
-                                                    name={'transaction'}
+                                                    name={DashboardRoutes.TRANSACTION}
                                                     params={{
                                                         address: transaction.address,
                                                         organizationId: activeOrganization.id,
@@ -899,7 +985,7 @@ export default function Transactions() {
                                             {isSponsor && transaction.voucher_transaction_bulk_id && (
                                                 <td>
                                                     <StateNavLink
-                                                        name={'transaction-bulk'}
+                                                        name={DashboardRoutes.TRANSACTION_BULK}
                                                         params={{
                                                             organizationId: activeOrganization.id,
                                                             id: transaction.voucher_transaction_bulk_id,
@@ -914,13 +1000,7 @@ export default function Transactions() {
                                                     {transaction.transfer_in > 0 &&
                                                     transaction.state == 'pending' &&
                                                     transaction.attempts < 3 ? (
-                                                        <div>
-                                                            <div>In afwachting</div>
-                                                            <div className="text-sm text-muted-dark">
-                                                                <em className="mdi mdi-clock-outline"> </em>
-                                                                {transaction.transfer_in} dagen resterend
-                                                            </div>
-                                                        </div>
+                                                        <div>In afwachting</div>
                                                     ) : (
                                                         <TableEmptyValue />
                                                     )}
@@ -948,13 +1028,23 @@ export default function Transactions() {
                                             <td data-dusk="transactionState">
                                                 <TransactionStateLabel transaction={transaction} />
                                             </td>
+                                            <td>
+                                                {transaction.transfer_in > 0 && transaction.state == 'pending' ? (
+                                                    <div className="text-muted-dark">
+                                                        <em className="mdi mdi-clock-outline"> </em>
+                                                        {transaction.transfer_in} dagen resterend
+                                                    </div>
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
                                             <td className={'table-td-actions text-right'}>
                                                 <TableRowActions
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
                                                             <StateNavLink
                                                                 className="dropdown-item"
-                                                                name={'transaction'}
+                                                                name={DashboardRoutes.TRANSACTION}
                                                                 params={{
                                                                     organizationId: activeOrganization.id,
                                                                     address: transaction.address,
@@ -1031,8 +1121,8 @@ export default function Transactions() {
                 <div className="card-section" hidden={transactions?.meta?.total < 1}>
                     <Paginator
                         meta={transactions.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorTransactionsKey}
                     />
                 </div>
@@ -1061,8 +1151,8 @@ export default function Transactions() {
                 <div className="card-section" hidden={transactionBulks?.meta?.total < 1}>
                     <Paginator
                         meta={transactionBulks.meta}
-                        filters={bulkFilter.values}
-                        updateFilters={bulkFilter.update}
+                        filters={bulkFilterValues}
+                        updateFilters={bulkFilterUpdate}
                         perPageKey={paginatorTransactionBulkKey}
                     />
                 </div>

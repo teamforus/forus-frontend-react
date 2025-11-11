@@ -16,6 +16,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import FormGroup from '../../elements/forms/elements/FormGroup';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ReservationsSettings() {
     const translate = useTranslate();
@@ -98,7 +99,7 @@ export default function ReservationsSettings() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'reservations'}
+                    name={DashboardRoutes.RESERVATIONS}
                     params={{ organizationId: activeOrganization.id }}
                     activeExact={true}
                     className={'breadcrumb-item'}>
@@ -118,7 +119,7 @@ export default function ReservationsSettings() {
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary card-section-settings">
+                <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
                             <FormGroup
@@ -209,7 +210,7 @@ export default function ReservationsSettings() {
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary card-section-settings">
+                <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
                             <FormGroup
@@ -250,7 +251,7 @@ export default function ReservationsSettings() {
 
                 {activeOrganization.can_receive_extra_payments &&
                     hasPermission(activeOrganization, Permission.MANAGE_PAYMENT_METHODS) && (
-                        <div className="card-section card-section-primary card-section-settings">
+                        <div className="card-section card-section-primary">
                             <div className="row">
                                 <div className="col col-md-10 col-md-offset-2 col-xs-12">
                                     <FormGroup
@@ -277,7 +278,7 @@ export default function ReservationsSettings() {
                 <div className="card-section card-section-primary">
                     <div className="button-group flex-center">
                         <StateNavLink
-                            name={'reservations'}
+                            name={DashboardRoutes.RESERVATIONS}
                             params={{ organizationId: activeOrganization.id }}
                             className="button button-default">
                             {translate('reservation_settings.buttons.cancel')}

@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import ProviderFinancialTablesTransactions from './ProviderFinancialTablesTransactions';
 import Paginator from '../../../../modules/paginator/components/Paginator';
-import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import { useOrganizationService } from '../../../../services/OrganizationService';
@@ -16,6 +15,7 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import useProviderFinancialExporter from '../../../../services/exporters/useProviderFinancialExporter';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
@@ -32,8 +32,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     const [showTransactions, setShowTransactions] = useState<Array<string>>([]);
     const [providersFinances, setProvidersFinances] = useState<PaginationData<ProviderFinancialLocal>>(null);
 
-    const filter = useFilter({
-        page: 1,
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
@@ -42,9 +41,9 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     const financeProvidersExport = useCallback(() => {
         providerFinancialExporter.exportData(activeOrganization.id, {
             ...externalFilters,
-            ...filter.activeValues,
+            ...filterValuesActive,
         });
-    }, [activeOrganization.id, externalFilters, filter?.activeValues, providerFinancialExporter]);
+    }, [activeOrganization.id, externalFilters, filterValuesActive, providerFinancialExporter]);
 
     const toggleTransactionsTable = useCallback((id: string) => {
         setShowTransactions((list) => {
@@ -60,7 +59,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
     const fetchProviderFinances = useCallback(() => {
         organizationService
-            .financeProviders(activeOrganization.id, { ...externalFilters, ...filter.activeValues })
+            .financeProviders(activeOrganization.id, { ...externalFilters, ...filterValuesActive })
             .then((res) => {
                 setShowTransactions([]);
 
@@ -70,7 +69,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                 });
             })
             .catch(pushApiError);
-    }, [organizationService, activeOrganization?.id, filter?.activeValues, externalFilters, pushApiError]);
+    }, [organizationService, activeOrganization?.id, filterValuesActive, externalFilters, pushApiError]);
 
     useEffect(() => fetchProviderFinances(), [fetchProviderFinances]);
 
@@ -175,8 +174,8 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                         <div className="card-section">
                             <Paginator
                                 meta={providersFinances.meta}
-                                filters={filter.values}
-                                updateFilters={filter.update}
+                                filters={filterValues}
+                                updateFilters={filterUpdate}
                                 perPageKey={paginatorKey}
                             />
                         </div>

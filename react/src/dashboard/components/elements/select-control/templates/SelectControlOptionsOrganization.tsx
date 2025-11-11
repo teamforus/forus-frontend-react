@@ -11,6 +11,7 @@ import { hasPermission } from '../../../../helpers/utils';
 import useIsSponsorPanel from '../../../../hooks/useIsSponsorPanel';
 import useSelectControlKeyEventHandlers from '../hooks/useSelectControlKeyEventHandlers';
 import { clickOnKeyEnter } from '../../../../helpers/wcag';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function SelectControlOptionsOrganization<T>({
     query,
@@ -177,7 +178,7 @@ export default function SelectControlOptionsOrganization<T>({
                         <div className="select-control-options-actions">
                             {isSponsorPanel && hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
-                                    name={'organizations-contacts'}
+                                    name={DashboardRoutes.ORGANIZATION_CONTACTS}
                                     params={{ organizationId: (modelValue?.raw as Organization)?.id }}
                                     onClick={() => setShowOptions(false)}
                                     className="select-control-switcher-setting">
@@ -194,7 +195,7 @@ export default function SelectControlOptionsOrganization<T>({
                                 hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) &&
                                 activeOrganization.allow_translations && (
                                     <StateNavLink
-                                        name={'organizations-translations'}
+                                        name={DashboardRoutes.ORGANIZATION_TRANSLATIONS}
                                         params={{ organizationId: (modelValue?.raw as Organization)?.id }}
                                         onClick={() => setShowOptions(false)}
                                         className="select-control-switcher-setting">
@@ -209,7 +210,7 @@ export default function SelectControlOptionsOrganization<T>({
 
                             {hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
-                                    name={'organizations-edit'}
+                                    name={DashboardRoutes.ORGANIZATION_EDIT}
                                     params={{ organizationId: (modelValue?.raw as Organization)?.id }}
                                     onClick={() => setShowOptions(false)}
                                     className="select-control-switcher-setting">
@@ -223,7 +224,7 @@ export default function SelectControlOptionsOrganization<T>({
                             )}
 
                             <StateNavLink
-                                name={'organizations-create'}
+                                name={DashboardRoutes.ORGANIZATION_CREATE}
                                 onClick={() => setShowOptions(false)}
                                 className="select-control-switcher-setting">
                                 <div className="select-control-switcher-setting-icon">
