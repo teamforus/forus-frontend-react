@@ -1,21 +1,22 @@
+import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import Voucher from '../../../../../dashboard/props/models/Voucher';
+import QrCode from '../../../../../dashboard/components/elements/qr-code/QrCode';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import React, { useCallback, useMemo } from 'react';
-import useSendVoucherEmail from '../hooks/useSendVoucherEmail';
-import useOpenVoucherInMeModal from '../hooks/useOpenVoucherInMeModal';
-import usePrintVoucherQrCodeModal from '../hooks/usePrintVoucherQrCodeModal';
 import useLinkVoucherPhysicalCard from '../hooks/useLinkVoucherPhysicalCard';
 import useUnlinkVoucherPhysicalCard from '../hooks/useUnlinkVoucherPhysicalCard';
-import Voucher from '../../../../../dashboard/props/models/Voucher';
+import useShowPhysicalCardsOption from '../hooks/useShowPhysicalCardsOption';
 import ModalShareVoucher from '../../../modals/ModalShareVoucher';
 import ModalDeactivateVoucher from '../../../modals/ModalDeactivateVoucher';
-import useEnvData from '../../../../hooks/useEnvData';
+import ModalNotification from '../../../modals/ModalNotification';
 import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import useVoucherData from '../../../../services/helpers/useVoucherData';
-import ModalNotification from '../../../modals/ModalNotification';
 import { useVoucherService } from '../../../../services/VoucherService';
-import { useNavigateState } from '../../../../modules/state_router/Router';
-import useShowPhysicalCardsOption from '../hooks/useShowPhysicalCardsOption';
+import { useNavigate } from 'react-router';
+import VoucherShareOptions from './VoucherShareOptions';
+import useVoucherCard from '../hooks/useVoucherCard';
+import { makeQrCodeContent } from '../../../../../dashboard/helpers/utils';
+import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function VoucherActions({
@@ -24,53 +25,50 @@ export default function VoucherActions({
     fetchVoucher,
 }: {
     voucher: Voucher;
-    setVoucher: React.Dispatch<React.SetStateAction<Voucher>>;
+    setVoucher: Dispatch<SetStateAction<Voucher>>;
     fetchVoucher: () => void;
 }) {
-    const envData = useEnvData();
-    const voucherCard = useVoucherData(voucher);
-
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const navigateState = useNavigateState();
+    const navigateState = useNavigate();
 
     const voucherService = useVoucherService();
 
-    const sendVoucherEmail = useSendVoucherEmail();
-    const openVoucherInMeModal = useOpenVoucherInMeModal();
-    const printVoucherQrCodeModal = usePrintVoucherQrCodeModal();
     const linkVoucherPhysicalCard = useLinkVoucherPhysicalCard();
     const unlinkVoucherPhysicalCard = useUnlinkVoucherPhysicalCard();
 
+    const voucherCard = useVoucherCard(voucher);
     const showPhysicalCardsOption = useShowPhysicalCardsOption(voucher);
 
     const fundPhysicalCardTypes = useMemo(() => {
         return voucher?.fund?.fund_physical_card_types;
-    }, [voucher.fund.fund_physical_card_types]);
+    }, [voucher?.fund?.fund_physical_card_types]);
 
     const fundPhysicalCardType = useMemo(() => {
-        return fundPhysicalCardTypes.find(
+        return fundPhysicalCardTypes?.find(
             (type) => type.physical_card_type_id === voucher?.physical_card?.physical_card_type_id,
         );
     }, [voucher, fundPhysicalCardTypes]);
 
     const showPhysicalCardLink = useMemo(() => {
         return (
-            showPhysicalCardsOption &&
+            !voucherCard.external &&
             !voucher?.physical_card &&
+            showPhysicalCardsOption &&
             fundPhysicalCardTypes?.length === 1 &&
             fundPhysicalCardTypes?.[0]?.allow_physical_card_linking
         );
-    }, [voucher, fundPhysicalCardTypes, showPhysicalCardsOption]);
+    }, [voucherCard.external, voucher?.physical_card, showPhysicalCardsOption, fundPhysicalCardTypes]);
 
     const showPhysicalCardRequest = useMemo(() => {
         return (
-            showPhysicalCardsOption &&
+            !voucherCard.external &&
             !voucher?.physical_card &&
+            showPhysicalCardsOption &&
             fundPhysicalCardTypes?.length === 1 &&
             fundPhysicalCardTypes?.[0]?.allow_physical_card_requests
         );
-    }, [voucher, fundPhysicalCardTypes, showPhysicalCardsOption]);
+    }, [voucherCard.external, voucher?.physical_card, showPhysicalCardsOption, fundPhysicalCardTypes]);
 
     const showPhysicalCardUnlink = useMemo(() => {
         return (
@@ -78,11 +76,37 @@ export default function VoucherActions({
         );
     }, [voucher, fundPhysicalCardType, showPhysicalCardsOption]);
 
-    const shareVoucher = useCallback(
+    const shareVoucherWithProvider = useCallback(
         (voucher: Voucher) => {
             openModal((modal) => <ModalShareVoucher modal={modal} voucher={voucher} />);
         },
         [openModal],
+    );
+
+    const openSaveVoucher = useCallback(
+        (voucher: Voucher) => {
+            openModal((modal) => (
+                <ModalNotification
+                    modal={modal}
+                    type={'info'}
+                    title={translate('voucher.share_voucher.popup_sent.title_modal')}
+                    appendElement={
+                        <div className="flex flex-vertical flex-gap-xl">
+                            <div className="flex flex-vertical">
+                                <div className="modal-section-title">
+                                    {translate('voucher.actions.choose_action.title')}
+                                </div>
+                                <div className="modal-section-description">
+                                    {translate('voucher.actions.choose_action.description')}
+                                </div>
+                            </div>
+                            <VoucherShareOptions voucher={voucher} callerModal={modal} />
+                        </div>
+                    }
+                />
+            ));
+        },
+        [openModal, translate],
     );
 
     const deactivateVoucher = useCallback(
@@ -99,7 +123,7 @@ export default function VoucherActions({
     );
 
     const deleteVoucher = useCallback(
-        function (voucher: Voucher) {
+        (voucher: Voucher) =>
             openModal((modal) => (
                 <ModalNotification
                     modal={modal}
@@ -114,69 +138,56 @@ export default function VoucherActions({
                         voucherService.destroy(voucher.number).then(() => navigateState(WebshopRoutes.VOUCHERS))
                     }
                 />
-            ));
-        },
+            )),
         [navigateState, openModal, translate, voucherService],
     );
 
     return (
-        <div className="card-actions">
-            <div className="action-col">
-                <div
-                    role={'button'}
-                    tabIndex={0}
-                    onKeyDown={clickOnKeyEnter}
-                    className="action-item"
-                    onClick={() => sendVoucherEmail(voucher)}>
-                    <div className="action-item-icon">
-                        <em className="mdi mdi-email-outline" />
-                    </div>
-                    <div className="action-item-name">
-                        {translate('modal_physical_card.modal_section.request_new_card.email_to_me')}
-                    </div>
-                </div>
-            </div>
-            <div className="action-col">
-                <div
-                    role={'button'}
-                    tabIndex={0}
-                    onKeyDown={clickOnKeyEnter}
-                    className="action-item"
-                    onClick={openVoucherInMeModal}>
-                    <div className="action-item-icon">
-                        <em className="mdi mdi-account-circle" />
-                    </div>
-                    <div className="action-item-name">
-                        {translate('modal_physical_card.modal_section.request_new_card.open_in_app')}
-                    </div>
-                </div>
-            </div>
-
-            {!envData.config.flags.noPrintOption && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
-                        onKeyDown={clickOnKeyEnter}
-                        className="action-item"
-                        onClick={() => printVoucherQrCodeModal(voucher)}>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-printer" />
+        <div className="voucher-actions">
+            <div className="voucher-actions-qr">
+                {voucher.address &&
+                    (voucher?.external || !voucherCard.fund.show_qr_code ? (
+                        <div className="voucher-actions-qr-svg">
+                            <IconReimbursement />
                         </div>
-                        <div className="action-item-name">
-                            {translate('modal_physical_card.modal_section.request_new_card.print_pass')}
-                        </div>
-                    </div>
-                </div>
-            )}
+                    ) : (
+                        <QrCode
+                            padding={5}
+                            className={'card-qr_code-element'}
+                            value={makeQrCodeContent('voucher', voucher.address)}
+                            aria-label={translate('voucher.qr_code.label', { number: voucher.number })}
+                            dusk="voucherQrCode"
+                        />
+                    ))}
+            </div>
+            <div className="voucher-actions-buttons">
+                {voucherCard?.type === 'regular' && !voucherCard.external && (
+                    <StateNavLink
+                        className="voucher-actions-button"
+                        name={WebshopRoutes.PRODUCTS}
+                        query={{ fund_id: voucher.fund_id }}>
+                        <em className="mdi mdi-tag-heart-outline" />
+                        {translate('voucher.actions.view_all_products')}
+                    </StateNavLink>
+                )}
 
-            {showPhysicalCardRequest && (
-                <div className="action-col">
-                    <div
+                {!voucher?.external && voucher?.fund?.show_qr_code && (
+                    <button
                         role={'button'}
-                        tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        className="action-item"
+                        className="voucher-actions-button"
+                        data-dusk="openVoucherShareModal"
+                        onClick={() => openSaveVoucher(voucher)}>
+                        <em className="mdi mdi-qrcode" />
+                        {translate('voucher.actions.save_qr')}
+                    </button>
+                )}
+
+                {showPhysicalCardRequest && (
+                    <button
+                        type={'button'}
+                        className="voucher-actions-button"
+                        onKeyDown={clickOnKeyEnter}
                         onClick={() =>
                             linkVoucherPhysicalCard(
                                 voucher,
@@ -185,23 +196,16 @@ export default function VoucherActions({
                                 fetchVoucher,
                             )
                         }>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-card-bulleted-outline" />
-                        </div>
-                        <div className="action-item-name">
-                            {translate('modal_physical_card.modal_section.type_selection.card_new.title')}
-                        </div>
-                    </div>
-                </div>
-            )}
+                        <em className="mdi mdi-card-bulleted-outline" />
+                        {translate('modal_physical_card.modal_section.type_selection.card_new.title')}
+                    </button>
+                )}
 
-            {showPhysicalCardLink && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
+                {showPhysicalCardLink && (
+                    <button
+                        type={'button'}
+                        className="voucher-actions-button"
                         onKeyDown={clickOnKeyEnter}
-                        className="action-item"
                         onClick={() =>
                             linkVoucherPhysicalCard(
                                 voucher,
@@ -210,79 +214,66 @@ export default function VoucherActions({
                                 fetchVoucher,
                             )
                         }>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-card-bulleted-outline" />
-                        </div>
-                        <div className="action-item-name">{translate('voucher.card.activate_my_pass')}</div>
-                    </div>
-                </div>
-            )}
+                        <em className="mdi mdi-card-bulleted-outline" />
+                        {translate('voucher.card.activate_my_pass')}
+                    </button>
+                )}
 
-            {showPhysicalCardUnlink && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
+                {showPhysicalCardUnlink && (
+                    <button
+                        type={'button'}
+                        className="voucher-actions-button"
                         onKeyDown={clickOnKeyEnter}
-                        className="action-item"
-                        onClick={() => {
-                            unlinkVoucherPhysicalCard(voucher, fetchVoucher, setVoucher);
-                        }}>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-card-bulleted-outline" />
-                        </div>
-                        <div className="action-item-name">{translate('voucher.card.lost_my_pass')}</div>
-                    </div>
-                </div>
-            )}
+                        onClick={() => unlinkVoucherPhysicalCard(voucher, fetchVoucher, setVoucher)}>
+                        <em className="mdi mdi-card-bulleted-outline" />
+                        {translate('voucher.card.lost_my_pass')}
+                    </button>
+                )}
 
-            {voucherCard.product && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
-                        onKeyDown={clickOnKeyEnter}
-                        className="action-item"
-                        onClick={() => shareVoucher(voucher)}>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-share-variant" />
-                        </div>
-                        <div className="action-item-name">{translate('voucher.card.share')}</div>
-                    </div>
-                </div>
-            )}
+                {voucher.fund.allow_reimbursements && !voucher.expired && !voucher.deactivated && (
+                    <StateNavLink
+                        className="voucher-actions-button"
+                        name={WebshopRoutes.REIMBURSEMENT_CREATE}
+                        params={{ voucher_id: voucher.id }}>
+                        <em className="mdi mdi-cash-plus" />
+                        {translate('voucher.actions.declaration_request')}
+                    </StateNavLink>
+                )}
 
-            {!voucherCard.used && voucherCard.product && voucherCard.returnable && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
+                {voucherCard?.type === 'product' && !voucherCard?.external && voucher?.fund?.show_qr_code && (
+                    <button
+                        type={'button'}
+                        className="voucher-actions-button"
+                        data-dusk="shareVoucher"
                         onKeyDown={clickOnKeyEnter}
-                        className="action-item"
+                        onClick={() => shareVoucherWithProvider(voucher)}>
+                        <em className="mdi mdi-share-variant-outline" />
+                        {translate('voucher.actions.share_with_provider')}
+                    </button>
+                )}
+
+                {!voucherCard.used && voucherCard.product && voucherCard.returnable && (
+                    <button
+                        type={'button'}
+                        className="voucher-actions-button"
+                        onKeyDown={clickOnKeyEnter}
                         onClick={() => deleteVoucher(voucher)}>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-cancel" />
-                        </div>
-                        <div className="action-item-name">{translate('voucher.card.cancel')}</div>
-                    </div>
-                </div>
-            )}
+                        <em className="mdi mdi-cancel" />
+                        {translate('voucher.card.cancel')}
+                    </button>
+                )}
 
-            {!voucher.expired && voucher.fund.allow_blocking_vouchers && (
-                <div className="action-col">
-                    <div
-                        role={'button'}
-                        tabIndex={0}
+                {!voucher.expired && voucher.fund.allow_blocking_vouchers && (
+                    <button
+                        type={'button'}
+                        className="voucher-actions-button"
                         onKeyDown={clickOnKeyEnter}
-                        className="action-item"
                         onClick={() => deactivateVoucher(voucher)}>
-                        <div className="action-item-icon">
-                            <em className="mdi mdi-logout" />
-                        </div>
-                        <div className="action-item-name">{translate('voucher.card.stop_participation')}</div>
-                    </div>
-                </div>
-            )}
+                        <em className="mdi mdi-logout" />
+                        {translate('voucher.card.stop_participation')}
+                    </button>
+                )}
+            </div>
         </div>
     );
 }

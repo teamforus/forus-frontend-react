@@ -119,7 +119,7 @@ export default function ReservationsSettings() {
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary card-section-settings">
+                <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
                             <FormGroup
@@ -210,7 +210,7 @@ export default function ReservationsSettings() {
                     </div>
                 </div>
 
-                <div className="card-section card-section-primary card-section-settings">
+                <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
                             <FormGroup
@@ -251,7 +251,7 @@ export default function ReservationsSettings() {
 
                 {activeOrganization.can_receive_extra_payments &&
                     hasPermission(activeOrganization, Permission.MANAGE_PAYMENT_METHODS) && (
-                        <div className="card-section card-section-primary card-section-settings">
+                        <div className="card-section card-section-primary">
                             <div className="row">
                                 <div className="col col-md-10 col-md-offset-2 col-xs-12">
                                     <FormGroup

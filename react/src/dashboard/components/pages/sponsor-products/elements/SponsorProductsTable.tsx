@@ -54,7 +54,7 @@ export default function SponsorProductsTable({
                                     <TableEntityMain
                                         title={strLimit(product.name, 64)}
                                         subtitle={strLimit(product.organization.name, 64)}
-                                        media={product.photo}
+                                        media={product.photos[0]}
                                         mediaRound={false}
                                         mediaSize={'md'}
                                         mediaPlaceholder={'product'}

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #fff;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
@@ -81,7 +80,7 @@
         .banner-editor-control {
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            gap: 5px;
             padding: 12px 0;
             position: relative;
 
@@ -90,45 +89,50 @@
                 font: 500 11px/30px var(--base-font);
             }
 
-            .banner-editor-control-value {
-                color: #134478;
-                font: 700 11px/30px var(--base-font);
+            .banner-editor-control-value,
+            .banner-editor-control-color {
                 display: flex;
-                gap: 0;
-                flex-direction: row;
-                align-items: center;
                 cursor: pointer;
                 position: relative;
+                flex-direction: row;
 
                 & > .mdi {
                     font-size: 18px;
                     color: #646f79;
                 }
+
+                &.disabled {
+                    color: #242424;
+                    cursor: default;
+                    pointer-events: none;
+
+                    & > .mdi {
+                        display: none;
+                    }
+                }
+            }
+
+            .banner-editor-control-value {
+                color: #134478;
+                font: 700 11px/30px var(--base-font);
+                gap: 0;
+                align-items: center;
             }
 
             .banner-editor-control-color {
                 padding: 0 5px;
                 border: 1px solid var(--border-color);
                 border-radius: var(--border-radius);
-                display: flex;
-                flex-direction: row;
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
-                position: relative;
                 background: #fcfcfc;
-                cursor: pointer;
 
                 .banner-editor-control-color-preview {
                     width: 16px;
                     height: 16px;
                     border-radius: var(--border-radius);
                     box-shadow: 1px 1px 5px 0 rgba(25, 39, 52, 0.11);
-                }
-
-                & > .mdi {
-                    font-size: 18px;
-                    color: #646f79;
                 }
             }
 

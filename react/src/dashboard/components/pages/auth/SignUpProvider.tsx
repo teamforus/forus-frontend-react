@@ -47,6 +47,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import useTranslate from '../../../hooks/useTranslate';
 import SignUpFooter from '../../../../webshop/components/elements/sign-up/SignUpFooter';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { makeQrCodeContent } from '../../../helpers/utils';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
@@ -1203,10 +1204,7 @@ export default function SignUpProvider() {
                                             {tmpAuthToken && (
                                                 <QrCode
                                                     logo={assetUrl('/assets/img/me-logo-react.png')}
-                                                    value={JSON.stringify({
-                                                        type: 'auth_token',
-                                                        value: tmpAuthToken,
-                                                    })}
+                                                    value={makeQrCodeContent('auth_token', tmpAuthToken)}
                                                 />
                                             )}
                                         </div>
@@ -1239,10 +1237,7 @@ export default function SignUpProvider() {
                                             {tmpAuthToken && (
                                                 <QrCode
                                                     logo={assetUrl('/assets/img/me-logo-react.png')}
-                                                    value={JSON.stringify({
-                                                        type: 'auth_token',
-                                                        value: tmpAuthToken,
-                                                    })}
+                                                    value={makeQrCodeContent('auth_token', tmpAuthToken)}
                                                 />
                                             )}
                                         </div>
@@ -1280,10 +1275,7 @@ export default function SignUpProvider() {
                                             {tmpAuthToken && (
                                                 <QrCode
                                                     logo={assetUrl('/assets/img/me-logo-react.png')}
-                                                    value={JSON.stringify({
-                                                        type: 'auth_token',
-                                                        value: tmpAuthToken,
-                                                    })}
+                                                    value={makeQrCodeContent('auth_token', tmpAuthToken)}
                                                 />
                                             )}
                                         </div>
@@ -2133,7 +2125,7 @@ export default function SignUpProvider() {
                                         {demoToken && (
                                             <QrCode
                                                 logo={assetUrl('/assets/img/me-logo-react.png')}
-                                                value={JSON.stringify({ type: 'demo_voucher', value: demoToken })}
+                                                value={makeQrCodeContent('demo_voucher', demoToken)}
                                             />
                                         )}
                                     </div>

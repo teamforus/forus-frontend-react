@@ -41,64 +41,93 @@ export default function VoucherPhysicalCards({
 
     if (voucher.physical_card) {
         return (
-            <div className="block block-action-card">
-                <div className="block-card-logo">
-                    <img
-                        src={
-                            voucher?.physical_card?.photo?.sizes?.thumbnail ||
-                            assetUrl('/assets/img/placeholders/physical-card-type.svg')
-                        }
-                        alt={translate('voucher.physical_card.alt', {
-                            title: voucherCard.title,
-                        })}
-                    />
-                </div>
-                <div className="block-card-details">
-                    <div className="block-card-code">
-                        {translate('voucher.physical_card.card_number')}: {voucher.physical_card.code_locale}
-                    </div>
-                </div>
-                {fundPhysicalCardType.allow_physical_card_deactivation && (
-                    <div className="block-card-actions">
-                        <div
-                            className="button button-primary-outline"
-                            onClick={() => unlinkVoucherPhysicalCard(voucher, fetchVoucher, setVoucher)}>
-                            {translate('voucher.physical_card.buttons.lost_pass')}
+            <div className="voucher-physical-cards">
+                <div className="physical-card">
+                    <div className="physical-card-content">
+                        <div className="physical-card-media">
+                            <img
+                                src={
+                                    voucher?.physical_card?.photo?.sizes?.thumbnail ||
+                                    assetUrl('/assets/img/placeholders/physical-card-type.svg')
+                                }
+                                alt={translate('voucher.physical_card.alt', {
+                                    title: voucherCard.title,
+                                })}
+                            />
+                        </div>
+
+                        <div className="physical-card-description">
+                            <div className="physical-card-description-title">
+                                {translate('voucher.physical_card.title')}
+                            </div>
+                            <div className="physical-card-description-code">{voucher?.physical_card.code}</div>
                         </div>
                     </div>
-                )}
+
+                    <div className="physical-card-actions">
+                        {fundPhysicalCardType.allow_physical_card_deactivation && (
+                            <button
+                                onKeyDown={clickOnKeyEnter}
+                                className="button button-primary-outline button-sm"
+                                onClick={() => unlinkVoucherPhysicalCard(voucher, fetchVoucher, setVoucher)}>
+                                {translate('voucher.physical_card.buttons.lost_pass')}
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
         );
     }
 
-    return voucher?.fund?.fund_physical_card_types?.map((typeCard) => (
-        <div className="block block-action-card" key={typeCard.id}>
-            <div className="block-card-logo">
-                <img
-                    src={
-                        typeCard?.physical_card_type?.photo?.sizes?.thumbnail ||
-                        assetUrl('/assets/img/placeholders/physical-card-type.svg')
-                    }
-                    alt={`Fysieke pas: '${voucherCard.title}'`}
-                />
-            </div>
-            <div className="block-card-details">
-                <h3 className="block-card-title">{translate('voucher.physical_card.title')}</h3>
-            </div>
-            {typeCard.allow_physical_card_linking && (
-                <div className="block-card-actions">
-                    <div
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={clickOnKeyEnter}
-                        className="button button-primary"
-                        onClick={() => {
-                            linkVoucherPhysicalCard(voucher, typeCard, 'card_code', fetchVoucher);
-                        }}>
-                        {translate('voucher.physical_card.buttons.reactivate')}
+    return (
+        <div className="voucher-physical-cards">
+            {voucher?.fund?.fund_physical_card_types?.map((typeCard) => (
+                <div className="physical-card" key={typeCard.id}>
+                    <div className="physical-card-content">
+                        <div className="physical-card-media">
+                            <img
+                                src={
+                                    typeCard?.physical_card_type?.photo?.sizes?.thumbnail ||
+                                    assetUrl('/assets/img/placeholders/physical-card-type.svg')
+                                }
+                                alt={translate('voucher.physical_card.alt', { title: voucherCard.title })}
+                            />
+                        </div>
+                        <div className="physical-card-description">
+                            <div className="physical-card-description-code">
+                                {translate('voucher.physical_card.title')}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="physical-card-content-actions">
+                        {typeCard.allow_physical_card_requests && (
+                            <div
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={clickOnKeyEnter}
+                                className="button button-primary-outline button-sm"
+                                onClick={() => {
+                                    linkVoucherPhysicalCard(voucher, typeCard, 'select_type', fetchVoucher);
+                                }}>
+                                {translate('modal_physical_card.modal_section.type_selection.card_new.title')}
+                            </div>
+                        )}
+
+                        {typeCard.allow_physical_card_linking && (
+                            <div
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={clickOnKeyEnter}
+                                className="button button-primary button-sm"
+                                onClick={() => {
+                                    linkVoucherPhysicalCard(voucher, typeCard, 'card_code', fetchVoucher);
+                                }}>
+                                {translate('voucher.physical_card.buttons.reactivate')}
+                            </div>
+                        )}
                     </div>
                 </div>
-            )}
+            ))}
         </div>
-    ));
+    );
 }

@@ -2275,27 +2275,48 @@
             "pay_from_voucher": "Sie zahlen aus dem Guthaben:",
             "price": "Preis:",
             "payment_option_ideal": "Online bezahlen (iDEAL)",
-            "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_option_reservation": "Online buchen",
             "payment_options": "Zahlungsmöglichkeiten",
-            "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten"
+            "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten",
+            "attention": "Achtung!",
+            "buy_now": "Jetzt kaufen!",
+            "choose_credit": "Wählen Sie den Kredit",
+            "collapse_section": "Abschnitt Falten",
+            "description_card": "Beschreibung",
+            "dont_have_voucher": "Noch kein Kredit?",
+            "duration_of_promotion": "Dauer der Förderung",
+            "expand_section": "Abschnitt erweitern",
+            "expire_by_date": "Gültig bis {{date}}",
+            "how_can_i_pay": "Wie kann ich bezahlen?",
+            "locations_on_map": "Standorte auf der Karte",
+            "login_to_order": "Jetzt anmelden und bestellen",
+            "more_info": "Weitere Informationen",
+            "next_image": "Nächstes Bild",
+            "payment_option_qr": "QR-Code beim Anbieter anzeigen",
+            "payment_options_title": "Zahlungsmöglichkeiten",
+            "previous_image": "Vorheriges Bild",
+            "product_images": "Produktbilder",
+            "provider": "Anbieter",
+            "quantity_limit": "Max {{limit}} p.p.",
+            "request_one_now": "Bewerben Sie sich jetzt!",
+            "show_image_of_total": "Bild anzeigen {{current}} von {{total}}",
+            "when": "Wenn",
+            "where": "Wo",
+            "add_to_favorites": "Zu Favoriten hinzufügen",
+            "ideal_logo_alt": "iDEAL-Logo",
+            "remove_from_favorites": "Aus den Favoriten entfernen"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
             "title": "Standorte auf der Karte"
         },
         "no_vouchers": "Sie haben kein Guthaben, um dieses Angebot zu reservieren mit",
-        "status": {
-            "active": "Aktiv",
-            "free": "Kostenlos",
-            "no_data": "Keine Daten",
-            "out_of_stock": "Keine Lagerbestände mehr"
-        },
         "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können",
         "price": {
             "free": "Kostenlos",
             "informational": "Nur im Geschäft"
-        }
+        },
+        "other_products": "Das könnte Sie auch interessieren?"
     },
     "products": {
         "breadcrumbs": {
@@ -3262,44 +3283,11 @@
         "card": {
             "activate_my_pass": "Meinen Pass aktivieren",
             "cancel": "Abbrechen",
-            "delete": "Reservierung stornieren",
-            "expire": "Gültig bis:",
-            "expired": "Abgelaufen",
-            "footer": {
-                "actions": {
-                    "mail": "E-Mail an mich",
-                    "open_in_me": "In der App öffnen",
-                    "physical_card_use": "Plastikpass",
-                    "print": "Drucken",
-                    "share": "Mit Anbieter teilen"
-                },
-                "tooltips": {
-                    "mail": "Mailen Sie sich den Kredit selbst",
-                    "open_in_me": "Ich",
-                    "print": "Drucken Sie den Kredit",
-                    "share": "Teilen Sie den Kredit mit dem Anbieter"
-                }
-            },
             "header": {
                 "title": "Wie funktioniert das?"
             },
-            "labels": {
-                "contact_provider": "Haben Sie Fragen zu diesem Angebot? Dann kontaktieren Sie uns bitte.",
-                "contact_sponsor": "Haben Sie Fragen? Kontaktieren Sie uns.",
-                "description": "1.<br/><br/>Klicken Sie auf Angebot und wählen Sie eine Aktivität aus und buchen Sie sie. ODER 2. Bringen Sie den QR-Code zum Anbieter. Der Anbieter wird den QR-Code scannen und Ihre Aktivität reservieren.",
-                "email": "E-Mail Adresse:",
-                "phone": "Rufnummer:"
-            },
             "lost_my_pass": "Ich habe meinen Pass verloren",
-            "qrcode": {
-                "description": "{{fund_name}} Dies ist Ihr Kredit mit einem QR-Code.",
-                "productdescription": "Dies ist Ihre Reservierung mit einem QR-Code."
-            },
-            "share": "Teilen Sie",
-            "stop_participation": "Teilnahme stoppen",
-            "used": "Gebraucht",
-            "used_on": "Verwendet am",
-            "valid_until": "Gültig bis"
+            "stop_participation": "Teilnahme stoppen"
         },
         "delete_voucher": {
             "buttons": {
@@ -3319,36 +3307,17 @@
             "title": "Ausgaben"
         },
         "labels": {
-            "add": "Unter",
-            "expire": "Gültig bis:",
-            "fund": "Fonds",
-            "info": "<span style='font-style: italic;'>Suchen Sie einen Anbieter, der nicht auf der Karte verzeichnet ist? Sie können einen Anbieter zur Teilnahme auffordern. Ein Anbieter kann sich das ganze Jahr über bewerben.</span>",
-            "offers": "Möchten Sie Informationen über das gesamte Angebot? Dann kontaktieren Sie den Anbieter.",
             "office": "Orte, an denen Sie diese Reservierung einlösen können.",
-            "offices": "Anbieter",
-            "productdetail": "Informationen liefern",
-            "requirements": "Die Bedingungen für dieses Angebot erfahren Sie vom Anbieter.",
-            "shopdetail": "Informationen zum Anbieter",
-            "subtract": "Aus",
-            "transactions": "Ausgaben",
-            "voucher": "Drucken Sie Ihre Gutschrift aus oder schicken Sie sie sich selbst zu. Bringen Sie den QR-Code zum Anbieter und lassen Sie ihn scannen."
+            "offices": "Anbieter"
         },
         "physical_card": {
-            "alt": "Physischer Pass: \"{[ Titel ]}",
             "buttons": {
                 "lost_pass": "Ich habe meinen Pass verloren",
                 "reactivate": "Aktivieren Sie"
             },
             "card_number": "Pass-Nummer",
             "title": "Meinen Pass aktivieren",
-            "less_details": "Alle Details ausblenden",
-            "more_details": "Alle Details anzeigen",
-            "personal_date": "Persönliche Daten"
-        },
-        "reimbursement": {
-            "button": "Coupon einreichen",
-            "description": "Fordern Sie die Ihnen entstandenen Kosten zurück, indem Sie die Details Ihres Einkaufs und die Rechnung oder Quittung einsenden.",
-            "title": "Kostendeckung"
+            "alt": "Physischer Pass: '{{ title }}'"
         },
         "share_voucher": {
             "buttons": {
@@ -3377,31 +3346,56 @@
         "transactions": {
             "add": "hinzufügen",
             "bank_transfer": "Banküberweisung",
-            "expired_on": "Abgelaufen am {[ Datum ]}",
             "no_spending": "Keine Kosten",
             "reservation": "Buchung",
             "subtract": "Subtraktion",
             "title": "Transaktionen",
-            "top_up": "Verbessert"
+            "top_up": "Verbessert",
+            "expired_on": "Abgelaufen am {{ date }}"
         },
-        "card_combined": {
-            "header": {
-                "title": "Wie funktioniert das?"
+        "actions": {
+            "choose_action": {
+                "title": "Wählen Sie eine Aktion",
+                "description": "Wählen Sie eine der folgenden Aktionen, um fortzufahren."
             },
-            "labels": {
-                "contact_sponsor": "Haben Sie Fragen?",
-                "contact_sponsor_details": "Dann kontaktieren Sie uns.",
-                "how_it_works": "Wir haben Ihre Bewerbung erhalten. Sie werden innerhalb von 8 Wochen eine Entscheidung über Ihre Bewerbung erhalten.",
-                "IIT": {
-                    "how_it_works": "Wir haben Ihre Bewerbung erhalten. Sie werden innerhalb von 8 Wochen eine Entscheidung über Ihre Bewerbung erhalten.",
-                    "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Rückerstattung Ihrer Ausgaben, indem Sie eine Quittung einreichen. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
-                    "redirect_to": "Kosten zurückfordern?"
-                },
-                "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
-            }
+            "save_qr": "QR-Code speichern",
+            "share_with_provider": "QR-Code mit Anbieter teilen",
+            "view_all_products": "Alle Produkte anzeigen",
+            "declaration_request": "Kostendeckung"
+        },
+        "details": {
+            "records": {
+                "email": "E-Mail Adresse:",
+                "number": "Nummer:",
+                "title": "Daten"
+            },
+            "valid_until": "Diese Gutschrift ist gültig bis {{ date }}"
+        },
+        "fund": {
+            "logo_alt": "Logo des Fonds",
+            "logo_alt_named": "Logo der {{ name }}"
+        },
+        "help": {
+            "description": "Sie haben Fragen oder brauchen Hilfe? Bitte kontaktieren Sie uns.",
+            "email": "E-Mail Adresse:",
+            "phone": "Rufnummer:",
+            "title": "Sie haben Fragen oder brauchen Hilfe?"
+        },
+        "how_it_works": {
+            "title": "Wie es funktioniert"
+        },
+        "overview": {
+            "description": "Lesen Sie auf dieser Seite, wie das Guthaben funktioniert, und sehen Sie sich den Saldo und die Ausgaben an. Viel Spaß mit dem Kredit!"
+        },
+        "physical_cards": {
+            "title": "Meine körperlichen Pässe"
+        },
+        "qr_code": {
+            "label": "QR-Code für Kredite {{ number }}"
+        },
+        "fund_details": {
+            "title": "Informationen über die Regelung",
+            "view": "Mehr lesen"
         }
     },
     "vouchers": {
@@ -3649,5 +3643,9 @@
             "archive": "Archiv"
         },
         "title": "Körperlicher Pass"
+    },
+    "block_product_categories": {
+        "description": "Klicken Sie auf ein Thema und Sie sehen sofort, aus welchem Angebot Sie wählen können.",
+        "title": "Was machen Sie gerne?"
     }
 }

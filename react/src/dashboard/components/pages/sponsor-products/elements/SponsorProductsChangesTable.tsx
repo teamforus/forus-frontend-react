@@ -50,7 +50,7 @@ export default function SponsorProductsChangesTable({
                                     <TableEntityMain
                                         title={strLimit(product.name, 64)}
                                         subtitle={strLimit(product.organization.name, 64)}
-                                        media={product.photo}
+                                        media={product.photos[0]}
                                         mediaSize={'md'}
                                         mediaRound={false}
                                         mediaPlaceholder={'product'}
