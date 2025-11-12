@@ -23,6 +23,7 @@ import ProviderNotificationProductRequired from './modules/provider_notification
 import { setDefaultOptions } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import { ReactRouter7Adapter } from './modules/state_router/ReactRouter7Adapter';
+import 'react-datepicker/dist/react-datepicker.css';
 
 setDefaultOptions({ weekStartsOn: 1, locale: nl });
 
