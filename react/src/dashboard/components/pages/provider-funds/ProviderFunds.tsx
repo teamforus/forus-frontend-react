@@ -3,7 +3,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useProviderFundService from '../../../services/ProviderFundService';
 import ProviderFundsTable from './elements/ProviderFundsTable';
-import ProviderFundUnsubscriptionsTable from './elements/ProviderFundUnsubscriptionsTable';
 import ProviderFundsAvailableTable from './elements/ProviderFundsAvailableTable';
 import ProviderFundInvitationsTable from './elements/ProviderFundInvitationsTable';
 import useTranslate from '../../../hooks/useTranslate';
@@ -83,6 +82,14 @@ export default function ProviderFunds() {
                                 onClick={() => setTab('archived')}>
                                 {translate('provider_funds.tabs.archived')} ({fundsAvailable.meta.totals.archived})
                             </div>
+
+                            <div
+                                className={`label-tab label-tab-sm ${tabQuery == 'unsubscribed' ? 'active' : ''}`}
+                                data-dusk="fundsUnsubscribedTab"
+                                onClick={() => setTab('unsubscribed')}>
+                                {translate('provider_funds.tabs.unsubscribed')} (
+                                {fundsAvailable.meta.totals.unsubscribed})
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,19 +108,6 @@ export default function ProviderFunds() {
                                 onClick={() => setTab('invitations_archived')}>
                                 {translate('provider_funds.tabs.invitations_archived')} (
                                 {fundsAvailable.meta.totals.invitations_archived})
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex-col">
-                    <div className="block block-label-tabs">
-                        <div className="label-tab-set">
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'unsubscriptions' ? 'active' : ''}`}
-                                onClick={() => setTab('unsubscriptions')}>
-                                <em className="mdi mdi-close-circle-outline label-tab-icon-start" />
-                                {translate('provider_funds.tabs.unsubscriptions')} (
-                                {fundsAvailable.meta.totals.unsubscriptions})
                             </div>
                         </div>
                     </div>
@@ -137,9 +131,9 @@ export default function ProviderFunds() {
                 <ProviderFundsTable type={'archived'} organization={activeOrganization} onChange={fetchFunds} />
             )}
 
-            {/* Fund unsubscription requests */}
-            {tabQuery == 'unsubscriptions' && (
-                <ProviderFundUnsubscriptionsTable organization={activeOrganization} onChange={fetchFunds} />
+            {/* Unsubscribed funds */}
+            {tabQuery == 'unsubscribed' && (
+                <ProviderFundsTable type={'unsubscribed'} organization={activeOrganization} onChange={fetchFunds} />
             )}
 
             {/* Available funds */}

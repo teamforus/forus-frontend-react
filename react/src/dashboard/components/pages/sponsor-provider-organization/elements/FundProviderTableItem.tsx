@@ -95,7 +95,9 @@ export default function FundProviderTableItem({
             <td>
                 <div
                     className={`label label-${
-                        { accepted: 'success', pending: 'default', rejected: 'danger' }[fundProvider.state]
+                        { accepted: 'success', pending: 'default', rejected: 'danger', unsubscribed: 'danger-light' }[
+                            fundProvider.state
+                        ]
                     }`}>
                     {fundProvider.state_locale}
                 </div>

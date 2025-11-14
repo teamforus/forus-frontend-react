@@ -7,10 +7,12 @@ export default {
         invitations: 'Uitnodigingen',
         invitations_archived: 'Gearchiveerde uitnodigingen',
         expired_closed: 'Archief',
+        unsubscribed: 'Afmeldingen',
         main: 'Fondsen',
     },
     buttons: {
         join: 'Aanmelden',
+        join_unsubscribed: 'Opnieuw aannmelden',
         clear_filter: 'Wis filter',
         unsubscribe: 'Afmelden',
     },
@@ -53,7 +55,7 @@ export default {
         invitations: 'Er zijn geen openstaande uitnodigingen die u kunt accepteren.',
         invitations_archived: 'Er zijn geen verlopen uitnodigingen.',
         pending_rejected: 'Er zijn geen fondsen waar u aanmeldingen voor hebt.',
-        unsubscriptions: 'Er zijn geen afmeldingsaanvragen gevonden.',
+        unsubscribed: 'Er zijn geen afmeldingsaanvragen gevonden.',
     },
     filters: {
         labels: {
@@ -98,6 +100,6 @@ export default {
         pending_rejected: 'Aanmeldingen',
         available: 'Beschikbaar',
         archived: 'Archief',
-        unsubscriptions: 'Uitgeschreven',
+        unsubscribed: 'Afmeldingen',
     },
 };

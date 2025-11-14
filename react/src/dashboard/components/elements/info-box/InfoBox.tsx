@@ -6,14 +6,17 @@ export default function InfoBox({
     borderType = 'dashed',
     children,
     iconColor = 'primary',
+    dusk = null,
 }: {
     type?: 'default' | 'primary' | 'warning';
     borderType?: 'dashed' | 'none';
     children: ReactNode | ReactNode[];
     iconColor?: 'primary' | 'warning';
+    dusk?: string;
 }) {
     return (
         <div
+            data-dusk={dusk}
             className={classNames(
                 'block block-info-box',
                 type === 'default' && 'block-info-box-default',
