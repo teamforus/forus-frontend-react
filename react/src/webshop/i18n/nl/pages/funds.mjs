@@ -54,6 +54,9 @@ export default {
         vergoedingen: {
             title: 'Alle vergoedingen',
         },
+        fijnder: {
+            title: 'Regelingen',
+        },
     },
     labels: {
         search: 'Zoeken',

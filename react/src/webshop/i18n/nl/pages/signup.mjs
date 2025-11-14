@@ -63,5 +63,8 @@ export default {
         goereeoverflakkee: {
             start_email: 'Aanmelden',
         },
+        fijnder: {
+            start_email: 'Activeren',
+        },
     },
 };
