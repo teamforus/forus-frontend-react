@@ -30,7 +30,6 @@ export enum DashboardRoutes {
     FUND_PROVIDER_PRODUCT_CREATE = 'fund-provider-product-create',
     FUND_PROVIDER_PRODUCT = 'fund-provider-product',
     FUND_PROVIDER_PRODUCT_EDIT = 'fund-provider-product-edit',
-    SPONSOR_FUND_UNSUBSCRIPTIONS = 'sponsor-fund-unsubscriptions',
     SPONSOR_PRODUCTS = 'sponsor-products',
     SPONSOR_PRODUCT = 'sponsor-product',
     BANK_CONNECTIONS = 'bank-connections',
