@@ -60,12 +60,16 @@ export default function Products() {
         source: 'provider' | 'sponsor' | 'archive';
         page?: number;
         per_page?: number;
+        order_by?: string;
+        order_dir?: string;
     }>(
         {
             q: '',
             source: 'provider',
             page: 1,
             per_page: paginatorService.getPerPage(paginatorKey),
+            order_by: 'id',
+            order_dir: 'desc',
         },
         {
             queryParams: {
@@ -73,6 +77,8 @@ export default function Products() {
                 source: createEnumParam(['provider', 'sponsor', 'archive']),
                 per_page: NumberParam,
                 page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
             },
         },
     );
@@ -109,7 +115,10 @@ export default function Products() {
         setLoading(true);
 
         productService
-            .list(activeOrganization.id, filterValuesActive)
+            .list(activeOrganization.id, {
+                ...filterValuesActive,
+                order_by: filterValuesActive.order_by === 'expired_at' ? 'expire_at' : filterValuesActive.order_by,
+            })
             .then((res) => setProducts(res.data))
             .finally(() => {
                 setLoading(false);
