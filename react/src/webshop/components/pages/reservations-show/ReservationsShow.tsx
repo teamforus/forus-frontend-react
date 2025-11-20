@@ -96,9 +96,9 @@ export default function ReservationsShow() {
                                     </div>
                                     <div className="reservation-content">
                                         <div className="reservation-header">
-                                            <h2 className="reservation-title">
+                                            <h1 className="reservation-title">
                                                 {translate('reservation.details.title')}
-                                            </h2>
+                                            </h1>
                                             <div className={`label label-${stateData.stateClass}`}>
                                                 {stateData.stateText}
                                             </div>

@@ -183,35 +183,31 @@ export default function FundsShow() {
 
                                 {!fund.hide_meta && (
                                     <dl className={'fund-details-items'}>
-                                        <dt className={'fund-details-item'}>
-                                            <div className="fund-details-item-label">
-                                                {translate('fund.details.by')}
-                                            </div>
-                                            <div className="fund-details-item-value">{fund.organization?.name}</div>
-                                        </dt>
+                                        <dt className="fund-details-item-label">{translate('fund.details.by')}</dt>
+                                        <dd className="fund-details-item-value">{fund.organization?.name}</dd>
                                         {formulaList.multiply?.map((formula, index) => (
-                                            <dt key={index} className={'fund-details-item'}>
-                                                <div className="fund-details-item-label">
+                                            <Fragment key={index}>
+                                                <dt className="fund-details-item-label">
                                                     {translate('fund.criterias.multiplied_amount')}
-                                                </div>
-                                                <div className="fund-details-item-value">{formula.amount_locale}</div>
-                                            </dt>
+                                                </dt>
+                                                <dd className="fund-details-item-value">{formula.amount_locale}</dd>
+                                            </Fragment>
                                         ))}
                                         {fund.key != 'IIT' && (
-                                            <dt className={'fund-details-item'}>
-                                                <div className="fund-details-item-label">
+                                            <Fragment>
+                                                <dt className="fund-details-item-label">
                                                     {translate('fund.details.start_date')}
-                                                </div>
-                                                <div className="fund-details-item-value">{fund.start_date_locale}</div>
-                                            </dt>
+                                                </dt>
+                                                <dd className="fund-details-item-value">{fund.start_date_locale}</dd>
+                                            </Fragment>
                                         )}
                                         {fund.key != 'IIT' && (
-                                            <dt className={'fund-details-item'}>
-                                                <div className="fund-details-item-label">
+                                            <Fragment>
+                                                <dt className="fund-details-item-label">
                                                     {translate('fund.details.end_date')}
-                                                </div>
-                                                <div className="fund-details-item-value">{fund.end_date_locale}</div>
-                                            </dt>
+                                                </dt>
+                                                <dd className="fund-details-item-value">{fund.end_date_locale}</dd>
+                                            </Fragment>
                                         )}
                                     </dl>
                                 )}

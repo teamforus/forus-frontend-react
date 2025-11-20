@@ -47,9 +47,9 @@ export default function PaneGroupPanel({
                         {icon === 'store-marker-outline' && <em className="mdi mdi-store-marker-outline" />}
                     </div>
                 )}
-                <h3 className="panel-header-title" id={titleId}>
+                <h2 className="panel-header-title" id={titleId}>
                     {title}
-                </h3>
+                </h2>
                 <em className={`mdi ${isOpen ? 'mdi-chevron-down' : 'mdi-chevron-right'}`} aria-hidden="true" />
                 <span className="sr-only">
                     {isOpen ? translate('product.labels.collapse_section') : translate('product.labels.expand_section')}
