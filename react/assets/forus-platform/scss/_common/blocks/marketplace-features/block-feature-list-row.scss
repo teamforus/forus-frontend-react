@@ -1,0 +1,14 @@
+.block.block-feature-list-row {
+    display: flex;
+    gap: 24px;
+
+    .block-feature-list-col {
+        .block-feature-list-quaternary {
+            height: 100%;
+
+            .block-feature-list-items-wrapper {
+                height: 100%;
+            }
+        }
+    }
+}

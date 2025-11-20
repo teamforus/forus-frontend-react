@@ -80,6 +80,7 @@ import modal_product_price_type_options_info from './nl/modals/modal_product_pri
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
+import block_product_categories from './nl/directives/block-product-categories.mjs';
 import block_funds from './nl/directives/block-funds.mjs';
 import block_notifications from './nl/directives/block-notifications.mjs';
 import block_providers from './nl/directives/block-providers.mjs';
@@ -494,6 +495,7 @@ export default {
     // DIRECTIVES
     app_footer: app_footer,
     block_products: block_products,
+    block_product_categories: block_product_categories,
     block_funds: block_funds,
     block_notifications: block_notifications,
     block_providers: block_providers,

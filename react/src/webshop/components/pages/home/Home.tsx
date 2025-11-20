@@ -15,6 +15,7 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import BlockBanner from '../../elements/block-banner/BlockBanner';
 import Fund from '../../../props/models/Fund';
 import Section from '../../elements/sections/Section';
+import BlockProductCategories from '../../elements/block-product-categories/BlockProductCategories';
 import RandomProductsBlock from './elements/RandomProductsBlock';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
@@ -201,7 +202,7 @@ export default function Home() {
             </Section>
 
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
-
+            {appConfigs.pages.block_home_product_categories && <BlockProductCategories />}
             {appConfigs.show_home_products && <RandomProductsBlock count={6} showCustomDescription={true} />}
 
             {appConfigs.show_home_map && (
