@@ -292,9 +292,9 @@ export default function Prevalidations() {
                             id="create_voucher"
                             className="button button-primary"
                             data-dusk="createPrevalidationButton"
-                            onClick={() =>
-                                createPrevalidation(funds, filterValuesActive?.fund_id, fetchPrevalidations)
-                            }>
+                            onClick={() => {
+                                createPrevalidation(funds, filterValuesActive?.fund_id, fetchPrevalidations);
+                            }}>
                             <em className="mdi mdi-plus-circle icon-start" />
                             {translate('csv_validation.buttons.create')}
                         </button>
@@ -303,9 +303,9 @@ export default function Prevalidations() {
                             id="prevalidations_upload_csv"
                             className="button button-primary"
                             data-dusk="uploadPrevalidationsBatchButton"
-                            onClick={() =>
-                                uploadPrevalidations(funds, filterValuesActive?.fund_id, fetchPrevalidations)
-                            }>
+                            onClick={() => {
+                                uploadPrevalidations(funds, filterValuesActive?.fund_id, fetchPrevalidations);
+                            }}>
                             <em className="mdi mdi-upload icon-start" />
                             {translate('csv_validation.buttons.upload')}
                         </button>

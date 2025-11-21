@@ -38,31 +38,26 @@ export class PrevalidationService<T = Prevalidation> {
         data: Array<{ [key: string]: string }>,
         fund_id: number = null,
         overwrite: Array<string> = [],
+        top_up: Array<{ key: string | number; voucher_id: number }> = [],
         file?: object,
     ): Promise<T> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/prevalidations/collection`, {
             data: data,
             fund_id: fund_id,
             overwrite: overwrite,
+            top_up: top_up,
             file,
         });
     }
 
-    public submitCollectionCheck(
+    public submitCollectionCheck<T>(
         organization_id: number,
-        data: Array<string>,
+        data: Array<object>,
         fund_id: number = null,
-        overwrite: Array<string> = [],
-    ): Promise<{
-        data: {
-            collection: Array<{ uid_hash: string; records_hash: string; data: { [key: string]: string } }>;
-            db: Array<{ uid_hash: string; records_hash: string }>;
-        };
-    }> {
+    ): Promise<ResponseSimple<T>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/prevalidations/collection/hash`, {
             data: data,
             fund_id: fund_id,
-            overwrite: overwrite,
         });
     }
 
