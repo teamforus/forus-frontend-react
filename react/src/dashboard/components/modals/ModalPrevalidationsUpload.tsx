@@ -598,8 +598,6 @@ export default function ModalPrevalidationsUpload({
                 },
             );
 
-            console.log(data);
-
             // Data has changed for used prevalidation but could not fund a voucher for top-up
             if (data.no_vouchers?.length > 0) {
                 await showErrorsList(
@@ -728,7 +726,7 @@ export default function ModalPrevalidationsUpload({
             pushSuccess(
                 'Bezig met uploaden...',
                 [
-                    `${data.update.length - skipUids.length} record(s) worden bijgewerkt en`,
+                    `${data.update.length + data.top_up.length - skipUids.length} record(s) worden bijgewerkt en`,
                     `${data.create.length} record(s) worden aangemaakt!`,
                 ].join(' '),
             );
