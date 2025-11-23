@@ -37,8 +37,8 @@ export class ProviderFundService<T = FundProvider> {
                         available: number;
                         archived: number;
                         invitations: number;
+                        unsubscribed: number;
                         invitations_archived: number;
-                        unsubscriptions: number;
                     };
                     tags: Array<Tag>;
                     organizations: Array<Organization>;
@@ -85,7 +85,16 @@ export class ProviderFundService<T = FundProvider> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/provider/funds/${id}`, data);
     }
 
-    public getColumns(type: 'active' | 'pending_rejected' | 'archived'): Array<ConfigurableTableColumn> {
+    /**
+     * Unsubscribe fund
+     */
+    public unsubscribe(organizationId: number, id: number, data: object = {}): Promise<null> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/provider/funds/${id}/unsubscribe`, data);
+    }
+
+    public getColumns(
+        type: 'active' | 'pending_rejected' | 'archived' | 'unsubscribed',
+    ): Array<ConfigurableTableColumn> {
         const list = [
             'name',
             'organization_name',

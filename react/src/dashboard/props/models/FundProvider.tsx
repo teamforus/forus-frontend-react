@@ -7,7 +7,7 @@ export default interface FundProvider {
     id: number;
     organization_id: number;
     fund_id: number;
-    state: 'pending' | 'accepted' | 'rejected';
+    state: 'pending' | 'accepted' | 'rejected' | 'unsubscribed';
     state_locale: string;
     dismissed: boolean;
     allow_products: boolean;
@@ -23,7 +23,6 @@ export default interface FundProvider {
     employees: Array<Employee>;
     organization: Organization;
     can_cancel: boolean;
-    can_unsubscribe: boolean;
     last_activity: string;
     last_activity_locale: string;
     allow_extra_payments?: boolean;

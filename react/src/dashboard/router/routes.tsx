@@ -84,7 +84,6 @@ import Households from '../components/pages/households/Households';
 import HouseholdsShow from '../components/pages/households/HouseholdsShow';
 import BiConnection from '../components/pages/bi-connection/BiConnection';
 import ThrowError from '../components/pages_system/ThrowError';
-import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubscriptions/SponsorFundUnsubscriptions';
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
 import Payouts from '../components/pages/payouts/Payouts';
 import PayoutsView from '../components/pages/payouts-view/PayoutsView';
@@ -271,12 +270,6 @@ router.state(DashboardRoutes.FUND_PROVIDER_PRODUCT, <FundProviderProductView />,
 router.state(DashboardRoutes.FUND_PROVIDER_PRODUCT_EDIT, <SponsorProductsEdit />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:fundProviderId/producten/:id/bewerken`,
     altPath: `/organizations/:organizationId/funds/:fundId/providers/:fundProviderId/products/:id/edit`,
-    fallbackState: DashboardRoutes.ORGANIZATIONS,
-});
-
-router.state(DashboardRoutes.SPONSOR_FUND_UNSUBSCRIPTIONS, <SponsorFundUnsubscriptions />, {
-    path: `/organisaties/:organizationId/fonds-afmeldingen`,
-    altPath: `/organizations/:organizationId/fund-unsubscriptions`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
