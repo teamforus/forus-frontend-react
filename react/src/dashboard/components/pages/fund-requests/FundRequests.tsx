@@ -7,7 +7,6 @@ import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import 'react-datepicker/dist/react-datepicker.css';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { PaginationData } from '../../../props/ApiResponses';
 import useAppConfigs from '../../../hooks/useAppConfigs';
