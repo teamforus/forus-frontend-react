@@ -2165,7 +2165,7 @@
     ],
     [
         "global.file_uploader.max_files",
-        "Max. {{ count }} files"
+        "*maximaal {{ count }} bestanden"
     ],
     [
         "global.file_uploader.max_size",
@@ -4058,6 +4058,18 @@
     [
         "modal_fund_help.website",
         "Website"
+    ],
+    [
+        "modal_image_preview.alt_text",
+        "Voorbeeld van bestand"
+    ],
+    [
+        "modal_image_preview.buttons.close",
+        "Sluiten"
+    ],
+    [
+        "modal_image_preview.title",
+        "Bekijk bestand"
     ],
     [
         "modal_logout.description_formal",
@@ -6637,11 +6649,11 @@
     ],
     [
         "products.filters.payment_options",
-        "Betalingsmogelijkheden"
+        "Betaalopties"
     ],
     [
         "products.filters.payment_options_info",
-        "Lees meer over de betalingsopties"
+        "Lees meer over de betaalopties"
     ],
     [
         "products.filters.postcode",
@@ -6657,7 +6669,7 @@
     ],
     [
         "products.filters.price_to",
-        "Naar"
+        "Tot"
     ],
     [
         "products.filters.price_type_option_discount_fixed",
@@ -6790,10 +6802,6 @@
     [
         "profile_menu.buttons.provider_sign_up",
         "Aanmelden als aanbieder"
-    ],
-    [
-        "profile_menu.buttons.records",
-        "Persoonsgegevens"
     ],
     [
         "profile_menu.buttons.reimbursements",
@@ -7660,6 +7668,10 @@
         "Loading"
     ],
     [
+        "reservation.details.reservation_fields_title",
+        "Gegevens"
+    ],
+    [
         "reservation.details.title",
         "Details van de reservering"
     ],
@@ -7708,6 +7720,14 @@
         "Status"
     ],
     [
+        "reservation.labels.address",
+        "Adres"
+    ],
+    [
+        "reservation.labels.birth_date",
+        "Geboortedatum"
+    ],
+    [
         "reservation.labels.cancel",
         "Annuleren"
     ],
@@ -7724,12 +7744,28 @@
         "Aangemaakt op:"
     ],
     [
+        "reservation.labels.email",
+        "E-mailadres"
+    ],
+    [
         "reservation.labels.expired_at",
         "Verlopen op:"
     ],
     [
+        "reservation.labels.first_name",
+        "Voornaam"
+    ],
+    [
+        "reservation.labels.last_name",
+        "Achternaam"
+    ],
+    [
         "reservation.labels.pay_extra",
         "Ga door naar betalen"
+    ],
+    [
+        "reservation.labels.phone",
+        "Telefoonnummer"
     ],
     [
         "reservation.labels.rejected_at",
@@ -7778,6 +7814,10 @@
     [
         "reservation.labels.status.waiting",
         "Wachten op betaling"
+    ],
+    [
+        "reservation.labels.user_note",
+        "Notitie"
     ],
     [
         "reservation.title",
