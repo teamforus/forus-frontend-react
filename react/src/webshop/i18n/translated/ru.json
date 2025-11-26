@@ -872,7 +872,7 @@
             "or": "или",
             "title": "Загрузить документ",
             "upload_button": "Загрузить документ",
-            "max_files": "Макс. {{ count }} файлов"
+            "max_files": "*максимум {{ count }} файлов"
         },
         "info_box": {
             "2fa_description": "Для получения дополнительной информации о 2FA посетите наш сайт:",
@@ -2348,11 +2348,8 @@
             "sort": "Сортировать",
             "payment_option_qr": "Показать QR-код у провайдера",
             "payment_option_reservation": "Забронировать онлайн",
-            "payment_options": "Варианты оплаты",
-            "payment_options_info": "Подробнее о вариантах оплаты",
             "price": "Цена (€)",
             "price_from": "С сайта",
-            "price_to": "На",
             "payment_option_extra_payment": "Оплата онлайн с помощью iDeal",
             "price_type_option_discount_fixed": "Скидка в евро",
             "price_type_option_discount_percentage": "Скидка в процентах",
@@ -2361,7 +2358,10 @@
             "price_type_option_regular": "Цена",
             "price_type_options": "Тип предложения",
             "price_type_options_info": "Подробнее о типах предложений",
-            "category": "Категории"
+            "category": "Категории",
+            "payment_options": "Варианты оплаты",
+            "payment_options_info": "Подробнее о вариантах оплаты",
+            "price_to": "На"
         },
         "sort": {
             "created_at_asc": "Самый старый первый",
@@ -2390,7 +2390,6 @@
             "notifications": "Уведомления",
             "payouts": "Выплаты",
             "profile": "Данные",
-            "records": "Персональные данные",
             "reimbursements": "Возмещение затрат",
             "reservations": "Бронирование",
             "security": "Безопасность",
@@ -2728,7 +2727,8 @@
                 "rejection_note": "Сообщение поставщика:"
             },
             "loading": "Загрузка",
-            "title": "Детали бронирования"
+            "title": "Детали бронирования",
+            "reservation_fields_title": "Данные"
         },
         "expired": "Извините, ваше бронирование было отменено в процессе оформления заказа, поскольку выбранный товар распродан.",
         "extra_amount_refund": {
@@ -2764,7 +2764,14 @@
                 "pending": "В ожидании",
                 "rejected": "Отказано",
                 "waiting": "Ожидание оплаты"
-            }
+            },
+            "address": "Адрес",
+            "birth_date": "Дата рождения",
+            "email": "Адрес электронной почты",
+            "first_name": "Имя",
+            "last_name": "Фамилия",
+            "phone": "Номер телефона",
+            "user_note": "Примечание"
         },
         "title": "Детали пополнения счета",
         "expiring": "Пожалуйста, обратите внимание, что для внесения дополнительной оплаты осталось <strong>{{expiresIn}} минут</strong>. В противном случае бронирование будет автоматически отменено."
@@ -3647,5 +3654,12 @@
     "block_product_categories": {
         "description": "Нажмите на тему, и вы сразу увидите, какое предложение вы можете выбрать.",
         "title": "Чем вы любите заниматься?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Пример файла",
+        "buttons": {
+            "close": "Закрыть"
+        },
+        "title": "Просмотр файла"
     }
 }

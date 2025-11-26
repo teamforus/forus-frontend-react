@@ -179,7 +179,7 @@
             "or": "veya",
             "title": "Bir belge yükleyin",
             "upload_button": "Bir belge yükleyin",
-            "max_files": "Maks. {{ count }} dosyalar"
+            "max_files": "*max {{ count }} dosyaları"
         },
         "info_box": {
             "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
@@ -422,11 +422,8 @@
             "sort": "Sırala",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
             "payment_option_reservation": "Online rezervasyon",
-            "payment_options": "Ödeme seçenekleri",
-            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
             "price": "Fiyat (€)",
             "price_from": "Kimden",
-            "price_to": "için",
             "payment_option_extra_payment": "iDeal ile çevrimiçi ödeme",
             "price_type_option_discount_fixed": "Euro cinsinden indirim",
             "price_type_option_discount_percentage": "Yüzde olarak indirim",
@@ -435,7 +432,10 @@
             "price_type_option_regular": "Fiyat",
             "price_type_options": "Teklif türü",
             "price_type_options_info": "Teklif türleri hakkında daha fazla bilgi edinin",
-            "category": "Kategoriler"
+            "category": "Kategoriler",
+            "payment_options": "Ödeme seçenekleri",
+            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
+            "price_to": "için"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -2667,7 +2667,8 @@
                 "rejection_note": "Sağlayıcı mesajı:"
             },
             "loading": "Yükleniyor",
-            "title": "Rezervasyon detayları"
+            "title": "Rezervasyon detayları",
+            "reservation_fields_title": "Veri"
         },
         "expired": "Üzgünüz, seçilen ürün tükendiği için ödeme işlemi sırasında rezervasyonunuz iptal edildi.",
         "extra_amount_refund": {
@@ -2703,7 +2704,14 @@
                 "pending": "Beklenti içinde",
                 "rejected": "Reddedildi",
                 "waiting": "Ödeme için bekliyorum"
-            }
+            },
+            "address": "Adres",
+            "birth_date": "Doğum tarihi",
+            "email": "E-posta adresi",
+            "first_name": "İlk isim",
+            "last_name": "Soyadı",
+            "phone": "Telefon numarası",
+            "user_note": "Not"
         },
         "title": "Yükleme ayrıntıları",
         "expiring": "Ek ödemeyi yapmak için <strong>{{expiresIn}} dakika</strong> kaldığını lütfen unutmayın. Aksi takdirde rezervasyon otomatik olarak iptal edilecektir."
@@ -3416,7 +3424,6 @@
             "notifications": "Bildirimler",
             "payouts": "Ödemeler",
             "profile": "Veri",
-            "records": "Kişisel veriler",
             "reimbursements": "Maliyet geri kazanımı",
             "reservations": "Rezervasyonlar",
             "security": "Güvenlik",
@@ -3647,5 +3654,12 @@
     "block_product_categories": {
         "description": "Bir temaya tıkladığınızda hangi teklifler arasından seçim yapabileceğinizi hemen göreceksiniz.",
         "title": "Ne yapmaktan hoşlanırsın?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Dosya örneği",
+        "buttons": {
+            "close": "Kapat"
+        },
+        "title": "Dosyayı görüntüle"
     }
 }

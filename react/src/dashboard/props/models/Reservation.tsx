@@ -1,6 +1,7 @@
 import ExtraPayment from './ExtraPayment';
 import Product from './Product';
 import Transaction from './Transaction';
+import FileModel from './File';
 
 export default interface Reservation {
     id: number;
@@ -49,6 +50,7 @@ export default interface Reservation {
     custom_fields?: Array<{
         label: string;
         value: string;
+        file?: FileModel;
     }>;
     records_title?: string;
     fund: {

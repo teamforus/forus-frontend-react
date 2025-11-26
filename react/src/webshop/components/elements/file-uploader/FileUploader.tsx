@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFileService } from '../../../../dashboard/services/FileService';
 import FileModel from '../../../../dashboard/props/models/File';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
@@ -8,6 +8,7 @@ import usePushInfo from '../../../../dashboard/hooks/usePushInfo';
 import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import classNames from 'classnames';
 
 export type FileUploaderItem = {
     id?: string;
@@ -42,8 +43,9 @@ export default function FileUploader({
     title,
     files = null,
     template = 'default',
-    multiple = false,
-    multipleSize = 15,
+    hideInlineTitle = false,
+    allowMultiple = true,
+    maxFiles = 15,
     cropMedia = true,
     readOnly = false,
     acceptedFiles = ['.xlsx', '.xls', '.docx', '.doc', '.pdf', '.png', '.jpg', '.jpeg'],
@@ -53,19 +55,26 @@ export default function FileUploader({
     onFileResolved = null,
     onFileUploaded = null,
     onFilesChange = null,
-    hideButtons = false,
+    hidePreviewButton = false,
+    hideDownloadButton = false,
     isRequired = false,
 }: {
-    type: 'fund_request_clarification_proof' | 'reimbursement_proof' | 'fund_request_record_proof';
+    type:
+        | 'fund_request_clarification_proof'
+        | 'reimbursement_proof'
+        | 'fund_request_record_proof'
+        | 'product_reservation_custom_field';
     title?: string;
     files?: Array<FileModel>;
     template?: 'default' | 'compact' | 'inline';
-    multiple?: boolean;
-    multipleSize?: number;
+    hideInlineTitle?: boolean;
+    allowMultiple?: boolean;
+    maxFiles?: number;
     cropMedia?: boolean;
     readOnly?: boolean;
     acceptedFiles?: Array<string>;
-    hideButtons?: boolean;
+    hidePreviewButton?: boolean;
+    hideDownloadButton?: boolean;
     isRequired?: boolean;
 } & FileItemEventsListener) {
     const fileService = useFileService();
@@ -78,6 +87,10 @@ export default function FileUploader({
     const inputRef = useRef<HTMLInputElement>(null);
     const filesRef = useRef<Array<FileUploaderItem>>(null);
     const callbackRef = useRef<FileItemEventsListener>(null);
+
+    const effectiveMaxFiles = useMemo(() => {
+        return allowMultiple ? maxFiles : 1;
+    }, [allowMultiple, maxFiles]);
 
     const [fileItems, setFileItems] = useState(
         files?.map(
@@ -207,10 +220,11 @@ export default function FileUploader({
 
     const uploadFiles = useCallback(
         (files: Array<File>) => {
-            const filesSpaceLeft = multipleSize ? multipleSize - fileItems.length : 100;
+            const normalizedFiles = allowMultiple ? files : files.slice(0, 1);
+            const filesSpaceLeft = effectiveMaxFiles ? effectiveMaxFiles - fileItems.length : 100;
 
-            if (filesSpaceLeft < files.length) {
-                files.splice(filesSpaceLeft);
+            if (filesSpaceLeft < normalizedFiles.length) {
+                normalizedFiles.splice(filesSpaceLeft);
 
                 pushInfo(
                     'To many files selected',
@@ -218,11 +232,11 @@ export default function FileUploader({
                 );
             }
 
-            prepareFilesForUpload(files).then((filteredFiles) => {
+            prepareFilesForUpload(normalizedFiles).then((filteredFiles) => {
                 setFileItems((fileItems) => [...fileItems, ...filteredFiles]);
             });
         },
-        [fileItems.length, multipleSize, prepareFilesForUpload, pushInfo],
+        [fileItems.length, allowMultiple, effectiveMaxFiles, prepareFilesForUpload, pushInfo],
     );
 
     const filterSelectedFiles = useCallback(
@@ -278,16 +292,17 @@ export default function FileUploader({
 
     return (
         <div
-            className={`block block-file-uploader ${template == 'compact' ? 'block-file-uploader-compact' : ''} ${
-                template == 'inline' ? 'block-file-uploader-inline' : ''
-            }`}
+            className={classNames('block', 'block-file-uploader', {
+                'block-file-uploader-compact': template === 'compact',
+                'block-file-uploader-inline': template === 'inline',
+            })}
             data-dusk="fileUploader">
             <input
                 type="file"
                 className={'droparea-hidden-input'}
                 name={'file_uploader_input_hidden'}
                 hidden={true}
-                multiple={multiple}
+                multiple={allowMultiple}
                 accept={(acceptedFiles || []).join(',')}
                 ref={inputRef}
                 onChange={(e) => {
@@ -298,7 +313,7 @@ export default function FileUploader({
 
             {!readOnly && (
                 <div
-                    className={`uploader-droparea ${isDragOver ? 'is-dragover' : ''}`}
+                    className={classNames('uploader-droparea', { 'is-dragover': isDragOver })}
                     onDragOver={(e) => onDragEvent(e, true)}
                     onDragEnter={(e) => onDragEvent(e, true)}
                     onDragLeave={(e) => onDragEvent(e, false)}
@@ -310,22 +325,26 @@ export default function FileUploader({
                     <div className="droparea-icon">
                         <div className="mdi mdi-tray-arrow-up"></div>
                     </div>
-                    <div className={`droparea-title ${isRequired ? 'droparea-title-required' : ''}`}>
+                    <div className={classNames('droparea-title', { 'droparea-title-required': isRequired })}>
                         <strong>{title || translate('global.file_uploader.title')}</strong>
                         <br />
                         <small>{translate('global.file_uploader.or')}</small>
                     </div>
                     <div className="droparea-button">
                         <button
-                            className={`button ${template == 'compact' ? 'button-light button-xs' : ''} ${
-                                template == 'inline' ? 'button-primary button-sm' : ''
-                            } ${template == 'default' ? 'button-primary' : ''}`}
+                            className={classNames('button', {
+                                'button-light button-xs': template === 'compact',
+                                'button-primary button-sm': template === 'inline',
+                                'button-primary': template === 'default',
+                            })}
                             data-dusk="fileUploaderBtn"
                             type="button"
                             tabIndex={0}
-                            disabled={multipleSize && multipleSize <= fileItems.length}
+                            disabled={fileItems.length >= effectiveMaxFiles}
                             onClick={() => inputRef.current?.click()}>
-                            <em className={`mdi ${template == 'compact' ? 'mdi-paperclip' : 'mdi-upload'}`} />
+                            <em
+                                className={classNames('mdi', template === 'compact' ? 'mdi-paperclip' : 'mdi-upload')}
+                            />
                             {translate('global.file_uploader.upload_button')}
                         </button>
                     </div>
@@ -333,9 +352,9 @@ export default function FileUploader({
                         <div className="droparea-size">{translate('global.file_uploader.max_size')}</div>
                     )}
 
-                    {(template === 'inline' || template === 'compact') && multipleSize && (
+                    {(template === 'inline' || template === 'compact') && effectiveMaxFiles && (
                         <div className="droparea-max-limit">
-                            {translate('global.file_uploader.max_files', { count: multipleSize })}
+                            {translate('global.file_uploader.max_files', { count: effectiveMaxFiles })}
                         </div>
                     )}
                 </div>
@@ -343,7 +362,7 @@ export default function FileUploader({
 
             {fileItems.length > 0 && (
                 <div className="uploader-files">
-                    {template === 'inline' && (
+                    {template === 'inline' && !hideInlineTitle && (
                         <div className="uploader-files-title">
                             {translate('global.file_uploader.attachments')}
                             <div className="uploader-files-title-count">{fileItems.length}</div>
@@ -355,7 +374,8 @@ export default function FileUploader({
                             key={file.id}
                             item={file}
                             template={template}
-                            buttons={!hideButtons}
+                            hidePreviewButton={hidePreviewButton}
+                            hideDownloadButton={hideDownloadButton}
                             readOnly={readOnly}
                             removeFile={removeFile}
                         />
