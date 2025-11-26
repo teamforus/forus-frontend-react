@@ -55,7 +55,7 @@
         background: none;
 
         .block-content {
-            text-align: center;
+            text-align: left;
             width: 100%;
             padding: 0;
 
@@ -73,6 +73,7 @@
                 width: 100%;
                 padding-left: 30px;
                 padding-right: 30px;
+                text-align: left;
             }
         }
     }
