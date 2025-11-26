@@ -5,8 +5,8 @@ export default function Tooltip({ text, className }: { text: string; className?:
     const translate = useTranslate();
 
     return (
-        <div className="tooltip-block" aria-label={translate(text)} title={translate(text)}>
-            <div className="tooltip-icon" role="button" tabIndex={0}>
+        <div className="tooltip-block" title={translate(text)}>
+            <div className="tooltip-icon" aria-label={translate(text)} role="button" tabIndex={0}>
                 <em className="mdi mdi-information-variant-circle" />
             </div>
             <div className={`tooltip ${className}`}>{translate(text)}</div>

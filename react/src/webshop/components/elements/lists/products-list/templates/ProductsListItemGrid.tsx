@@ -49,9 +49,9 @@ export default function ProductsListItemGrid({
                 />
             </div>
             <div className="product-details">
-                <h3 className="product-title" data-dusk="productName">
+                <h2 className="product-title" data-dusk="productName">
                     {product.name}
-                </h3>
+                </h2>
                 <div className="product-subtitle">{product.organization.name}</div>
             </div>
             <div className="product-actions">

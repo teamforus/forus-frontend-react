@@ -35,7 +35,10 @@ export default function RangeControl({
                 className="horizontal-slider"
                 thumbClassName="horizontal-slider-thumb"
                 trackClassName="horizontal-slider-track"
-                ariaLabelledby={['first-slider-label', 'second-slider-label']}
+                ariaLabel={[
+                    translate('form.range_control.first_slider_aria_label'),
+                    translate('form.range_control.second_slider_aria_label'),
+                ]}
                 ariaValuetext={(state) => {
                     return translate('form.range_control.aria_value', {
                         prefix: prefix?.trim(),

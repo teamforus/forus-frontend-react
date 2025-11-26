@@ -50,7 +50,7 @@ export default function SelectControlOptionsLang<T>({
             data-dusk={dusk}
             aria-haspopup="listbox"
             aria-expanded={showOptions}
-            aria-labelledby={controlId}
+            aria-labelledby={allowSearch ? controlId : null}
             aria-controls={`${controlId}_options`}
             ref={selectorRef}
             onKeyDown={onKeyDown}
@@ -59,7 +59,6 @@ export default function SelectControlOptionsLang<T>({
                 {/* Placeholder */}
                 <label
                     htmlFor={controlId}
-                    role="presentation"
                     ref={placeholderRef}
                     className="lang-control-search"
                     onClick={searchOption}

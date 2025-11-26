@@ -82,7 +82,9 @@ export default function LayoutFooter() {
                             {appConfigs.pages.provider && (
                                 <div className="block block-markdown">
                                     <h3>{translate('app_footer.columns.links')}</h3>
-                                    <nav className="footer-nav">
+                                    <nav
+                                        className="footer-nav"
+                                        aria-label={translate('app_footer.nav_provider_aria_label')}>
                                         <div className="footer-nav-item">
                                             <StateNavLink name={WebshopRoutes.SIGN_UP} target="_self">
                                                 {translate('app_footer.provider_sign_up')}
@@ -114,7 +116,9 @@ export default function LayoutFooter() {
                                                 <AppLinks
                                                     theme={envData.config?.flags.useLightAppIcons ? 'light' : 'dark'}
                                                 />
-                                                <nav className="footer-nav">
+                                                <nav
+                                                    className="footer-nav"
+                                                    aria-label={translate('app_footer.me_app_aria_label')}>
                                                     <div className="footer-nav-item">
                                                         <div className="flex">
                                                             <span aria-hidden="true">

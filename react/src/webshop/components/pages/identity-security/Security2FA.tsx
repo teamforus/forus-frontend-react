@@ -235,7 +235,10 @@ export default function Security2FA() {
                     <div className="block block-auth-2fa">
                         <form className="form form-compact" onSubmit={form.submit}>
                             <div className="form-group">
-                                <label className="form-label" htmlFor="auth_2fa_remember_ip">
+                                <label
+                                    className="form-label"
+                                    htmlFor="auth_2fa_remember_ip"
+                                    id="auth_2fa_remember_ip_select">
                                     {translate('security_2fa.remember_ip')}
                                 </label>
                                 {!auth2FAState.auth_2fa_forget_force.voucher &&
@@ -250,6 +253,7 @@ export default function Security2FA() {
                                         }}
                                         options={auth2FARememberIpOptions}
                                         multiline={true}
+                                        ariaLabelledby={'auth_2fa_remember_ip_select'}
                                     />
                                 ) : (
                                     <input
