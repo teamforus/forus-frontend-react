@@ -9,6 +9,8 @@ deepl.env.mjs
 deepl.env.*.mjs
 !deepl.env.example.mjs
 
+forus-backend
+
 # Compiled source #
 ###################
 *.com
