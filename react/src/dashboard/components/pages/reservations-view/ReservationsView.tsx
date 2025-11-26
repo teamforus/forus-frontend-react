@@ -27,6 +27,8 @@ import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
+import Note from '../../../props/models/Note';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -138,6 +140,27 @@ export default function ReservationsView() {
         }
     }, [fetchReservation, fetchTransaction, reservation?.id, reservation?.voucher_transaction?.address]);
 
+    const fetchNotes = useCallback(
+        (query = {}) => {
+            return productReservationService.notes(activeOrganization.id, reservation?.id, query);
+        },
+        [activeOrganization.id, reservation?.id, productReservationService],
+    );
+
+    const deleteNote = useCallback(
+        (note: Note) => {
+            return productReservationService.noteDestroy(activeOrganization.id, reservation?.id, note.id);
+        },
+        [activeOrganization.id, reservation?.id, productReservationService],
+    );
+
+    const storeNote = useCallback(
+        (data: { description: string }) => {
+            return productReservationService.storeNote(activeOrganization.id, reservation?.id, data);
+        },
+        [activeOrganization.id, reservation?.id, productReservationService],
+    );
+
     useEffect(() => {
         fetchReservation(parseInt(id));
     }, [fetchReservation, id]);
@@ -217,6 +240,8 @@ export default function ReservationsView() {
                     </div>
                 </div>
             </div>
+
+            <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
 
             {((transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES)) ||
                 reservation.extra_payment) && (

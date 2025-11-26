@@ -5,6 +5,7 @@ import Reservation from '../props/models/Reservation';
 import { ApiResponse, ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import Note from '../props/models/Note';
 
 export class ProductReservationService<T = Reservation> {
     /**
@@ -94,6 +95,18 @@ export class ProductReservationService<T = Reservation> {
 
         return Papa.unparse([headers, values]);
     };
+
+    public notes(organizationId: number, id: number, data: object): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/product-reservations/${id}/notes`, data);
+    }
+
+    public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {
+        return this.apiRequest.delete(`${this.prefix}/${organizationId}/product-reservations/${id}/notes/${note_id}`);
+    }
+
+    public storeNote(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<Note>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/product-reservations/${id}/notes`, data);
+    }
 
     public getColumns(showExtraPayments: boolean, isSponsor: boolean): Array<ConfigurableTableColumn> {
         const list = [
