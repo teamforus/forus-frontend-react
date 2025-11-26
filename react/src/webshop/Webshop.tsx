@@ -35,6 +35,7 @@ import { isValidLocaleString } from '../dashboard/helpers/url';
 import { FrameDirectorProvider } from '../dashboard/modules/frame_director/context/FrameDirectorContext';
 import { LayoutProvider } from './contexts/LayoutContext';
 import { ReactRouter7Adapter } from '../dashboard/modules/state_router/ReactRouter7Adapter';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const locale = localStorage.getItem('locale');
 
