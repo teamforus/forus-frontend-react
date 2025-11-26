@@ -35,6 +35,7 @@ export default function ReservationFieldItem({
         { key: 'text', name: 'Tekst' },
         { key: 'number', name: 'Nummer' },
         { key: 'boolean', name: 'Ja / Nee' },
+        { key: 'file', name: 'Document upload' },
     ]);
 
     const askConfirmation = useCallback(
@@ -196,7 +197,7 @@ export default function ReservationFieldItem({
                                     propKey={'key'}
                                     allowSearch={false}
                                     value={field.type}
-                                    onChange={(value: 'number' | 'text') => {
+                                    onChange={(value: 'number' | 'text' | 'boolean' | 'file') => {
                                         field.type = value;
                                         onChange([...fields]);
                                     }}

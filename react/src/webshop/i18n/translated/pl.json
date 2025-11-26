@@ -872,7 +872,7 @@
             "or": "lub",
             "title": "Prześlij dokument",
             "upload_button": "Prześlij dokument",
-            "max_files": "Maks. {{ count }} plików"
+            "max_files": "*maksymalna liczba plików {{ count }} "
         },
         "info_box": {
             "2fa_description": "Aby uzyskać więcej informacji na temat 2FA, odwiedź naszą stronę:",
@@ -2348,11 +2348,8 @@
             "sort": "Sortuj",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
             "payment_option_reservation": "Zarezerwuj online",
-            "payment_options": "Opcje płatności",
-            "payment_options_info": "Więcej informacji o opcjach płatności",
             "price": "Cena (€)",
             "price_from": "Od",
-            "price_to": "Do",
             "payment_option_extra_payment": "Płatność online za pomocą iDeal",
             "price_type_option_discount_fixed": "Rabat w euro",
             "price_type_option_discount_percentage": "Rabat w procentach",
@@ -2361,7 +2358,10 @@
             "price_type_option_regular": "Cena",
             "price_type_options": "Rodzaj oferty",
             "price_type_options_info": "Dowiedz się więcej o rodzajach ofert",
-            "category": "Kategorie"
+            "category": "Kategorie",
+            "payment_options": "Opcje płatności",
+            "payment_options_info": "Więcej informacji o opcjach płatności",
+            "price_to": "Do"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -2390,7 +2390,6 @@
             "notifications": "Powiadomienia",
             "payouts": "Wypłaty",
             "profile": "Dane",
-            "records": "Dane osobowe",
             "reimbursements": "Zwrot kosztów",
             "reservations": "Rezerwacje",
             "security": "Bezpieczeństwo",
@@ -2728,7 +2727,8 @@
                 "rejection_note": "Wiadomość od dostawcy:"
             },
             "loading": "Ładowanie",
-            "title": "Szczegóły rezerwacji"
+            "title": "Szczegóły rezerwacji",
+            "reservation_fields_title": "Dane"
         },
         "expired": "Przepraszamy, rezerwacja została anulowana podczas procesu realizacji zakupu, ponieważ wybrany produkt został wyprzedany.",
         "extra_amount_refund": {
@@ -2764,7 +2764,14 @@
                 "pending": "W oczekiwaniu",
                 "rejected": "Odmowa",
                 "waiting": "Oczekiwanie na płatność"
-            }
+            },
+            "address": "Adres",
+            "birth_date": "Data urodzenia",
+            "email": "Adres e-mail",
+            "first_name": "Imię",
+            "last_name": "Nazwisko",
+            "phone": "Numer telefonu",
+            "user_note": "Uwaga"
         },
         "title": "Szczegóły doładowania",
         "expiring": "Należy pamiętać, że na dokonanie dodatkowej płatności pozostało <strong>{{expiresIn}} minut</strong>. W przeciwnym razie rezerwacja zostanie automatycznie anulowana."
@@ -3647,5 +3654,12 @@
     "block_product_categories": {
         "description": "Kliknij motyw, a natychmiast zobaczysz, z której oferty możesz wybierać.",
         "title": "Co lubisz robić?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Przykład pliku",
+        "buttons": {
+            "close": "Zamknij"
+        },
+        "title": "Wyświetl plik"
     }
 }

@@ -872,7 +872,7 @@
             "or": "ou",
             "title": "Télécharger un document",
             "upload_button": "Télécharger un document",
-            "max_files": "Max. {{ count }} fichiers"
+            "max_files": "*maximum {{ count }} files"
         },
         "info_box": {
             "2fa_description": "Pour plus d'informations sur le 2FA, visitez notre site :",
@@ -2348,11 +2348,8 @@
             "sort": "Trier",
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
-            "payment_options": "Options de paiement",
-            "payment_options_info": "En savoir plus sur les options de paiement",
             "price": "Prix (€)",
             "price_from": "De",
-            "price_to": "Pour",
             "payment_option_extra_payment": "Payer en ligne avec iDeal",
             "price_type_option_discount_fixed": "Remise en euros",
             "price_type_option_discount_percentage": "Remise en pourcentage",
@@ -2361,7 +2358,10 @@
             "price_type_option_regular": "Prix",
             "price_type_options": "Type d'offre",
             "price_type_options_info": "En savoir plus sur les types d'offres",
-            "category": "Catégories"
+            "category": "Catégories",
+            "payment_options": "Options de paiement",
+            "payment_options_info": "En savoir plus sur les options de paiement",
+            "price_to": "Pour"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2390,7 +2390,6 @@
             "notifications": "Notifications",
             "payouts": "Paiements",
             "profile": "Données",
-            "records": "Données personnelles",
             "reimbursements": "Recouvrement des coûts",
             "reservations": "Réservations",
             "security": "Sécurité",
@@ -2728,7 +2727,8 @@
                 "rejection_note": "Message du fournisseur :"
             },
             "loading": "Chargement",
-            "title": "Détails de la réservation"
+            "title": "Détails de la réservation",
+            "reservation_fields_title": "Données"
         },
         "expired": "Désolé, votre réservation a été annulée pendant le processus de paiement car le produit sélectionné est épuisé.",
         "extra_amount_refund": {
@@ -2764,7 +2764,14 @@
                 "pending": "En prévision",
                 "rejected": "Refusé",
                 "waiting": "En attente de paiement"
-            }
+            },
+            "address": "Adresse",
+            "birth_date": "Date de naissance",
+            "email": "Adresse électronique",
+            "first_name": "Prénom",
+            "last_name": "Nom de famille",
+            "phone": "Numéro de téléphone",
+            "user_note": "Note"
         },
         "title": "Détails de l'appoint",
         "expiring": "Veuillez noter qu'il reste <strong>{{expiresIn}} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée."
@@ -3647,5 +3654,12 @@
     "block_product_categories": {
         "description": "Cliquez sur un thème et vous verrez immédiatement l'offre que vous pouvez choisir.",
         "title": "Qu'aimez-vous faire ?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Exemple de fichier",
+        "buttons": {
+            "close": "Fermer"
+        },
+        "title": "Voir le fichier"
     }
 }

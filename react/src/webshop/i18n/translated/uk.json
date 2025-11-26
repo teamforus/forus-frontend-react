@@ -872,7 +872,7 @@
             "or": "або",
             "title": "Завантажити документ",
             "upload_button": "Завантажити документ",
-            "max_files": "Макс. {{ count }} файлів"
+            "max_files": "*максимальний розмір файлів {{ count }} "
         },
         "info_box": {
             "2fa_description": "Щоб дізнатися більше про 2FA, відвідайте нас:",
@@ -2348,11 +2348,8 @@
             "sort": "Сортування",
             "payment_option_qr": "Показати QR-код у постачальника",
             "payment_option_reservation": "Бронюйте онлайн",
-            "payment_options": "Варіанти оплати",
-            "payment_options_info": "Дізнайтеся більше про способи оплати",
             "price": "Ціна (€)",
             "price_from": "Від",
-            "price_to": "До",
             "payment_option_extra_payment": "Оплата в Інтернеті за допомогою iDeal",
             "price_type_option_discount_fixed": "Знижка в євро",
             "price_type_option_discount_percentage": "Знижка у відсотках",
@@ -2361,7 +2358,10 @@
             "price_type_option_regular": "Ціна",
             "price_type_options": "Тип пропозиції",
             "price_type_options_info": "Дізнайтеся більше про типи пропозицій",
-            "category": "Категорії"
+            "category": "Категорії",
+            "payment_options": "Варіанти оплати",
+            "payment_options_info": "Дізнайтеся більше про способи оплати",
+            "price_to": "До"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -2390,7 +2390,6 @@
             "notifications": "Сповіщення",
             "payouts": "Виплати",
             "profile": "Дані",
-            "records": "Персональні дані",
             "reimbursements": "Відшкодування витрат",
             "reservations": "Бронювання",
             "security": "Безпека",
@@ -2728,7 +2727,8 @@
                 "rejection_note": "Повідомлення від провайдера:"
             },
             "loading": "Завантаження",
-            "title": "Деталі бронювання"
+            "title": "Деталі бронювання",
+            "reservation_fields_title": "Дані"
         },
         "expired": "На жаль, ваше бронювання було скасовано під час оформлення замовлення, оскільки обраний товар розпродано.",
         "extra_amount_refund": {
@@ -2764,7 +2764,14 @@
                 "pending": "В очікуванні",
                 "rejected": "Відмовлено",
                 "waiting": "Чекаємо на оплату"
-            }
+            },
+            "address": "Адреса",
+            "birth_date": "Дата народження",
+            "email": "Адреса електронної пошти",
+            "first_name": "Ім'я та прізвище",
+            "last_name": "Прізвище",
+            "phone": "Номер телефону",
+            "user_note": "Примітка"
         },
         "title": "Деталі поповнення",
         "expiring": "Будь ласка, зверніть увагу, що залишилося <strong>{{expiresIn}} хвилин</strong>, щоб здійснити доплату. В іншому випадку бронювання буде автоматично скасовано."
@@ -3647,5 +3654,12 @@
     "block_product_categories": {
         "description": "Натисніть на тему, і ви одразу побачите, з яких пропозицій ви можете вибрати.",
         "title": "Чим ви любите займатися?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Приклад файлу",
+        "buttons": {
+            "close": "Закрити"
+        },
+        "title": "Переглянути файл"
     }
 }

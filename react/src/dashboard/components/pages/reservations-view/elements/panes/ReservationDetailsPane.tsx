@@ -5,6 +5,7 @@ import Reservation from '../../../../../props/models/Reservation';
 import BlockInlineCopy from '../../../../elements/block-inline-copy/BlockInlineCopy';
 import { strLimit } from '../../../../../helpers/string';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
+import FileAttachmentsList from '../../../../elements/FileAttachmentsList';
 
 export default function ReservationDetailsPane({ reservation }: { reservation: Reservation }) {
     const translate = useTranslate();
@@ -32,7 +33,7 @@ export default function ReservationDetailsPane({ reservation }: { reservation: R
                 )}
                 {reservation.custom_fields?.map((field, index) => (
                     <KeyValueItem key={index} label={field.label}>
-                        {field.value}
+                        {field.file ? <FileAttachmentsList attachments={[{ file: field.file }]} /> : field.value}
                     </KeyValueItem>
                 ))}
                 {reservation.user_note && (
