@@ -4,6 +4,7 @@ import FileModel from '../../../../dashboard/props/models/File';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalPhotoCropper from '../../modals/modal-photo-cropper/ModalPhotoCropper';
 import FileUploaderItemView from './FileUploaderItemView';
+import DashboardFileUploaderItemView from '../../../../dashboard/components/elements/file-uploader/FileUploaderItemView';
 import usePushInfo from '../../../../dashboard/hooks/usePushInfo';
 import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -58,6 +59,7 @@ export default function FileUploader({
     hidePreviewButton = false,
     hideDownloadButton = false,
     isRequired = false,
+    isWebshop = true,
 }: {
     type:
         | 'fund_request_clarification_proof'
@@ -76,6 +78,7 @@ export default function FileUploader({
     hidePreviewButton?: boolean;
     hideDownloadButton?: boolean;
     isRequired?: boolean;
+    isWebshop?: boolean;
 } & FileItemEventsListener) {
     const fileService = useFileService();
 
@@ -369,17 +372,28 @@ export default function FileUploader({
                         </div>
                     )}
 
-                    {fileItems?.map((file) => (
-                        <FileUploaderItemView
-                            key={file.id}
-                            item={file}
-                            template={template}
-                            hidePreviewButton={hidePreviewButton}
-                            hideDownloadButton={hideDownloadButton}
-                            readOnly={readOnly}
-                            removeFile={removeFile}
-                        />
-                    ))}
+                    {fileItems?.map((file) =>
+                        isWebshop ? (
+                            <FileUploaderItemView
+                                key={file.id}
+                                item={file}
+                                template={template}
+                                hidePreviewButton={hidePreviewButton}
+                                hideDownloadButton={hideDownloadButton}
+                                readOnly={readOnly}
+                                removeFile={removeFile}
+                            />
+                        ) : (
+                            <DashboardFileUploaderItemView
+                                key={file.id}
+                                item={file}
+                                hidePreviewButton={hidePreviewButton}
+                                hideDownloadButton={hideDownloadButton}
+                                readOnly={readOnly}
+                                removeFile={removeFile}
+                            />
+                        ),
+                    )}
                 </div>
             )}
         </div>

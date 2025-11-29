@@ -38,6 +38,11 @@ export default function ReservationFieldItem({
         { key: 'file', name: 'Document upload' },
     ]);
 
+    const [fillableByTypes] = useState([
+        { key: 'provider', name: translate('reservation_settings.fillable_by.provider') },
+        { key: 'requester', name: translate('reservation_settings.fillable_by.requester') },
+    ]);
+
     const askConfirmation = useCallback(
         (onConfirm: () => void) => {
             openModal((modal) => (
@@ -202,6 +207,29 @@ export default function ReservationFieldItem({
                                         onChange([...fields]);
                                     }}
                                     options={types}
+                                />
+                            )}
+                        />
+
+                        <FormGroup
+                            label={translate('reservation_settings.labels.fillable_by')}
+                            error={errors['fields.' + index + '.fillable_by']}
+                            info={
+                                <Fragment>
+                                    <p>Fillable by description</p>
+                                </Fragment>
+                            }
+                            input={() => (
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'key'}
+                                    allowSearch={false}
+                                    value={field.fillable_by}
+                                    onChange={(value: 'requester' | 'provider') => {
+                                        field.fillable_by = value;
+                                        onChange([...fields]);
+                                    }}
+                                    options={fillableByTypes}
                                 />
                             )}
                         />
