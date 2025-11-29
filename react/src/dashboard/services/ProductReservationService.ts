@@ -89,6 +89,18 @@ export class ProductReservationService<T = Reservation> {
         return this.apiRequest.patch(`${this.prefix}/${organization_id}/product-reservations/${id}`, data);
     }
 
+    public updateCustomField(
+        organization_id: number,
+        reservation_id: number,
+        id: number,
+        data = {},
+    ): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(
+            `${this.prefix}/${organization_id}/product-reservations/${reservation_id}/fields/${id}`,
+            data,
+        );
+    }
+
     public sampleCsvProductReservations = (product_id = '') => {
         const headers = ['number', 'product_id'];
         const values = ['000000000000', product_id];

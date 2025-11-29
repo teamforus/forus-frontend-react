@@ -17,6 +17,7 @@ import modal_feature_contact from './modals/modal-feature-contact';
 import modal_2fa_setup from './modals/modal-2fa-setup';
 import modal_extra_payment_refund from './modals/modal-extra-payment-refund';
 import modal_invoice_number_edit from './modals/modal-invoice-number-edit';
+import modal_reservation_custom_field_edit from './modals/modal-reservation-custom-field-edit';
 
 export default {
     modal_payout_create,
@@ -38,4 +39,5 @@ export default {
     modal_2fa_setup,
     modal_extra_payment_refund,
     modal_invoice_number_edit,
+    modal_reservation_custom_field_edit,
 };

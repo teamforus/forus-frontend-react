@@ -4,6 +4,7 @@ export default {
         title: 'Details van de reservering',
         loading: 'Loading',
         reservation_fields_title: 'Gegevens',
+        reservation_fields_for_provider_title: 'Toegevoegd door aanbieder',
         labels: {
             id: 'ID',
             title: 'Titel',

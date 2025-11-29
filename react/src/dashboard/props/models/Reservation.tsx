@@ -3,6 +3,21 @@ import Product from './Product';
 import Transaction from './Transaction';
 import FileModel from './File';
 
+export interface ReservationCustomField {
+    id?: number;
+    label: string;
+    value: string;
+    file?: FileModel;
+    reservation_field: {
+        id: number;
+        type?: 'text' | 'number' | 'boolean' | 'file';
+        label?: string;
+        required?: boolean;
+        fillable_by: 'provider' | 'requester';
+        description?: string;
+    };
+}
+
 export default interface Reservation {
     id: number;
     code: string;
@@ -47,11 +62,7 @@ export default interface Reservation {
     acceptable?: boolean;
     rejectable?: boolean;
     cancelable?: boolean;
-    custom_fields?: Array<{
-        label: string;
-        value: string;
-        file?: FileModel;
-    }>;
+    custom_fields?: Array<ReservationCustomField>;
     records_title?: string;
     fund: {
         id: number;
