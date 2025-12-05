@@ -1,6 +1,7 @@
 .block.block-attachments-list {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 10px;
 
     .attachment-item {
@@ -8,31 +9,34 @@
         display: flex;
         border: 1px solid #d4d9dd;
         flex-direction: row;
-        padding: 5px 15px 5px 10px;
+        padding: 5px 10px;
         border-radius: var(--border-radius);
         gap: 10px;
+        align-items: center;
+        min-height: 32px;
 
         .attachment-icon {
             display: flex;
             flex-direction: row;
             gap: 10px;
+            align-items: center;
 
             .mdi {
                 font-size: 18px;
-                line-height: 25px;
+                line-height: 18px;
                 color: #004195;
             }
 
             .attachment-size {
                 color: #646f79;
-                font: 600 13px/24px var(--base-font);
+                font: 600 13px/18px var(--base-font);
                 flex: 1 0 60px;
             }
         }
 
         .attachment-name {
             color: #262626;
-            font: 600 13px/24px var(--base-font);
+            font: 600 13px/18px var(--base-font);
             flex: 1 1 auto;
             min-width: 0;
             word-wrap: break-word;
@@ -40,25 +44,39 @@
         }
 
         .attachment-date {
-            font: 400 13px/24px var(--base-font);
+            font: 400 13px/18px var(--base-font);
         }
 
-        .attachment-preview {
+        .attachment-actions {
             display: flex;
             flex-direction: row;
-            color: #262626;
-            font: 500 12px/24px var(--base-font);
-            gap: 5px;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .attachment-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            color: #646f79;
+            transition: color 0.15s ease-in-out;
 
             .mdi {
                 font-size: 16px;
-                line-height: 24px;
-                height: 24px;
-                color: #555;
+                line-height: 18px;
+                height: 18px;
+            }
 
-                &:hover {
-                    color: var(--color-primary);
-                }
+            &:hover,
+            &:focus-visible {
+                color: var(--color-primary);
+                outline: none;
             }
         }
     }

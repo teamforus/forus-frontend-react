@@ -15,6 +15,7 @@ export default {
         extra_payments: 'Bijbetaling instellingen',
         reservation_note: 'Aankoopnotitie',
         reservation_note_text: 'Aankoopnotitie tekst',
+        fillable_by: 'Fillable by',
     },
     buttons: {
         cancel: 'Annuleren',
@@ -23,5 +24,9 @@ export default {
         collapse: 'Inklappen',
         delete: 'Verwijderen',
         add_field: 'Veld toevoegen',
+    },
+    fillable_by: {
+        provider: 'Provider',
+        requester: 'Requester',
     },
 };

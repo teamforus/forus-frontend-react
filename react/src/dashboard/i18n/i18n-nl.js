@@ -6,6 +6,16 @@ import block_exception from './nl/blocks/block-exception.json';
 import api_errors from './nl/errors/api';
 
 export default {
+    global: {
+        file_uploader: {
+            title: 'Upload een document',
+            or: 'of',
+            upload_button: 'Upload een document',
+            max_size: 'max. grootte 8Mb',
+            max_files: 'maximaal {{ count }} bestanden',
+            attachments: 'Attachments',
+        },
+    },
     test: '{{name}} {{foo}}',
     permissions: {
         title: 'Geen rechten',

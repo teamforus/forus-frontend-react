@@ -3,6 +3,8 @@ export default {
     details: {
         title: 'Details van de reservering',
         loading: 'Loading',
+        reservation_fields_title: 'Gegevens',
+        reservation_fields_for_provider_title: 'Toegevoegd door aanbieder',
         labels: {
             id: 'ID',
             title: 'Titel',
@@ -35,6 +37,13 @@ export default {
         canceled_at: 'Geannuleerd op:',
         expired_at: 'Verlopen op:',
         created_at: 'Aangemaakt op:',
+        email: 'E-mailadres',
+        first_name: 'Voornaam',
+        last_name: 'Achternaam',
+        phone: 'Telefoonnummer',
+        address: 'Adres',
+        birth_date: 'Geboortedatum',
+        user_note: 'Notitie',
     },
     extra_amount: {
         status: 'Status',

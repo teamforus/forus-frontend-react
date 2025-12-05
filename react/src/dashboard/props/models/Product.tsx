@@ -103,6 +103,7 @@ export default interface Product {
     created_at_locale?: string;
     reservation_fields_config: 'global' | 'no' | 'yes';
     reservation_fields: Array<ReservationField>;
+    available_reservation_fields_for_provider: Array<ReservationField>;
     info_duration?: string;
     info_when?: string;
     info_where?: string;

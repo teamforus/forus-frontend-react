@@ -7,17 +7,20 @@ import ModalImagePreview from '../../modals/ModalImagePreview';
 import ModalPdfPreview from '../../modals/ModalPdfPreview';
 import { FileUploaderItem } from './FileUploader';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function FileUploaderItemView({
     item,
     template,
-    buttons,
+    hidePreviewButton,
+    hideDownloadButton,
     readOnly,
     removeFile,
 }: {
     item: FileUploaderItem;
     template?: 'default' | 'compact' | 'inline';
-    buttons?: boolean;
+    hidePreviewButton?: boolean;
+    hideDownloadButton?: boolean;
     readOnly?: boolean;
     removeFile?: (file: FileUploaderItem) => void;
 }) {
@@ -63,11 +66,12 @@ export default function FileUploaderItemView({
     );
 
     return (
-        <div className={`file-item ${item.uploading ? 'file-item-uploading' : ''}`}>
+        <div className={classNames('file-item', { 'file-item-uploading': item.uploading })}>
             <div
-                className={`file-item-container ${template == 'compact' ? 'file-item-container-compact' : ''} ${
-                    template == 'inline' ? 'file-item-container-inline' : ''
-                }`}>
+                className={classNames('file-item-container', {
+                    'file-item-container-compact': template === 'compact',
+                    'file-item-container-inline': template === 'inline',
+                })}>
                 <div className="file-item-icon">
                     <img src={extension ? assetUrl(`/assets/img/file-icon-${extension}.svg`) : undefined} alt="" />
                 </div>
@@ -78,7 +82,7 @@ export default function FileUploaderItemView({
                     </div>
                 </div>
 
-                {item.has_preview && buttons && (
+                {item.has_preview && !hidePreviewButton && (
                     <div className="file-item-action">
                         <button
                             className="mdi mdi-eye-outline"
@@ -92,7 +96,7 @@ export default function FileUploaderItemView({
                     </div>
                 )}
 
-                {!item.uploading && buttons && (
+                {!item.uploading && !hideDownloadButton && (
                     <div className="file-item-action">
                         <button
                             type={'button'}

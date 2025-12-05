@@ -298,7 +298,6 @@ export default function ReimbursementsEdit() {
                                         title={translate('reimbursements.form.file_upload_title')}
                                         acceptedFiles={['.pdf', '.png', '.jpg', '.jpeg']}
                                         cropMedia={true}
-                                        multiple={true}
                                         isRequired={true}
                                         onFilesChange={({ files }) => setFiles(files)}
                                     />

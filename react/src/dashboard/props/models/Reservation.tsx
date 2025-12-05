@@ -1,6 +1,15 @@
 import ExtraPayment from './ExtraPayment';
 import Product from './Product';
 import Transaction from './Transaction';
+import FileModel from './File';
+import ReservationField from './ReservationField';
+
+export interface ReservationCustomFieldValue {
+    id?: number;
+    value?: string;
+    file?: FileModel;
+    reservation_field: ReservationField;
+}
 
 export default interface Reservation {
     id: number;
@@ -46,10 +55,7 @@ export default interface Reservation {
     acceptable?: boolean;
     rejectable?: boolean;
     cancelable?: boolean;
-    custom_fields?: Array<{
-        label: string;
-        value: string;
-    }>;
+    custom_fields?: Array<ReservationCustomFieldValue>;
     records_title?: string;
     fund: {
         id: number;

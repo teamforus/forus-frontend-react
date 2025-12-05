@@ -27,6 +27,10 @@ import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
+import Note from '../../../props/models/Note';
+import useProductService from '../../../services/ProductService';
+import Product from '../../../props/models/Product';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -41,13 +45,28 @@ export default function ReservationsView() {
     const pushApiError = usePushApiError();
 
     const transactionService = useTransactionService();
+    const productService = useProductService();
     const productReservationService = useProductReservationService();
 
     const [transaction, setTransaction] = useState<Transaction>(null);
     const [reservation, setReservation] = useState<Reservation>(null);
+    const [product, setProduct] = useState<Product>(null);
 
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
     const confirmReservationApproval = useConfirmReservationApproval();
+
+    const fetchProduct = useCallback(
+        (id: number) => {
+            setProgress(0);
+
+            productService
+                .read(activeOrganization.id, id)
+                .then((res) => setProduct(res.data.data))
+                .catch(pushApiError)
+                .finally(() => setProgress(100));
+        },
+        [activeOrganization.id, productService, pushApiError, setProgress],
+    );
 
     const fetchTransaction = useCallback(
         (transaction_address: string) => {
@@ -138,9 +157,36 @@ export default function ReservationsView() {
         }
     }, [fetchReservation, fetchTransaction, reservation?.id, reservation?.voucher_transaction?.address]);
 
+    const fetchNotes = useCallback(
+        (query = {}) => {
+            return productReservationService.notes(activeOrganization.id, reservation?.id, query);
+        },
+        [activeOrganization.id, reservation?.id, productReservationService],
+    );
+
+    const deleteNote = useCallback(
+        (note: Note) => {
+            return productReservationService.noteDestroy(activeOrganization.id, reservation?.id, note.id);
+        },
+        [activeOrganization.id, reservation?.id, productReservationService],
+    );
+
+    const storeNote = useCallback(
+        (data: { description: string }) => {
+            return productReservationService.storeNote(activeOrganization.id, reservation?.id, data);
+        },
+        [activeOrganization.id, reservation?.id, productReservationService],
+    );
+
     useEffect(() => {
         fetchReservation(parseInt(id));
     }, [fetchReservation, id]);
+
+    useEffect(() => {
+        if (reservation?.product?.id && !reservation?.product?.deleted) {
+            fetchProduct(reservation.product.id);
+        }
+    }, [fetchProduct, reservation?.product?.deleted, reservation?.product?.id]);
 
     useEffect(() => {
         if (reservation?.voucher_transaction?.address) {
@@ -207,16 +253,27 @@ export default function ReservationsView() {
                             showName={true}
                         />
 
-                        <ReservationDetailsPane reservation={reservation} />
+                        <ReservationDetailsPane
+                            reservation={reservation}
+                            customFields={reservation.custom_fields.filter(
+                                (field) => field.reservation_field.fillable_by === 'requester',
+                            )}
+                        />
 
                         <ReservationExtraInformationPane
                             organization={activeOrganization}
                             reservation={reservation}
                             setReservation={setReservation}
+                            product={product}
+                            customFields={reservation.custom_fields.filter(
+                                (field) => field.reservation_field.fillable_by === 'provider',
+                            )}
                         />
                     </div>
                 </div>
             </div>
+
+            <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
 
             {((transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES)) ||
                 reservation.extra_payment) && (
