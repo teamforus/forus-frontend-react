@@ -872,7 +872,7 @@
             "or": "ou",
             "title": "Télécharger un document",
             "upload_button": "Télécharger un document",
-            "max_files": "*maximum {{ count }} files"
+            "max_files": "jusqu'à {{ count }} fichiers"
         },
         "info_box": {
             "2fa_description": "Pour plus d'informations sur le 2FA, visitez notre site :",
@@ -2728,7 +2728,8 @@
             },
             "loading": "Chargement",
             "title": "Détails de la réservation",
-            "reservation_fields_title": "Données"
+            "reservation_fields_title": "Données",
+            "reservation_fields_for_provider_title": "Ajouté par le fournisseur"
         },
         "expired": "Désolé, votre réservation a été annulée pendant le processus de paiement car le produit sélectionné est épuisé.",
         "extra_amount_refund": {

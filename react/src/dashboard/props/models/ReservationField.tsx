@@ -7,4 +7,5 @@ export default interface ReservationField {
     description: string;
     required: boolean;
     order?: number;
+    fillable_by?: 'provider' | 'requester';
 }

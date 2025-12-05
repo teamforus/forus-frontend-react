@@ -872,7 +872,7 @@
             "or": "или",
             "title": "Загрузить документ",
             "upload_button": "Загрузить документ",
-            "max_files": "*максимум {{ count }} файлов"
+            "max_files": "до {{ count }} файлов"
         },
         "info_box": {
             "2fa_description": "Для получения дополнительной информации о 2FA посетите наш сайт:",
@@ -2728,7 +2728,8 @@
             },
             "loading": "Загрузка",
             "title": "Детали бронирования",
-            "reservation_fields_title": "Данные"
+            "reservation_fields_title": "Данные",
+            "reservation_fields_for_provider_title": "Добавлено провайдером"
         },
         "expired": "Извините, ваше бронирование было отменено в процессе оформления заказа, поскольку выбранный товар распродан.",
         "extra_amount_refund": {

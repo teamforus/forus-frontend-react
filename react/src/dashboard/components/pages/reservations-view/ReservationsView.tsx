@@ -29,6 +29,8 @@ import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
+import useProductService from '../../../services/ProductService';
+import Product from '../../../props/models/Product';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -43,13 +45,28 @@ export default function ReservationsView() {
     const pushApiError = usePushApiError();
 
     const transactionService = useTransactionService();
+    const productService = useProductService();
     const productReservationService = useProductReservationService();
 
     const [transaction, setTransaction] = useState<Transaction>(null);
     const [reservation, setReservation] = useState<Reservation>(null);
+    const [product, setProduct] = useState<Product>(null);
 
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
     const confirmReservationApproval = useConfirmReservationApproval();
+
+    const fetchProduct = useCallback(
+        (id: number) => {
+            setProgress(0);
+
+            productService
+                .read(activeOrganization.id, id)
+                .then((res) => setProduct(res.data.data))
+                .catch(pushApiError)
+                .finally(() => setProgress(100));
+        },
+        [activeOrganization.id, productService, pushApiError, setProgress],
+    );
 
     const fetchTransaction = useCallback(
         (transaction_address: string) => {
@@ -166,6 +183,12 @@ export default function ReservationsView() {
     }, [fetchReservation, id]);
 
     useEffect(() => {
+        if (reservation?.product?.id && !reservation?.product?.deleted) {
+            fetchProduct(reservation.product.id);
+        }
+    }, [fetchProduct, reservation?.product?.deleted, reservation?.product?.id]);
+
+    useEffect(() => {
         if (reservation?.voucher_transaction?.address) {
             fetchTransaction(reservation.voucher_transaction.address);
         }
@@ -230,12 +253,21 @@ export default function ReservationsView() {
                             showName={true}
                         />
 
-                        <ReservationDetailsPane reservation={reservation} />
+                        <ReservationDetailsPane
+                            reservation={reservation}
+                            customFields={reservation.custom_fields.filter(
+                                (field) => field.reservation_field.fillable_by === 'requester',
+                            )}
+                        />
 
                         <ReservationExtraInformationPane
                             organization={activeOrganization}
                             reservation={reservation}
                             setReservation={setReservation}
+                            product={product}
+                            customFields={reservation.custom_fields.filter(
+                                (field) => field.reservation_field.fillable_by === 'provider',
+                            )}
                         />
                     </div>
                 </div>

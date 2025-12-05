@@ -2165,7 +2165,7 @@
     ],
     [
         "global.file_uploader.max_files",
-        "*maximaal {{ count }} bestanden"
+        "maximaal {{ count }} bestanden"
     ],
     [
         "global.file_uploader.max_size",
@@ -7666,6 +7666,10 @@
     [
         "reservation.details.loading",
         "Loading"
+    ],
+    [
+        "reservation.details.reservation_fields_for_provider_title",
+        "Toegevoegd door aanbieder"
     ],
     [
         "reservation.details.reservation_fields_title",

@@ -872,7 +872,7 @@
             "or": "lub",
             "title": "Prześlij dokument",
             "upload_button": "Prześlij dokument",
-            "max_files": "*maksymalna liczba plików {{ count }} "
+            "max_files": "do {{ count }} plików"
         },
         "info_box": {
             "2fa_description": "Aby uzyskać więcej informacji na temat 2FA, odwiedź naszą stronę:",
@@ -2728,7 +2728,8 @@
             },
             "loading": "Ładowanie",
             "title": "Szczegóły rezerwacji",
-            "reservation_fields_title": "Dane"
+            "reservation_fields_title": "Dane",
+            "reservation_fields_for_provider_title": "Dodany przez dostawcę"
         },
         "expired": "Przepraszamy, rezerwacja została anulowana podczas procesu realizacji zakupu, ponieważ wybrany produkt został wyprzedany.",
         "extra_amount_refund": {

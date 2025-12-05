@@ -179,7 +179,7 @@
             "or": "أو",
             "title": "تحميل مستند",
             "upload_button": "تحميل مستند",
-            "max_files": "*ماكس {{ count }} الملفات"
+            "max_files": "ما يصل إلى {{ count }} الملفات"
         },
         "info_box": {
             "2fa_description": "لمزيد من المعلومات حول المصادقة الثنائية (2FA)، تفضل بزيارتنا:",
@@ -2668,7 +2668,8 @@
             },
             "loading": "التحميل",
             "title": "تفاصيل الحجز",
-            "reservation_fields_title": "البيانات"
+            "reservation_fields_title": "البيانات",
+            "reservation_fields_for_provider_title": "تمت الإضافة من قبل المزود"
         },
         "expired": "عذرًا، تم إلغاء حجزك أثناء عملية الدفع لأن المنتج المحدد تم بيعه بالكامل.",
         "extra_amount_refund": {

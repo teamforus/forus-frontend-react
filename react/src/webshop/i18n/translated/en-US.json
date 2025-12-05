@@ -2795,7 +2795,8 @@
             },
             "loading": "Loading",
             "title": "Reservation details",
-            "reservation_fields_title": "Data"
+            "reservation_fields_title": "Data",
+            "reservation_fields_for_provider_title": "Added by provider"
         },
         "expired": "Sorry, your reservation was canceled during the checkout process because the selected product is sold out.",
         "extra_amount_refund": {
@@ -3039,7 +3040,7 @@
             "or": "or",
             "title": "Upload a document",
             "upload_button": "Upload a document",
-            "max_files": "*max {{ count }} files"
+            "max_files": "maximum {{ count }} files"
         },
         "info_box": {
             "2fa_description": "For more information on 2FA, check us out:",

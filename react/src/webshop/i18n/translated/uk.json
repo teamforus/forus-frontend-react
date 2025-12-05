@@ -872,7 +872,7 @@
             "or": "або",
             "title": "Завантажити документ",
             "upload_button": "Завантажити документ",
-            "max_files": "*максимальний розмір файлів {{ count }} "
+            "max_files": "до файлів {{ count }} "
         },
         "info_box": {
             "2fa_description": "Щоб дізнатися більше про 2FA, відвідайте нас:",
@@ -2728,7 +2728,8 @@
             },
             "loading": "Завантаження",
             "title": "Деталі бронювання",
-            "reservation_fields_title": "Дані"
+            "reservation_fields_title": "Дані",
+            "reservation_fields_for_provider_title": "Додано постачальником"
         },
         "expired": "На жаль, ваше бронювання було скасовано під час оформлення замовлення, оскільки обраний товар розпродано.",
         "extra_amount_refund": {

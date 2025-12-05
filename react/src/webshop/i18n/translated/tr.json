@@ -179,7 +179,7 @@
             "or": "veya",
             "title": "Bir belge yükleyin",
             "upload_button": "Bir belge yükleyin",
-            "max_files": "*max {{ count }} dosyaları"
+            "max_files": "{{ count }} adresine kadar dosyalar"
         },
         "info_box": {
             "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
@@ -2668,7 +2668,8 @@
             },
             "loading": "Yükleniyor",
             "title": "Rezervasyon detayları",
-            "reservation_fields_title": "Veri"
+            "reservation_fields_title": "Veri",
+            "reservation_fields_for_provider_title": "Sağlayıcı tarafından eklendi"
         },
         "expired": "Üzgünüz, seçilen ürün tükendiği için ödeme işlemi sırasında rezervasyonunuz iptal edildi.",
         "extra_amount_refund": {
