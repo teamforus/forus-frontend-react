@@ -14,4 +14,8 @@ export default {
         terms_and_conditions: 'Algemene voorwaarden',
         sitemap: 'Sitemap',
     },
+    footer_aria_label: 'Voettekst',
+    copyright_aria_label: 'Voorwaarden en verklaringen',
+    me_app_aria_label: 'Informatie over het downloaden van de Me-app',
+    nav_provider_aria_label: 'Aanmelden als aanbieder',
 };

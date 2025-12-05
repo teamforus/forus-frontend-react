@@ -29,9 +29,7 @@ export default function FundRequestStepCriteriaOverview({
             {progress}
 
             <div className="sign_up-pane" data-dusk="criteriaStepsOverview">
-                <h2 className="sign_up-pane-header" role="heading">
-                    {translate('fund_request.sign_up.pane.header_title')}
-                </h2>
+                <h2 className="sign_up-pane-header">{translate('fund_request.sign_up.pane.header_title')}</h2>
                 <div className="sign_up-pane-body">
                     <p className="sign_up-pane-text">
                         {translate('fund_request.sign_up.pane.text', {

@@ -38,9 +38,9 @@ export default function ProductsListItemList({
             <div className="product-content">
                 <div className="product-details">
                     <div className="product-details-header">
-                        <h3 className="product-title" data-dusk="productName">
+                        <h2 className="product-title" data-dusk="productName">
                             {product.name}
-                        </h3>
+                        </h2>
                         <div className="product-subtitle">{product.organization.name}</div>
                     </div>
 

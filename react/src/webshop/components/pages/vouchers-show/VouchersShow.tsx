@@ -153,7 +153,7 @@ export default function VouchersShow() {
                                             />
                                         </div>
                                         <div className="voucher-fund-overview-content">
-                                            <div className="voucher-fund-overview-title">{voucher?.fund?.name}</div>
+                                            <h1 className="voucher-fund-overview-title">{voucher?.fund?.name}</h1>
                                             <div className="voucher-fund-overview-description">
                                                 {translate('voucher.overview.description')}
                                             </div>

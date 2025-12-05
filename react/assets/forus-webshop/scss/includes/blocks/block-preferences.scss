@@ -8,6 +8,7 @@
         padding: 10px 25px;
         cursor: pointer;
         transition: background .4s;
+        outline-offset: -2px !important;
 
         .preference-option-details {
             flex-grow: 1;

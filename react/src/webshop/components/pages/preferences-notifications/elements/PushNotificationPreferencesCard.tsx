@@ -144,15 +144,21 @@ export default function PushNotificationPreferencesCard({
                 </label>
 
                 {notificationsDismissTime.webshop > 0 && (
-                    <div className="card-section card-section-primary card-section-md">
+                    <div className="card-section card-section-primary card-section-md-vertical">
                         <div className="form-group">
+                            <label className="form-label" htmlFor="select_dismiss_time" id="dismiss_time_select">
+                                {translate('preferences_notifications.push_notifications_dismiss_time.webshop.label')}
+                            </label>
+
                             <SelectControl
+                                id="select_dismiss_time"
                                 propKey="key"
                                 multiline={true}
                                 allowSearch={false}
                                 value={notificationsDismissTime.webshop}
                                 onChange={(time?: number) => selectDismissTime('webshop', time)}
                                 options={dismissTimeOptions}
+                                ariaLabelledby="dismiss_time_select"
                             />
                         </div>
                     </div>
@@ -196,15 +202,24 @@ export default function PushNotificationPreferencesCard({
                 </label>
 
                 {notificationsDismissTime.bookmarks > 0 && (
-                    <div className="card-section card-section-primary card-section-md">
+                    <div className="card-section card-section-primary card-section-md-vertical">
                         <div className="form-group">
+                            <label
+                                className="form-label"
+                                htmlFor="select_bookmarks_dismiss_time"
+                                id="bookmarks_dismiss_time_select">
+                                {translate('preferences_notifications.push_notifications_dismiss_time.bookmarks.label')}
+                            </label>
+
                             <SelectControl
+                                id="select_bookmarks_dismiss_time"
                                 propKey="key"
                                 multiline={true}
                                 allowSearch={false}
                                 value={notificationsDismissTime.bookmarks}
                                 onChange={(time?: number) => selectDismissTime('bookmarks', time)}
                                 options={dismissTimeOptions}
+                                ariaLabelledby="bookmarks_dismiss_time_select"
                             />
                         </div>
                     </div>

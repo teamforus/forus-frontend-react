@@ -13,6 +13,7 @@ import { mainContext } from '../../../../contexts/MainContext';
 import { TopNavbarDesktopSearchButton } from './TopNavbarDesktopSearchButton';
 import { layoutContext } from '../../../../contexts/LayoutContext';
 import { useElementSize } from '../../../../hooks/useElementSize';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export const TopNavbarDesktop = ({
     hideOnScroll = false,
@@ -21,6 +22,7 @@ export const TopNavbarDesktop = ({
     hideOnScroll?: boolean;
     className?: string;
 }) => {
+    const translate = useTranslate();
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const { showSearchBox } = useContext(mainContext);
@@ -49,6 +51,7 @@ export const TopNavbarDesktop = ({
     return (
         <nav
             ref={navbarDesktopRef}
+            aria-label={translate('top_navbar.nav_aria_label')}
             className={classNames(
                 'block block-navbar-desktop',
                 className,
