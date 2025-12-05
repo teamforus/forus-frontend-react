@@ -872,7 +872,7 @@
             "or": "oder",
             "title": "Ein Dokument hochladen",
             "upload_button": "Ein Dokument hochladen",
-            "max_files": "*maximal {{ count }} Dateien"
+            "max_files": "bis zu {{ count }} Dateien"
         },
         "info_box": {
             "2fa_description": "Weitere Informationen über 2FA finden Sie bei uns:",
@@ -2728,7 +2728,8 @@
             },
             "loading": "Laden",
             "title": "Details zur Buchung",
-            "reservation_fields_title": "Daten"
+            "reservation_fields_title": "Daten",
+            "reservation_fields_for_provider_title": "Hinzugefügt von Anbieter"
         },
         "expired": "Ihre Reservierung wurde leider während des Bestellvorgangs storniert, da das ausgewählte Produkt ausverkauft ist.",
         "extra_amount_refund": {

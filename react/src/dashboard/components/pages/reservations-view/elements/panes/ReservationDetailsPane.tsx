@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslate from '../../../../../hooks/useTranslate';
 import FormPane from '../../../../elements/forms/elements/FormPane';
-import Reservation, { ReservationCustomField } from '../../../../../props/models/Reservation';
+import Reservation, { ReservationCustomFieldValue } from '../../../../../props/models/Reservation';
 import BlockInlineCopy from '../../../../elements/block-inline-copy/BlockInlineCopy';
 import { strLimit } from '../../../../../helpers/string';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
@@ -12,7 +12,7 @@ export default function ReservationDetailsPane({
     customFields,
 }: {
     reservation: Reservation;
-    customFields: ReservationCustomField[];
+    customFields: ReservationCustomFieldValue[];
 }) {
     const translate = useTranslate();
 
@@ -38,7 +38,7 @@ export default function ReservationDetailsPane({
                     </KeyValueItem>
                 )}
                 {customFields?.map((field, index) => (
-                    <KeyValueItem key={index} label={field.label}>
+                    <KeyValueItem key={index} label={field.reservation_field.label}>
                         {field.file ? <FileAttachmentsList attachments={[{ file: field.file }]} /> : field.value}
                     </KeyValueItem>
                 ))}

@@ -234,15 +234,17 @@ export default function ReservationFieldItem({
                             )}
                         />
 
-                        <CheckboxControl
-                            id={`required_${index}`}
-                            checked={field.required}
-                            onChange={(e) => {
-                                field.required = e.target.checked;
-                                onChange([...fields]);
-                            }}
-                            title={translate('reservation_settings.labels.required')}
-                        />
+                        {field.fillable_by === 'requester' && (
+                            <CheckboxControl
+                                id={`required_${index}`}
+                                checked={field.required}
+                                onChange={(e) => {
+                                    field.required = e.target.checked;
+                                    onChange([...fields]);
+                                }}
+                                title={translate('reservation_settings.labels.required')}
+                            />
+                        )}
                     </FormPane>
                 </div>
             )}

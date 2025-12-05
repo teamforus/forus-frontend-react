@@ -12,9 +12,10 @@ import { ResponseError } from '../../props/ApiResponses';
 import useTranslate from '../../hooks/useTranslate';
 import useSetProgress from '../../hooks/useSetProgress';
 import Modal from './elements/Modal';
-import { ReservationCustomFieldLocal } from '../pages/reservations-view/elements/panes/ReservationExtraInformationPane';
 import SelectControl from '../elements/select-control/SelectControl';
 import FileUploader from '../../../webshop/components/elements/file-uploader/FileUploader';
+import FileModel from '../../props/models/File';
+import ReservationField from '../../props/models/ReservationField';
 
 export default function ModalReservationCustomFieldEdit({
     modal,
@@ -24,7 +25,7 @@ export default function ModalReservationCustomFieldEdit({
     reservation,
 }: {
     modal: ModalState;
-    field: ReservationCustomFieldLocal;
+    field: ReservationField & { value?: string; file?: FileModel };
     onDone?: (reservation: Reservation) => void;
     organization: Organization;
     reservation: Reservation;
@@ -98,6 +99,7 @@ export default function ModalReservationCustomFieldEdit({
                                 onChange={(e) => form.update({ value: e.target.value })}
                             />
                         )}
+
                         {field.type === 'number' && (
                             <input
                                 className="form-control"
@@ -108,6 +110,7 @@ export default function ModalReservationCustomFieldEdit({
                                 onChange={(e) => form.update({ value: e.target.value })}
                             />
                         )}
+
                         {field.type === 'boolean' && (
                             <SelectControl
                                 propKey={'key'}
@@ -116,6 +119,7 @@ export default function ModalReservationCustomFieldEdit({
                                 options={customFieldBooleanOptions}
                             />
                         )}
+
                         {field.type === 'file' && (
                             <FileUploader
                                 type="product_reservation_custom_field"
@@ -126,9 +130,7 @@ export default function ModalReservationCustomFieldEdit({
                                 hideDownloadButton={true}
                                 hideInlineTitle={true}
                                 acceptedFiles={['.jpg', '.jpeg', '.png']}
-                                onFilesChange={({ files }) => {
-                                    form.update({ value: files?.[0]?.uid || null });
-                                }}
+                                onFilesChange={({ files }) => form.update({ value: files?.[0]?.uid || null })}
                                 isRequired={field.required}
                                 isWebshop={false}
                             />

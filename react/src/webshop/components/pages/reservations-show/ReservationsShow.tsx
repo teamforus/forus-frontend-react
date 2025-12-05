@@ -43,6 +43,14 @@ export default function ReservationsShow() {
         return reservation ? composeStateAndExpires(reservation) : null;
     }, [reservation, composeStateAndExpires]);
 
+    const requesterCustomFields = useMemo(() => {
+        return reservation?.custom_fields?.filter((field) => field.reservation_field.fillable_by === 'requester');
+    }, [reservation?.custom_fields]);
+
+    const providerCustomFields = useMemo(() => {
+        return reservation?.custom_fields?.filter((field) => field.reservation_field.fillable_by === 'provider');
+    }, [reservation?.custom_fields]);
+
     const fetchReservation = useCallback(async () => {
         setProgress(0);
 
@@ -382,26 +390,24 @@ export default function ReservationsShow() {
                                         <div className="key-value-list-item-value">{reservation.birth_date_locale}</div>
                                     </div>
                                 )}
-                                {reservation.custom_fields
-                                    ?.filter((field) => field.reservation_field.fillable_by === 'requester')
-                                    .map((field, idx) => (
-                                        <div className="block-key-value-list-item" key={`${field.label}-${idx}`}>
-                                            <div className="key-value-list-item-label">{field.label}</div>
-                                            <div className="key-value-list-item-value">
-                                                {field.file ? (
-                                                    <FileUploader
-                                                        type="product_reservation_custom_field"
-                                                        files={[field.file]}
-                                                        template="compact"
-                                                        readOnly={true}
-                                                        hideDownloadButton={true}
-                                                    />
-                                                ) : (
-                                                    field.value || '-'
-                                                )}
-                                            </div>
+                                {requesterCustomFields?.map((field, idx) => (
+                                    <div className="block-key-value-list-item" key={`${field.id}-${idx}`}>
+                                        <div className="key-value-list-item-label">{field.reservation_field.label}</div>
+                                        <div className="key-value-list-item-value">
+                                            {field.file ? (
+                                                <FileUploader
+                                                    type="product_reservation_custom_field"
+                                                    files={[field.file]}
+                                                    template="compact"
+                                                    readOnly={true}
+                                                    hideDownloadButton={true}
+                                                />
+                                            ) : (
+                                                field.value || '-'
+                                            )}
                                         </div>
-                                    ))}
+                                    </div>
+                                ))}
                                 {reservation.user_note && (
                                     <div className="block-key-value-list-item">
                                         <div className="key-value-list-item-label">
@@ -414,21 +420,22 @@ export default function ReservationsShow() {
                         </div>
                     </div>
 
-                    <div className="card">
-                        <div className="card-header">
-                            <div className="card-header-wrapper">
-                                <h2 className="card-heading card-heading-lg">
-                                    {translate('reservation.details.reservation_fields_for_provider_title')}
-                                </h2>
+                    {providerCustomFields?.length > 0 && (
+                        <div className="card">
+                            <div className="card-header">
+                                <div className="card-header-wrapper">
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('reservation.details.reservation_fields_for_provider_title')}
+                                    </h2>
+                                </div>
                             </div>
-                        </div>
-                        <div className="card-section">
-                            <div className="block block-key-value-list">
-                                {reservation.custom_fields
-                                    ?.filter((field) => field.reservation_field.fillable_by === 'provider')
-                                    .map((field, idx) => (
-                                        <div className="block-key-value-list-item" key={`${field.label}-${idx}`}>
-                                            <div className="key-value-list-item-label">{field.label}</div>
+                            <div className="card-section">
+                                <div className="block block-key-value-list">
+                                    {providerCustomFields?.map((field, idx) => (
+                                        <div className="block-key-value-list-item" key={`${field.id}-${idx}`}>
+                                            <div className="key-value-list-item-label">
+                                                {field.reservation_field.label}
+                                            </div>
                                             <div className="key-value-list-item-value">
                                                 {field.file ? (
                                                     <FileUploader
@@ -444,9 +451,10 @@ export default function ReservationsShow() {
                                             </div>
                                         </div>
                                     ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     {reservation?.extra_payment?.refunds?.length > 0 && (
                         <div className={classNames(`card card-collapsable`, showReservationRefunds && 'open')}>

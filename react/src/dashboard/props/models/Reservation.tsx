@@ -2,20 +2,13 @@ import ExtraPayment from './ExtraPayment';
 import Product from './Product';
 import Transaction from './Transaction';
 import FileModel from './File';
+import ReservationField from './ReservationField';
 
-export interface ReservationCustomField {
+export interface ReservationCustomFieldValue {
     id?: number;
-    label: string;
-    value: string;
+    value?: string;
     file?: FileModel;
-    reservation_field: {
-        id: number;
-        type?: 'text' | 'number' | 'boolean' | 'file';
-        label?: string;
-        required?: boolean;
-        fillable_by: 'provider' | 'requester';
-        description?: string;
-    };
+    reservation_field: ReservationField;
 }
 
 export default interface Reservation {
@@ -62,7 +55,7 @@ export default interface Reservation {
     acceptable?: boolean;
     rejectable?: boolean;
     cancelable?: boolean;
-    custom_fields?: Array<ReservationCustomField>;
+    custom_fields?: Array<ReservationCustomFieldValue>;
     records_title?: string;
     fund: {
         id: number;

@@ -183,10 +183,10 @@ export default function ReservationsView() {
     }, [fetchReservation, id]);
 
     useEffect(() => {
-        if (reservation?.product?.id) {
+        if (reservation?.product?.id && !reservation?.product?.deleted) {
             fetchProduct(reservation.product.id);
         }
-    }, [fetchProduct, reservation?.product?.id]);
+    }, [fetchProduct, reservation?.product?.deleted, reservation?.product?.id]);
 
     useEffect(() => {
         if (reservation?.voucher_transaction?.address) {

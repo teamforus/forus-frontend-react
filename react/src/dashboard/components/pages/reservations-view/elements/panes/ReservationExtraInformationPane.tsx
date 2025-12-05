@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
 import Organization from '../../../../../props/models/Organization';
-import Reservation, { ReservationCustomField } from '../../../../../props/models/Reservation';
+import Reservation, { ReservationCustomFieldValue } from '../../../../../props/models/Reservation';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
 import useOpenModal from '../../../../../hooks/useOpenModal';
 import useTranslate from '../../../../../hooks/useTranslate';
@@ -11,18 +11,8 @@ import EmptyValue from '../../../../elements/empty-value/EmptyValue';
 import FileAttachmentsList from '../../../../elements/FileAttachmentsList';
 import ModalReservationCustomFieldEdit from '../../../../modals/ModalReservationCustomFieldEdit';
 import ReservationField from '../../../../../props/models/ReservationField';
-import FileModel from '../../../../../props/models/File';
 import Product from '../../../../../props/models/Product';
-
-export type ReservationCustomFieldLocal = {
-    id: number;
-    type: string;
-    label: string;
-    description?: string;
-    required?: boolean;
-    value?: string;
-    file?: FileModel;
-};
+import FileModel from '../../../../../props/models/File';
 
 export default function ReservationExtraInformationPane({
     setReservation,
@@ -34,7 +24,7 @@ export default function ReservationExtraInformationPane({
     setReservation?: Dispatch<SetStateAction<Reservation>>;
     reservation: Reservation;
     organization: Organization;
-    customFields: ReservationCustomField[];
+    customFields: ReservationCustomFieldValue[];
     product: Product;
 }) {
     const openModal = useOpenModal();
@@ -60,7 +50,7 @@ export default function ReservationExtraInformationPane({
     }, [setReservation, openModal, reservation, organization]);
 
     const openEditCustomFieldValueModal = useCallback(
-        (field: ReservationCustomFieldLocal) => {
+        (field: ReservationField & { value?: string; file?: FileModel }) => {
             openModal((modal) => (
                 <ModalReservationCustomFieldEdit
                     modal={modal}
@@ -76,7 +66,7 @@ export default function ReservationExtraInformationPane({
 
     const editCustomField = useCallback(
         (field: ReservationField) => {
-            const customFieldValue = {
+            openEditCustomFieldValueModal({
                 id: field.id,
                 type: field.type,
                 label: field.label,
@@ -84,16 +74,14 @@ export default function ReservationExtraInformationPane({
                 required: field.required,
                 value: null,
                 file: null,
-            } as ReservationCustomFieldLocal;
-
-            openEditCustomFieldValueModal(customFieldValue);
+            });
         },
         [openEditCustomFieldValueModal],
     );
 
     const editCustomFieldValue = useCallback(
-        (field: ReservationCustomField) => {
-            const customFieldValue = {
+        (field: ReservationCustomFieldValue) => {
+            openEditCustomFieldValueModal({
                 id: field.reservation_field.id,
                 type: field.reservation_field.type,
                 label: field.reservation_field.label,
@@ -101,9 +89,7 @@ export default function ReservationExtraInformationPane({
                 required: field.reservation_field.required,
                 value: field.value,
                 file: field.file,
-            } as ReservationCustomFieldLocal;
-
-            openEditCustomFieldValueModal(customFieldValue);
+            });
         },
         [openEditCustomFieldValueModal],
     );
@@ -118,9 +104,10 @@ export default function ReservationExtraInformationPane({
                 </KeyValueItem>
 
                 {customFields?.map((field, index) => (
-                    <KeyValueItem key={index} label={field.label}>
+                    <KeyValueItem key={index} label={field.reservation_field.label}>
                         <BlockInlineEdit
                             onClick={() => editCustomFieldValue(field)}
+                            className={field.file ? 'flex flex-grow' : null}
                             editDusk={`editCustomFieldBtn${field.id}`}>
                             {field.file ? (
                                 <FileAttachmentsList attachments={[{ file: field.file }]} />
@@ -130,6 +117,7 @@ export default function ReservationExtraInformationPane({
                         </BlockInlineEdit>
                     </KeyValueItem>
                 ))}
+
                 {availableFields?.map((field, index) => (
                     <KeyValueItem key={index} label={field.label}>
                         <BlockInlineEdit
