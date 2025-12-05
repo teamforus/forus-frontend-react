@@ -144,7 +144,7 @@ export default function PushNotificationPreferencesCard({
                 </label>
 
                 {notificationsDismissTime.webshop > 0 && (
-                    <div className="card-section card-section-primary card-section-md">
+                    <div className="card-section card-section-primary card-section-md-vertical">
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_dismiss_time" id="dismiss_time_select">
                                 {translate('preferences_notifications.push_notifications_dismiss_time.webshop.label')}
@@ -202,7 +202,7 @@ export default function PushNotificationPreferencesCard({
                 </label>
 
                 {notificationsDismissTime.bookmarks > 0 && (
-                    <div className="card-section card-section-primary card-section-md">
+                    <div className="card-section card-section-primary card-section-md-vertical">
                         <div className="form-group">
                             <label
                                 className="form-label"

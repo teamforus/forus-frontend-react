@@ -3897,6 +3897,7 @@ body {
             padding: 10px 25px;
             cursor: pointer;
             transition: background 0.4s;
+            outline-offset: -2px;
 
             .preference-option-details {
                 flex-grow: 1;
