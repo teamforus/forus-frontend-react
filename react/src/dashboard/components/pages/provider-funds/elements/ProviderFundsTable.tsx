@@ -390,7 +390,7 @@ export default function ProviderFundsTable({
                                                                                 applyFund(providerFund);
                                                                                 e.close();
                                                                             }}>
-                                                                            <em className="mdi mdi-restart icon-start" />
+                                                                            <em className="mdi mdi-send-variant-clock-outline icon-start" />
                                                                             {translate(
                                                                                 'provider_funds.buttons.join_unsubscribed',
                                                                             )}
