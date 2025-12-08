@@ -1128,6 +1128,13 @@ export default function ProductsForm({
                                     <FormGroup
                                         label={translate('product_edit.labels.reservation_note')}
                                         error={form.errors.reservation_note}
+                                        info={
+                                            <Fragment>
+                                                Stuur een bericht naar de klant als u de reservering accepteert. In dit
+                                                bericht kun je meer informatie kwijt over het aanbod. Bijv. Stuur ons
+                                                een e-mail of bel ons om een afspraak in te plannen.
+                                            </Fragment>
+                                        }
                                         input={(id) => (
                                             <SelectControl
                                                 className="form-control"
