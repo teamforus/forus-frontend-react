@@ -25,7 +25,8 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
-import ModalNotification from '../../../modals/ModalNotification';
+import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
+import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
 
 export default function ProviderFundsTable({
     type,
@@ -44,6 +45,9 @@ export default function ProviderFundsTable({
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+
+    const successApplying = useProviderFundsApplySuccess();
+    const failOfficesCheck = useProviderFundsFailOfficesCheck();
 
     const paginatorService = usePaginatorService();
     const providerFundService = useProviderFundService();
@@ -185,40 +189,13 @@ export default function ProviderFundsTable({
         [fetchFunds, onChange, openModal, organization],
     );
 
-    const failOfficesCheck = useCallback(() => {
-        openModal((modal) => (
-            <ModalNotification
-                modal={modal}
-                title={translate('provider_funds.available.error_apply.title')}
-                description={translate('provider_funds.available.error_apply.description')}
-                buttonCancel={{
-                    text: translate('modal.buttons.cancel'),
-                    onClick: modal.close,
-                }}
-            />
-        ));
-    }, [openModal, translate]);
-
-    const successApplying = useCallback(() => {
-        openModal((modal) => (
-            <ModalNotification
-                modal={modal}
-                title={translate('provider_funds.available.applied_for_fund.title')}
-                description={translate('provider_funds.available.applied_for_fund.description')}
-                icon={'fund_applied'}
-                buttonSubmit={{
-                    text: translate('modal.buttons.confirm'),
-                    onClick: modal.close,
-                }}
-            />
-        ));
-    }, [openModal, translate]);
-
     const applyFund = useCallback(
         (providerFund: FundProvider) => {
             if (organization.offices_count == 0) {
                 return failOfficesCheck();
             }
+
+            setProgress(0);
 
             providerFundService
                 .applyForFund(organization.id, providerFund.fund.id)
@@ -229,6 +206,7 @@ export default function ProviderFundsTable({
                 .catch(pushApiError)
                 .finally(() => {
                     fetchFunds();
+                    setProgress(100);
                     onChange?.();
                 });
         },
@@ -241,6 +219,7 @@ export default function ProviderFundsTable({
             providerFundService,
             pushApiError,
             setSelected,
+            setProgress,
             successApplying,
         ],
     );
