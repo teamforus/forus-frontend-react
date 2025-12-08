@@ -282,7 +282,7 @@ export default function ImplementationNotificationSend() {
                 .then(() => {
                     navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
-                        implementationId: implementation.id,
+                        id: implementation.id,
                     });
 
                     pushSuccess('Gelukt!', 'De e-mail zal zo spoedig mogelijk verstuurd worden naar alle gebruikers.', {
@@ -369,7 +369,7 @@ export default function ImplementationNotificationSend() {
                 if (!activeOrganization.allow_custom_fund_notifications) {
                     navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
-                        implementationId: res.data.data.id,
+                        id: res.data.data.id,
                     });
                 }
 
