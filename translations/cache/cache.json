@@ -404,7 +404,7 @@
         "Vul een geldig e-mailadres in, bijvoorbeeld <strong>naam@voorbeeld.com</strong>"
     ],
     [
-        "auth.",
+        "auth.2fa_title",
         "Tweefactorauthenticatie"
     ],
     [
@@ -1906,6 +1906,10 @@
     [
         "funds.funds.berkelland.title",
         "Activeren"
+    ],
+    [
+        "funds.funds.fijnder.title",
+        "Regelingen"
     ],
     [
         "funds.funds.geertruidenberg.title",
@@ -6637,11 +6641,11 @@
     ],
     [
         "products.filters.payment_options",
-        "Betalingsmogelijkheden"
+        "Betaalopties"
     ],
     [
         "products.filters.payment_options_info",
-        "Lees meer over de betalingsopties"
+        "Lees meer over de betaalopties"
     ],
     [
         "products.filters.postcode",
@@ -6657,7 +6661,7 @@
     ],
     [
         "products.filters.price_to",
-        "Naar"
+        "Tot"
     ],
     [
         "products.filters.price_type_option_discount_fixed",
@@ -6790,10 +6794,6 @@
     [
         "profile_menu.buttons.provider_sign_up",
         "Aanmelden als aanbieder"
-    ],
-    [
-        "profile_menu.buttons.records",
-        "Persoonsgegevens"
     ],
     [
         "profile_menu.buttons.reimbursements",
@@ -8236,6 +8236,10 @@
         "Vul alstublieft een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.com."
     ],
     [
+        "signup.items.fijnder.start_email",
+        "Activeren"
+    ],
+    [
         "signup.items.geertruidenberg.signup_option",
         "Log in met DigiD om verder te gaan"
     ],
@@ -8638,6 +8642,10 @@
     [
         "top_navbar.items.explanation",
         "Uitleg"
+    ],
+    [
+        "top_navbar.items.fijnder.funds",
+        "Regelingen"
     ],
     [
         "top_navbar.items.funds",

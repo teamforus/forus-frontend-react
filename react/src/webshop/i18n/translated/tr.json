@@ -3,7 +3,6 @@
         "example": "Geçerli bir e-posta adresi girin, örneğin <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "İki faktörlü kimlik doğrulama",
         "back": "Geri",
         "back_start": "Girişe geri dön",
         "choose_option": "Bir seçenek seçin",
@@ -42,7 +41,8 @@
         },
         "terms_link": {
             "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
-        }
+        },
+        "2fa_title": "İki faktörlü kimlik doğrulama"
     },
     "blocks": {
         "block_exception": {
@@ -422,11 +422,8 @@
             "sort": "Sırala",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
             "payment_option_reservation": "Online rezervasyon",
-            "payment_options": "Ödeme seçenekleri",
-            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
             "price": "Fiyat (€)",
             "price_from": "Kimden",
-            "price_to": "için",
             "payment_option_extra_payment": "iDeal ile çevrimiçi ödeme",
             "price_type_option_discount_fixed": "Euro cinsinden indirim",
             "price_type_option_discount_percentage": "Yüzde olarak indirim",
@@ -435,7 +432,10 @@
             "price_type_option_regular": "Fiyat",
             "price_type_options": "Teklif türü",
             "price_type_options_info": "Teklif türleri hakkında daha fazla bilgi edinin",
-            "category": "Kategoriler"
+            "category": "Kategoriler",
+            "payment_options": "Ödeme seçenekleri",
+            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
+            "price_to": "için"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -740,6 +740,9 @@
             },
             "westerkwartier": {
                 "funds": "Kavanozlar"
+            },
+            "fijnder": {
+                "funds": "Şemalar"
             }
         },
         "user_menu": {
@@ -1210,6 +1213,9 @@
             },
             "winterswijk": {
                 "title": "Etkinleştir"
+            },
+            "fijnder": {
+                "title": "Şemalar"
             }
         },
         "header": {
@@ -1740,6 +1746,9 @@
             },
             "winterswijk": {
                 "start_email": "Etkinleştirmeyi başlat"
+            },
+            "fijnder": {
+                "start_email": "Etkinleştir"
             }
         }
     },
@@ -3416,7 +3425,6 @@
             "notifications": "Bildirimler",
             "payouts": "Ödemeler",
             "profile": "Veri",
-            "records": "Kişisel veriler",
             "reimbursements": "Maliyet geri kazanımı",
             "reservations": "Rezervasyonlar",
             "security": "Güvenlik",

@@ -129,7 +129,6 @@
         "example": "Saisissez une adresse électronique valide, par exemple <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Authentification à deux facteurs",
         "back": "Retour",
         "back_start": "Retour au login",
         "choose_option": "Choisir une option",
@@ -168,7 +167,8 @@
         },
         "terms_link": {
             "text": "J'accepte les <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">termes et conditions</a>"
-        }
+        },
+        "2fa_title": "Authentification à deux facteurs"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +764,9 @@
             },
             "winterswijk": {
                 "title": "Activer"
+            },
+            "fijnder": {
+                "title": "Régimes"
             }
         },
         "header": {
@@ -2348,11 +2351,8 @@
             "sort": "Trier",
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
-            "payment_options": "Options de paiement",
-            "payment_options_info": "En savoir plus sur les options de paiement",
             "price": "Prix (€)",
             "price_from": "De",
-            "price_to": "Pour",
             "payment_option_extra_payment": "Payer en ligne avec iDeal",
             "price_type_option_discount_fixed": "Remise en euros",
             "price_type_option_discount_percentage": "Remise en pourcentage",
@@ -2361,7 +2361,10 @@
             "price_type_option_regular": "Prix",
             "price_type_options": "Type d'offre",
             "price_type_options_info": "En savoir plus sur les types d'offres",
-            "category": "Catégories"
+            "category": "Catégories",
+            "payment_options": "Options de paiement",
+            "payment_options_info": "En savoir plus sur les options de paiement",
+            "price_to": "Pour"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2390,7 +2393,6 @@
             "notifications": "Notifications",
             "payouts": "Paiements",
             "profile": "Données",
-            "records": "Données personnelles",
             "reimbursements": "Recouvrement des coûts",
             "reservations": "Réservations",
             "security": "Sécurité",
@@ -2998,6 +3000,9 @@
             },
             "winterswijk": {
                 "start_email": "Démarrer l'activation"
+            },
+            "fijnder": {
+                "start_email": "Activer"
             }
         }
     },
@@ -3204,6 +3209,9 @@
             },
             "westerkwartier": {
                 "funds": "Bocaux"
+            },
+            "fijnder": {
+                "funds": "Régimes"
             }
         },
         "user_menu": {

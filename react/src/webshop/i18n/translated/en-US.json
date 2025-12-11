@@ -318,6 +318,9 @@
             },
             "wadenheuvel": {
                 "funds": "Regulations"
+            },
+            "fijnder": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -359,7 +362,6 @@
         "example": "Enter a valid email address, for example <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Two-factor authentication",
         "back": "Back",
         "back_start": "Back to login",
         "choose_option": "Choose an option",
@@ -398,7 +400,8 @@
         "sign_in_up_title": "Create an account or start an application?",
         "privacy_link": {
             "text": "I have read the <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">privacy statement</a> "
-        }
+        },
+        "2fa_title": "Two-factor authentication"
     },
     "bookmarked_products": {
         "empty": {
@@ -459,11 +462,8 @@
             "sort": "Sort",
             "payment_option_qr": "Show QR code at the provider",
             "payment_option_reservation": "Online booking",
-            "payment_options": "Payment options",
-            "payment_options_info": "Learn more about payment options",
             "price": "Price (€)",
             "price_from": "From",
-            "price_to": "To",
             "payment_option_extra_payment": "Online additional payment with iDeal",
             "price_type_option_discount_fixed": "Discount in euro",
             "price_type_option_discount_percentage": "Discount in percent",
@@ -472,7 +472,10 @@
             "price_type_option_regular": "Price",
             "price_type_options": "Type of offer",
             "price_type_options_info": "Read more about the types of offerings",
-            "category": "Categories"
+            "category": "Categories",
+            "payment_options": "Payment options",
+            "payment_options_info": "Learn more about payment options",
+            "price_to": "To"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -935,6 +938,9 @@
             },
             "winterswijk": {
                 "title": "Activate"
+            },
+            "fijnder": {
+                "title": "Regulations"
             }
         },
         "header": {
@@ -1456,6 +1462,9 @@
             },
             "winterswijk": {
                 "start_email": "Start activation"
+            },
+            "fijnder": {
+                "start_email": "Activate"
             }
         }
     },
@@ -2734,7 +2743,6 @@
             "notifications": "Notifications",
             "payouts": "Payouts",
             "profile": "Data",
-            "records": "Personal data",
             "reimbursements": "Cost recovery",
             "reservations": "Reservations",
             "security": "Security",
