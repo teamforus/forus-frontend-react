@@ -144,10 +144,12 @@ export default {
     },
     push_notifications_dismiss_time: {
         webshop: {
+            label: 'Selecteer de tijd in seconden dat automatische systeemmeldingen worden gesloten nadat een actie is uitgevoerd.',
             title: 'Algemene meldingen automatisch sluiten',
             description: 'Verberg systeemmeldingen automatisch nadat een actie is uitgevoerd.',
         },
         bookmarks: {
+            label: 'Selecteer de tijd in seconden dat systeemmeldingen betreft favoriete producten worden gesloten nadat een actie is uitgevoerd.',
             title: 'Meldingen over favoriete producten automatisch sluiten',
             description:
                 'Verberg de systeemmeldingen automatisch nadat favoriete producten worden toegevoegd of verwijderd.',

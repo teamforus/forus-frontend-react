@@ -11,6 +11,7 @@ export default {
         phone: 'Telefoonnummer:',
         type: 'Type aanbieder:',
         type_none: 'Geen aanbieder type',
+        map_icon: 'Icoon van de vestiging',
     },
     description: {
         title: 'Omschrijving',
