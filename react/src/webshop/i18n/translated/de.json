@@ -123,7 +123,11 @@
         },
         "me_app_more_info": "Erfahren Sie mehr über die Me-App",
         "provider_sign_up": "Als Anbieter registrieren",
-        "sponsor_logo_alt": "Logo des Sponsors"
+        "sponsor_logo_alt": "Logo des Sponsors",
+        "copyright_aria_label": "Bedingungen und Erklärungen",
+        "footer_aria_label": "Fußzeile",
+        "me_app_aria_label": "Informationen zum Herunterladen der Me-App",
+        "nav_provider_aria_label": "Als Anbieter registrieren"
     },
     "auth_start": {
         "example": "Geben Sie eine gültige E-Mail-Adresse ein, z. B. naam@voorbeeld. <strong>com</strong>"
@@ -2078,11 +2082,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Blenden Sie Systembenachrichtigungen automatisch aus, wenn bevorzugte Produkte hinzugefügt oder entfernt werden.",
-                "title": "Benachrichtigungen über bevorzugte Produkte automatisch schließen"
+                "title": "Benachrichtigungen über bevorzugte Produkte automatisch schließen",
+                "label": "Legen Sie die Zeit in Sekunden fest, nach der Systembenachrichtigungen zu bevorzugten Produkten geschlossen werden, nachdem eine Aktion ausgeführt wurde."
             },
             "webshop": {
                 "description": "Systembenachrichtigungen automatisch ausblenden, nachdem eine Aktion ausgeführt wurde.",
-                "title": "Allgemeine Benachrichtigungen werden automatisch geschlossen"
+                "title": "Allgemeine Benachrichtigungen werden automatisch geschlossen",
+                "label": "Wählen Sie die Zeit in Sekunden, nach der automatische Systembenachrichtigungen geschlossen werden, nachdem eine Aktion ausgeführt wurde."
             }
         },
         "push_notifications_preferences": {
@@ -2492,7 +2498,8 @@
             "phone": "Rufnummer:",
             "title": "Informationen zum Anbieter",
             "type": "Art des Anbieters:",
-            "type_none": "Kein Anbietertyp"
+            "type_none": "Kein Anbietertyp",
+            "map_icon": "Niederlassungssymbol"
         },
         "funds": {
             "title": "Zweigstellen"
@@ -3247,7 +3254,11 @@
         },
         "language": {
             "prefix": "Ihre Sprache:"
-        }
+        },
+        "nav_aria_label": "Hauptmenü",
+        "skip_links": "Gehen Sie direkt zu:",
+        "skip_links_aria_label": "Gehen Sie direkt zu: Hauptinhalt",
+        "skip_links_content": "Hauptinhalt"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3576,7 +3587,9 @@
             "select_option": "Option auswählen"
         },
         "range_control": {
-            "aria_value": "Wert {{prefix}}{{value}} , Mindestwert {{prefix}}{{min}} , Höchstwert {{prefix}}{{max}}"
+            "aria_value": "Wert {{prefix}}{{value}} , Mindestwert {{prefix}}{{min}} , Höchstwert {{prefix}}{{max}}",
+            "first_slider_aria_label": "Schieberegler für den Mindestpreis",
+            "second_slider_aria_label": "Schieberegler für den Höchstpreis"
         }
     },
     "modal_deactivate_voucher": {

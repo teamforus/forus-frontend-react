@@ -154,7 +154,7 @@ export default function SecuritySessions() {
                         <div className="profile-content-title">
                             <div className="pull-left">
                                 {sessions && <div className="profile-content-title-count">{sessions?.data.length}</div>}
-                                {translate('security_sessions.title')}
+                                <h1 className="profile-content-header">{translate('security_sessions.title')}</h1>
                             </div>
                         </div>
                     </div>

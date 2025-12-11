@@ -123,7 +123,11 @@
         },
         "me_app_more_info": "En savoir plus sur l'application Me",
         "provider_sign_up": "S'inscrire en tant que fournisseur",
-        "sponsor_logo_alt": "Logo du sponsor"
+        "sponsor_logo_alt": "Logo du sponsor",
+        "copyright_aria_label": "Conditions et déclarations",
+        "footer_aria_label": "Pied de page",
+        "me_app_aria_label": "Informations sur le téléchargement de l'application Me",
+        "nav_provider_aria_label": "S'inscrire en tant que fournisseur"
     },
     "auth_start": {
         "example": "Saisissez une adresse électronique valide, par exemple <strong>naam@voorbeeld.com</strong>"
@@ -2078,11 +2082,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Masquer automatiquement les notifications du système après l'ajout ou la suppression de produits favoris.",
-                "title": "Fermer automatiquement les notifications concernant les produits favoris"
+                "title": "Fermer automatiquement les notifications concernant les produits favoris",
+                "label": "Sélectionnez la durée en secondes pendant laquelle les notifications du système concernant les produits favoris sont fermées après l'exécution d'une action."
             },
             "webshop": {
                 "description": "Masquer automatiquement les notifications du système après l'exécution d'une action.",
-                "title": "Fermeture automatique des notifications générales"
+                "title": "Fermeture automatique des notifications générales",
+                "label": "Sélectionnez le délai en secondes pendant lequel les notifications automatiques du système sont fermées après l'exécution d'une action."
             }
         },
         "push_notifications_preferences": {
@@ -2492,7 +2498,8 @@
             "phone": "Numéro de téléphone :",
             "title": "Informations sur le fournisseur",
             "type": "Type de prestataire :",
-            "type_none": "Pas de type de fournisseur"
+            "type_none": "Pas de type de fournisseur",
+            "map_icon": "Icône d'établissement"
         },
         "funds": {
             "title": "Branches"
@@ -3247,7 +3254,11 @@
         },
         "language": {
             "prefix": "Votre langue :"
-        }
+        },
+        "nav_aria_label": "Menu principal",
+        "skip_links": "Aller directement à :",
+        "skip_links_aria_label": "Aller directement à : Contenu principal",
+        "skip_links_content": "Contenu principal"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3576,7 +3587,9 @@
             "select_option": "Sélectionner une option"
         },
         "range_control": {
-            "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}"
+            "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}",
+            "first_slider_aria_label": "Curseur pour le prix minimum",
+            "second_slider_aria_label": "Curseur pour le prix maximum"
         }
     },
     "modal_deactivate_voucher": {

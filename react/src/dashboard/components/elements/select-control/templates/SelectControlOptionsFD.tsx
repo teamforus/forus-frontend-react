@@ -62,8 +62,8 @@ export default function SelectControlOptionsFD<T>({
             aria-haspopup="listbox"
             aria-expanded={showOptions}
             aria-labelledby={ariaLabelledby || controlId}
-            aria-controls={`${controlId}_options`}
-            aria-activedescendant={modelValue ? `option_${modelValue.id}` : null}
+            aria-controls={showOptions ? `${controlId}_options` : null}
+            aria-activedescendant={showOptions && modelValue ? `option_${modelValue.id}` : null}
             ref={selectorRef}
             onKeyDown={(e) => (disabled ? null : onKeyDown(e))}
             onBlur={onBlur}>
@@ -125,7 +125,7 @@ export default function SelectControlOptionsFD<T>({
                         className="select-control-search form-control"
                         onClick={searchOption}
                         style={{ display: showOptions && allowSearch ? 'none' : 'block' }}
-                        title={placeholderValue || placeholder}>
+                        aria-label={placeholderValue || placeholder}>
                         <span className="select-control-search-placeholder">{placeholderValue || placeholder}</span>
                         <span className={'select-control-icon'}>
                             <em className={showOptions ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'} />
@@ -142,6 +142,7 @@ export default function SelectControlOptionsFD<T>({
                                     value={query}
                                     tabIndex={0}
                                     onClick={onInputClick}
+                                    aria-controls={`${controlId}_options`}
                                     onChange={(e) => setQuery(e.target.value)}
                                     className="select-control-search form-control"
                                 />

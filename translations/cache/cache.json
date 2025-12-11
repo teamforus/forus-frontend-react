@@ -372,6 +372,14 @@
         "Site informatie"
     ],
     [
+        "app_footer.copyright_aria_label",
+        "Voorwaarden en verklaringen"
+    ],
+    [
+        "app_footer.footer_aria_label",
+        "Voettekst"
+    ],
+    [
         "app_footer.links.accessibility",
         "Toegankelijkheidsverklaring"
     ],
@@ -388,8 +396,16 @@
         "Algemene voorwaarden"
     ],
     [
+        "app_footer.me_app_aria_label",
+        "Informatie over het downloaden van de Me-app"
+    ],
+    [
         "app_footer.me_app_more_info",
         "Meer informatie over de Me-app"
+    ],
+    [
+        "app_footer.nav_provider_aria_label",
+        "Aanmelden als aanbieder"
     ],
     [
         "app_footer.provider_sign_up",
@@ -998,6 +1014,14 @@
     [
         "form.range_control.aria_value",
         "Value {{prefix}}{{value}}, minimum waarde {{prefix}}{{min}}, maximum waarde {{prefix}}{{max}}"
+    ],
+    [
+        "form.range_control.first_slider_aria_label",
+        "Schuifknop voor minimale prijs"
+    ],
+    [
+        "form.range_control.second_slider_aria_label",
+        "Schuifknop voor maximale prijs"
     ],
     [
         "form.required",
@@ -5928,12 +5952,20 @@
         "Verberg de systeemmeldingen automatisch nadat favoriete producten worden toegevoegd of verwijderd."
     ],
     [
+        "preferences_notifications.push_notifications_dismiss_time.bookmarks.label",
+        "Selecteer de tijd in seconden dat systeemmeldingen betreft favoriete producten worden gesloten nadat een actie is uitgevoerd."
+    ],
+    [
         "preferences_notifications.push_notifications_dismiss_time.bookmarks.title",
         "Meldingen over favoriete producten automatisch sluiten"
     ],
     [
         "preferences_notifications.push_notifications_dismiss_time.webshop.description",
         "Verberg systeemmeldingen automatisch nadat een actie is uitgevoerd."
+    ],
+    [
+        "preferences_notifications.push_notifications_dismiss_time.webshop.label",
+        "Selecteer de tijd in seconden dat automatische systeemmeldingen worden gesloten nadat een actie is uitgevoerd."
     ],
     [
         "preferences_notifications.push_notifications_dismiss_time.webshop.title",
@@ -7014,6 +7046,10 @@
     [
         "provider.details.email",
         "E-mailadres:"
+    ],
+    [
+        "provider.details.map_icon",
+        "Icoon van de vestiging"
     ],
     [
         "provider.details.phone",
@@ -8744,8 +8780,24 @@
         "Hoofdmenu"
     ],
     [
+        "top_navbar.nav_aria_label",
+        "Hoofdmenu"
+    ],
+    [
         "top_navbar.open_home",
         "Terug naar hoofdpagina"
+    ],
+    [
+        "top_navbar.skip_links",
+        "Ga direct naar:"
+    ],
+    [
+        "top_navbar.skip_links_aria_label",
+        "Ga direct naar: Hoofdinhoud"
+    ],
+    [
+        "top_navbar.skip_links_content",
+        "Hoofdinhoud"
     ],
     [
         "top_navbar.start",
