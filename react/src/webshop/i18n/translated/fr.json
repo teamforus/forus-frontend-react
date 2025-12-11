@@ -133,7 +133,6 @@
         "example": "Saisissez une adresse électronique valide, par exemple <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Authentification à deux facteurs",
         "back": "Retour",
         "back_start": "Retour au login",
         "choose_option": "Choisir une option",
@@ -172,7 +171,8 @@
         },
         "terms_link": {
             "text": "J'accepte les <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">termes et conditions</a>"
-        }
+        },
+        "2fa_title": "Authentification à deux facteurs"
     },
     "block_funds": {
         "labels": {
@@ -768,6 +768,9 @@
             },
             "winterswijk": {
                 "title": "Activer"
+            },
+            "fijnder": {
+                "title": "Régimes"
             }
         },
         "header": {
@@ -3004,6 +3007,9 @@
             },
             "winterswijk": {
                 "start_email": "Démarrer l'activation"
+            },
+            "fijnder": {
+                "start_email": "Activer"
             }
         }
     },
@@ -3210,6 +3216,9 @@
             },
             "westerkwartier": {
                 "funds": "Bocaux"
+            },
+            "fijnder": {
+                "funds": "Régimes"
             }
         },
         "user_menu": {

@@ -318,6 +318,9 @@
             },
             "wadenheuvel": {
                 "funds": "Regulations"
+            },
+            "fijnder": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -363,7 +366,6 @@
         "example": "Enter a valid email address, for example <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Two-factor authentication",
         "back": "Back",
         "back_start": "Back to login",
         "choose_option": "Choose an option",
@@ -402,7 +404,8 @@
         "sign_in_up_title": "Create an account or start an application?",
         "privacy_link": {
             "text": "I have read the <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">privacy statement</a> "
-        }
+        },
+        "2fa_title": "Two-factor authentication"
     },
     "bookmarked_products": {
         "empty": {
@@ -939,6 +942,9 @@
             },
             "winterswijk": {
                 "title": "Activate"
+            },
+            "fijnder": {
+                "title": "Regulations"
             }
         },
         "header": {
@@ -1461,6 +1467,9 @@
             },
             "winterswijk": {
                 "start_email": "Start activation"
+            },
+            "fijnder": {
+                "start_email": "Activate"
             }
         }
     },

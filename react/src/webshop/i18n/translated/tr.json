@@ -3,7 +3,6 @@
         "example": "Geçerli bir e-posta adresi girin, örneğin <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "İki faktörlü kimlik doğrulama",
         "back": "Geri",
         "back_start": "Girişe geri dön",
         "choose_option": "Bir seçenek seçin",
@@ -42,7 +41,8 @@
         },
         "terms_link": {
             "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
-        }
+        },
+        "2fa_title": "İki faktörlü kimlik doğrulama"
     },
     "blocks": {
         "block_exception": {
@@ -740,6 +740,9 @@
             },
             "westerkwartier": {
                 "funds": "Kavanozlar"
+            },
+            "fijnder": {
+                "funds": "Şemalar"
             }
         },
         "user_menu": {
@@ -1214,6 +1217,9 @@
             },
             "winterswijk": {
                 "title": "Etkinleştir"
+            },
+            "fijnder": {
+                "title": "Şemalar"
             }
         },
         "header": {
@@ -1745,6 +1751,9 @@
             },
             "winterswijk": {
                 "start_email": "Etkinleştirmeyi başlat"
+            },
+            "fijnder": {
+                "start_email": "Etkinleştir"
             }
         }
     },

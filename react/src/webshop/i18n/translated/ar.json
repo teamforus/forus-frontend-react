@@ -3,7 +3,6 @@
         "example": "أدخل عنوان بريد إلكتروني صالح، على سبيل المثال <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "المصادقة الثنائية",
         "back": "رجوع",
         "back_start": "العودة إلى تسجيل الدخول",
         "choose_option": "اختر خياراً",
@@ -42,7 +41,8 @@
         },
         "terms_link": {
             "text": "أوافق على <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">الشروط والأحكام</a>"
-        }
+        },
+        "2fa_title": "المصادقة الثنائية"
     },
     "blocks": {
         "block_exception": {
@@ -740,6 +740,9 @@
             },
             "westerkwartier": {
                 "funds": "البرطمانات"
+            },
+            "fijnder": {
+                "funds": "المخططات"
             }
         },
         "user_menu": {
@@ -1214,6 +1217,9 @@
             },
             "winterswijk": {
                 "title": "تفعيل"
+            },
+            "fijnder": {
+                "title": "المخططات"
             }
         },
         "header": {
@@ -1745,6 +1751,9 @@
             },
             "winterswijk": {
                 "start_email": "بدء التفعيل"
+            },
+            "fijnder": {
+                "start_email": "تفعيل"
             }
         }
     },

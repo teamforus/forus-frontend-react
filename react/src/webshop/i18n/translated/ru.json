@@ -133,7 +133,6 @@
         "example": "Введите действительный адрес электронной почты, например, <strong>naam@voorbeeld.com</strong>."
     },
     "auth": {
-        "": "Двухфакторная аутентификация",
         "back": "Назад",
         "back_start": "Назад к входу в систему",
         "choose_option": "Выберите вариант",
@@ -172,7 +171,8 @@
         },
         "terms_link": {
             "text": "Я согласен с <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">условиями и положениями</a>"
-        }
+        },
+        "2fa_title": "Двухфакторная аутентификация"
     },
     "block_funds": {
         "labels": {
@@ -768,6 +768,9 @@
             },
             "winterswijk": {
                 "title": "Активируйте"
+            },
+            "fijnder": {
+                "title": "Схемы"
             }
         },
         "header": {
@@ -2355,7 +2358,7 @@
             "payment_option_qr": "Показать QR-код у провайдера",
             "payment_option_reservation": "Забронировать онлайн",
             "price": "Цена (€)",
-            "price_from": "От",
+            "price_from": "С сайта",
             "payment_option_extra_payment": "Оплата онлайн с помощью iDeal",
             "price_type_option_discount_fixed": "Скидка в евро",
             "price_type_option_discount_percentage": "Скидка в процентах",
@@ -2367,7 +2370,7 @@
             "category": "Категории",
             "payment_options": "Варианты оплаты",
             "payment_options_info": "Подробнее о вариантах оплаты",
-            "price_to": "До"
+            "price_to": "На"
         },
         "sort": {
             "created_at_asc": "Самый старый первый",
@@ -3004,6 +3007,9 @@
             },
             "winterswijk": {
                 "start_email": "Начало активации"
+            },
+            "fijnder": {
+                "start_email": "Активируйте"
             }
         }
     },
@@ -3210,6 +3216,9 @@
             },
             "westerkwartier": {
                 "funds": "Кувшины"
+            },
+            "fijnder": {
+                "funds": "Схемы"
             }
         },
         "user_menu": {

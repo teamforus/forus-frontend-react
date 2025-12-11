@@ -73,6 +73,9 @@ export default {
         wadenheuvel: {
             funds: 'Regelingen',
         },
+        fijnder: {
+            funds: 'Regelingen',
+        },
     },
     buttons: {
         westerkwartier: {
