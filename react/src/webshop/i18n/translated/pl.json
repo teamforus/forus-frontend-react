@@ -123,13 +123,16 @@
         },
         "me_app_more_info": "Dowiedz się więcej o aplikacji Me",
         "provider_sign_up": "Zarejestruj się jako dostawca",
-        "sponsor_logo_alt": "Logo sponsora"
+        "sponsor_logo_alt": "Logo sponsora",
+        "copyright_aria_label": "Warunki i oświadczenia",
+        "footer_aria_label": "Stopka",
+        "me_app_aria_label": "Informacje na temat pobierania aplikacji Me",
+        "nav_provider_aria_label": "Zarejestruj się jako dostawca"
     },
     "auth_start": {
         "example": "Wprowadź prawidłowy adres e-mail, np. <strong>naam@voorbeeld.com</strong>."
     },
     "auth": {
-        "": "Uwierzytelnianie dwuskładnikowe",
         "back": "Powrót",
         "back_start": "Powrót do logowania",
         "choose_option": "Wybierz opcję",
@@ -168,7 +171,8 @@
         },
         "terms_link": {
             "text": "Zgadzam się na <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">warunki i postanowienia</a>"
-        }
+        },
+        "2fa_title": "Uwierzytelnianie dwuskładnikowe"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +768,9 @@
             },
             "winterswijk": {
                 "title": "Aktywuj"
+            },
+            "fijnder": {
+                "title": "Programy"
             }
         },
         "header": {
@@ -2075,11 +2082,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Automatyczne ukrywanie powiadomień systemowych po dodaniu lub usunięciu ulubionych produktów.",
-                "title": "Automatyczne zamykanie powiadomień o ulubionych produktach"
+                "title": "Automatyczne zamykanie powiadomień o ulubionych produktach",
+                "label": "Wybierz czas w sekundach, przez jaki powiadomienia systemowe dotyczące ulubionych produktów będą zamykane po wykonaniu akcji."
             },
             "webshop": {
                 "description": "Automatyczne ukrywanie powiadomień systemowych po wykonaniu akcji.",
-                "title": "Automatyczne zamykanie powiadomień ogólnych"
+                "title": "Automatyczne zamykanie powiadomień ogólnych",
+                "label": "Wybierz czas w sekundach, przez jaki automatyczne powiadomienia systemowe będą zamykane po wykonaniu akcji."
             }
         },
         "push_notifications_preferences": {
@@ -2348,11 +2357,8 @@
             "sort": "Sortuj",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
             "payment_option_reservation": "Zarezerwuj online",
-            "payment_options": "Opcje płatności",
-            "payment_options_info": "Więcej informacji o opcjach płatności",
             "price": "Cena (€)",
             "price_from": "Od",
-            "price_to": "Do",
             "payment_option_extra_payment": "Płatność online za pomocą iDeal",
             "price_type_option_discount_fixed": "Rabat w euro",
             "price_type_option_discount_percentage": "Rabat w procentach",
@@ -2361,7 +2367,10 @@
             "price_type_option_regular": "Cena",
             "price_type_options": "Rodzaj oferty",
             "price_type_options_info": "Dowiedz się więcej o rodzajach ofert",
-            "category": "Kategorie"
+            "category": "Kategorie",
+            "payment_options": "Opcje płatności",
+            "payment_options_info": "Więcej informacji o opcjach płatności",
+            "price_to": "Do"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -2390,7 +2399,6 @@
             "notifications": "Powiadomienia",
             "payouts": "Wypłaty",
             "profile": "Dane",
-            "records": "Dane osobowe",
             "reimbursements": "Zwrot kosztów",
             "reservations": "Rezerwacje",
             "security": "Bezpieczeństwo",
@@ -2490,7 +2498,8 @@
             "phone": "Numer telefonu:",
             "title": "Informacje o dostawcy",
             "type": "Typ dostawcy:",
-            "type_none": "Brak typu dostawcy"
+            "type_none": "Brak typu dostawcy",
+            "map_icon": "Ikona ustanowienia"
         },
         "funds": {
             "title": "Oddziały"
@@ -2998,6 +3007,9 @@
             },
             "winterswijk": {
                 "start_email": "Rozpoczęcie aktywacji"
+            },
+            "fijnder": {
+                "start_email": "Aktywuj"
             }
         }
     },
@@ -3204,6 +3216,9 @@
             },
             "westerkwartier": {
                 "funds": "Słoiki"
+            },
+            "fijnder": {
+                "funds": "Programy"
             }
         },
         "user_menu": {
@@ -3239,7 +3254,11 @@
         },
         "language": {
             "prefix": "Twój język:"
-        }
+        },
+        "nav_aria_label": "Menu główne",
+        "skip_links": "Przejdź bezpośrednio do:",
+        "skip_links_aria_label": "Przejdź bezpośrednio do: Treść główna",
+        "skip_links_content": "Główna treść"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3568,7 +3587,9 @@
             "select_option": "Wybierz opcję"
         },
         "range_control": {
-            "aria_value": "Wartość {{prefix}}{{value}} , wartość minimalna {{prefix}}{{min}} , wartość maksymalna {{prefix}}{{max}}"
+            "aria_value": "Wartość {{prefix}}{{value}} , wartość minimalna {{prefix}}{{min}} , wartość maksymalna {{prefix}}{{max}}",
+            "first_slider_aria_label": "Suwak ceny minimalnej",
+            "second_slider_aria_label": "Suwak ceny maksymalnej"
         }
     },
     "modal_deactivate_voucher": {
