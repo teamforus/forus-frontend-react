@@ -129,7 +129,6 @@
         "example": "Введіть дійсну адресу електронної пошти, наприклад, <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Двофакторна автентифікація",
         "back": "Назад",
         "back_start": "Повернутися до входу",
         "choose_option": "Виберіть варіант",
@@ -168,7 +167,8 @@
         },
         "terms_link": {
             "text": "Я погоджуюся з <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">умовами та положеннями</a>"
-        }
+        },
+        "2fa_title": "Двофакторна автентифікація"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +764,9 @@
             },
             "winterswijk": {
                 "title": "Активувати"
+            },
+            "fijnder": {
+                "title": "Схеми"
             }
         },
         "header": {
@@ -2348,11 +2351,8 @@
             "sort": "Сортування",
             "payment_option_qr": "Показати QR-код у постачальника",
             "payment_option_reservation": "Бронюйте онлайн",
-            "payment_options": "Варіанти оплати",
-            "payment_options_info": "Дізнайтеся більше про способи оплати",
             "price": "Ціна (€)",
             "price_from": "Від",
-            "price_to": "До",
             "payment_option_extra_payment": "Оплата в Інтернеті за допомогою iDeal",
             "price_type_option_discount_fixed": "Знижка в євро",
             "price_type_option_discount_percentage": "Знижка у відсотках",
@@ -2361,7 +2361,10 @@
             "price_type_option_regular": "Ціна",
             "price_type_options": "Тип пропозиції",
             "price_type_options_info": "Дізнайтеся більше про типи пропозицій",
-            "category": "Категорії"
+            "category": "Категорії",
+            "payment_options": "Варіанти оплати",
+            "payment_options_info": "Дізнайтеся більше про способи оплати",
+            "price_to": "До"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -2390,7 +2393,6 @@
             "notifications": "Сповіщення",
             "payouts": "Виплати",
             "profile": "Дані",
-            "records": "Персональні дані",
             "reimbursements": "Відшкодування витрат",
             "reservations": "Бронювання",
             "security": "Безпека",
@@ -2998,6 +3000,9 @@
             },
             "winterswijk": {
                 "start_email": "Почніть активацію"
+            },
+            "fijnder": {
+                "start_email": "Активувати"
             }
         }
     },
@@ -3204,6 +3209,9 @@
             },
             "westerkwartier": {
                 "funds": "Банки."
+            },
+            "fijnder": {
+                "funds": "Схеми"
             }
         },
         "user_menu": {

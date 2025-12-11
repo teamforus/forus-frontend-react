@@ -613,11 +613,15 @@ export default function Modal2FASetup({
                             <div className="modal-section-description">
                                 <div className="form-group">
                                     {auth2FA.provider_type.type == 'phone' && (
-                                        <div className="form-label">{translate('modal_2fa_setup.enter_sms_code')}</div>
+                                        <div className="form-label flex flex-center">
+                                            {translate('modal_2fa_setup.enter_sms_code')}
+                                        </div>
                                     )}
 
                                     {auth2FA.provider_type.type == 'authenticator' && (
-                                        <div className="form-label">{translate('modal_2fa_setup.enter_app_code')}</div>
+                                        <div className="form-label flex flex-center">
+                                            {translate('modal_2fa_setup.enter_app_code')}
+                                        </div>
                                     )}
 
                                     <div className="form-group">

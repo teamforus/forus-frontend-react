@@ -1,7 +1,7 @@
 export default {
     setup_2fa_title: 'Tweefactorauthenticatie instellen',
     choose_option: 'Kies een optie',
-    '': 'Tweefactorauthenticatie',
+    '2fa_title': 'Tweefactorauthenticatie',
     logout: 'Uitloggen',
     back: 'Terug',
     back_start: 'Terug naar inloggen',

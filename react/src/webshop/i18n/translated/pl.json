@@ -129,7 +129,6 @@
         "example": "Wprowadź prawidłowy adres e-mail, np. <strong>naam@voorbeeld.com</strong>."
     },
     "auth": {
-        "": "Uwierzytelnianie dwuskładnikowe",
         "back": "Powrót",
         "back_start": "Powrót do logowania",
         "choose_option": "Wybierz opcję",
@@ -168,7 +167,8 @@
         },
         "terms_link": {
             "text": "Zgadzam się na <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">warunki i postanowienia</a>"
-        }
+        },
+        "2fa_title": "Uwierzytelnianie dwuskładnikowe"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +764,9 @@
             },
             "winterswijk": {
                 "title": "Aktywuj"
+            },
+            "fijnder": {
+                "title": "Programy"
             }
         },
         "header": {
@@ -2348,11 +2351,8 @@
             "sort": "Sortuj",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
             "payment_option_reservation": "Zarezerwuj online",
-            "payment_options": "Opcje płatności",
-            "payment_options_info": "Więcej informacji o opcjach płatności",
             "price": "Cena (€)",
             "price_from": "Od",
-            "price_to": "Do",
             "payment_option_extra_payment": "Płatność online za pomocą iDeal",
             "price_type_option_discount_fixed": "Rabat w euro",
             "price_type_option_discount_percentage": "Rabat w procentach",
@@ -2361,7 +2361,10 @@
             "price_type_option_regular": "Cena",
             "price_type_options": "Rodzaj oferty",
             "price_type_options_info": "Dowiedz się więcej o rodzajach ofert",
-            "category": "Kategorie"
+            "category": "Kategorie",
+            "payment_options": "Opcje płatności",
+            "payment_options_info": "Więcej informacji o opcjach płatności",
+            "price_to": "Do"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -2390,7 +2393,6 @@
             "notifications": "Powiadomienia",
             "payouts": "Wypłaty",
             "profile": "Dane",
-            "records": "Dane osobowe",
             "reimbursements": "Zwrot kosztów",
             "reservations": "Rezerwacje",
             "security": "Bezpieczeństwo",
@@ -2998,6 +3000,9 @@
             },
             "winterswijk": {
                 "start_email": "Rozpoczęcie aktywacji"
+            },
+            "fijnder": {
+                "start_email": "Aktywuj"
             }
         }
     },
@@ -3204,6 +3209,9 @@
             },
             "westerkwartier": {
                 "funds": "Słoiki"
+            },
+            "fijnder": {
+                "funds": "Programy"
             }
         },
         "user_menu": {

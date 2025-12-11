@@ -129,7 +129,6 @@
         "example": "Geben Sie eine gültige E-Mail-Adresse ein, z. B. naam@voorbeeld. <strong>com</strong>"
     },
     "auth": {
-        "": "Zwei-Faktor-Authentifizierung",
         "back": "Zurück",
         "back_start": "Zurück zur Anmeldung",
         "choose_option": "Wählen Sie eine Option",
@@ -168,7 +167,8 @@
         },
         "terms_link": {
             "text": "Ich stimme den <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Bedingungen und Konditionen</a> zu"
-        }
+        },
+        "2fa_title": "Zwei-Faktor-Authentifizierung"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +764,9 @@
             },
             "winterswijk": {
                 "title": "Aktivieren Sie"
+            },
+            "fijnder": {
+                "title": "Schemata"
             }
         },
         "header": {
@@ -2348,11 +2351,8 @@
             "sort": "Sortieren",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_option_reservation": "Online buchen",
-            "payment_options": "Zahlungsmöglichkeiten",
-            "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
             "price": "Preis (€)",
             "price_from": "Von",
-            "price_to": "An",
             "payment_option_extra_payment": "Online-Bezahlung mit iDeal",
             "price_type_option_discount_fixed": "Rabatt in Euro",
             "price_type_option_discount_percentage": "Rabatt in Prozent",
@@ -2361,7 +2361,10 @@
             "price_type_option_regular": "Preis",
             "price_type_options": "Art des Angebots",
             "price_type_options_info": "Lesen Sie mehr über die Arten von Angeboten",
-            "category": "Kategorien"
+            "category": "Kategorien",
+            "payment_options": "Zahlungsmöglichkeiten",
+            "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
+            "price_to": "An"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -2390,7 +2393,6 @@
             "notifications": "Benachrichtigungen",
             "payouts": "Auszahlungen",
             "profile": "Daten",
-            "records": "Persönliche Daten",
             "reimbursements": "Kostendeckung",
             "reservations": "Reservierungen",
             "security": "Sicherheit",
@@ -2998,6 +3000,9 @@
             },
             "winterswijk": {
                 "start_email": "Aktivierung starten"
+            },
+            "fijnder": {
+                "start_email": "Aktivieren Sie"
             }
         }
     },
@@ -3204,6 +3209,9 @@
             },
             "westerkwartier": {
                 "funds": "Krüge"
+            },
+            "fijnder": {
+                "funds": "Schemata"
             }
         },
         "user_menu": {
