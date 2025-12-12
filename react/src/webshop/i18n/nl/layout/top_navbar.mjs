@@ -2,6 +2,10 @@ export default {
     start: 'Start',
     open_home: `Terug naar hoofdpagina`,
     main_menu: 'Hoofdmenu',
+    nav_aria_label: 'Hoofdmenu',
+    skip_links: 'Ga direct naar:',
+    skip_links_content: 'Hoofdinhoud',
+    skip_links_aria_label: 'Ga direct naar: Hoofdinhoud',
     start_button: {
         potjeswijzer: 'Start aanvraag',
         geertruidenberg: 'Start aanvraag',

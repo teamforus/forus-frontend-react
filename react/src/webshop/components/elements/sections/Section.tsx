@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function Section({
     id,
@@ -24,6 +25,16 @@ export default function Section({
     wrapper?: boolean;
     children: ReactNode | ReactNode[];
 }) {
+    const translate = useTranslate();
+
+    const ariaLabel = useMemo(() => {
+        if (type === 'footer') {
+            return translate('app_footer.footer_aria_label');
+        }
+
+        return type === 'copyright' ? translate('app_footer.copyright_aria_label') : null;
+    }, [translate, type]);
+
     return (
         <section
             className={classNames(
@@ -41,6 +52,8 @@ export default function Section({
                 type === 'breadcrumbs' && 'section-breadcrumbs',
                 type === 'voucher_details' && 'section-voucher-details',
             )}
+            role={type === 'footer' ? 'contentinfo' : type === 'copyright' ? 'region' : null}
+            aria-label={ariaLabel}
             id={id}>
             {wrapper ? <div className="wrapper">{children}</div> : children}
         </section>

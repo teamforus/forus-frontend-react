@@ -233,7 +233,7 @@ export default function ProductsShow() {
                                     <h1 className="product-overview-name" data-dusk="productName">
                                         {product.name}
                                     </h1>
-                                    <div className="product-prop-item-category" role="text">
+                                    <div className="product-prop-item-category">
                                         <em className="mdi mdi-television-classic" aria-hidden="true" />
                                         <span>{product?.product_category?.name}</span>
                                     </div>
