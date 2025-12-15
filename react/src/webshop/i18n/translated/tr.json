@@ -3,7 +3,6 @@
         "example": "Geçerli bir e-posta adresi girin, örneğin <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "İki faktörlü kimlik doğrulama",
         "back": "Geri",
         "back_start": "Girişe geri dön",
         "choose_option": "Bir seçenek seçin",
@@ -42,7 +41,8 @@
         },
         "terms_link": {
             "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
-        }
+        },
+        "2fa_title": "İki faktörlü kimlik doğrulama"
     },
     "blocks": {
         "block_exception": {
@@ -740,6 +740,9 @@
             },
             "westerkwartier": {
                 "funds": "Kavanozlar"
+            },
+            "fijnder": {
+                "funds": "Şemalar"
             }
         },
         "user_menu": {
@@ -775,7 +778,11 @@
         },
         "language": {
             "prefix": "Senin dilin:"
-        }
+        },
+        "nav_aria_label": "Ana menü",
+        "skip_links": "Doğrudan şuraya git:",
+        "skip_links_aria_label": "Doğrudan şuraya gidin: Ana içerik",
+        "skip_links_content": "Ana içerik"
     },
     "week_days": {
         "0": "Pazartesi",
@@ -1210,6 +1217,9 @@
             },
             "winterswijk": {
                 "title": "Etkinleştir"
+            },
+            "fijnder": {
+                "title": "Şemalar"
             }
         },
         "header": {
@@ -1269,7 +1279,8 @@
             "phone": "Telefon numarası:",
             "title": "Sağlayıcı bilgileri",
             "type": "Sağlayıcı türü:",
-            "type_none": "Sağlayıcı türü yok"
+            "type_none": "Sağlayıcı türü yok",
+            "map_icon": "Kuruluş simgesi"
         },
         "funds": {
             "title": "Şubeler"
@@ -1740,6 +1751,9 @@
             },
             "winterswijk": {
                 "start_email": "Etkinleştirmeyi başlat"
+            },
+            "fijnder": {
+                "start_email": "Etkinleştir"
             }
         }
     },
@@ -2359,11 +2373,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Favori ürünler eklendikten veya kaldırıldıktan sonra sistem bildirimlerini otomatik olarak gizleyin.",
-                "title": "Favori ürünlerle ilgili bildirimleri otomatik olarak kapatın"
+                "title": "Favori ürünlerle ilgili bildirimleri otomatik olarak kapatın",
+                "label": "Bir eylem gerçekleştirildikten sonra favori ürünlerle ilgili sistem bildirimlerinin kapatılacağı süreyi saniye cinsinden seçin."
             },
             "webshop": {
                 "description": "Bir eylem gerçekleştirildikten sonra sistem bildirimlerini otomatik olarak gizleyin.",
-                "title": "Genel bildirimler otomatik kapanır"
+                "title": "Genel bildirimler otomatik kapanır",
+                "label": "Bir eylem gerçekleştirildikten sonra otomatik sistem bildirimlerinin kapatılacağı süreyi saniye cinsinden seçin."
             }
         },
         "push_notifications_preferences": {
@@ -3330,7 +3346,11 @@
         },
         "me_app_more_info": "Me uygulaması hakkında daha fazla bilgi edinin",
         "provider_sign_up": "Sağlayıcı olarak kaydolun",
-        "sponsor_logo_alt": "Sponsor logosu"
+        "sponsor_logo_alt": "Sponsor logosu",
+        "copyright_aria_label": "Koşullar ve beyanlar",
+        "footer_aria_label": "Altbilgi",
+        "me_app_aria_label": "Me uygulamasını indirme hakkında bilgi",
+        "nav_provider_aria_label": "Sağlayıcı olarak kaydolun"
     },
     "block_funds": {
         "labels": {
@@ -3576,7 +3596,9 @@
             "select_option": "Seçeneği seçin"
         },
         "range_control": {
-            "aria_value": "Değer {{prefix}}{{value}} , minimum değer {{prefix}}{{min}} , maksimum değer {{prefix}}{{max}}"
+            "aria_value": "Değer {{prefix}}{{value}} , minimum değer {{prefix}}{{min}} , maksimum değer {{prefix}}{{max}}",
+            "first_slider_aria_label": "Minimum fiyat için kaydırıcı",
+            "second_slider_aria_label": "Maksimum fiyat için kaydırıcı"
         }
     },
     "modal_deactivate_voucher": {

@@ -11,6 +11,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import PayoutCard from './elements/PayoutCard';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 
 export default function Payouts() {
     const translate = useTranslate();
@@ -63,13 +64,17 @@ export default function Payouts() {
                     <div className="form form-compact">
                         <div className="profile-aside-block">
                             <div className="form-group">
-                                <input
-                                    type="text"
-                                    className={'form-control'}
+                                <label className="form-label" htmlFor="payouts_search">
+                                    {translate('payouts.search')}
+                                </label>
+
+                                <UIControlText
+                                    id="payouts_search"
                                     value={filterValues.q}
-                                    onChange={(e) => filterUpdate({ q: e.target.value })}
+                                    onChangeValue={(q) => filterUpdate({ q })}
+                                    dataDusk="listPayoutsSearch"
+                                    ariaLabel={translate('payouts.search')}
                                     placeholder={translate('payouts.search')}
-                                    data-dusk="listPayoutsSearch"
                                 />
                             </div>
                         </div>

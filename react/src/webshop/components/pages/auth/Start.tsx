@@ -579,9 +579,7 @@ export default function Start() {
 
                                     {authEmailRestoreSent && (
                                         <div className="sign_up-pane">
-                                            <h1 className="sr-only" role="heading">
-                                                {translate('popup_auth.header.title_sr')}
-                                            </h1>
+                                            <h1 className="sr-only">{translate('popup_auth.header.title_sr')}</h1>
                                             <h2 className="sign_up-pane-header">
                                                 {translate('popup_auth.header.title')}
                                             </h2>
@@ -611,10 +609,8 @@ export default function Start() {
                                     )}
                                     {authEmailConfirmationSent && (
                                         <div className="sign_up-pane">
-                                            <h1 className="sr-only" role="heading">
-                                                {translate('popup_auth.header.title_sr')}
-                                            </h1>
-                                            <h2 className="sign_up-pane-header" role="heading">
+                                            <h1 className="sr-only">{translate('popup_auth.header.title_sr')}</h1>
+                                            <h2 className="sign_up-pane-header">
                                                 {translate('popup_auth.header.title')}
                                             </h2>
                                             <div className="sign_up-pane-body" data-dusk="authEmailSentConfirmation">
@@ -626,7 +622,7 @@ export default function Start() {
                                                             alt=""
                                                         />
                                                     </div>
-                                                    <h3 className="sign_up-email_sent-title" role="heading">
+                                                    <h3 className="sign_up-email_sent-title">
                                                         {translate(
                                                             `popup_auth.header.title_existing_user_succes_${appConfigs?.communication_type}`,
                                                         )}

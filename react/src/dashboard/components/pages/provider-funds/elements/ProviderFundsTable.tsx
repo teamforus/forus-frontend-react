@@ -21,18 +21,19 @@ import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
-import classNames from 'classnames';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
+import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
 
 export default function ProviderFundsTable({
     type,
     organization,
     onChange,
 }: {
-    type: 'active' | 'pending_rejected' | 'archived';
+    type: 'active' | 'pending_rejected' | 'archived' | 'unsubscribed';
     organization: Organization;
     onChange: () => void;
 }) {
@@ -44,6 +45,9 @@ export default function ProviderFundsTable({
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+
+    const successApplying = useProviderFundsApplySuccess();
+    const failOfficesCheck = useProviderFundsFailOfficesCheck();
 
     const paginatorService = usePaginatorService();
     const providerFundService = useProviderFundService();
@@ -66,7 +70,6 @@ export default function ProviderFundsTable({
         return {
             selected: list,
             selected_cancel: list?.filter((item) => item.can_cancel),
-            selected_unsubscribe: list?.filter((item) => item.can_unsubscribe),
         };
     }, [providerFunds?.data, selected]);
 
@@ -103,6 +106,7 @@ export default function ProviderFundsTable({
             .listFunds(organization.id, {
                 active: type == 'active' ? 1 : 0,
                 pending: type == 'pending_rejected' ? 1 : 0,
+                unsubscribed: type == 'unsubscribed' ? 1 : 0,
                 archived: type == 'archived' ? 1 : 0,
                 ...filterValuesActive,
             })
@@ -185,6 +189,41 @@ export default function ProviderFundsTable({
         [fetchFunds, onChange, openModal, organization],
     );
 
+    const applyFund = useCallback(
+        (providerFund: FundProvider) => {
+            if (organization.offices_count == 0) {
+                return failOfficesCheck();
+            }
+
+            setProgress(0);
+
+            providerFundService
+                .applyForFund(organization.id, providerFund.fund.id)
+                .then(() => {
+                    successApplying();
+                    setSelected([]);
+                })
+                .catch(pushApiError)
+                .finally(() => {
+                    fetchFunds();
+                    setProgress(100);
+                    onChange?.();
+                });
+        },
+        [
+            failOfficesCheck,
+            fetchFunds,
+            onChange,
+            organization.id,
+            organization.offices_count,
+            providerFundService,
+            pushApiError,
+            setSelected,
+            setProgress,
+            successApplying,
+        ],
+    );
+
     useEffect(() => {
         fetchFunds();
     }, [fetchFunds]);
@@ -196,7 +235,7 @@ export default function ProviderFundsTable({
     }, [resetFilters]);
 
     return (
-        <div className="card">
+        <div className="card" data-dusk={`${type}TableFundsContent`}>
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate(`provider_funds.title.${type}`)}
@@ -224,6 +263,7 @@ export default function ProviderFundsTable({
                                     value={filterValues.q}
                                     onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder="Zoeken"
+                                    data-dusk={`${type}TableFundsSearch`}
                                 />
                             </div>
                         </div>
@@ -244,7 +284,8 @@ export default function ProviderFundsTable({
                                     {providerFunds.data?.map((providerFund) => (
                                         <tr
                                             key={providerFund.id}
-                                            className={selected.includes(providerFund.id) ? 'selected' : ''}>
+                                            className={selected.includes(providerFund.id) ? 'selected' : ''}
+                                            data-dusk={`${type}TableFundsRow${providerFund.id}`}>
                                             {type !== 'archived' && (
                                                 <td className="td-narrow">
                                                     <TableCheckboxControl
@@ -318,6 +359,10 @@ export default function ProviderFundsTable({
                                                     {providerFund.state == 'rejected' && (
                                                         <Label type="danger">{providerFund.state_locale}</Label>
                                                     )}
+
+                                                    {providerFund.state == 'unsubscribed' && (
+                                                        <Label type="danger_light">{providerFund.state_locale}</Label>
+                                                    )}
                                                 </td>
                                             )}
 
@@ -330,8 +375,28 @@ export default function ProviderFundsTable({
                                             {type !== 'archived' ? (
                                                 <td className={'table-td-actions text-right'}>
                                                     <TableRowActions
+                                                        dataDusk={'btnFundProviderMenu'}
                                                         content={(e) => (
                                                             <div className="dropdown dropdown-actions">
+                                                                {providerFund.fund.state != 'closed' &&
+                                                                    providerFund.state === 'unsubscribed' && (
+                                                                        <div
+                                                                            className="dropdown-item"
+                                                                            data-dusk={`btnApplyFund${providerFund.id}`}
+                                                                            title={translate(
+                                                                                'provider_funds.buttons.join_unsubscribed',
+                                                                            )}
+                                                                            onClick={() => {
+                                                                                applyFund(providerFund);
+                                                                                e.close();
+                                                                            }}>
+                                                                            <em className="mdi mdi-send-variant-clock-outline icon-start" />
+                                                                            {translate(
+                                                                                'provider_funds.buttons.join_unsubscribed',
+                                                                            )}
+                                                                        </div>
+                                                                    )}
+
                                                                 {providerFund.fund.state != 'closed' && (
                                                                     <div
                                                                         className="dropdown-item"
@@ -347,11 +412,9 @@ export default function ProviderFundsTable({
 
                                                                 {type == 'active' && (
                                                                     <div
-                                                                        className={classNames(
-                                                                            'dropdown-item',
-                                                                            !providerFund.can_unsubscribe && 'disabled',
-                                                                        )}
-                                                                        title="Unsubscribe"
+                                                                        className="dropdown-item"
+                                                                        data-dusk={`btnUnsubscribe${providerFund.id}`}
+                                                                        title="Uitschrijven"
                                                                         onClick={() => {
                                                                             unsubscribe(providerFund);
                                                                             e.close();

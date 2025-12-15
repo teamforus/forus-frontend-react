@@ -144,7 +144,7 @@ export default function Reservations() {
                             />
                         </div>
                         <div className="form-group">
-                            <label className="form-label" htmlFor="select_fund">
+                            <label className="form-label" htmlFor="select_fund" id="fund_select">
                                 {translate('reservations.filters.fund')}
                             </label>
 
@@ -157,10 +157,11 @@ export default function Reservations() {
                                 allowSearch={true}
                                 dusk="selectControlFunds"
                                 onChange={(fund_id?: number) => filterUpdate({ fund_id })}
+                                ariaLabelledby="fund_select"
                             />
                         </div>
                         <div className="form-group">
-                            <label className="form-label" htmlFor="select_provider">
+                            <label className="form-label" htmlFor="select_provider" id="provider_select">
                                 {translate('reservations.filters.provider')}
                             </label>
 
@@ -173,10 +174,11 @@ export default function Reservations() {
                                 multiline={true}
                                 allowSearch={true}
                                 dusk="selectControlOrganizations"
+                                ariaLabelledby="provider_select"
                             />
                         </div>
                         <div className="form-group">
-                            <label className="form-label" htmlFor="select_state">
+                            <label className="form-label" htmlFor="select_state" id="state_select">
                                 {translate('reservations.filters.state')}
                             </label>
 
@@ -189,6 +191,7 @@ export default function Reservations() {
                                 multiline={true}
                                 allowSearch={true}
                                 dusk="selectControlStates"
+                                ariaLabelledby="state_select"
                             />
                         </div>
                     </div>

@@ -739,12 +739,14 @@ export default {
             pending: 'Er zijn momenteel geen aanbieders die actie benodigd hebben.',
             active: 'Er zijn momenteel geen actieve aanbieders.',
             rejected: 'Er zijn momenteel geen inactieve aanbieders.',
+            unsubscribed: 'Er zijn momenteel geen uitgeschreven aanbieders.',
         },
         empty_description: {
             pending: "Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
             active: "Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
             rejected:
                 "Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
+            unsubscribed: 'Alle aanbieders zijn momenteel geabonneerd en beschikbaar binnen het platform.',
         },
     },
 

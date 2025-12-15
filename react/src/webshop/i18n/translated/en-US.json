@@ -318,6 +318,9 @@
             },
             "wadenheuvel": {
                 "funds": "Regulations"
+            },
+            "fijnder": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -353,13 +356,16 @@
         },
         "language": {
             "prefix": "Your language:"
-        }
+        },
+        "nav_aria_label": "Main menu",
+        "skip_links": "Go directly to:",
+        "skip_links_aria_label": "Go directly to: Main Content",
+        "skip_links_content": "Main Content"
     },
     "auth_start": {
         "example": "Enter a valid email address, for example <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Two-factor authentication",
         "back": "Back",
         "back_start": "Back to login",
         "choose_option": "Choose an option",
@@ -398,7 +404,8 @@
         "sign_in_up_title": "Create an account or start an application?",
         "privacy_link": {
             "text": "I have read the <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">privacy statement</a> "
-        }
+        },
+        "2fa_title": "Two-factor authentication"
     },
     "bookmarked_products": {
         "empty": {
@@ -935,6 +942,9 @@
             },
             "winterswijk": {
                 "title": "Activate"
+            },
+            "fijnder": {
+                "title": "Regulations"
             }
         },
         "header": {
@@ -1340,7 +1350,8 @@
             "phone": "Phone number:",
             "title": "Provider information",
             "type": "Type of provider:",
-            "type_none": "No provider type"
+            "type_none": "No provider type",
+            "map_icon": "Establishment icon"
         },
         "funds": {
             "title": "Branches"
@@ -1456,6 +1467,9 @@
             },
             "winterswijk": {
                 "start_email": "Start activation"
+            },
+            "fijnder": {
+                "start_email": "Activate"
             }
         }
     },
@@ -2055,11 +2069,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Hide system notifications automatically after favorite products are added or deleted.",
-                "title": "Close notifications about favorite products automatically"
+                "title": "Close notifications about favorite products automatically",
+                "label": "Select the time in seconds that system notifications concerning favorite products are closed after an action is performed."
             },
             "webshop": {
                 "description": "Hide system notifications automatically after an action is performed.",
-                "title": "General notifications automatically close"
+                "title": "General notifications automatically close",
+                "label": "Select the time in seconds that automatic system notifications are closed after an action is performed."
             }
         },
         "push_notifications_preferences": {
@@ -2639,7 +2655,11 @@
         },
         "me_app_more_info": "Learn more about the Me app",
         "provider_sign_up": "Register as a provider",
-        "sponsor_logo_alt": "Sponsor logo"
+        "sponsor_logo_alt": "Sponsor logo",
+        "copyright_aria_label": "Conditions and statements",
+        "footer_aria_label": "Footer",
+        "me_app_aria_label": "Information about downloading the Me app",
+        "nav_provider_aria_label": "Register as a provider"
     },
     "block_funds": {
         "labels": {
@@ -3576,7 +3596,9 @@
             "select_option": "Select option"
         },
         "range_control": {
-            "aria_value": "Value {{prefix}}{{value}} , minimum value {{prefix}}{{min}} , maximum value {{prefix}}{{max}}"
+            "aria_value": "Value {{prefix}}{{value}} , minimum value {{prefix}}{{min}} , maximum value {{prefix}}{{max}}",
+            "first_slider_aria_label": "Slider for minimum price",
+            "second_slider_aria_label": "Slider for maximum price"
         }
     },
     "modal_deactivate_voucher": {
