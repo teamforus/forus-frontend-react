@@ -602,10 +602,10 @@ export default function ModalPrevalidationsUpload({
             if (data.no_vouchers?.length > 0) {
                 await showErrorsList(
                     data.no_vouchers,
-                    'Voucher niet gevonden',
-                    'De gegevens zijn gewijzigd, maar er kon geen overeenkomende voucher worden gevonden.',
+                    'Tegoed niet gevonden',
+                    'De gegevens zijn gewijzigd, maar er kon geen overeenkomend tegoed worden gevonden.',
                     (row) => {
-                        return `Lijn: ${row.line} - Geen voucher gevonden voor "${row.data[fund.csv_primary_key]}"`;
+                        return `Lijn: ${row.line} - Geen tegoed gevonden voor "${row.data[fund.csv_primary_key]}"`;
                     },
                 );
             }
@@ -614,10 +614,10 @@ export default function ModalPrevalidationsUpload({
             if (data.multiple_vouchers?.length > 0) {
                 await showErrorsList(
                     data.multiple_vouchers,
-                    'Meerdere vouchers gedetecteerd',
-                    'Kan niet bepalen welke voucher moet worden bijgewerkt.',
+                    'Meerdere tegoeden gedetecteerd',
+                    'Kan niet bepalen welk tegoed moet worden bijgewerkt.',
                     (row) => {
-                        return `Lijn: ${row.line} - Meerdere vouchers gevonden voor "${row.data[fund.csv_primary_key]}"`;
+                        return `Lijn: ${row.line} - Meerdere tegoeden gevonden voor "${row.data[fund.csv_primary_key]}"`;
                     },
                 );
             }
@@ -638,10 +638,10 @@ export default function ModalPrevalidationsUpload({
             if (data.less_amount?.length > 0) {
                 await showErrorsList(
                     data.less_amount,
-                    'Bedrag verlaagd',
-                    'Wanneer het bedrag wordt verlaagd, kunnen vouchers niet automatisch worden bijgewerkt en moeten ze handmatig worden afgehandeld.',
+                    'Gegevens kunnen niet worden aangepast',
+                    'Wanneer gegevens in waarde worden verlaagd, kunnen tegoeden niet automatisch worden bijgewerkt en moeten ze handmatig worden afgehandeld.',
                     (row) => {
-                        return `Lijn: ${row.line} - Bedrag verlaagd voor "${row.data[fund.csv_primary_key]}"`;
+                        return `Lijn: ${row.line} - Gegevens kunnen niet worden aangepast voor "${row.data[fund.csv_primary_key]}"`;
                     },
                 );
             }
@@ -650,14 +650,14 @@ export default function ModalPrevalidationsUpload({
                 if (data.create.length > 0) {
                     pushSuccess(
                         'Bezig met uploaden...',
-                        'Geen duplicaten gevonden. Bezig met uploaden van ' +
+                        'Geen dubbelingen gevonden. Bezig met uploaden van ' +
                             data.create.length +
-                            ' nieuw(e) record(s)...',
+                            ' nieuw(e) gegeven(s)...',
                     );
 
                     startUploadingToServer(data.create.map((item) => item.data)).then();
                 } else {
-                    pushSuccess('Geen wijzigingen gedetecteerd', 'Geen nieuwe records gevonden in uw CSV-bestand...');
+                    pushSuccess('Geen wijzigingen gedetecteerd', 'Geen nieuwe gegevens gevonden in uw CSV-bestand...');
                     setCsvProgress(CSVProgress.uploaded);
                     updateProgressBarValue(100);
                 }
@@ -672,13 +672,13 @@ export default function ModalPrevalidationsUpload({
             if (data.update.length > 0) {
                 await showUpdateList(
                     data.update,
-                    'Dubbele records gedetecteerd.',
+                    'Dubbele gegevens gedetecteerd.',
                     [
                         `Weet u zeker dat u ${data.update.length} rij(en) wilt bijwerken?`,
-                        'Deze records hebben al activatiecodes.',
+                        'Deze gegevens hebben al activatiecodes.',
                     ].join(' '),
                     (row) => {
-                        return `Lijn: ${row.line} - Wachtende prevalidatiegegevens gewijzigd voor "${row.data[fund.csv_primary_key]}"`;
+                        return `Lijn: ${row.line} - Wachtende gegevens gewijzigd voor "${row.data[fund.csv_primary_key]}"`;
                     },
                 ).then((res) => {
                     if (res === false) {
@@ -695,14 +695,14 @@ export default function ModalPrevalidationsUpload({
             if (data.top_up.length > 0) {
                 await showUpdateList(
                     data.top_up,
-                    'Voucher opwaardering vereist.',
+                    'Tegoed opwaardering vereist.',
                     [
                         `Weet u zeker dat u ${data.top_up.length} rij(en) wilt bijwerken?`,
-                        'Deze UIDs hebben al een activatiecode en zijn geactiveerd.',
+                        'Deze rij(en) hebben al een activatiecode en zijn geactiveerd.',
                         'Aangezien het nieuw berekende bedrag hoger is, wordt een opwaardeertransactie aangemaakt.',
                     ].join(' '),
                     (row) => {
-                        return `Lijn: ${row.line} - Gebruikte prevalidatiegegevens gewijzigd voor "${row.data[fund.csv_primary_key]}"`;
+                        return `Lijn: ${row.line} - Gebruikte gegevens gewijzigd voor "${row.data[fund.csv_primary_key]}"`;
                     },
                 ).then((res) => {
                     if (res === false) {
@@ -726,8 +726,8 @@ export default function ModalPrevalidationsUpload({
             pushSuccess(
                 'Bezig met uploaden...',
                 [
-                    `${data.update.length + data.top_up.length - skipUids.length} record(s) worden bijgewerkt en`,
-                    `${data.create.length} record(s) worden aangemaakt!`,
+                    `${data.update.length + data.top_up.length - skipUids.length} gegeven(s) worden bijgewerkt en`,
+                    `${data.create.length} gegeven(s) worden aangemaakt!`,
                 ].join(' '),
             );
 
@@ -740,18 +740,18 @@ export default function ModalPrevalidationsUpload({
                     topUpRows,
                 ).then(() => {
                     if (skipUids.length > 0) {
-                        pushSuccess('Voltooid', `${skipUids.length} record(s) overgeslagen!`);
+                        pushSuccess('Voltooid', `${skipUids.length} gegeven(s) overgeslagen!`);
                     }
 
-                    pushSuccess('Voltooid', `${data.update.length - skipUids.length} record(s) bijgewerkt!`);
-                    pushSuccess('Voltooid', `${data.create.length} nieuw(e) record(s) aangemaakt!`);
+                    pushSuccess('Voltooid', `${data.update.length - skipUids.length} gegeven(s) bijgewerkt!`);
+                    pushSuccess('Voltooid', `${data.create.length} nieuw(e) gegeven(s) aangemaakt!`);
                 }, console.error);
             }
 
             onCompleted?.();
             setCsvProgress(CSVProgress.uploaded);
             updateProgressBarValue(100);
-            pushSuccess('Voltooid', skipUids.length + ' record(s) overgeslagen, geen nieuwe records aangemaakt!');
+            pushSuccess('Voltooid', skipUids.length + ' gegeven(s) overgeslagen, geen nieuwe gegevens aangemaakt!');
         },
         [
             fund.csv_primary_key,
