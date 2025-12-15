@@ -67,8 +67,9 @@ router.state(WebshopRoutes.START, <Start />, {
 });
 
 router.state(WebshopRoutes.AUTH_2FA, <Auth2FA />, {
-    path: `/auth-2fa`,
-    protected: true,
+    path: `/tweefactorauthenticatie`,
+    altPath: `/auth-2fa`,
+    protected: false,
 });
 
 router.state(WebshopRoutes.IDENTITY_RESTORE, <IdentityRestore confirmation={false} />, {

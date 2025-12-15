@@ -122,7 +122,7 @@ export default function FundRequests() {
                     <div className="form form-compact">
                         <div className="profile-aside-block">
                             <div className="form-group">
-                                <label className="form-label" htmlFor="select_fund">
+                                <label className="form-label" id="select_fund_label" htmlFor="select_fund">
                                     Tegoeden
                                 </label>
                                 <SelectControl
@@ -132,6 +132,7 @@ export default function FundRequests() {
                                     options={funds}
                                     multiline={true}
                                     dusk="selectControlFunds"
+                                    ariaLabelledby="select_fund_label"
                                     onChange={(fund_id?: number) => filterUpdate({ fund_id })}
                                 />
                             </div>

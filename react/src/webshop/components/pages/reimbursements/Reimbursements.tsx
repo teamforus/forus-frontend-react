@@ -140,7 +140,7 @@ export default function Reimbursements() {
                     <div className="form form-compact">
                         <div className="profile-aside-block">
                             <div className="form-group">
-                                <label className="form-label" htmlFor="select_fund">
+                                <label className="form-label" htmlFor="select_fund" id="fund_select">
                                     Tegoeden
                                 </label>
                                 <SelectControl
@@ -151,6 +151,7 @@ export default function Reimbursements() {
                                     multiline={true}
                                     allowSearch={true}
                                     dusk="selectControlFunds"
+                                    ariaLabelledby="fund_select"
                                     onChange={(fund_id?: number) => filterUpdate({ fund_id })}
                                 />
                             </div>

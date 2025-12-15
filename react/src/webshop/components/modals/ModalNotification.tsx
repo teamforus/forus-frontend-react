@@ -96,7 +96,7 @@ export default function ModalNotification({
                     role="button"
                 />
                 <div className="modal-header">
-                    <h2 className="modal-header-title" role="heading" id="notificationDialogTitle">
+                    <h2 className="modal-header-title" id="notificationDialogTitle">
                         {title}
                     </h2>
                 </div>
