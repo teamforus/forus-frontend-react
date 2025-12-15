@@ -33,6 +33,7 @@ import ImplementationsRootBreadcrumbs from '../implementations/elements/Implemen
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import { useMarkdownService } from '../../../services/MarkdownService';
 
 export default function ImplementationNotificationSend() {
     const { id } = useParams();
@@ -50,6 +51,7 @@ export default function ImplementationNotificationSend() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
     const fundService = useFundService();
+    const markdownService = useMarkdownService();
     const implementationNotificationsService = useImplementationNotificationService();
 
     const [fund, setFund] = useState<Fund>(null);
@@ -87,6 +89,7 @@ export default function ImplementationNotificationSend() {
                 '<br>',
                 ':webshop_button',
             ].join('\n'),
+            markdownService,
         ),
     );
 
@@ -279,7 +282,7 @@ export default function ImplementationNotificationSend() {
                 .then(() => {
                     navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
-                        implementationId: implementation.id,
+                        id: implementation.id,
                     });
 
                     pushSuccess('Gelukt!', 'De e-mail zal zo spoedig mogelijk verstuurd worden naar alle gebruikers.', {
@@ -366,7 +369,7 @@ export default function ImplementationNotificationSend() {
                 if (!activeOrganization.allow_custom_fund_notifications) {
                     navigateState(DashboardRoutes.IMPLEMENTATION_NOTIFICATIONS, {
                         organizationId: activeOrganization.id,
-                        implementationId: res.data.data.id,
+                        id: res.data.data.id,
                     });
                 }
 
