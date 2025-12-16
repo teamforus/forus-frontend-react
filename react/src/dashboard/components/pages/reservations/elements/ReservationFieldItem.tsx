@@ -216,7 +216,11 @@ export default function ReservationFieldItem({
                             error={errors['fields.' + index + '.fillable_by']}
                             info={
                                 <Fragment>
-                                    <p>Fillable by description</p>
+                                    <p>
+                                        Deze instelling geeft aan of het aangepaste veld ingevuld dient te worden door
+                                        de inwoner tijdens het maken van de reservering of door de aanbieder zelf nadat
+                                        de reservering is ingediend.
+                                    </p>
                                 </Fragment>
                             }
                             input={() => (
