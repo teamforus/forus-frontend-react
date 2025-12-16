@@ -81,6 +81,7 @@ export default function ProvidersTableItemFunds({
                                                         accepted: 'success',
                                                         pending: 'default',
                                                         rejected: 'danger',
+                                                        unsubscribed: 'danger-light',
                                                     }[fundProvider.state]
                                                 }`}>
                                                 {fundProvider.state_locale}

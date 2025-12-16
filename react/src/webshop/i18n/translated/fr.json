@@ -123,13 +123,16 @@
         },
         "me_app_more_info": "En savoir plus sur l'application Me",
         "provider_sign_up": "S'inscrire en tant que fournisseur",
-        "sponsor_logo_alt": "Logo du sponsor"
+        "sponsor_logo_alt": "Logo du sponsor",
+        "copyright_aria_label": "Conditions et déclarations",
+        "footer_aria_label": "Pied de page",
+        "me_app_aria_label": "Informations sur le téléchargement de l'application Me",
+        "nav_provider_aria_label": "S'inscrire en tant que fournisseur"
     },
     "auth_start": {
         "example": "Saisissez une adresse électronique valide, par exemple <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Authentification à deux facteurs",
         "back": "Retour",
         "back_start": "Retour au login",
         "choose_option": "Choisir une option",
@@ -168,7 +171,8 @@
         },
         "terms_link": {
             "text": "J'accepte les <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">termes et conditions</a>"
-        }
+        },
+        "2fa_title": "Authentification à deux facteurs"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +768,9 @@
             },
             "winterswijk": {
                 "title": "Activer"
+            },
+            "fijnder": {
+                "title": "Régimes"
             }
         },
         "header": {
@@ -872,7 +879,7 @@
             "or": "ou",
             "title": "Télécharger un document",
             "upload_button": "Télécharger un document",
-            "max_files": "Max. {{ count }} fichiers"
+            "max_files": "jusqu'à {{ count }} fichiers"
         },
         "info_box": {
             "2fa_description": "Pour plus d'informations sur le 2FA, visitez notre site :",
@@ -2075,11 +2082,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Masquer automatiquement les notifications du système après l'ajout ou la suppression de produits favoris.",
-                "title": "Fermer automatiquement les notifications concernant les produits favoris"
+                "title": "Fermer automatiquement les notifications concernant les produits favoris",
+                "label": "Sélectionnez la durée en secondes pendant laquelle les notifications du système concernant les produits favoris sont fermées après l'exécution d'une action."
             },
             "webshop": {
                 "description": "Masquer automatiquement les notifications du système après l'exécution d'une action.",
-                "title": "Fermeture automatique des notifications générales"
+                "title": "Fermeture automatique des notifications générales",
+                "label": "Sélectionnez le délai en secondes pendant lequel les notifications automatiques du système sont fermées après l'exécution d'une action."
             }
         },
         "push_notifications_preferences": {
@@ -2348,11 +2357,8 @@
             "sort": "Trier",
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
-            "payment_options": "Options de paiement",
-            "payment_options_info": "En savoir plus sur les options de paiement",
             "price": "Prix (€)",
             "price_from": "De",
-            "price_to": "Pour",
             "payment_option_extra_payment": "Payer en ligne avec iDeal",
             "price_type_option_discount_fixed": "Remise en euros",
             "price_type_option_discount_percentage": "Remise en pourcentage",
@@ -2361,7 +2367,10 @@
             "price_type_option_regular": "Prix",
             "price_type_options": "Type d'offre",
             "price_type_options_info": "En savoir plus sur les types d'offres",
-            "category": "Catégories"
+            "category": "Catégories",
+            "payment_options": "Options de paiement",
+            "payment_options_info": "En savoir plus sur les options de paiement",
+            "price_to": "Pour"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2390,7 +2399,6 @@
             "notifications": "Notifications",
             "payouts": "Paiements",
             "profile": "Données",
-            "records": "Données personnelles",
             "reimbursements": "Recouvrement des coûts",
             "reservations": "Réservations",
             "security": "Sécurité",
@@ -2490,7 +2498,8 @@
             "phone": "Numéro de téléphone :",
             "title": "Informations sur le fournisseur",
             "type": "Type de prestataire :",
-            "type_none": "Pas de type de fournisseur"
+            "type_none": "Pas de type de fournisseur",
+            "map_icon": "Icône d'établissement"
         },
         "funds": {
             "title": "Branches"
@@ -2728,7 +2737,9 @@
                 "rejection_note": "Message du fournisseur :"
             },
             "loading": "Chargement",
-            "title": "Détails de la réservation"
+            "title": "Détails de la réservation",
+            "reservation_fields_title": "Données",
+            "reservation_fields_for_provider_title": "Ajouté par le fournisseur"
         },
         "expired": "Désolé, votre réservation a été annulée pendant le processus de paiement car le produit sélectionné est épuisé.",
         "extra_amount_refund": {
@@ -2764,7 +2775,14 @@
                 "pending": "En prévision",
                 "rejected": "Refusé",
                 "waiting": "En attente de paiement"
-            }
+            },
+            "address": "Adresse",
+            "birth_date": "Date de naissance",
+            "email": "Adresse électronique",
+            "first_name": "Prénom",
+            "last_name": "Nom de famille",
+            "phone": "Numéro de téléphone",
+            "user_note": "Note"
         },
         "title": "Détails de l'appoint",
         "expiring": "Veuillez noter qu'il reste <strong>{{expiresIn}} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée."
@@ -2998,6 +3016,9 @@
             },
             "winterswijk": {
                 "start_email": "Démarrer l'activation"
+            },
+            "fijnder": {
+                "start_email": "Activer"
             }
         }
     },
@@ -3204,6 +3225,9 @@
             },
             "westerkwartier": {
                 "funds": "Bocaux"
+            },
+            "fijnder": {
+                "funds": "Régimes"
             }
         },
         "user_menu": {
@@ -3239,7 +3263,11 @@
         },
         "language": {
             "prefix": "Votre langue :"
-        }
+        },
+        "nav_aria_label": "Menu principal",
+        "skip_links": "Aller directement à :",
+        "skip_links_aria_label": "Aller directement à : Contenu principal",
+        "skip_links_content": "Contenu principal"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3568,7 +3596,9 @@
             "select_option": "Sélectionner une option"
         },
         "range_control": {
-            "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}"
+            "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}",
+            "first_slider_aria_label": "Curseur pour le prix minimum",
+            "second_slider_aria_label": "Curseur pour le prix maximum"
         }
     },
     "modal_deactivate_voucher": {
@@ -3647,5 +3677,12 @@
     "block_product_categories": {
         "description": "Cliquez sur un thème et vous verrez immédiatement l'offre que vous pouvez choisir.",
         "title": "Qu'aimez-vous faire ?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Exemple de fichier",
+        "buttons": {
+            "close": "Fermer"
+        },
+        "title": "Voir le fichier"
     }
 }

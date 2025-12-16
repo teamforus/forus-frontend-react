@@ -123,13 +123,16 @@
         },
         "me_app_more_info": "Дізнайтеся більше про додаток Me",
         "provider_sign_up": "Зареєструйтеся як провайдер",
-        "sponsor_logo_alt": "Логотип спонсора"
+        "sponsor_logo_alt": "Логотип спонсора",
+        "copyright_aria_label": "Умови та заяви",
+        "footer_aria_label": "Нижній колонтитул",
+        "me_app_aria_label": "Інформація про завантаження додатку Me",
+        "nav_provider_aria_label": "Зареєструйтеся як провайдер"
     },
     "auth_start": {
         "example": "Введіть дійсну адресу електронної пошти, наприклад, <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "Двофакторна автентифікація",
         "back": "Назад",
         "back_start": "Повернутися до входу",
         "choose_option": "Виберіть варіант",
@@ -168,7 +171,8 @@
         },
         "terms_link": {
             "text": "Я погоджуюся з <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">умовами та положеннями</a>"
-        }
+        },
+        "2fa_title": "Двофакторна автентифікація"
     },
     "block_funds": {
         "labels": {
@@ -764,6 +768,9 @@
             },
             "winterswijk": {
                 "title": "Активувати"
+            },
+            "fijnder": {
+                "title": "Схеми"
             }
         },
         "header": {
@@ -872,7 +879,7 @@
             "or": "або",
             "title": "Завантажити документ",
             "upload_button": "Завантажити документ",
-            "max_files": "Макс. {{ count }} файлів"
+            "max_files": "до файлів {{ count }} "
         },
         "info_box": {
             "2fa_description": "Щоб дізнатися більше про 2FA, відвідайте нас:",
@@ -2075,11 +2082,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Автоматично приховувати системні сповіщення після додавання або видалення обраних продуктів.",
-                "title": "Автоматично закривати сповіщення про улюблені товари"
+                "title": "Автоматично закривати сповіщення про улюблені товари",
+                "label": "Виберіть час у секундах, через який система закриває сповіщення щодо обраних продуктів після виконання певної дії."
             },
             "webshop": {
                 "description": "Автоматично приховувати системні сповіщення після виконання дії.",
-                "title": "Загальні сповіщення автоматично закриваються"
+                "title": "Загальні сповіщення автоматично закриваються",
+                "label": "Виберіть час у секундах, через який автоматичні сповіщення системи будуть закриті після виконання дії."
             }
         },
         "push_notifications_preferences": {
@@ -2348,11 +2357,8 @@
             "sort": "Сортування",
             "payment_option_qr": "Показати QR-код у постачальника",
             "payment_option_reservation": "Бронюйте онлайн",
-            "payment_options": "Варіанти оплати",
-            "payment_options_info": "Дізнайтеся більше про способи оплати",
             "price": "Ціна (€)",
             "price_from": "Від",
-            "price_to": "До",
             "payment_option_extra_payment": "Оплата в Інтернеті за допомогою iDeal",
             "price_type_option_discount_fixed": "Знижка в євро",
             "price_type_option_discount_percentage": "Знижка у відсотках",
@@ -2361,7 +2367,10 @@
             "price_type_option_regular": "Ціна",
             "price_type_options": "Тип пропозиції",
             "price_type_options_info": "Дізнайтеся більше про типи пропозицій",
-            "category": "Категорії"
+            "category": "Категорії",
+            "payment_options": "Варіанти оплати",
+            "payment_options_info": "Дізнайтеся більше про способи оплати",
+            "price_to": "До"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -2390,7 +2399,6 @@
             "notifications": "Сповіщення",
             "payouts": "Виплати",
             "profile": "Дані",
-            "records": "Персональні дані",
             "reimbursements": "Відшкодування витрат",
             "reservations": "Бронювання",
             "security": "Безпека",
@@ -2490,7 +2498,8 @@
             "phone": "Номер телефону:",
             "title": "Інформація про постачальника",
             "type": "Тип постачальника:",
-            "type_none": "Немає типу постачальника"
+            "type_none": "Немає типу постачальника",
+            "map_icon": "Іконка установи"
         },
         "funds": {
             "title": "Філії"
@@ -2728,7 +2737,9 @@
                 "rejection_note": "Повідомлення від провайдера:"
             },
             "loading": "Завантаження",
-            "title": "Деталі бронювання"
+            "title": "Деталі бронювання",
+            "reservation_fields_title": "Дані",
+            "reservation_fields_for_provider_title": "Додано постачальником"
         },
         "expired": "На жаль, ваше бронювання було скасовано під час оформлення замовлення, оскільки обраний товар розпродано.",
         "extra_amount_refund": {
@@ -2764,7 +2775,14 @@
                 "pending": "В очікуванні",
                 "rejected": "Відмовлено",
                 "waiting": "Чекаємо на оплату"
-            }
+            },
+            "address": "Адреса",
+            "birth_date": "Дата народження",
+            "email": "Адреса електронної пошти",
+            "first_name": "Ім'я та прізвище",
+            "last_name": "Прізвище",
+            "phone": "Номер телефону",
+            "user_note": "Примітка"
         },
         "title": "Деталі поповнення",
         "expiring": "Будь ласка, зверніть увагу, що залишилося <strong>{{expiresIn}} хвилин</strong>, щоб здійснити доплату. В іншому випадку бронювання буде автоматично скасовано."
@@ -2998,6 +3016,9 @@
             },
             "winterswijk": {
                 "start_email": "Почніть активацію"
+            },
+            "fijnder": {
+                "start_email": "Активувати"
             }
         }
     },
@@ -3204,6 +3225,9 @@
             },
             "westerkwartier": {
                 "funds": "Банки."
+            },
+            "fijnder": {
+                "funds": "Схеми"
             }
         },
         "user_menu": {
@@ -3239,7 +3263,11 @@
         },
         "language": {
             "prefix": "Твоя мова:"
-        }
+        },
+        "nav_aria_label": "Головне меню",
+        "skip_links": "Переходьте прямо до:",
+        "skip_links_aria_label": "Перейти безпосередньо до: Основний зміст",
+        "skip_links_content": "Основний зміст"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3568,7 +3596,9 @@
             "select_option": "Виберіть варіант"
         },
         "range_control": {
-            "aria_value": "Значення {{prefix}}{{value}} , мінімальне значення {{prefix}}{{min}} , максимальне значення {{prefix}}{{max}}"
+            "aria_value": "Значення {{prefix}}{{value}} , мінімальне значення {{prefix}}{{min}} , максимальне значення {{prefix}}{{max}}",
+            "first_slider_aria_label": "Слайдер за мінімальною ціною",
+            "second_slider_aria_label": "Повзунок для максимальної ціни"
         }
     },
     "modal_deactivate_voucher": {
@@ -3647,5 +3677,12 @@
     "block_product_categories": {
         "description": "Натисніть на тему, і ви одразу побачите, з яких пропозицій ви можете вибрати.",
         "title": "Чим ви любите займатися?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Приклад файлу",
+        "buttons": {
+            "close": "Закрити"
+        },
+        "title": "Переглянути файл"
     }
 }

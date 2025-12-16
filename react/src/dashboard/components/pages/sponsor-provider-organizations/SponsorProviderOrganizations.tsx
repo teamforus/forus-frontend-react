@@ -11,22 +11,18 @@ import Implementation from '../../../props/models/Implementation';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import useFundUnsubscribeService from '../../../services/FundUnsubscribeService';
 import { SponsorProviderOrganization } from '../../../props/models/Organization';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { NumberParam, StringParam, createEnumParam } from 'use-query-params';
 import useTranslate from '../../../hooks/useTranslate';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import ProvidersTableItem from './elements/ProvidersTableItem';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
-import classNames from 'classnames';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useProviderExporter from '../../../services/exporters/useProviderExporter';
-import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -41,17 +37,13 @@ export default function SponsorProviderOrganizations() {
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
     const implementationService = useImplementationService();
-    const fundUnsubscribeService = useFundUnsubscribeService();
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
     const [providerOrganizations, setProviderOrganizations] =
         useState<PaginationData<SponsorProviderOrganization>>(null);
-    const [requests, setRequests] = useState(null);
     const [paginatorKey] = useState('provider_organizations');
-    const [requestsExpired, setRequestsExpired] = useState(null);
-    const [requestsPending, setRequestsPending] = useState(null);
 
     const [orderByOptions] = useState([
         { value: 'application_date', name: 'Nieuwste eerst' },
@@ -62,6 +54,7 @@ export default function SponsorProviderOrganizations() {
         { key: 'pending', label: 'Actie benodigd' },
         { key: 'active', label: 'Actief' },
         { key: 'rejected', label: 'Inactief' },
+        { key: 'unsubscribed', label: 'Afmeldingen' },
     ]);
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
@@ -152,20 +145,6 @@ export default function SponsorProviderOrganizations() {
             });
     }, [activeOrganization.id, filterActiveValues, organizationService, pushApiError, setProgress]);
 
-    const fetchFundUnsubscribes = useCallback(() => {
-        setProgress(0);
-
-        fundUnsubscribeService
-            .listSponsor(activeOrganization.id, { per_page: 1000 })
-            .then((res) => {
-                setRequests(res.data.data.length);
-                setRequestsExpired(res.data.data.filter((item) => item.state == 'overdue').length);
-                setRequestsPending(res.data.data.filter((item) => item.state == 'pending').length);
-            })
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [activeOrganization.id, fundUnsubscribeService, pushApiError, setProgress]);
-
     const exportList = useCallback(() => {
         providerExporter.exportData(activeOrganization.id, {
             ...filterActiveValues,
@@ -181,10 +160,6 @@ export default function SponsorProviderOrganizations() {
     }, [fetchImplementations]);
 
     useEffect(() => {
-        fetchFundUnsubscribes();
-    }, [fetchFundUnsubscribes]);
-
-    useEffect(() => {
         fetchProviderOrganizations();
     }, [fetchProviderOrganizations]);
 
@@ -193,372 +168,330 @@ export default function SponsorProviderOrganizations() {
     }
 
     return (
-        <Fragment>
-            {requests > 0 && (
-                <div
-                    className={classNames(
-                        'card-block card-block-requests',
-                        requestsExpired > 0 && 'card-block-requests-danger',
-                        requestsPending > 0 && 'card-block-requests-warning',
-                    )}>
-                    <StateNavLink
-                        name={DashboardRoutes.SPONSOR_FUND_UNSUBSCRIPTIONS}
-                        params={{ organizationId: activeOrganization.id }}
-                        className="card-section flex">
-                        {requestsExpired > 0 && (
-                            <div className="card-heading">
-                                <em className="mdi mdi-alert" />
-                                Urgente afmeldingen ({requestsExpired})
-                            </div>
-                        )}
-
-                        {requestsExpired == 0 && requestsPending > 0 && (
-                            <div className="card-heading">
-                                <em className="mdi mdi-alert-circle" />
-                                Afmeldingen ({requestsPending})
-                            </div>
-                        )}
-
-                        {requestsExpired == 0 && requestsPending == 0 && (
-                            <div className="card-heading">
-                                <em className="mdi mdi-alert-circle" />
-                                Geen nieuwe afmeldingen
-                            </div>
-                        )}
-
-                        <div className="button button-text pull-right">
-                            Bekijken
-                            <em className="mdi mdi-arrow-right icon-end" />
-                        </div>
-                    </StateNavLink>
-                </div>
-            )}
-
-            <div className="card" data-dusk="tableProviderContent">
-                <div className="card-header">
-                    <div className="flex flex-grow">
-                        <div className="card-title flex flex-grow">
-                            {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})
-                        </div>
+        <div className="card" data-dusk="tableProviderContent">
+            <div className="card-header">
+                <div className="flex flex-grow">
+                    <div className="card-title flex flex-grow">
+                        {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})
                     </div>
+                </div>
 
-                    <div className="card-header-filters form">
-                        <div className="block block-inline-filters">
-                            {filter.show && (
-                                <div className="button button-text" onClick={filter.resetFilters}>
-                                    <em className="mdi mdi-close icon-start" />
-                                    Wis filter
+                <div className="card-header-filters form">
+                    <div className="block block-inline-filters">
+                        {filter.show && (
+                            <div className="button button-text" onClick={filter.resetFilters}>
+                                <em className="mdi mdi-close icon-start" />
+                                Wis filter
+                            </div>
+                        )}
+
+                        {!filter.show && (
+                            <Fragment>
+                                <label className="form-label">Sorteer op:</label>
+                                <SelectControl
+                                    className={'form-control form-control-text nowrap'}
+                                    options={orderByOptions}
+                                    propKey={'value'}
+                                    allowSearch={false}
+                                    value={filterValues.order_by}
+                                    onChange={(order_by: string) => filterUpdate({ order_by })}
+                                />
+
+                                <div className="block block-label-tabs">
+                                    <div className="label-tab-set">
+                                        {stateGroups?.map((stateGroup) => (
+                                            <div
+                                                key={stateGroup.key}
+                                                data-dusk={`provider_tab_${stateGroup.key}`}
+                                                onClick={() => filterUpdate({ state_group: stateGroup.key })}
+                                                className={`label-tab label-tab-sm ${
+                                                    filterValues.state_group === stateGroup.key ? 'active' : ''
+                                                }`}>
+                                                {stateGroup.label}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            )}
 
-                            {!filter.show && (
-                                <Fragment>
-                                    <label className="form-label">Sorteer op:</label>
-                                    <SelectControl
-                                        className={'form-control form-control-text nowrap'}
-                                        options={orderByOptions}
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={filterValues.order_by}
-                                        onChange={(order_by: string) => filterUpdate({ order_by })}
+                                <div className="form-group">
+                                    <input
+                                        className="form-control"
+                                        value={filterValues.q}
+                                        data-dusk="tableProviderSearch"
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
+                                        placeholder={translate('event_logs.labels.search')}
                                     />
+                                </div>
+                            </Fragment>
+                        )}
 
-                                    <div className="block block-label-tabs">
-                                        <div className="label-tab-set">
-                                            {stateGroups?.map((stateGroup) => (
-                                                <div
-                                                    key={stateGroup.key}
-                                                    data-dusk={`provider_tab_${stateGroup.key}`}
-                                                    onClick={() => filterUpdate({ state_group: stateGroup.key })}
-                                                    className={`label-tab label-tab-sm ${
-                                                        filterValues.state_group === stateGroup.key ? 'active' : ''
-                                                    }`}>
-                                                    {stateGroup.label}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filterValues.q}
-                                            data-dusk="tableProviderSearch"
-                                            onChange={(e) => filterUpdate({ q: e.target.value })}
-                                            placeholder={translate('event_logs.labels.search')}
-                                        />
-                                    </div>
-                                </Fragment>
-                            )}
-
-                            <CardHeaderFilter filter={filter}>
-                                <FilterItemToggle label="Accepteer budget">
-                                    <div>
-                                        <div className="radio">
-                                            <input
-                                                id="allow_budget_yes"
-                                                type="radio"
-                                                name="allow_budget"
-                                                onChange={() => filterUpdate({ allow_budget: '1' })}
-                                                defaultValue={1}
-                                                checked={filterValues.allow_budget === '1'}
-                                            />
-                                            <label className="radio-label" htmlFor="allow_budget_yes">
-                                                <div className="radio-circle" />
-                                                Ja
-                                            </label>
-                                        </div>
-                                        <div className="radio">
-                                            <input
-                                                id="allow_budget_no"
-                                                type="radio"
-                                                name="allow_budget"
-                                                onChange={() => filterUpdate({ allow_budget: '0' })}
-                                                defaultValue={0}
-                                                checked={filterValues.allow_budget === '0'}
-                                            />
-                                            <label className="radio-label" htmlFor="allow_budget_no">
-                                                <div className="radio-circle" />
-                                                Nee
-                                            </label>
-                                        </div>
-                                        <div className="radio">
-                                            <input
-                                                id="allow_budget_all"
-                                                type="radio"
-                                                name="allow_budget"
-                                                onChange={() => filterUpdate({ allow_budget: null })}
-                                                defaultValue={null}
-                                                checked={filterValues.allow_budget === null}
-                                            />
-                                            <label className="radio-label" htmlFor="allow_budget_all">
-                                                <div className="radio-circle" />
-                                                Alles
-                                            </label>
-                                        </div>
-                                    </div>
-                                </FilterItemToggle>
-
-                                <FilterItemToggle label="Accepteer aanbiedingen">
+                        <CardHeaderFilter filter={filter}>
+                            <FilterItemToggle label="Accepteer budget">
+                                <div>
                                     <div className="radio">
                                         <input
-                                            id="allow_products_yes"
+                                            id="allow_budget_yes"
                                             type="radio"
-                                            name="allow_products"
-                                            onChange={() => filterUpdate({ allow_products: '1' })}
+                                            name="allow_budget"
+                                            onChange={() => filterUpdate({ allow_budget: '1' })}
                                             defaultValue={1}
-                                            checked={filterValues.allow_products === '1'}
+                                            checked={filterValues.allow_budget === '1'}
                                         />
-                                        <label className="radio-label" htmlFor="allow_products_yes">
-                                            <div className="radio-circle" />
-                                            Alle aanbiedingen
-                                        </label>
-                                    </div>
-                                    <div className="radio">
-                                        <input
-                                            id="allow_products_some"
-                                            type="radio"
-                                            name="allow_products"
-                                            onChange={() => filterUpdate({ allow_products: '-1' })}
-                                            defaultValue={-1}
-                                            checked={filterValues.allow_products === '-1'}
-                                        />
-                                        <label className="radio-label" htmlFor="allow_products_some">
-                                            <div className="radio-circle" />
-                                            Sommige aanbiedingen
-                                        </label>
-                                    </div>
-                                    <div className="radio">
-                                        <input
-                                            id="allow_products_no"
-                                            type="radio"
-                                            name="allow_products"
-                                            onChange={() => filterUpdate({ allow_products: '0' })}
-                                            defaultValue={0}
-                                            checked={filterValues.allow_products === '0'}
-                                        />
-                                        <label className="radio-label" htmlFor="allow_products_no">
-                                            <div className="radio-circle" />
-                                            Geen aanbiedingen
-                                        </label>
-                                    </div>
-                                    <div className="radio">
-                                        <input
-                                            id="allow_products_all"
-                                            type="radio"
-                                            name="allow_products"
-                                            onChange={() => filterUpdate({ allow_products: null })}
-                                            defaultValue={null}
-                                            checked={filterValues.allow_products === null}
-                                        />
-                                        <label className="radio-label" htmlFor="allow_products_all">
-                                            <div className="radio-circle" />
-                                            Alles
-                                        </label>
-                                    </div>
-                                </FilterItemToggle>
-
-                                <FilterItemToggle label="Levert producten">
-                                    <div className="radio">
-                                        <input
-                                            id="has_products_yes"
-                                            type="radio"
-                                            name="has_products"
-                                            onChange={() => filterUpdate({ has_products: '1' })}
-                                            defaultValue={1}
-                                            checked={filterValues.has_products === '1'}
-                                        />
-                                        <label className="radio-label" htmlFor="has_products_yes">
+                                        <label className="radio-label" htmlFor="allow_budget_yes">
                                             <div className="radio-circle" />
                                             Ja
                                         </label>
                                     </div>
                                     <div className="radio">
                                         <input
-                                            id="has_products_no"
+                                            id="allow_budget_no"
                                             type="radio"
-                                            name="has_products"
-                                            onChange={() => filterUpdate({ has_products: '0' })}
+                                            name="allow_budget"
+                                            onChange={() => filterUpdate({ allow_budget: '0' })}
                                             defaultValue={0}
-                                            checked={filterValues.has_products === '0'}
+                                            checked={filterValues.allow_budget === '0'}
                                         />
-                                        <label className="radio-label" htmlFor="has_products_no">
+                                        <label className="radio-label" htmlFor="allow_budget_no">
                                             <div className="radio-circle" />
                                             Nee
                                         </label>
                                     </div>
                                     <div className="radio">
                                         <input
-                                            id="has_products_all"
+                                            id="allow_budget_all"
                                             type="radio"
-                                            name="has_products"
-                                            onChange={() => filterUpdate({ has_products: null })}
+                                            name="allow_budget"
+                                            onChange={() => filterUpdate({ allow_budget: null })}
                                             defaultValue={null}
-                                            checked={filterValues.has_products === null}
+                                            checked={filterValues.allow_budget === null}
                                         />
-                                        <label className="radio-label" htmlFor="has_products_all">
+                                        <label className="radio-label" htmlFor="allow_budget_all">
                                             <div className="radio-circle" />
                                             Alles
                                         </label>
                                     </div>
-                                </FilterItemToggle>
-
-                                <FilterItemToggle label="Betaalmethode toestaan">
-                                    <div className="radio">
-                                        <input
-                                            id="allow_extra_payments_yes"
-                                            type="radio"
-                                            name="allow_extra_payments"
-                                            onChange={() => filterUpdate({ allow_extra_payments: '1' })}
-                                            defaultValue={1}
-                                            checked={filterValues.allow_extra_payments === '1'}
-                                        />
-                                        <label className="radio-label" htmlFor="allow_extra_payments_yes">
-                                            <div className="radio-circle" />
-                                            Ja
-                                        </label>
-                                    </div>
-                                    <div className="radio">
-                                        <input
-                                            id="allow_extra_payments_no"
-                                            type="radio"
-                                            name="allow_extra_payments"
-                                            onChange={() => filterUpdate({ allow_extra_payments: '0' })}
-                                            defaultValue={0}
-                                            checked={filterValues.allow_extra_payments === '0'}
-                                        />
-                                        <label className="radio-label" htmlFor="allow_extra_payments_no">
-                                            <div className="radio-circle" />
-                                            Nee
-                                        </label>
-                                    </div>
-                                    <div className="radio">
-                                        <input
-                                            id="allow_extra_payments_all"
-                                            type="radio"
-                                            name="allow_extra_payments"
-                                            onChange={() => filterUpdate({ allow_extra_payments: null })}
-                                            defaultValue={null}
-                                            checked={filterValues.allow_extra_payments === null}
-                                        />
-                                        <label className="radio-label" htmlFor="allow_extra_payments_all">
-                                            <div className="radio-circle" />
-                                            Alles
-                                        </label>
-                                    </div>
-                                </FilterItemToggle>
-
-                                <FilterItemToggle label="Implementatie">
-                                    <SelectControl
-                                        className={'form-control'}
-                                        options={implementations}
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        value={filterValues.implementation_id}
-                                        onChange={(implementation_id: number) => {
-                                            filterUpdate({ implementation_id });
-                                        }}
-                                    />
-                                </FilterItemToggle>
-
-                                <div className="form-actions">
-                                    {providerOrganizations && (
-                                        <button
-                                            className="button button-primary button-wide"
-                                            disabled={providerOrganizations.meta.total == 0}
-                                            data-dusk="export"
-                                            onClick={() => exportList()}>
-                                            <em className="mdi mdi-download icon-start" />
-                                            {translate('components.dropdown.export', {
-                                                total: providerOrganizations.meta.total,
-                                            })}
-                                        </button>
-                                    )}
                                 </div>
-                            </CardHeaderFilter>
-                        </div>
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label="Accepteer aanbiedingen">
+                                <div className="radio">
+                                    <input
+                                        id="allow_products_yes"
+                                        type="radio"
+                                        name="allow_products"
+                                        onChange={() => filterUpdate({ allow_products: '1' })}
+                                        defaultValue={1}
+                                        checked={filterValues.allow_products === '1'}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_products_yes">
+                                        <div className="radio-circle" />
+                                        Alle aanbiedingen
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="allow_products_some"
+                                        type="radio"
+                                        name="allow_products"
+                                        onChange={() => filterUpdate({ allow_products: '-1' })}
+                                        defaultValue={-1}
+                                        checked={filterValues.allow_products === '-1'}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_products_some">
+                                        <div className="radio-circle" />
+                                        Sommige aanbiedingen
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="allow_products_no"
+                                        type="radio"
+                                        name="allow_products"
+                                        onChange={() => filterUpdate({ allow_products: '0' })}
+                                        defaultValue={0}
+                                        checked={filterValues.allow_products === '0'}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_products_no">
+                                        <div className="radio-circle" />
+                                        Geen aanbiedingen
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="allow_products_all"
+                                        type="radio"
+                                        name="allow_products"
+                                        onChange={() => filterUpdate({ allow_products: null })}
+                                        defaultValue={null}
+                                        checked={filterValues.allow_products === null}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_products_all">
+                                        <div className="radio-circle" />
+                                        Alles
+                                    </label>
+                                </div>
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label="Levert producten">
+                                <div className="radio">
+                                    <input
+                                        id="has_products_yes"
+                                        type="radio"
+                                        name="has_products"
+                                        onChange={() => filterUpdate({ has_products: '1' })}
+                                        defaultValue={1}
+                                        checked={filterValues.has_products === '1'}
+                                    />
+                                    <label className="radio-label" htmlFor="has_products_yes">
+                                        <div className="radio-circle" />
+                                        Ja
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="has_products_no"
+                                        type="radio"
+                                        name="has_products"
+                                        onChange={() => filterUpdate({ has_products: '0' })}
+                                        defaultValue={0}
+                                        checked={filterValues.has_products === '0'}
+                                    />
+                                    <label className="radio-label" htmlFor="has_products_no">
+                                        <div className="radio-circle" />
+                                        Nee
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="has_products_all"
+                                        type="radio"
+                                        name="has_products"
+                                        onChange={() => filterUpdate({ has_products: null })}
+                                        defaultValue={null}
+                                        checked={filterValues.has_products === null}
+                                    />
+                                    <label className="radio-label" htmlFor="has_products_all">
+                                        <div className="radio-circle" />
+                                        Alles
+                                    </label>
+                                </div>
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label="Betaalmethode toestaan">
+                                <div className="radio">
+                                    <input
+                                        id="allow_extra_payments_yes"
+                                        type="radio"
+                                        name="allow_extra_payments"
+                                        onChange={() => filterUpdate({ allow_extra_payments: '1' })}
+                                        defaultValue={1}
+                                        checked={filterValues.allow_extra_payments === '1'}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_extra_payments_yes">
+                                        <div className="radio-circle" />
+                                        Ja
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="allow_extra_payments_no"
+                                        type="radio"
+                                        name="allow_extra_payments"
+                                        onChange={() => filterUpdate({ allow_extra_payments: '0' })}
+                                        defaultValue={0}
+                                        checked={filterValues.allow_extra_payments === '0'}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_extra_payments_no">
+                                        <div className="radio-circle" />
+                                        Nee
+                                    </label>
+                                </div>
+                                <div className="radio">
+                                    <input
+                                        id="allow_extra_payments_all"
+                                        type="radio"
+                                        name="allow_extra_payments"
+                                        onChange={() => filterUpdate({ allow_extra_payments: null })}
+                                        defaultValue={null}
+                                        checked={filterValues.allow_extra_payments === null}
+                                    />
+                                    <label className="radio-label" htmlFor="allow_extra_payments_all">
+                                        <div className="radio-circle" />
+                                        Alles
+                                    </label>
+                                </div>
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label="Implementatie">
+                                <SelectControl
+                                    className={'form-control'}
+                                    options={implementations}
+                                    propKey={'id'}
+                                    allowSearch={false}
+                                    value={filterValues.implementation_id}
+                                    onChange={(implementation_id: number) => {
+                                        filterUpdate({ implementation_id });
+                                    }}
+                                />
+                            </FilterItemToggle>
+
+                            <div className="form-actions">
+                                {providerOrganizations && (
+                                    <button
+                                        className="button button-primary button-wide"
+                                        disabled={providerOrganizations.meta.total == 0}
+                                        data-dusk="export"
+                                        onClick={() => exportList()}>
+                                        <em className="mdi mdi-download icon-start" />
+                                        {translate('components.dropdown.export', {
+                                            total: providerOrganizations.meta.total,
+                                        })}
+                                    </button>
+                                )}
+                            </div>
+                        </CardHeaderFilter>
                     </div>
                 </div>
-
-                <LoaderTableCard
-                    loading={loading}
-                    empty={providerOrganizations.meta.total == 0}
-                    emptyTitle={translate(`provider_organizations.empty_title.${filterActiveValues.state_group}`)}
-                    emptyDescription={translate(
-                        `provider_organizations.empty_description.${filterActiveValues.state_group}`,
-                    )}>
-                    <div className="card-section">
-                        <div className="card-block card-block-table">
-                            {configsElement}
-
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    {providerOrganizations.data.map((providerOrganization) => (
-                                        <ProvidersTableItem
-                                            key={providerOrganization.id}
-                                            organization={activeOrganization}
-                                            providerOrganization={providerOrganization}
-                                        />
-                                    ))}
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
-
-                    {providerOrganizations.meta.total > 0 && (
-                        <div className="card-section">
-                            <Paginator
-                                meta={providerOrganizations.meta}
-                                filters={filter.values}
-                                updateFilters={filter.update}
-                                perPageKey={paginatorKey}
-                            />
-                        </div>
-                    )}
-                </LoaderTableCard>
             </div>
-        </Fragment>
+
+            <LoaderTableCard
+                loading={loading}
+                empty={providerOrganizations.meta.total == 0}
+                emptyTitle={translate(`provider_organizations.empty_title.${filterActiveValues.state_group}`)}
+                emptyDescription={translate(
+                    `provider_organizations.empty_description.${filterActiveValues.state_group}`,
+                )}>
+                <div className="card-section">
+                    <div className="card-block card-block-table">
+                        {configsElement}
+
+                        <TableTopScroller>
+                            <table className="table">
+                                {headElement}
+
+                                {providerOrganizations.data.map((providerOrganization) => (
+                                    <ProvidersTableItem
+                                        key={providerOrganization.id}
+                                        organization={activeOrganization}
+                                        providerOrganization={providerOrganization}
+                                    />
+                                ))}
+                            </table>
+                        </TableTopScroller>
+                    </div>
+                </div>
+
+                {providerOrganizations.meta.total > 0 && (
+                    <div className="card-section">
+                        <Paginator
+                            meta={providerOrganizations.meta}
+                            filters={filter.values}
+                            updateFilters={filter.update}
+                            perPageKey={paginatorKey}
+                        />
+                    </div>
+                )}
+            </LoaderTableCard>
+        </div>
     );
 }

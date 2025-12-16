@@ -206,7 +206,11 @@ export default function ProvidersShow() {
                                                     }}
                                                     className="office-item">
                                                     <div className="office-item-map-icon">
-                                                        <em className="mdi mdi-map-marker" role="img" aria-label="" />
+                                                        <em
+                                                            className="mdi mdi-map-marker"
+                                                            role="img"
+                                                            aria-label={translate('provider.details.map_icon')}
+                                                        />
                                                     </div>
                                                     <div className="office-pane">
                                                         <div className="office-pane-block">

@@ -51,11 +51,11 @@ export default function ProductsFilterGroupProviders({
         <ProductsFilterGroup
             dusk={'productFiltersGroupProviders'}
             title={translate('products.filters.providers')}
-            controls={'price_filters'}
+            controls={'provider_filters'}
             openByDefault={openByDefault}
             content={(isOpen) => (
                 <div
-                    id="price_filters"
+                    id="provider_filters"
                     hidden={!isOpen}
                     className="showcase-aside-group-body"
                     role="group"

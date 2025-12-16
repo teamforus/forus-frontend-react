@@ -3,7 +3,6 @@
         "example": "Geçerli bir e-posta adresi girin, örneğin <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "İki faktörlü kimlik doğrulama",
         "back": "Geri",
         "back_start": "Girişe geri dön",
         "choose_option": "Bir seçenek seçin",
@@ -42,7 +41,8 @@
         },
         "terms_link": {
             "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
-        }
+        },
+        "2fa_title": "İki faktörlü kimlik doğrulama"
     },
     "blocks": {
         "block_exception": {
@@ -179,7 +179,7 @@
             "or": "veya",
             "title": "Bir belge yükleyin",
             "upload_button": "Bir belge yükleyin",
-            "max_files": "Maks. {{ count }} dosyalar"
+            "max_files": "{{ count }} adresine kadar dosyalar"
         },
         "info_box": {
             "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
@@ -422,11 +422,8 @@
             "sort": "Sırala",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
             "payment_option_reservation": "Online rezervasyon",
-            "payment_options": "Ödeme seçenekleri",
-            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
             "price": "Fiyat (€)",
             "price_from": "Kimden",
-            "price_to": "için",
             "payment_option_extra_payment": "iDeal ile çevrimiçi ödeme",
             "price_type_option_discount_fixed": "Euro cinsinden indirim",
             "price_type_option_discount_percentage": "Yüzde olarak indirim",
@@ -435,7 +432,10 @@
             "price_type_option_regular": "Fiyat",
             "price_type_options": "Teklif türü",
             "price_type_options_info": "Teklif türleri hakkında daha fazla bilgi edinin",
-            "category": "Kategoriler"
+            "category": "Kategoriler",
+            "payment_options": "Ödeme seçenekleri",
+            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
+            "price_to": "için"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -740,6 +740,9 @@
             },
             "westerkwartier": {
                 "funds": "Kavanozlar"
+            },
+            "fijnder": {
+                "funds": "Şemalar"
             }
         },
         "user_menu": {
@@ -775,7 +778,11 @@
         },
         "language": {
             "prefix": "Senin dilin:"
-        }
+        },
+        "nav_aria_label": "Ana menü",
+        "skip_links": "Doğrudan şuraya git:",
+        "skip_links_aria_label": "Doğrudan şuraya gidin: Ana içerik",
+        "skip_links_content": "Ana içerik"
     },
     "week_days": {
         "0": "Pazartesi",
@@ -1210,6 +1217,9 @@
             },
             "winterswijk": {
                 "title": "Etkinleştir"
+            },
+            "fijnder": {
+                "title": "Şemalar"
             }
         },
         "header": {
@@ -1269,7 +1279,8 @@
             "phone": "Telefon numarası:",
             "title": "Sağlayıcı bilgileri",
             "type": "Sağlayıcı türü:",
-            "type_none": "Sağlayıcı türü yok"
+            "type_none": "Sağlayıcı türü yok",
+            "map_icon": "Kuruluş simgesi"
         },
         "funds": {
             "title": "Şubeler"
@@ -1740,6 +1751,9 @@
             },
             "winterswijk": {
                 "start_email": "Etkinleştirmeyi başlat"
+            },
+            "fijnder": {
+                "start_email": "Etkinleştir"
             }
         }
     },
@@ -2359,11 +2373,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "Favori ürünler eklendikten veya kaldırıldıktan sonra sistem bildirimlerini otomatik olarak gizleyin.",
-                "title": "Favori ürünlerle ilgili bildirimleri otomatik olarak kapatın"
+                "title": "Favori ürünlerle ilgili bildirimleri otomatik olarak kapatın",
+                "label": "Bir eylem gerçekleştirildikten sonra favori ürünlerle ilgili sistem bildirimlerinin kapatılacağı süreyi saniye cinsinden seçin."
             },
             "webshop": {
                 "description": "Bir eylem gerçekleştirildikten sonra sistem bildirimlerini otomatik olarak gizleyin.",
-                "title": "Genel bildirimler otomatik kapanır"
+                "title": "Genel bildirimler otomatik kapanır",
+                "label": "Bir eylem gerçekleştirildikten sonra otomatik sistem bildirimlerinin kapatılacağı süreyi saniye cinsinden seçin."
             }
         },
         "push_notifications_preferences": {
@@ -2667,7 +2683,9 @@
                 "rejection_note": "Sağlayıcı mesajı:"
             },
             "loading": "Yükleniyor",
-            "title": "Rezervasyon detayları"
+            "title": "Rezervasyon detayları",
+            "reservation_fields_title": "Veri",
+            "reservation_fields_for_provider_title": "Sağlayıcı tarafından eklendi"
         },
         "expired": "Üzgünüz, seçilen ürün tükendiği için ödeme işlemi sırasında rezervasyonunuz iptal edildi.",
         "extra_amount_refund": {
@@ -2703,7 +2721,14 @@
                 "pending": "Beklenti içinde",
                 "rejected": "Reddedildi",
                 "waiting": "Ödeme için bekliyorum"
-            }
+            },
+            "address": "Adres",
+            "birth_date": "Doğum tarihi",
+            "email": "E-posta adresi",
+            "first_name": "İlk isim",
+            "last_name": "Soyadı",
+            "phone": "Telefon numarası",
+            "user_note": "Not"
         },
         "title": "Yükleme ayrıntıları",
         "expiring": "Ek ödemeyi yapmak için <strong>{{expiresIn}} dakika</strong> kaldığını lütfen unutmayın. Aksi takdirde rezervasyon otomatik olarak iptal edilecektir."
@@ -3321,7 +3346,11 @@
         },
         "me_app_more_info": "Me uygulaması hakkında daha fazla bilgi edinin",
         "provider_sign_up": "Sağlayıcı olarak kaydolun",
-        "sponsor_logo_alt": "Sponsor logosu"
+        "sponsor_logo_alt": "Sponsor logosu",
+        "copyright_aria_label": "Koşullar ve beyanlar",
+        "footer_aria_label": "Altbilgi",
+        "me_app_aria_label": "Me uygulamasını indirme hakkında bilgi",
+        "nav_provider_aria_label": "Sağlayıcı olarak kaydolun"
     },
     "block_funds": {
         "labels": {
@@ -3416,7 +3445,6 @@
             "notifications": "Bildirimler",
             "payouts": "Ödemeler",
             "profile": "Veri",
-            "records": "Kişisel veriler",
             "reimbursements": "Maliyet geri kazanımı",
             "reservations": "Rezervasyonlar",
             "security": "Güvenlik",
@@ -3568,7 +3596,9 @@
             "select_option": "Seçeneği seçin"
         },
         "range_control": {
-            "aria_value": "Değer {{prefix}}{{value}} , minimum değer {{prefix}}{{min}} , maksimum değer {{prefix}}{{max}}"
+            "aria_value": "Değer {{prefix}}{{value}} , minimum değer {{prefix}}{{min}} , maksimum değer {{prefix}}{{max}}",
+            "first_slider_aria_label": "Minimum fiyat için kaydırıcı",
+            "second_slider_aria_label": "Maksimum fiyat için kaydırıcı"
         }
     },
     "modal_deactivate_voucher": {
@@ -3647,5 +3677,12 @@
     "block_product_categories": {
         "description": "Bir temaya tıkladığınızda hangi teklifler arasından seçim yapabileceğinizi hemen göreceksiniz.",
         "title": "Ne yapmaktan hoşlanırsın?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Dosya örneği",
+        "buttons": {
+            "close": "Kapat"
+        },
+        "title": "Dosyayı görüntüle"
     }
 }

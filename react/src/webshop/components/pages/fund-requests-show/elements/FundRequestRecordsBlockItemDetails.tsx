@@ -174,7 +174,8 @@ export default function FundRequestRecordsBlockItemDetails({
                                             files={clarification.files}
                                             template={'compact'}
                                             readOnly={true}
-                                            hideButtons={true}
+                                            hidePreviewButton={true}
+                                            hideDownloadButton={true}
                                         />
                                     </div>
                                 )}
@@ -237,7 +238,6 @@ export default function FundRequestRecordsBlockItemDetails({
                                         files={[]}
                                         template={'compact'}
                                         cropMedia={false}
-                                        multiple={true}
                                         onFilesChange={({ files, fileItems }) => {
                                             updateForm({ files: files.map((file) => file?.uid) });
                                             setUploading(fileItems.filter((item) => item.uploading).length > 0);

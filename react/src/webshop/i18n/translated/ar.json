@@ -3,7 +3,6 @@
         "example": "أدخل عنوان بريد إلكتروني صالح، على سبيل المثال <strong>naam@voorbeeld.com</strong>"
     },
     "auth": {
-        "": "المصادقة الثنائية",
         "back": "رجوع",
         "back_start": "العودة إلى تسجيل الدخول",
         "choose_option": "اختر خياراً",
@@ -42,7 +41,8 @@
         },
         "terms_link": {
             "text": "أوافق على <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">الشروط والأحكام</a>"
-        }
+        },
+        "2fa_title": "المصادقة الثنائية"
     },
     "blocks": {
         "block_exception": {
@@ -179,7 +179,7 @@
             "or": "أو",
             "title": "تحميل مستند",
             "upload_button": "تحميل مستند",
-            "max_files": "الحد الأقصى {{ count }} الملفات"
+            "max_files": "ما يصل إلى {{ count }} الملفات"
         },
         "info_box": {
             "2fa_description": "لمزيد من المعلومات حول المصادقة الثنائية (2FA)، تفضل بزيارتنا:",
@@ -422,11 +422,8 @@
             "sort": "فرز",
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
             "payment_option_reservation": "احجز عبر الإنترنت",
-            "payment_options": "خيارات الدفع",
-            "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
             "price": "السعر (€)",
             "price_from": "من",
-            "price_to": "إلى",
             "payment_option_extra_payment": "الدفع عبر الإنترنت باستخدام iDeal",
             "price_type_option_discount_fixed": "الخصم باليورو",
             "price_type_option_discount_percentage": "الخصم بالنسبة المئوية",
@@ -435,7 +432,10 @@
             "price_type_option_regular": "السعر",
             "price_type_options": "نوع العرض",
             "price_type_options_info": "اقرأ المزيد عن أنواع العروض",
-            "category": "الفئات"
+            "category": "الفئات",
+            "payment_options": "خيارات الدفع",
+            "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
+            "price_to": "إلى"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -740,6 +740,9 @@
             },
             "westerkwartier": {
                 "funds": "البرطمانات"
+            },
+            "fijnder": {
+                "funds": "المخططات"
             }
         },
         "user_menu": {
@@ -775,7 +778,11 @@
         },
         "language": {
             "prefix": "لغتك"
-        }
+        },
+        "nav_aria_label": "القائمة الرئيسية",
+        "skip_links": "انتقل مباشرةً إلى:",
+        "skip_links_aria_label": "انتقل مباشرةً إلى: المحتوى الرئيسي",
+        "skip_links_content": "المحتوى الرئيسي"
     },
     "week_days": {
         "0": "الإثنين",
@@ -1210,6 +1217,9 @@
             },
             "winterswijk": {
                 "title": "تفعيل"
+            },
+            "fijnder": {
+                "title": "المخططات"
             }
         },
         "header": {
@@ -1608,7 +1618,8 @@
             "phone": "رقم الهاتف",
             "title": "معلومات المزود",
             "type": "نوع مقدم الخدمة:",
-            "type_none": "لا يوجد نوع الموفر"
+            "type_none": "لا يوجد نوع الموفر",
+            "map_icon": "أيقونة المؤسسة"
         },
         "funds": {
             "title": "الفروع"
@@ -1740,6 +1751,9 @@
             },
             "winterswijk": {
                 "start_email": "بدء التفعيل"
+            },
+            "fijnder": {
+                "start_email": "تفعيل"
             }
         }
     },
@@ -2359,11 +2373,13 @@
         "push_notifications_dismiss_time": {
             "bookmarks": {
                 "description": "إخفاء إشعارات النظام تلقائياً بعد إضافة المنتجات المفضلة أو إزالتها.",
-                "title": "إغلاق الإشعارات حول المنتجات المفضلة تلقائياً"
+                "title": "إغلاق الإشعارات حول المنتجات المفضلة تلقائياً",
+                "label": "حدد الوقت بالثواني التي يتم فيها إغلاق إشعارات النظام المتعلقة بالمنتجات المفضلة بعد تنفيذ إجراء ما."
             },
             "webshop": {
                 "description": "إخفاء إعلامات النظام تلقائياً بعد تنفيذ إجراء ما.",
-                "title": "الإخطارات العامة تغلق تلقائياً"
+                "title": "الإخطارات العامة تغلق تلقائياً",
+                "label": "حدد الوقت بالثواني الذي يتم فيه إغلاق إعلامات النظام التلقائية بعد تنفيذ إجراء ما."
             }
         },
         "push_notifications_preferences": {
@@ -2667,7 +2683,9 @@
                 "rejection_note": "رسالة الموفر:"
             },
             "loading": "التحميل",
-            "title": "تفاصيل الحجز"
+            "title": "تفاصيل الحجز",
+            "reservation_fields_title": "البيانات",
+            "reservation_fields_for_provider_title": "تمت الإضافة من قبل المزود"
         },
         "expired": "عذرًا، تم إلغاء حجزك أثناء عملية الدفع لأن المنتج المحدد تم بيعه بالكامل.",
         "extra_amount_refund": {
@@ -2703,7 +2721,14 @@
                 "pending": "في انتظار",
                 "rejected": "مرفوض",
                 "waiting": "في انتظار الدفع"
-            }
+            },
+            "address": "العنوان",
+            "birth_date": "تاريخ الميلاد",
+            "email": "عنوان البريد الإلكتروني",
+            "first_name": "الاسم الأول",
+            "last_name": "اللقب",
+            "phone": "رقم الهاتف",
+            "user_note": "ملاحظة"
         },
         "title": "تفاصيل التعبئة",
         "expiring": "يُرجى ملاحظة أن هناك <strong>{{expiresIn}} دقيقة</strong> متبقية لتسديد الدفعة الإضافية. وإلا سيتم إلغاء الحجز تلقائياً."
@@ -3321,7 +3346,11 @@
         },
         "me_app_more_info": "تعرّف على المزيد حول تطبيق Me",
         "provider_sign_up": "التسجيل كمقدم خدمات",
-        "sponsor_logo_alt": "شعار الراعي"
+        "sponsor_logo_alt": "شعار الراعي",
+        "copyright_aria_label": "الشروط والبيانات",
+        "footer_aria_label": "التذييل",
+        "me_app_aria_label": "معلومات حول تنزيل تطبيق Me",
+        "nav_provider_aria_label": "التسجيل كمقدم خدمات"
     },
     "block_funds": {
         "labels": {
@@ -3416,7 +3445,6 @@
             "notifications": "الإشعارات",
             "payouts": "المدفوعات",
             "profile": "البيانات",
-            "records": "البيانات الشخصية",
             "reimbursements": "استرداد التكاليف",
             "reservations": "الحجوزات",
             "security": "الأمن",
@@ -3568,7 +3596,9 @@
             "select_option": "حدد الخيار"
         },
         "range_control": {
-            "aria_value": "القيمة {{prefix}}{{value}} ، القيمة الدنيا {{prefix}}{{min}} ، القيمة القصوى  ، القيمة القصوى {{prefix}}{{max}}"
+            "aria_value": "القيمة {{prefix}}{{value}} ، القيمة الدنيا {{prefix}}{{min}} ، القيمة القصوى  ، القيمة القصوى {{prefix}}{{max}}",
+            "first_slider_aria_label": "شريط تمرير الحد الأدنى للسعر",
+            "second_slider_aria_label": "شريط التمرير لأقصى سعر"
         }
     },
     "modal_deactivate_voucher": {
@@ -3647,5 +3677,12 @@
     "block_product_categories": {
         "description": "انقر على سمة وسترى على الفور العرض الذي يمكنك الاختيار من بينها.",
         "title": "ماذا تحب أن تفعل؟"
+    },
+    "modal_image_preview": {
+        "alt_text": "مثال على الملف",
+        "buttons": {
+            "close": "إغلاق"
+        },
+        "title": "عرض الملف"
     }
 }
