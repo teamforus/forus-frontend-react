@@ -1,11 +1,12 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import FileUploader from '../../../../elements/file-uploader/FileUploader';
-import { LocalCriterion } from '../../FundRequest';
+import { FundCriteriaStepLocal, LocalCriterion } from '../../FundRequest';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import FundCriteriaStep from '../../../../../../dashboard/props/models/FundCriteriaStep';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 import FundRequestHelpBlock from '../FundRequestHelpBlock';
 import Fund from '../../../../../props/models/Fund';
+import FileModel from '../../../../../../dashboard/props/models/File';
+import Markdown from '../../../../elements/markdown/Markdown';
 
 export default function FundRequestValuesOverview({
     fund,
@@ -29,14 +30,26 @@ export default function FundRequestValuesOverview({
     onSubmitRequest: () => void;
     contactInformation: string;
     emailSetupShow: boolean;
-    criteriaSteps: Array<
-        FundCriteriaStep & { uid?: string; uploaderTemplate: 'inline' | 'default'; criteria: Array<LocalCriterion> }
-    >;
+    criteriaSteps: Array<FundCriteriaStepLocal>;
     onPrevStep: () => void;
     progress: React.ReactElement;
     bsnWarning: React.ReactElement;
 }) {
     const translate = useTranslate();
+
+    const groupFiles = useMemo<{ [key: number]: Array<FileModel> }>(() => {
+        return criteriaSteps
+            ?.reduce((acc, step) => [...acc, ...step.groups], [])
+            .reduce(
+                (acc, group) => ({
+                    ...acc,
+                    [group.id]: group.criteria
+                        .filter((item) => item.requested)
+                        .reduce((list, item) => [...list, ...item.files], []),
+                }),
+                {},
+            );
+    }, [criteriaSteps]);
 
     const criterionValue = useCallback((criterion: LocalCriterion) => {
         if (criterion.record_type.type === 'select' || criterion.record_type.type === 'select_number') {
@@ -77,45 +90,103 @@ export default function FundRequestValuesOverview({
                                     <div className="preview-item-icon">{index + 1}</div>
                                     <div className="preview-item-title">{step.title}</div>
                                 </div>
-                                <div className="preview-item-panel">
-                                    <div className="preview-item-values">
+
+                                {step.groups.map((group) => (
+                                    <Fragment key={group.id}>
+                                        {group.criteria.filter((item) => item.requested).length > 0 && (
+                                            <Fragment>
+                                                <div className="preview-item-info preview-item-info-vertical">
+                                                    <div className="preview-item-subtitle">{group.title}</div>
+                                                    {group.description_html && (
+                                                        <Markdown
+                                                            content={group.description_html}
+                                                            className="preview-item-description"
+                                                        />
+                                                    )}
+                                                </div>
+
+                                                <div className="preview-item-panel">
+                                                    <div className="preview-item-values">
+                                                        {group.criteria
+                                                            .filter((item) => item.requested)
+                                                            .map((criterion) => (
+                                                                <div
+                                                                    className="preview-item-values-item"
+                                                                    key={criterion.id}>
+                                                                    <div className="preview-item-values-item-label">
+                                                                        {criterion.title || criterion.title_default}
+                                                                    </div>
+                                                                    <div className="preview-item-values-item-value">
+                                                                        {criterionValue(criterion)}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                    </div>
+
+                                                    {groupFiles?.[group.id].length > 0 && (
+                                                        <div className="preview-item-files">
+                                                            <div className="preview-item-files-title">
+                                                                Attachments
+                                                                <div className="preview-item-files-title-count">
+                                                                    {groupFiles[group.id].length}
+                                                                </div>
+                                                            </div>
+                                                            <FileUploader
+                                                                type="fund_request_record_proof"
+                                                                files={groupFiles[group.id]}
+                                                                readOnly={true}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </Fragment>
+                                        )}
+                                    </Fragment>
+                                ))}
+
+                                {step.criteria.filter((item) => item.requested).length > 0 && (
+                                    <div className="preview-item-panel">
+                                        <div className="preview-item-values">
+                                            {step.criteria
+                                                .filter((item) => item.requested)
+                                                .map((criterion) => (
+                                                    <div className="preview-item-values-item" key={criterion.id}>
+                                                        <div className="preview-item-values-item-label">
+                                                            {criterion.title || criterion.title_default}
+                                                        </div>
+                                                        <div className="preview-item-values-item-value">
+                                                            {criterionValue(criterion)}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                        </div>
+
                                         {step.criteria
                                             .filter((item) => item.requested)
-                                            .map((criterion) => (
-                                                <div className="preview-item-values-item" key={criterion.id}>
-                                                    <div className="preview-item-values-item-label">
-                                                        {criterion.title || criterion.title_default}
-                                                    </div>
-                                                    <div className="preview-item-values-item-value">
-                                                        {criterionValue(criterion)}
+                                            .reduce((list, item) => [...list, ...item.files], []).length > 0 && (
+                                            <div className="preview-item-files">
+                                                <div className="preview-item-files-title">
+                                                    Attachments
+                                                    <div className="preview-item-files-title-count">
+                                                        {
+                                                            step.criteria
+                                                                .filter((item) => item.requested)
+                                                                .reduce((list, item) => [...list, ...item.files], [])
+                                                                .length
+                                                        }
                                                     </div>
                                                 </div>
-                                            ))}
-                                    </div>
-                                    {step.criteria
-                                        .filter((item) => item.requested)
-                                        .reduce((list, item) => [...list, ...item.files], []).length > 0 && (
-                                        <div className="preview-item-files">
-                                            <div className="preview-item-files-title">
-                                                Attachments
-                                                <div className="preview-item-files-title-count">
-                                                    {
-                                                        step.criteria
-                                                            .filter((item) => item.requested)
-                                                            .reduce((list, item) => [...list, ...item.files], []).length
-                                                    }
-                                                </div>
+                                                <FileUploader
+                                                    type="fund_request_record_proof"
+                                                    files={step.criteria
+                                                        .filter((item) => item.requested)
+                                                        .reduce((list, item) => [...list, ...item.files], [])}
+                                                    readOnly={true}
+                                                />
                                             </div>
-                                            <FileUploader
-                                                type="fund_request_record_proof"
-                                                files={step.criteria
-                                                    .filter((item) => item.requested)
-                                                    .reduce((list, item) => [...list, ...item.files], [])}
-                                                readOnly={true}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         ))}
 

@@ -489,6 +489,78 @@
                 }
             }
 
+            .preview-item-info {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: flex-start;
+
+                &.preview-item-info-vertical {
+                    flex-direction: column;
+                }
+
+                .preview-item-icon {
+                    display: flex;
+                    flex: 0 0 26px;
+                    font: 600 14px/20px var(--base-font);
+                    border: 1px solid #9e9e9e;
+                    border-radius: 10px;
+                    flex-direction: row;
+                    justify-content: center;
+                    padding: 0 5px;
+                }
+
+                .preview-item-title {
+                    display: flex;
+                    flex: 1 1 auto;
+                    font: 700 18px/20px var(--base-font);
+                    padding: 1px 0;
+                }
+
+                .preview-item-subtitle {
+                    display: flex;
+                    flex: 1 1 auto;
+                    font: 700 16px/20px var(--base-font);
+                }
+
+                .preview-item-description {
+                    font: 400 16px/20px var(--base-font);
+                    margin-bottom: 0;
+                }
+            }
+
+            .preview-item-panel {
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                background-color: #fbfbfb;
+            }
+
+            .preview-item-values {
+                padding: 15px 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .preview-item-values-item {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    gap: 20px;
+
+                    .preview-item-values-item-label {
+                        display: flex;
+                        flex: 0 0 250px;
+                        font: 500 13px/20px var(--base-font);
+                    }
+
+                    .preview-item-values-item-value {
+                        display: flex;
+                        flex: 1 1 auto;
+                        font: 700 13px/20px var(--base-font);
+                    }
+                }
+            }
+
             .sign_up-request-preview {
                 display: flex;
                 flex-direction: column;
@@ -499,63 +571,6 @@
                     gap: 15px;
                     padding: 20px 25px;
                     border-bottom: 1px solid var(--border-color);
-
-                    .preview-item-info {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 10px;
-                        align-items: flex-start;
-
-                        .preview-item-icon {
-                            display: flex;
-                            flex: 0 0 26px;
-                            font: 600 14px/20px var(--base-font);
-                            border: 1px solid #9e9e9e;
-                            border-radius: 10px;
-                            flex-direction: row;
-                            justify-content: center;
-                            padding: 0 5px;
-                        }
-
-                        .preview-item-title {
-                            display: flex;
-                            flex: 1 1 auto;
-                            font: 700 18px/20px var(--base-font);
-                            padding: 1px 0;
-                        }
-                    }
-
-                    .preview-item-panel {
-                        border: 1px solid var(--border-color);
-                        border-radius: var(--border-radius);
-                        background-color: #fbfbfb;
-                    }
-
-                    .preview-item-values {
-                        padding: 15px 20px;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 10px;
-
-                        .preview-item-values-item {
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: flex-start;
-                            gap: 20px;
-
-                            .preview-item-values-item-label {
-                                display: flex;
-                                flex: 0 0 250px;
-                                font: 500 13px/20px var(--base-font);
-                            }
-
-                            .preview-item-values-item-value {
-                                display: flex;
-                                flex: 1 1 auto;
-                                font: 700 13px/20px var(--base-font);
-                            }
-                        }
-                    }
 
                     .preview-item-files {
                         display: flex;
