@@ -41,6 +41,7 @@ export default function ReservationFieldsEditor({
                 required: false,
                 expanded: true,
                 description: '',
+                fillable_by: 'requester',
                 uid: uniqueId(),
             },
         ]);
