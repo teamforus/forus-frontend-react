@@ -25,7 +25,7 @@ $primaryColorLight: #22398e;
 
     --navbar-menu-gap: 22px;
     --navbar-menu-order: 1;
-    --navbar-menu-background: #ececec;
+    --navbar-menu-background: #ffffff;
 
     --navbar-search-gap: 20px;
     --navbar-search-order: 2;
@@ -69,10 +69,10 @@ $primaryColorLight: #22398e;
     --auth-avater-svg: #fff;
 
     // navbar (start modal primary)
-    --tc-start-btn: #fff;
-    --btn-start-bg: #61ba90;
-    --btn-start-btn: #61ba90;
-    --btn-start-border: transparent;
+    --tc-start-btn: #22398e;
+    --btn-start-bg: #ffffff;
+    --btn-start-btn: #22398e;
+    --btn-start-border: #22398e;
 
     // header background
     --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
@@ -119,8 +119,8 @@ $primaryColorLight: #22398e;
 
     --footer-copyright-color: var(--footer_color_link);
     --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #22398e;
-    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-background: #061756;
+    --footer-copyright-border-color: #061756;
     --footer-copyright-padding: 40px;
 
     // not displayed
