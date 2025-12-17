@@ -569,15 +569,15 @@ export default function ModalPrevalidationsUpload({
                         }
 
                         if (dbItem.vouchers.length === 1) {
-                            if (dbItem.vouchers[0]?.amount > csvItem.records_amount) {
+                            if (parseFloat(dbItem.vouchers[0]?.amount) > parseFloat(csvItem.records_amount)) {
                                 list.less_amount.push({ ...csvItem, db: dbItem });
                             }
 
-                            if (dbItem.vouchers[0]?.amount === csvItem.records_amount) {
+                            if (parseFloat(dbItem.vouchers[0]?.amount) === parseFloat(csvItem.records_amount)) {
                                 list.same_amount.push({ ...csvItem, db: dbItem });
                             }
 
-                            if (dbItem.vouchers[0]?.amount < csvItem.records_amount) {
+                            if (parseFloat(dbItem.vouchers[0]?.amount) < parseFloat(csvItem.records_amount)) {
                                 list.top_up.push({ ...csvItem, db: dbItem });
                             }
                         }
