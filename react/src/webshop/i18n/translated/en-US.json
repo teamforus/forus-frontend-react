@@ -2793,7 +2793,14 @@
                 "waiting": "Waiting for payment",
                 "canceled_by_sponsor": "Cancelled by sponsor"
             },
-            "pay_extra": "Continue to pay"
+            "pay_extra": "Continue to pay",
+            "address": "Address",
+            "birth_date": "Date of birth",
+            "email": "Email address",
+            "first_name": "First name",
+            "last_name": "Surname",
+            "phone": "Phone number",
+            "user_note": "Note"
         },
         "details": {
             "labels": {
@@ -2807,7 +2814,9 @@
                 "rejection_note": "Provider Notice:"
             },
             "loading": "Loading",
-            "title": "Reservation details"
+            "title": "Reservation details",
+            "reservation_fields_title": "Data",
+            "reservation_fields_for_provider_title": "Added by provider"
         },
         "expired": "Sorry, your reservation was canceled during the checkout process because the selected product is sold out.",
         "extra_amount_refund": {
@@ -3051,7 +3060,7 @@
             "or": "or",
             "title": "Upload a document",
             "upload_button": "Upload a document",
-            "max_files": "Max. {{ count }} files"
+            "max_files": "maximum {{ count }} files"
         },
         "info_box": {
             "2fa_description": "For more information on 2FA, check us out:",
@@ -3668,5 +3677,12 @@
     "block_product_categories": {
         "description": "Click on a theme and you'll immediately see what offerings you can choose from.",
         "title": "What do you think would be fun to do?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Example of file",
+        "buttons": {
+            "close": "Close"
+        },
+        "title": "View file"
     }
 }

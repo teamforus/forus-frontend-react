@@ -98,7 +98,7 @@ $primaryColorLight: #1c7878;
     // heading font
     --heading-font-family: var(--base-font);
     --heading-font: 700 40px/60px var(--heading-font-family);
-    --heading-color: #24A1A1;
+    --heading-color: #1a1a1a;
     --heading-pane-font: 700 22px/30px var(--heading-font-family);
 
     // base color
@@ -118,10 +118,10 @@ $primaryColorLight: #1c7878;
     --footer_social_border_color: var(--footer_color);
     --footer_social_border_radius: var(--border-radius);
 
-    --footer-copyright-color: var(--footer_color_link);
+    --footer-copyright-color: #1a1a1a;
     --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #1c7878;
-    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-background: #ffffff;
+    --footer-copyright-border-color: #ffffff;
     --footer-copyright-padding: 40px;
 
     // not displayed
