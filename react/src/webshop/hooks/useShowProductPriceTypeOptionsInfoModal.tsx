@@ -2,8 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 import ModalNotification from '../components/modals/ModalNotification';
 import useOpenModal from '../../dashboard/hooks/useOpenModal';
 import useTranslate from '../../dashboard/hooks/useTranslate';
+import useAppConfigs from './useAppConfigs';
 
 export default function useShowProductPriceTypeOptionsInfoModal() {
+    const appConfig = useAppConfigs();
+
     const openModal = useOpenModal();
     const translate = useTranslate();
 
@@ -77,9 +80,25 @@ export default function useShowProductPriceTypeOptionsInfoModal() {
                         </div>
                     </div>
                 </div>
+
+                {appConfig?.implementation?.voucher_payout_informational_product_id && (
+                    <div className="products-payment-option-info">
+                        <div className="products-payment-option-icon">
+                            <em className="mdi mdi-bank" />
+                        </div>
+                        <div className="products-payment-option-content">
+                            <div className="products-payment-option-title">
+                                {translate('modal_product_price_type_options_info.info_option_payout_title')}
+                            </div>
+                            <div className="products-payment-option-description">
+                                {translate('modal_product_price_type_options_info.info_option_payout_description')}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         );
-    }, [translate]);
+    }, [appConfig?.implementation?.voucher_payout_informational_product_id, translate]);
 
     return useCallback(() => {
         openModal((modal) => (

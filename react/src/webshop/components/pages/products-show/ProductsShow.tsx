@@ -39,6 +39,9 @@ import useStartFundRequest from '../../elements/top-navbar/desktop/hooks/useStar
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import RandomProductsBlock from '../home/elements/RandomProductsBlock';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
+import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
+import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleVouchers';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -47,6 +50,7 @@ export default function ProductsShow() {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
 
+    const openModal = useOpenModal();
     const assetUrl = useAssetUrl();
     const setTitle = useSetTitle();
     const translate = useTranslate();
@@ -68,6 +72,8 @@ export default function ProductsShow() {
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
+    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers);
+
     const productFeatures = useProductFeatures(product);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
@@ -83,6 +89,16 @@ export default function ProductsShow() {
         },
         [bookmarkProductToggle],
     );
+
+    const openPayoutModal = useCallback(() => {
+        openModal((modal) => (
+            <ModalVoucherPayout
+                modal={modal}
+                onCreated={() => navigateState(WebshopRoutes.PAYOUTS)}
+                vouchers={payoutEligibleVouchers}
+            />
+        ));
+    }, [navigateState, openModal, payoutEligibleVouchers]);
 
     const fetchProduct = useCallback(() => {
         setProgress(0);
@@ -241,13 +257,31 @@ export default function ProductsShow() {
                                     <div className="product-overview-price">{price}</div>
 
                                     {authIdentity ? (
-                                        <button
-                                            type="button"
-                                            className="button button-primary button-fill"
-                                            onClick={() => fundsRef?.current?.scrollIntoView({ behavior: 'smooth' })}
-                                            aria-label={translate('product.labels.buy_now')}>
-                                            {translate('product.labels.buy_now')}
-                                        </button>
+                                        <Fragment>
+                                            <button
+                                                type="button"
+                                                className="button button-primary button-fill"
+                                                onClick={() => {
+                                                    fundsRef?.current?.scrollIntoView({ behavior: 'smooth' });
+                                                }}
+                                                aria-label={translate('product.labels.buy_now')}>
+                                                {translate('product.labels.buy_now')}
+                                            </button>
+
+                                            {appConfigs?.implementation?.voucher_payout_informational_product_id ===
+                                                product?.id &&
+                                                payoutEligibleVouchers.length > 0 && (
+                                                    <button
+                                                        type="button"
+                                                        className="button button-primary button-fill flex flex-center"
+                                                        data-dusk="openProductPayoutModal"
+                                                        onClick={() => openPayoutModal()}
+                                                        aria-label={translate('voucher.actions.transfer_to_bank')}>
+                                                        <em className="mdi mdi-bank-transfer-in" aria-hidden="true" />
+                                                        {translate('voucher.actions.transfer_to_bank')}
+                                                    </button>
+                                                )}
+                                        </Fragment>
                                     ) : (
                                         <Fragment>
                                             <button

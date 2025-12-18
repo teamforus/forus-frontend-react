@@ -62,6 +62,7 @@ export default {
         top_up: 'Opgewaardeerd',
         add: 'Toevoegen',
         subtract: 'Aftrekken',
+        payout: 'Uitbetaling',
     },
 
     share_voucher: {
@@ -98,6 +99,28 @@ export default {
         },
         buttons: {
             submit: 'Bevestigen',
+            close: 'Sluit',
+        },
+    },
+
+    payout: {
+        transfer_to_bank: 'Overboeken naar bankrekening',
+        transfer_to_bank_description: 'Kies het tegoed en het bedrag dat u wilt overboeken naar uw bankrekening.',
+        voucher_label: 'Tegoed',
+        amount: 'Bedrag',
+        iban: 'IBAN',
+        iban_name: 'Rekeninghouder',
+        accept_compliance_rules_label: 'Voorwaarden',
+        accept_compliance_rules:
+            'Ik gebruik dit geld alleen om producten te kopen die binnen dit fonds zijn toegestaan.',
+        warning_count_reached: 'Het maximale aantal uitbetalingen voor dit tegoed is bereikt.',
+        warning_not_enough_amount_min: 'Dit tegoed moet minimaal {{ min }} bevatten voor een uitbetaling.',
+        warning_not_enough_amount_fixed: 'Dit tegoed moet minimaal {{ amount }} bevatten voor een uitbetaling.',
+        submit: 'Overboeken',
+        cancel: 'Annuleren',
+        success: {
+            title: 'Overboeking aangevraagd',
+            description: 'Uw aanvraag voor een overboeking is verstuurd. Het kan even duren voordat deze verwerkt is.',
             close: 'Sluit',
         },
     },
@@ -141,6 +164,8 @@ export default {
         save_qr: 'Sla QR-code op',
         declaration_request: 'Kosten terugvragen',
         share_with_provider: 'Deel QR-code met aanbieder',
+        transfer_to_bank: 'Overboeken naar bankrekening',
+        transfer_to_bank_description: 'Kies het tegoed en het bedrag dat u wilt overboeken naar uw bankrekening.',
         choose_action: {
             title: 'Kies een actie',
             description: 'Selecteer één van onderstaande acties om verder te gaan.',

@@ -110,11 +110,13 @@
 
         .block-card-logo {
             margin: 0 20px 0 0;
+            width: 50px;
+            height: 50px;
         }
 
         .block-card-details {
             .block-card-title {
-                font: 700 18px/25px var(--base-font);
+                font: 700 18px/24px var(--base-font);
 
                 &.block-card-title-sm {
                     font: 400 13px/20px var(--base-font);
@@ -123,6 +125,10 @@
                 &.block-card-title-lg {
                     font: 400 18px/25px var(--base-font);
                 }
+            }
+
+            .block-card-description {
+                font: 400 13px/20px var(--base-font);
             }
         }
     }
