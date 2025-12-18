@@ -569,15 +569,15 @@ export default function ModalPrevalidationsUpload({
                         }
 
                         if (dbItem.vouchers.length === 1) {
-                            if (dbItem.vouchers[0]?.amount > csvItem.records_amount) {
+                            if (parseFloat(dbItem.vouchers[0]?.amount) > parseFloat(csvItem.records_amount)) {
                                 list.less_amount.push({ ...csvItem, db: dbItem });
                             }
 
-                            if (dbItem.vouchers[0]?.amount === csvItem.records_amount) {
+                            if (parseFloat(dbItem.vouchers[0]?.amount) === parseFloat(csvItem.records_amount)) {
                                 list.same_amount.push({ ...csvItem, db: dbItem });
                             }
 
-                            if (dbItem.vouchers[0]?.amount < csvItem.records_amount) {
+                            if (parseFloat(dbItem.vouchers[0]?.amount) < parseFloat(csvItem.records_amount)) {
                                 list.top_up.push({ ...csvItem, db: dbItem });
                             }
                         }
@@ -602,8 +602,8 @@ export default function ModalPrevalidationsUpload({
             if (data.no_vouchers?.length > 0) {
                 await showErrorsList(
                     data.no_vouchers,
-                    'Tegoed niet gevonden',
-                    'De gegevens zijn gewijzigd, maar er kon geen overeenkomend tegoed worden gevonden.',
+                    'Geen tegoed gevonden',
+                    'De gegevens zijn niet gewijzigd. We kunnen geen actief tegoed vinden voor dit account. Het tegoed is mogelijk gedeactiveerd.',
                     (row) => {
                         return `Lijn: ${row.line} - Geen tegoed gevonden voor "${row.data[fund.csv_primary_key]}"`;
                     },
@@ -614,8 +614,8 @@ export default function ModalPrevalidationsUpload({
             if (data.multiple_vouchers?.length > 0) {
                 await showErrorsList(
                     data.multiple_vouchers,
-                    'Meerdere tegoeden gedetecteerd',
-                    'Kan niet bepalen welk tegoed moet worden bijgewerkt.',
+                    'Meerdere actieve tegoeden gevonden',
+                    'Er zijn meerdere actieve tegoeden voor dit account. Het is niet duidelijk welk tegoed moet worden aangepast. Controleer handmatig of dit klopt en welk tegoed aangepast moet worden. Voorbeeld casus: een persoon heeft handmatig al een tegoed ontvangen',
                     (row) => {
                         return `Lijn: ${row.line} - Meerdere tegoeden gevonden voor "${row.data[fund.csv_primary_key]}"`;
                     },
@@ -639,7 +639,7 @@ export default function ModalPrevalidationsUpload({
                 await showErrorsList(
                     data.less_amount,
                     'Gegevens kunnen niet worden aangepast',
-                    'Wanneer gegevens in waarde worden verlaagd, kunnen tegoeden niet automatisch worden bijgewerkt en moeten ze handmatig worden afgehandeld.',
+                    'Als gegevens worden verlaagd, kunnen actieve tegoeden niet automatisch worden aangepast. Pas het tegoed daarom handmatig aan. Voorbeeld casus: een actief tegoed voor 2 personen wordt aangepast naar 1 persoon.',
                     (row) => {
                         return `Lijn: ${row.line} - Gegevens kunnen niet worden aangepast voor "${row.data[fund.csv_primary_key]}"`;
                     },
@@ -672,10 +672,10 @@ export default function ModalPrevalidationsUpload({
             if (data.update.length > 0) {
                 await showUpdateList(
                     data.update,
-                    'Dubbele gegevens gedetecteerd.',
+                    'Dubbele gegevens gevonden',
                     [
-                        `Weet u zeker dat u ${data.update.length} rij(en) wilt bijwerken?`,
-                        'Deze gegevens hebben al activatiecodes.',
+                        `Bevestig dat u ${data.update.length} rij(en) wilt bijwerken. Deze accounts hebben al een toekenning en activatiecode.`,
+                        'Er wordt extra tegoed toegevoegd.',
                     ].join(' '),
                     (row) => {
                         return `Lijn: ${row.line} - Wachtende gegevens gewijzigd voor "${row.data[fund.csv_primary_key]}"`;
@@ -695,11 +695,12 @@ export default function ModalPrevalidationsUpload({
             if (data.top_up.length > 0) {
                 await showUpdateList(
                     data.top_up,
-                    'Tegoed opwaardering vereist.',
+                    'Extra tegoed klaarzetten',
                     [
-                        `Weet u zeker dat u ${data.top_up.length} rij(en) wilt bijwerken?`,
-                        'Deze rij(en) hebben al een activatiecode en zijn geactiveerd.',
-                        'Aangezien het nieuw berekende bedrag hoger is, wordt een opwaardeertransactie aangemaakt.',
+                        `Bevestig dat u ${data.top_up.length} rij(en) wilt bijwerken.`,
+                        'Deze accounts hebben al een activatiecode en het tegoed is al geactiveerd.',
+                        'Omdat er een extra toekenning wordt toegevoegd, wordt er extra tegoed klaargezet.',
+                        'Het bestaande tegoed wordt verhoogd.',
                     ].join(' '),
                     (row) => {
                         return `Lijn: ${row.line} - Gebruikte gegevens gewijzigd voor "${row.data[fund.csv_primary_key]}"`;

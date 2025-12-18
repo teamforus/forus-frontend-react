@@ -193,7 +193,7 @@ export default function ReimbursementsView() {
                                 <strong>Waarschuwing!</strong>
                                 <small>
                                     Het fonds of tegoed van deze declaratie is verlopen of het saldo is niet meer
-                                    toereikend. De decalartie kan niet meer worden behandeld.
+                                    toereikend. De declaratie kan niet meer worden behandeld.
                                 </small>
                             </div>
                         </div>
