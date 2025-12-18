@@ -735,7 +735,8 @@
             "potjeswijzer": {
                 "start_request": "Żądanie"
             },
-            "start_request": "Aktywuj"
+            "start_request": "Aktywuj",
+            "open_payouts": "Otwarte wypłaty"
         },
         "criteria": {
             "key": "{{key}}"
@@ -874,12 +875,12 @@
             "view_file": "Wyświetl plik"
         },
         "file_uploader": {
-            "attachments": "Załączniki",
             "max_size": "maks. rozmiar 8 MB",
             "or": "lub",
             "title": "Prześlij dokument",
             "upload_button": "Prześlij dokument",
-            "max_files": "do {{ count }} plików"
+            "max_files": "do {{ count }} plików",
+            "attachments": "Załączniki"
         },
         "info_box": {
             "2fa_description": "Aby uzyskać więcej informacji na temat 2FA, odwiedź naszą stronę:",
@@ -1906,7 +1907,8 @@
         "empty": {
             "button": "Przejdź do funduszy",
             "subtitle": "Obecnie nie masz żadnych wypłat",
-            "title": "Brak wypłat"
+            "title": "Brak wypłat",
+            "button_payout": "Transfer"
         },
         "labels": {
             "created_at": "Wypłacone w dniu",
@@ -1915,7 +1917,12 @@
             "iban_to_name": "Nazwa IBAN (do)"
         },
         "search": "Wyszukiwanie",
-        "title": "Wypłaty"
+        "title": "Wypłaty",
+        "create_card": {
+            "button": "Transfer",
+            "description": "Utwórz przelew z salda kredytowego.",
+            "title": "Przelew na rachunek bankowy"
+        }
     },
     "pdf_preview": {
         "buttons": {
@@ -2370,7 +2377,8 @@
             "category": "Kategorie",
             "payment_options": "Opcje płatności",
             "payment_options_info": "Więcej informacji o opcjach płatności",
-            "price_to": "Do"
+            "price_to": "Do",
+            "price_type_option_payout": "Wypłata na konto bankowe"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -3379,7 +3387,8 @@
             "subtract": "Odejmowanie",
             "title": "Transakcje",
             "top_up": "Ulepszony",
-            "expired_on": "Wygasł w dniu {{ date }}"
+            "expired_on": "Wygasł w dniu {{ date }}",
+            "payout": "Wypłata"
         },
         "actions": {
             "choose_action": {
@@ -3389,7 +3398,9 @@
             "save_qr": "Zapisz kod QR",
             "share_with_provider": "Udostępnianie kodu QR dostawcy",
             "view_all_products": "Zobacz wszystkie produkty",
-            "declaration_request": "Zwrot kosztów"
+            "declaration_request": "Zwrot kosztów",
+            "transfer_to_bank": "Przelew na rachunek bankowy",
+            "transfer_to_bank_description": "Wybierz kredyt i kwotę, którą chcesz przelać na swoje konto bankowe."
         },
         "details": {
             "records": {
@@ -3424,6 +3435,26 @@
         "fund_details": {
             "title": "Informacje o programie",
             "view": "Czytaj więcej"
+        },
+        "payout": {
+            "accept_compliance_rules": "Używam tych pieniędzy tylko do zakupu produktów dozwolonych w ramach tego funduszu.",
+            "accept_compliance_rules_label": "Warunki",
+            "amount": "Kwota",
+            "cancel": "Anuluj",
+            "iban": "IBAN",
+            "iban_name": "Posiadacz konta",
+            "submit": "Transfer",
+            "success": {
+                "close": "Zamknij",
+                "description": "Żądanie transferu zostało wysłane. Jego przetworzenie może zająć trochę czasu.",
+                "title": "Żądany transfer"
+            },
+            "transfer_to_bank": "Przelew na rachunek bankowy",
+            "transfer_to_bank_description": "Wybierz kredyt i kwotę, którą chcesz przelać na swoje konto bankowe.",
+            "voucher_label": "Kredyt",
+            "warning_count_reached": "Osiągnięto maksymalną liczbę wypłat dla tego kredytu.",
+            "warning_not_enough_amount_fixed": "Kredyt ten musi obejmować co najmniej {{ amount }} do wypłaty.",
+            "warning_not_enough_amount_min": "Kredyt ten musi obejmować co najmniej {{ min }} do wypłaty."
         }
     },
     "vouchers": {
@@ -3583,7 +3614,8 @@
         "session_expired": {
             "description": "Zaloguj się ponownie i spróbuj ponownie.",
             "title": "Sesja wygasła!"
-        }
+        },
+        "payout_created": "Żądana wypłata."
     },
     "read_speaker": {
         "read_aloud": "Czytaj za",
@@ -3650,7 +3682,9 @@
         "info_option_informational_title": "Tylko w sklepie",
         "info_option_regular_description": "Produkt ma stałą cenę. Jest to kwota do zapłaty, na przykład 10 euro.",
         "info_option_regular_title": "Cena",
-        "title": "Opcje płatności"
+        "title": "Opcje płatności",
+        "info_option_payout_description": "Dokonaj transakcji z salda na numer konta bankowego podany podczas składania wniosku o fundusz.",
+        "info_option_payout_title": "Wypłata na konto bankowe"
     },
     "pincode_control": {
         "aria_label_num": "Rysunek {{current}} z {{total}}",

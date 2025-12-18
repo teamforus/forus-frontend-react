@@ -174,12 +174,12 @@
             "view_file": "عرض الملف"
         },
         "file_uploader": {
-            "attachments": "المرفقات",
             "max_size": "الحد الأقصى للحجم 8 ميغابايت",
             "or": "أو",
             "title": "تحميل مستند",
             "upload_button": "تحميل مستند",
-            "max_files": "ما يصل إلى {{ count }} الملفات"
+            "max_files": "ما يصل إلى {{ count }} الملفات",
+            "attachments": "المرفقات"
         },
         "info_box": {
             "2fa_description": "لمزيد من المعلومات حول المصادقة الثنائية (2FA)، تفضل بزيارتنا:",
@@ -435,7 +435,8 @@
             "category": "الفئات",
             "payment_options": "خيارات الدفع",
             "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
-            "price_to": "إلى"
+            "price_to": "إلى",
+            "price_type_option_payout": "الدفع إلى الحساب البنكي"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -1184,7 +1185,8 @@
             "potjeswijzer": {
                 "start_request": "الطلب"
             },
-            "start_request": "تفعيل"
+            "start_request": "تفعيل",
+            "open_payouts": "المدفوعات المفتوحة"
         },
         "criteria": {
             "key": "{{key}}"
@@ -2030,7 +2032,8 @@
             "subtract": "الطرح",
             "title": "المعاملات",
             "top_up": "ترقية",
-            "expired_on": "انتهت صلاحيتها في {{ date }}"
+            "expired_on": "انتهت صلاحيتها في {{ date }}",
+            "payout": "الصرف"
         },
         "actions": {
             "choose_action": {
@@ -2040,7 +2043,9 @@
             "save_qr": "حفظ رمز الاستجابة السريعة",
             "share_with_provider": "مشاركة رمز الاستجابة السريعة مع المزود",
             "view_all_products": "عرض جميع المنتجات",
-            "declaration_request": "استرداد التكاليف"
+            "declaration_request": "استرداد التكاليف",
+            "transfer_to_bank": "التحويل إلى حساب مصرفي",
+            "transfer_to_bank_description": "اختر الرصيد والمبلغ الذي تريد تحويله إلى حسابك البنكي."
         },
         "details": {
             "records": {
@@ -2075,6 +2080,26 @@
         "fund_details": {
             "title": "معلومات عن المخطط",
             "view": "اقرأ المزيد"
+        },
+        "payout": {
+            "accept_compliance_rules": "أنا أستخدم هذه الأموال فقط لشراء المنتجات المسموح بها في هذا الصندوق.",
+            "accept_compliance_rules_label": "الشروط",
+            "amount": "المبلغ",
+            "cancel": "إلغاء",
+            "iban": "رقم الحساب المصرفي الدولي (IBAN)",
+            "iban_name": "صاحب الحساب",
+            "submit": "التحويل",
+            "success": {
+                "close": "إغلاق",
+                "description": "تم إرسال طلب التحويل الخاص بك. قد يستغرق الأمر بعض الوقت لتتم معالجته.",
+                "title": "التحويل المطلوب"
+            },
+            "transfer_to_bank": "التحويل إلى حساب مصرفي",
+            "transfer_to_bank_description": "اختر الرصيد والمبلغ الذي تريد تحويله إلى حسابك البنكي.",
+            "voucher_label": "الائتمان",
+            "warning_count_reached": "تم الوصول إلى الحد الأقصى لعدد المدفوعات لهذا الرصيد.",
+            "warning_not_enough_amount_fixed": "يجب أن يتضمن هذا الرصيد {{ amount }} على الأقل للدفع.",
+            "warning_not_enough_amount_min": "يجب أن يتضمن هذا الرصيد {{ min }} على الأقل للدفع."
         }
     },
     "vouchers": {
@@ -2297,7 +2322,8 @@
         "empty": {
             "button": "انتقل إلى الصناديق",
             "subtitle": "ليس لديك حالياً أي مدفوعات",
-            "title": "لا توجد مدفوعات"
+            "title": "لا توجد مدفوعات",
+            "button_payout": "التحويل"
         },
         "labels": {
             "created_at": "تم الدفع عند",
@@ -2306,7 +2332,12 @@
             "iban_to_name": "اسم رقم الحساب المصرفي الدولي (إلى)"
         },
         "search": "بحث",
-        "title": "المدفوعات"
+        "title": "المدفوعات",
+        "create_card": {
+            "button": "التحويل",
+            "description": "قم بإنشاء تحويل من رصيدك الائتماني.",
+            "title": "التحويل إلى حساب مصرفي"
+        }
     },
     "preferences_emails": {
         "breadcrumbs": {
@@ -3583,7 +3614,8 @@
         "session_expired": {
             "description": "قم بتسجيل الدخول مرة أخرى وحاول مرة أخرى.",
             "title": "انتهت صلاحية الجلسة"
-        }
+        },
+        "payout_created": "المبلغ المطلوب صرفه"
     },
     "read_speaker": {
         "read_aloud": "اقرأ لـ",
@@ -3650,7 +3682,9 @@
         "info_option_informational_title": "في المتجر فقط",
         "info_option_regular_description": "المنتج له سعر ثابت. هذا هو المبلغ الواجب دفعه، على سبيل المثال 10 يورو.",
         "info_option_regular_title": "السعر",
-        "title": "خيارات الدفع"
+        "title": "خيارات الدفع",
+        "info_option_payout_description": "قم بإجراء معاملة من رصيدك إلى رقم الحساب البنكي المحدد أثناء تقديم طلب التمويل.",
+        "info_option_payout_title": "الدفع إلى الحساب البنكي"
     },
     "pincode_control": {
         "aria_label_num": "الشكل {{current}} من {{total}}",

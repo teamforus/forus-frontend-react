@@ -479,7 +479,8 @@
             "category": "Categories",
             "payment_options": "Payment options",
             "payment_options_info": "Learn more about payment options",
-            "price_to": "To"
+            "price_to": "To",
+            "price_type_option_payout": "Payout to bank account"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -909,7 +910,8 @@
             "potjeswijzer": {
                 "start_request": "Request"
             },
-            "start_request": "Activate"
+            "start_request": "Activate",
+            "open_payouts": "Open payouts"
         },
         "criteria": {
             "key": "{{key}}"
@@ -1725,7 +1727,8 @@
             "subtract": "Subtraction",
             "title": "Transactions",
             "top_up": "Upgraded",
-            "expired_on": "Expired on {{ date }}"
+            "expired_on": "Expired on {{ date }}",
+            "payout": "Payout"
         },
         "history": {
             "status": {
@@ -1741,7 +1744,9 @@
             "save_qr": "Save QR code",
             "share_with_provider": "Share QR code with provider",
             "view_all_products": "See all products",
-            "declaration_request": "Cost recovery"
+            "declaration_request": "Cost recovery",
+            "transfer_to_bank": "Transfer to bank account",
+            "transfer_to_bank_description": "Choose the credit and amount you want to transfer to your bank account."
         },
         "details": {
             "records": {
@@ -1776,6 +1781,26 @@
         "fund_details": {
             "title": "Information about the scheme",
             "view": "Read more"
+        },
+        "payout": {
+            "accept_compliance_rules": "I will only use this money to buy products allowed within this fund.",
+            "accept_compliance_rules_label": "Terms",
+            "amount": "Amount",
+            "cancel": "Cancel",
+            "iban": "IBAN",
+            "iban_name": "Account holder",
+            "submit": "Transfer",
+            "success": {
+                "close": "Close",
+                "description": "Your transfer request has been sent. It may take some time to process.",
+                "title": "Transfer requested"
+            },
+            "transfer_to_bank": "Transfer to bank account",
+            "transfer_to_bank_description": "Choose the credit and amount you want to transfer to your bank account.",
+            "voucher_label": "Credit",
+            "warning_count_reached": "The maximum number of payouts for this credit has been reached.",
+            "warning_not_enough_amount_fixed": "This credit must include a minimum of {{ amount }} for a payout.",
+            "warning_not_enough_amount_min": "This credit must include a minimum of {{ min }} for a payout."
         }
     },
     "vouchers": {
@@ -1997,17 +2022,23 @@
         },
         "empty": {
             "button": "Go to the funds",
-            "subtitle": "Currently you have no disbursements",
-            "title": "No payouts"
+            "subtitle": "Currently you have no payouts",
+            "title": "No payouts",
+            "button_payout": "Transfer"
         },
         "labels": {
-            "created_at": "Disbursed on",
+            "created_at": "Paid out on",
             "iban_from": "IBAN (from)",
             "iban_to": "IBAN (to)",
             "iban_to_name": "IBAN name (to)"
         },
         "search": "Search",
-        "title": "Payouts"
+        "title": "Payouts",
+        "create_card": {
+            "button": "Transfer",
+            "description": "Create a transfer from your credit balance.",
+            "title": "Transfer to bank account"
+        }
     },
     "preferences_emails": {
         "breadcrumbs": {
@@ -3055,12 +3086,12 @@
             "view_file": "View file"
         },
         "file_uploader": {
-            "attachments": "Attachments",
             "max_size": "max size 8Mb",
             "or": "or",
             "title": "Upload a document",
             "upload_button": "Upload a document",
-            "max_files": "maximum {{ count }} files"
+            "max_files": "maximum {{ count }} files",
+            "attachments": "Attachments"
         },
         "info_box": {
             "2fa_description": "For more information on 2FA, check us out:",
@@ -3583,7 +3614,8 @@
         "session_expired": {
             "description": "Log back in and try again.",
             "title": "Session expired!"
-        }
+        },
+        "payout_created": "Payout requested."
     },
     "read_speaker": {
         "read_aloud": "Read for",
@@ -3650,7 +3682,9 @@
         "info_option_informational_title": "In store only",
         "info_option_regular_description": "The product has a fixed price. This is the amount to be paid, for example €10 euros.",
         "info_option_regular_title": "Price",
-        "title": "Payment options"
+        "title": "Payment options",
+        "info_option_payout_description": "Perform a transaction from your balance to the bank account number provided during the fund application.",
+        "info_option_payout_title": "Payout to bank account"
     },
     "pincode_control": {
         "aria_label_num": "Figure {{current}} of the {{total}}",

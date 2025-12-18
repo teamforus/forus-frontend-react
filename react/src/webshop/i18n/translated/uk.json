@@ -735,7 +735,8 @@
             "potjeswijzer": {
                 "start_request": "Запит"
             },
-            "start_request": "Активувати"
+            "start_request": "Активувати",
+            "open_payouts": "Відкриті виплати"
         },
         "criteria": {
             "key": "{{key}}"
@@ -874,12 +875,12 @@
             "view_file": "Переглянути файл"
         },
         "file_uploader": {
-            "attachments": "Вкладення",
             "max_size": "макс. розмір 8 Мб",
             "or": "або",
             "title": "Завантажити документ",
             "upload_button": "Завантажити документ",
-            "max_files": "до файлів {{ count }} "
+            "max_files": "до файлів {{ count }} ",
+            "attachments": "Додатки"
         },
         "info_box": {
             "2fa_description": "Щоб дізнатися більше про 2FA, відвідайте нас:",
@@ -1906,7 +1907,8 @@
         "empty": {
             "button": "Перейдіть до фондів",
             "subtitle": "Наразі у вас немає виплат",
-            "title": "Виплат немає"
+            "title": "Виплат немає",
+            "button_payout": "Переказ"
         },
         "labels": {
             "created_at": "Виплачено на",
@@ -1915,7 +1917,12 @@
             "iban_to_name": "Назва IBAN (до)"
         },
         "search": "Пошук",
-        "title": "Виплати"
+        "title": "Виплати",
+        "create_card": {
+            "button": "Переказ",
+            "description": "Створіть переказ з вашого кредитного балансу.",
+            "title": "Переказ на банківський рахунок"
+        }
     },
     "pdf_preview": {
         "buttons": {
@@ -2370,7 +2377,8 @@
             "category": "Категорії",
             "payment_options": "Варіанти оплати",
             "payment_options_info": "Дізнайтеся більше про способи оплати",
-            "price_to": "До"
+            "price_to": "До",
+            "price_type_option_payout": "Виплата на банківський рахунок"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -3379,7 +3387,8 @@
             "subtract": "Віднімання",
             "title": "Транзакції",
             "top_up": "Оновлений",
-            "expired_on": "Термін дії закінчився {{ date }}"
+            "expired_on": "Термін дії закінчився {{ date }}",
+            "payout": "Виплата коштів"
         },
         "actions": {
             "choose_action": {
@@ -3389,7 +3398,9 @@
             "save_qr": "Зберегти QR-код",
             "share_with_provider": "Поділіться QR-кодом з провайдером",
             "view_all_products": "Переглянути всі продукти",
-            "declaration_request": "Відшкодування витрат"
+            "declaration_request": "Відшкодування витрат",
+            "transfer_to_bank": "Переказ на банківський рахунок",
+            "transfer_to_bank_description": "Виберіть кредит і суму, яку ви хочете переказати на свій банківський рахунок."
         },
         "details": {
             "records": {
@@ -3424,6 +3435,26 @@
         "fund_details": {
             "title": "Інформація про схему",
             "view": "Читати далі"
+        },
+        "payout": {
+            "accept_compliance_rules": "Я використовую ці гроші лише на продукти, дозволені цим фондом.",
+            "accept_compliance_rules_label": "Умови",
+            "amount": "Сума",
+            "cancel": "Скасувати",
+            "iban": "IBAN",
+            "iban_name": "Власник рахунку",
+            "submit": "Переказ",
+            "success": {
+                "close": "Закрити",
+                "description": "Ваш запит на переказ відправлено. На його обробку може знадобитися деякий час.",
+                "title": "Запит на переказ"
+            },
+            "transfer_to_bank": "Переказ на банківський рахунок",
+            "transfer_to_bank_description": "Виберіть кредит і суму, яку ви хочете переказати на свій банківський рахунок.",
+            "voucher_label": "Кредит",
+            "warning_count_reached": "Максимальна кількість виплат за цим кредитом досягнута.",
+            "warning_not_enough_amount_fixed": "Цей кредит повинен містити щонайменше {{ amount }} для виплати.",
+            "warning_not_enough_amount_min": "Цей кредит повинен містити щонайменше {{ min }} для виплати."
         }
     },
     "vouchers": {
@@ -3583,7 +3614,8 @@
         "session_expired": {
             "description": "Увійдіть і спробуйте ще раз.",
             "title": "Сесія закінчилася!"
-        }
+        },
+        "payout_created": "Видача запитується."
     },
     "read_speaker": {
         "read_aloud": "Читати для",
@@ -3650,7 +3682,9 @@
         "info_option_informational_title": "Тільки в магазині",
         "info_option_regular_description": "Продукт має фіксовану ціну. Це сума, яку потрібно заплатити, наприклад, 10 євро.",
         "info_option_regular_title": "Ціна",
-        "title": "Варіанти оплати"
+        "title": "Варіанти оплати",
+        "info_option_payout_description": "Зробіть переказ з вашого балансу на номер банківського рахунку, вказаний під час подання заявки на фінансування.",
+        "info_option_payout_title": "Виплата на банківський рахунок"
     },
     "pincode_control": {
         "aria_label_num": "Малюнок {{current}} з {{total}}",
