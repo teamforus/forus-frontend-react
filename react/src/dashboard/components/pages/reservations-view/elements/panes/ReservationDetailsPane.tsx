@@ -1,12 +1,19 @@
 import React from 'react';
 import useTranslate from '../../../../../hooks/useTranslate';
 import FormPane from '../../../../elements/forms/elements/FormPane';
-import Reservation from '../../../../../props/models/Reservation';
+import Reservation, { ReservationCustomFieldValue } from '../../../../../props/models/Reservation';
 import BlockInlineCopy from '../../../../elements/block-inline-copy/BlockInlineCopy';
 import { strLimit } from '../../../../../helpers/string';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
+import FileAttachmentsList from '../../../../elements/FileAttachmentsList';
 
-export default function ReservationDetailsPane({ reservation }: { reservation: Reservation }) {
+export default function ReservationDetailsPane({
+    reservation,
+    customFields,
+}: {
+    reservation: Reservation;
+    customFields: ReservationCustomFieldValue[];
+}) {
     const translate = useTranslate();
 
     return (
@@ -30,9 +37,9 @@ export default function ReservationDetailsPane({ reservation }: { reservation: R
                         {reservation.birth_date_locale}
                     </KeyValueItem>
                 )}
-                {reservation.custom_fields?.map((field, index) => (
-                    <KeyValueItem key={index} label={field.label}>
-                        {field.value}
+                {customFields?.map((field, index) => (
+                    <KeyValueItem key={index} label={field.reservation_field.label}>
+                        {field.file ? <FileAttachmentsList attachments={[{ file: field.file }]} /> : field.value}
                     </KeyValueItem>
                 ))}
                 {reservation.user_note && (

@@ -27,7 +27,7 @@ export default function ModalImagePreview({
 
             <div className="modal-window">
                 <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
-                <div className="modal-header">{translate('modal_image_preview.header.title')}</div>
+                <div className="modal-header">{translate('modal_image_preview.title')}</div>
                 <div className="modal-body">
                     <div className="modal-section">
                         <div className="img-block">

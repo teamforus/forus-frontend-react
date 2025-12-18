@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import FundProvider from '../../props/models/FundProvider';
 import Organization from '../../props/models/Organization';
@@ -6,15 +6,13 @@ import { ResponseError } from '../../props/ApiResponses';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import FormError from '../elements/forms/errors/FormError';
-import DatePickerControl from '../elements/forms/controls/DatePickerControl';
-import { dateFormat, dateParse } from '../../helpers/dates';
-import useFundUnsubscribeService from '../../services/FundUnsubscribeService';
 import useSetProgress from '../../hooks/useSetProgress';
-import { addDays } from 'date-fns';
 import { clickOnKeyEnter } from '../../helpers/wcag';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import usePushApiError from '../../hooks/usePushApiError';
+import useProviderFundService from '../../services/ProviderFundService';
+import InfoBox from '../elements/info-box/InfoBox';
 
 export default function ModalFundUnsubscribe({
     modal,
@@ -29,43 +27,43 @@ export default function ModalFundUnsubscribe({
     onUnsubscribe: () => void;
     className?: string;
 }) {
-    const [dateMin] = useState(addDays(new Date(), 1));
-
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const fundUnsubscribeService = useFundUnsubscribeService();
+    const providerFundService = useProviderFundService();
 
-    const form = useFormBuilder(
-        {
-            unsubscribe_at: null,
-            note: '',
-        },
-        (values) => {
-            setProgress(0);
+    const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-            fundUnsubscribeService
-                .store(organization.id, { fund_provider_id: providerFund.id, ...values })
-                .then(() => {
-                    pushSuccess('Gelukt!', 'Verzoek afmelding verstuurd.');
-                    modal.close();
-                    onUnsubscribe?.();
-                })
-                .catch((err: ResponseError) => {
-                    pushApiError(err);
-                    form.setErrors(err.data.errors);
-                })
-                .finally(() => {
-                    setProgress(100);
-                    form.setIsLocked(false);
-                });
-        },
-    );
+    const form = useFormBuilder({ note: '' }, (values) => {
+        setProgress(0);
+        setErrorMessage(null);
+
+        providerFundService
+            .unsubscribe(organization.id, providerFund.id, values)
+            .then(() => {
+                pushSuccess('Gelukt!', 'Verzoek afmelding verstuurd.');
+                modal.close();
+                onUnsubscribe?.();
+            })
+            .catch((err: ResponseError) => {
+                pushApiError(err);
+                form.setErrors(err.data.errors);
+
+                if (!err.data?.errors && err.data?.message) {
+                    setErrorMessage(err.data.message);
+                }
+            })
+            .finally(() => {
+                setProgress(100);
+                form.setIsLocked(false);
+            });
+    });
 
     return (
         <div
+            data-dusk="modalFundUnsubscribe"
             className={classNames(
                 'modal',
                 'modal-animated',
@@ -82,7 +80,7 @@ export default function ModalFundUnsubscribe({
                     onKeyDown={clickOnKeyEnter}
                     role="button"
                 />
-                <div className="modal-header">Request unsubscription</div>
+                <div className="modal-header">Afmelding voor de regeling</div>
                 <div className="modal-body modal-body-visible">
                     <div className="modal-section">
                         <div className="row">
@@ -91,40 +89,46 @@ export default function ModalFundUnsubscribe({
                                     Weet u zeker dat u zich wilt afmelden bij {providerFund.fund.name}?
                                 </div>
                                 <div className="modal-description text-center">
-                                    Als alles duidelijk is kunt u het onderstaande formulier invullen.
+                                    Optioneel kunt u een reden opgeven, zodat de gemeente weet waarom u zich heeft
+                                    afgemeld.
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label form-label-required">Afmeldingsdatum</label>
-                                    <DatePickerControl
-                                        value={dateParse(form.values.unsubscribe_at)}
-                                        dateMin={dateMin}
-                                        dateInitial={dateMin}
-                                        placeholder={'Kies een datum'}
-                                        onChange={(date) => form.update({ unsubscribe_at: dateFormat(date) })}
-                                    />
-                                    <FormError error={form.errors.unsubscribe_at} />
-                                </div>
-                                <div className="form-group">
-                                    <label className="form-label">Notitie</label>
+                                    <label className="form-label">Notitie (optioneel)</label>
                                     <textarea
                                         className="form-control"
                                         value={form.values.note}
                                         onChange={(e) => form.update({ note: e.target.value })}
                                         placeholder="Reden"
+                                        data-dusk="noteInput"
                                     />
-                                    <FormError error={form.errors.note} />
-                                    <FormError error={form.errors.fund_provider_id} />
+                                    <FormError error={form.errors?.note} />
+                                    <FormError error={form.errors?.fund_provider_id} />
                                 </div>
+
+                                {errorMessage && (
+                                    <div className="form-group">
+                                        <InfoBox
+                                            type={'warning'}
+                                            iconColor={'warning'}
+                                            dusk="modalFundUnsubscribeError">
+                                            {errorMessage}
+                                        </InfoBox>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="modal-footer">
                     <div className="button-group">
-                        <button className="button button-default" type="button" onClick={() => modal.close()}>
+                        <button
+                            className="button button-default"
+                            type="button"
+                            data-dusk="closeBtn"
+                            onClick={() => modal.close()}>
                             {translate('modals.modal_voucher_create.buttons.cancel')}
                         </button>
-                        <button className="button button-primary" type="submit">
+                        <button className="button button-primary" type="submit" data-dusk="submitBtn">
                             {translate('modals.modal_voucher_create.buttons.submit')}
                         </button>
                     </div>

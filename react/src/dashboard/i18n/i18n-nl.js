@@ -6,6 +6,16 @@ import block_exception from './nl/blocks/block-exception.json';
 import api_errors from './nl/errors/api';
 
 export default {
+    global: {
+        file_uploader: {
+            title: 'Upload een document',
+            or: 'of',
+            upload_button: 'Upload een document',
+            max_size: 'max. grootte 8Mb',
+            max_files: 'maximaal {{ count }} bestanden',
+            attachments: 'Bijlagen',
+        },
+    },
     test: '{{name}} {{foo}}',
     permissions: {
         title: 'Geen rechten',
@@ -729,12 +739,14 @@ export default {
             pending: 'Er zijn momenteel geen aanbieders die actie benodigd hebben.',
             active: 'Er zijn momenteel geen actieve aanbieders.',
             rejected: 'Er zijn momenteel geen inactieve aanbieders.',
+            unsubscribed: 'Er zijn momenteel geen uitgeschreven aanbieders.',
         },
         empty_description: {
             pending: "Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
             active: "Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
             rejected:
                 "Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
+            unsubscribed: 'Alle aanbieders zijn momenteel geabonneerd en beschikbaar binnen het platform.',
         },
     },
 
@@ -939,8 +951,8 @@ export default {
             price_type: 'Prijs type',
             price_discount: 'Korting',
             alternative_text: 'Alt-tekst',
-            info_duration: 'Duur van de promotie',
-            info_when: 'Wanneer loopt de promotie',
+            info_duration: 'Duur van het aanbod',
+            info_when: 'Geef aan op welke tijd, dag of maand het aanbod plaatsvindt',
             info_where: 'Locatie',
             info_more_info: 'Meer informatie',
             info_attention: 'Let op',

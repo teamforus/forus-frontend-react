@@ -35,6 +35,12 @@ export default function ReservationFieldItem({
         { key: 'text', name: 'Tekst' },
         { key: 'number', name: 'Nummer' },
         { key: 'boolean', name: 'Ja / Nee' },
+        { key: 'file', name: 'Document upload' },
+    ]);
+
+    const [fillableByTypes] = useState([
+        { key: 'provider', name: translate('reservation_settings.fillable_by.provider') },
+        { key: 'requester', name: translate('reservation_settings.fillable_by.requester') },
     ]);
 
     const askConfirmation = useCallback(
@@ -196,7 +202,7 @@ export default function ReservationFieldItem({
                                     propKey={'key'}
                                     allowSearch={false}
                                     value={field.type}
-                                    onChange={(value: 'number' | 'text') => {
+                                    onChange={(value: 'number' | 'text' | 'boolean' | 'file') => {
                                         field.type = value;
                                         onChange([...fields]);
                                     }}
@@ -205,15 +211,44 @@ export default function ReservationFieldItem({
                             )}
                         />
 
-                        <CheckboxControl
-                            id={`required_${index}`}
-                            checked={field.required}
-                            onChange={(e) => {
-                                field.required = e.target.checked;
-                                onChange([...fields]);
-                            }}
-                            title={translate('reservation_settings.labels.required')}
+                        <FormGroup
+                            label={translate('reservation_settings.labels.fillable_by')}
+                            error={errors['fields.' + index + '.fillable_by']}
+                            info={
+                                <Fragment>
+                                    <p>
+                                        Deze instelling geeft aan of het aangepaste veld ingevuld dient te worden door
+                                        de inwoner tijdens het maken van de reservering of door de aanbieder zelf nadat
+                                        de reservering is ingediend.
+                                    </p>
+                                </Fragment>
+                            }
+                            input={() => (
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'key'}
+                                    allowSearch={false}
+                                    value={field.fillable_by}
+                                    onChange={(value: 'requester' | 'provider') => {
+                                        field.fillable_by = value;
+                                        onChange([...fields]);
+                                    }}
+                                    options={fillableByTypes}
+                                />
+                            )}
                         />
+
+                        {field.fillable_by === 'requester' && (
+                            <CheckboxControl
+                                id={`required_${index}`}
+                                checked={field.required}
+                                onChange={(e) => {
+                                    field.required = e.target.checked;
+                                    onChange([...fields]);
+                                }}
+                                title={translate('reservation_settings.labels.required')}
+                            />
+                        )}
                     </FormPane>
                 </div>
             )}
