@@ -1,7 +1,7 @@
 @import "./includes/fonts/open-sans";
 
 // do not use these scss variables outside this file
-$primaryColor: #E6494F;
+$primaryColor: #E22C32;
 $primaryColorLight: #4D5971;
 
 :root {
@@ -63,8 +63,8 @@ $primaryColorLight: #4D5971;
     // navbar (auth) (default button)
     --tc-auth-menu: #305dfb;
     --tc-auth-btn: #fff;
-    --btn-auth-bg: #E6494F;
-    --btn-auth-border: #E6494F;
+    --btn-auth-bg: #E22C32;
+    --btn-auth-border: #E22C32;
     --auth-avater-bg: #305dfb;
     --auth-avater-svg: #fff;
 
@@ -211,7 +211,7 @@ $primaryColorLight: #4D5971;
     --button-color: #282b39;
     --button-shadow: none;
     --button-decoration: none;
-    --button-border-radius: calc(var(--border-radius) * 0.75);
+    --button-border-radius: 20px;
     --button-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     --button-hover-decoration: none;
     --button-disabled-color: #616161;
@@ -336,14 +336,14 @@ $primaryColorLight: #4D5971;
     --section-padding: 0 0 30px;
     --section-background: transparent;
 
-    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-font: 600 40px/60px var(--heading-font-family);
     --section-title-align: center;
 
     --section-cms-padding: var(--section-padding);
     --section-cms-background: var(--section-background);
     --section-map-padding: var(--section-padding);
     --section-map-background: var(--section-background);
-    --section-faq-padding: 30px 0;
+    --section-faq-padding: 50px 0;
     --section-faq-background: var(--section-background);
     --section-footer-padding: 35px 0;
     --section-footer-background: #F0F1F4;
@@ -371,7 +371,7 @@ $primaryColorLight: #4D5971;
     --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
     --cms-funds-compact-title-color: var(--htc);
 
-    --cms-funds-link-color: var(--color-primary);
+    --cms-funds-link-color: var(--color-primary-light);
     --cms-funds-link-font: 600 18px/20px var(--base-font);
 
     // Section order
