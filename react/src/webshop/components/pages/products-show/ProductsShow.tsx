@@ -250,7 +250,6 @@ export default function ProductsShow() {
                                         {product.name}
                                     </h1>
                                     <div className="product-prop-item-category">
-                                        <em className="mdi mdi-television-classic" aria-hidden="true" />
                                         <span>{product?.product_category?.name}</span>
                                     </div>
 
