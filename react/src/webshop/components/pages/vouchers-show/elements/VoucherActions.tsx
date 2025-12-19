@@ -297,7 +297,7 @@ export default function VoucherActions({
                         data-dusk="openVoucherPayoutModal"
                         onKeyDown={clickOnKeyEnter}
                         onClick={openPayoutModal}>
-                        <em className="mdi mdi-bank-transfer-in" />
+                        <em className="mdi mdi-cash-refund" />
                         {translate('voucher.actions.transfer_to_bank')}
                     </button>
                 )}
