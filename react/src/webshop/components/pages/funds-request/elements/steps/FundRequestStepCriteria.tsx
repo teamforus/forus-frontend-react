@@ -150,60 +150,58 @@ export default function FundRequestStepCriteria({
                 <h2 className="sign_up-pane-header">{title}</h2>
 
                 {groups.map((group, index) => (
-                    <Fragment key={index}>
-                        <div className="sign_up-pane-body sign_up-pane-content">
-                            <div className="preview-item-info preview-item-info-vertical">
-                                <div className="preview-item-subtitle">{group.title}</div>
-                                {group.description_html && (
-                                    <Markdown content={group.description_html} className="preview-item-description" />
-                                )}
+                    <div className="sign_up-pane-body sign_up-pane-content" key={index}>
+                        <div className="preview-item-info preview-item-info-vertical">
+                            <div className="preview-item-subtitle">{group.title}</div>
+                            {group.description_html && (
+                                <Markdown content={group.description_html} className="preview-item-description" />
+                            )}
 
-                                {group.required && (
-                                    <div className="form">
-                                        <div className="form-label">
-                                            <div className={'form-label-info form-label-info-required'}>
-                                                {translate('form.required')}
-                                            </div>
+                            {group.required && (
+                                <div className="form">
+                                    <div className="form-label">
+                                        <div className={'form-label-info form-label-info-required'}>
+                                            {translate('form.required')}
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                            <FormError error={errors['criteria_groups.' + group.id]} />
-
-                            {group.criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 && (
-                                <div className="preview-item-panel">
-                                    <div className="preview-item-values">
-                                        {group.criteria
-                                            .filter((criterion) => criterion.fill_type === 'prefill')
-                                            .map((criterion) => (
-                                                <div className="preview-item-values-item" key={criterion.id}>
-                                                    <div className="preview-item-values-item-label">
-                                                        {criterion.title || criterion.title_default}
-                                                    </div>
-                                                    <div className="preview-item-values-item-value">
-                                                        {criterion.input_value || '-'}
-                                                    </div>
-                                                </div>
-                                            ))}
                                     </div>
                                 </div>
                             )}
-
-                            {group.criteria
-                                .filter((criterion) => criterion.fill_type === 'manual')
-                                .map((criterion, index) => (
-                                    <FundRequestStepCriterion
-                                        key={index}
-                                        fund={fund}
-                                        criterion={criterion}
-                                        setCriterion={setCriterion}
-                                        recordTypes={recordTypes}
-                                        uploaderTemplate={uploaderTemplate}
-                                        isGroup={true}
-                                    />
-                                ))}
                         </div>
-                    </Fragment>
+                        <FormError error={errors['criteria_groups.' + group.id]} />
+
+                        {group.criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 && (
+                            <div className="preview-item-panel">
+                                <div className="preview-item-values">
+                                    {group.criteria
+                                        .filter((criterion) => criterion.fill_type === 'prefill')
+                                        .map((criterion) => (
+                                            <div className="preview-item-values-item" key={criterion.id}>
+                                                <div className="preview-item-values-item-label">
+                                                    {criterion.title || criterion.title_default}
+                                                </div>
+                                                <div className="preview-item-values-item-value">
+                                                    {criterion.input_value || '-'}
+                                                </div>
+                                            </div>
+                                        ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {group.criteria
+                            .filter((criterion) => criterion.fill_type === 'manual')
+                            .map((criterion, index) => (
+                                <FundRequestStepCriterion
+                                    key={index}
+                                    fund={fund}
+                                    criterion={criterion}
+                                    setCriterion={setCriterion}
+                                    recordTypes={recordTypes}
+                                    uploaderTemplate={uploaderTemplate}
+                                    isGroup={true}
+                                />
+                            ))}
+                    </div>
                 ))}
 
                 {criteria.length > 0 && (

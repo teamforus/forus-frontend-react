@@ -88,7 +88,7 @@
         .sign_up-step {
             flex-grow: 1;
             text-align: right;
-            font: 500 14px/30px var(--base-font);
+            font: 600 14px/30px var(--base-font);
             color: #525252;
             border: none;
             margin-left: 1px;
@@ -130,18 +130,20 @@
             }
 
             &.sign_up-step-active {
-                color: var(--color-primary);
+                color: #000;
+                font-weight: 700;
 
                 .sign_up-step-border:before {
                     content: '';
                     display: block;
                     @include fill_parent();
-                    background-color: var(--color-primary);
+                    background-color: #9E9E9E;
                 }
             }
 
             &.sign_up-step-done {
                 color: var(--sign_up_accent_color);
+                font-weight: 700;
 
                 .sign_up-step-border:before {
                     background-color: var(--sign_up_accent_color);
@@ -495,10 +497,6 @@
                 gap: 10px;
                 align-items: flex-start;
 
-                &.preview-item-info-vertical {
-                    flex-direction: column;
-                }
-
                 .preview-item-icon {
                     display: flex;
                     flex: 0 0 26px;
@@ -526,6 +524,10 @@
                 .preview-item-description {
                     font: 400 16px/20px var(--base-font);
                     margin-bottom: 0;
+                }
+
+                &.preview-item-info-vertical {
+                    flex-direction: column;
                 }
             }
 
