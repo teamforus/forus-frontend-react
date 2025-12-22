@@ -1,4 +1,4 @@
-@import "./includes/fonts/open-sans";
+@import "./includes/fonts/nunito-sans";
 
 // do not use these scss variables outside this file
 $primaryColor: #1065a9;
@@ -85,7 +85,7 @@ $primaryColorLight: #6e6d6d;
     --header-banner-pane-banner-border-radius: initial;
 
     // base font
-    --base-font: 'Open Sans', arial, sans-serif;
+    --base-font: 'NunitoSans', arial, sans-serif;
 
     // text color
     --tc: #282b39;
