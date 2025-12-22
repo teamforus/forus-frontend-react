@@ -879,7 +879,7 @@
             "or": "ou",
             "title": "Télécharger un document",
             "upload_button": "Télécharger un document",
-            "max_files": "Max. {{ count }} fichiers"
+            "max_files": "jusqu'à {{ count }} fichiers"
         },
         "info_box": {
             "2fa_description": "Pour plus d'informations sur le 2FA, visitez notre site :",
@@ -2737,7 +2737,9 @@
                 "rejection_note": "Message du fournisseur :"
             },
             "loading": "Chargement",
-            "title": "Détails de la réservation"
+            "title": "Détails de la réservation",
+            "reservation_fields_title": "Données",
+            "reservation_fields_for_provider_title": "Ajouté par le fournisseur"
         },
         "expired": "Désolé, votre réservation a été annulée pendant le processus de paiement car le produit sélectionné est épuisé.",
         "extra_amount_refund": {
@@ -2773,7 +2775,14 @@
                 "pending": "En prévision",
                 "rejected": "Refusé",
                 "waiting": "En attente de paiement"
-            }
+            },
+            "address": "Adresse",
+            "birth_date": "Date de naissance",
+            "email": "Adresse électronique",
+            "first_name": "Prénom",
+            "last_name": "Nom de famille",
+            "phone": "Numéro de téléphone",
+            "user_note": "Note"
         },
         "title": "Détails de l'appoint",
         "expiring": "Veuillez noter qu'il reste <strong>{{expiresIn}} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée."
@@ -3668,5 +3677,12 @@
     "block_product_categories": {
         "description": "Cliquez sur un thème et vous verrez immédiatement l'offre que vous pouvez choisir.",
         "title": "Qu'aimez-vous faire ?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Exemple de fichier",
+        "buttons": {
+            "close": "Fermer"
+        },
+        "title": "Voir le fichier"
     }
 }

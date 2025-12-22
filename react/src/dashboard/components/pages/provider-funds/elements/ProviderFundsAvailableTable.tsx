@@ -7,13 +7,11 @@ import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { strLimit } from '../../../../helpers/string';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
-import useOpenModal from '../../../../hooks/useOpenModal';
 import Tag from '../../../../props/models/Tag';
 import Fund from '../../../../props/models/Fund';
 import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import ModalNotification from '../../../modals/ModalNotification';
 import useTableToggles from '../../../../hooks/useTableToggles';
 import Implementation from '../../../../props/models/Implementation';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
@@ -24,6 +22,8 @@ import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
+import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
 
 export default function ProviderFundsAvailableTable({
     organization,
@@ -38,8 +38,10 @@ export default function ProviderFundsAvailableTable({
 
     const assetUrl = useAssetUrl();
     const setProgress = useSetProgress();
-    const openModal = useOpenModal();
     const pushApiError = usePushApiError();
+
+    const successApplying = useProviderFundsApplySuccess();
+    const failOfficesCheck = useProviderFundsFailOfficesCheck();
 
     const paginatorService = usePaginatorService();
     const providerFundService = useProviderFundService();
@@ -104,35 +106,6 @@ export default function ProviderFundsAvailableTable({
             </th>
         ),
     });
-
-    const successApplying = useCallback(() => {
-        openModal((modal) => (
-            <ModalNotification
-                modal={modal}
-                title={translate('provider_funds.available.applied_for_fund.title')}
-                description={translate('provider_funds.available.applied_for_fund.description')}
-                icon={'fund_applied'}
-                buttonSubmit={{
-                    text: translate('modal.buttons.confirm'),
-                    onClick: modal.close,
-                }}
-            />
-        ));
-    }, [openModal, translate]);
-
-    const failOfficesCheck = useCallback(() => {
-        openModal((modal) => (
-            <ModalNotification
-                modal={modal}
-                title={translate('provider_funds.available.error_apply.title')}
-                description={translate('provider_funds.available.error_apply.description')}
-                buttonCancel={{
-                    text: translate('modal.buttons.cancel'),
-                    onClick: modal.close,
-                }}
-            />
-        ));
-    }, [openModal, translate]);
 
     const fetchFunds = useCallback(() => {
         setSelected([]);

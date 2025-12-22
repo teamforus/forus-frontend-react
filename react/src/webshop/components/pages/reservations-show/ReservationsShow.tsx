@@ -14,6 +14,7 @@ import { BooleanParam, useQueryParam } from 'use-query-params';
 import classNames from 'classnames';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import FileUploader from '../../elements/file-uploader/FileUploader';
 
 export default function ReservationsShow() {
     const { id } = useParams();
@@ -41,6 +42,14 @@ export default function ReservationsShow() {
     const stateData = useMemo(() => {
         return reservation ? composeStateAndExpires(reservation) : null;
     }, [reservation, composeStateAndExpires]);
+
+    const requesterCustomFields = useMemo(() => {
+        return reservation?.custom_fields?.filter((field) => field.reservation_field.fillable_by === 'requester');
+    }, [reservation?.custom_fields]);
+
+    const providerCustomFields = useMemo(() => {
+        return reservation?.custom_fields?.filter((field) => field.reservation_field.fillable_by === 'provider');
+    }, [reservation?.custom_fields]);
 
     const fetchReservation = useCallback(async () => {
         setProgress(0);
@@ -320,6 +329,130 @@ export default function ReservationsShow() {
                                     </div>
                                 </div>
                             )}
+                        </div>
+                    )}
+
+                    <div className="card">
+                        <div className="card-header">
+                            <div className="card-header-wrapper">
+                                <h2 className="card-heading card-heading-lg">
+                                    {translate('reservation.details.reservation_fields_title')}
+                                </h2>
+                            </div>
+                        </div>
+                        <div className="card-section">
+                            <div className="block block-key-value-list">
+                                {reservation.identity_email && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.email')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.identity_email}</div>
+                                    </div>
+                                )}
+                                {reservation.first_name && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.first_name')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.first_name}</div>
+                                    </div>
+                                )}
+                                {reservation.last_name && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.last_name')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.last_name}</div>
+                                    </div>
+                                )}
+                                {reservation.phone && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.phone')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.phone}</div>
+                                    </div>
+                                )}
+                                {reservation.address && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.address')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.address}</div>
+                                    </div>
+                                )}
+                                {reservation.birth_date && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.birth_date')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.birth_date_locale}</div>
+                                    </div>
+                                )}
+                                {requesterCustomFields?.map((field, idx) => (
+                                    <div className="block-key-value-list-item" key={`${field.id}-${idx}`}>
+                                        <div className="key-value-list-item-label">{field.reservation_field.label}</div>
+                                        <div className="key-value-list-item-value">
+                                            {field.file ? (
+                                                <FileUploader
+                                                    type="product_reservation_custom_field"
+                                                    files={[field.file]}
+                                                    template="compact"
+                                                    readOnly={true}
+                                                    hideDownloadButton={true}
+                                                />
+                                            ) : (
+                                                field.value || '-'
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                                {reservation.user_note && (
+                                    <div className="block-key-value-list-item">
+                                        <div className="key-value-list-item-label">
+                                            {translate('reservation.labels.user_note')}
+                                        </div>
+                                        <div className="key-value-list-item-value">{reservation.user_note}</div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {providerCustomFields?.length > 0 && (
+                        <div className="card">
+                            <div className="card-header">
+                                <div className="card-header-wrapper">
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('reservation.details.reservation_fields_for_provider_title')}
+                                    </h2>
+                                </div>
+                            </div>
+                            <div className="card-section">
+                                <div className="block block-key-value-list">
+                                    {providerCustomFields?.map((field, idx) => (
+                                        <div className="block-key-value-list-item" key={`${field.id}-${idx}`}>
+                                            <div className="key-value-list-item-label">
+                                                {field.reservation_field.label}
+                                            </div>
+                                            <div className="key-value-list-item-value">
+                                                {field.file ? (
+                                                    <FileUploader
+                                                        type="product_reservation_custom_field"
+                                                        files={[field.file]}
+                                                        template="compact"
+                                                        readOnly={true}
+                                                        hideDownloadButton={true}
+                                                    />
+                                                ) : (
+                                                    field.value || '-'
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     )}
 

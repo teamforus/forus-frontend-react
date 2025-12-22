@@ -879,7 +879,7 @@
             "or": "oder",
             "title": "Ein Dokument hochladen",
             "upload_button": "Ein Dokument hochladen",
-            "max_files": "Max. {{ count }} Dateien"
+            "max_files": "bis zu {{ count }} Dateien"
         },
         "info_box": {
             "2fa_description": "Weitere Informationen über 2FA finden Sie bei uns:",
@@ -2737,7 +2737,9 @@
                 "rejection_note": "Nachricht des Anbieters:"
             },
             "loading": "Laden",
-            "title": "Details zur Buchung"
+            "title": "Details zur Buchung",
+            "reservation_fields_title": "Daten",
+            "reservation_fields_for_provider_title": "Hinzugefügt von Anbieter"
         },
         "expired": "Ihre Reservierung wurde leider während des Bestellvorgangs storniert, da das ausgewählte Produkt ausverkauft ist.",
         "extra_amount_refund": {
@@ -2773,7 +2775,14 @@
                 "pending": "Im Vorgriff",
                 "rejected": "Verweigert",
                 "waiting": "Warten auf die Zahlung"
-            }
+            },
+            "address": "Adresse",
+            "birth_date": "Datum der Geburt",
+            "email": "E-Mail Adresse",
+            "first_name": "Vornamen",
+            "last_name": "Nachname",
+            "phone": "Rufnummer",
+            "user_note": "Hinweis"
         },
         "title": "Details zur Aufstockung",
         "expiring": "Bitte beachten Sie, dass Sie nur noch <strong>{{expiresIn}} Minuten</strong> Zeit haben, um die zusätzliche Zahlung zu leisten. Andernfalls wird die Reservierung automatisch storniert."
@@ -3668,5 +3677,12 @@
     "block_product_categories": {
         "description": "Klicken Sie auf ein Thema und Sie sehen sofort, aus welchem Angebot Sie wählen können.",
         "title": "Was machen Sie gerne?"
+    },
+    "modal_image_preview": {
+        "alt_text": "Beispiel einer Datei",
+        "buttons": {
+            "close": "Schließen Sie"
+        },
+        "title": "Datei anzeigen"
     }
 }

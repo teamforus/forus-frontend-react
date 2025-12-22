@@ -7,7 +7,7 @@ export default interface Product extends BaseProduct {
         note: 'no' | 'optional';
         fields: Array<{
             id?: number;
-            type?: 'text' | 'number';
+            type?: 'text' | 'number' | 'boolean' | 'file';
             label?: string;
             required?: boolean;
             description?: string;

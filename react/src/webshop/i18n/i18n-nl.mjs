@@ -66,6 +66,7 @@ import modal from './nl/modals/modal.mjs';
 import modal_product_reserve_extra_payment from './nl/modals/modal-product-reserve-extra-payment.mjs';
 import modal_product_reserve_cancel from './nl/modals/modal-product-reserve-cancel.mjs';
 import modal_reserve_product from './nl/modals/modal_reserve_product.mjs';
+import modal_image_preview from './nl/modal_image_preview.mjs';
 import modal_2fa_setup from './nl/modals/modal_2fa_setup.mjs';
 import modal_2fa_deactivate from './nl/modals/modal_2fa_deactivate.mjs';
 import modal_photo_cropper from './nl/modals/modal_photo_cropper.mjs';
@@ -316,8 +317,8 @@ export default {
             or: 'of',
             upload_button: 'Upload een document',
             max_size: 'max. grootte 8Mb',
-            max_files: 'Max. {{ count }} files',
-            attachments: 'Attachments',
+            max_files: 'maximaal {{ count }} bestanden',
+            attachments: 'Bijlagen',
         },
         file_item: {
             view_file: 'Bestand bekijken',
@@ -480,6 +481,7 @@ export default {
     modal_product_reserve_extra_payment: modal_product_reserve_extra_payment,
     modal_product_reserve_cancel: modal_product_reserve_cancel,
     modal_reserve_product: modal_reserve_product,
+    modal_image_preview: modal_image_preview,
     modal_2fa_setup: modal_2fa_setup,
     modal_2fa_deactivate: modal_2fa_deactivate,
     modal_photo_cropper: modal_photo_cropper,

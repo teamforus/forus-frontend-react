@@ -25,12 +25,12 @@ $primaryColorLight: #0d4379;
 
     --navbar-menu-gap: 22px;
     --navbar-menu-order: 1;
-    --navbar-menu-background: #f5f5f5;
+    --navbar-menu-background: #ffffff;
 
     --navbar-search-gap: 20px;
     --navbar-search-order: 2;
     --navbar-search-padding: 20px 0px;
-    --navbar-search-background: #f5f5f5;
+    --navbar-search-background: #ffffff;
     --navbar-search-border-bottom: 1px solid var(--border-color);
 
     --navbar-menu-item-font: 400 18px/21px var(--base-font);
@@ -62,17 +62,17 @@ $primaryColorLight: #0d4379;
 
     // navbar (auth) (default button)
     --tc-auth-menu: #ffffff;
-    --tc-auth-btn: #ffffff;
-    --btn-auth-bg: #0d4379;
-    --btn-auth-border: #0d4379;
+    --tc-auth-btn: #609609;
+    --btn-auth-bg: #ffffff;
+    --btn-auth-border: #609609;
     --auth-avater-bg: #305dfb;
     --auth-avater-svg: #fff;
 
     // navbar (start modal primary)
     --tc-start-btn: #ffffff;
-    --btn-start-bg: #609609;
-    --btn-start-btn: #609609;
-    --btn-start-border: transparent;
+    --btn-start-bg: #0d4379;
+    --btn-start-btn: #0d4379;
+    --btn-start-border: #0d4379;
 
     // header background
     --bg-values: url('../img/splash-top-b.jpg') no-repeat center 100%;
@@ -119,8 +119,8 @@ $primaryColorLight: #0d4379;
 
     --footer-copyright-color: var(--footer_color_link);
     --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #0d4379;
-    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-background: #0A2E51;
+    --footer-copyright-border-color: #0A2E51;
     --footer-copyright-padding: 40px;
 
     // not displayed

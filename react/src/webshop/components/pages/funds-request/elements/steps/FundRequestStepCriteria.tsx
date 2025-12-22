@@ -332,7 +332,6 @@ export default function FundRequestStepCriteria({
                                 type="fund_request_record_proof"
                                 files={criterion.files}
                                 cropMedia={false}
-                                multiple={true}
                                 template={uploaderTemplate}
                                 onFilesChange={({ files }) => {
                                     setCriterion(criterion.id, {
