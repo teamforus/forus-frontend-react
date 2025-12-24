@@ -13,7 +13,7 @@ type CardTransaction = {
     amount_locale?: string;
     type?: 'transaction' | 'product_voucher' | string;
     product?: VoucherProduct;
-    target?: 'provider' | 'iban' | 'top_up';
+    target?: 'provider' | 'iban' | 'top_up' | 'payout';
     product_reservation?: Reservation;
     organization?: Organization;
     created_at_locale?: string;

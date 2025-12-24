@@ -22,6 +22,10 @@ import { NumberParam, StringParam } from 'use-query-params';
 import useFundRequestExporter from '../../../services/exporters/useFundRequestExporter';
 import CardHeaderFilterNext from '../../elements/tables/elements/CardHeaderFilterNext';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import Fund from '../../../props/models/Fund';
+import { hasPermission } from '../../../helpers/utils';
+import { Permission } from '../../../props/models/Organization';
+import { useFundService } from '../../../services/FundService';
 
 export default function FundRequests() {
     const appConfigs = useAppConfigs();
@@ -34,9 +38,11 @@ export default function FundRequests() {
     const pushApiError = usePushApiError();
 
     const [loading, setLoading] = useState<boolean>(false);
+    const [funds, setFunds] = useState<Array<Fund>>([]);
     const [employees, setEmployees] = useState(null);
     const [fundRequests, setFundRequests] = useState<PaginationData<FundRequest, { totals: FundRequestTotals }>>(null);
 
+    const fundService = useFundService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const fundRequestService = useFundRequestValidatorService();
@@ -79,6 +85,7 @@ export default function FundRequests() {
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q?: string;
         page?: number;
+        fund_id: number;
         per_page?: number;
         state_group?: string;
         state?: string;
@@ -92,6 +99,7 @@ export default function FundRequests() {
         {
             q: '',
             page: 1,
+            fund_id: null,
             per_page: paginatorService.getPerPage(paginatorKey),
             state_group: stateGroups[0].key,
             state: states[0].key,
@@ -107,6 +115,7 @@ export default function FundRequests() {
             queryParams: {
                 q: StringParam,
                 page: NumberParam,
+                fund_id: NumberParam,
                 per_page: NumberParam,
                 state_group: StringParam,
                 state: StringParam,
@@ -119,6 +128,17 @@ export default function FundRequests() {
             },
         },
     );
+
+    const fetchFunds = useCallback(() => {
+        setProgress(0);
+
+        fundService
+            .list(activeOrganization?.id, { state: 'active_paused_and_closed', per_page: 100 })
+            .then((res) => {
+                setFunds(res.data.data.filter((fund) => hasPermission(fund.organization, Permission.VALIDATE_RECORDS)));
+            })
+            .finally(() => setProgress(100));
+    }, [setProgress, fundService, activeOrganization?.id]);
 
     const fetchFundRequests = useCallback(() => {
         setProgress(0);
@@ -156,7 +176,13 @@ export default function FundRequests() {
         }
     }, [appConfigs.organizations?.funds?.fund_requests, navigate]);
 
-    useEffect(() => fetchEmployees(), [fetchEmployees]);
+    useEffect(() => {
+        fetchEmployees();
+    }, [fetchEmployees]);
+
+    useEffect(() => {
+        fetchFunds();
+    }, [fetchFunds]);
 
     useEffect(() => {
         fetchFundRequests();
@@ -190,7 +216,7 @@ export default function FundRequests() {
                         </div>
                     </div>
 
-                    <CardHeaderFilterNext filter={filter} searchDusk={'tableFundRequestSearch'}>
+                    <CardHeaderFilterNext filter={filter} funds={funds} searchDusk={'tableFundRequestSearch'}>
                         <FilterItemToggle show={true} label={translate('validation_requests.labels.search')}>
                             <input
                                 type="text"

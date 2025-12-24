@@ -62,6 +62,12 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                 </div>
                             )}
 
+                            {transaction.type == 'transaction' && transaction.target == 'payout' && (
+                                <div className="transactions-item-counterpart">
+                                    {translate('voucher.transactions.payout')}
+                                </div>
+                            )}
+
                             <div className="transactions-item-date">{transaction.created_at_locale}</div>
                         </div>
 

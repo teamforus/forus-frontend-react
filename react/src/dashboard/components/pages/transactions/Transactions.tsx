@@ -143,6 +143,7 @@ export default function Transactions() {
             fund_state: fundStates[0].key,
             from: null,
             to: null,
+            page: 1,
             amount_min: null,
             amount_max: null,
             transfer_in_min: null,
@@ -204,6 +205,7 @@ export default function Transactions() {
         {
             from: null,
             to: null,
+            page: 1,
             amount_min: null,
             amount_max: null,
             quantity_min: null,

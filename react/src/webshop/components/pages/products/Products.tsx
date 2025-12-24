@@ -75,6 +75,7 @@ export default function Products() {
         discount_percentage?: boolean;
         free?: boolean;
         informational?: boolean;
+        payout?: boolean;
     }>(
         {
             q: '',
@@ -95,6 +96,7 @@ export default function Products() {
             discount_percentage: false,
             free: false,
             informational: false,
+            payout: false,
             display_type: 'grid',
             order_by: (defaultSortOption || sortByOptions[0])?.value.order_by,
             order_dir: (defaultSortOption || sortByOptions[0])?.value.order_dir,
@@ -123,6 +125,7 @@ export default function Products() {
                 discount_percentage: BooleanParam,
                 free: BooleanParam,
                 informational: BooleanParam,
+                payout: BooleanParam,
             },
             filterParams: ['display_type'],
         },
@@ -161,6 +164,7 @@ export default function Products() {
                 discount_percentage: boolean;
                 free: boolean;
                 informational: boolean;
+                payout: boolean;
                 order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
                 order_dir: 'asc' | 'desc';
             }>,
@@ -173,7 +177,8 @@ export default function Products() {
                 values.discount_fixed ||
                 values.discount_percentage ||
                 values.free ||
-                values.informational;
+                values.informational ||
+                values.payout;
 
             return {
                 q: values.q,
@@ -193,6 +198,7 @@ export default function Products() {
                 discount_percentage: hasFilters ? (values.discount_percentage ? 1 : 0) : 0,
                 free: hasFilters ? (values.free ? 1 : 0) : 0,
                 informational: hasFilters ? (values.informational ? 1 : 0) : 0,
+                payout: hasFilters ? (values.payout ? 1 : 0) : 0,
                 bookmarked: values.bookmarked ? 1 : 0,
                 order_by: values.order_by,
                 order_dir: values.order_dir,

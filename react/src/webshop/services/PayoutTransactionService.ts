@@ -19,6 +19,10 @@ export class PayoutTransactionService<T = PayoutTransaction> {
     public list(data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.get(`${this.prefix}/payouts`, data);
     }
+
+    public store(data: object = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.post(`${this.prefix}/payouts`, data);
+    }
 }
 
 export default function usePayoutTransactionService(): PayoutTransactionService {

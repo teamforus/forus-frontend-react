@@ -6,6 +6,8 @@ import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import { useProductService } from '../../../../../services/ProductService';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import useProductFeatures from '../../../../../hooks/useProductFeatures';
+import useIsPayoutInfoProduct from '../../../../pages/products-show/hooks/useIsPayoutInfoProduct';
+import useAppConfigs from '../../../../../hooks/useAppConfigs';
 
 export default function ProductsListItemGrid({
     price,
@@ -16,8 +18,10 @@ export default function ProductsListItemGrid({
     product?: Product;
     toggleBookmark: (e: React.MouseEvent) => void;
 }) {
+    const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
     const productFeatures = useProductFeatures(product);
+    const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
 
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
@@ -56,7 +60,11 @@ export default function ProductsListItemGrid({
             </div>
             <div className="product-actions">
                 <div className="product-price">
-                    {product?.price_type === 'informational' && <em className="mdi mdi-storefront-outline" />}
+                    {isPayoutInfoProduct ? (
+                        <em className="mdi mdi-cash-refund" />
+                    ) : product?.price_type === 'informational' ? (
+                        <em className="mdi mdi-storefront-outline" />
+                    ) : null}
                     {price}
                 </div>
                 <div className="product-icons">

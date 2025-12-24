@@ -28,6 +28,7 @@ export default {
         price_type_option_discount_percentage: 'Korting in procenten',
         price_type_option_free: 'Gratis',
         price_type_option_informational: 'Alleen in winkel',
+        price_type_option_payout: 'Uitbetaling naar bankrekening',
         sort: 'Sorteer',
         all_funds: 'Alle tegoeden...',
         all_providers: 'Selecteer aanbieder...',

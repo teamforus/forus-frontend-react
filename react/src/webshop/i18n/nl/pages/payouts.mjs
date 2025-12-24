@@ -19,5 +19,11 @@ export default {
         title: 'Geen uitbetalingen',
         subtitle: 'Momenteel heeft u geen uitbetalingen',
         button: 'Ga naar de fondsen',
+        button_payout: 'Overboeken',
+    },
+    create_card: {
+        title: 'Overboeken naar bankrekening',
+        description: 'Maak een overboeking aan vanuit uw tegoed.',
+        button: 'Overboeken',
     },
 };

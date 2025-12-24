@@ -36,6 +36,7 @@ import useFetchAuthIdentity from '../../../hooks/useFetchAuthIdentity';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
+import BlockWarning from '../../elements/block-warning/BlockWarning';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
@@ -1136,17 +1137,9 @@ export default function FundActivate() {
                                     </ul>
 
                                     {fundRequest.state === 'pending' && (
-                                        <div className="block block-warning">
-                                            <div className="block-warning-icon">
-                                                <div className="icon">
-                                                    <em className="mdi mdi-information-outline" />
-                                                </div>
-                                            </div>
-
-                                            <div className="block-warning-content">
-                                                {translate('fund_request.sign_up.fund_already_applied.information')}
-                                            </div>
-                                        </div>
+                                        <BlockWarning>
+                                            {translate('fund_request.sign_up.fund_already_applied.information')}
+                                        </BlockWarning>
                                     )}
                                 </div>
 

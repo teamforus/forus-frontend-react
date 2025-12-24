@@ -1,0 +1,107 @@
+.block.block-progress-steps {
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    padding: 10px 0 5px;
+
+    .progress-step {
+        display: flex;
+        flex-grow: 1;
+        text-align: right;
+        font: 500 14px/30px var(--base-font);
+        color: #525252;
+        border: none;
+        position: relative;
+        flex-basis: 1;
+
+        .progress-step-border {
+            flex-grow: 1;
+            background: #ebedf0;
+            height: 4px;
+            border-radius: var(--border-radius);
+            transition: background-color .4s;
+
+            &:before {
+                content: "";
+                display: block;
+                border-radius: inherit;
+                background: #ebedf0;
+                @include fill_parent();
+            }
+        }
+
+        .progress-step-separator {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: -4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 12px;
+            transform: translate(0, -50%);
+            background-color: #dbdcdb;
+            border: 2.5px solid #fff;
+            z-index: 1;
+            transition: background-color .4s;
+        }
+
+        &:first-child {
+            flex-basis: 0.75;
+        }
+
+        &:last-child {
+            flex-basis: 0.75;
+
+            .progress-step-separator {
+                display: none;
+            }
+        }
+
+        &.progress-step-info {
+            width: 40px;
+            max-width: 40px;
+            text-align: center;
+            font-size: 24px;
+
+            .mdi {
+                color: var(--sign_up_accent_color);
+            }
+        }
+
+        &.progress-step-active {
+            color: #cdced2;
+
+            .progress-step-border {
+                &:before {
+                    content: "";
+                    display: block;
+                    @include fill_parent();
+                    background-color: #cdced2;
+                }
+            }
+
+            .progress-step-separator {
+                background-color: #282b39;
+            }
+        }
+
+        &.progress-step-done {
+            .progress-step-border {
+                &:before {
+                    background-color: var(--color-primary);
+                }
+            }
+
+            .progress-step-separator {
+                background-color: var(--color-primary);
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

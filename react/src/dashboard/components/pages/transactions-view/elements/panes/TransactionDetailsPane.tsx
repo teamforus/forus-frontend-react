@@ -149,7 +149,7 @@ export default function TransactionDetailsPane({
                                 {['provider', 'iban'].includes(transaction.target) &&
                                     (transaction?.organization?.name || 'Aanvrager')}
                                 {['top_up'].includes(transaction.target) && 'Top up'}
-                                {['payout'].includes(transaction.target) && 'Payout'}
+                                {['payout'].includes(transaction.target) && 'Uitbetaling'}
                             </Fragment>
                         </KeyValueItem>
                     )}

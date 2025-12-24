@@ -77,6 +77,7 @@ export default function Payouts() {
             q: '',
             to: null,
             from: null,
+            page: 1,
             state: states[0].key,
             fund_id: null,
             fund_state: fundStates[0].key,

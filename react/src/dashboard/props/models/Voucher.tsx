@@ -111,4 +111,9 @@ export default interface Voucher {
     created_at_locale?: string;
     expire_at?: string;
     expire_at_locale?: string;
+    requester_payouts_count?: number;
+    fund_request?: {
+        iban: string;
+        iban_name: string;
+    };
 }

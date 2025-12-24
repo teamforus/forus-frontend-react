@@ -735,7 +735,8 @@
             "potjeswijzer": {
                 "start_request": "Demande"
             },
-            "start_request": "Activer"
+            "start_request": "Activer",
+            "open_payouts": "Paiements ouverts"
         },
         "criteria": {
             "key": "{{key}}"
@@ -874,12 +875,12 @@
             "view_file": "Voir le fichier"
         },
         "file_uploader": {
-            "attachments": "Pièces jointes",
             "max_size": "taille max. 8Mb",
             "or": "ou",
             "title": "Télécharger un document",
             "upload_button": "Télécharger un document",
-            "max_files": "jusqu'à {{ count }} fichiers"
+            "max_files": "jusqu'à {{ count }} fichiers",
+            "attachments": "Annexes"
         },
         "info_box": {
             "2fa_description": "Pour plus d'informations sur le 2FA, visitez notre site :",
@@ -1906,7 +1907,8 @@
         "empty": {
             "button": "Accéder aux fonds",
             "subtitle": "Vous n'avez actuellement aucun paiement",
-            "title": "Pas de paiement"
+            "title": "Pas de paiement",
+            "button_payout": "Transfert"
         },
         "labels": {
             "created_at": "Versé le",
@@ -1915,7 +1917,12 @@
             "iban_to_name": "Nom de l'IBAN (à)"
         },
         "search": "Recherche",
-        "title": "Paiements"
+        "title": "Paiements",
+        "create_card": {
+            "button": "Transfert",
+            "description": "Créez un transfert à partir de votre solde de crédit.",
+            "title": "Virement sur le compte bancaire"
+        }
     },
     "pdf_preview": {
         "buttons": {
@@ -2293,12 +2300,10 @@
             "collapse_section": "Pliage de la section",
             "description_card": "Description",
             "dont_have_voucher": "Pas encore de crédit ?",
-            "duration_of_promotion": "Durée de la promotion",
             "expand_section": "Agrandir la section",
             "expire_by_date": "Valable jusqu'au {{date}}",
             "how_can_i_pay": "Comment puis-je payer ?",
             "locations_on_map": "Localisation sur la carte",
-            "login_to_order": "Se connecter pour commander",
             "more_info": "Plus d'informations",
             "next_image": "Image suivante",
             "payment_option_qr": "Afficher le code QR au fournisseur",
@@ -2307,13 +2312,15 @@
             "product_images": "Images du produit",
             "provider": "Fournisseur",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Demandez-en un dès maintenant !",
             "show_image_of_total": "Afficher l'image {{current}} à partir de {{total}}",
             "when": "Quand",
             "where": "Où",
             "add_to_favorites": "Ajouter aux favoris",
             "ideal_logo_alt": "Logo iDEAL",
-            "remove_from_favorites": "Supprimer des favoris"
+            "remove_from_favorites": "Supprimer des favoris",
+            "duration_of_promotion": "Durée de l'accord",
+            "login_to_order": "Se connecter pour commander",
+            "request_one_now": "Faire une demande de renseignements"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
@@ -2323,7 +2330,8 @@
         "tooltip": "Combien de fois encore pouvez-vous profiter de cette offre ?",
         "price": {
             "free": "Gratuit",
-            "informational": "En magasin uniquement"
+            "informational": "En magasin uniquement",
+            "payout": "Décaissement"
         },
         "other_products": "Vous aimerez peut-être aussi ceci ?"
     },
@@ -2370,7 +2378,8 @@
             "category": "Catégories",
             "payment_options": "Options de paiement",
             "payment_options_info": "En savoir plus sur les options de paiement",
-            "price_to": "Pour"
+            "price_to": "Pour",
+            "price_type_option_payout": "Versement sur le compte bancaire"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -3228,6 +3237,9 @@
             },
             "fijnder": {
                 "funds": "Régimes"
+            },
+            "isd": {
+                "funds": "Régimes"
             }
         },
         "user_menu": {
@@ -3379,7 +3391,8 @@
             "subtract": "Soustraction",
             "title": "Transactions",
             "top_up": "Mise à niveau",
-            "expired_on": "Expiré le {{ date }}"
+            "expired_on": "Expiré le {{ date }}",
+            "payout": "Décaissement"
         },
         "actions": {
             "choose_action": {
@@ -3389,7 +3402,9 @@
             "save_qr": "Enregistrer le code QR",
             "share_with_provider": "Partager le code QR avec le fournisseur",
             "view_all_products": "Voir tous les produits",
-            "declaration_request": "Recouvrement des coûts"
+            "declaration_request": "Recouvrement des coûts",
+            "transfer_to_bank": "Virement sur le compte bancaire",
+            "transfer_to_bank_description": "Choisissez le crédit et le montant que vous souhaitez transférer sur votre compte bancaire."
         },
         "details": {
             "records": {
@@ -3424,6 +3439,27 @@
         "fund_details": {
             "title": "Informations sur le régime",
             "view": "En savoir plus"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "Conditions",
+            "amount": "Montant",
+            "cancel": "Annuler",
+            "iban": "IBAN",
+            "iban_name": "Titulaire du compte",
+            "submit": "Transfert",
+            "success": {
+                "close": "Fermer",
+                "description": "Votre demande de transfert a été envoyée. Son traitement peut prendre un certain temps.",
+                "title": "Transfert demandé"
+            },
+            "transfer_to_bank": "Virement sur le compte bancaire",
+            "transfer_to_bank_description": "Choisissez le crédit et le montant que vous souhaitez transférer sur votre compte bancaire.",
+            "voucher_label": "Crédit",
+            "warning_count_reached": "Le nombre maximum de paiements pour ce crédit a été atteint.",
+            "warning_not_enough_amount_fixed": "Ce crédit doit comprendre au moins {{ amount }} pour un paiement.",
+            "warning_not_enough_amount_min": "Ce crédit doit comprendre au moins {{ min }} pour un paiement.",
+            "accept_compliance_rules": "J'accepte les termes et conditions ci-dessous.",
+            "accept_compliance_rules_info": "<p><strong>Je déclare que :</strong></p><ul><li>J'utilise l'argent uniquement pour cette activité ;</li><li>J'utilise l'argent conformément aux règles du programme ;</li><li>Je comprends que je dois rembourser l'argent si je ne l'utilise pas correctement.</li></ul>"
         }
     },
     "vouchers": {
@@ -3583,7 +3619,8 @@
         "session_expired": {
             "description": "Reconnectez-vous et réessayez.",
             "title": "La session a expiré !"
-        }
+        },
+        "payout_created": "Décaissement demandé."
     },
     "read_speaker": {
         "read_aloud": "Lire pour",
@@ -3650,7 +3687,9 @@
         "info_option_informational_title": "En magasin uniquement",
         "info_option_regular_description": "Le produit a un prix fixe. Il s'agit du montant à payer, par exemple 10 euros.",
         "info_option_regular_title": "Prix",
-        "title": "Options de paiement"
+        "title": "Options de paiement",
+        "info_option_payout_description": "Effectuez une transaction de votre solde vers le numéro de compte bancaire spécifié lors de la demande de fonds.",
+        "info_option_payout_title": "Versement sur le compte bancaire"
     },
     "pincode_control": {
         "aria_label_num": "Figure {{current}} de la {{total}}",

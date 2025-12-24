@@ -67,6 +67,7 @@ export default {
     },
     price: {
         free: 'Gratis',
+        payout: 'Uitbetaling',
         informational: 'Alleen in winkel',
     },
     buttons: {

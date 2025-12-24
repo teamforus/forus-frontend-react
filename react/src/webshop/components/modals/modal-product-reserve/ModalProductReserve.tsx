@@ -14,9 +14,10 @@ import Fund from '../../../props/models/Fund';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { startOfDay, addDays, getUnixTime, differenceInDays } from 'date-fns';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
-import ModalProductReserveProgress from './elements/ModalProductReserveProgress';
+import BlockProgressSteps from '../../elements/block-progress-steps/BlockProgressSteps';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import BlockVoucherRecords from '../../elements/block-voucher-records/BlockVoucherRecords';
+import BlockWarning from '../../elements/block-warning/BlockWarning';
 import { currencyFormat, strLimit } from '../../../../dashboard/helpers/string';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
@@ -547,11 +548,7 @@ export default function ModalProductReserve({
                                 />
                             )}
 
-                            <ModalProductReserveProgress
-                                step={step}
-                                steps={steps}
-                                finalStep={STEP_RESERVATION_FINISHED}
-                            />
+                            <BlockProgressSteps step={step} steps={steps} finalStep={STEP_RESERVATION_FINISHED} />
                         </div>
 
                         <div className="modal-section">
@@ -640,25 +637,13 @@ export default function ModalProductReserve({
                             </div>
 
                             {vouchersNeedExtraPayment > 0 && (
-                                <div className="block block-warning">
-                                    <div className="block-warning-icon">
-                                        <div className="icon">
-                                            <em className="mdi mdi-information-outline" />
-                                        </div>
-                                    </div>
-
-                                    {vouchersNeedExtraPayment > 1 && (
-                                        <div className="block-warning-content">
-                                            {translate('modal_reserve_product.multiple_vouchers_warning')}
-                                        </div>
+                                <BlockWarning>
+                                    {translate(
+                                        vouchersNeedExtraPayment > 1
+                                            ? 'modal_reserve_product.multiple_vouchers_warning'
+                                            : 'modal_reserve_product.single_voucher_warning',
                                     )}
-
-                                    {vouchersNeedExtraPayment === 1 && (
-                                        <div className="block-warning-content">
-                                            {translate('modal_reserve_product.single_voucher_warning')}
-                                        </div>
-                                    )}
-                                </div>
+                                </BlockWarning>
                             )}
                         </div>
                     </div>
@@ -723,11 +708,7 @@ export default function ModalProductReserve({
                                 i18n="modal_reserve_product.fill_notes.header.subtitle"
                                 values={{ provider_name: provider.name }}
                             />
-                            <ModalProductReserveProgress
-                                step={step}
-                                steps={steps}
-                                finalStep={STEP_RESERVATION_FINISHED}
-                            />
+                            <BlockProgressSteps step={step} steps={steps} finalStep={STEP_RESERVATION_FINISHED} />
                         </div>
 
                         <div className="modal-section">
@@ -1024,11 +1005,7 @@ export default function ModalProductReserve({
                                 i18n="modal_reserve_product.fill_notes.header.subtitle"
                                 values={{ provider_name: provider.name }}
                             />
-                            <ModalProductReserveProgress
-                                step={step}
-                                steps={steps}
-                                finalStep={STEP_RESERVATION_FINISHED}
-                            />
+                            <BlockProgressSteps step={step} steps={steps} finalStep={STEP_RESERVATION_FINISHED} />
                         </div>
                         <div className="modal-section">
                             <BlockReservationAddress
@@ -1114,11 +1091,7 @@ export default function ModalProductReserve({
                                 i18n={'modal_reserve_product.fill_notes.header.subtitle'}
                                 values={{ provider_name: provider.name }}
                             />
-                            <ModalProductReserveProgress
-                                step={step}
-                                steps={steps}
-                                finalStep={STEP_RESERVATION_FINISHED}
-                            />
+                            <BlockProgressSteps step={step} steps={steps} finalStep={STEP_RESERVATION_FINISHED} />
                         </div>
                         <div className="modal-section">
                             <div className="form-group">
@@ -1183,11 +1156,7 @@ export default function ModalProductReserve({
                                 className="modal-section-description"
                                 i18n="modal_reserve_product.confirm_notes.modal_section.title"
                             />
-                            <ModalProductReserveProgress
-                                step={step}
-                                steps={steps}
-                                finalStep={STEP_RESERVATION_FINISHED}
-                            />
+                            <BlockProgressSteps step={step} steps={steps} finalStep={STEP_RESERVATION_FINISHED} />
                         </div>
 
                         <div className="modal-section reservation-overview">
@@ -1465,11 +1434,7 @@ export default function ModalProductReserve({
                                 className="modal-section-description"
                                 i18n="modal_product_reserve_extra_payment.header.subtitle"
                             />
-                            <ModalProductReserveProgress
-                                step={step}
-                                steps={steps}
-                                finalStep={STEP_RESERVATION_FINISHED}
-                            />
+                            <BlockProgressSteps step={step} steps={steps} finalStep={STEP_RESERVATION_FINISHED} />
                         </div>
                         <div className="modal-section">
                             <div className="block block-vouchers block-vouchers-sm">
@@ -1532,14 +1497,9 @@ export default function ModalProductReserve({
                                     <div className="payment-value bold">{currencyFormat(voucher.amount_extra)}</div>
                                 </div>
                             </div>
-                            <div className="block block-warning">
-                                <div className="block-warning-icon">
-                                    <em className="mdi mdi-information-outline" />
-                                </div>
-                                <div className="block-warning-content">
-                                    {translate('modal_reserve_product.extra_payment.external_link')}
-                                </div>
-                            </div>
+                            <BlockWarning>
+                                {translate('modal_reserve_product.extra_payment.external_link')}
+                            </BlockWarning>
                         </div>
                     </div>
                     <div className="modal-footer">

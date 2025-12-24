@@ -171,6 +171,7 @@ export type AppConfigProp = {
     implementation?: {
         name?: string;
         root_product_category_id?: number;
+        voucher_payout_informational_product_id?: number;
     };
     products_hard_limit?: number;
     products_soft_limit?: number;
