@@ -2300,12 +2300,10 @@
             "collapse_section": "Abschnitt Falten",
             "description_card": "Beschreibung",
             "dont_have_voucher": "Noch kein Kredit?",
-            "duration_of_promotion": "Dauer der Förderung",
             "expand_section": "Abschnitt erweitern",
             "expire_by_date": "Gültig bis {{date}}",
             "how_can_i_pay": "Wie kann ich bezahlen?",
             "locations_on_map": "Standorte auf der Karte",
-            "login_to_order": "Jetzt anmelden und bestellen",
             "more_info": "Weitere Informationen",
             "next_image": "Nächstes Bild",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
@@ -2314,13 +2312,15 @@
             "product_images": "Produktbilder",
             "provider": "Anbieter",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Bewerben Sie sich jetzt!",
             "show_image_of_total": "Bild anzeigen {{current}} von {{total}}",
             "when": "Wenn",
             "where": "Wo",
             "add_to_favorites": "Zu Favoriten hinzufügen",
             "ideal_logo_alt": "iDEAL-Logo",
-            "remove_from_favorites": "Aus den Favoriten entfernen"
+            "remove_from_favorites": "Aus den Favoriten entfernen",
+            "duration_of_promotion": "Dauer",
+            "login_to_order": "Zum Bestellen anmelden",
+            "request_one_now": "Eine Anfrage stellen"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2330,7 +2330,8 @@
         "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können",
         "price": {
             "free": "Kostenlos",
-            "informational": "Nur im Geschäft"
+            "informational": "Nur im Geschäft",
+            "payout": "Auszahlung"
         },
         "other_products": "Das könnte Sie auch interessieren?"
     },
@@ -3236,6 +3237,9 @@
             },
             "fijnder": {
                 "funds": "Schemata"
+            },
+            "isd": {
+                "funds": "Schemata"
             }
         },
         "user_menu": {
@@ -3437,7 +3441,6 @@
             "view": "Mehr lesen"
         },
         "payout": {
-            "accept_compliance_rules": "Ich verwende dieses Geld nur, um Produkte zu kaufen, die im Rahmen dieses Fonds erlaubt sind.",
             "accept_compliance_rules_label": "Bedingungen",
             "amount": "Betrag",
             "cancel": "Abbrechen",
@@ -3454,7 +3457,9 @@
             "voucher_label": "Kredit",
             "warning_count_reached": "Die maximale Anzahl der Auszahlungen für dieses Guthaben wurde erreicht.",
             "warning_not_enough_amount_fixed": "Dieses Guthaben muss mindestens {{ amount }} für eine Auszahlung umfassen.",
-            "warning_not_enough_amount_min": "Dieses Guthaben muss mindestens {{ min }} für eine Auszahlung umfassen."
+            "warning_not_enough_amount_min": "Dieses Guthaben muss mindestens {{ min }} für eine Auszahlung umfassen.",
+            "accept_compliance_rules": "Ich erkläre mich mit den nachstehenden Bestimmungen und Bedingungen einverstanden.",
+            "accept_compliance_rules_info": "<p><strong>Ich erkläre, dass:</strong></p><ul><li>Ich verwende das Geld nur für diese Aktivität;</li><li>Ich verwende das Geld gemäß den Regeln des Programms;</li><li>ich verstehe, dass ich das Geld zurückzahlen muss, wenn ich es nicht ordnungsgemäß verwende.</li></ul>"
         }
     },
     "vouchers": {

@@ -2300,12 +2300,10 @@
             "collapse_section": "Pliage de la section",
             "description_card": "Description",
             "dont_have_voucher": "Pas encore de crédit ?",
-            "duration_of_promotion": "Durée de la promotion",
             "expand_section": "Agrandir la section",
             "expire_by_date": "Valable jusqu'au {{date}}",
             "how_can_i_pay": "Comment puis-je payer ?",
             "locations_on_map": "Localisation sur la carte",
-            "login_to_order": "Se connecter pour commander",
             "more_info": "Plus d'informations",
             "next_image": "Image suivante",
             "payment_option_qr": "Afficher le code QR au fournisseur",
@@ -2314,13 +2312,15 @@
             "product_images": "Images du produit",
             "provider": "Fournisseur",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Demandez-en un dès maintenant !",
             "show_image_of_total": "Afficher l'image {{current}} à partir de {{total}}",
             "when": "Quand",
             "where": "Où",
             "add_to_favorites": "Ajouter aux favoris",
             "ideal_logo_alt": "Logo iDEAL",
-            "remove_from_favorites": "Supprimer des favoris"
+            "remove_from_favorites": "Supprimer des favoris",
+            "duration_of_promotion": "Durée de l'accord",
+            "login_to_order": "Se connecter pour commander",
+            "request_one_now": "Faire une demande de renseignements"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
@@ -2330,7 +2330,8 @@
         "tooltip": "Combien de fois encore pouvez-vous profiter de cette offre ?",
         "price": {
             "free": "Gratuit",
-            "informational": "En magasin uniquement"
+            "informational": "En magasin uniquement",
+            "payout": "Décaissement"
         },
         "other_products": "Vous aimerez peut-être aussi ceci ?"
     },
@@ -3236,6 +3237,9 @@
             },
             "fijnder": {
                 "funds": "Régimes"
+            },
+            "isd": {
+                "funds": "Régimes"
             }
         },
         "user_menu": {
@@ -3437,7 +3441,6 @@
             "view": "En savoir plus"
         },
         "payout": {
-            "accept_compliance_rules": "Je n'utilise cet argent que pour acheter des produits autorisés dans le cadre de ce fonds.",
             "accept_compliance_rules_label": "Conditions",
             "amount": "Montant",
             "cancel": "Annuler",
@@ -3454,7 +3457,9 @@
             "voucher_label": "Crédit",
             "warning_count_reached": "Le nombre maximum de paiements pour ce crédit a été atteint.",
             "warning_not_enough_amount_fixed": "Ce crédit doit comprendre au moins {{ amount }} pour un paiement.",
-            "warning_not_enough_amount_min": "Ce crédit doit comprendre au moins {{ min }} pour un paiement."
+            "warning_not_enough_amount_min": "Ce crédit doit comprendre au moins {{ min }} pour un paiement.",
+            "accept_compliance_rules": "J'accepte les termes et conditions ci-dessous.",
+            "accept_compliance_rules_info": "<p><strong>Je déclare que :</strong></p><ul><li>J'utilise l'argent uniquement pour cette activité ;</li><li>J'utilise l'argent conformément aux règles du programme ;</li><li>Je comprends que je dois rembourser l'argent si je ne l'utilise pas correctement.</li></ul>"
         }
     },
     "vouchers": {

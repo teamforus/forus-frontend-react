@@ -321,6 +321,9 @@
             },
             "fijnder": {
                 "funds": "Regulations"
+            },
+            "isd": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -1560,12 +1563,10 @@
             "collapse_section": "Section Collapse",
             "description_card": "Description",
             "dont_have_voucher": "No credit yet?",
-            "duration_of_promotion": "Duration of promotion",
             "expand_section": "Expand section",
             "expire_by_date": "Valid until {{date}}",
             "how_can_i_pay": "How can I pay?",
             "locations_on_map": "Locations on map",
-            "login_to_order": "Log in to order now",
             "more_info": "Learn more",
             "next_image": "Next image",
             "payment_option_qr": "Show QR code at provider",
@@ -1574,13 +1575,15 @@
             "product_images": "Product Images",
             "provider": "Provider",
             "quantity_limit": "Max. {{limit}} p.p.",
-            "request_one_now": "Apply for one now!",
             "show_image_of_total": "Show image {{current}} from {{total}}",
             "when": "When",
             "where": "Where",
             "add_to_favorites": "Add to Favorites",
             "ideal_logo_alt": "iDEAL logo",
-            "remove_from_favorites": "Remove from favorites"
+            "remove_from_favorites": "Remove from favorites",
+            "duration_of_promotion": "Duration",
+            "login_to_order": "Log in to order",
+            "request_one_now": "Make an inquiry"
         },
         "low_amount": "You do not have a credit with sufficient balance.",
         "map": {
@@ -1590,7 +1593,8 @@
         "tooltip": "How often you can still take advantage of this offer",
         "price": {
             "free": "Free",
-            "informational": "In store only"
+            "informational": "In store only",
+            "payout": "Disbursement"
         },
         "other_products": "You might also like this?"
     },
@@ -1783,7 +1787,6 @@
             "view": "Read more"
         },
         "payout": {
-            "accept_compliance_rules": "I will only use this money to buy products allowed within this fund.",
             "accept_compliance_rules_label": "Terms",
             "amount": "Amount",
             "cancel": "Cancel",
@@ -1800,7 +1803,9 @@
             "voucher_label": "Credit",
             "warning_count_reached": "The maximum number of payouts for this credit has been reached.",
             "warning_not_enough_amount_fixed": "This credit must include a minimum of {{ amount }} for a payout.",
-            "warning_not_enough_amount_min": "This credit must include a minimum of {{ min }} for a payout."
+            "warning_not_enough_amount_min": "This credit must include a minimum of {{ min }} for a payout.",
+            "accept_compliance_rules": "I agree to the terms and conditions below.",
+            "accept_compliance_rules_info": "<p><strong>I declare that:</strong></p><ul><li>I am using the money only for this activity;</li><li>I am using the money according to the rules of the scheme;</li><li>I understand that I must repay the money if I do not use it correctly.</li></ul>"
         }
     },
     "vouchers": {

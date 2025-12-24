@@ -744,6 +744,9 @@
             },
             "fijnder": {
                 "funds": "Şemalar"
+            },
+            "isd": {
+                "funds": "Şemalar"
             }
         },
         "user_menu": {
@@ -1859,12 +1862,10 @@
             "collapse_section": "Bölüm katlama",
             "description_card": "Açıklama",
             "dont_have_voucher": "Henüz kredi yok mu?",
-            "duration_of_promotion": "Promosyon süresi",
             "expand_section": "Bölümü genişlet",
             "expire_by_date": "Şu tarihe kadar geçerlidir {{date}}",
             "how_can_i_pay": "Nasıl ödeme yapabilirim?",
             "locations_on_map": "Harita üzerindeki konumlar",
-            "login_to_order": "Şimdi sipariş vermek için giriş yapın",
             "more_info": "Daha fazla bilgi",
             "next_image": "Sonraki resim",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
@@ -1873,13 +1874,15 @@
             "product_images": "Ürün görselleri",
             "provider": "Sağlayıcı",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Şimdi bir tane için başvurun!",
             "show_image_of_total": "{{current}} adresinden görüntü göster {{total}}",
             "when": "Ne zaman",
             "where": "Nerede",
             "add_to_favorites": "Favorilere ekle",
             "ideal_logo_alt": "iDEAL logosu",
-            "remove_from_favorites": "Sık kullanılanlardan kaldır"
+            "remove_from_favorites": "Sık kullanılanlardan kaldır",
+            "duration_of_promotion": "Süre",
+            "login_to_order": "Sipariş vermek için giriş yapın",
+            "request_one_now": "Bir soruşturma yapın"
         },
         "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
         "map": {
@@ -1889,7 +1892,8 @@
         "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz",
         "price": {
             "free": "Ücretsiz",
-            "informational": "Sadece mağazada"
+            "informational": "Sadece mağazada",
+            "payout": "Ödeme"
         },
         "other_products": "Bunu da beğenebilirsiniz?"
     },
@@ -2082,7 +2086,6 @@
             "view": "Daha fazla bilgi edinin"
         },
         "payout": {
-            "accept_compliance_rules": "Bu parayı sadece bu fon kapsamında izin verilen ürünleri satın almak için kullanıyorum.",
             "accept_compliance_rules_label": "Koşullar",
             "amount": "Miktar",
             "cancel": "İptal",
@@ -2099,7 +2102,9 @@
             "voucher_label": "Kredi",
             "warning_count_reached": "Bu kredi için maksimum ödeme sayısına ulaşıldı.",
             "warning_not_enough_amount_fixed": "Bu kredi, ödeme için en az {{ amount }} adresini içermelidir.",
-            "warning_not_enough_amount_min": "Bu kredi, ödeme için en az {{ min }} adresini içermelidir."
+            "warning_not_enough_amount_min": "Bu kredi, ödeme için en az {{ min }} adresini içermelidir.",
+            "accept_compliance_rules": "Aşağıdaki hüküm ve koşulları kabul ediyorum.",
+            "accept_compliance_rules_info": "<p><strong>Bunu beyan ederim:</strong></p><ul><li>Parayı sadece bu faaliyet için kullanıyorum;</li><li>Parayı programın kurallarına uygun olarak kullanıyorum;</li><li>Parayı doğru kullanmadığım takdirde geri ödemem gerektiğini anlıyorum.</li></ul>"
         }
     },
     "vouchers": {

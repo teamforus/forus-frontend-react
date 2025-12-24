@@ -744,6 +744,9 @@
             },
             "fijnder": {
                 "funds": "المخططات"
+            },
+            "isd": {
+                "funds": "المخططات"
             }
         },
         "user_menu": {
@@ -1859,12 +1862,10 @@
             "collapse_section": "قسم الطي",
             "description_card": "الوصف",
             "dont_have_voucher": "لا يوجد رصيد بعد؟",
-            "duration_of_promotion": "مدة العرض الترويجي",
             "expand_section": "توسيع القسم",
             "expire_by_date": "صالحة حتى {{date}}",
             "how_can_i_pay": "كيف يمكنني الدفع؟",
             "locations_on_map": "المواقع على الخريطة",
-            "login_to_order": "سجّل الدخول للطلب الآن",
             "more_info": "المزيد من المعلومات",
             "next_image": "الصورة التالية",
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
@@ -1873,13 +1874,15 @@
             "product_images": "صور المنتج",
             "provider": "المزود",
             "quantity_limit": "ماكس {{limit}} ",
-            "request_one_now": "تقدم بطلب للحصول على واحدة الآن!",
             "show_image_of_total": "إظهار الصورة {{current}} من {{total}}",
             "when": "عندما",
             "where": "المكان",
             "add_to_favorites": "إضافة إلى المفضلة",
             "ideal_logo_alt": "شعار iDEAL",
-            "remove_from_favorites": "إزالة من المفضلة"
+            "remove_from_favorites": "إزالة من المفضلة",
+            "duration_of_promotion": "المدة",
+            "login_to_order": "تسجيل الدخول للطلب",
+            "request_one_now": "قم بإجراء استفسار"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -1889,7 +1892,8 @@
         "tooltip": "كم مرة أخرى يمكنك الاستفادة من هذا العرض",
         "price": {
             "free": "مجاناً",
-            "informational": "في المتجر فقط"
+            "informational": "في المتجر فقط",
+            "payout": "الصرف"
         },
         "other_products": "قد يعجبك هذا أيضاً؟"
     },
@@ -2082,7 +2086,6 @@
             "view": "اقرأ المزيد"
         },
         "payout": {
-            "accept_compliance_rules": "أنا أستخدم هذه الأموال فقط لشراء المنتجات المسموح بها في هذا الصندوق.",
             "accept_compliance_rules_label": "الشروط",
             "amount": "المبلغ",
             "cancel": "إلغاء",
@@ -2099,7 +2102,9 @@
             "voucher_label": "الائتمان",
             "warning_count_reached": "تم الوصول إلى الحد الأقصى لعدد المدفوعات لهذا الرصيد.",
             "warning_not_enough_amount_fixed": "يجب أن يتضمن هذا الرصيد {{ amount }} على الأقل للدفع.",
-            "warning_not_enough_amount_min": "يجب أن يتضمن هذا الرصيد {{ min }} على الأقل للدفع."
+            "warning_not_enough_amount_min": "يجب أن يتضمن هذا الرصيد {{ min }} على الأقل للدفع.",
+            "accept_compliance_rules": "أوافق على الشروط والأحكام أدناه.",
+            "accept_compliance_rules_info": "<p><strong>أقر بأنني:</strong></p><ul><li>أنا أستخدم الأموال لهذا النشاط فقط;</li><li>أنا أستخدم المال وفقاً لقواعد البرنامج;</li><li>أفهم أنني يجب أن أسدد الأموال إذا لم أستخدمها بشكل صحيح.</li></ul>"
         }
     },
     "vouchers": {

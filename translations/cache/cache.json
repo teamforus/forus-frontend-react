@@ -6457,7 +6457,7 @@
     ],
     [
         "product.labels.duration_of_promotion",
-        "Duur van de promotie"
+        "Looptijd"
     ],
     [
         "product.labels.expand_section",
@@ -6513,7 +6513,7 @@
     ],
     [
         "product.labels.login_to_order",
-        "Log in om nu te bestellen"
+        "Log in om te bestellen"
     ],
     [
         "product.labels.max_limit",
@@ -6581,7 +6581,7 @@
     ],
     [
         "product.labels.request_one_now",
-        "Vraag er nu een aan!"
+        "Doe een aanvraag"
     ],
     [
         "product.labels.show_image_of_total",
@@ -6618,6 +6618,10 @@
     [
         "product.price.informational",
         "Alleen in winkel"
+    ],
+    [
+        "product.price.payout",
+        "Uitbetaling"
     ],
     [
         "product.tooltip",
@@ -8800,6 +8804,10 @@
         "Profiel"
     ],
     [
+        "top_navbar.items.isd.funds",
+        "Regelingen"
+    ],
+    [
         "top_navbar.items.menu.close",
         "Sluiten"
     ],
@@ -9201,7 +9209,11 @@
     ],
     [
         "voucher.payout.accept_compliance_rules",
-        "Ik gebruik dit geld alleen om producten te kopen die binnen dit fonds zijn toegestaan."
+        "Ik ga akkoord met de onderstaande voorwaarden."
+    ],
+    [
+        "voucher.payout.accept_compliance_rules_info",
+        "<p><strong>Ik verklaar dat:</strong></p><ul><li>ik het geld alleen gebruik voor deze activiteit;</li><li>ik het geld gebruik volgens de regels van de regeling;</li><li>ik begrijp dat ik het geld moet terugbetalen als ik het niet juist gebruik.</li></ul>"
     ],
     [
         "voucher.payout.accept_compliance_rules_label",
