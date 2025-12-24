@@ -111,8 +111,9 @@ export default {
         iban: 'IBAN',
         iban_name: 'Rekeninghouder',
         accept_compliance_rules_label: 'Voorwaarden',
-        accept_compliance_rules:
-            'Ik gebruik dit geld alleen om producten te kopen die binnen dit fonds zijn toegestaan.',
+        accept_compliance_rules: 'Ik ga akkoord met de onderstaande voorwaarden.',
+        accept_compliance_rules_info:
+            '<p><strong>Ik verklaar dat:</strong></p><ul><li>ik het geld alleen gebruik voor deze activiteit;</li><li>ik het geld gebruik volgens de regels van de regeling;</li><li>ik begrijp dat ik het geld moet terugbetalen als ik het niet juist gebruik.</li></ul>',
         warning_count_reached: 'Het maximale aantal uitbetalingen voor dit tegoed is bereikt.',
         warning_not_enough_amount_min: 'Dit tegoed moet minimaal {{ min }} bevatten voor een uitbetaling.',
         warning_not_enough_amount_fixed: 'Dit tegoed moet minimaal {{ amount }} bevatten voor een uitbetaling.',

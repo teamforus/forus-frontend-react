@@ -15,6 +15,7 @@ import usePayoutEligibleVouchers from '../pages/vouchers-show/hooks/usePayoutEli
 import UIControlCheckbox from '../../../dashboard/components/elements/forms/ui-controls/UIControlCheckbox';
 import { currencyFormat } from '../../../dashboard/helpers/string';
 import BlockWarning from '../elements/block-warning/BlockWarning';
+import TranslateHtml from '../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function ModalVoucherPayout({
     modal,
@@ -303,6 +304,12 @@ export default function ModalVoucherPayout({
                                             />
                                         )}
                                     />
+
+                                    <BlockWarning>
+                                        <div className="block block-markdown">
+                                            <TranslateHtml i18n={'voucher.payout.accept_compliance_rules_info'} />
+                                        </div>
+                                    </BlockWarning>
                                 </Fragment>
                             )}
                         </div>

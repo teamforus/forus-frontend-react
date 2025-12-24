@@ -84,7 +84,7 @@ export default function useShowProductPriceTypeOptionsInfoModal() {
                 {appConfig?.implementation?.voucher_payout_informational_product_id && (
                     <div className="products-payment-option-info">
                         <div className="products-payment-option-icon">
-                            <em className="mdi mdi-bank" />
+                            <em className="mdi mdi-cash-refund" />
                         </div>
                         <div className="products-payment-option-content">
                             <div className="products-payment-option-title">

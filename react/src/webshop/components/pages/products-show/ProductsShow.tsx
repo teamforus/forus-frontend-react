@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
@@ -40,6 +40,7 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
 import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleVouchers';
+import useIsPayoutInfoProduct from './hooks/useIsPayoutInfoProduct';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -68,15 +69,12 @@ export default function ProductsShow() {
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
+    const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
     const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
     const price = useProductPriceMinLocale(product);
     const fundsRef = useRef<HTMLDivElement>(null);
-
-    const isPayoutInfoProduct = useMemo(() => {
-        return appConfigs?.implementation?.voucher_payout_informational_product_id === product?.id;
-    }, [appConfigs?.implementation?.voucher_payout_informational_product_id, product?.id]);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent, product: Product) => {
@@ -255,15 +253,17 @@ export default function ProductsShow() {
 
                                     {authIdentity ? (
                                         <Fragment>
-                                            <button
-                                                type="button"
-                                                className="button button-primary button-fill"
-                                                onClick={() => {
-                                                    fundsRef?.current?.scrollIntoView({ behavior: 'smooth' });
-                                                }}
-                                                aria-label={translate('product.labels.buy_now')}>
-                                                {translate('product.labels.buy_now')}
-                                            </button>
+                                            {!isPayoutInfoProduct && (
+                                                <button
+                                                    type="button"
+                                                    className="button button-primary button-fill"
+                                                    onClick={() => {
+                                                        fundsRef?.current?.scrollIntoView({ behavior: 'smooth' });
+                                                    }}
+                                                    aria-label={translate('product.labels.buy_now')}>
+                                                    {translate('product.labels.buy_now')}
+                                                </button>
+                                            )}
 
                                             {isPayoutInfoProduct && payoutEligibleVouchers.length > 0 && (
                                                 <button

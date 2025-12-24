@@ -36,7 +36,7 @@ export default function ProductsFilterGroupPriceType({
             { value: 'free', icon: <em className="mdi mdi-gift-outline" aria-hidden="true" /> },
             { value: 'informational', icon: <em className="mdi mdi-storefront-outline" aria-hidden="true" /> },
             appConfig?.implementation?.voucher_payout_informational_product_id
-                ? { value: 'payout', icon: <em className="mdi mdi-bank" aria-hidden="true" /> }
+                ? { value: 'payout', icon: <em className="mdi mdi-cash-refund" aria-hidden="true" /> }
                 : null,
         ],
         [appConfig?.implementation?.voucher_payout_informational_product_id],
