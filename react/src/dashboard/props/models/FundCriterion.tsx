@@ -21,5 +21,7 @@ export default interface FundCriterion {
     has_record?: boolean;
     is_valid?: boolean;
     fund_criteria_step_id?: number;
+    fund_criteria_group_id?: number;
+    fill_type?: 'manual' | 'prefill';
     rules?: Array<FundCriterionRule>;
 }

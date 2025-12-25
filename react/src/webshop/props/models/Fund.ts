@@ -1,5 +1,6 @@
 import FundBase from '../../../dashboard/props/models/Fund';
 import FundCriteriaStep from '../../../dashboard/props/models/FundCriteriaStep';
+import FundCriteriaGroup from '../../../dashboard/props/models/FundCriteriaGroup';
 
 export default interface Fund extends FundBase {
     received?: boolean;
@@ -11,6 +12,7 @@ export default interface Fund extends FundBase {
     auto_validation?: boolean;
     bsn_confirmation_time?: number;
     criteria_steps?: Array<FundCriteriaStep>;
+    criteria_groups?: Array<FundCriteriaGroup>;
     email_required?: boolean;
     contact_info_enabled?: boolean;
     contact_info_required?: boolean;
