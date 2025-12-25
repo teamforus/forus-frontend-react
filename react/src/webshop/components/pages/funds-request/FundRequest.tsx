@@ -44,6 +44,7 @@ import FundRequestHelpBlock from './elements/FundRequestHelpBlock';
 import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequestStepPhysicalCardRequestAddress';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
+import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -63,6 +64,13 @@ export type FundCriteriaStepLocal = FundCriteriaStep & {
     uploaderTemplate: 'inline' | 'default';
     criteria: Array<LocalCriterion>;
     groups: Array<FundCriteriaGroup & { criteria: Array<LocalCriterion> }>;
+};
+
+export type Prefills = {
+    person: Array<{ record_type_key: string; value: string }>;
+    partner?: Array<{ record_type_key: string; value: string }>;
+    children?: Array<Array<{ record_type_key: string; value: string }>>;
+    error?: { key: string; message: string };
 };
 
 export default function FundRequest() {
@@ -112,13 +120,14 @@ export default function FundRequest() {
 
     const [criteriaStepKeys, setCriteriaStepKeys] = useState([]);
     const [pendingCriteria, setPendingCriteria] = useState<Array<LocalCriterion>>([]);
-    const [personPrefills, setPersonPrefills] = useState<Array<{ record_type_key: string; value: string }>>(null);
+    const [personPrefills, setPersonPrefills] = useState<Prefills>(null);
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
     const [fundRequests, setFundRequests] = useState<Array<FundRequest>>(null);
     const [personApiRecordsFetch, setPersonApiRecordsFetch] = useState(false);
+    const [prefillsError, setPrefillsError] = useState<{ key: string; message: string }>(null);
 
     const bsnIsKnown = useMemo(() => !!authIdentity?.bsn, [authIdentity]);
     const emailSetupShow = useMemo(() => !authIdentity?.email, [authIdentity]);
@@ -166,6 +175,11 @@ export default function FundRequest() {
         const fundSteps = fund.criteria_steps.map((step) => step.id);
         const hasOrders = pendingCriteria.filter((item) => item.order !== null).length > 0;
 
+        const prefillGuards = {
+            children_same_address_nth: (p: Prefills) => p.children?.length,
+            partner_same_address_nth: (p: Prefills) => p.partner?.length,
+        };
+
         const customSteps = fund.criteria_steps.map(
             (step): FundCriteriaStepLocal => ({
                 ...step,
@@ -188,6 +202,15 @@ export default function FundRequest() {
                     pendingCriteria
                         .filter((criterion) => criterion.fund_criteria_step_id == step.id)
                         .filter((criterion) => criterion.fund_criteria_group_id === null)
+                        .filter((criterion) => {
+                            if (criterion.fill_type !== 'prefill' || !personPrefills) {
+                                return true;
+                            }
+
+                            const guard = prefillGuards[criterion.record_type_key];
+
+                            return guard ? !!guard(personPrefills) : true;
+                        })
                         .map((criterion) => ({ ...criterion, requested: shouldRequestRecord(criterion) })),
                     'order',
                 ),
@@ -218,7 +241,7 @@ export default function FundRequest() {
         );
 
         return sortBy(combinedSteps, 'order');
-    }, [fund, pendingCriteria, recordTypesByKey, shouldRequestRecord]);
+    }, [fund, pendingCriteria, personPrefills, recordTypesByKey, shouldRequestRecord]);
 
     const setStepByName = useCallback(
         (stepName: string) => {
@@ -519,13 +542,18 @@ export default function FundRequest() {
         setPersonApiRecordsFetch(true);
 
         fundService.getPersonPrefills(fund.id).then((res) => {
+            if (res.data.error?.key) {
+                setPrefillsError(res.data.error);
+                return;
+            }
+
             setPersonPrefills(res.data);
 
             setPendingCriteria((criteria) => {
                 return [
                     ...criteria.map((criterion) => {
                         if (criterion.fill_type === 'prefill') {
-                            const prefillItem = res.data.filter(
+                            const prefillItem = res.data.person.filter(
                                 (item) => item.record_type_key === criterion.record_type_key,
                             )[0];
 
@@ -653,7 +681,7 @@ export default function FundRequest() {
 
                 if (shouldRequestRecord(item) && !item.requested && personPrefills && item.fill_type === 'prefill') {
                     addedData.push(item.record_type_key);
-                    const prefillItem = personPrefills.filter(
+                    const prefillItem = personPrefills.person.filter(
                         (prefill) => prefill.record_type_key === item.record_type_key,
                     )[0];
 
@@ -699,6 +727,10 @@ export default function FundRequest() {
             submitConfirmCriteria();
         }
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
+
+    if (prefillsError) {
+        return <FundRequestPersonBsnApiWarning fund={fund} prefillsError={prefillsError} />;
+    }
 
     if (
         !fund ||
@@ -759,6 +791,7 @@ export default function FundRequest() {
                                         groups={criterionStep.groups}
                                         uploaderTemplate={criterionStep.uploaderTemplate}
                                         formDataBuild={formDataBuild}
+                                        prefills={personPrefills}
                                         setCriterion={(id, update) => {
                                             setPendingCriteria((criteria) => {
                                                 const criterion = criteria.find((item) => item.id == id);
@@ -770,7 +803,7 @@ export default function FundRequest() {
                                                 return [...criteria];
                                             });
                                         }}
-                                        recordTypes={recordTypes}
+                                        recordTypesByKey={recordTypesByKey}
                                         progress={
                                             <FundRequestProgress
                                                 step={step}
@@ -870,6 +903,8 @@ export default function FundRequest() {
                                     <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
+                                prefills={personPrefills}
+                                recordTypesByKey={recordTypesByKey}
                             />
                         )}
 

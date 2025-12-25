@@ -1,12 +1,15 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
 import FileUploader from '../../../../elements/file-uploader/FileUploader';
-import { FundCriteriaStepLocal, LocalCriterion } from '../../FundRequest';
+import { FundCriteriaStepLocal, LocalCriterion, Prefills } from '../../FundRequest';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 import FundRequestHelpBlock from '../FundRequestHelpBlock';
 import Fund from '../../../../../props/models/Fund';
 import FileModel from '../../../../../../dashboard/props/models/File';
 import Markdown from '../../../../elements/markdown/Markdown';
+import FundRequestCriteriaPartner from './criteria/FundRequestCriteriaPartner';
+import FundRequestCriteriaChildren from './criteria/FundRequestCriteriaChildren';
+import RecordType from '../../../../../../dashboard/props/models/RecordType';
 
 export default function FundRequestValuesOverview({
     fund,
@@ -18,6 +21,8 @@ export default function FundRequestValuesOverview({
     onPrevStep,
     progress,
     bsnWarning,
+    prefills,
+    recordTypesByKey,
 }: {
     fund: Fund;
     address: {
@@ -34,6 +39,8 @@ export default function FundRequestValuesOverview({
     onPrevStep: () => void;
     progress: React.ReactElement;
     bsnWarning: React.ReactElement;
+    prefills: Prefills;
+    recordTypesByKey: { [_key: string]: RecordType };
 }) {
     const translate = useTranslate();
 
@@ -51,16 +58,23 @@ export default function FundRequestValuesOverview({
             );
     }, [criteriaSteps]);
 
-    const criterionValue = useCallback((criterion: LocalCriterion) => {
-        if (criterion.record_type.type === 'select' || criterion.record_type.type === 'select_number') {
-            return (
-                criterion.record_type?.options?.find((item) => item?.value === criterion.input_value)?.name ||
-                criterion.input_value
-            );
-        }
+    const criterionValue = useCallback(
+        (criterion: LocalCriterion, inGroup: boolean = false) => {
+            if (criterion.record_type.type === 'select' || criterion.record_type.type === 'select_number') {
+                return (
+                    criterion.record_type?.options?.find((item) => item?.value === criterion.input_value)?.name ||
+                    criterion.input_value
+                );
+            }
 
-        return criterion.input_value;
-    }, []);
+            if (inGroup && criterion.record_type.type === 'bool' && criterion.record_type.control_type === 'checkbox') {
+                return criterion.input_value || translate('fund_request.options.no');
+            }
+
+            return criterion.input_value;
+        },
+        [translate],
+    );
 
     return (
         <Fragment>
@@ -117,7 +131,7 @@ export default function FundRequestValuesOverview({
                                                                         {criterion.title || criterion.title_default}
                                                                     </div>
                                                                     <div className="preview-item-values-item-value">
-                                                                        {criterionValue(criterion)}
+                                                                        {criterionValue(criterion, true)}
                                                                     </div>
                                                                 </div>
                                                             ))}
@@ -144,11 +158,53 @@ export default function FundRequestValuesOverview({
                                     </Fragment>
                                 ))}
 
-                                {step.criteria.filter((item) => item.requested).length > 0 && (
+                                {step.criteria
+                                    .filter((criterion) => criterion.fill_type === 'prefill')
+                                    .filter((criterion) => criterion.record_type_key === 'partner_same_address_nth')
+                                    .length > 0 &&
+                                    prefills.partner.length > 0 && (
+                                        <FundRequestCriteriaPartner
+                                            recordTypesByKey={recordTypesByKey}
+                                            prefills={prefills}
+                                        />
+                                    )}
+
+                                {step.criteria
+                                    .filter((criterion) => criterion.fill_type === 'prefill')
+                                    .filter((criterion) => criterion.record_type_key === 'children_same_address_nth')
+                                    .length > 0 &&
+                                    prefills.children.length > 0 && (
+                                        <FundRequestCriteriaChildren
+                                            recordTypesByKey={recordTypesByKey}
+                                            prefills={prefills}
+                                        />
+                                    )}
+
+                                {step.criteria
+                                    .filter((item) => item.requested)
+                                    .filter(
+                                        (criterion) =>
+                                            !(
+                                                criterion.fill_type === 'prefill' &&
+                                                ['children_same_address_nth', 'partner_same_address_nth'].includes(
+                                                    criterion.record_type_key,
+                                                )
+                                            ),
+                                    ).length > 0 && (
                                     <div className="preview-item-panel">
                                         <div className="preview-item-values">
                                             {step.criteria
                                                 .filter((item) => item.requested)
+                                                .filter(
+                                                    (criterion) =>
+                                                        !(
+                                                            criterion.fill_type === 'prefill' &&
+                                                            [
+                                                                'children_same_address_nth',
+                                                                'partner_same_address_nth',
+                                                            ].includes(criterion.record_type_key)
+                                                        ),
+                                                )
                                                 .map((criterion) => (
                                                     <div className="preview-item-values-item" key={criterion.id}>
                                                         <div className="preview-item-values-item-label">

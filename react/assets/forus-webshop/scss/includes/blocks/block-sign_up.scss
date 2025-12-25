@@ -535,6 +535,11 @@
                 border: 1px solid var(--border-color);
                 border-radius: var(--border-radius);
                 background-color: #fbfbfb;
+                margin-bottom: 10px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
 
             .preview-item-values {
@@ -549,10 +554,15 @@
                     justify-content: flex-start;
                     gap: 20px;
 
+                    .preview-item-values-item-title,
                     .preview-item-values-item-label {
                         display: flex;
                         flex: 0 0 250px;
                         font: 500 13px/20px var(--base-font);
+                    }
+
+                    .preview-item-values-item-title {
+                        font: 700 14px/20px var(--base-font);
                     }
 
                     .preview-item-values-item-value {
@@ -573,6 +583,14 @@
                     gap: 15px;
                     padding: 20px 25px;
                     border-bottom: 1px solid var(--border-color);
+
+                    .preview-item-panel {
+                        margin-bottom: 5px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
 
                     .preview-item-files {
                         display: flex;
@@ -1127,23 +1145,24 @@
                     }
                 }
 
+                .preview-item-values {
+                    gap: 15px;
+
+                    .preview-item-values-item {
+                        flex-direction: column;
+                        gap: 5px;
+
+                        .preview-item-values-item-label,
+                        .preview-item-values-item-title {
+                            flex: 0 0 auto;
+                            color: #595959;
+                        }
+                    }
+                }
+
                 .sign_up-request-preview {
                     .preview-item {
                         padding: 15px 15px;
-
-                        .preview-item-values {
-                            gap: 15px;
-
-                            .preview-item-values-item {
-                                flex-direction: column;
-                                gap: 5px;
-
-                                .preview-item-values-item-label {
-                                    flex: 0 0 auto;
-                                    color: #595959;
-                                }
-                            }
-                        }
 
                         .preview-item-files {
                             .preview-item-files-title {

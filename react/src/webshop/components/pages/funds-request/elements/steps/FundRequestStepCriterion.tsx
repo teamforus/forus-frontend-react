@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useMemo } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import Fund from '../../../../../props/models/Fund';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import { LocalCriterion } from '../../FundRequest';
@@ -19,23 +19,19 @@ import FormLabel from '../../../../elements/forms/FormLabel';
 export default function FundRequestStepCriterion({
     fund,
     criterion,
-    recordTypes,
+    recordTypesByKey,
     uploaderTemplate,
     setCriterion,
     isGroup = false,
 }: {
     fund: Fund;
     criterion: LocalCriterion;
-    recordTypes: Array<RecordType>;
+    recordTypesByKey: { [_key: string]: RecordType };
     uploaderTemplate: 'default' | 'inline';
     setCriterion: (index: number, update: Partial<LocalCriterion>) => void;
     isGroup?: boolean;
 }) {
     const translate = useTranslate();
-
-    const recordTypesByKey = useMemo(() => {
-        return recordTypes?.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
-    }, [recordTypes]);
 
     const isLabelRequired = useCallback(
         (criteria: LocalCriterion) => {
@@ -217,20 +213,21 @@ export default function FundRequestStepCriterion({
 
                 <FormError error={criterion.errors?.value} />
             </div>
-            {criterion.show_attachment && (
-                <FileUploader
-                    type="fund_request_record_proof"
-                    files={criterion.files}
-                    cropMedia={false}
-                    template={uploaderTemplate}
-                    onFilesChange={({ files }) => {
-                        setCriterion(criterion.id, {
-                            files,
-                            files_uid: files.map((file) => file.uid),
-                        });
-                    }}
-                />
-            )}
+            {criterion.show_attachment &&
+                (criterion.control_type !== 'ui_control_checkbox' || criterion.input_value === criterion.value) && (
+                    <FileUploader
+                        type="fund_request_record_proof"
+                        files={criterion.files}
+                        cropMedia={false}
+                        template={uploaderTemplate}
+                        onFilesChange={({ files }) => {
+                            setCriterion(criterion.id, {
+                                files,
+                                files_uid: files.map((file) => file.uid),
+                            });
+                        }}
+                    />
+                )}
             <FormError error={criterion.errors?.files} />
             <FormError error={criterion.errors?.record} />
         </Fragment>

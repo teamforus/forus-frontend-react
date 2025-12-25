@@ -1,7 +1,7 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import Fund from '../../../../../props/models/Fund';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import { LocalCriterion } from '../../FundRequest';
+import { LocalCriterion, Prefills } from '../../FundRequest';
 import RecordType from '../../../../../../dashboard/props/models/RecordType';
 import { ResponseError } from '../../../../../../dashboard/props/ApiResponses';
 import { useFundRequestService } from '../../../../../services/FundRequestService';
@@ -12,6 +12,8 @@ import FundRequestStepCriterion from './FundRequestStepCriterion';
 import FundCriteriaGroup from '../../../../../../dashboard/props/models/FundCriteriaGroup';
 import FormError from '../../../../../../dashboard/components/elements/forms/errors/FormError';
 import Markdown from '../../../../elements/markdown/Markdown';
+import FundRequestCriteriaPartner from './criteria/FundRequestCriteriaPartner';
+import FundRequestCriteriaChildren from './criteria/FundRequestCriteriaChildren';
 
 export default function FundRequestStepCriteria({
     fund,
@@ -23,13 +25,14 @@ export default function FundRequestStepCriteria({
     progress,
     bsnWarning,
     criteria,
-    recordTypes,
+    recordTypesByKey,
     submitInProgress,
     setSubmitInProgress,
     uploaderTemplate,
     formDataBuild,
     setCriterion,
     groups,
+    prefills,
 }: {
     fund: Fund;
     step: number;
@@ -40,13 +43,14 @@ export default function FundRequestStepCriteria({
     progress: React.ReactElement;
     bsnWarning: React.ReactElement;
     criteria: Array<LocalCriterion>;
-    recordTypes: Array<RecordType>;
+    recordTypesByKey: { [_key: string]: RecordType };
     submitInProgress: boolean;
     uploaderTemplate: 'default' | 'inline';
     setSubmitInProgress: React.Dispatch<React.SetStateAction<boolean>>;
     formDataBuild: (criteria: Array<LocalCriterion>) => object;
     setCriterion: (index: number, update: Partial<LocalCriterion>) => void;
     groups: Array<FundCriteriaGroup & { criteria: Array<LocalCriterion> }>;
+    prefills: Prefills;
 }) {
     const translate = useTranslate();
     const setProgress = useSetProgress();
@@ -54,6 +58,15 @@ export default function FundRequestStepCriteria({
     const fundRequestService = useFundRequestService();
 
     const [errors, setErrors] = useState({});
+
+    const hasPrefills = useMemo(() => {
+        return (
+            criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 ||
+            groups
+                .map((group) => group.criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0)
+                .filter((group) => group).length > 0
+        );
+    }, [criteria, groups]);
 
     // Submit or Validate record criteria
     const validateCriteria = useCallback(
@@ -149,96 +162,151 @@ export default function FundRequestStepCriteria({
                 }}>
                 <h2 className="sign_up-pane-header">{title}</h2>
 
-                {groups.map((group, index) => (
-                    <div className="sign_up-pane-body sign_up-pane-content" key={index}>
-                        <div className="preview-item-info preview-item-info-vertical">
-                            <div className="preview-item-subtitle">{group.title}</div>
-                            {group.description_html && (
-                                <Markdown content={group.description_html} className="preview-item-description" />
-                            )}
+                <div className="sign_up-pane-body sign_up-pane-content">
+                    {hasPrefills && (
+                        <Fragment>
+                            <div className="sign_up-pane-heading sign_up-pane-heading-lg">
+                                {translate('fund_request.prefills.title')}
+                            </div>
 
-                            {group.required && (
-                                <div className="form">
-                                    <div className="form-label">
-                                        <div className={'form-label-info form-label-info-required'}>
-                                            {translate('form.required')}
+                            {fund.help_enabled && (
+                                <div className="sign_up-pane-text">{translate('fund_request.prefills.subtitle')}</div>
+                            )}
+                        </Fragment>
+                    )}
+
+                    {groups.map((group, index) => (
+                        <Fragment key={index}>
+                            <div className="preview-item-info preview-item-info-vertical">
+                                <div className="preview-item-subtitle">{group.title}</div>
+                                {group.description_html && (
+                                    <Markdown content={group.description_html} className="preview-item-description" />
+                                )}
+
+                                {group.required && (
+                                    <div className="form">
+                                        <div className="form-label">
+                                            <div className={'form-label-info form-label-info-required'}>
+                                                {translate('form.required')}
+                                            </div>
                                         </div>
+                                    </div>
+                                )}
+                            </div>
+                            <FormError error={errors['criteria_groups.' + group.id]} />
+
+                            {group.criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 && (
+                                <div className="preview-item-panel">
+                                    <div className="preview-item-values">
+                                        {group.criteria
+                                            .filter((criterion) => criterion.fill_type === 'prefill')
+                                            .map((criterion) => (
+                                                <div className="preview-item-values-item" key={criterion.id}>
+                                                    <div className="preview-item-values-item-label">
+                                                        {criterion.title || criterion.title_default}
+                                                    </div>
+                                                    <div className="preview-item-values-item-value">
+                                                        {criterion.input_value || '-'}
+                                                    </div>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
                             )}
-                        </div>
-                        <FormError error={errors['criteria_groups.' + group.id]} />
 
-                        {group.criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 && (
-                            <div className="preview-item-panel">
-                                <div className="preview-item-values">
-                                    {group.criteria
-                                        .filter((criterion) => criterion.fill_type === 'prefill')
-                                        .map((criterion) => (
-                                            <div className="preview-item-values-item" key={criterion.id}>
-                                                <div className="preview-item-values-item-label">
-                                                    {criterion.title || criterion.title_default}
-                                                </div>
-                                                <div className="preview-item-values-item-value">
-                                                    {criterion.input_value || '-'}
-                                                </div>
-                                            </div>
-                                        ))}
-                                </div>
-                            </div>
-                        )}
+                            {group.criteria
+                                .filter((criterion) => criterion.fill_type === 'manual')
+                                .map((criterion, index) => (
+                                    <FundRequestStepCriterion
+                                        key={index}
+                                        fund={fund}
+                                        criterion={criterion}
+                                        setCriterion={setCriterion}
+                                        recordTypesByKey={recordTypesByKey}
+                                        uploaderTemplate={uploaderTemplate}
+                                        isGroup={true}
+                                    />
+                                ))}
+                        </Fragment>
+                    ))}
 
-                        {group.criteria
-                            .filter((criterion) => criterion.fill_type === 'manual')
-                            .map((criterion, index) => (
-                                <FundRequestStepCriterion
-                                    key={index}
-                                    fund={fund}
-                                    criterion={criterion}
-                                    setCriterion={setCriterion}
-                                    recordTypes={recordTypes}
-                                    uploaderTemplate={uploaderTemplate}
-                                    isGroup={true}
-                                />
-                            ))}
-                    </div>
-                ))}
-
-                {criteria.length > 0 && (
-                    <div className="sign_up-pane-body sign_up-pane-content">
-                        {criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 && (
-                            <div className="preview-item-panel">
-                                <div className="preview-item-values">
+                    {criteria.length > 0 && (
+                        <Fragment>
+                            {criteria.filter((criterion) => criterion.fill_type === 'prefill').length > 0 && (
+                                <Fragment>
                                     {criteria
                                         .filter((criterion) => criterion.fill_type === 'prefill')
-                                        .map((criterion) => (
-                                            <div className="preview-item-values-item" key={criterion.id}>
-                                                <div className="preview-item-values-item-label">
-                                                    {criterion.title || criterion.title_default}
-                                                </div>
-                                                <div className="preview-item-values-item-value">
-                                                    {criterion.input_value || '-'}
-                                                </div>
-                                            </div>
-                                        ))}
-                                </div>
-                            </div>
-                        )}
+                                        .filter((criterion) => criterion.record_type_key === 'partner_same_address_nth')
+                                        .length > 0 &&
+                                        prefills.partner.length > 0 && (
+                                            <FundRequestCriteriaPartner
+                                                recordTypesByKey={recordTypesByKey}
+                                                prefills={prefills}
+                                            />
+                                        )}
 
-                        {criteria
-                            .filter((criterion) => criterion.fill_type === 'manual')
-                            .map((criterion, index) => (
-                                <FundRequestStepCriterion
-                                    key={index}
-                                    fund={fund}
-                                    criterion={criterion}
-                                    setCriterion={setCriterion}
-                                    recordTypes={recordTypes}
-                                    uploaderTemplate={uploaderTemplate}
-                                />
-                            ))}
-                    </div>
-                )}
+                                    {criteria
+                                        .filter((criterion) => criterion.fill_type === 'prefill')
+                                        .filter(
+                                            (criterion) => criterion.record_type_key === 'children_same_address_nth',
+                                        ).length > 0 &&
+                                        prefills.children.length > 0 && (
+                                            <FundRequestCriteriaChildren
+                                                recordTypesByKey={recordTypesByKey}
+                                                prefills={prefills}
+                                            />
+                                        )}
+
+                                    {criteria
+                                        .filter((criterion) => criterion.fill_type === 'prefill')
+                                        .filter(
+                                            (criterion) =>
+                                                !['children_same_address_nth', 'partner_same_address_nth'].includes(
+                                                    criterion.record_type_key,
+                                                ),
+                                        ).length > 0 && (
+                                        <div className="preview-item-panel">
+                                            <div className="preview-item-values">
+                                                {criteria
+                                                    .filter((criterion) => criterion.fill_type === 'prefill')
+                                                    .filter(
+                                                        (criterion) =>
+                                                            ![
+                                                                'children_same_address_nth',
+                                                                'partner_same_address_nth',
+                                                            ].includes(criterion.record_type_key),
+                                                    )
+                                                    .map((criterion) => (
+                                                        <div className="preview-item-values-item" key={criterion.id}>
+                                                            <div className="preview-item-values-item-label">
+                                                                {criterion.title || criterion.title_default}
+                                                            </div>
+                                                            <div className="preview-item-values-item-value">
+                                                                {criterion.input_value || '-'}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </Fragment>
+                            )}
+
+                            {criteria
+                                .filter((criterion) => criterion.fill_type === 'manual')
+                                .map((criterion, index) => (
+                                    <FundRequestStepCriterion
+                                        key={index}
+                                        fund={fund}
+                                        criterion={criterion}
+                                        setCriterion={setCriterion}
+                                        recordTypesByKey={recordTypesByKey}
+                                        uploaderTemplate={uploaderTemplate}
+                                    />
+                                ))}
+                        </Fragment>
+                    )}
+                </div>
 
                 <SignUpFooter
                     startActions={
