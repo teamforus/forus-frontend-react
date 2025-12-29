@@ -380,9 +380,10 @@
 
                 .product-funds-item-actions {
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row;
                     align-items: flex-start;
                     flex: 0 0 auto;
+                    gap: 10px;
                 }
             }
 
@@ -538,7 +539,6 @@
                     .product-funds-item-actions {
                         display: flex;
                         flex-direction: column;
-                        gap: 10px;
                         width: 100%;
 
                         .button {

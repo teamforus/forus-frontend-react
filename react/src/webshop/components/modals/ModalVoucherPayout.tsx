@@ -291,25 +291,28 @@ export default function ModalVoucherPayout({
                                         label={translate('voucher.payout.accept_compliance_rules_label')}
                                         required={true}
                                         input={(inputId) => (
-                                            <UIControlCheckbox
-                                                id={inputId}
-                                                checked={form.values.accept_compliance_rules}
-                                                name="accept_compliance_rules"
-                                                label={translate('voucher.payout.accept_compliance_rules')}
-                                                slim={true}
-                                                dataDusk="voucherPayoutAcceptRules"
-                                                onChangeValue={(accept_compliance_rules) =>
-                                                    form.update({ accept_compliance_rules })
-                                                }
-                                            />
+                                            <div className="flex flex-gap flex-vertical">
+                                                <BlockWarning>
+                                                    <div className="block block-markdown">
+                                                        <TranslateHtml
+                                                            i18n={'voucher.payout.accept_compliance_rules_info'}
+                                                        />
+                                                    </div>
+                                                </BlockWarning>
+                                                <UIControlCheckbox
+                                                    id={inputId}
+                                                    checked={form.values.accept_compliance_rules}
+                                                    name="accept_compliance_rules"
+                                                    label={translate('voucher.payout.accept_compliance_rules')}
+                                                    slim={true}
+                                                    dataDusk="voucherPayoutAcceptRules"
+                                                    onChangeValue={(accept_compliance_rules) =>
+                                                        form.update({ accept_compliance_rules })
+                                                    }
+                                                />
+                                            </div>
                                         )}
                                     />
-
-                                    <BlockWarning>
-                                        <div className="block block-markdown">
-                                            <TranslateHtml i18n={'voucher.payout.accept_compliance_rules_info'} />
-                                        </div>
-                                    </BlockWarning>
                                 </Fragment>
                             )}
                         </div>
