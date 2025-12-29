@@ -3458,8 +3458,8 @@
             "warning_count_reached": "Osiągnięto maksymalną liczbę wypłat dla tego kredytu.",
             "warning_not_enough_amount_fixed": "Kredyt ten musi obejmować co najmniej {{ amount }} do wypłaty.",
             "warning_not_enough_amount_min": "Kredyt ten musi obejmować co najmniej {{ min }} do wypłaty.",
-            "accept_compliance_rules": "Zgadzam się na poniższe warunki.",
-            "accept_compliance_rules_info": "<p><strong>Oświadczam, że:</strong></p><ul><li>Wykorzystuję pieniądze wyłącznie na tę działalność;</li><li>wykorzystuję pieniądze zgodnie z zasadami programu;</li><li>Rozumiem, że muszę zwrócić pieniądze, jeśli nie wykorzystam ich prawidłowo.</li></ul>"
+            "accept_compliance_rules_info": "<p><strong>Oświadczam, że:</strong></p><ul><li>Wykorzystuję pieniądze wyłącznie na tę działalność;</li><li>wykorzystuję pieniądze zgodnie z zasadami programu;</li><li>Rozumiem, że muszę zwrócić pieniądze, jeśli nie wykorzystam ich prawidłowo.</li></ul>",
+            "accept_compliance_rules": "Zgadzam się na powyższe warunki."
         }
     },
     "vouchers": {

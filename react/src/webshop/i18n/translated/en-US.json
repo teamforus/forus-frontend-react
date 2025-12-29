@@ -1804,8 +1804,8 @@
             "warning_count_reached": "The maximum number of payouts for this credit has been reached.",
             "warning_not_enough_amount_fixed": "This credit must include a minimum of {{ amount }} for a payout.",
             "warning_not_enough_amount_min": "This credit must include a minimum of {{ min }} for a payout.",
-            "accept_compliance_rules": "I agree to the terms and conditions below.",
-            "accept_compliance_rules_info": "<p><strong>I declare that:</strong></p><ul><li>I am using the money only for this activity;</li><li>I am using the money according to the rules of the scheme;</li><li>I understand that I must repay the money if I do not use it correctly.</li></ul>"
+            "accept_compliance_rules_info": "<p><strong>I declare that:</strong></p><ul><li>I am using the money only for this activity;</li><li>I am using the money according to the rules of the scheme;</li><li>I understand that I must repay the money if I do not use it correctly.</li></ul>",
+            "accept_compliance_rules": "I agree to the above terms and conditions."
         }
     },
     "vouchers": {
