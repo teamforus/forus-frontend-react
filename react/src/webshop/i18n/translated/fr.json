@@ -3458,8 +3458,8 @@
             "warning_count_reached": "Le nombre maximum de paiements pour ce crédit a été atteint.",
             "warning_not_enough_amount_fixed": "Ce crédit doit comprendre au moins {{ amount }} pour un paiement.",
             "warning_not_enough_amount_min": "Ce crédit doit comprendre au moins {{ min }} pour un paiement.",
-            "accept_compliance_rules": "J'accepte les termes et conditions ci-dessous.",
-            "accept_compliance_rules_info": "<p><strong>Je déclare que :</strong></p><ul><li>J'utilise l'argent uniquement pour cette activité ;</li><li>J'utilise l'argent conformément aux règles du programme ;</li><li>Je comprends que je dois rembourser l'argent si je ne l'utilise pas correctement.</li></ul>"
+            "accept_compliance_rules_info": "<p><strong>Je déclare que :</strong></p><ul><li>J'utilise l'argent uniquement pour cette activité ;</li><li>J'utilise l'argent conformément aux règles du programme ;</li><li>Je comprends que je dois rembourser l'argent si je ne l'utilise pas correctement.</li></ul>",
+            "accept_compliance_rules": "J'accepte les termes et conditions ci-dessus."
         }
     },
     "vouchers": {

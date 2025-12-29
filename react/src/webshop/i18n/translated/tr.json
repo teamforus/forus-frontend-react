@@ -2103,8 +2103,8 @@
             "warning_count_reached": "Bu kredi için maksimum ödeme sayısına ulaşıldı.",
             "warning_not_enough_amount_fixed": "Bu kredi, ödeme için en az {{ amount }} adresini içermelidir.",
             "warning_not_enough_amount_min": "Bu kredi, ödeme için en az {{ min }} adresini içermelidir.",
-            "accept_compliance_rules": "Aşağıdaki hüküm ve koşulları kabul ediyorum.",
-            "accept_compliance_rules_info": "<p><strong>Bunu beyan ederim:</strong></p><ul><li>Parayı sadece bu faaliyet için kullanıyorum;</li><li>Parayı programın kurallarına uygun olarak kullanıyorum;</li><li>Parayı doğru kullanmadığım takdirde geri ödemem gerektiğini anlıyorum.</li></ul>"
+            "accept_compliance_rules_info": "<p><strong>Bunu beyan ederim:</strong></p><ul><li>Parayı sadece bu faaliyet için kullanıyorum;</li><li>Parayı programın kurallarına uygun olarak kullanıyorum;</li><li>Parayı doğru kullanmadığım takdirde geri ödemem gerektiğini anlıyorum.</li></ul>",
+            "accept_compliance_rules": "Yukarıdaki hüküm ve koşulları kabul ediyorum."
         }
     },
     "vouchers": {
