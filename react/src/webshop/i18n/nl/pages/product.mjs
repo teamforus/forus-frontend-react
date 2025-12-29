@@ -38,10 +38,10 @@ export default {
         payment_option_link: 'Lees meer over de betaalmogelijkheden',
 
         buy_now: 'Koop nu!',
-        login_to_order: 'Log in om nu te bestellen',
+        login_to_order: 'Log in om te bestellen',
         dont_have_voucher: 'Nog geen tegoed?',
-        request_one_now: 'Vraag er nu een aan!',
-        duration_of_promotion: 'Duur van de promotie',
+        request_one_now: 'Doe een aanvraag',
+        duration_of_promotion: 'Looptijd',
         payment_options_title: 'Betaalopties',
         when: 'Wanneer',
         more_info: 'Meer informatie',
@@ -67,6 +67,7 @@ export default {
     },
     price: {
         free: 'Gratis',
+        payout: 'Uitbetaling',
         informational: 'Alleen in winkel',
     },
     buttons: {

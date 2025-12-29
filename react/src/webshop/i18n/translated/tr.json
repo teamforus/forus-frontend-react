@@ -174,12 +174,12 @@
             "view_file": "Dosyayı görüntüle"
         },
         "file_uploader": {
-            "attachments": "Ekler",
             "max_size": "maks. boyut 8Mb",
             "or": "veya",
             "title": "Bir belge yükleyin",
             "upload_button": "Bir belge yükleyin",
-            "max_files": "{{ count }} adresine kadar dosyalar"
+            "max_files": "{{ count }} adresine kadar dosyalar",
+            "attachments": "Ekler"
         },
         "info_box": {
             "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
@@ -435,7 +435,8 @@
             "category": "Kategoriler",
             "payment_options": "Ödeme seçenekleri",
             "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
-            "price_to": "için"
+            "price_to": "için",
+            "price_type_option_payout": "Banka hesabına ödeme"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -742,6 +743,9 @@
                 "funds": "Kavanozlar"
             },
             "fijnder": {
+                "funds": "Şemalar"
+            },
+            "isd": {
                 "funds": "Şemalar"
             }
         },
@@ -1184,7 +1188,8 @@
             "potjeswijzer": {
                 "start_request": "İstek"
             },
-            "start_request": "Etkinleştir"
+            "start_request": "Etkinleştir",
+            "open_payouts": "Açık ödemeler"
         },
         "criteria": {
             "key": "{{key}}"
@@ -1857,12 +1862,10 @@
             "collapse_section": "Bölüm katlama",
             "description_card": "Açıklama",
             "dont_have_voucher": "Henüz kredi yok mu?",
-            "duration_of_promotion": "Promosyon süresi",
             "expand_section": "Bölümü genişlet",
             "expire_by_date": "Şu tarihe kadar geçerlidir {{date}}",
             "how_can_i_pay": "Nasıl ödeme yapabilirim?",
             "locations_on_map": "Harita üzerindeki konumlar",
-            "login_to_order": "Şimdi sipariş vermek için giriş yapın",
             "more_info": "Daha fazla bilgi",
             "next_image": "Sonraki resim",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
@@ -1871,13 +1874,15 @@
             "product_images": "Ürün görselleri",
             "provider": "Sağlayıcı",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Şimdi bir tane için başvurun!",
             "show_image_of_total": "{{current}} adresinden görüntü göster {{total}}",
             "when": "Ne zaman",
             "where": "Nerede",
             "add_to_favorites": "Favorilere ekle",
             "ideal_logo_alt": "iDEAL logosu",
-            "remove_from_favorites": "Sık kullanılanlardan kaldır"
+            "remove_from_favorites": "Sık kullanılanlardan kaldır",
+            "duration_of_promotion": "Süre",
+            "login_to_order": "Sipariş vermek için giriş yapın",
+            "request_one_now": "Bir soruşturma yapın"
         },
         "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
         "map": {
@@ -1887,7 +1892,8 @@
         "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz",
         "price": {
             "free": "Ücretsiz",
-            "informational": "Sadece mağazada"
+            "informational": "Sadece mağazada",
+            "payout": "Ödeme"
         },
         "other_products": "Bunu da beğenebilirsiniz?"
     },
@@ -2030,7 +2036,8 @@
             "subtract": "Çıkarma",
             "title": "İşlemler",
             "top_up": "Yükseltilmiş",
-            "expired_on": "Son kullanma tarihi {{ date }}"
+            "expired_on": "Son kullanma tarihi {{ date }}",
+            "payout": "Ödeme"
         },
         "actions": {
             "choose_action": {
@@ -2040,7 +2047,9 @@
             "save_qr": "QR kodunu kaydet",
             "share_with_provider": "QR kodunu sağlayıcı ile paylaşın",
             "view_all_products": "Tüm ürünleri görüntüle",
-            "declaration_request": "Maliyet geri kazanımı"
+            "declaration_request": "Maliyet geri kazanımı",
+            "transfer_to_bank": "Banka hesabına transfer",
+            "transfer_to_bank_description": "Banka hesabınıza aktarmak istediğiniz krediyi ve tutarı seçin."
         },
         "details": {
             "records": {
@@ -2075,6 +2084,27 @@
         "fund_details": {
             "title": "Program hakkında bilgi",
             "view": "Daha fazla bilgi edinin"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "Koşullar",
+            "amount": "Miktar",
+            "cancel": "İptal",
+            "iban": "IBAN",
+            "iban_name": "Hesap sahibi",
+            "submit": "Transfer",
+            "success": {
+                "close": "Kapat",
+                "description": "Transfer talebiniz gönderildi. İşleme alınması biraz zaman alabilir.",
+                "title": "Transfer talep edildi"
+            },
+            "transfer_to_bank": "Banka hesabına transfer",
+            "transfer_to_bank_description": "Banka hesabınıza aktarmak istediğiniz krediyi ve tutarı seçin.",
+            "voucher_label": "Kredi",
+            "warning_count_reached": "Bu kredi için maksimum ödeme sayısına ulaşıldı.",
+            "warning_not_enough_amount_fixed": "Bu kredi, ödeme için en az {{ amount }} adresini içermelidir.",
+            "warning_not_enough_amount_min": "Bu kredi, ödeme için en az {{ min }} adresini içermelidir.",
+            "accept_compliance_rules_info": "<p><strong>Bunu beyan ederim:</strong></p><ul><li>Parayı sadece bu faaliyet için kullanıyorum;</li><li>Parayı programın kurallarına uygun olarak kullanıyorum;</li><li>Parayı doğru kullanmadığım takdirde geri ödemem gerektiğini anlıyorum.</li></ul>",
+            "accept_compliance_rules": "Yukarıdaki hüküm ve koşulları kabul ediyorum."
         }
     },
     "vouchers": {
@@ -2297,7 +2327,8 @@
         "empty": {
             "button": "Fonlara gidin",
             "subtitle": "Şu anda hiçbir ödemeniz yok",
-            "title": "Ödeme yok"
+            "title": "Ödeme yok",
+            "button_payout": "Transfer"
         },
         "labels": {
             "created_at": "Ödenen",
@@ -2306,7 +2337,12 @@
             "iban_to_name": "IBAN adı (için)"
         },
         "search": "Arama",
-        "title": "Ödemeler"
+        "title": "Ödemeler",
+        "create_card": {
+            "button": "Transfer",
+            "description": "Kredi bakiyenizden bir transfer oluşturun.",
+            "title": "Banka hesabına transfer"
+        }
     },
     "preferences_emails": {
         "breadcrumbs": {
@@ -3583,7 +3619,8 @@
         "session_expired": {
             "description": "Tekrar giriş yapın ve tekrar deneyin.",
             "title": "Oturum süresi doldu!"
-        }
+        },
+        "payout_created": "Ödeme talep edildi."
     },
     "read_speaker": {
         "read_aloud": "Okumak için",
@@ -3650,7 +3687,9 @@
         "info_option_informational_title": "Sadece mağazada",
         "info_option_regular_description": "Ürünün sabit bir fiyatı vardır. Bu ödenecek miktardır, örneğin 10 Euro.",
         "info_option_regular_title": "Fiyat",
-        "title": "Ödeme seçenekleri"
+        "title": "Ödeme seçenekleri",
+        "info_option_payout_description": "Bakiyenizden fon başvurusu sırasında belirtilen banka hesap numarasına işlem yapın.",
+        "info_option_payout_title": "Banka hesabına ödeme"
     },
     "pincode_control": {
         "aria_label_num": "Şekil {{current}} of {{total}}",
