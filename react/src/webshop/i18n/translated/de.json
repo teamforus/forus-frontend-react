@@ -735,7 +735,8 @@
             "potjeswijzer": {
                 "start_request": "Anfrage"
             },
-            "start_request": "Aktivieren Sie"
+            "start_request": "Aktivieren Sie",
+            "open_payouts": "Offene Auszahlungen"
         },
         "criteria": {
             "key": "{{key}}"
@@ -874,12 +875,12 @@
             "view_file": "Datei anzeigen"
         },
         "file_uploader": {
-            "attachments": "Anhänge",
             "max_size": "max. Größe 8Mb",
             "or": "oder",
             "title": "Ein Dokument hochladen",
             "upload_button": "Ein Dokument hochladen",
-            "max_files": "bis zu {{ count }} Dateien"
+            "max_files": "bis zu {{ count }} Dateien",
+            "attachments": "Anhänge"
         },
         "info_box": {
             "2fa_description": "Weitere Informationen über 2FA finden Sie bei uns:",
@@ -1906,7 +1907,8 @@
         "empty": {
             "button": "Zu den Fonds gehen",
             "subtitle": "Derzeit haben Sie keine Auszahlungen",
-            "title": "Keine Auszahlungen"
+            "title": "Keine Auszahlungen",
+            "button_payout": "Übertragung"
         },
         "labels": {
             "created_at": "Ausbezahlt am",
@@ -1915,7 +1917,12 @@
             "iban_to_name": "IBAN-Name (bis)"
         },
         "search": "Suche",
-        "title": "Auszahlungen"
+        "title": "Auszahlungen",
+        "create_card": {
+            "button": "Übertragung",
+            "description": "Erstellen Sie eine Überweisung von Ihrem Guthaben.",
+            "title": "Überweisung auf ein Bankkonto"
+        }
     },
     "pdf_preview": {
         "buttons": {
@@ -2293,12 +2300,10 @@
             "collapse_section": "Abschnitt Falten",
             "description_card": "Beschreibung",
             "dont_have_voucher": "Noch kein Kredit?",
-            "duration_of_promotion": "Dauer der Förderung",
             "expand_section": "Abschnitt erweitern",
             "expire_by_date": "Gültig bis {{date}}",
             "how_can_i_pay": "Wie kann ich bezahlen?",
             "locations_on_map": "Standorte auf der Karte",
-            "login_to_order": "Jetzt anmelden und bestellen",
             "more_info": "Weitere Informationen",
             "next_image": "Nächstes Bild",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
@@ -2307,13 +2312,15 @@
             "product_images": "Produktbilder",
             "provider": "Anbieter",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Bewerben Sie sich jetzt!",
             "show_image_of_total": "Bild anzeigen {{current}} von {{total}}",
             "when": "Wenn",
             "where": "Wo",
             "add_to_favorites": "Zu Favoriten hinzufügen",
             "ideal_logo_alt": "iDEAL-Logo",
-            "remove_from_favorites": "Aus den Favoriten entfernen"
+            "remove_from_favorites": "Aus den Favoriten entfernen",
+            "duration_of_promotion": "Dauer",
+            "login_to_order": "Zum Bestellen anmelden",
+            "request_one_now": "Eine Anfrage stellen"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2323,7 +2330,8 @@
         "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können",
         "price": {
             "free": "Kostenlos",
-            "informational": "Nur im Geschäft"
+            "informational": "Nur im Geschäft",
+            "payout": "Auszahlung"
         },
         "other_products": "Das könnte Sie auch interessieren?"
     },
@@ -2370,7 +2378,8 @@
             "category": "Kategorien",
             "payment_options": "Zahlungsmöglichkeiten",
             "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
-            "price_to": "An"
+            "price_to": "An",
+            "price_type_option_payout": "Auszahlung auf ein Bankkonto"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -3228,6 +3237,9 @@
             },
             "fijnder": {
                 "funds": "Schemata"
+            },
+            "isd": {
+                "funds": "Schemata"
             }
         },
         "user_menu": {
@@ -3379,7 +3391,8 @@
             "subtract": "Subtraktion",
             "title": "Transaktionen",
             "top_up": "Verbessert",
-            "expired_on": "Abgelaufen am {{ date }}"
+            "expired_on": "Abgelaufen am {{ date }}",
+            "payout": "Auszahlung"
         },
         "actions": {
             "choose_action": {
@@ -3389,7 +3402,9 @@
             "save_qr": "QR-Code speichern",
             "share_with_provider": "QR-Code mit Anbieter teilen",
             "view_all_products": "Alle Produkte anzeigen",
-            "declaration_request": "Kostendeckung"
+            "declaration_request": "Kostendeckung",
+            "transfer_to_bank": "Überweisung auf ein Bankkonto",
+            "transfer_to_bank_description": "Wählen Sie den Kredit und den Betrag, den Sie auf Ihr Bankkonto überweisen möchten."
         },
         "details": {
             "records": {
@@ -3424,6 +3439,27 @@
         "fund_details": {
             "title": "Informationen über die Regelung",
             "view": "Mehr lesen"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "Bedingungen",
+            "amount": "Betrag",
+            "cancel": "Abbrechen",
+            "iban": "IBAN",
+            "iban_name": "Kontoinhaber",
+            "submit": "Übertragung",
+            "success": {
+                "close": "Schließen Sie",
+                "description": "Ihr Überweisungsantrag wurde abgeschickt. Die Bearbeitung kann einige Zeit in Anspruch nehmen.",
+                "title": "Übertragung beantragt"
+            },
+            "transfer_to_bank": "Überweisung auf ein Bankkonto",
+            "transfer_to_bank_description": "Wählen Sie den Kredit und den Betrag, den Sie auf Ihr Bankkonto überweisen möchten.",
+            "voucher_label": "Kredit",
+            "warning_count_reached": "Die maximale Anzahl der Auszahlungen für dieses Guthaben wurde erreicht.",
+            "warning_not_enough_amount_fixed": "Dieses Guthaben muss mindestens {{ amount }} für eine Auszahlung umfassen.",
+            "warning_not_enough_amount_min": "Dieses Guthaben muss mindestens {{ min }} für eine Auszahlung umfassen.",
+            "accept_compliance_rules": "Ich erkläre mich mit den nachstehenden Bestimmungen und Bedingungen einverstanden.",
+            "accept_compliance_rules_info": "<p><strong>Ich erkläre, dass:</strong></p><ul><li>Ich verwende das Geld nur für diese Aktivität;</li><li>Ich verwende das Geld gemäß den Regeln des Programms;</li><li>ich verstehe, dass ich das Geld zurückzahlen muss, wenn ich es nicht ordnungsgemäß verwende.</li></ul>"
         }
     },
     "vouchers": {
@@ -3583,7 +3619,8 @@
         "session_expired": {
             "description": "Loggen Sie sich wieder ein und versuchen Sie es erneut.",
             "title": "Die Sitzung ist abgelaufen!"
-        }
+        },
+        "payout_created": "Auszahlung beantragt."
     },
     "read_speaker": {
         "read_aloud": "Lesen für",
@@ -3650,7 +3687,9 @@
         "info_option_informational_title": "Nur im Geschäft",
         "info_option_regular_description": "Das Produkt hat einen Festpreis. Das ist der zu zahlende Betrag, zum Beispiel 10 Euro.",
         "info_option_regular_title": "Preis",
-        "title": "Zahlungsmöglichkeiten"
+        "title": "Zahlungsmöglichkeiten",
+        "info_option_payout_description": "Führen Sie eine Überweisung von Ihrem Guthaben auf die bei der Beantragung des Fonds angegebene Kontonummer durch.",
+        "info_option_payout_title": "Auszahlung auf ein Bankkonto"
     },
     "pincode_control": {
         "aria_label_num": "Abbildung {{current}} der {{total}}",

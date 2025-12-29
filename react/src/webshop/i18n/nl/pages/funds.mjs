@@ -92,6 +92,7 @@ export default {
         is_pending: 'In behandeling',
         already_received: 'Open tegoed',
         check_status: 'Status controleren',
+        open_payouts: 'Open uitbetalingen',
     },
     status: {
         is_applicable: 'Aanmelden',

@@ -735,7 +735,8 @@
             "potjeswijzer": {
                 "start_request": "Запрос"
             },
-            "start_request": "Активируйте"
+            "start_request": "Активируйте",
+            "open_payouts": "Открытые выплаты"
         },
         "criteria": {
             "key": "{{key}}"
@@ -874,12 +875,12 @@
             "view_file": "Просмотр файла"
         },
         "file_uploader": {
-            "attachments": "Вложения",
             "max_size": "максимальный размер 8 Мб",
             "or": "или",
             "title": "Загрузить документ",
             "upload_button": "Загрузить документ",
-            "max_files": "до {{ count }} файлов"
+            "max_files": "до {{ count }} файлов",
+            "attachments": "Приложения"
         },
         "info_box": {
             "2fa_description": "Для получения дополнительной информации о 2FA посетите наш сайт:",
@@ -1906,7 +1907,8 @@
         "empty": {
             "button": "Перейдите к фондам",
             "subtitle": "В настоящее время у вас нет выплат",
-            "title": "Никаких выплат"
+            "title": "Никаких выплат",
+            "button_payout": "Передача"
         },
         "labels": {
             "created_at": "Выплачено по",
@@ -1915,7 +1917,12 @@
             "iban_to_name": "Название IBAN (для)"
         },
         "search": "Поиск",
-        "title": "Выплаты"
+        "title": "Выплаты",
+        "create_card": {
+            "button": "Передача",
+            "description": "Создайте перевод с кредитного баланса.",
+            "title": "Перевод на банковский счет"
+        }
     },
     "pdf_preview": {
         "buttons": {
@@ -2293,12 +2300,10 @@
             "collapse_section": "Складывание секций",
             "description_card": "Описание",
             "dont_have_voucher": "Еще нет кредита?",
-            "duration_of_promotion": "Продолжительность акции",
             "expand_section": "Развернуть раздел",
             "expire_by_date": "Действует до {{date}}",
             "how_can_i_pay": "Как я могу заплатить?",
             "locations_on_map": "Места на карте",
-            "login_to_order": "Войдите, чтобы заказать сейчас",
             "more_info": "Дополнительная информация",
             "next_image": "Следующее изображение",
             "payment_option_qr": "Показать QR-код у провайдера",
@@ -2307,13 +2312,15 @@
             "product_images": "Изображения продуктов",
             "provider": "Поставщик",
             "quantity_limit": "Макс {{limit}} p.p.",
-            "request_one_now": "Подайте заявку прямо сейчас!",
             "show_image_of_total": "Показать изображение {{current}} из {{total}}",
             "when": "Когда",
             "where": "Где",
             "add_to_favorites": "Добавить в избранное",
             "ideal_logo_alt": "Логотип iDEAL",
-            "remove_from_favorites": "Удалить из избранного"
+            "remove_from_favorites": "Удалить из избранного",
+            "duration_of_promotion": "Продолжительность",
+            "login_to_order": "Войдите в систему, чтобы заказать",
+            "request_one_now": "Сделать запрос"
         },
         "low_amount": "У вас нет кредита с достаточным балансом.",
         "map": {
@@ -2323,7 +2330,8 @@
         "tooltip": "Сколько еще раз вы можете воспользоваться этим предложением",
         "price": {
             "free": "Бесплатно",
-            "informational": "Только в магазине"
+            "informational": "Только в магазине",
+            "payout": "Предоставление средств"
         },
         "other_products": "Вам также может понравиться это?"
     },
@@ -2370,7 +2378,8 @@
             "category": "Категории",
             "payment_options": "Варианты оплаты",
             "payment_options_info": "Подробнее о вариантах оплаты",
-            "price_to": "На"
+            "price_to": "На",
+            "price_type_option_payout": "Выплата на банковский счет"
         },
         "sort": {
             "created_at_asc": "Самый старый первый",
@@ -3228,6 +3237,9 @@
             },
             "fijnder": {
                 "funds": "Схемы"
+            },
+            "isd": {
+                "funds": "Схемы"
             }
         },
         "user_menu": {
@@ -3379,7 +3391,8 @@
             "subtract": "Вычитание",
             "title": "Транзакции",
             "top_up": "Обновленный",
-            "expired_on": "Срок действия истек {{ date }}"
+            "expired_on": "Срок действия истек {{ date }}",
+            "payout": "Предоставление средств"
         },
         "actions": {
             "choose_action": {
@@ -3389,7 +3402,9 @@
             "save_qr": "Сохранить QR-код",
             "share_with_provider": "Поделитесь QR-кодом с поставщиком",
             "view_all_products": "Посмотреть все товары",
-            "declaration_request": "Возмещение затрат"
+            "declaration_request": "Возмещение затрат",
+            "transfer_to_bank": "Перевод на банковский счет",
+            "transfer_to_bank_description": "Выберите кредит и сумму, которую вы хотите перевести на свой банковский счет."
         },
         "details": {
             "records": {
@@ -3424,6 +3439,27 @@
         "fund_details": {
             "title": "Информация о схеме",
             "view": "Читать далее"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "Условия",
+            "amount": "Сумма",
+            "cancel": "Отмена",
+            "iban": "IBAN",
+            "iban_name": "Владелец счета",
+            "submit": "Передача",
+            "success": {
+                "close": "Закрыть",
+                "description": "Ваш запрос на перевод отправлен. Его обработка может занять некоторое время.",
+                "title": "Запрашиваемый перевод"
+            },
+            "transfer_to_bank": "Перевод на банковский счет",
+            "transfer_to_bank_description": "Выберите кредит и сумму, которую вы хотите перевести на свой банковский счет.",
+            "voucher_label": "Кредит",
+            "warning_count_reached": "Максимальное количество выплат по данному кредиту достигнуто.",
+            "warning_not_enough_amount_fixed": "Этот кредит должен включать в себя как минимум {{ amount }} для выплаты.",
+            "warning_not_enough_amount_min": "Этот кредит должен включать в себя как минимум {{ min }} для выплаты.",
+            "accept_compliance_rules": "Я согласен с приведенными ниже условиями и положениями.",
+            "accept_compliance_rules_info": "<p><strong>Я заявляю, что:</strong></p><ul><li>Я использую деньги только для этой деятельности;</li><li>Я использую деньги в соответствии с правилами программы;</li><li>Я понимаю, что должен вернуть деньги, если использую их неправильно.</li></ul>"
         }
     },
     "vouchers": {
@@ -3583,7 +3619,8 @@
         "session_expired": {
             "description": "Войдите в систему и повторите попытку.",
             "title": "Сессия истекла!"
-        }
+        },
+        "payout_created": "Запрошена выплата."
     },
     "read_speaker": {
         "read_aloud": "Читать для",
@@ -3650,7 +3687,9 @@
         "info_option_informational_title": "Только в магазине",
         "info_option_regular_description": "У товара есть фиксированная цена. Это сумма, которую необходимо заплатить, например 10 евро.",
         "info_option_regular_title": "Цена",
-        "title": "Варианты оплаты"
+        "title": "Варианты оплаты",
+        "info_option_payout_description": "Проведите транзакцию с вашего баланса на номер банковского счета, указанный при оформлении заявки на получение средств.",
+        "info_option_payout_title": "Выплата на банковский счет"
     },
     "pincode_control": {
         "aria_label_num": "Рисунок {{current}} из {{total}}",

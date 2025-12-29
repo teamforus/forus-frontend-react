@@ -12,15 +12,27 @@ import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNe
 import PayoutCard from './elements/PayoutCard';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import useEnvData from '../../../hooks/useEnvData';
+import { useVoucherService } from '../../../services/VoucherService';
+import Voucher from '../../../../dashboard/props/models/Voucher';
+import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleVouchers';
+import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
+import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
+import IconPayout from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-payout.svg';
 
 export default function Payouts() {
+    const envData = useEnvData();
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
+    const openModal = useOpenModal();
 
     const payoutTransactionService = usePayoutTransactionService();
+    const voucherService = useVoucherService();
 
     const [payouts, setPayoutTransactions] = useState<PaginationData<PayoutTransaction>>(null);
+    const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
+    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers);
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string }>(
         { q: '' },
@@ -36,9 +48,28 @@ export default function Payouts() {
             .finally(() => setProgress(100));
     }, [setProgress, payoutTransactionService, filterValuesActive]);
 
+    const fetchVouchers = useCallback(() => {
+        setProgress(0);
+
+        voucherService
+            .list({ implementation_key: envData.client_key, per_page: 100, state: 'active', type: 'regular' })
+            .then((res) => setVouchers(res.data.data))
+            .finally(() => setProgress(100));
+    }, [envData.client_key, setProgress, voucherService]);
+
+    const openPayoutModal = useCallback(() => {
+        openModal((modal) => (
+            <ModalVoucherPayout modal={modal} vouchers={payoutEligibleVouchers} onCreated={() => fetchTransactions()} />
+        ));
+    }, [fetchTransactions, openModal, payoutEligibleVouchers]);
+
     useEffect(() => {
         fetchTransactions();
     }, [fetchTransactions]);
+
+    useEffect(() => {
+        fetchVouchers();
+    }, [fetchVouchers]);
 
     return (
         <BlockShowcaseProfile
@@ -91,20 +122,56 @@ export default function Payouts() {
                         </div>
                     )}
 
+                    {payouts?.data?.length > 0 && payoutEligibleVouchers?.length > 0 && (
+                        <div
+                            className="block block-action-card block-action-card-compact"
+                            data-dusk="payoutsCreateCard">
+                            <div className="block-card-logo" role="img" aria-label="">
+                                <IconPayout />
+                            </div>
+                            <div className="block-card-details">
+                                <h2 className="block-card-title">{translate('payouts.create_card.title')}</h2>
+                                <div className="block-card-description">
+                                    {translate('payouts.create_card.description')}
+                                </div>
+                            </div>
+
+                            <div className="block-card-actions">
+                                <button
+                                    className="button button-primary-outline"
+                                    type="button"
+                                    data-dusk="payoutsCreateButton"
+                                    onClick={openPayoutModal}>
+                                    {translate('payouts.create_card.button')}
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                     {payouts?.data?.length == 0 && (
                         <EmptyBlock
                             title={translate('payouts.empty.title')}
                             description={translate('payouts.empty.subtitle')}
                             svgIcon={'payouts'}
                             hideLink={true}
+                            dataDusk="payoutsEmptyBlock"
                             button={{
-                                text: translate('payouts.empty.button'),
-                                icon: 'arrow-right',
-                                iconEnd: true,
+                                text:
+                                    payoutEligibleVouchers?.length > 0
+                                        ? translate('payouts.empty.button_payout')
+                                        : translate('payouts.empty.button'),
+                                icon: payoutEligibleVouchers?.length > 0 ? 'plus' : 'arrow-right',
+                                iconEnd: payoutEligibleVouchers?.length <= 0,
                                 type: 'primary',
                                 onClick: (e) => {
                                     e?.preventDefault();
                                     e?.stopPropagation();
+
+                                    if (payoutEligibleVouchers?.length > 0) {
+                                        openPayoutModal();
+                                        return;
+                                    }
+
                                     navigateState(WebshopRoutes.FUNDS);
                                 },
                             }}
