@@ -32,6 +32,7 @@ export default function FundRequestStepCriterion({
     isGroup?: boolean;
 }) {
     const translate = useTranslate();
+    const fileUploaderTemplate: 'default' | 'inline' | 'group' = isGroup ? 'group' : uploaderTemplate;
 
     const isLabelRequired = useCallback(
         (criteria: LocalCriterion) => {
@@ -219,7 +220,7 @@ export default function FundRequestStepCriterion({
                         type="fund_request_record_proof"
                         files={criterion.files}
                         cropMedia={false}
-                        template={uploaderTemplate}
+                        template={fileUploaderTemplate}
                         onFilesChange={({ files }) => {
                             setCriterion(criterion.id, {
                                 files,

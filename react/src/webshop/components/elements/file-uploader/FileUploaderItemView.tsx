@@ -18,7 +18,7 @@ export default function FileUploaderItemView({
     removeFile,
 }: {
     item: FileUploaderItem;
-    template?: 'default' | 'compact' | 'inline';
+    template?: 'default' | 'compact' | 'inline' | 'group';
     hidePreviewButton?: boolean;
     hideDownloadButton?: boolean;
     readOnly?: boolean;
@@ -65,6 +65,16 @@ export default function FileUploaderItemView({
         [fileService],
     );
 
+    const progressValue = useMemo(() => {
+        const value = Number(item.progress);
+
+        if (!Number.isFinite(value)) {
+            return 0;
+        }
+
+        return Math.max(0, Math.min(100, Math.round(value)));
+    }, [item.progress]);
+
     return (
         <div className={classNames('file-item', { 'file-item-uploading': item.uploading })}>
             <div
@@ -78,8 +88,9 @@ export default function FileUploaderItemView({
                 <div className="file-item-name">{name}</div>
                 <div className="file-item-progress">
                     <div className="file-item-progress-container">
-                        <progress max="100" value={item.progress} />
+                        <progress max="100" value={progressValue} />
                     </div>
+                    {template === 'group' && <div className="file-item-progress-value">{progressValue}%</div>}
                 </div>
 
                 {item.has_preview && !hidePreviewButton && (
