@@ -23,6 +23,7 @@ export default {
     reservation: {
         canceled: 'Reservering geannuleerd.',
     },
+    payout_created: 'Uitbetaling aangevraagd.',
     profile: {
         updated: 'De informatie is bijgewerkt.',
     },

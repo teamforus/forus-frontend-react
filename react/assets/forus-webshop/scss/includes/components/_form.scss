@@ -177,6 +177,11 @@
             background-color: #ffffff;
             border: 1px solid var(--form-control-border-color-focus);
         }
+
+        &.select-control-disabled {
+            outline: none !important;
+            pointer-events: none;
+        }
     }
 
     .select-control-input {
@@ -572,7 +577,7 @@
                 left: 50%;
                 top: 100%;
                 transform: translate(-50%, 7px);
-                font: 700 14px/20px var(--base-font)
+                font: 700 14px/20px var(--base-font);
             }
         }
     }

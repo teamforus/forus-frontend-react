@@ -735,7 +735,8 @@
             "potjeswijzer": {
                 "start_request": "Żądanie"
             },
-            "start_request": "Aktywuj"
+            "start_request": "Aktywuj",
+            "open_payouts": "Otwarte wypłaty"
         },
         "criteria": {
             "key": "{{key}}"
@@ -874,12 +875,12 @@
             "view_file": "Wyświetl plik"
         },
         "file_uploader": {
-            "attachments": "Załączniki",
             "max_size": "maks. rozmiar 8 MB",
             "or": "lub",
             "title": "Prześlij dokument",
             "upload_button": "Prześlij dokument",
-            "max_files": "do {{ count }} plików"
+            "max_files": "do {{ count }} plików",
+            "attachments": "Załączniki"
         },
         "info_box": {
             "2fa_description": "Aby uzyskać więcej informacji na temat 2FA, odwiedź naszą stronę:",
@@ -1906,7 +1907,8 @@
         "empty": {
             "button": "Przejdź do funduszy",
             "subtitle": "Obecnie nie masz żadnych wypłat",
-            "title": "Brak wypłat"
+            "title": "Brak wypłat",
+            "button_payout": "Transfer"
         },
         "labels": {
             "created_at": "Wypłacone w dniu",
@@ -1915,7 +1917,12 @@
             "iban_to_name": "Nazwa IBAN (do)"
         },
         "search": "Wyszukiwanie",
-        "title": "Wypłaty"
+        "title": "Wypłaty",
+        "create_card": {
+            "button": "Transfer",
+            "description": "Utwórz przelew z salda kredytowego.",
+            "title": "Przelew na rachunek bankowy"
+        }
     },
     "pdf_preview": {
         "buttons": {
@@ -2293,12 +2300,10 @@
             "collapse_section": "Składanie sekcji",
             "description_card": "Opis",
             "dont_have_voucher": "Nie masz jeszcze kredytu?",
-            "duration_of_promotion": "Czas trwania promocji",
             "expand_section": "Rozwiń sekcję",
             "expire_by_date": "Ważne do {{date}}",
             "how_can_i_pay": "Jak mogę zapłacić?",
             "locations_on_map": "Lokalizacje na mapie",
-            "login_to_order": "Zaloguj się, aby zamówić teraz",
             "more_info": "Więcej informacji",
             "next_image": "Następny obraz",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
@@ -2307,13 +2312,15 @@
             "product_images": "Zdjęcia produktów",
             "provider": "Dostawca",
             "quantity_limit": "Max {{limit}} p.p.",
-            "request_one_now": "Złóż wniosek już teraz!",
             "show_image_of_total": "Pokaż obraz {{current}} z {{total}}",
             "when": "Kiedy",
             "where": "Gdzie",
             "add_to_favorites": "Dodaj do ulubionych",
             "ideal_logo_alt": "Logo iDEAL",
-            "remove_from_favorites": "Usuń z ulubionych"
+            "remove_from_favorites": "Usuń z ulubionych",
+            "duration_of_promotion": "Czas trwania",
+            "login_to_order": "Zaloguj się, aby zamówić",
+            "request_one_now": "Złóż zapytanie"
         },
         "low_amount": "Nie masz kredytu z wystarczającym saldem.",
         "map": {
@@ -2323,7 +2330,8 @@
         "tooltip": "Ile razy jeszcze możesz skorzystać z tej oferty?",
         "price": {
             "free": "Darmowy",
-            "informational": "Tylko w sklepie"
+            "informational": "Tylko w sklepie",
+            "payout": "Wypłata"
         },
         "other_products": "Może ci się również spodobać?"
     },
@@ -2370,7 +2378,8 @@
             "category": "Kategorie",
             "payment_options": "Opcje płatności",
             "payment_options_info": "Więcej informacji o opcjach płatności",
-            "price_to": "Do"
+            "price_to": "Do",
+            "price_type_option_payout": "Wypłata na konto bankowe"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -3228,6 +3237,9 @@
             },
             "fijnder": {
                 "funds": "Programy"
+            },
+            "isd": {
+                "funds": "Programy"
             }
         },
         "user_menu": {
@@ -3379,7 +3391,8 @@
             "subtract": "Odejmowanie",
             "title": "Transakcje",
             "top_up": "Ulepszony",
-            "expired_on": "Wygasł w dniu {{ date }}"
+            "expired_on": "Wygasł w dniu {{ date }}",
+            "payout": "Wypłata"
         },
         "actions": {
             "choose_action": {
@@ -3389,7 +3402,9 @@
             "save_qr": "Zapisz kod QR",
             "share_with_provider": "Udostępnianie kodu QR dostawcy",
             "view_all_products": "Zobacz wszystkie produkty",
-            "declaration_request": "Zwrot kosztów"
+            "declaration_request": "Zwrot kosztów",
+            "transfer_to_bank": "Przelew na rachunek bankowy",
+            "transfer_to_bank_description": "Wybierz kredyt i kwotę, którą chcesz przelać na swoje konto bankowe."
         },
         "details": {
             "records": {
@@ -3424,6 +3439,27 @@
         "fund_details": {
             "title": "Informacje o programie",
             "view": "Czytaj więcej"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "Warunki",
+            "amount": "Kwota",
+            "cancel": "Anuluj",
+            "iban": "IBAN",
+            "iban_name": "Posiadacz konta",
+            "submit": "Transfer",
+            "success": {
+                "close": "Zamknij",
+                "description": "Żądanie transferu zostało wysłane. Jego przetworzenie może zająć trochę czasu.",
+                "title": "Żądany transfer"
+            },
+            "transfer_to_bank": "Przelew na rachunek bankowy",
+            "transfer_to_bank_description": "Wybierz kredyt i kwotę, którą chcesz przelać na swoje konto bankowe.",
+            "voucher_label": "Kredyt",
+            "warning_count_reached": "Osiągnięto maksymalną liczbę wypłat dla tego kredytu.",
+            "warning_not_enough_amount_fixed": "Kredyt ten musi obejmować co najmniej {{ amount }} do wypłaty.",
+            "warning_not_enough_amount_min": "Kredyt ten musi obejmować co najmniej {{ min }} do wypłaty.",
+            "accept_compliance_rules_info": "<p><strong>Oświadczam, że:</strong></p><ul><li>Wykorzystuję pieniądze wyłącznie na tę działalność;</li><li>wykorzystuję pieniądze zgodnie z zasadami programu;</li><li>Rozumiem, że muszę zwrócić pieniądze, jeśli nie wykorzystam ich prawidłowo.</li></ul>",
+            "accept_compliance_rules": "Zgadzam się na powyższe warunki."
         }
     },
     "vouchers": {
@@ -3583,7 +3619,8 @@
         "session_expired": {
             "description": "Zaloguj się ponownie i spróbuj ponownie.",
             "title": "Sesja wygasła!"
-        }
+        },
+        "payout_created": "Żądana wypłata."
     },
     "read_speaker": {
         "read_aloud": "Czytaj za",
@@ -3650,7 +3687,9 @@
         "info_option_informational_title": "Tylko w sklepie",
         "info_option_regular_description": "Produkt ma stałą cenę. Jest to kwota do zapłaty, na przykład 10 euro.",
         "info_option_regular_title": "Cena",
-        "title": "Opcje płatności"
+        "title": "Opcje płatności",
+        "info_option_payout_description": "Dokonaj transakcji z salda na numer konta bankowego podany podczas składania wniosku o fundusz.",
+        "info_option_payout_title": "Wypłata na konto bankowe"
     },
     "pincode_control": {
         "aria_label_num": "Rysunek {{current}} z {{total}}",

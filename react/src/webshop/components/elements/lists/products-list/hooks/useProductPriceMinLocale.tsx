@@ -1,13 +1,21 @@
 import { useMemo } from 'react';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import Product from '../../../../../props/models/Product';
+import useIsPayoutInfoProduct from '../../../../pages/products-show/hooks/useIsPayoutInfoProduct';
+import useAppConfigs from '../../../../../hooks/useAppConfigs';
 
 export default function useProductPriceMinLocale(product: Product) {
+    const appConfigs = useAppConfigs();
     const translate = useTranslate();
+    const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
 
     return useMemo(() => {
         if (!product) {
             return null;
+        }
+
+        if (isPayoutInfoProduct) {
+            return translate('product.price.payout');
         }
 
         if (product.price_type === 'informational') {
@@ -23,5 +31,5 @@ export default function useProductPriceMinLocale(product: Product) {
         }
 
         return product.price_min_locale;
-    }, [product, translate]);
+    }, [isPayoutInfoProduct, product, translate]);
 }

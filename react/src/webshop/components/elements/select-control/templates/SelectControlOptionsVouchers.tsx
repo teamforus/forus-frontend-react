@@ -10,6 +10,7 @@ import useSelectControlKeyEventHandlers from '../../../../../dashboard/component
 export default function SelectControlOptionsVouchers<T>({
     id,
     dusk,
+    disabled,
     query,
     setQuery,
     modelValue,
@@ -45,16 +46,16 @@ export default function SelectControlOptionsVouchers<T>({
     return (
         <div
             id={id}
-            className={'select-control ' + (className ? className : '')}
+            className={'select-control ' + (className ? className : '') + (disabled ? ' select-control-disabled' : '')}
             role="button"
             aria-haspopup="listbox"
             aria-expanded={showOptions}
             aria-labelledby={controlId}
             aria-controls={`${controlId}_options`}
-            tabIndex={0}
+            tabIndex={disabled ? -1 : 0}
             ref={selectorRef}
-            onKeyDown={onKeyDown}
-            onBlur={onBlur}>
+            onKeyDown={disabled ? undefined : onKeyDown}
+            onBlur={disabled ? undefined : onBlur}>
             <div className={['select-control-input', showOptions ? 'options' : ''].filter((item) => item).join(' ')}>
                 {/* Placeholder */}
                 <label
@@ -65,7 +66,7 @@ export default function SelectControlOptionsVouchers<T>({
                     }`}
                     ref={placeholderRef}
                     data-dusk={dusk || 'voucherSelector'}
-                    onClick={searchOption}
+                    onClick={disabled ? undefined : searchOption}
                     style={{ display: showOptions && allowSearch ? 'none' : 'block' }}
                     title={placeholderValue || placeholder}>
                     <div className="voucher-item voucher-item-select voucher-item-select-placeholder">
