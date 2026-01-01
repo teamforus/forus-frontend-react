@@ -6,7 +6,13 @@ import Fund from './Fund';
 import Voucher from './Voucher';
 import ReservationField from './ReservationField';
 
-export type ProductPriceType = 'regular' | 'discount_fixed' | 'discount_percentage' | 'free' | 'informational';
+export type ProductPriceType =
+    | 'regular'
+    | 'discount_fixed'
+    | 'discount_percentage'
+    | 'free'
+    | 'informational'
+    | 'payout';
 
 export default interface Product {
     id: number;

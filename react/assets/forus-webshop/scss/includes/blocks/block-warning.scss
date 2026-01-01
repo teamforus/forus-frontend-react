@@ -8,8 +8,9 @@
     .block-warning-icon {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         font-size: 16px;
+        line-height: 24px;
     }
 
     .block-warning-content {
