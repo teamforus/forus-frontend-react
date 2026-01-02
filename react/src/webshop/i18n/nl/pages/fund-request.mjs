@@ -232,4 +232,46 @@ export default {
             kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
         },
     },
+    options: {
+        no: 'Nee',
+    },
+    prefills: {
+        title: 'Check that your information is correct.',
+        subtitle: 'If your information is incorrect, please contact us using the button below.',
+        children: 'Children',
+        child: 'Child',
+        partner: "Partner's details",
+    },
+    cards: {
+        back: 'Terug',
+
+        taken_by_partner: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_filled_required_criteria: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        connection_error: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_found: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+    },
 };
