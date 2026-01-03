@@ -326,6 +326,140 @@
         }
     }
 
+    &.block-file-uploader-group {
+        flex-direction: column-reverse;
+        gap: 16px;
+        padding: 18px 20px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        background: #fbfbfb;
+
+        .droparea-icon,
+        .droparea-title,
+        .droparea-hidden-input {
+            display: none;
+        }
+
+        .uploader-droparea {
+            display: flex;
+            padding: 0;
+            background: none;
+            border: none;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 18px;
+
+            .droparea-button {
+                .button {
+                    padding: 10px 20px;
+                    gap: 10px;
+                    font: 600 15px/22px var(--base-font);
+                    border-radius: var(--button-border-radius);
+                }
+            }
+
+            .droparea-max-limit {
+                color: #5c6170;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                font-family: var(--base-font), serif;
+            }
+        }
+
+        .uploader-files {
+            gap: 10px;
+
+            .uploader-files-title {
+                display: flex;
+                align-items: center;
+                font: 700 18px/24px var(--base-font);
+                gap: 10px;
+
+                .uploader-files-title-count {
+                    padding: 2px 10px;
+                    background: #ffffff;
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--border-radius);
+                    font: 600 14px/20px var(--base-font);
+                    color: #222633;
+                }
+            }
+
+            .file-item {
+                .file-item-container {
+                    padding: 9px 12px;
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--border-radius);
+                    box-shadow: var(--box-shadow);
+                    align-items: center;
+                    background: #fff;
+                }
+
+                .file-item-name {
+                    font: 600 13px/22px var(--base-font);
+                    color: #2a2f3a;
+                    width: auto;
+                    flex: 1 1 auto;
+                }
+
+                .file-item-progress {
+                    flex: 1 1 35%;
+                    padding-left: 12px;
+                    align-items: center;
+                    gap: 10px;
+                    flex-direction: row;
+                    min-width: 160px;
+
+                    .file-item-progress-container {
+                        background-color: var(--border-color);
+                        flex: 1 1 auto;
+                        border-radius: 999px;
+
+                        progress[value] {
+                            height: 6px;
+                            width: 100%;
+                            display: block;
+                            border-radius: 999px;
+
+                            &::-webkit-progress-bar {
+                                background-color: var(--border-color);
+                                border-radius: 999px;
+                            }
+
+                            &::-webkit-progress-value {
+                                background-color: var(--color-primary);
+                                border-radius: 999px;
+                            }
+
+                            &::-moz-progress-bar {
+                                background-color: var(--color-primary);
+                                border-radius: 999px;
+                            }
+                        }
+                    }
+
+                    .file-item-progress-value {
+                        font: 600 13px/20px var(--base-font);
+                        color: #5c6170;
+                    }
+                }
+
+                .file-item-action {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 12px;
+
+                    .mdi {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
     @media (max-width: 991px) {
         .uploader-droparea {
             border: none;
@@ -335,6 +469,22 @@
             .droparea-icon,
             .droparea-title {
                 display: none;
+            }
+        }
+
+        &.block-file-uploader-group {
+            .uploader-droparea {
+                flex-direction: column;
+                align-items: stretch;
+
+                .droparea-button {
+                    width: 100%;
+
+                    .button {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
             }
         }
     }
