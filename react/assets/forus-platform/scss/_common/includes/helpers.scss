@@ -209,5 +209,5 @@
 }
 
 @function assetUrl($url) {
-    @return if(variable-exists(buildReact), url('./assets/' + $url), url('../' + $url));
+    @return url('./assets/' + $url);
 }
