@@ -1,5 +1,4 @@
 export default {
-    // VALIDATE A RECORD = record-validate.pug
     header: {
         title: 'Mijn persoonsgegevens',
     },

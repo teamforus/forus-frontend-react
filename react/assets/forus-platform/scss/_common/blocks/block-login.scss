@@ -1,0 +1,260 @@
+.block.block-login {
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    @include fill_parent();
+    position: fixed;
+    padding-bottom: 60px;
+    cursor: default;
+
+    .block-login-window {
+        display: block;
+        margin: 0 auto;
+        width: 760px;
+        max-width: 100%;
+        border: 1px solid #e5e5e5;
+        border-radius: var(--border-radius);
+        background-color: #fff;
+    }
+
+    .block-login-content {
+        padding: 30px 40px;
+        border-bottom: 1px solid #e5e5e5;
+
+        .block-login-title {
+            font: 500 21px/36px var(--base-font);
+            color: #222530;
+        }
+
+        .block-login-description {
+            font: 400 18px/26px var(--base-font);
+            color: #222530;
+            margin: 0 0 30px;
+        }
+
+        .block-login-form {
+            margin: 0 0 30px;
+
+            .form-label {
+                color: #7e818c;
+                margin-left: 10px;
+                font-weight: 400;
+            }
+
+            .block-login-control {
+                display: flex;
+                flex-direction: row;
+
+                .form-group {
+                    padding-right: 20px;
+                    flex-grow: 1;
+                    margin: 0 0;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .button {
+                    align-self: flex-start;
+                }
+            }
+
+            .form-control:not([type='radio']):not([type='checkbox']) {
+                font: 400 16px/20px var(--base-font);
+            }
+
+            button {
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .block-login-me_app {
+            display: flex;
+            flex-direction: row;
+            flex-grow: 1;
+
+            .qr_code-container {
+                padding-right: 30px;
+
+                .auth-title {
+                    font: 500 21px/28px var(--base-font);
+                    color: #333;
+                    margin: 0 0 5px;
+                }
+
+                .auth-description {
+                    font: 400 15px/22px var(--base-font);
+                    color: #333;
+                    margin: 0 0 5px;
+                }
+            }
+
+            .qr_code-block {
+                display: flex;
+                flex-direction: column;
+
+                .qr_code-block-placeholder {
+                    width: 200px;
+                    height: 200px;
+                    border: 1px solid #e5e5e5;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    text-align: center;
+
+                    button {
+                        background: rgba(53, 97, 255, 0.15);
+                        border-radius: var(--border-radius);
+                        font: 500 14px/25px var(--base-font);
+                        color: #3561ff;
+                        margin: 0 auto;
+                        padding: 7.5px 15px;
+                        box-shadow: none;
+                        align-self: center;
+                    }
+                }
+
+                .block.block-qr-code {
+                    width: 200px;
+                    height: 200px;
+                    padding: 0;
+
+                    .qr_code {
+                        border-radius: 0;
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        padding: 12.5px;
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+                    }
+                }
+            }
+        }
+
+        .block-login-email_sent {
+            text-align: center;
+
+            .block-login-email_sent-icon {
+                margin: 0 auto 10px;
+
+                .block-login-email_sent-icon-img {
+                    display: block;
+                    width: 300px;
+                    max-width: 100%;
+                    margin: auto;
+                }
+            }
+
+            .block-login-email_sent-title {
+                font: 500 28px/38px var(--base-font);
+                color: var(--color-primary);
+                margin: 0 0 20px;
+            }
+
+            .block-login-email_sent-text {
+                font: 500 18px/27px var(--base-font);
+                color: #454545;
+                margin: 0 0 20px;
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .block-login-footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px;
+
+        .block-login-footer-title {
+            font: 500 19px/21px var(--base-font);
+            text-align: center;
+            margin: 0 auto 20px;
+        }
+
+        .block-login-footer-button {
+            width: 320px;
+            transform: translate(0, 0);
+            color: #0c66ff;
+            background: rgba(12, 102, 255, 0.1);
+            padding: 20px 65px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid #0c66ff;
+            border-radius: 8px;
+            font: 600 16px/21px var(--base-font);
+            transition:
+                color 0.3s,
+                border-color 0.3s,
+                background 0.3s,
+                box-shadow 0.3s;
+            margin: auto;
+
+            &:hover {
+                text-decoration: none;
+                background: rgba(12, 102, 255, 0.1);
+                border-color: #0c66ff;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        position: initial;
+
+        .block-login-window {
+            border: none;
+            background: none;
+        }
+
+        .block-login-content {
+            padding: 25px;
+
+            .block-login-title {
+                font: 500 17px/30px var(--base-font);
+            }
+
+            .block-login-description {
+                font: 400 13px/20px var(--base-font);
+            }
+
+            .block-login-form {
+                margin: 0;
+
+                .block-login-control {
+                    flex-direction: column;
+
+                    .flex {
+                        justify-content: center;
+                    }
+
+                    .form-group {
+                        margin-bottom: 20px;
+                        padding-right: 0;
+                    }
+                }
+            }
+
+            .block-login-me_app {
+                display: none;
+            }
+        }
+    }
+
+    .block-login-footer {
+        .block-login-footer-title {
+            font: 500 17px/21px var(--base-font);
+        }
+
+        .block-login-footer-button {
+            padding: 15px 45px;
+            width: auto;
+        }
+    }
+}

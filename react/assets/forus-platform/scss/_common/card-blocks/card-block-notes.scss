@@ -1,0 +1,65 @@
+.card-block.card-block-notes {
+    margin: -20px;
+
+    .note-form {
+        padding: 15px 15px 15px 55px;
+
+        .note-form-actions {
+            padding-top: 10px;
+            @include cf();
+
+            .note-form-desc {
+                float: left;
+                width: 50%;
+            }
+
+            .note-form-buttons {
+                text-align: right;
+                float: right;
+                width: 50%;
+            }
+        }
+    }
+
+    .note-item {
+        position: relative;
+        padding: 15px 55px;
+        border-bottom: 1px solid #d4d9dd;
+        background: #fff;
+        transition: 0.4s;
+        cursor: default;
+
+        &:last-child {
+            border-bottom: 1px solid transparent;
+        }
+
+        &:hover {
+            background: #f6f8f9;
+        }
+    }
+
+    .note-item-icon {
+        position: absolute;
+        left: 25px;
+        top: 20px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .note-item-text {
+        color: #282b39;
+        font: 500 13px/18px var(--base-font);
+    }
+
+    .note-item-sign {
+        color: #646f79;
+        font: 500 12px/18px var(--base-font);
+
+        .mdi {
+            font-size: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            color: #d4d9dd;
+        }
+    }
+}

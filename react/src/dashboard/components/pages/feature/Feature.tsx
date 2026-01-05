@@ -248,7 +248,7 @@ export default function Feature() {
                 />
             )}
 
-            {feature.key === 'subsidy_funds' && (
+            {feature.key === 'product_funds' && (
                 <SubsidyFunds
                     feature={feature}
                     additionalFeatures={additionalFeatures}

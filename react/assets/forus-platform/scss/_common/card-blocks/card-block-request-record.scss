@@ -1,0 +1,27 @@
+.card-block.card-block-request-record {
+    .card-header {
+        .card-title {
+            margin-bottom: 0;
+        }
+    }
+
+    .block-label-tabs {
+        margin-bottom: 10px;
+    }
+
+    .table {
+        tr {
+            td {
+                &.collapse-content {
+                    padding: 15px 20px;
+                }
+
+                .card {
+                    border: 1px solid var(--border-color);
+                    overflow: hidden;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}

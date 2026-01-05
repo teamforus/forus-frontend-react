@@ -5,9 +5,16 @@
     z-index: 1;
 }
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     background: #f1f4f7;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     @include webkit_scrollbar(#848588);
 }
 

@@ -1,0 +1,1041 @@
+.block.block-sign_up {
+    --paginator-button-active-background: #305dfb;
+
+    .card-header {
+        padding-top: 0;
+        margin: 10px 0 15px;
+        position: relative;
+
+        &:not(.card-header-no-line) {
+            padding-top: 30px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                border-top: 1px solid #dbdcdb;
+                width: calc(100% + 80px);
+                left: -40px;
+            }
+        }
+
+        & > .flex {
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+
+            span {
+                &:first-child {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 27px;
+                    margin-right: 10px;
+                }
+
+                &.total-count {
+                    padding: 8px 10px;
+                    height: 32px;
+                    border: 1px solid #315efd;
+                    border-radius: 7px;
+                    color: #315efd;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 16px;
+                }
+            }
+        }
+
+        .block.block-inline-filters .button {
+            height: 36px;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 18px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 9px 12px;
+
+            &.button-secondary {
+                border: 1px solid #dbdcdb;
+
+                &:hover {
+                    border-color: var(--color-primary);
+                }
+            }
+        }
+    }
+
+    .sign_up-pane {
+        .block-photo-selector {
+            max-width: 200px;
+
+            .button {
+                font-size: 12px;
+                width: 100%;
+                padding: 10px 5px;
+                margin: 0 0 15px;
+            }
+        }
+
+        .sign_up-pane-header {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 21px;
+            line-height: 30px;
+        }
+
+        .sign_up-heading-block {
+            font: 400 18px/22px var(--base-font);
+            padding: 30px 40px;
+            font-style: normal;
+            color: #222530;
+            border-bottom: 1px solid #edeef0;
+        }
+
+        .sign_up-pane-body {
+            padding: 30px 40px;
+
+            .sign_up-pane-subtitle {
+                text-align: center;
+                font: 400 26px/36px var(--base-font);
+                color: #3561ff;
+                margin-top: 25px;
+            }
+
+            & + .sign_up-pane-body {
+                border-top: 1px solid #edeef0;
+            }
+        }
+
+        .sign_up-pane-footer {
+            .button {
+                &.button-text {
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #3561ff;
+                    line-height: 30px;
+
+                    .mdi {
+                        color: #3561ff;
+                        width: 36px;
+                        font-size: 34px;
+                    }
+                }
+            }
+        }
+
+        .app-download-notice {
+            font: 400 13px/27px var(--base-font);
+            color: #222530;
+            margin-top: 15px;
+
+            a {
+                color: blue;
+                text-decoration: underline;
+                font-weight: 500;
+            }
+        }
+
+        .sign_up-pane-auth {
+            &.test-qr {
+                margin-top: 30px;
+                justify-content: space-around;
+            }
+
+            .sign_up-pane-auth-content {
+                .block-app_links {
+                    margin-top: 26px;
+                }
+
+                .notice-small {
+                    font: 400 13px/27px var(--base-font);
+                    color: #989898;
+                    margin-top: 25px;
+                }
+            }
+
+            .sign_up-pane-auth-qr_code {
+                .qr_code {
+                    width: 228px !important;
+                    height: 228px !important;
+                }
+            }
+        }
+
+        ul {
+            li {
+                font: inherit;
+                background-image: assetUrl('img/icon-list.svg');
+                background-repeat: no-repeat;
+                line-height: 30px;
+                padding-left: 50px;
+                font-weight: 400;
+            }
+        }
+    }
+
+    .sign_up-offices {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #edeef0;
+
+        .sign_up-office {
+            display: flex;
+            flex-direction: row;
+            padding: 30px 0 30px 30px;
+            border-bottom: 1px solid var(--border-color);
+
+            .office-media {
+                padding-left: 10px;
+
+                img {
+                    width: 80px;
+                    display: block;
+                    border-radius: var(--border-radius);
+                }
+
+                &.office-media-placeholder {
+                    img {
+                        border: 1px solid var(--border-color);
+                    }
+                }
+            }
+
+            .office-contacts {
+                padding-left: 40px;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+
+                .office-contact {
+                    font: 400 16px/20px var(--base-font);
+                    margin: 0 0 15px;
+                    color: #222530;
+
+                    span {
+                        font: inherit;
+                        color: inherit;
+                    }
+
+                    .mdi {
+                        color: #9ea7b6;
+                        float: left;
+                        width: 20px;
+                        font-size: 18px;
+                        margin-right: 3px;
+                        margin-left: -25px;
+                        padding-right: 3px;
+                        text-align: right;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .office-map {
+                display: flex;
+                flex-direction: column;
+                margin: -30px 0;
+
+                .office-map-content {
+                    border: 1px solid var(--border-color);
+                    border-top: none;
+                    border-right: none;
+                    margin: 0 0 10px;
+                    width: 270px;
+                    height: 180px;
+                    position: relative;
+
+                    .map {
+                        @include fill_parent();
+
+                        .map-canvas {
+                            @include fill_parent();
+                        }
+                    }
+                }
+
+                .office-actions {
+                    display: flex;
+                    flex-direction: row;
+                    margin: 0 0 10px;
+
+                    .office-action {
+                        display: flex;
+                        flex-direction: row;
+                        flex-grow: 1;
+                        color: #9ea7b6;
+                        font: 400 13px var(--base-font);
+
+                        .mdi {
+                            margin-right: 3px;
+                            float: left;
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .block-schedule-editor {
+            .schedule-editor-heading {
+                font: 500 21px/27px var(--base-font);
+                margin: 0 0 15px;
+
+                &.schedule-editor-heading-lg {
+                    font: 500 28px/36px var(--base-font);
+                }
+            }
+        }
+
+        .form {
+            .form-group {
+                &.col {
+                    padding-right: 0;
+                }
+            }
+
+            .office-block {
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 20px;
+                padding-right: 20px;
+                border-bottom: 1px solid #eff2f4;
+            }
+
+            .schedule-settings-block,
+            .schedule-block {
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 35px;
+                padding-right: 35px;
+                border-bottom: 1px solid #eff2f4;
+            }
+
+            .description {
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 40px;
+                padding-right: 40px;
+                font: 400 16px/24px var(--base-font);
+                color: #222530;
+                border-bottom: 1px solid #eff2f4;
+            }
+
+            .schedule {
+                th {
+                    font: 600 13px/16px var(--base-font);
+                    letter-spacing: 0.08px;
+                    text-transform: uppercase;
+                    color: #222530;
+                    text-align: left;
+                }
+
+                td {
+                    padding-right: 22px;
+                    height: 30px;
+                    font: 400 16px/20px var(--base-font);
+                    color: #222530;
+
+                    &.weekend {
+                        color: #f15642;
+                    }
+
+                    span {
+                        font: 400 16px/20px var(--base-font);
+                    }
+                }
+
+                th,
+                td {
+                    &.breaks {
+                        text-align: center;
+                    }
+                }
+
+                td {
+                    &.breaks {
+                        padding-left: 40px;
+                    }
+                }
+
+                .ui-control {
+                    &.ui-control-text {
+                        width: 80px;
+                        height: 30px;
+
+                        input {
+                            height: 30px;
+                            border-radius: 6px;
+                        }
+                    }
+
+                    &.breaks {
+                        display: table-cell;
+
+                        &.end {
+                            input {
+                                margin-right: 0;
+                            }
+                        }
+
+                        input {
+                            width: 80px;
+                            margin-right: 22px;
+                        }
+                    }
+
+                    .ui-control-clear {
+                        display: none;
+                    }
+                }
+            }
+
+            .opening {
+                .ui-control.ui-control-checkbox {
+                    .ui-checkbox-label {
+                        padding-bottom: 0;
+                        font-size: 16px;
+                    }
+                }
+
+                .sign_up-pane-text {
+                    font-weight: 500;
+                    font-size: 21px;
+                    line-height: 26px;
+                }
+
+                .form-group {
+                    &.col {
+                        margin-bottom: 5px;
+                    }
+                }
+
+                .sync {
+                    padding-bottom: 0;
+                }
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .sign_up-employees {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 30px;
+
+        .sign_up-employee {
+            font: 600 16px/30px var(--base-font);
+            width: fit-content;
+            display: flex;
+            flex-direction: row;
+            color: #222530;
+            margin: 0 0 5px;
+
+            .sign_up-employee-actions {
+                padding-left: 20px;
+                display: flex;
+                flex-direction: row;
+
+                .mdi {
+                    margin-left: 5px;
+                    color: #9ea7b6;
+                    font-size: 18px;
+                    float: left;
+                    line-height: 28px;
+                }
+            }
+        }
+    }
+
+    .finish-screen {
+        .sign_up-pane-heading {
+            font: 500 28px/38px var(--base-font) !important;
+            line-height: 38px;
+            text-align: center;
+            color: #3561ff;
+            margin-top: 0 !important;
+        }
+
+        .sign_up-pane-text {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+
+    .fund-apply {
+        .header {
+            margin-bottom: 30px !important;
+        }
+
+        .card {
+            box-shadow: none;
+            margin-bottom: 15px;
+            border: 1px solid #e5e6ec;
+            border-radius: var(--border-radius);
+
+            .card-section {
+                background: #fff;
+                padding: 16px 18px;
+
+                .card-block {
+                    &.card-block-fund {
+                        padding-top: 0;
+                        display: flex;
+
+                        .fund-img {
+                            margin: 0 10px auto 0;
+                            padding: 0;
+                            width: 50px;
+                            height: 50px;
+                            min-width: 50px;
+                        }
+
+                        .fund-details {
+                            padding-right: 140px;
+
+                            .fund-title {
+                                display: block;
+                                font: 500 18px/24px var(--base-font);
+                                margin: 0 0 5px;
+                                color: #191a1c;
+                            }
+
+                            .fund-organization {
+                                display: block;
+                                font: 400 14px/18px var(--base-font);
+                                color: #222530;
+                                margin: 0 0;
+                            }
+                        }
+                    }
+                }
+
+                &.card-section-fund {
+                    display: flex;
+                    align-items: center;
+
+                    .card-section-actions {
+                        right: 16px;
+                        top: 16px;
+
+                        .button {
+                            white-space: nowrap;
+                            font: 700 12px/12px var(--base-font);
+                            padding: 12px;
+
+                            &:focus {
+                                outline: none;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+
+                    &.applied {
+                        background-color: #f8f4e7;
+                        cursor: default;
+                        pointer-events: none;
+
+                        .card-section-actions {
+                            button {
+                                background-color: rgba(255, 255, 255, 0.5);
+                                color: #0f0f0f;
+                                border-color: #c2c2c2;
+                            }
+                        }
+
+                        .card-block {
+                            &.card-block-fund {
+                                .fund-organization {
+                                    color: #4b4b4b;
+                                }
+
+                                .fund-title {
+                                    color: #4b4b4b;
+                                }
+                            }
+                        }
+                    }
+
+                    &.selected {
+                        background: #f8fbf7;
+                    }
+                }
+
+                &.card-section-primary {
+                    padding: 0;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .form {
+        .ui-control .form-control:not([type='radio']):not([type='checkbox']) {
+            background-color: #eff2f4;
+            border-color: #eff2f4;
+            padding: 4px 15px;
+
+            ::placeholder {
+                color: #9b9b9b;
+                opacity: 1;
+            }
+        }
+
+        .ui-control {
+            &.ui-control-checkbox {
+                .ui-checkbox-label {
+                    color: #222530;
+                    font-size: 14px;
+                    line-height: 17px;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .employee-info {
+            display: block;
+            padding-top: 30px;
+            padding-left: 20px;
+            font: 500 16px/20px var(--base-font);
+
+            .details {
+                display: inline-block;
+                width: 200px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .actions {
+                display: inline-block;
+
+                .mdi {
+                    padding-right: 20px;
+                    cursor: pointer;
+                    color: #888888;
+                    font-size: 22px;
+                }
+            }
+        }
+
+        .select-control-input {
+            .select-control-search {
+                background-color: #eff2f4;
+                border-color: #eff2f4;
+                height: 50px;
+                font: 400 13px/24px var(--base-font) !important;
+            }
+
+            .select-control-option {
+                background-color: #eff2f4;
+                border-color: #eff2f4;
+                border-bottom: 1px solid #e3e3e3;
+            }
+
+            .select-control-options {
+                border: none;
+            }
+        }
+
+        .form-label {
+            color: #7e818c;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 16px;
+            padding-left: 10px;
+
+            letter-spacing: 0.08px;
+        }
+
+        .block.block-photo-selector {
+            margin-bottom: 0;
+
+            .photo-img {
+                margin-left: auto;
+                margin-right: auto;
+                float: none;
+                margin-bottom: 15px;
+                background: #eff2f4;
+                border: none;
+                border-radius: 8px;
+                display: block;
+            }
+
+            .photo-label {
+                text-align: center;
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 26px;
+                color: #222530;
+            }
+
+            .photo-description {
+                text-align: center;
+                color: #9ea7b6;
+                font: 400 13px/18px var(--base-font);
+            }
+        }
+
+        .info-block.info-block-primary {
+            color: #646f79;
+            font: 400 11px/16px var(--base-font);
+            padding: 17.5px;
+            text-align: center;
+            background: none;
+            border: none;
+        }
+    }
+
+    .sign_up-organizations {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 20px;
+
+        .sign_up-organization {
+            width: 100%;
+            border: 1px solid #ebedf0;
+            border-radius: var(--border-radius);
+            margin: 0 0 20px;
+            padding: 15px;
+            display: flex;
+            flex-direction: row;
+            transition: 0.4s ease;
+
+            .sign_up-organization-logo {
+                width: 80px;
+                height: 80px;
+                flex-direction: column;
+                justify-content: center;
+
+                img {
+                    border-radius: 15px;
+                    max-width: 80px;
+                    margin: 0 auto;
+                    padding: 5px;
+                }
+            }
+
+            .sign_up-organization-title {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                font: 500 16px/24px var(--base-font);
+            }
+
+            &:hover {
+                border-color: #3561ff;
+                color: #3561ff;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @media (max-width: 1199px) {
+        .card-header {
+            margin: 25px 0 15px;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .card-header {
+            &:before {
+                width: calc(100% + 40px);
+                left: -20px;
+            }
+
+            & > .flex {
+                flex-direction: column;
+            }
+        }
+
+        .block-title {
+            margin: 0 0 20px;
+            font: 500 28px/34px var(--base-font);
+        }
+
+        .block-pincode {
+            text-align: left;
+            width: 100% !important;
+
+            .pincode-number {
+                align-items: start !important;
+                height: 31px !important;
+                width: 38px !important;
+                margin-right: 3px !important;
+                font: 400 22px/31px var(--base-font) !important;
+            }
+        }
+
+        .fund-apply {
+            .card {
+                .card-section.card-section-fund {
+                    .card-block.card-block-fund {
+                        .fund-details {
+                            padding-right: 0;
+
+                            .fund-title {
+                                font: 500 15px/24px var(--base-font);
+                            }
+                        }
+                    }
+
+                    .card-section-actions {
+                        padding-top: 15px;
+                    }
+                }
+            }
+        }
+
+        .sign_up-employees {
+            .sign_up-employee {
+                width: 100%;
+
+                span {
+                    display: flex;
+                    flex-grow: 1;
+                }
+            }
+        }
+
+        .sign_up-header {
+            margin: 0 -10px 25px;
+        }
+
+        .sign_up-pane {
+            .block-title {
+                margin: 0 0 20px;
+            }
+
+            .sign_up-pane-header {
+                font: 500 18px/26px var(--base-font);
+            }
+
+            .sign_up-offices {
+                .sign_up-office {
+                    flex-wrap: wrap;
+                    padding: 20px 0 30px;
+
+                    .office-media {
+                        order: 1;
+                        padding-right: 15px;
+
+                        &.office-media-placeholder {
+                            img {
+                                height: 70px;
+                                width: 70px;
+                            }
+                        }
+                    }
+
+                    .office-contacts {
+                        width: 60%;
+
+                        .office-contact {
+                            margin: 0 0 5px;
+                            font: 400 15px/20px var(--base-font);
+                        }
+                    }
+
+                    .office-map {
+                        order: 2;
+                        margin-top: 20px;
+                        width: 100%;
+
+                        .office-map-content {
+                            width: 100%;
+                        }
+
+                        .office-actions {
+                            padding-left: 50px;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: 1px solid #edeef0;
+                }
+            }
+
+            .sign_up-pane-body {
+                padding: 20px;
+
+                .sign_up-pane-subtitle {
+                    font: 400 24px/30px var(--base-font);
+                }
+
+                .sign_up-office-edit {
+                    border-bottom: none;
+
+                    .sign_up-pane-section {
+                        border-bottom: none;
+                    }
+
+                    .schedule {
+                        border-collapse: collapse;
+
+                        td {
+                            display: inline-block;
+                            padding-right: 10px;
+
+                            &.breaks {
+                                padding-left: 0;
+                            }
+                        }
+
+                        tr {
+                            margin-bottom: 10px;
+
+                            &:first-child {
+                                border-top: none;
+                            }
+                        }
+
+                        .schedule-day-name {
+                            width: 100px;
+                            margin-top: 10px;
+                            padding-top: 5px;
+                        }
+
+                        .schedule-day-available {
+                            width: 60%;
+                        }
+
+                        .time {
+                            input {
+                                font: 400 14px/20px var(--base-font);
+                            }
+                        }
+
+                        .ui-control {
+                            &.ui-control-checkbox {
+                                padding-right: 5px;
+                            }
+
+                            &.ui-control-text {
+                                width: 62px !important;
+                                height: 30px !important;
+
+                                input {
+                                    padding: 4px 10px;
+                                }
+                            }
+
+                            &.breaks {
+                                input {
+                                    margin-right: 10px;
+                                    width: 60px;
+                                }
+                            }
+                        }
+                    }
+
+                    .office-edit-actions {
+                        .sign_up-pane-col {
+                            border-top: none;
+                        }
+
+                        .flex-row {
+                            flex-direction: column;
+
+                            .flex-col {
+                                margin-top: 12px;
+
+                                &:first-child {
+                                    margin-top: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .card-section-fund {
+                    padding: 20px 20px 30px;
+
+                    .card-block {
+                        &.card-block-fund {
+                            padding-bottom: 20px;
+
+                            .fund-title {
+                                font: 500 16px/26px var(--base-font);
+                                margin: 0 0 0;
+                            }
+
+                            .fund-organization {
+                                font: 400 13px/16px var(--base-font);
+                                margin: 0 0 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sign_up-pane-footer {
+                padding: 10px 15px;
+
+                .button {
+                    font: 500 14px/16px var(--base-font) !important;
+
+                    .mdi {
+                        width: auto !important;
+                        font-size: 20px !important;
+
+                        &.icon-right,
+                        &.icon-left {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .sign_up-organizations {
+            .sign_up-organization {
+                padding: 10px;
+                margin-bottom: 15px;
+
+                .sign_up-organization-logo {
+                    width: 36px;
+                    height: 36px;
+
+                    img {
+                        height: 100%;
+                    }
+                }
+
+                .sign_up-organization-title {
+                    font: 500 16px/20px var(--base-font);
+                    padding-left: 15px;
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
