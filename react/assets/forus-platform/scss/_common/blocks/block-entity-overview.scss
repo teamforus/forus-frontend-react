@@ -1,0 +1,34 @@
+.block.block-entity-overview {
+    display: flex;
+    flex-direction: row;
+
+    .entity-title {
+        font: 600 14px/20px var(--base-font);
+
+        .entity-title-icon-suffix {
+            display: inline-block;
+            color: #a1a1a1;
+            margin-left: 5px;
+        }
+    }
+
+    .entity-photo {
+        width: 50px;
+
+        .entity-photo-img {
+            display: block;
+            max-width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+        }
+    }
+
+    .entity-details {
+        padding-left: 15px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        justify-content: center;
+        justify-items: center;
+    }
+}

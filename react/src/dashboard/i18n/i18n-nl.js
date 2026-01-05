@@ -74,7 +74,6 @@ export default {
         'validation-request': 'Validatie verzoek',
         'restore-email': 'Inloggen via e-mail',
     },
-    // MENU = menu-validator.pug, menu-provider.pug, menu-sponsor.pug
     menu: {
         organizational: 'Organisatie',
         implementation: 'Webshop',
@@ -102,7 +101,6 @@ export default {
 
     components,
 
-    // MEAPP LANDINGSPAGE = index.pug
     meapp_index: {
         navbar: {
             municipality: 'GEMEENTE',
@@ -141,7 +139,6 @@ export default {
             app: 'De app bewaart een profiel van de gebruiker, dit profiel maakt het mogelijk dat de gegevens hergebruikt kunnen worden voor het mee doen aan andere regelingen.',
         },
     },
-    // PROVIDER HOME = home-provider.pug
     home_provider: {
         header: {
             default: {
@@ -277,7 +274,6 @@ export default {
             },
         },
     },
-    // SPONSOR HOME = home-sponsor.pug
     home_sponsor: {
         header: {
             title: 'Gemeentelijk dashboard',
@@ -336,10 +332,8 @@ export default {
             },
         },
     },
-    // VALIDATOR HOME = home-validator.pug
     // DON'T TRANSLATE , THE VALIDATOR WILL NOT HAVE A LANDINGSPAGE
 
-    // CSV-VALIDATION = csv-validation.pug
     csv_validation: {
         header: {
             title: 'Aanvragers toevoegen',
@@ -350,7 +344,6 @@ export default {
             upload: 'Upload .csv bestand',
         },
     },
-    // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
     financial_dashboard: {
         header: {
             title: 'Financiele statistieken',
@@ -432,7 +425,6 @@ export default {
         show_notifications: 'Show +{{ count }} notifications',
     },
 
-    // EDIT IMPLEMENTATION = implementation-edit.pug
     implementation_edit: {
         header: {
             title: 'Website instellingen',
@@ -521,7 +513,6 @@ export default {
         },
     },
 
-    // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
             title_add: 'Fonds toevoegen',
@@ -550,7 +541,6 @@ export default {
         },
     },
 
-    // PRE CHECK FUNDS = funds-pre-check.pug
     funds_pre_check: {
         header: {
             title: 'Regelingencheck',
@@ -569,7 +559,6 @@ export default {
         },
     },
 
-    // SHOW FUNDS = funds-show.pug
     funds_show: {
         titles: {
             top_ups: 'Bekijk aanvullingen',
@@ -629,12 +618,10 @@ export default {
         },
     },
 
-    // FUNDS = funds.pug
     funds_pug: {
         title: 'Fondsen',
     },
 
-    // HOME = home.pug
     home: {
         buttons: {
             login: 'Log in',
@@ -642,7 +629,6 @@ export default {
         },
     },
 
-    // EDIT OFFICES = offices-edits.pug
     offices_edit: {
         header: {
             title_add: 'Vestiging toevoegen',
@@ -672,7 +658,6 @@ export default {
         },
     },
 
-    // OFFICES = offices.pug
     offices: {
         buttons: {
             adjust: 'Bewerk',
@@ -707,7 +692,6 @@ export default {
         },
     },
 
-    // ORGANIZATION PROVIDERS = provider-organizations.pug
     provider_organizations: {
         header: {
             title: 'Aanbieders',
@@ -766,7 +750,6 @@ export default {
         },
     },
 
-    // ORGANIZATION VALIDATORS = organization-validators.pug
     organization_validators: {
         labels: {
             address: 'Adres',
@@ -780,7 +763,6 @@ export default {
         },
     },
 
-    //EDIT ORGANIZATIONS = organization-edit.pug
     organization_edit: {
         header: {
             title_add: 'Organisatie aanmaken',
@@ -822,7 +804,6 @@ export default {
         },
     },
 
-    // ORGANIZATIONS = organizations.pug
     organizations: {
         header: {
             title: 'Kies een organisatie om in te loggen',
@@ -840,7 +821,6 @@ export default {
         },
     },
 
-    // SHOW PRODUCTS = product-show.pug
     //TRANSLATION NOT FINISHED -> PAGE NOT DONE
     products_show: {
         header: {
@@ -869,7 +849,6 @@ export default {
         },
     },
 
-    // PRODUCTS = product.pug
     products: {
         offers: 'Aanbod',
         add: 'Voeg aanbod toe',
@@ -904,7 +883,6 @@ export default {
         },
     },
 
-    // PRODUCTS = product.pug
     sponsor_products: {
         offers: 'Aanbod',
         labels: {
@@ -976,7 +954,6 @@ export default {
         },
     },
 
-    // PROVIDER IDENTITIES = provider-identities.pug
     provider_identities: {
         labels: {
             address: 'Adres',
@@ -990,7 +967,6 @@ export default {
         },
     },
 
-    // EDIT PROVIDER IDENTITIES = provider-identity-edit.pug
     provider_identity_edit: {
         buttons: {
             adjust: 'Beoordelaar aanpassen',
@@ -1003,7 +979,6 @@ export default {
         },
     },
 
-    // SIGN UP FORM FOR PROVIDERS = provider-sign-up.pug
     sign_up_provider: {
         header: {
             main_header: 'Aanmelden als aanbieder',
@@ -1227,7 +1202,6 @@ export default {
             title: 'Fondsen',
         },
     },
-    // SIGN UP FORM FOR SPONSORS = sponsor-sign-up.pug
     sign_up_sponsor: {
         header: {
             main_header: 'Aanmelden als sponsor',
@@ -1361,7 +1335,6 @@ export default {
             description: 'Aanmelden voor een fonds is alleen mogelijk via onze website op een vaste computer.',
         },
     },
-    // SIGN UP FORM FOR VALIDATORS = validator-sign-up.pug
     sign_up_validator: {
         header: {
             main_header: 'Aanmelden als beoordelaar',
@@ -1500,7 +1473,6 @@ export default {
         },
     },
 
-    // Organization-employees.pug
     organization_employees: {
         labels: {
             email: 'E-mailadres',
@@ -1532,7 +1504,6 @@ export default {
         },
     },
 
-    // Organization-employees.pug
     implementation_funds: {
         labels: {
             name: 'Naam',
@@ -1546,7 +1517,6 @@ export default {
         },
     },
 
-    // RESERVATION = modals/modal-reservation-create.pug
     reservation_create: {
         tooltips: {
             product: [
@@ -1557,7 +1527,6 @@ export default {
         },
     },
 
-    // VALIDATION REQUEST - validation-request.pug
     validation_request: {
         buttons: {
             accept: 'Accepteren',
@@ -1573,7 +1542,6 @@ export default {
         iban_confirmation: 'IBAN verkeerde bevestiging',
     },
 
-    // OVERVIEW VALIDATIONS REQUESTS = validation-requests.pug
     validation_requests: {
         labels: {
             id: 'ID',
@@ -1748,10 +1716,8 @@ export default {
         },
     },
 
-    // EMPTY BLOCK = empty-block.pug
     // No translations needed
 
-    // FUND CARD FOR PROVIDERS = fund-card-provider.pug
     fund_card_provider_finances: {
         status: {
             hold: 'Wachten',
@@ -1800,13 +1766,9 @@ export default {
         },
     },
 
-    // PROVIDER MENU = menu-provider.pug
     // No translations needed
-    // PROVIDER MENU = menu-sponsor.pug
     // No translations needed
-    // VALIDATOR MENU = menu-validator.pug
     // No translations needed
-    // ADDING FUNDS MODAL - modal-funds-add.pug
     modal_funds_add: {
         header: {
             title: 'Budget toevoegen aan fonds',
@@ -1849,7 +1811,6 @@ export default {
         },
     },
 
-    // SELECT PHOTO = photo-selector.pug
     photo_selector: {
         labels: {
             image: 'Afbeelding',
@@ -1859,7 +1820,6 @@ export default {
         },
     },
 
-    // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
             title: 'Klaarzetten',
@@ -1892,12 +1852,8 @@ export default {
         },
     },
 
-    // PROGRESS BAR = progress-bar.pug
     // No translations needed
-    // SCHEDULE CONTROL = schedule-controle.pug
     // No translations needed
-
-    // PAGINATOR LOADER = paginator-loader.pug
 
     paginator_loader: {
         buttons: {
@@ -1919,7 +1875,6 @@ export default {
         },
     },
 
-    // MENU = langing/navbar.pug
     topnavbar: {
         items: {
             funds: 'Fondsen',
@@ -1937,7 +1892,6 @@ export default {
             funds: 'Fondsen',
         },
     },
-    // AUTHENTICATION POPUP = popup-auth.pug
     popup_auth: {
         header: {
             title: 'Inloggen op het dashboard',

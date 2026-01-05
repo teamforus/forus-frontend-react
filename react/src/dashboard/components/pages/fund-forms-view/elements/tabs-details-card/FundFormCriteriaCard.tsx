@@ -48,8 +48,6 @@ export default function FundFormCriteriaCard({
                 recordTypes={recordTypes}
                 setCriteria={(criteria) => setFund({ ...fund, criteria })}
                 onSaveCriteria={saveCriteria}
-                bodyClassName={'collapsable-body'}
-                footerClassName={'collapsable-footer'}
             />
         </div>
     );

@@ -25,8 +25,6 @@ export default function FundCriteriaEditor({
     recordTypes,
     onSaveCriteria,
     className,
-    bodyClassName,
-    footerClassName,
 }: {
     fund: Fund;
     organization: Organization;
@@ -35,8 +33,6 @@ export default function FundCriteriaEditor({
     recordTypes: Array<RecordType>;
     onSaveCriteria?: (criteria: Array<FundCriterion>) => void;
     className?: string;
-    bodyClassName?: string;
-    footerClassName?: string;
 }) {
     const translate = useTranslate();
 
@@ -148,8 +144,8 @@ export default function FundCriteriaEditor({
     }, [criteria]);
 
     return (
-        <div className={classNames('block block-criteria-editor', className)} ref={elementRef}>
-            <div className={classNames('criterion-list', bodyClassName)}>
+        <div className={classNames('block block-criteria-editor', 'form', className)} ref={elementRef}>
+            <div className={'criterion-list'}>
                 {criteriaList?.map((item, index) => (
                     <FundCriteriaEditorItem
                         key={item.uid}
@@ -180,7 +176,7 @@ export default function FundCriteriaEditor({
 
             {hasPermission(organization, Permission.MANAGE_FUNDS) &&
                 (fund.criteria_editable || modified || deletedItemsCount > 0) && (
-                    <div className={classNames('criteria-editor-actions', footerClassName)}>
+                    <div className={'criteria-editor-actions'}>
                         {fund.criteria_editable && (
                             <div className="button button-primary" onClick={addCriteria}>
                                 <em className="mdi mdi-plus-circle icon-start" />

@@ -1,5 +1,4 @@
 export default {
-    // AUTHENTICATION POPUP = popup-auth.pug
     header: {
         title: 'E-mail verstuurd',
         title_sr: 'Start aanmelden',

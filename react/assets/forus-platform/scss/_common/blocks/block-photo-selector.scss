@@ -1,0 +1,44 @@
+.block.block-photo-selector {
+    @include cf();
+
+    .photo-img {
+        float: left;
+        border: 1px solid #d4d9dd;
+        border-radius: 75px;
+        width: 75px;
+        height: 75px;
+        margin-right: 15px;
+        overflow: hidden;
+        background: #ffffff 50%;
+        background-size: cover;
+
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .photo-label {
+        display: block;
+        font: 500 16px/26px var(--base-font);
+        color: #151b26;
+        margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: 1000px) {
+        text-align: center;
+
+        .photo-img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            float: none;
+            display: block;
+        }
+
+        .photo-label {
+            text-align: center;
+            margin: 0 0 10px;
+        }
+    }
+}

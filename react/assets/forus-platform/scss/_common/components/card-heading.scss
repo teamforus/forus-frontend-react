@@ -1,0 +1,38 @@
+.card-heading {
+    font: 500 18px/26px var(--base-font);
+    color: #282b39;
+    margin-bottom: 10px;
+    cursor: default;
+
+    .block.block-inline-filters {
+        .form {
+            .form-group {
+                margin: 0 10px 0 0;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    .link {
+        display: inline-block;
+        color: #646f79;
+        transition: 0.4s;
+        margin-left: 10px;
+        font: 500 13px/26px var(--base-font);
+
+        .mdi {
+            line-height: inherit;
+            float: left;
+            font-size: 1.2em;
+            color: inherit;
+            margin-right: 5px;
+        }
+
+        &:hover {
+            color: #d91d46;
+        }
+    }
+}

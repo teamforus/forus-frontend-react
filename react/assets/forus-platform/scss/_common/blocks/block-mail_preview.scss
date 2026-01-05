@@ -1,6 +1,5 @@
-$mailFont: Verdana, Arial, sans-serif;
-
 .block.block-mail_preview {
+    --mail-font: Verdana, Arial, sans-serif;
     background: #fff;
 
     .mail_preview-wrapper {
@@ -31,7 +30,7 @@ $mailFont: Verdana, Arial, sans-serif;
 
     .mail_preview-footer {
         color: #9397a3;
-        font: 400 12px/20px $mailFont;
+        font: 400 12px/20px var(--mail-font);
         padding: 10px 5px 10px;
         cursor: default;
         text-align: center;
@@ -47,34 +46,34 @@ $mailFont: Verdana, Arial, sans-serif;
     }
 
     h1 {
-        font: 700 32px/38px $mailFont;
+        font: 700 32px/38px var(--mail-font);
         margin: 0 0 25px;
     }
 
     h2 {
-        font: 700 25px/32px $mailFont;
+        font: 700 25px/32px var(--mail-font);
         margin: 0 0 20px;
     }
 
     h3 {
-        font: 700 21px/28px $mailFont;
+        font: 700 21px/28px var(--mail-font);
         margin: 0 0 15px;
     }
 
     h4 {
-        font: 700 18px/24px $mailFont;
+        font: 700 18px/24px var(--mail-font);
         margin: 0 0 10px;
     }
 
     h5 {
-        font: 700 16px/20px $mailFont;
+        font: 700 16px/20px var(--mail-font);
         margin: 0 0 10px;
     }
 
     .mail_btn {
         display: inline-block;
         padding: 5px 75px;
-        font: 600 14px/40px $mailFont;
+        font: 600 14px/40px var(--mail-font);
         color: #fff;
         border-radius: var(--border-radius);
         text-decoration: none;

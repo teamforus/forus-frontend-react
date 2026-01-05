@@ -1,18 +1,12 @@
-&.dropdown-actions {
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: #fff;
+.dropdown.dropdown-actions {
     width: 240px;
     color: var(--text-color);
     box-shadow: var(--box-shadow);
-    display: flex;
     flex-direction: column;
-    border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     background: #ffffff;
-    box-shadow: var(--box-shadow);
     padding: 4px;
-    flex-direction: column;
     display: grid;
 
     .dropdown-item {

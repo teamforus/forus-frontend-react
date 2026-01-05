@@ -26,7 +26,6 @@
 @import 'includes/components/ui-controls';
 @import 'includes/components/label';
 @import 'includes/components/map-card';
-@import 'includes/components/modals';
 @import 'includes/components/tooltip';
 @import 'includes/components/triangle';
 @import 'includes/components/printables';
@@ -36,7 +35,7 @@
 @import 'includes/components/frame-director';
 
 // SECTIONS
-@import 'includes/sections/_section';
+@import 'includes/sections/section';
 @import 'includes/sections/section-faq';
 @import 'includes/sections/section-cms';
 @import 'includes/sections/section-map';
@@ -47,28 +46,19 @@
 @import 'includes/sections/section-voucher-details';
 
 // BLOCKS
-@import 'includes/blocks/_block';
+@import 'includes/blocks/block';
 @import 'includes/blocks/block-faq';
 @import 'includes/blocks/block-skip-links';
 @import 'includes/blocks/block-fund';
-@import 'includes/blocks/cards';
-@import 'includes/blocks/fund_criteria';
-@import 'includes/blocks/map';
-@import 'includes/blocks/phone-number';
+@import 'includes/blocks/block-map';
 @import 'includes/blocks/block-product';
-@import 'includes/blocks/record_categories';
-@import 'includes/blocks/records';
 @import 'includes/blocks/block-transactions';
-@import 'includes/blocks/validations';
-@import 'includes/blocks/validators';
 @import 'includes/blocks/block-voucher';
 @import 'includes/blocks/block-voucher-share-options';
-@import 'includes/blocks/vouchers';
-@import 'includes/blocks/fund-add-records';
+@import 'includes/blocks/block-vouchers';
 @import 'includes/blocks/block-profile';
 @import 'includes/blocks/block-preferences';
 @import 'includes/blocks/block-file-uploader';
-@import 'includes/blocks/block-auth-widget';
 @import 'includes/blocks/block-push-notifications';
 @import 'includes/blocks/block-page-loading-bar';
 @import 'includes/blocks/block-user-emails';
@@ -114,7 +104,6 @@
 @import 'includes/blocks/block-reimbursement';
 @import 'includes/blocks/block-reservations';
 @import 'includes/blocks/block-reservation';
-@import 'includes/blocks/block-map_card';
 @import 'includes/blocks/block-cms-funds';
 @import 'includes/blocks/block-announcement';
 @import 'includes/blocks/block-empty';
@@ -149,6 +138,8 @@
 @import 'includes/blocks/block-product-category-filter';
 @import 'includes/blocks/block-product-categories';
 
+// MODALS
+@import 'includes/modals/modal';
 @import 'includes/modals/modal-file-preview';
 @import 'includes/modals/modal-photo-cropper';
 @import 'includes/modals/modal-physical-cards';
