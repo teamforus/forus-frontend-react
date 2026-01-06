@@ -121,6 +121,7 @@ export default interface Organization {
     allow_profiles_relations?: boolean;
     allow_profiles_households?: boolean;
     allow_2fa_restrictions?: boolean;
+    allow_prevalidation_requests?: boolean;
     allow_reservation_custom_fields: boolean;
     auth_2fa_funds_policy: 'optional' | 'required' | 'restrict_features';
     auth_2fa_funds_remember_ip: boolean;
