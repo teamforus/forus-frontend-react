@@ -236,11 +236,11 @@ export default {
         no: 'Nee',
     },
     prefills: {
-        title: 'Check that your information is correct.',
-        subtitle: 'If your information is incorrect, please contact us using the button below.',
-        children: 'Children',
-        child: 'Child',
-        partner: "Partner's details",
+        title: 'Controleer of de gegevens correct zijn.',
+        subtitle: 'Als uw informatie niet correct is, kunt u onderaan op de knop klikken.',
+        children: 'Kinderen',
+        child: 'Kind',
+        partner: 'Gegevens van uw partner',
     },
     cards: {
         back: 'Terug',
@@ -253,24 +253,23 @@ export default {
             contacts: 'Neem voor vragen contact op met {{name}}.',
         },
         not_filled_required_criteria: {
-            title: 'Dit tegoed is al geactiveerd',
+            title: 'Ontbrekende gegevens',
             heading: 'Aanvraag mislukt',
             description:
-                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+                'U krijgt deze melding omdat een aantal gegevens van u niet zijn gevonden in het externe systeem. Hierdoor kan uw aanvraag niet volledig beoordeeld worden.',
             contacts: 'Neem voor vragen contact op met {{name}}.',
         },
         connection_error: {
-            title: 'Dit tegoed is al geactiveerd',
+            title: 'Technische storing',
             heading: 'Aanvraag mislukt',
             description:
-                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+                'U krijgt deze melding omdat er sprake is van een technische storing. U kunt het op een later moment opnieuw proberen.',
             contacts: 'Neem voor vragen contact op met {{name}}.',
         },
         not_found: {
-            title: 'Dit tegoed is al geactiveerd',
+            title: 'Uw gegevens zijn niet gevonden',
             heading: 'Aanvraag mislukt',
-            description:
-                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            description: 'U krijgt deze melding omdat uw gegevens niet gevonden zijn in het externe systeem.',
             contacts: 'Neem voor vragen contact op met {{name}}.',
         },
     },
