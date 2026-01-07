@@ -14,7 +14,7 @@ export default function FundRequestCriteriaChildren({
     const translate = useTranslate();
 
     const splitChildLabel = useCallback((text?: string) => {
-        const match = text ? text.match(/^(Child\s+\d+)\s+(.+)$/) : null;
+        const match = text ? text.match(/^(Kind\s+\d+)\s+(.+)$/) : null;
         return match ? { child: match[1], value: upperFirst(match[2]) } : null;
     }, []);
 

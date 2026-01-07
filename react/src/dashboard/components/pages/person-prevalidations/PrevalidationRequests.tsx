@@ -214,7 +214,7 @@ export default function PrevalidationRequests() {
     }
 
     return (
-        <div className="card form">
+        <div className="card form" data-dusk="tablePrevalidationRequestContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('prevalidation_requests.header.title')} ({prevalidationRequests?.meta?.total})
@@ -390,10 +390,12 @@ export default function PrevalidationRequests() {
                                             <td className={'table-td-actions text-right'}>
                                                 {row.state === 'fail' ? (
                                                     <TableRowActions
+                                                        dataDusk={'btnPrevalidationRequestMenu'}
                                                         content={({ close }) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <div
                                                                     className="dropdown-item"
+                                                                    data-dusk={`btnPrevalidationRequestResubmit${row.id}`}
                                                                     onClick={() => {
                                                                         resubmitRequest(row);
                                                                         close();
@@ -405,6 +407,7 @@ export default function PrevalidationRequests() {
                                                                 </div>
                                                                 <div
                                                                     className="dropdown-item"
+                                                                    data-dusk={`btnPrevalidationRequestDelete${row.id}`}
                                                                     onClick={() => {
                                                                         deleteRequest(row);
                                                                         close();
