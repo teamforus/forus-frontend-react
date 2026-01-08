@@ -60,10 +60,10 @@ export default function PrevalidationRequests() {
     >(null);
 
     const [states] = useState([
-        { key: null, name: 'Alle' },
-        { key: 'pending', name: 'Pending' },
-        { key: 'success', name: 'Success' },
-        { key: 'fail', name: 'Fail' },
+        { key: null, name: translate('prevalidation_requests.states.all') },
+        { key: 'pending', name: translate('prevalidation_requests.states.pending') },
+        { key: 'success', name: translate('prevalidation_requests.states.success') },
+        { key: 'fail', name: translate('prevalidation_requests.states.fail') },
     ]);
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
@@ -147,7 +147,7 @@ export default function PrevalidationRequests() {
             prevalidationRequestService
                 .resubmit(activeOrganization?.id, request.id)
                 .then(() => {
-                    pushSuccess('Gelukt!', 'Request resubmitted.');
+                    pushSuccess('Gelukt!', 'Verzoek opnieuw verzonden.');
                     fetchPrevalidationRequests();
                 })
                 .catch(pushApiError);
@@ -159,7 +159,7 @@ export default function PrevalidationRequests() {
         prevalidationRequestService
             .resubmitFailed(activeOrganization?.id)
             .then(() => {
-                pushSuccess('Gelukt!', 'Request resubmitted.');
+                pushSuccess('Gelukt!', 'Verzoek opnieuw verzonden.');
                 fetchPrevalidationRequests();
             })
             .catch(pushApiError);
@@ -170,7 +170,7 @@ export default function PrevalidationRequests() {
             prevalidationRequestService
                 .destroy(activeOrganization?.id, request.id)
                 .then(() => {
-                    pushSuccess('Gelukt!', 'Request deleted.');
+                    pushSuccess('Gelukt!', 'Verzoek verwijderd.');
                     fetchPrevalidationRequests();
                 })
                 .catch(pushApiError);
@@ -376,15 +376,17 @@ export default function PrevalidationRequests() {
                                                 </div>
                                             </td>
                                             <td className="text-primary text-strong">
-                                                {row.employee?.email || 'Unknown'}
+                                                {row.employee?.email || 'Onbekend'}
                                             </td>
                                             <td>
                                                 <PrevalidationRequestStateLabels request={row} />
                                             </td>
                                             <td>
-                                                {row.state === 'fail' && row.failed_reason
-                                                    ? row.failed_reason_locale
-                                                    : ''}
+                                                {row.state === 'fail' && row.failed_reason ? (
+                                                    row.failed_reason_locale
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
                                             </td>
 
                                             <td className={'table-td-actions text-right'}>
