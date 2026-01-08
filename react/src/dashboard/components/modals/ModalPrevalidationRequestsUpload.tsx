@@ -23,6 +23,7 @@ import SelectControlOptionsFund from '../elements/select-control/templates/Selec
 import { usePrevalidationRequestService } from '../../services/PrevalidationRequestService';
 import { ProfileRecordType } from '../../props/models/Sponsor/SponsorIdentity';
 import RecordType from '../../props/models/RecordType';
+import useBeforeUnload from '../../hooks/useBeforeUnload';
 
 type CSVErrorProp = {
     emptyHeader?: string | string[];
@@ -50,6 +51,8 @@ enum CSVProgress {
     uploading,
     uploaded,
 }
+
+type ProcessingMode = 'validate' | 'upload' | null;
 
 export default function ModalPrevalidationRequestsUpload({
     funds,
@@ -93,8 +96,12 @@ export default function ModalPrevalidationRequestsUpload({
 
     const [progressStatus, setProgressStatus] = useState<string>('');
     const [acceptedFiles] = useState(['.csv']);
+    const [processingMode, setProcessingMode] = useState<ProcessingMode>(null);
 
     const abortRef = useRef<boolean>(false);
+    const processedRef = useRef<{ processed: number; total: number }>({ processed: 0, total: 0 });
+    const cancelPhaseRef = useRef<ProcessingMode>(null);
+    const closeAfterCancelRef = useRef<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const criteriaRecordTypeKeys = useMemo(() => {
@@ -309,10 +316,51 @@ export default function ModalPrevalidationRequestsUpload({
         [criteriaRecordTypeKeys, fund, fundRecordKey, fundRecordKeyValue, parseCsvFile, reset],
     );
 
-    const updateProgressBarValue = useCallback((progress: number) => {
+    const updateProgressBarValue = useCallback((progress: number, status?: string) => {
         setProgressBar(progress);
-        setProgressStatus(progress < 100 ? 'Aan het uploaden...' : 'Klaar!');
+        setProgressStatus(progress < 100 ? status || 'Aan het uploaden...' : 'Klaar!');
     }, []);
+
+    const notifyCanceled = useCallback(() => {
+        const { processed, total } = processedRef.current;
+        const phase = cancelPhaseRef.current;
+
+        if (phase === 'validate') {
+            pushSuccess('Validatie geannuleerd', `Gevalideerd: ${processed} van ${total}. Geen uploads uitgevoerd.`);
+        } else if (phase === 'upload') {
+            pushSuccess('Upload geannuleerd', `Geüpload: ${processed} van ${total}.`);
+        } else {
+            pushSuccess('Upload geannuleerd', `Verwerkt: ${processed} van ${total}.`);
+        }
+    }, [pushSuccess]);
+
+    const finalizeCancel = useCallback(() => {
+        setProcessingMode(null);
+        setCsvProgress(CSVProgress.validated);
+        setProgressBar(0);
+        setProgressStatus('');
+        setHideModal(false);
+        notifyCanceled();
+        cancelPhaseRef.current = null;
+
+        if (closeAfterCancelRef.current) {
+            closeAfterCancelRef.current = false;
+            modal.close();
+        }
+    }, [modal, notifyCanceled]);
+
+    const requestCancel = useCallback(() => {
+        if (processingMode) {
+            cancelPhaseRef.current = processingMode;
+            abortRef.current = true;
+            closeAfterCancelRef.current = true;
+            return;
+        }
+
+        setStep(Steps.select_fund);
+    }, [processingMode]);
+
+    useBeforeUnload(!!processingMode);
 
     const chunkList = useCallback((arr: Array<number>, len: number) => {
         const chunks = [];
@@ -327,16 +375,106 @@ export default function ModalPrevalidationRequestsUpload({
         return chunks;
     }, []);
 
-    const startUploadingToServer = useCallback(() => {
+    const startValidationToServer = useCallback((): Promise<boolean> => {
+        return new Promise((resolve) => {
+            setCsvProgress(CSVProgress.uploading);
+            setProcessingMode('validate');
+            processedRef.current = { processed: 0, total: data.length };
+
+            const submitData = chunkList(JSON.parse(JSON.stringify(data)), dataChunkSize);
+            const chunksCount = submitData.length;
+            const errors = {};
+
+            let currentChunkNth = 0;
+
+            updateProgressBarValue(0, 'Aan het valideren...');
+
+            const resolveIfFinished = () => {
+                if (abortRef.current) {
+                    abortRef.current = false;
+                    finalizeCancel();
+                    return resolve(false);
+                }
+
+                if (currentChunkNth == chunksCount) {
+                    setProcessingMode(null);
+
+                    if (Object.keys(errors).length > 0) {
+                        showInvalidRows(errors, data);
+                        setCsvProgress(CSVProgress.validated);
+                        setProgressBar(0);
+                        setProgressStatus('');
+                        return resolve(false);
+                    }
+
+                    return resolve(true);
+                }
+
+                validateChunk(submitData[currentChunkNth]);
+            };
+
+            const validateChunk = (data: Array<{ [key: string]: string }>) => {
+                prevalidationRequestService
+                    .storeBatchValidate(fund.organization_id, data, fund.id)
+                    .then(() => {
+                        currentChunkNth++;
+                        processedRef.current = {
+                            processed: Math.min(currentChunkNth * dataChunkSize, processedRef.current.total),
+                            total: processedRef.current.total,
+                        };
+                        updateProgressBarValue((currentChunkNth / chunksCount) * 100, 'Aan het valideren...');
+                        resolveIfFinished();
+                    })
+                    .catch((err: ResponseError) => {
+                        if (err.status == 422 && err.data.errors) {
+                            Object.keys(err.data.errors).forEach(function (key) {
+                                const keyData = key.split('.');
+                                keyData[1] = (parseInt(keyData[1], 10) + currentChunkNth * dataChunkSize).toString();
+                                errors[keyData.join('.')] = err.data.errors[key];
+                            });
+                        } else {
+                            setProcessingMode(null);
+                            pushApiError(err, 'Onbekende error.');
+                            return resolve(false);
+                        }
+
+                        currentChunkNth++;
+                        processedRef.current = {
+                            processed: Math.min(currentChunkNth * dataChunkSize, processedRef.current.total),
+                            total: processedRef.current.total,
+                        };
+                        updateProgressBarValue((currentChunkNth / chunksCount) * 100, 'Aan het valideren...');
+                        resolveIfFinished();
+                    });
+            };
+
+            validateChunk(submitData[currentChunkNth]);
+        });
+    }, [
+        chunkList,
+        data,
+        dataChunkSize,
+        updateProgressBarValue,
+        prevalidationRequestService,
+        fund.organization_id,
+        fund.id,
+        pushApiError,
+        showInvalidRows,
+        finalizeCancel,
+    ]);
+
+    const startUploadingToServer = useCallback((): Promise<boolean> => {
         return new Promise((resolve, reject) => {
             setCsvProgress(CSVProgress.uploading);
+            setProcessingMode('upload');
+            processedRef.current = { processed: 0, total: data.length };
 
             const submitData = chunkList(JSON.parse(JSON.stringify(data)), dataChunkSize);
             const chunksCount = submitData.length;
 
             let currentChunkNth = 0;
 
-            updateProgressBarValue(0);
+            updateProgressBarValue(0, 'Aan het uploaden...');
 
             const uploadChunk = async function (data: Array<{ [key: string]: string }>) {
                 prevalidationRequestService
@@ -352,18 +490,25 @@ export default function ModalPrevalidationRequestsUpload({
                         setChanged(true);
 
                         currentChunkNth++;
-                        updateProgressBarValue((currentChunkNth / chunksCount) * 100);
+                        processedRef.current = {
+                            processed: Math.min(currentChunkNth * dataChunkSize, processedRef.current.total),
+                            total: processedRef.current.total,
+                        };
+                        updateProgressBarValue((currentChunkNth / chunksCount) * 100, 'Aan het uploaden...');
 
                         if (currentChunkNth == chunksCount) {
                             setTimeout(() => {
                                 setProgressBar(100);
                                 setCsvProgress(CSVProgress.uploaded);
                                 onCompleted?.();
+                                setProcessingMode(null);
                                 resolve(null);
                             }, 0);
                         } else {
                             if (abortRef.current) {
-                                return (abortRef.current = false);
+                                abortRef.current = false;
+                                finalizeCancel();
+                                return resolve(false);
                             }
 
                             uploadChunk(submitData[currentChunkNth]);
@@ -379,6 +524,7 @@ export default function ModalPrevalidationRequestsUpload({
                         }
 
                         pushApiError(err, 'Onbekende error.');
+                        setProcessingMode(null);
                         reject();
                     });
             };
@@ -398,15 +544,24 @@ export default function ModalPrevalidationRequestsUpload({
         pushApiError,
         showInvalidRows,
         pushDanger,
+        finalizeCancel,
     ]);
 
-    const onConfirmUpload = useCallback(() => {
+    const onConfirmUpload = useCallback(async () => {
         pushSuccess('Inladen...', 'Inladen van gegevens voor controle op dubbele waarden!', {
             icon: 'download-outline',
         });
 
+        const validated = await startValidationToServer();
+
+        if (!validated) {
+            return;
+        }
+
+        setProgressBar(0);
+        updateProgressBarValue(0, 'Aan het uploaden...');
         startUploadingToServer().then();
-    }, [pushSuccess, startUploadingToServer]);
+    }, [pushSuccess, startUploadingToServer, startValidationToServer, updateProgressBarValue]);
 
     const onDragEvent = useCallback((e: React.DragEvent, isDragOver: boolean) => {
         e?.preventDefault();
@@ -427,9 +582,13 @@ export default function ModalPrevalidationRequestsUpload({
             )}
             key={`step_${step}`}
             data-dusk="modalPrevalidationRequestUpload">
-            <div className="modal-backdrop" onClick={closeModal} />
+            <div className="modal-backdrop" onClick={processingMode ? requestCancel : closeModal} />
             <div className="modal-window">
-                <a className="mdi mdi-close modal-close" onClick={closeModal} role="button" />
+                <a
+                    className="mdi mdi-close modal-close"
+                    onClick={processingMode ? requestCancel : closeModal}
+                    role="button"
+                />
                 <div className="modal-header">Upload CSV-bestand</div>
                 <div className={classNames('modal-body', step === Steps.select_fund && 'modal-body-visible', 'form')}>
                     {step == Steps.select_fund && (
@@ -586,8 +745,8 @@ export default function ModalPrevalidationRequestsUpload({
                         <button
                             className={`button button-default`}
                             disabled={step == Steps.select_fund}
-                            onClick={() => setStep(Steps.select_fund)}>
-                            Terug
+                            onClick={requestCancel}>
+                            {processingMode ? 'Annuleren' : 'Terug'}
                         </button>
 
                         {/* Confirm selected fund button */}

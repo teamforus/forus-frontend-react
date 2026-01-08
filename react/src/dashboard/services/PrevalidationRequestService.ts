@@ -34,6 +34,17 @@ export class PrevalidationRequestService<T = PrevalidationRequest> {
         });
     }
 
+    public storeBatchValidate(
+        organization_id: number,
+        data: Array<{ [key: string]: string }>,
+        fund_id: number = null,
+    ): Promise<ApiResponseSingle<null>> {
+        return this.apiRequest.post(`${this.prefix}/${organization_id}/prevalidation-requests/collection/validate`, {
+            data: data,
+            fund_id: fund_id,
+        });
+    }
+
     public resubmitFailed(organization_id: number): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidation-requests/resubmit-failed`);
     }

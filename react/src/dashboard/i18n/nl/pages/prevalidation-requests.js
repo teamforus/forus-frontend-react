@@ -1,12 +1,12 @@
 export default {
     header: {
-        title: 'Requests',
+        title: 'Prevalidatieverzoeken',
     },
     labels: {
         bsn: 'BSN',
         fund: 'Fonds',
         employee: 'Medewerker',
-        failed_reason: 'Failed reason',
+        failed_reason: 'Reden van mislukking',
         created_at: 'Datum',
         search: 'Zoeken',
         state: 'Status',
@@ -15,21 +15,22 @@ export default {
     },
     buttons: {
         upload: 'Upload .csv bestand',
-        resubmit: 'Resubmit',
-        delete: 'Delete',
-        resubmit_failed: 'Resubmit failed',
+        resubmit: 'Opnieuw verzenden',
+        delete: 'Verwijderen',
+        resubmit_failed: 'Mislukte verzoeken opnieuw verzenden',
     },
     states: {
-        pending: 'Pending',
-        success: 'Success',
-        fail: 'Fail',
+        pending: 'In behandeling',
+        success: 'Gelukt',
+        fail: 'Mislukt',
+        all: 'Alle',
     },
     tooltips: {
         bsn: 'BSN',
         fund: 'Fonds',
         employee: 'Medewerker',
         state: 'Status',
-        failed_reason: 'Failed reason',
+        failed_reason: 'Reden van mislukking',
     },
     empty: {
         title: 'Geen aanvragers toevoegen',

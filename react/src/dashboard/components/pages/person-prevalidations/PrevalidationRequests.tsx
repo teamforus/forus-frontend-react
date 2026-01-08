@@ -36,6 +36,7 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import { useNavigateState } from '../../../modules/state_router/Router';
+import ModalDangerZone from '../../modals/ModalDangerZone';
 
 export default function PrevalidationRequests() {
     const translate = useTranslate();
@@ -167,15 +168,40 @@ export default function PrevalidationRequests() {
 
     const deleteRequest = useCallback(
         (request: PrevalidationRequest) => {
-            prevalidationRequestService
-                .destroy(activeOrganization?.id, request.id)
-                .then(() => {
-                    pushSuccess('Gelukt!', 'Verzoek verwijderd.');
-                    fetchPrevalidationRequests();
-                })
-                .catch(pushApiError);
+            openModal((modal) => (
+                <ModalDangerZone
+                    modal={modal}
+                    title={translate('modals.danger_zone.remove_prevalidation_request.title')}
+                    description={translate('modals.danger_zone.remove_prevalidation_request.description')}
+                    buttonCancel={{
+                        onClick: modal.close,
+                        text: translate('modals.danger_zone.remove_prevalidation_request.buttons.cancel'),
+                    }}
+                    buttonSubmit={{
+                        onClick: () => {
+                            prevalidationRequestService
+                                .destroy(activeOrganization?.id, request.id)
+                                .then(() => {
+                                    pushSuccess('Gelukt!', 'Verzoek verwijderd.');
+                                    fetchPrevalidationRequests();
+                                    modal.close();
+                                })
+                                .catch(pushApiError);
+                        },
+                        text: translate('modals.danger_zone.remove_prevalidation_request.buttons.confirm'),
+                    }}
+                />
+            ));
         },
-        [activeOrganization?.id, fetchPrevalidationRequests, prevalidationRequestService, pushApiError, pushSuccess],
+        [
+            openModal,
+            translate,
+            activeOrganization?.id,
+            fetchPrevalidationRequests,
+            prevalidationRequestService,
+            pushApiError,
+            pushSuccess,
+        ],
     );
 
     const fetchRecordTypes = useCallback(() => {
