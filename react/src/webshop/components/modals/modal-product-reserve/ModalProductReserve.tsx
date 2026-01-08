@@ -635,13 +635,6 @@ export default function ModalProductReserve({
                                     </div>
                                 ))}
                             </div>
-                            <BlockWarning>
-                                {translate(
-                                    vouchersNeedExtraPayment > 1
-                                        ? 'modal_reserve_product.multiple_vouchers_warning'
-                                        : 'modal_reserve_product.single_voucher_warning',
-                                )}
-                            </BlockWarning>
 
                             {vouchersNeedExtraPayment > 0 && (
                                 <BlockWarning>
