@@ -1,6 +1,6 @@
 export default {
-    title: 'Prevalidatieverzoek verwijderen',
-    description: 'Weet je zeker dat je dit prevalidatieverzoek wilt verwijderen?',
+    title: 'Gegevens verwijderen',
+    description: 'Weet je zeker dat je deze gegevens wilt verwijderen?',
     buttons: {
         cancel: 'Annuleren',
         confirm: 'Bevestigen',

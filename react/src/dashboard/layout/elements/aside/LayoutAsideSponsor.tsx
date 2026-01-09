@@ -79,7 +79,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     },
                     {
                         id: 'prevalidation_requests',
-                        name: 'Prevalidatieverzoeken',
+                        name: 'Klaarzetten met BRP',
                         state: DashboardRoutes.PREVALIDATION_REQUESTS,
                         dusk: 'csvPrevalidationRequestsPage',
                         stateParams: { organizationId: organization?.id },

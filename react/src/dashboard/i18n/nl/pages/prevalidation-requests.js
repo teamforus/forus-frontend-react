@@ -1,6 +1,6 @@
 export default {
     header: {
-        title: 'Prevalidatieverzoeken',
+        title: 'Klaarzetten met BRP',
     },
     labels: {
         bsn: 'BSN',
@@ -33,7 +33,7 @@ export default {
         failed_reason: 'Reden van mislukking',
     },
     empty: {
-        title: 'Geen aanvragers toevoegen',
-        description: 'U bent geen beoordelaar voor een fonds dat actief is om aanvragers aan toe te voegen.',
+        title: 'Geen aanvragers klaargezet',
+        description: 'Er zijn nog geen aanvragers klaargezet voor dit fonds.',
     },
 };
