@@ -1,4 +1,4 @@
-import React, { Dispatch, Fragment, SetStateAction } from 'react';
+import React, { Dispatch, Fragment, SetStateAction, useMemo } from 'react';
 import FundRequest from '../../../../../dashboard/props/models/FundRequest';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FundRequestRecordsBlockItem from './FundRequestRecordsBlockItem';
@@ -26,6 +26,17 @@ export default function FundRequestRecordsBlock({
 }) {
     const translate = useTranslate();
 
+    const visibleRecordTypeKeys = useMemo(() => {
+        return (
+            fundRequest?.fund?.criteria
+                ?.filter(
+                    (criterion) =>
+                        !['children_same_address_nth', 'partner_same_address_nth'].includes(criterion.record_type_key),
+                )
+                .map((criterion) => criterion.record_type_key) || []
+        );
+    }, [fundRequest?.fund?.criteria]);
+
     return (
         <Fragment>
             <div className="profile-content-header">
@@ -41,20 +52,22 @@ export default function FundRequestRecordsBlock({
                 className="fund-request-records"
                 aria-labelledby="fund-request-records-title"
                 aria-describedby="fund-request-records-subtitle">
-                {fundRequest?.records.map((record) => (
-                    <FundRequestRecordsBlockItem
-                        key={record.id}
-                        fundRequest={fundRequest}
-                        setFundRequest={setFundRequest}
-                        record={record}
-                        shownRecords={shownRecords}
-                        setShownRecords={setShownRecords}
-                        setClarificationsResponded={setClarificationsResponded}
-                        shownClarificationForms={shownClarificationForms}
-                        setShownClarificationForms={setShownClarificationForms}
-                        openResponseModal={openResponseModal}
-                    />
-                ))}
+                {fundRequest?.records
+                    .filter((record) => visibleRecordTypeKeys.includes(record.record_type_key))
+                    .map((record) => (
+                        <FundRequestRecordsBlockItem
+                            key={record.id}
+                            fundRequest={fundRequest}
+                            setFundRequest={setFundRequest}
+                            record={record}
+                            shownRecords={shownRecords}
+                            setShownRecords={setShownRecords}
+                            setClarificationsResponded={setClarificationsResponded}
+                            shownClarificationForms={shownClarificationForms}
+                            setShownClarificationForms={setShownClarificationForms}
+                            openResponseModal={openResponseModal}
+                        />
+                    ))}
             </div>
         </Fragment>
     );

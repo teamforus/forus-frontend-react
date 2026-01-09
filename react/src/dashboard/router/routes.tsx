@@ -103,6 +103,7 @@ import ImplementationPreCheck from '../components/pages/implementation-pre-check
 import ImplementationTranslations from '../components/pages/implementations-edit/ImplementationTranslations';
 import ImplementationAnnouncements from '../components/pages/implementations-edit/ImplementationAnnouncements';
 import ImplementationTermsAndPrivacy from '../components/pages/implementations-edit/ImplementationTermsAndPrivacy';
+import PrevalidationRequests from '../components/pages/person-prevalidations/PrevalidationRequests';
 
 const router = new RouterBuilder();
 
@@ -647,6 +648,11 @@ router.state(DashboardRoutes.FEEDBACK, <Feedback />, {
 router.state(DashboardRoutes.CSV_VALIDATION, <Prevalidations />, {
     path: `/organisaties/:organizationId/aanvragers-toevoegen`,
     altPath: `/organizations/:organizationId/csv-validations`,
+});
+
+router.state(DashboardRoutes.PREVALIDATION_REQUESTS, <PrevalidationRequests />, {
+    path: `/organisaties/:organizationId/prevalidation-requests`,
+    altPath: `/organizations/:organizationId/prevalidation-requests`,
 });
 
 router.state(DashboardRoutes.PREFERENCE_EMAILS, <PreferencesEmails />, {

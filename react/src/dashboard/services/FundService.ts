@@ -242,6 +242,12 @@ export class FundService<T = Fund> {
         return Papa.unparse([fund.csv_required_keys.filter((key) => !key.endsWith('_eligible'))]);
     }
 
+    public sampleCSVForPrevalidationRequest(fund: Fund): string {
+        return Papa.unparse([
+            ['bsn', ...fund.csv_required_keys_except_prefill.filter((key) => !key.endsWith('_eligible'))],
+        ]);
+    }
+
     public topUp(company_id: number, fund_id: number): Promise<ApiResponseSingle<FundTopUpTransaction>> {
         return this.apiRequest.post(`${this.prefix}/${company_id}/funds/${fund_id}/top-up`);
     }

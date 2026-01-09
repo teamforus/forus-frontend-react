@@ -39,6 +39,7 @@ import product_funds from './pages/product-funds';
 import reimbursement_categories from './pages/reimbursement-categories';
 import provider_organization_funds from './pages/provider-organization-funds';
 import transaction_bulks from './pages/transaction-bulks';
+import prevalidation_requests from './pages/prevalidation-requests';
 
 export default {
     vouchers,
@@ -82,4 +83,5 @@ export default {
     reimbursement_categories,
     provider_organization_funds,
     transaction_bulks,
+    prevalidation_requests,
 };
