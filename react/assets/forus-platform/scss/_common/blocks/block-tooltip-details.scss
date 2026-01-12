@@ -1,0 +1,177 @@
+.block.block-tooltip-details {
+    position: relative;
+
+    .tooltip-content {
+        font: 500 13px/20px var(--base-font);
+        display: none;
+        padding: 8px 15px;
+        background: #fff;
+        box-shadow: 2.5px 5px 10px rgba($color: #000000, $alpha: 0.1);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        position: absolute;
+        left: 100%;
+        margin-left: 10px;
+        top: 50%;
+        width: 450px;
+        max-width: calc(100vw - 100px);
+        transform: translate(0, -50%);
+        z-index: 1;
+        color: #151b26;
+        cursor: default;
+        white-space: normal;
+
+        .tooltip-header {
+            font: 600 15px/28px var(--base-font);
+            color: inherit;
+            margin: 0 0 10px;
+        }
+
+        .tooltip-heading {
+            font: 700 1.1em/1.5em var(--base-font);
+            color: inherit;
+            margin: 0 0;
+        }
+
+        .tooltip-text {
+            font: inherit;
+            color: inherit;
+            margin: 0 0 10px;
+        }
+
+        .tooltip-list {
+            .tooltip-list-item {
+                color: #151b26;
+                font: 500 13px/20px var(--base-font);
+                margin: 0 0 5px;
+
+                .mdi {
+                    line-height: 20px;
+                    color: var(--color-primary);
+                    float: left;
+                    margin: 0 5px 0 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .tooltip-text,
+        .tooltip-list,
+        .tooltip-header {
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &:after,
+        &:before {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7.5px 10px 7.5px 0;
+            border-color: transparent #ffffff transparent transparent;
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        &:before {
+            transform: translate(0, -50%);
+            border-width: 8.5px 12px 8.5px 0;
+            border-color: transparent var(--border-color) transparent transparent;
+        }
+
+        &.tooltip-content-left {
+            left: auto;
+            right: 100%;
+            margin-left: 0;
+            margin-right: 10px;
+
+            &:after,
+            &:before {
+                right: auto;
+                left: 100%;
+                transform: rotate(180deg) translate(0, 50%);
+            }
+        }
+
+        &.tooltip-content-bottom {
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%);
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 7.5px;
+
+            &:before,
+            &::after {
+                display: none;
+            }
+
+            .triangle {
+                position: absolute;
+                top: -10px;
+                left: 0;
+                width: 100%;
+                bottom: 100%;
+                margin: auto;
+
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    bottom: 100%;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 0 10px 10px 10px;
+                    border-color: transparent transparent var(--border-color) transparent;
+                    transform: rotate(0deg) translate(-50%);
+                    z-index: 1;
+                }
+
+                &:before {
+                    z-index: 2;
+                    margin-top: 2px;
+                    border-color: transparent transparent #ffffff transparent;
+                }
+            }
+        }
+
+        &.tooltip-content-fit {
+            width: fit-content;
+        }
+
+        &.tooltip-content-compact {
+            padding: 10px 15px;
+        }
+
+        &.tooltip-content-ghost {
+            pointer-events: none;
+        }
+    }
+
+    &.block-tooltip-details-inline {
+        font-size: 20px;
+        color: var(--color-primary);
+        height: inherit;
+        line-height: inherit;
+        display: inline-flex;
+        margin-left: 5px;
+    }
+
+    &.block-tooltip-hover:hover,
+    &.active {
+        .tooltip-content {
+            display: block;
+        }
+    }
+}

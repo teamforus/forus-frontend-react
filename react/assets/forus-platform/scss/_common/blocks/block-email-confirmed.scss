@@ -1,0 +1,40 @@
+.block.block-email-confirmed {
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    @include fill_parent();
+    background: #fff;
+    cursor: default;
+
+    .block-email-confirmed-content {
+        text-align: center;
+        margin: 0 0 15px;
+
+        .block-email-confirmed-icon {
+            margin: 0 auto;
+
+            img {
+                display: block;
+                width: 220px;
+                max-width: 100%;
+                margin: auto;
+            }
+        }
+
+        .block-email-confirmed-title {
+            font: 500 26px/32px var(--base-font);
+            color: var(--color-primary);
+            margin: 0 0 10px;
+        }
+
+        .block-email-confirmed-subtitle {
+            font: 500 16px/26px var(--base-font);
+            color: #454545;
+            margin: 0 0 15px;
+        }
+    }
+
+    .block-email-confirmed-footer {
+        text-align: center;
+    }
+}

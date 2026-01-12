@@ -87,7 +87,6 @@ export default {
         send: 'Verzenden',
     },
 
-    // VALIDATION REQUEST FOR FUNDS = fund_request.pug
     approved_request_exists: 'Er bestaat al een goedgekeurde aanvraag. Neem contact op met de beheerder.',
     fund_not_active: 'Het fonds waar u voor zich probeert aan te melden is niet actief.',
     bsn_record_is_mandatory: 'Een BSN is verplicht voor het doen van een aanvraag.',
@@ -230,6 +229,47 @@ export default {
                 'Ik ga ermee akkoord dat mijn inkomsten worden gecontroleerd. Dit gebeurt door het vergelijken van mijn gegevens in de gemeentelijke bestanden of door het opvragen van specificaties.',
             kindpakket_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
             kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
+        },
+    },
+    options: {
+        no: 'Nee',
+    },
+    prefills: {
+        title: 'Controleer of de gegevens correct zijn.',
+        subtitle: 'Als uw informatie niet correct is, kunt u onderaan op de knop klikken.',
+        children: 'Kinderen',
+        child: 'Kind',
+        partner: 'Gegevens van uw partner',
+    },
+    cards: {
+        back: 'Terug',
+
+        taken_by_partner: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_filled_required_criteria: {
+            title: 'Ontbrekende gegevens',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat een aantal gegevens van u niet zijn gevonden in het externe systeem. Hierdoor kan uw aanvraag niet volledig beoordeeld worden.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        connection_error: {
+            title: 'Technische storing',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat er sprake is van een technische storing. U kunt het op een later moment opnieuw proberen.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_found: {
+            title: 'Uw gegevens zijn niet gevonden',
+            heading: 'Aanvraag mislukt',
+            description: 'U krijgt deze melding omdat uw gegevens niet gevonden zijn in het externe systeem.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
         },
     },
 };

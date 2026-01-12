@@ -100,9 +100,9 @@ export class FeatureService {
                 labels: ['Aanvragen', 'Integratie'],
             },
             {
-                key: 'subsidy_funds',
+                key: 'product_funds',
                 name: 'Product fonds',
-                description: 'Een digitaal tegoed voor een specifiek product of dienst. ',
+                description: 'Een digitaal tegoed voor een specifiek product of dienst.',
                 overview_description:
                     'Voorzie deelnemers van een digitaal tegoed voor een specifiek product of dienst.',
                 labels: ['Financieel'],
@@ -176,10 +176,10 @@ export class FeatureService {
                 physical_cards: ['bi_tools', 'auth_2_fa'],
                 voucher_records: ['auth_2_fa', 'digid'],
                 email_connection: ['bi_tools', 'auth_2_fa'],
-                external_funds: ['budget_funds', 'subsidy_funds'],
+                external_funds: ['budget_funds', 'product_funds'],
                 voucher_top_up: ['voucher_records', 'budget_funds'],
-                budget_funds: ['subsidy_funds', 'external_funds'],
-                subsidy_funds: ['budget_funds', 'external_funds'],
+                budget_funds: ['product_funds', 'external_funds'],
+                product_funds: ['budget_funds', 'external_funds'],
             }[feature] || [];
 
         return additionalFeatures.reduce((list: Array<OrganizationFeature>, item: string) => {

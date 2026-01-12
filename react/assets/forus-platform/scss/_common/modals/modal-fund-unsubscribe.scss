@@ -1,0 +1,60 @@
+.modal.modal-fund-unsubscribe {
+    .modal-window {
+        width: 820px;
+        border-radius: 12px;
+
+        .modal-title {
+            font: 600 14px/21px var(--base-font);
+            text-align: center;
+            color: #252325;
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            font: 400 13px/18px var(--base-font);
+            text-align: center;
+            color: #646f79;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #d4d9dd;
+        }
+
+        .modal-warning {
+            border: 1px dashed #d4d9dd;
+            border-radius: var(--border-radius);
+            padding: 15px 13px;
+            margin-top: 20px;
+            background-color: #f6f9fc;
+
+            .modal-warning-icon {
+                display: flex;
+                width: 50px;
+                height: 100%;
+
+                .mdi {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+
+            .modal-warning-details {
+                .modal-warning-title {
+                    color: #646f79;
+                    font: 500 13px/18px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .modal-warning-description {
+                    color: #134478;
+                    font: 600 11px/13px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .modal-warning-phone {
+                    color: #404040;
+                    font: 600 13px/18px var(--base-font);
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,4 @@
 export default {
-    // SIGNUP = sign-up.pug
     items: {
         title: 'Inloggen',
         page_title: 'Inloggen{{pageTitleSuffix}}',

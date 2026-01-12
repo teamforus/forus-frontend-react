@@ -1,0 +1,69 @@
+.block.block-compact-datalist {
+    display: grid;
+
+    .datalist-row {
+        border-bottom: 1px dashed #ccc;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+
+        .datalist-key {
+            @extend .text-wrap;
+            font: 500 14px/20px var(--base-font);
+            color: #646f79;
+            padding: 7.5px 15px 7.5px 0;
+        }
+
+        .datalist-value {
+            @extend .text-wrap;
+            font: 500 14px/20px var(--base-font);
+            color: #646f79;
+            padding: 7.5px 0;
+        }
+    }
+
+    &.compact-datalist-outline {
+        padding: 5px 20px;
+        border: 1px dashed #ccc;
+        border-radius: var(--border-radius);
+
+        .datalist-row {
+            .datalist-key {
+                color: var(--color-primary);
+            }
+
+            .datalist-value {
+                color: var(--text-color);
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    &.compact-datalist-vertical {
+        grid-auto-flow: column;
+        gap: 20px;
+
+        .datalist-row {
+            grid-template-columns: 1fr;
+            border: none;
+
+            .datalist-key,
+            .datalist-value {
+                margin: 0;
+                padding: 0;
+            }
+
+            .datalist-key {
+                color: var(--color-primary);
+                font: 600 11px/20px var(--base-font);
+            }
+
+            .datalist-value {
+                color: var(--text-color);
+                font: 500 13px/20px var(--base-font);
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+.block.block-pdf-preview {
+    background: #242424;
+    display: flex;
+    flex-wrap: wrap;
+
+    canvas {
+        display: block;
+        margin: 0 auto;
+    }
+}

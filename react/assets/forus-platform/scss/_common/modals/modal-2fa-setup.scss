@@ -1,0 +1,17 @@
+.modal.modal-2fa-setup {
+    .modal-section {
+        overflow: visible;
+    }
+
+    .modal-body {
+        overflow: visible;
+
+        .phone-control {
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            text-align: left;
+        }
+    }
+}

@@ -664,6 +664,43 @@
         "subtitle": "Diese Seite enthält Informationen über die Bewerbung. Der Status, die ausgefüllten Daten und eventuelle Zusatzfragen können hier eingesehen werden.",
         "modal": {
             "title": "Zusätzliche Frage"
+        },
+        "cards": {
+            "back": "Zurück",
+            "connection_error": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Meldung, weil ein technischer Fehler aufgetreten ist. Sie können es zu einem späteren Zeitpunkt erneut versuchen.",
+                "heading": "Anfrage fehlgeschlagen",
+                "title": "Technisches Versagen"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Meldung, weil einige Ihrer Angaben im externen System nicht gefunden wurden. Aus diesem Grund kann Ihre Bewerbung nicht vollständig geprüft werden.",
+                "heading": "Anfrage fehlgeschlagen",
+                "title": "Fehlende Daten"
+            },
+            "not_found": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Meldung, weil Ihre Daten im externen System nicht gefunden wurden.",
+                "heading": "Anfrage fehlgeschlagen",
+                "title": "Ihre Angaben wurden nicht gefunden"
+            },
+            "taken_by_partner": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Meldung, weil das Guthaben von einem <br /> Familienmitglied oder Erziehungsberechtigten aktiviert wurde. <br /><br /> Das Guthaben ist auf dem Konto der Person verfügbar, die <br /> es zuerst aktiviert hat.",
+                "heading": "Anfrage fehlgeschlagen",
+                "title": "Dieser Kredit ist bereits aktiviert worden"
+            }
+        },
+        "options": {
+            "no": "Nein"
+        },
+        "prefills": {
+            "child": "Kind",
+            "children": "Kinder",
+            "partner": "Angaben zu Ihrem Partner",
+            "subtitle": "Wenn Ihre Angaben nicht korrekt sind, können Sie auf die Schaltfläche am unteren Rand klicken.",
+            "title": "Prüfen Sie, ob die Daten korrekt sind."
         }
     },
     "fund_requests": {
