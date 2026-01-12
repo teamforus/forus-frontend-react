@@ -1,5 +1,4 @@
 export default {
-    // CREATE A RECORD  = record.create.pug
     header: {
         title: 'Persoonsgegevens aanmaken',
     },

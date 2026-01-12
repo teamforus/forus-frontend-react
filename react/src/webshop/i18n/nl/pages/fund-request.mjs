@@ -87,7 +87,6 @@ export default {
         send: 'Verzenden',
     },
 
-    // VALIDATION REQUEST FOR FUNDS = fund_request.pug
     approved_request_exists: 'Er bestaat al een goedgekeurde aanvraag. Neem contact op met de beheerder.',
     fund_not_active: 'Het fonds waar u voor zich probeert aan te melden is niet actief.',
     bsn_record_is_mandatory: 'Een BSN is verplicht voor het doen van een aanvraag.',

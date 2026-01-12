@@ -1,0 +1,247 @@
+.block.block-inline-filters {
+    display: flex;
+    justify-content: flex-end;
+
+    .button {
+        height: 30px;
+        line-height: 24px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size: 12px;
+        box-shadow: none;
+        white-space: nowrap;
+    }
+
+    .select-control {
+        width: 180px !important;
+
+        .select-control-input {
+            label.form-control:not([type='radio']):not([type='checkbox']) {
+                padding-left: 7.5px;
+                font-size: 12px;
+                line-height: 28px;
+
+                .select-control-search-placeholder-media {
+                    margin: 4px 0;
+                }
+            }
+
+            .select-control-search-container .select-control-search-clear {
+                line-height: 18px;
+            }
+        }
+
+        .select-control-options {
+            .select-control-option {
+                padding-left: 10px;
+                font-size: 12px;
+            }
+        }
+
+        &.select-control-lg {
+            width: 240px !important;
+        }
+    }
+
+    .form {
+        display: flex;
+        margin-right: 10px;
+
+        .form-group {
+            margin: 0 10px 0 0;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .form-control {
+            height: 30px;
+            margin: 0;
+            padding: 0 10px;
+            line-height: 28px;
+
+            &.select-control {
+                .select-control-input {
+                    font-size: 12px;
+
+                    .select-control-options {
+                        .select-control-option {
+                            --option-height: 35px;
+                            color: #353535;
+                            font: 500 12px/20px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+
+        select.form-control {
+            padding-right: 25px;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .inline-filters-dropdown {
+        position: relative;
+        display: inline-block;
+
+        $cardHeaderDropdownRadius: 6px;
+
+        .inline-filters-dropdown-content {
+            width: 260px;
+            min-height: 75px;
+            position: absolute;
+            top: 100%;
+            margin-top: 15px;
+            right: -5px;
+            background: #fff;
+            z-index: 2;
+            box-shadow: 1px 2px 40px rgba(0, 0, 0, 0.12);
+            padding: 0 20px;
+            text-align: left;
+            border-radius: $cardHeaderDropdownRadius;
+            display: flex;
+            flex-direction: column;
+
+            .arrow-box {
+                right: 30px;
+                left: auto;
+                transform: none;
+            }
+
+            .inline-filters-pane {
+                padding: 0 10px 10px;
+            }
+
+            .form {
+                flex-direction: column;
+
+                .form-group {
+                    background: #f6f9fc;
+                    margin: 0 -20px;
+                    padding: 0 15px 0;
+
+                    .form-label {
+                        display: block;
+                        color: #282b39;
+
+                        &.form-label-toggle {
+                            cursor: pointer;
+                            background: #fff;
+                            margin: 0 -15px 0;
+                            padding: 10px 10px 10px 15px;
+                            transition: color 0.4s;
+                            border-bottom: 1px solid #e7e7e7;
+
+                            .form-label-icon-active {
+                                display: none;
+                            }
+
+                            .mdi {
+                                float: right;
+                                font-size: 2em;
+                                color: #646f79;
+                                transition: color 0.4s;
+                            }
+
+                            &:hover {
+                                color: #009ef4;
+
+                                .mdi {
+                                    color: inherit;
+                                }
+                            }
+
+                            & + * {
+                                display: none;
+                            }
+
+                            &.active {
+                                margin: 0 -15px 10px;
+                                border-bottom: 1px solid #fff;
+
+                                .form-label-icon {
+                                    display: none;
+                                }
+
+                                .form-label-icon-active {
+                                    display: block;
+                                }
+
+                                & + * {
+                                    display: block;
+                                }
+                            }
+                        }
+                    }
+
+                    .form-control {
+                        margin: 0 0 10px;
+                        height: 30px;
+                        font-size: 12px;
+                        width: 100% !important;
+
+                        &.select-control {
+                            .select-control-search {
+                                margin-bottom: 0;
+                                border: 1px solid #d4d9dd;
+                                line-height: 30px;
+                            }
+
+                            .select-control-options {
+                                --option-height: 35px;
+
+                                .select-control-option {
+                                    color: #353535;
+                                    font: 500 12px/20px var(--base-font);
+                                }
+                            }
+                        }
+                    }
+
+                    &:first-child {
+                        border-top-left-radius: $cardHeaderDropdownRadius;
+                        border-top-right-radius: $cardHeaderDropdownRadius;
+
+                        .form-label {
+                            border-top-left-radius: $cardHeaderDropdownRadius;
+                            border-top-right-radius: $cardHeaderDropdownRadius;
+                        }
+                    }
+
+                    &:last-child {
+                        .form-label:not(.active) {
+                            border-bottom: none;
+                            border-bottom-left-radius: $cardHeaderDropdownRadius;
+                            border-bottom-right-radius: $cardHeaderDropdownRadius;
+                        }
+                    }
+                }
+
+                .radio,
+                .checkbox {
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+
+                    .radio-label,
+                    .radio-checkbox {
+                        font: 600 12px/20px var(--base-font);
+                        width: 100%;
+                    }
+                }
+            }
+
+            .form-actions {
+                background: #fff;
+                padding: 15px;
+                margin: 0 -20px;
+                border-bottom-left-radius: $cardHeaderDropdownRadius;
+                border-bottom-right-radius: $cardHeaderDropdownRadius;
+            }
+        }
+    }
+}

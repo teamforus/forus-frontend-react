@@ -1,0 +1,28 @@
+.modal.modal-image-preview {
+    .modal-window {
+        .modal-body {
+            .modal-section {
+                padding: 0;
+                max-width: 100%;
+            }
+        }
+    }
+
+    .block-pdf-preview {
+        canvas {
+            display: block;
+            max-width: 100%;
+        }
+    }
+
+    .img-block {
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+
+        img {
+            height: 100%;
+            max-width: 100%;
+        }
+    }
+}

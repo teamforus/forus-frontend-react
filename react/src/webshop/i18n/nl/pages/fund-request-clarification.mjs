@@ -1,5 +1,4 @@
 export default {
-    // FUND REQUEST VALIDATION CLARIFICATION = fund-request-clarification.pug
     block_title: '{{ fund_name }} aanvulverzoek',
     labels: {
         question: 'Vraag',

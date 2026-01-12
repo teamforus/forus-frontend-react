@@ -1,0 +1,14 @@
+.block.block-message {
+    .message-title {
+        color: #282b39;
+        font: 600 16px/24px var(--base-font);
+        text-align: center;
+        margin: 0 0 10px;
+    }
+
+    .message-details {
+        color: #282b39;
+        font: 500 13px/20px var(--base-font);
+        text-align: center;
+    }
+}

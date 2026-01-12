@@ -1,0 +1,34 @@
+.block.block-qr-code {
+    .qr_code {
+        width: 280px;
+        height: 280px;
+        padding: 20px;
+        background: #fff;
+        margin: auto;
+        border-radius: 15px;
+        -webkit-box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+        box-shadow: 0 5px 35px rgba(0, 0, 0, 0.075);
+        border: 2px dashed #d2e6ff;
+
+        img,
+        canvas {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .qr_code-desc {
+        text-align: center;
+        padding: 25px 0;
+        font: 600 15px/28px var(--base-font);
+    }
+
+    &.block-qr-code-fit {
+        width: 100%;
+
+        .qr_code {
+            width: 100%;
+            height: auto;
+        }
+    }
+}

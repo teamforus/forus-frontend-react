@@ -1,0 +1,92 @@
+.modal.modal-feature-contact {
+    .modal-close {
+        top: 15px;
+        color: #646f79;
+    }
+
+    .modal-header {
+        padding: 15px 20px;
+    }
+
+    .modal-section {
+        .icon-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+
+            .icon {
+                border-radius: var(--border-radius);
+                border: 1px solid #d4d9dd;
+                background: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 48px;
+                width: 50px;
+
+                .mdi {
+                    font-size: 22px;
+                    line-height: 22px;
+                    color: #004195;
+                }
+            }
+        }
+
+        .title {
+            font: 600 16px/24px var(--base-font);
+            color: #2b303a;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            font: 400 13px/18px var(--base-font);
+            color: #414141;
+            margin-bottom: 24px;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+
+            .contact-item {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+                border-radius: var(--border-radius);
+                border: 1px dashed #d4d9dd;
+                background: #fff;
+                padding: 20px;
+
+                .icon {
+                    margin-bottom: 10px;
+
+                    .mdi {
+                        font-size: 18px;
+                        line-height: 18px;
+                        color: #134478;
+                    }
+                }
+
+                .title {
+                    font: 600 14px/1 var(--base-font);
+                    color: #282b39;
+                    margin-bottom: 5px;
+                }
+
+                .description {
+                    font: 400 14px/20px var(--base-font);
+                    color: #282b39;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .modal-footer {
+        .button {
+            line-height: 1;
+            padding: 8px 12px;
+        }
+    }
+}
