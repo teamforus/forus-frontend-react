@@ -117,6 +117,8 @@ export default interface Fund {
     faq?: Array<Faq>;
     csv_primary_key: string;
     csv_required_keys: Array<string>;
+    csv_required_keys_except_prefill: Array<string>;
+    csv_required_keys_by_groups: Array<string>;
     formulas?: Array<FundFormula>;
     budget?: FundVoucherStatistics & {
         used_active_vouchers?: string;

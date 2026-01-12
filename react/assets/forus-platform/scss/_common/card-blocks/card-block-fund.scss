@@ -1,0 +1,61 @@
+.card-block.card-block-fund {
+    padding-top: 15px;
+
+    .fund-img {
+        float: left;
+        display: block;
+        width: 70px;
+        height: 70px;
+        border: 1px solid #e7e7e7;
+        border-radius: 70px;
+        overflow: hidden;
+        margin-top: -15px;
+        margin-right: 15px;
+
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .fund-closed {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font: 500 14px/18px var(--base-font);
+    }
+
+    .fund-title {
+        cursor: default;
+        display: inline-block;
+        font: 500 16px/20px var(--base-font);
+        color: #151b26;
+        transition: 0.4s;
+        clear: both;
+        position: relative;
+        border-bottom: 1px solid transparent;
+    }
+
+    a.fund-title {
+        cursor: pointer;
+
+        &:hover {
+            color: #9ca6af;
+            border-bottom-color: #9ca6af;
+            text-decoration: none;
+        }
+    }
+
+    .fund-organization {
+        display: inline-block;
+        font: 500 14px/20px var(--base-font);
+        color: #009ef4;
+        margin-bottom: 10px;
+        clear: both;
+        text-decoration: none;
+    }
+
+    &.card-block-fund-margin-bottom {
+        margin-bottom: 20px;
+    }
+}

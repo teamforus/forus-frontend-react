@@ -1,0 +1,81 @@
+.block.block-user_emails {
+    display: flex;
+    flex-direction: column;
+
+    .user_email-item {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid #d4d9dd;
+
+        .user_email-icon {
+            padding: 20px 0 20px 20px;
+
+            .mdi {
+                font-size: 26px;
+                margin-left: 5px;
+                margin-right: -5px;
+                color: #8ca3a6;
+            }
+        }
+
+        .user_email-details {
+            padding: 20px;
+            flex-grow: 1;
+
+            .user_email-address,
+            .user_email-options {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .user_email-address {
+                font: 500 14px/24px var(--base-font);
+                color: var(--text-color);
+                margin: 0 0 5px;
+            }
+
+            .user_email-options {
+                margin: 0 0 10px;
+
+                .user_email-option {
+                    font: 500 13px/20px var(--base-font);
+                    color: var(--text-color);
+                    margin: 0 0 5px;
+                    padding-left: 15px;
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        width: 4px;
+                        height: 4px;
+                        border-radius: var(--border-radius);
+                        background: var(--color-primary-light);
+                        left: 0;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .user_email-actions {
+            padding: 20px;
+
+            .button,
+            .label {
+                margin-left: 10px;
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

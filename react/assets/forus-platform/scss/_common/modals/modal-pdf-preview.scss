@@ -1,0 +1,39 @@
+.modal.modal-pdf-preview {
+    .modal-window {
+        display: flex;
+        flex-direction: column;
+
+        .modal-body {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+
+            .modal-section {
+                padding: 0;
+                max-width: 100%;
+
+                .block.block-pdf-preview {
+                    width: 100%;
+                    flex-grow: 1;
+                    overflow: auto;
+
+                    canvas {
+                        display: block;
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .img-block {
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+
+        img {
+            height: 100%;
+            max-width: 100%;
+        }
+    }
+}

@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import Fund from '../props/models/Fund';
 import Voucher from '../../dashboard/props/models/Voucher';
 import RecordType from '../../dashboard/props/models/RecordType';
+import { Prefills } from '../components/pages/funds-request/FundRequest';
 
 export class FundService<T = Fund> {
     /**
@@ -58,7 +59,7 @@ export class FundService<T = Fund> {
         return this.apiRequest.post(`${this.prefix}/redeem`, { code });
     }
 
-    public getPersonPrefills(id: number): Promise<ResponseSimple<Array<{ record_type_key: string; value: string }>>> {
+    public getPersonPrefills(id: number): Promise<ResponseSimple<Prefills>> {
         return this.apiRequest.get(`${this.prefix}/${id}/prefills`);
     }
 
