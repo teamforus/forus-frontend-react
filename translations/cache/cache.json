@@ -1268,6 +1268,74 @@
         "Verzenden"
     ],
     [
+        "fund_request.cards.back",
+        "Terug"
+    ],
+    [
+        "fund_request.cards.connection_error.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.connection_error.description",
+        "U krijgt deze melding omdat er sprake is van een technische storing. U kunt het op een later moment opnieuw proberen."
+    ],
+    [
+        "fund_request.cards.connection_error.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.connection_error.title",
+        "Technische storing"
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.description",
+        "U krijgt deze melding omdat een aantal gegevens van u niet zijn gevonden in het externe systeem. Hierdoor kan uw aanvraag niet volledig beoordeeld worden."
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.title",
+        "Ontbrekende gegevens"
+    ],
+    [
+        "fund_request.cards.not_found.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.not_found.description",
+        "U krijgt deze melding omdat uw gegevens niet gevonden zijn in het externe systeem."
+    ],
+    [
+        "fund_request.cards.not_found.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.not_found.title",
+        "Uw gegevens zijn niet gevonden"
+    ],
+    [
+        "fund_request.cards.taken_by_partner.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.taken_by_partner.description",
+        "U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd."
+    ],
+    [
+        "fund_request.cards.taken_by_partner.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.taken_by_partner.title",
+        "Dit tegoed is al geactiveerd"
+    ],
+    [
         "fund_request.clarifications.info_requested",
         "Extra vraag gesteld"
     ],
@@ -1350,6 +1418,30 @@
     [
         "fund_request.not_requester",
         "U bent niet de eigenaar van deze aanvraag."
+    ],
+    [
+        "fund_request.options.no",
+        "Nee"
+    ],
+    [
+        "fund_request.prefills.child",
+        "Kind"
+    ],
+    [
+        "fund_request.prefills.children",
+        "Kinderen"
+    ],
+    [
+        "fund_request.prefills.partner",
+        "Gegevens van uw partner"
+    ],
+    [
+        "fund_request.prefills.subtitle",
+        "Als uw informatie niet correct is, kunt u onderaan op de knop klikken."
+    ],
+    [
+        "fund_request.prefills.title",
+        "Controleer of de gegevens correct zijn."
     ],
     [
         "fund_request.received.title",

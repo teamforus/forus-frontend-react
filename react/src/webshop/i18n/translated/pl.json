@@ -664,6 +664,43 @@
         "subtitle": "Ta strona zawiera informacje o aplikacji. Można tu sprawdzić status, wypełnione dane i wszelkie dodatkowe pytania.",
         "modal": {
             "title": "Pytanie dodatkowe"
+        },
+        "cards": {
+            "back": "Powrót",
+            "connection_error": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymujesz ten komunikat, ponieważ wystąpił błąd techniczny. Możesz spróbować ponownie w późniejszym czasie.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Awaria techniczna"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymujesz tę wiadomość, ponieważ niektóre z Twoich danych nie zostały znalezione w systemie zewnętrznym. W rezultacie aplikacja nie może zostać w pełni oceniona.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Brakujące dane"
+            },
+            "not_found": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Ten komunikat pojawia się, ponieważ dane nie zostały znalezione w systemie zewnętrznym.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Twoje dane nie zostały znalezione"
+            },
+            "taken_by_partner": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna <br />. <br /><br /> Kredyt jest dostępny na koncie osoby, która <br /> aktywowała go jako pierwsza.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Ten kredyt został już aktywowany"
+            }
+        },
+        "options": {
+            "no": "Nie"
+        },
+        "prefills": {
+            "child": "Dziecko",
+            "children": "Dzieci",
+            "partner": "Szczegóły dotyczące partnera",
+            "subtitle": "Jeśli informacje są nieprawidłowe, możesz kliknąć przycisk na dole.",
+            "title": "Sprawdź, czy dane są prawidłowe."
         }
     },
     "fund_requests": {

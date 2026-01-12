@@ -842,6 +842,43 @@
         "subtitle": "This page contains information about the application. The status, completed data and any additional questions can be viewed here.",
         "modal": {
             "title": "Additional question"
+        },
+        "cards": {
+            "back": "Back",
+            "connection_error": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You are receiving this message because there is a technical error. You can try again at a later time.",
+                "heading": "Application failed",
+                "title": "Technical failure"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You are receiving this message because some of your information was not found in the external system. As a result, your application cannot be fully evaluated.",
+                "heading": "Application failed",
+                "title": "Missing data"
+            },
+            "not_found": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You get this message because your data was not found in the external system.",
+                "heading": "Application failed",
+                "title": "Your information was not found"
+            },
+            "taken_by_partner": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You get this message because the credit was activated by a <br /> family member or guardian. <br /><br /> The credit is available in the account of the person who <br /> activated it first.",
+                "heading": "Application failed",
+                "title": "This credit has already been activated"
+            }
+        },
+        "options": {
+            "no": "No"
+        },
+        "prefills": {
+            "child": "Child",
+            "children": "Children",
+            "partner": "Details of your partner",
+            "subtitle": "If your information is incorrect, you can click the button at the bottom.",
+            "title": "Check that the data is correct."
         }
     },
     "fund_requests": {

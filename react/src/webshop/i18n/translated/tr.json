@@ -1066,6 +1066,43 @@
         "subtitle": "Bu sayfa başvuru hakkında bilgi içerir. Durum, tamamlanan veriler ve ek sorular buradan görüntülenebilir.",
         "modal": {
             "title": "Ek soru"
+        },
+        "cards": {
+            "back": "Geri",
+            "connection_error": {
+                "contacts": "Sorularınız için {{name}} ile iletişime geçebilirsiniz.",
+                "description": "Teknik bir hata olduğu için bu mesajı alıyorsunuz. Daha sonra tekrar deneyebilirsiniz.",
+                "heading": "İstek başarısız oldu",
+                "title": "Teknik arıza"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "Sorularınız için {{name}} ile iletişime geçebilirsiniz.",
+                "description": "Bazı bilgileriniz harici sistemde bulunamadığı için bu mesajı alıyorsunuz. Sonuç olarak, başvurunuz tam olarak değerlendirilememektedir.",
+                "heading": "İstek başarısız oldu",
+                "title": "Eksik veri"
+            },
+            "not_found": {
+                "contacts": "Sorularınız için {{name}} ile iletişime geçebilirsiniz.",
+                "description": "Verileriniz harici sistemde bulunamadığı için bu mesajı alırsınız.",
+                "heading": "İstek başarısız oldu",
+                "title": "Bilgileriniz bulunamadı"
+            },
+            "taken_by_partner": {
+                "contacts": "Sorularınız için {{name}} ile iletişime geçebilirsiniz.",
+                "description": "Bu mesajı alıyorsunuz çünkü kredi bir <br /> aile üyesi veya vasisi tarafından etkinleştirildi. <br /><br /> Kredi <br /> ilk etkinleştiren kişinin hesabında kullanılabilir.",
+                "heading": "İstek başarısız oldu",
+                "title": "Bu kredi zaten etkinleştirildi"
+            }
+        },
+        "options": {
+            "no": "Hayır"
+        },
+        "prefills": {
+            "child": "Çocuk",
+            "children": "Çocuklar",
+            "partner": "Partnerinizin detayları",
+            "subtitle": "Bilgileriniz yanlışsa, alttaki düğmeye tıklayabilirsiniz.",
+            "title": "Verilerin doğru olup olmadığını kontrol edin."
         }
     },
     "fund": {
