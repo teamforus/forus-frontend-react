@@ -458,6 +458,22 @@
                 }
             }
         }
+
+        .uploader-warning {
+            margin: 0 -20px -18px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            border-top: 1px solid var(--border-color);
+            overflow: hidden;
+
+            .block.block-warning {
+                padding: 18px 20px;
+
+                .block.block-markdown {
+                    font-size: 14px;
+                }
+            }
+        }
     }
 
     @media (max-width: 991px) {
