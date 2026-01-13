@@ -236,10 +236,10 @@ export default {
     },
     prefills: {
         title: 'Controleer of de gegevens correct zijn.',
-        subtitle: 'Als uw informatie niet correct is, kunt u onderaan op de knop klikken.',
-        children: 'Kinderen',
-        child: 'Kind',
-        partner: 'Gegevens van uw partner',
+        subtitle: 'Als uw informatie niet correct is, dient u contact op te nemen met de gemeente.',
+        children: 'Kinderen (op hetzelfde adres)',
+        child: 'Kind (op hetzelfde adres)',
+        partner: 'Gegevens van uw partner (op hetzelfde adres)',
     },
     cards: {
         back: 'Terug',
