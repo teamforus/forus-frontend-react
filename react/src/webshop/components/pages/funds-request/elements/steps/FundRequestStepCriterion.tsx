@@ -221,6 +221,11 @@ export default function FundRequestStepCriterion({
                         files={criterion.files}
                         cropMedia={false}
                         template={fileUploaderTemplate}
+                        infoBoxContent={
+                            fileUploaderTemplate === 'group' && criterion?.extra_description_html ? (
+                                <Markdown content={criterion?.extra_description_html}></Markdown>
+                            ) : null
+                        }
                         onFilesChange={({ files }) => {
                             setCriterion(criterion.id, {
                                 files,
