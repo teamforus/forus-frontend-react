@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFileService } from '../../../../dashboard/services/FileService';
 import FileModel from '../../../../dashboard/props/models/File';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
@@ -10,6 +10,7 @@ import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import BlockWarning from '../block-warning/BlockWarning';
 
 export type FileUploaderItem = {
     id?: string;
@@ -60,6 +61,7 @@ export default function FileUploader({
     hideDownloadButton = false,
     isRequired = false,
     isWebshop = true,
+    infoBoxContent = null,
 }: {
     type:
         | 'fund_request_clarification_proof'
@@ -79,6 +81,7 @@ export default function FileUploader({
     hideDownloadButton?: boolean;
     isRequired?: boolean;
     isWebshop?: boolean;
+    infoBoxContent?: string | ReactNode | ReactNode[];
 } & FileItemEventsListener) {
     const fileService = useFileService();
 
@@ -314,6 +317,12 @@ export default function FileUploader({
                     e.target.value = null;
                 }}
             />
+
+            {infoBoxContent && (
+                <div className="uploader-warning">
+                    <BlockWarning showIcon={false}>{infoBoxContent}</BlockWarning>
+                </div>
+            )}
 
             {!readOnly && (
                 <div
