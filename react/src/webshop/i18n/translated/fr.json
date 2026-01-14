@@ -664,6 +664,43 @@
         "subtitle": "Cette page contient des informations sur la demande. L'état d'avancement, les données complétées et les éventuelles questions complémentaires peuvent être consultés ici.",
         "modal": {
             "title": "Question complémentaire"
+        },
+        "cards": {
+            "back": "Retour",
+            "connection_error": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez ce message en raison d'une erreur technique. Vous pouvez réessayer ultérieurement.",
+                "heading": "Échec de la demande",
+                "title": "Défaillance technique"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez ce message parce que certaines de vos données n'ont pas été trouvées dans le système externe. Par conséquent, votre demande ne peut pas être évaluée dans son intégralité.",
+                "heading": "Échec de la demande",
+                "title": "Données manquantes"
+            },
+            "not_found": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous obtenez ce message parce que vos données n'ont pas été trouvées dans le système externe.",
+                "heading": "Échec de la demande",
+                "title": "Vos coordonnées n'ont pas été trouvées"
+            },
+            "taken_by_partner": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez ce message parce que le crédit a été activé par un membre de la famille ou un tuteur <br />. <br /><br /> Le crédit est disponible sur le compte de la personne qui l'a activé en premier ( <br /> ).",
+                "heading": "Échec de la demande",
+                "title": "Ce crédit a déjà été activé"
+            }
+        },
+        "options": {
+            "no": "Non"
+        },
+        "prefills": {
+            "child": "Enfant",
+            "children": "Les enfants",
+            "partner": "Coordonnées de votre partenaire",
+            "subtitle": "Si vos informations sont incorrectes, vous pouvez cliquer sur le bouton en bas de page.",
+            "title": "Vérifier que les données sont correctes."
         }
     },
     "fund_requests": {

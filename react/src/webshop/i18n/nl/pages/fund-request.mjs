@@ -231,4 +231,45 @@ export default {
             kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
         },
     },
+    options: {
+        no: 'Nee',
+    },
+    prefills: {
+        title: 'De onderstaande gegevens zijn al ingevuld',
+        subtitle: 'Kloppen de gegevens niet? Neem dan contact op met de gemeente.',
+        children: 'Kinderen',
+        child: 'Kind',
+        partner: 'Gegevens van uw partner',
+    },
+    cards: {
+        back: 'Terug',
+
+        taken_by_partner: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_filled_required_criteria: {
+            title: 'Ontbrekende gegevens',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat een aantal gegevens van u niet zijn gevonden in het externe systeem. Hierdoor kan uw aanvraag niet volledig beoordeeld worden.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        connection_error: {
+            title: 'Technische storing',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat er sprake is van een technische storing. U kunt het op een later moment opnieuw proberen.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_found: {
+            title: 'Uw gegevens zijn niet gevonden',
+            heading: 'Aanvraag mislukt',
+            description: 'U krijgt deze melding omdat uw gegevens niet gevonden zijn in het externe systeem.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+    },
 };

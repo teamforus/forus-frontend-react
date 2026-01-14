@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFileService } from '../../../../dashboard/services/FileService';
 import FileModel from '../../../../dashboard/props/models/File';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
@@ -10,6 +10,7 @@ import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import BlockWarning from '../block-warning/BlockWarning';
 
 export type FileUploaderItem = {
     id?: string;
@@ -60,6 +61,7 @@ export default function FileUploader({
     hideDownloadButton = false,
     isRequired = false,
     isWebshop = true,
+    infoBoxContent = null,
 }: {
     type:
         | 'fund_request_clarification_proof'
@@ -68,7 +70,7 @@ export default function FileUploader({
         | 'product_reservation_custom_field';
     title?: string;
     files?: Array<FileModel>;
-    template?: 'default' | 'compact' | 'inline';
+    template?: 'default' | 'compact' | 'inline' | 'group';
     hideInlineTitle?: boolean;
     allowMultiple?: boolean;
     maxFiles?: number;
@@ -79,6 +81,7 @@ export default function FileUploader({
     hideDownloadButton?: boolean;
     isRequired?: boolean;
     isWebshop?: boolean;
+    infoBoxContent?: string | ReactNode | ReactNode[];
 } & FileItemEventsListener) {
     const fileService = useFileService();
 
@@ -298,6 +301,7 @@ export default function FileUploader({
             className={classNames('block', 'block-file-uploader', {
                 'block-file-uploader-compact': template === 'compact',
                 'block-file-uploader-inline': template === 'inline',
+                'block-file-uploader-group': template === 'group',
             })}
             data-dusk="fileUploader">
             <input
@@ -313,6 +317,12 @@ export default function FileUploader({
                     e.target.value = null;
                 }}
             />
+
+            {infoBoxContent && (
+                <div className="uploader-warning">
+                    <BlockWarning showIcon={false}>{infoBoxContent}</BlockWarning>
+                </div>
+            )}
 
             {!readOnly && (
                 <div
@@ -337,7 +347,7 @@ export default function FileUploader({
                         <button
                             className={classNames('button', {
                                 'button-light button-xs': template === 'compact',
-                                'button-primary button-sm': template === 'inline',
+                                'button-primary button-sm': template === 'inline' || template === 'group',
                                 'button-primary': template === 'default',
                             })}
                             data-dusk="fileUploaderBtn"
@@ -355,7 +365,7 @@ export default function FileUploader({
                         <div className="droparea-size">{translate('global.file_uploader.max_size')}</div>
                     )}
 
-                    {(template === 'inline' || template === 'compact') && effectiveMaxFiles && (
+                    {(template === 'inline' || template === 'compact' || template === 'group') && effectiveMaxFiles && (
                         <div className="droparea-max-limit">
                             {translate('global.file_uploader.max_files', { count: effectiveMaxFiles })}
                         </div>
@@ -365,7 +375,7 @@ export default function FileUploader({
 
             {fileItems.length > 0 && (
                 <div className="uploader-files">
-                    {template === 'inline' && !hideInlineTitle && (
+                    {(template === 'inline' || template === 'group') && !hideInlineTitle && (
                         <div className="uploader-files-title">
                             {translate('global.file_uploader.attachments')}
                             <div className="uploader-files-title-count">{fileItems.length}</div>
