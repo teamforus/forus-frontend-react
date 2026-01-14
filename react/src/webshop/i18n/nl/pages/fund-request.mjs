@@ -235,8 +235,8 @@ export default {
         no: 'Nee',
     },
     prefills: {
-        title: 'Controleer of de gegevens correct zijn.',
-        subtitle: 'Als uw informatie niet correct is, kunt u onderaan op de knop klikken.',
+        title: 'De onderstaande gegevens zijn al ingevuld',
+        subtitle: 'Kloppen de gegevens niet? Neem dan contact op met de gemeente.',
         children: 'Kinderen',
         child: 'Kind',
         partner: 'Gegevens van uw partner',
