@@ -66,6 +66,7 @@ export default function Employees() {
         {
             q: '',
             per_page: paginatorService.getPerPage(paginatorKey),
+            page: 1,
         },
         {
             queryParams: {
