@@ -5,6 +5,8 @@ export default {
         allocate_by: 'Toewijzingsmethode',
         assign_by_type: 'Methode',
         amount: 'Bedrag',
+        bank_account_source: 'Bron bankrekening',
+        bank_account: 'Aanvraag',
         iban: 'Naar IBAN',
         iban_name: 'Tenaamstelling IBAN',
         description: 'Omschrijving',
@@ -20,5 +22,10 @@ export default {
     buttons: {
         cancel: 'Annuleren',
         submit: 'Bevestigen',
+    },
+    options: {
+        bank_account_source_manual: 'Handmatige invoer',
+        bank_account_source_fund_request: 'Zoeken via aanvraag',
+        bank_account_select_placeholder: 'Selecteer aanvraag',
     },
 };

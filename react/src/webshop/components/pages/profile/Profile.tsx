@@ -211,6 +211,12 @@ export default function Profile() {
                                                         label: translate('profile.bank_accounts.name'),
                                                         value: bank_account.name,
                                                     },
+                                                    {
+                                                        label: translate('profile.bank_accounts.source'),
+                                                        value: bank_account.type_id
+                                                            ? `${bank_account.created_by_locale} #${bank_account.type_id}`
+                                                            : bank_account.created_by_locale,
+                                                    },
                                                 ]}
                                             />
                                         </div>

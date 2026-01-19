@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
@@ -12,8 +12,17 @@ import FormGroup from '../elements/forms/elements/FormGroup';
 import usePushApiError from '../../hooks/usePushApiError';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
 import PayoutTransaction from '../../props/models/PayoutTransaction';
+import PayoutBankAccount from '../../props/models/PayoutBankAccount';
 
 type AmountType = 'custom' | 'predefined';
+type BankAccountSource = 'manual' | 'fund_request';
+
+type PayoutBankAccountOption = {
+    id: number | null;
+    iban?: string;
+    iban_name?: string;
+    label: string;
+};
 
 export default function ModalPayoutEdit({
     funds,
@@ -39,6 +48,9 @@ export default function ModalPayoutEdit({
     const payoutTransactionService = usePayoutTransactionService();
 
     const [fund, setFund] = useState(funds?.[0]);
+    const [bankAccountSource, setBankAccountSource] = useState<BankAccountSource>('manual');
+    const [bankAccounts, setBankAccounts] = useState<Array<PayoutBankAccount>>(null);
+    const [bankAccountsLoading, setBankAccountsLoading] = useState(false);
 
     const assignTypes = useMemo(() => {
         if (transaction) {
@@ -72,6 +84,36 @@ export default function ModalPayoutEdit({
         }));
     }, [fund]);
 
+    const bankAccountSourceOptions = useMemo(() => {
+        return [
+            {
+                key: 'manual',
+                label: translate('modals.modal_payout_create.options.bank_account_source_manual'),
+            },
+            {
+                key: 'fund_request',
+                label: translate('modals.modal_payout_create.options.bank_account_source_fund_request'),
+            },
+        ] as Array<{ key: BankAccountSource; label: string }>;
+    }, [translate]);
+
+    const bankAccountOptions = useMemo((): Array<PayoutBankAccountOption> => {
+        const options = (bankAccounts || []).map((bankAccount) => ({
+            id: bankAccount.id,
+            iban: bankAccount.iban,
+            iban_name: bankAccount.iban_name,
+            label: `Aanvraag #${bankAccount.id} - ${bankAccount.iban} / ${bankAccount.iban_name}`,
+        }));
+
+        return [
+            {
+                id: null,
+                label: translate('modals.modal_payout_create.options.bank_account_select_placeholder'),
+            },
+            ...options,
+        ];
+    }, [bankAccounts, translate]);
+
     const form = useFormBuilder<{
         target_iban: string;
         target_name: string;
@@ -81,6 +123,7 @@ export default function ModalPayoutEdit({
         description: string;
         email: string;
         bsn: string;
+        fund_request_id?: number;
     }>(
         {
             amount: transaction?.amount || '',
@@ -95,14 +138,19 @@ export default function ModalPayoutEdit({
             description: transaction?.description || '',
             email: '',
             bsn: '',
+            fund_request_id: null,
         },
         (values) => {
             setProgress(0);
 
             const data = {
                 description: values.description,
-                target_iban: values.target_iban,
-                target_name: values.target_name,
+                ...(bankAccountSource === 'fund_request'
+                    ? { fund_request_id: values.fund_request_id || undefined }
+                    : {
+                          target_iban: values.target_iban,
+                          target_name: values.target_name,
+                      }),
                 amount: values.allocate_by === 'custom' ? values.amount : undefined,
                 amount_preset_id: values.allocate_by === 'predefined' ? values.amount_preset_id : undefined,
                 ...{
@@ -136,12 +184,72 @@ export default function ModalPayoutEdit({
                 });
         },
     );
+    const formUpdate = form.update;
+
+    useEffect(() => {
+        if (transaction || bankAccountSource !== 'fund_request' || !organization?.id || !fund?.id) {
+            return;
+        }
+
+        let canceled = false;
+
+        const fetchBankAccounts = async () => {
+            formUpdate({ fund_request_id: null, target_iban: '', target_name: '' });
+            setProgress(0);
+            setBankAccountsLoading(true);
+
+            const collected: Array<PayoutBankAccount> = [];
+            let page = 1;
+            let lastPage = 1;
+
+            try {
+                do {
+                    const res = await payoutTransactionService.bankAccounts(organization.id, {
+                        page,
+                        per_page: 1000,
+                    });
+
+                    collected.push(...(res.data?.data || []));
+                    lastPage = res.data?.meta?.last_page || page;
+                    page += 1;
+                } while (!canceled && page <= lastPage);
+
+                if (!canceled) {
+                    setBankAccounts(collected);
+                }
+            } catch (err) {
+                if (!canceled) {
+                    setBankAccounts([]);
+                    pushApiError(err);
+                }
+            } finally {
+                if (!canceled) {
+                    setBankAccountsLoading(false);
+                    setProgress(100);
+                }
+            }
+        };
+
+        fetchBankAccounts().then();
+
+        return () => {
+            canceled = true;
+        };
+    }, [
+        bankAccountSource,
+        fund?.id,
+        organization?.id,
+        payoutTransactionService,
+        pushApiError,
+        setProgress,
+        transaction,
+        formUpdate,
+    ]);
 
     return (
         <div
-            className={`modal modal-animated modal-voucher-create ${
-                modal.loading ? 'modal-loading' : ''
-            } ${className}`}>
+            className={`modal modal-animated modal-voucher-create ${modal.loading ? 'modal-loading' : ''} ${className}`}
+            data-dusk="payoutCreateModal">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -159,9 +267,10 @@ export default function ModalPayoutEdit({
                                     value={fund}
                                     propValue={'name'}
                                     disabled={!!transaction?.id}
+                                    dusk="payoutFundSelect"
                                     onChange={(fund: Fund) => {
                                         setFund(fund);
-                                        form.update({ allocate_by: amountOptions?.[0]?.key });
+                                        form.update({ allocate_by: amountOptions?.[0]?.key, fund_request_id: null });
                                     }}
                                     options={funds}
                                     allowSearch={false}
@@ -198,6 +307,7 @@ export default function ModalPayoutEdit({
                                         type={'number'}
                                         className="form-control"
                                         placeholder={translate('modals.modal_payout_create.labels.amount')}
+                                        data-dusk="payoutAmount"
                                         value={form.values.amount || ''}
                                         step=".01"
                                         min="0.01"
@@ -257,15 +367,74 @@ export default function ModalPayoutEdit({
                             />
                         )}
 
+                        {!transaction && (
+                            <FormGroup
+                                required={true}
+                                label={translate('modals.modal_payout_create.labels.bank_account_source')}
+                                input={() => (
+                                    <SelectControl
+                                        value={bankAccountSource}
+                                        propKey={'key'}
+                                        propValue={'label'}
+                                        dusk="payoutBankAccountSourceSelect"
+                                        onChange={(value: BankAccountSource) => {
+                                            setBankAccountSource(value);
+                                            form.update({
+                                                fund_request_id: null,
+                                                ...(value === 'fund_request'
+                                                    ? { target_iban: '', target_name: '' }
+                                                    : {}),
+                                            });
+                                        }}
+                                        options={bankAccountSourceOptions}
+                                        allowSearch={false}
+                                    />
+                                )}
+                            />
+                        )}
+
+                        {!transaction && bankAccountSource === 'fund_request' && (
+                            <FormGroup
+                                required={true}
+                                label={translate('modals.modal_payout_create.labels.bank_account')}
+                                input={(id) => (
+                                    <SelectControl
+                                        id={id}
+                                        value={form.values.fund_request_id}
+                                        propKey={'id'}
+                                        propValue={'label'}
+                                        dusk="payoutFundRequestSelect"
+                                        onChange={(fund_request_id: number) => {
+                                            const selected = bankAccountOptions.find(
+                                                (option) => option.id == fund_request_id,
+                                            );
+
+                                            form.update({
+                                                fund_request_id,
+                                                target_iban: selected?.iban || '',
+                                                target_name: selected?.iban_name || '',
+                                            });
+                                        }}
+                                        options={bankAccountOptions}
+                                        allowSearch={true}
+                                        disabled={bankAccountsLoading}
+                                    />
+                                )}
+                                error={form.errors?.fund_request_id}
+                            />
+                        )}
+
                         <FormGroup
-                            required={true}
+                            required={bankAccountSource !== 'fund_request'}
                             label={translate('modals.modal_payout_create.labels.iban')}
                             input={(id) => (
                                 <input
                                     id={id}
                                     className="form-control"
                                     placeholder={translate('modals.modal_payout_create.labels.iban')}
+                                    data-dusk="payoutTargetIban"
                                     value={form.values.target_iban || ''}
+                                    disabled={!transaction && bankAccountSource === 'fund_request'}
                                     onChange={(e) => form.update({ target_iban: e.target.value })}
                                 />
                             )}
@@ -273,14 +442,16 @@ export default function ModalPayoutEdit({
                         />
 
                         <FormGroup
-                            required={true}
+                            required={bankAccountSource !== 'fund_request'}
                             label={translate('modals.modal_payout_create.labels.iban_name')}
                             input={(id) => (
                                 <input
                                     id={id}
                                     className="form-control"
                                     placeholder={translate('modals.modal_payout_create.labels.iban_name')}
+                                    data-dusk="payoutTargetName"
                                     value={form.values.target_name || ''}
+                                    disabled={!transaction && bankAccountSource === 'fund_request'}
                                     onChange={(e) => form.update({ target_name: e.target.value })}
                                 />
                             )}
@@ -308,7 +479,7 @@ export default function ModalPayoutEdit({
                         {translate('modals.modal_payout_create.buttons.cancel')}
                     </button>
 
-                    <button type="submit" className="button button-primary">
+                    <button type="submit" className="button button-primary" data-dusk="payoutSubmit">
                         {translate('modals.modal_payout_create.buttons.submit')}
                     </button>
                 </div>

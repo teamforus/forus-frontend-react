@@ -118,6 +118,7 @@ export default function PayoutsTable({
                                 {transactions.data.map((transaction) => (
                                     <StateNavLink
                                         key={transaction.id}
+                                        dataDusk={`payoutsTableRow${transaction.id}`}
                                         name={DashboardRoutes.PAYOUT}
                                         params={{
                                             address: transaction.address,
