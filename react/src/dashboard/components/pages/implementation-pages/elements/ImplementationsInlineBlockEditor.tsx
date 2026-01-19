@@ -122,7 +122,7 @@ export default function ImplementationsInlineBlockEditor({
             <FormGroup
                 label="Paragraaf"
                 error={errors?.description}
-                input={() =>
+                input={(id) =>
                     markdown ? (
                         <MarkdownEditor
                             placeholder={'Paragraaf'}
@@ -137,6 +137,7 @@ export default function ImplementationsInlineBlockEditor({
                         />
                     ) : (
                         <textarea
+                            id={id}
                             placeholder={'Paragraaf'}
                             className={'form-control'}
                             value={pageBlock?.description}

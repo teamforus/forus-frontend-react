@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 
 export default function UIControlCheckbox({
@@ -37,9 +38,13 @@ export default function UIControlCheckbox({
 
     return (
         <span
-            className={`ui-control ui-control-checkbox ${className} ${
-                slim ? 'ui-control-checkbox-slim' : ''
-            } ${className} ${disabled ? 'disabled' : ''}`}>
+            className={classNames(
+                'ui-control',
+                'ui-control-checkbox',
+                className,
+                slim && 'ui-control-checkbox-slim',
+                disabled && 'disabled',
+            )}>
             <input
                 className="form-control"
                 hidden={true}

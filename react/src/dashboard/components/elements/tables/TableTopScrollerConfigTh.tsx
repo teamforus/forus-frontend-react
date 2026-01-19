@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 export default function TableTopScrollerConfigTh({
     hidden = false,
@@ -16,9 +17,10 @@ export default function TableTopScrollerConfigTh({
             {!hidden && (
                 <div className="table-th-actions-list">
                     <div
-                        className={`table-th-action ${
-                            showTableConfig && tableConfigCategory == 'tooltips' ? 'active' : ''
-                        }`}
+                        className={classNames(
+                            'table-th-action',
+                            showTableConfig && tableConfigCategory == 'tooltips' && 'active',
+                        )}
                         onClick={() => displayTableConfig('tooltips')}>
                         <em className="mdi mdi-information-variant-circle" />
                     </div>

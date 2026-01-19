@@ -1,13 +1,13 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import FundRequest from '../../props/models/FundRequest';
 import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
 import Organization from '../../props/models/Organization';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalFundRequestDecline({
     modal,
@@ -74,16 +74,19 @@ export default function ModalFundRequestDecline({
                                     &nbsp;
                                 </div>
                             </div>
-                            <div className="form-group">
-                                <div className="form-label">Bericht (optioneel)</div>
-                                <textarea
-                                    className="form-control"
-                                    value={form.values.note}
-                                    onChange={(e) => form.update({ note: e.target.value })}
-                                    placeholder="Bericht naar aanvrager"
-                                />
-                                <FormError error={form.errors?.note} />
-                            </div>
+                            <FormGroup
+                                label="Bericht (optioneel)"
+                                error={form.errors?.note}
+                                input={(id) => (
+                                    <textarea
+                                        id={id}
+                                        className="form-control"
+                                        value={form.values.note}
+                                        onChange={(e) => form.update({ note: e.target.value })}
+                                        placeholder="Bericht naar aanvrager"
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
                 ) : (

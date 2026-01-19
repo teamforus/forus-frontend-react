@@ -376,7 +376,12 @@ export default function ModalVoucherCreate({
                                 <div
                                     className="modal-fields-group-title"
                                     onClick={() => setShowGeneralFields(!showGeneralFields)}>
-                                    <em className={`mdi ${showGeneralFields ? 'mdi-menu-down' : 'mdi-menu-right'}`} />
+                                    <em
+                                        className={classNames(
+                                            'mdi',
+                                            showGeneralFields ? 'mdi-menu-down' : 'mdi-menu-right',
+                                        )}
+                                    />
                                     Algemeen
                                 </div>
 
@@ -510,11 +515,12 @@ export default function ModalVoucherCreate({
                                         {assignType.hasInput && (
                                             <div className="form-group">
                                                 <div
-                                                    className={`form-label form-label-required ${
-                                                        ['email', 'bsn'].includes(assignType.key)
-                                                            ? 'form-label-required'
-                                                            : ''
-                                                    }`}>
+                                                    className={classNames(
+                                                        'form-label',
+                                                        'form-label-required',
+                                                        ['email', 'bsn'].includes(assignType.key) &&
+                                                            'form-label-required',
+                                                    )}>
                                                     {assignType.inputLabel}
                                                 </div>
                                                 <input
@@ -713,7 +719,10 @@ export default function ModalVoucherCreate({
                                         className="modal-fields-group-title"
                                         onClick={() => setShowRecordFields(!showRecordFields)}>
                                         <em
-                                            className={`mdi ${showRecordFields ? 'mdi-menu-down' : 'mdi-menu-right'}`}
+                                            className={classNames(
+                                                'mdi',
+                                                showRecordFields ? 'mdi-menu-down' : 'mdi-menu-right',
+                                            )}
                                         />
                                         Persoonsgegevens
                                     </div>

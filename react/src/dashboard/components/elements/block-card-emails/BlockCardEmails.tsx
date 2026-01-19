@@ -23,6 +23,7 @@ import Organization from '../../../props/models/Organization';
 import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../tables/TableTopScroller';
 import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
+import FormGroup from '../forms/elements/FormGroup';
 
 export default function BlockCardEmails({
     organization,
@@ -118,15 +119,18 @@ export default function BlockCardEmails({
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
                         <div className="form">
-                            <div className="form-group">
-                                <input
-                                    type="search"
-                                    className="form-control"
-                                    placeholder="Zoeken"
-                                    value={filterValues.q}
-                                    onChange={(e) => filterUpdate({ q: e.target.value })}
-                                />
-                            </div>
+                            <FormGroup
+                                input={(id) => (
+                                    <input
+                                        type="search"
+                                        id={id}
+                                        className="form-control"
+                                        placeholder="Zoeken"
+                                        value={filterValues.q}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
                 </div>

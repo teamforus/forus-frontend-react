@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useEnvData from '../../hooks/useEnvData';
 import Organization from '../../props/models/Organization';
@@ -113,7 +114,7 @@ export default function ModalFundProviderChatSponsor({
     }, [loadMessages, updateInterval]);
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window form" onSubmit={form.submit}>
                 <div className="modal-close mdi mdi-close" onClick={modal.close} />
@@ -131,14 +132,16 @@ export default function ModalFundProviderChatSponsor({
                                         {messages?.map((message) => (
                                             <div
                                                 key={message.id}
-                                                className={`chat-message ${
-                                                    'chat-message-' +
-                                                    (message.counterpart == 'system'
-                                                        ? 'system'
-                                                        : envData.client_type != message.counterpart
-                                                          ? 'in'
-                                                          : 'out')
-                                                }`}>
+                                                className={classNames(
+                                                    'chat-message',
+                                                    message.counterpart == 'system' && 'chat-message-system',
+                                                    message.counterpart != 'system' &&
+                                                        envData.client_type != message.counterpart &&
+                                                        'chat-message-in',
+                                                    message.counterpart != 'system' &&
+                                                        envData.client_type == message.counterpart &&
+                                                        'chat-message-out',
+                                                )}>
                                                 <div className="chat-message-time">
                                                     {message.time}
                                                     {message.counterpart == 'system' ? ' - Systeembericht' : ''}

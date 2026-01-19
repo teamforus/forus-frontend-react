@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
@@ -248,7 +249,13 @@ export default function ModalPayoutEdit({
 
     return (
         <div
-            className={`modal modal-animated modal-voucher-create ${modal.loading ? 'modal-loading' : ''} ${className}`}
+            className={classNames(
+                'modal',
+                'modal-animated',
+                'modal-voucher-create',
+                modal.loading && 'modal-loading',
+                className,
+            )}
             data-dusk="payoutCreateModal">
             <div className="modal-backdrop" onClick={modal.close} />
 
@@ -339,8 +346,9 @@ export default function ModalPayoutEdit({
                             <FormGroup
                                 required={true}
                                 label={translate('modals.modal_payout_create.labels.assign_by_type')}
-                                input={() => (
+                                input={(id) => (
                                     <SelectControl
+                                        id={id}
                                         value={assignType}
                                         propValue={'label'}
                                         onChange={setAssignType}
@@ -355,8 +363,9 @@ export default function ModalPayoutEdit({
                             <FormGroup
                                 required={true}
                                 label={assignType.inputLabel}
-                                input={() => (
+                                input={(id) => (
                                     <input
+                                        id={id}
                                         className="form-control"
                                         placeholder={assignType.inputLabel}
                                         value={form.values[assignType.key] || ''}
@@ -371,8 +380,9 @@ export default function ModalPayoutEdit({
                             <FormGroup
                                 required={true}
                                 label={translate('modals.modal_payout_create.labels.bank_account_source')}
-                                input={() => (
+                                input={(id) => (
                                     <SelectControl
+                                        id={id}
                                         value={bankAccountSource}
                                         propKey={'key'}
                                         propValue={'label'}

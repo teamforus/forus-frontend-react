@@ -6,27 +6,35 @@ import FormGroupInfo from './FormGroupInfo';
 
 export default function FormGroup({
     id,
-    error,
-    label,
-    input,
-    info,
-    hint,
-    required,
-    className = '',
+    error = null,
+    label = null,
+    input = null,
+    info = null,
+    hint = null,
+    required = false,
+    className = null,
+    textAlign = null,
 }: {
     id?: string;
     error?: string | Array<string>;
     label?: string | React.ReactElement | Array<React.ReactElement>;
-    input?: (input_id: string) => React.ReactElement;
+    input?: (id: string) => React.ReactElement;
     info?: string | React.ReactElement | Array<React.ReactElement>;
     hint?: string | React.ReactElement | Array<React.ReactElement>;
     required?: boolean;
     className?: string;
+    textAlign?: 'center' | null;
 }) {
     const input_id = useState(id || uniqueId('input_group_id_'))[0];
 
     return (
-        <div className={classNames('form-group', error && 'form-group-error', className)}>
+        <div
+            className={classNames(
+                'form-group',
+                error && 'form-group-error',
+                textAlign === 'center' && 'text-center',
+                className,
+            )}>
             {label && (
                 <label htmlFor={input_id} className={classNames(`form-label`, required && 'form-label-required')}>
                     {label}

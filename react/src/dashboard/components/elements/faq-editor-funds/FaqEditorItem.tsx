@@ -1,11 +1,12 @@
-import FormError from '../forms/errors/FormError';
 import MarkdownEditor from '../forms/markdown-editor/MarkdownEditor';
 import React, { useMemo } from 'react';
+import classNames from 'classnames';
 import { ResponseErrorData } from '../../../props/ApiResponses';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import Faq from '../../../props/models/Faq';
 import useTranslate from '../../../hooks/useTranslate';
+import FormGroup from '../forms/elements/FormGroup';
 
 export default function FaqEditorItem({
     id,
@@ -43,13 +44,14 @@ export default function FaqEditorItem({
 
                 {faqItem.type === 'question' ? (
                     <div
-                        className={`question-icon ${
-                            isCollapsed && (!faqItem.title || !faqItem.description) ? 'text-danger' : ''
-                        }`}>
+                        className={classNames(
+                            'question-icon',
+                            isCollapsed && (!faqItem.title || !faqItem.description) && 'text-danger',
+                        )}>
                         <em className="mdi mdi-frequently-asked-questions" />
                     </div>
                 ) : (
-                    <div className={`question-icon ${isCollapsed && !faqItem.title ? 'text-danger' : ''}`}>
+                    <div className={classNames('question-icon', isCollapsed && !faqItem.title && 'text-danger')}>
                         <em className="mdi mdi-format-title" />
                     </div>
                 )}
@@ -97,43 +99,53 @@ export default function FaqEditorItem({
             {!isCollapsed && (
                 <div className="question-body">
                     <div className="form">
-                        <div className="form-group">
-                            <label className="form-label form-label-required">Vraag</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                defaultValue={faqItem.title || ''}
-                                onChange={(e) => onChange({ title: e.target.value })}
-                                placeholder="Title..."
-                            />
-                            <div className="form-hint">Max. 200 tekens</div>
-                            <FormError error={errors?.[`faq.${index}.title`]} />
-                        </div>
+                        <FormGroup
+                            required={true}
+                            label="Vraag"
+                            hint="Max. 200 tekens"
+                            error={errors?.[`faq.${index}.title`]}
+                            input={(id) => (
+                                <input
+                                    className="form-control"
+                                    id={id}
+                                    type="text"
+                                    defaultValue={faqItem.title || ''}
+                                    onChange={(e) => onChange({ title: e.target.value })}
+                                    placeholder="Title..."
+                                />
+                            )}
+                        />
 
                         {faqItem.type === 'question' ? (
-                            <div className="form-group">
-                                <label className="form-label form-label-required">Antwoord</label>
-                                <MarkdownEditor
-                                    value={faqItem.description_html}
-                                    onChange={(description) => onChange({ description: description })}
-                                    extendedOptions={true}
-                                    placeholder={translate('organization_edit.labels.description')}
-                                />
-                                <div className="form-hint">Max. 5000 tekens</div>
-                                <FormError error={errors?.[`faq.${index}.description`]} />
-                            </div>
+                            <FormGroup
+                                required={true}
+                                label="Antwoord"
+                                hint="Max. 5000 tekens"
+                                error={errors?.[`faq.${index}.description`]}
+                                input={() => (
+                                    <MarkdownEditor
+                                        value={faqItem.description_html}
+                                        onChange={(description) => onChange({ description: description })}
+                                        extendedOptions={true}
+                                        placeholder={translate('organization_edit.labels.description')}
+                                    />
+                                )}
+                            />
                         ) : (
-                            <div className="form-group">
-                                <label className="form-label">Subtitel</label>
-                                <textarea
-                                    className="r-n form-control"
-                                    placeholder="Subtitel"
-                                    value={faqItem.subtitle}
-                                    onChange={(e) => onChange({ subtitle: e.target.value })}
-                                />
-                                <div className="form-hint">Max. 500 tekens</div>
-                                <FormError error={errors?.[`faq.${index}.subtitle`]} />
-                            </div>
+                            <FormGroup
+                                label="Subtitel"
+                                hint="Max. 500 tekens"
+                                error={errors?.[`faq.${index}.subtitle`]}
+                                input={(id) => (
+                                    <textarea
+                                        className="r-n form-control"
+                                        id={id}
+                                        placeholder="Subtitel"
+                                        value={faqItem.subtitle}
+                                        onChange={(e) => onChange({ subtitle: e.target.value })}
+                                    />
+                                )}
+                            />
                         )}
                     </div>
                 </div>

@@ -241,9 +241,9 @@ export default function ModalVoucherPayout({
                             <FormGroup
                                 label={translate('voucher.payout.voucher_label')}
                                 error={form.errors?.voucher_id}
-                                input={(inputId) => (
+                                input={(id) => (
                                     <SelectControl
-                                        id={inputId}
+                                        id={id}
                                         className="form-control"
                                         propKey="id"
                                         propValue="address"
@@ -266,9 +266,9 @@ export default function ModalVoucherPayout({
                                         <FormGroup
                                             label={translate('profile.bank_accounts.source')}
                                             error={form.errors?.fund_request_id}
-                                            input={(inputId) => (
+                                            input={(id) => (
                                                 <SelectControl
-                                                    id={inputId}
+                                                    id={id}
                                                     className="form-control"
                                                     propKey="id"
                                                     propValue="name"
@@ -288,10 +288,10 @@ export default function ModalVoucherPayout({
                                         label={translate('voucher.payout.amount')}
                                         required={true}
                                         error={form.errors?.amount}
-                                        input={(inputId) =>
+                                        input={(id) =>
                                             fixedPayoutAmount !== null && fixedPayoutAmount !== undefined ? (
                                                 <SelectControl
-                                                    id={inputId}
+                                                    id={id}
                                                     className="form-control"
                                                     propKey="key"
                                                     propValue="name"
@@ -303,7 +303,7 @@ export default function ModalVoucherPayout({
                                                 />
                                             ) : (
                                                 <input
-                                                    id={inputId}
+                                                    id={id}
                                                     className="form-control"
                                                     type="number"
                                                     min={0.1}
@@ -322,9 +322,9 @@ export default function ModalVoucherPayout({
                                             <FormGroup
                                                 label={translate('voucher.payout.iban')}
                                                 required={true}
-                                                input={(inputId) => (
+                                                input={(id) => (
                                                     <input
-                                                        id={inputId}
+                                                        id={id}
                                                         className="form-control"
                                                         type="text"
                                                         disabled={true}
@@ -339,9 +339,9 @@ export default function ModalVoucherPayout({
                                                 label={translate('voucher.payout.iban_name')}
                                                 required={true}
                                                 error={form.errors?.iban_name}
-                                                input={(inputId) => (
+                                                input={(id) => (
                                                     <input
-                                                        id={inputId}
+                                                        id={id}
                                                         className="form-control"
                                                         type="text"
                                                         disabled={true}
@@ -356,7 +356,7 @@ export default function ModalVoucherPayout({
                                     <FormGroup
                                         label={translate('voucher.payout.accept_compliance_rules_label')}
                                         required={true}
-                                        input={(inputId) => (
+                                        input={(id) => (
                                             <div className="flex flex-gap flex-vertical">
                                                 <BlockWarning>
                                                     <div className="block block-markdown">
@@ -366,7 +366,7 @@ export default function ModalVoucherPayout({
                                                     </div>
                                                 </BlockWarning>
                                                 <UIControlCheckbox
-                                                    id={inputId}
+                                                    id={id}
                                                     checked={form.values.accept_compliance_rules}
                                                     name="accept_compliance_rules"
                                                     label={translate('voucher.payout.accept_compliance_rules')}

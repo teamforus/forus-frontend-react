@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
 import ClickOutside from '../../../elements/click-outside/ClickOutside';
 import { FinancialFilterOptionItem } from '../types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
+import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
 
 export default function FinancialFilter({
     type,
@@ -64,24 +66,19 @@ export default function FinancialFilter({
                         <div className="filter-dropdown-menu-body">
                             <div className="form">
                                 {options.map((option, index) => (
-                                    <div className="block-option" key={index}>
-                                        <label className="checkbox checkbox-narrow" htmlFor={`${type}_${index}`}>
-                                            <input
-                                                type="checkbox"
-                                                id={`${type}_${index}`}
-                                                checked={option.checked}
-                                                onChange={() => {
-                                                    option.checked = !option.checked;
-                                                    selectOption(type, option);
-                                                }}
-                                            />
-                                            <div className={`checkbox-label ${option.checked ? 'active' : ''}`}>
-                                                <div className="checkbox-box">
-                                                    <em className="mdi mdi-check" />
-                                                </div>
-                                                <span>{option.name}</span>
-                                            </div>
-                                        </label>
+                                    <div
+                                        className={classNames('block-option', option.checked && 'block-option-active')}
+                                        key={index}>
+                                        <CheckboxControl
+                                            id={`${type}_${index}`}
+                                            checked={option.checked}
+                                            narrow={true}
+                                            onChange={() => {
+                                                option.checked = !option.checked;
+                                                selectOption(type, option);
+                                            }}
+                                            title={option.name}
+                                        />
                                         <div className="block-option-count">{option.transactions}</div>
                                     </div>
                                 ))}

@@ -127,7 +127,7 @@ export default function ImplementationTermsAndPrivacy() {
                             <FormGroup
                                 label={translate('implementation_edit.labels.show_privacy_checkbox')}
                                 error={form.errors.show_privacy_checkbox}
-                                input={(inputId) => (
+                                input={(id) => (
                                     <FormGroupInfo
                                         info={
                                             <Fragment>
@@ -143,7 +143,7 @@ export default function ImplementationTermsAndPrivacy() {
                                             </Fragment>
                                         }>
                                         <SelectControl
-                                            id={inputId}
+                                            id={id}
                                             className="form-control"
                                             propKey="value"
                                             propValue="label"
@@ -161,7 +161,7 @@ export default function ImplementationTermsAndPrivacy() {
                             <FormGroup
                                 label={translate('implementation_edit.labels.show_terms_checkbox')}
                                 error={form.errors.show_terms_checkbox}
-                                input={(inputId) => (
+                                input={(id) => (
                                     <FormGroupInfo
                                         info={
                                             <Fragment>
@@ -177,7 +177,7 @@ export default function ImplementationTermsAndPrivacy() {
                                             </Fragment>
                                         }>
                                         <SelectControl
-                                            id={inputId}
+                                            id={id}
                                             className="form-control"
                                             propKey="value"
                                             propValue="label"

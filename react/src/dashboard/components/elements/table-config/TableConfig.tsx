@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../hooks/useTranslate';
 
 export default function TableConfig({
@@ -26,9 +27,11 @@ export default function TableConfig({
 
             <div className="table-settings-list">
                 <div
-                    className={`table-setting ${selectedCategory == 'tooltips' ? 'active' : ''} ${
-                        !tooltips.length ? 'disabled' : ''
-                    }`}
+                    className={classNames(
+                        'table-setting',
+                        selectedCategory == 'tooltips' && 'active',
+                        !tooltips.length && 'disabled',
+                    )}
                     onClick={() => setSelectedCategory('tooltips')}>
                     <em className="mdi mdi-information-variant-circle" />
                     <div className="table-setting-name">Kolombeschrijvingen</div>
@@ -40,9 +43,10 @@ export default function TableConfig({
                     <div className="table-settings-tooltip-list">
                         {tooltips.map((tooltip, index) => (
                             <div
-                                className={`table-settings-tooltip-item ${
-                                    tooltip.key == activeTooltipKey ? 'active' : ''
-                                }`}
+                                className={classNames(
+                                    'table-settings-tooltip-item',
+                                    tooltip.key == activeTooltipKey && 'active',
+                                )}
                                 data-table-tooltip={tooltip.key}
                                 key={index}>
                                 <div className="table-settings-tooltip-item-title">{translate(tooltip.title)}</div>
