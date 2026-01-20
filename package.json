@@ -97,7 +97,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "date-fns": "^4.1.0",
     "deepl-node": "^1.15.0",
-    "diff": "^8.0.2",
+    "diff": "^8.0.3",
     "dompurify": "^3.2.4",
     "easyqrcodejs": "^4.4.13",
     "file-saver": "^2.0.5",
