@@ -618,14 +618,14 @@
                 "make_a_choice": "Choisissez une option"
             },
             "fund_request_step_done": {
-                "application_processing": "Votre demande a été reçue. La demande sera traitée dans les 10 jours ouvrables. Vous recevrez un e-mail à ce sujet.",
                 "application_received": "Demande reçue",
                 "back": "Retour",
                 "error_occurred": "Une erreur s'est produite lors de l'application.",
                 "leave_form": "Formulaire de congé",
                 "reason": "Raison :",
                 "sent": "Envoyé !",
-                "sign_up": "S'inscrire"
+                "sign_up": "S'inscrire",
+                "application_processing": "Votre demande a été reçue. La demande sera traitée dans un délai maximum de 8 semaines. Vous recevrez un e-mail à ce sujet."
             },
             "fund_request_physical_card_request": {
                 "description": "Nous enverrons votre carte physique à l'adresse que vous avez indiquée dès qu'elle sera prête à être utilisée.",
@@ -699,8 +699,20 @@
             "child": "Enfant",
             "children": "Les enfants",
             "partner": "Coordonnées de votre partenaire",
-            "subtitle": "Si vos informations sont incorrectes, vous pouvez cliquer sur le bouton en bas de page.",
-            "title": "Vérifier que les données sont correctes."
+            "children_list": {
+                "kind_1": "Enfant 1",
+                "kind_10": "Enfant 10",
+                "kind_2": "Enfant 2",
+                "kind_3": "Enfant 3",
+                "kind_4": "Enfant 4",
+                "kind_5": "Enfant 5",
+                "kind_6": "Enfant 6",
+                "kind_7": "Enfant 7",
+                "kind_8": "Enfant 8",
+                "kind_9": "Enfant 9"
+            },
+            "subtitle": "Les données ne sont pas correctes ? Si c'est le cas, veuillez contacter la municipalité.",
+            "title": "Les données ci-dessous sont déjà remplies"
         }
     },
     "fund_requests": {
