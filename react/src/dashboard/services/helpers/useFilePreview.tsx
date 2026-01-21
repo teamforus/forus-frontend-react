@@ -5,6 +5,12 @@ import useOpenModal from '../../hooks/useOpenModal';
 import File from '../../props/models/File';
 import { useFileService } from '../FileService';
 import usePushApiError from '../../hooks/usePushApiError';
+import {
+    isImageExtension,
+    isPdfExtension,
+    isPreviewableExtension,
+    normalizeFileExtension,
+} from '../../helpers/filePreview';
 
 export default function useFilePreview() {
     const openModal = useOpenModal();
@@ -14,14 +20,20 @@ export default function useFilePreview() {
 
     return useCallback(
         (file: File) => {
-            if (file.ext == 'pdf') {
+            const extension = normalizeFileExtension(file?.ext);
+
+            if (!isPreviewableExtension(extension)) {
+                return;
+            }
+
+            if (isPdfExtension(extension)) {
                 fileService
                     .downloadBlob(file)
                     .then((res) => {
                         openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
                     })
                     .catch(pushApiError);
-            } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
+            } else if (isImageExtension(extension)) {
                 openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.url} />);
             }
         },
