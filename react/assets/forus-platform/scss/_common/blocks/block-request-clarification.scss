@@ -176,6 +176,7 @@
                         width: fit-content;
                         max-width: 100%;
                         font: 600 13px/22px var(--base-font);
+                        text-wrap: wrap;
 
                         &.clarification-item-section-body-bubble-primary {
                             background: #2987fd;
