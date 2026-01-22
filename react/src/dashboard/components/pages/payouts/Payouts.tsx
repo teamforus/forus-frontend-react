@@ -334,7 +334,7 @@ export default function Payouts() {
                 filterValues={filterValues}
                 filterUpdate={filterUpdate}
                 fetchTransactions={fetchTransactions}
-                fundsWithPayouts={fundsWithPayouts}
+                funds={funds}
             />
         </div>
     );

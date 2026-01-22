@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
@@ -33,10 +33,6 @@ export default function IdentityPayoutsCard({
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState<PaginationData<PayoutTransaction>>(null);
-
-    const fundsWithPayouts = useMemo(() => {
-        return funds?.filter((fund: Fund) => fund.allow_custom_amounts || fund.allow_preset_amounts);
-    }, [funds]);
 
     const [paginatorTransactionsKey] = useState('payouts');
 
@@ -97,7 +93,7 @@ export default function IdentityPayoutsCard({
                 filterValues={filterValues}
                 filterUpdate={filterUpdate}
                 fetchTransactions={fetchTransactions}
-                fundsWithPayouts={fundsWithPayouts}
+                funds={funds}
             />
         </Card>
     );

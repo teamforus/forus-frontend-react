@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
@@ -12,19 +12,10 @@ import FormGroup from '../elements/forms/elements/FormGroup';
 import usePushApiError from '../../hooks/usePushApiError';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
 import PayoutTransaction from '../../props/models/PayoutTransaction';
-import PayoutBankAccount from '../../props/models/PayoutBankAccount';
 import { currencyFormat } from '../../helpers/string';
+import usePayoutBankAccounts, { BankAccountSource } from '../../hooks/usePayoutBankAccounts';
 
 type AmountType = 'custom' | 'predefined';
-type BankAccountSource = 'manual' | 'fund_request' | 'profile_bank_account' | 'reimbursement' | 'payout';
-
-type PayoutBankAccountOption = {
-    id: number | null;
-    iban?: string;
-    iban_name?: string;
-    label: string;
-};
-
 const resetBankAccountIds = () => ({
     fund_request_id: null,
     profile_bank_account_id: null,
@@ -70,10 +61,18 @@ export default function ModalPayoutEdit({
 
     const payoutTransactionService = usePayoutTransactionService();
 
-    const [fund, setFund] = useState(funds?.[0]);
+    const [fund, setFund] = useState(
+        transaction ? funds?.find((fund) => fund.id === transaction?.fund?.id) : funds?.[0],
+    );
     const [bankAccountSource, setBankAccountSource] = useState<BankAccountSource>('manual');
-    const [bankAccounts, setBankAccounts] = useState<Array<PayoutBankAccount> | null>(null);
-    const [bankAccountsLoading, setBankAccountsLoading] = useState(false);
+
+    const { bankAccountsLoading, bankAccountOptions } = usePayoutBankAccounts({
+        organizationId: organization?.id,
+        fundId: fund?.id,
+        bankAccountSource,
+        enabled: !transaction,
+        placeholderLabel: translate('modals.modal_payout_create.options.bank_account_select_placeholder'),
+    });
 
     const assignTypes = useMemo(() => {
         if (transaction) {
@@ -89,13 +88,13 @@ export default function ModalPayoutEdit({
 
     const [assignType, setAssignType] = useState(assignTypes?.[0]);
 
-    const amountOptions = useMemo(() => {
+    const amountOptions = useMemo((): Array<{ key: AmountType; name: string }> => {
         return [
             fund?.allow_custom_amounts ? { key: 'custom', name: 'Vrij bedrag' } : null,
             fund?.allow_preset_amounts && fund?.amount_presets.length > 0
                 ? { key: 'predefined', name: 'Vaste bedragen op basis van categorieën' }
                 : null,
-        ].filter((option): option is { key: AmountType; name: string } => option !== null);
+        ].filter(Boolean) as Array<{ key: AmountType; name: string }>;
     }, [fund]);
 
     const getDefaultAllocateBy = (fund: Partial<Fund> | undefined): AmountType => {
@@ -143,44 +142,6 @@ export default function ModalPayoutEdit({
             },
         ];
     }, [translate]);
-
-    const bankAccountOptions = useMemo((): Array<PayoutBankAccountOption> => {
-        const getTypeLabel = (type?: string): string => {
-            switch (type) {
-                case 'fund_request':
-                    return 'Aanvraag';
-                case 'profile_bank_account':
-                    return 'Handmatig';
-                case 'reimbursement':
-                    return 'Declaratie';
-                case 'payout':
-                    return 'Uitbetaling';
-                default:
-                    return '';
-            }
-        };
-
-        const options = (bankAccounts || []).map((bankAccount) => {
-            const typeLabel = getTypeLabel(bankAccount.type);
-            const typePrefix = typeLabel
-                ? `${typeLabel} #${bankAccount.type_id || bankAccount.id}`
-                : `#${bankAccount.id}`;
-            return {
-                id: bankAccount.id,
-                iban: bankAccount.iban,
-                iban_name: bankAccount.iban_name,
-                label: `${typePrefix} - ${bankAccount.iban} / ${bankAccount.iban_name}`,
-            };
-        });
-
-        return [
-            {
-                id: null,
-                label: translate('modals.modal_payout_create.options.bank_account_select_placeholder'),
-            },
-            ...options,
-        ];
-    }, [bankAccounts, translate]);
 
     const form = useFormBuilder<{
         target_iban: string;
@@ -265,73 +226,6 @@ export default function ModalPayoutEdit({
         },
     );
 
-    const formUpdate = form.update;
-
-    useEffect(() => {
-        if (transaction || bankAccountSource === 'manual' || !organization?.id || !fund?.id) {
-            return;
-        }
-
-        let canceled = false;
-
-        const fetchBankAccounts = async () => {
-            formUpdate({
-                ...resetBankAccountIds(),
-                target_iban: '',
-                target_name: '',
-            });
-            setProgress(0);
-            setBankAccountsLoading(true);
-
-            const collected: Array<PayoutBankAccount> = [];
-            let page = 1;
-            let lastPage = 1;
-
-            try {
-                do {
-                    const res = await payoutTransactionService.bankAccounts(organization.id, {
-                        page,
-                        per_page: 1000,
-                        type: bankAccountSource,
-                    });
-
-                    collected.push(...(res.data?.data || []));
-                    lastPage = res.data?.meta?.last_page || page;
-                    page += 1;
-                } while (!canceled && page <= lastPage);
-
-                if (!canceled) {
-                    setBankAccounts(collected);
-                }
-            } catch (err) {
-                if (!canceled) {
-                    setBankAccounts([]);
-                    pushApiError(err);
-                }
-            } finally {
-                if (!canceled) {
-                    setBankAccountsLoading(false);
-                    setProgress(100);
-                }
-            }
-        };
-
-        fetchBankAccounts().then();
-
-        return () => {
-            canceled = true;
-        };
-    }, [
-        bankAccountSource,
-        fund?.id,
-        organization?.id,
-        payoutTransactionService,
-        pushApiError,
-        setProgress,
-        transaction,
-        formUpdate,
-    ]);
-
     return (
         <div
             className={`modal modal-animated modal-voucher-create ${modal.loading ? 'modal-loading' : ''} ${className}`}
@@ -360,6 +254,8 @@ export default function ModalPayoutEdit({
                                             allocate_by: getDefaultAllocateBy(fund),
                                             amount_preset_id: fund?.amount_presets?.[0]?.id,
                                             ...resetBankAccountIds(),
+                                            target_iban: '',
+                                            target_name: '',
                                         });
                                     }}
                                     options={funds}
