@@ -618,14 +618,14 @@
                 "make_a_choice": "Wybierz jedną"
             },
             "fund_request_step_done": {
-                "application_processing": "Twoje zgłoszenie zostało odebrane. Wniosek zostanie rozpatrzony w ciągu 10 dni roboczych. Otrzymasz wiadomość e-mail na ten temat.",
                 "application_received": "Otrzymany wniosek",
                 "back": "Powrót",
                 "error_occurred": "Wystąpił błąd podczas aplikacji.",
                 "leave_form": "Formularz urlopowy",
                 "reason": "Powód:",
                 "sent": "Wysłane!",
-                "sign_up": "Zarejestruj się"
+                "sign_up": "Zarejestruj się",
+                "application_processing": "Twoje zgłoszenie zostało odebrane. Wniosek zostanie rozpatrzony w ciągu maksymalnie 8 tygodni. Otrzymasz wiadomość e-mail na ten temat."
             },
             "fund_request_physical_card_request": {
                 "description": "Wyślemy fizyczną kartę na podany adres, gdy tylko będzie ona gotowa do użycia.",
@@ -699,8 +699,20 @@
             "child": "Dziecko",
             "children": "Dzieci",
             "partner": "Szczegóły dotyczące partnera",
-            "subtitle": "Jeśli informacje są nieprawidłowe, możesz kliknąć przycisk na dole.",
-            "title": "Sprawdź, czy dane są prawidłowe."
+            "children_list": {
+                "kind_1": "Dziecko 1",
+                "kind_10": "Dziecko 10",
+                "kind_2": "Dziecko 2",
+                "kind_3": "Dziecko 3",
+                "kind_4": "Dziecko 4",
+                "kind_5": "Dziecko 5",
+                "kind_6": "Dziecko 6",
+                "kind_7": "Dziecko 7",
+                "kind_8": "Dziecko 8",
+                "kind_9": "Dziecko 9"
+            },
+            "subtitle": "Czy dane są nieprawidłowe? Jeśli tak, prosimy o kontakt z gminą.",
+            "title": "Poniższe dane są już wypełnione"
         }
     },
     "fund_requests": {
