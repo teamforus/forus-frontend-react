@@ -11,6 +11,7 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
 import BlockWarning from '../block-warning/BlockWarning';
+import { isPreviewableExtension } from '../../../../dashboard/helpers/filePreview';
 
 export type FileUploaderItem = {
     id?: string;
@@ -104,7 +105,7 @@ export default function FileUploader({
                 id: uniqueId('file_uploader_'),
                 file: null,
                 file_data: file,
-                has_preview: ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext),
+                has_preview: isPreviewableExtension(file.ext),
                 uploaded: true,
             }),
         ) || [],
@@ -159,7 +160,7 @@ export default function FileUploader({
                         uploaded: true,
                         uploading: false,
                         file_data: res.data.data,
-                        has_preview: ['pdf', 'png', 'jpeg', 'jpg'].includes(res.data.data?.ext),
+                        has_preview: isPreviewableExtension(res.data.data?.ext),
                     }));
 
                     callbackRef?.current?.onFileUploaded?.(makeFileEvent(filesRef?.current, fileItem));
@@ -247,8 +248,30 @@ export default function FileUploader({
 
     const filterSelectedFiles = useCallback(
         (files: FileList) => {
+            if (!acceptedFiles?.length) {
+                return [...files];
+            }
+
+            const accepted = acceptedFiles.map((item) => item.toLowerCase());
+
             return [...files].filter((file) => {
-                return acceptedFiles.includes('.' + file.name.split('.')[file.name.split('.').length - 1]);
+                const fileName = file.name.toLowerCase();
+                const fileType = (file.type || '').toLowerCase();
+                const lastDotIndex = fileName.lastIndexOf('.');
+                const extension = lastDotIndex === -1 ? '' : fileName.slice(lastDotIndex);
+
+                return accepted.some((item) => {
+                    if (item.startsWith('.')) {
+                        return extension === item;
+                    }
+
+                    if (item.endsWith('/*')) {
+                        const prefix = item.slice(0, -1);
+                        return fileType.startsWith(prefix);
+                    }
+
+                    return fileType === item;
+                });
             });
         },
         [acceptedFiles],
