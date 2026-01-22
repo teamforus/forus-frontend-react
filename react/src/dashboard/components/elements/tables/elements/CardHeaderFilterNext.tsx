@@ -55,21 +55,18 @@ export default function CardHeaderFilterNext({
             )}
 
             {!filter.show && (
-                <div className="form">
-                    <FormGroup
-                        input={(id) => (
-                            <input
-                                type="text"
-                                id={id}
-                                className="form-control"
-                                data-dusk={searchDusk}
-                                value={filter.values.q}
-                                onChange={(e) => filter.update({ q: e.target.value })}
-                                placeholder={'Zoeken'}
-                            />
-                        )}
-                    />
-                </div>
+                <FormGroup
+                    input={() => (
+                        <input
+                            type="text"
+                            className="form-control"
+                            data-dusk={searchDusk}
+                            value={filter.values.q}
+                            onChange={(e) => filter.update({ q: e.target.value })}
+                            placeholder={'Zoeken'}
+                        />
+                    )}
+                />
             )}
 
             <CardHeaderFilter filter={filter}>{children}</CardHeaderFilter>
