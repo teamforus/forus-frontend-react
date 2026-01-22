@@ -18,6 +18,7 @@ import { ApiResponseSingle } from '../../../props/ApiResponses';
 import ModalReimbursementResolve from '../../modals/ModalReimbursementResolve';
 import ModalReimbursementDetailsEdit from '../../modals/ModalReimbursementDetailsEdit';
 import useFilePreview from '../../../services/helpers/useFilePreview';
+import { isPdfExtension, isPreviewableExtension } from '../../../helpers/filePreview';
 import { useFileService } from '../../../services/FileService';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
@@ -110,10 +111,6 @@ export default function ReimbursementsView() {
         [fileService, pushApiError, setProgress],
     );
 
-    const hasFilePreview = useCallback((file) => {
-        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
-    }, []);
-
     const previewFile = useCallback(
         (e: React.MouseEvent<HTMLElement>, file: File) => {
             e?.preventDefault();
@@ -155,7 +152,7 @@ export default function ReimbursementsView() {
     );
 
     const storeNote = useCallback(
-        (data) => {
+        (data: object) => {
             return reimbursementService.storeNote(activeOrganization.id, reimbursement?.id, data);
         },
         [activeOrganization.id, reimbursement?.id, reimbursementService],
@@ -503,10 +500,10 @@ export default function ReimbursementsView() {
                                                             <div className="attachment-date">
                                                                 {reimbursement.created_at_locale}
                                                             </div>
-                                                            {hasFilePreview(file) && (
+                                                            {isPreviewableExtension(file?.ext) && (
                                                                 <div
                                                                     title={
-                                                                        file.ext == 'pdf'
+                                                                        isPdfExtension(file?.ext)
                                                                             ? 'Bekijk PDF-bestand'
                                                                             : 'Bekijk file'
                                                                     }

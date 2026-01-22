@@ -5,6 +5,12 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalImagePreview from '../../modals/ModalImagePreview';
 import ModalPdfPreview from '../../modals/ModalPdfPreview';
 import { FileUploaderItem } from '../../../../webshop/components/elements/file-uploader/FileUploader';
+import {
+    isImageExtension,
+    isPdfExtension,
+    isPreviewableExtension,
+    normalizeFileExtension,
+} from '../../../helpers/filePreview';
 
 export default function FileUploaderItemView({
     item,
@@ -31,15 +37,22 @@ export default function FileUploaderItemView({
             e.preventDefault();
             e.stopPropagation();
 
-            if (file.file_data.ext == 'pdf') {
+            const fileData = file.file_data;
+            const fileExtension = normalizeFileExtension(fileData?.ext);
+
+            if (!fileData || !isPreviewableExtension(fileExtension)) {
+                return;
+            }
+
+            if (isPdfExtension(fileExtension)) {
                 fileService
-                    .downloadBlob(file.file_data)
+                    .downloadBlob(fileData)
                     .then((res) => {
                         openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
                     })
                     .catch((err: ResponseError) => console.error(err));
-            } else if (['png', 'jpeg', 'jpg'].includes(file.file_data.ext)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.file_data.url} />);
+            } else if (isImageExtension(fileExtension)) {
+                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={fileData.url} />);
             }
         },
         [fileService, openModal],
@@ -83,8 +96,8 @@ export default function FileUploaderItemView({
                             <button
                                 type="button"
                                 className="attachment-action"
-                                title={item.file_data?.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
-                                aria-label={item.file_data?.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                                title={isPdfExtension(item.file_data?.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                                aria-label={isPdfExtension(item.file_data?.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
                                 onClick={(e) => previewFile(e, item)}>
                                 <div className="mdi mdi-eye" aria-hidden="true" />
                             </button>

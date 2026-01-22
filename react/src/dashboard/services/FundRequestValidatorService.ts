@@ -3,7 +3,6 @@ import ApiRequestService from './ApiRequestService';
 import FundRequest, { FundRequestFormula } from '../props/models/FundRequest';
 import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import Note from '../props/models/Note';
-import File from '../props/models/File';
 import FundRequestRecord from '../props/models/FundRequestRecord';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
@@ -117,10 +116,6 @@ export class FundRequestValidatorService<T = FundRequest> {
 
     public storeNote(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<Note>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data);
-    }
-
-    public hasFilePreview(file: File) {
-        return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
     }
 
     public getColumns(): Array<ConfigurableTableColumn> {
