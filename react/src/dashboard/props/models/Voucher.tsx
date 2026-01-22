@@ -66,7 +66,7 @@ export default interface Voucher {
     address?: string;
     fund_id: number;
     expired?: boolean;
-    fund: Fund;
+    fund: Fund & { voucher_payout_fixed_amount?: string | null };
     type?: 'regular' | 'product';
     state?: string;
     state_locale?: string;

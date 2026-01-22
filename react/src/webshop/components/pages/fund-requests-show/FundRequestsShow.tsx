@@ -194,7 +194,7 @@ export default function FundRequestsShow() {
 
                             {showCreditInfo && (
                                 <div
-                                    className="fund-request-record-section"
+                                    className="card-section card-section-md"
                                     id={'fundRequestReceivedSection'}
                                     role="region"
                                     aria-labelledby={'fundRequestReceivedHeader'}>
@@ -207,7 +207,7 @@ export default function FundRequestsShow() {
                                     )}
 
                                     {fundRequest.vouchers?.length > 0 && (
-                                        <div className="block block-vouchers block-vouchers-with-border">
+                                        <div className="block block-vouchers">
                                             {fundRequest.vouchers.map((voucher) => (
                                                 <VoucherCard
                                                     key={voucher.id}

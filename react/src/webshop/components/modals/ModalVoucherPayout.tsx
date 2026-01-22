@@ -93,8 +93,8 @@ export default function ModalVoucherPayout({
     const updateForm = form.update;
 
     const fixedPayoutAmount = useMemo(() => {
-        return selectedVoucherItem?.fund?.allow_voucher_payout_amount;
-    }, [selectedVoucherItem?.fund?.allow_voucher_payout_amount]);
+        return selectedVoucherItem?.fund?.voucher_payout_fixed_amount;
+    }, [selectedVoucherItem?.fund?.voucher_payout_fixed_amount]);
 
     const payoutCountWarning = useMemo(() => {
         if (!selectedVoucherItem) {
@@ -141,21 +141,6 @@ export default function ModalVoucherPayout({
     }, [fixedPayoutAmount, selectedVoucherItem, translate]);
 
     const warningMessage = payoutCountWarning || payoutAmountWarning;
-
-    const fixedPayoutAmountOption = useMemo(() => {
-        if (fixedPayoutAmount === null || fixedPayoutAmount === undefined) {
-            return [];
-        }
-
-        const amountNumber = parseFloat(fixedPayoutAmount);
-
-        return [
-            {
-                key: fixedPayoutAmount,
-                name: isNaN(amountNumber) ? fixedPayoutAmount : currencyFormat(amountNumber),
-            },
-        ];
-    }, [fixedPayoutAmount]);
 
     useEffect(() => {
         if (!selectedVoucherId) {
@@ -288,20 +273,26 @@ export default function ModalVoucherPayout({
                                         label={translate('voucher.payout.amount')}
                                         required={true}
                                         error={form.errors?.amount}
-                                        input={(id) =>
-                                            fixedPayoutAmount !== null && fixedPayoutAmount !== undefined ? (
-                                                <SelectControl
-                                                    id={id}
-                                                    className="form-control"
-                                                    propKey="key"
-                                                    propValue="name"
-                                                    allowSearch={false}
-                                                    options={fixedPayoutAmountOption}
-                                                    value={form.values.amount ?? ''}
-                                                    onChange={(amount?: string) => form.update({ amount })}
-                                                    dusk="voucherPayoutAmount"
-                                                />
-                                            ) : (
+                                        input={(id) => {
+                                            if (fixedPayoutAmount !== null && fixedPayoutAmount !== undefined) {
+                                                const amountNumber = parseFloat(fixedPayoutAmount);
+                                                const displayValue = isNaN(amountNumber)
+                                                    ? fixedPayoutAmount
+                                                    : currencyFormat(amountNumber);
+
+                                                return (
+                                                    <input
+                                                        id={id}
+                                                        className="form-control"
+                                                        type="text"
+                                                        value={displayValue}
+                                                        disabled={true}
+                                                        data-dusk="voucherPayoutAmount"
+                                                    />
+                                                );
+                                            }
+
+                                            return (
                                                 <input
                                                     id={id}
                                                     className="form-control"
@@ -313,8 +304,8 @@ export default function ModalVoucherPayout({
                                                     placeholder={translate('voucher.payout.amount')}
                                                     data-dusk="voucherPayoutAmount"
                                                 />
-                                            )
-                                        }
+                                            );
+                                        }}
                                     />
 
                                     <div className="row">

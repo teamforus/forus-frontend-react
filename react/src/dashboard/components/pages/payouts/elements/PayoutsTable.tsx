@@ -32,7 +32,7 @@ export default function PayoutsTable({
     filterValues,
     filterUpdate,
     fetchTransactions,
-    fundsWithPayouts,
+    funds,
 }: {
     filter: FilterScope<FilterModel>;
     loading: boolean;
@@ -42,7 +42,7 @@ export default function PayoutsTable({
     filterValues: FilterModel;
     filterUpdate: FilterSetter;
     fetchTransactions: (filters: object) => void;
-    fundsWithPayouts: Array<Partial<Fund>>;
+    funds: Array<Partial<Fund>>;
 }) {
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
@@ -91,14 +91,14 @@ export default function PayoutsTable({
             openModal((modal) => (
                 <ModalPayoutsEdit
                     modal={modal}
-                    funds={fundsWithPayouts?.filter((item) => item.id === transaction.fund.id)}
+                    funds={funds?.filter((item) => item.id === transaction.fund.id)}
                     transaction={transaction}
                     organization={organization}
                     onUpdated={() => fetchTransactions(filter.activeValues)}
                 />
             ));
         },
-        [organization, fetchTransactions, fundsWithPayouts, filter.activeValues, openModal],
+        [organization, fetchTransactions, funds, filter.activeValues, openModal],
     );
 
     return (
@@ -226,7 +226,7 @@ export default function PayoutsTable({
                                                                 Annuleren
                                                             </div>
                                                         )}
-                                                        {transaction.transfer_in_pending && (
+                                                        {transaction.is_editable && transaction.transfer_in_pending && (
                                                             <div
                                                                 className="dropdown-item"
                                                                 onClick={() => {
