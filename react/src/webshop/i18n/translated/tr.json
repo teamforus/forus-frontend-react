@@ -1020,14 +1020,14 @@
                 "make_a_choice": "Birini seçin"
             },
             "fund_request_step_done": {
-                "application_processing": "Başvurunuz alınmıştır. Başvuru 10 iş günü içerisinde işleme alınacaktır. Bununla ilgili bir e-posta alacaksınız.",
                 "application_received": "Başvuru alındı",
                 "back": "Geri",
                 "error_occurred": "Başvuru sırasında bir hata oluştu.",
                 "leave_form": "İzin formu",
                 "reason": "Sebep:",
                 "sent": "Gönderdim!",
-                "sign_up": "Kaydolun"
+                "sign_up": "Kaydolun",
+                "application_processing": "Başvurunuz alınmıştır. Başvurunuz en fazla 8 hafta içerisinde işleme alınacaktır. Bununla ilgili bir e-posta alacaksınız."
             },
             "fund_request_physical_card_request": {
                 "description": "Fiziksel kartınızı kullanıma hazır olur olmaz verdiğiniz adrese göndereceğiz.",
@@ -1101,8 +1101,20 @@
             "child": "Çocuk",
             "children": "Çocuklar",
             "partner": "Partnerinizin detayları",
-            "subtitle": "Bilgileriniz yanlışsa, alttaki düğmeye tıklayabilirsiniz.",
-            "title": "Verilerin doğru olup olmadığını kontrol edin."
+            "children_list": {
+                "kind_1": "Çocuk 1",
+                "kind_10": "Çocuk 10",
+                "kind_2": "Çocuk 2",
+                "kind_3": "Çocuk 3",
+                "kind_4": "Çocuk 4",
+                "kind_5": "Çocuk 5",
+                "kind_6": "Çocuk 6",
+                "kind_7": "Çocuk 7",
+                "kind_8": "Çocuk 8",
+                "kind_9": "Çocuk 9"
+            },
+            "subtitle": "Bilgiler doğru değil mi? Eğer öyleyse, lütfen belediye ile iletişime geçin.",
+            "title": "Aşağıdaki bilgiler zaten doldurulmuştur"
         }
     },
     "fund": {
