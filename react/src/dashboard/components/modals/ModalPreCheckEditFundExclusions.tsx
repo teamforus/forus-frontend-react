@@ -8,9 +8,9 @@ import Fund from '../../props/models/Fund';
 import SelectControl from '../elements/select-control/SelectControl';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
-import FormError from '../elements/forms/errors/FormError';
 import usePreCheckService from '../../services/PreCheckService';
 import Implementation from '../../props/models/Implementation';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalPreCheckEditFundExclusions({
     modal,
@@ -117,18 +117,20 @@ export default function ModalPreCheckEditFundExclusions({
                         </div>
 
                         {!form.values.excluded && (
-                            <div className="form-group">
-                                <label className="form-label form-label-required">Uitleg</label>
-
-                                <textarea
-                                    className="form-control"
-                                    placeholder="Voeg omschrijving toe"
-                                    value={form.values.note}
-                                    onChange={(e) => form.update({ note: e.target.value })}
-                                />
-
-                                <FormError error={form.errors['exclusion.note']} />
-                            </div>
+                            <FormGroup
+                                required={true}
+                                label="Uitleg"
+                                error={form.errors['exclusion.note']}
+                                input={(id) => (
+                                    <textarea
+                                        className="form-control"
+                                        id={id}
+                                        placeholder="Voeg omschrijving toe"
+                                        value={form.values.note}
+                                        onChange={(e) => form.update({ note: e.target.value })}
+                                    />
+                                )}
+                            />
                         )}
 
                         <div className="form-group">

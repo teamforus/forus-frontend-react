@@ -18,6 +18,7 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { strLimit } from '../../../../helpers/string';
 import { ProviderFinancialFilterOptions, FinancialFilterOptionItem } from '../types/FinancialStatisticTypes';
 import Label from '../../../elements/image_cropper/Label';
+import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 
 interface SelectionItem {
     ids?: Array<number>;
@@ -471,23 +472,16 @@ export default function FinancialFilters({
                         />
                     </div>
 
-                    <div className="block block-label-tabs">
-                        <div
-                            className={`label-tab ${filterType == 'month' ? 'active' : ''}`}
-                            onClick={() => setFilterType('month')}>
-                            Maand
-                        </div>
-                        <div
-                            className={`label-tab ${filterType == 'quarter' ? 'active' : ''}`}
-                            onClick={() => setFilterType('quarter')}>
-                            Kwartaal
-                        </div>
-                        <div
-                            className={`label-tab ${filterType == 'year' ? 'active' : ''}`}
-                            onClick={() => setFilterType('year')}>
-                            Jaar
-                        </div>
-                    </div>
+                    <BlockLabelTabs
+                        value={filterType}
+                        setValue={(type) => setFilterType(type)}
+                        size={null}
+                        tabs={[
+                            { value: 'month', label: 'Maand' },
+                            { value: 'quarter', label: 'Kwartaal' },
+                            { value: 'year', label: 'Jaar' },
+                        ]}
+                    />
                 </div>
             </div>
 

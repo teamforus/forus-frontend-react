@@ -11,6 +11,7 @@ import useProductReservationService from '../../services/ProductReservationServi
 import usePushSuccess from '../../hooks/usePushSuccess';
 import usePushApiError from '../../hooks/usePushApiError';
 import { ResponseError } from '../../props/ApiResponses';
+import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 
 export default function ModalReservationReject({
     modal,
@@ -124,20 +125,12 @@ export default function ModalReservationReject({
                         <FormGroup
                             error={form.errors.share_note_by_email}
                             input={() => (
-                                <label className="checkbox checkbox-narrow">
-                                    <input
-                                        type="checkbox"
-                                        checked={form.values.share_note_by_email}
-                                        onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
-                                        hidden={true}
-                                    />
-                                    <div className="checkbox-label">
-                                        <div className="checkbox-box">
-                                            <div className="mdi mdi-check" />
-                                        </div>
-                                        <span>Verstuur een bericht naar de inwoner</span>
-                                    </div>
-                                </label>
+                                <CheckboxControl
+                                    checked={form.values.share_note_by_email}
+                                    narrow={true}
+                                    onChange={(_, checked) => form.update({ share_note_by_email: checked })}
+                                    title="Verstuur een bericht naar de inwoner"
+                                />
                             )}
                         />
                     </div>

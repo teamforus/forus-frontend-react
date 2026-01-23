@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import { hasPermission } from '../../../helpers/utils';
 import useFormBuilder from '../../../hooks/useFormBuilder';
@@ -18,6 +19,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { ResponseError } from '../../../props/ApiResponses';
 import InfoBox from '../../elements/info-box/InfoBox';
+import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 
 const resetBankAccountIds = () => ({
     fund_request_id: null,
@@ -319,9 +321,14 @@ export default function ModalVoucherTransaction({
 
     return (
         <div
-            className={`modal modal-md modal-animated modal-voucher-transaction ${
-                modal.loading ? 'modal-loading' : ''
-            } ${className || ''}`}
+            className={classNames(
+                'modal',
+                'modal-md',
+                'modal-animated',
+                'modal-voucher-transaction',
+                modal.loading && 'modal-loading',
+                className,
+            )}
             data-dusk="voucherTransactionModal">
             <div className="modal-backdrop" onClick={modal.close} />
 
@@ -530,19 +537,11 @@ export default function ModalVoucherTransaction({
                                     <div className="form-group">
                                         <div className="form-label" />
 
-                                        <label className="checkbox">
-                                            <input
-                                                type="checkbox"
-                                                checked={form.values.note_shared}
-                                                onChange={(e) => form.update({ note_shared: e.target.checked })}
-                                            />
-                                            <div className="checkbox-label">
-                                                <div className="checkbox-box">
-                                                    <div className="mdi mdi-check" />
-                                                </div>
-                                                {translate('modals.modal_voucher_transaction.labels.note_shared')}
-                                            </div>
-                                        </label>
+                                        <CheckboxControl
+                                            checked={form.values.note_shared}
+                                            onChange={(_, checked) => form.update({ note_shared: checked })}
+                                            title={translate('modals.modal_voucher_transaction.labels.note_shared')}
+                                        />
 
                                         <FormError error={form.errors?.note_shared} />
                                     </div>

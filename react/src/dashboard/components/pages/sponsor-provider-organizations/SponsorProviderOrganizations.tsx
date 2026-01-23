@@ -23,6 +23,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useProviderExporter from '../../../services/exporters/useProviderExporter';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -197,21 +198,15 @@ export default function SponsorProviderOrganizations() {
                                     onChange={(order_by: string) => filterUpdate({ order_by })}
                                 />
 
-                                <div className="block block-label-tabs">
-                                    <div className="label-tab-set">
-                                        {stateGroups?.map((stateGroup) => (
-                                            <div
-                                                key={stateGroup.key}
-                                                data-dusk={`provider_tab_${stateGroup.key}`}
-                                                onClick={() => filterUpdate({ state_group: stateGroup.key })}
-                                                className={`label-tab label-tab-sm ${
-                                                    filterValues.state_group === stateGroup.key ? 'active' : ''
-                                                }`}>
-                                                {stateGroup.label}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                <BlockLabelTabs
+                                    value={filterValues.state_group}
+                                    setValue={(state_group) => filterUpdate({ state_group })}
+                                    tabs={stateGroups?.map((stateGroup) => ({
+                                        value: stateGroup.key,
+                                        label: stateGroup.label,
+                                        dusk: `provider_tab_${stateGroup.key}`,
+                                    }))}
+                                />
 
                                 <div className="form-group">
                                     <input

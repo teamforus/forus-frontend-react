@@ -34,6 +34,7 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import { useMarkdownService } from '../../../services/MarkdownService';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function ImplementationNotificationSend() {
     const { id } = useParams();
@@ -494,22 +495,31 @@ export default function ImplementationNotificationSend() {
                                         </div>
                                     )}
 
-                                <div className="block block-label-tabs">
-                                    <div className="label-tab-set">
-                                        <div
-                                            className={`label-tab ${targetGroup === 'identities' ? 'active' : ''}`}
-                                            onClick={() => setTargetGroup('identities')}>
-                                            <div className="mdi mdi-account-multiple-outline label-tab-icon-start" />
-                                            Aanvragers
-                                        </div>
-                                        <div
-                                            className={`label-tab ${targetGroup === 'providers' ? 'active' : ''}`}
-                                            onClick={() => setTargetGroup('providers')}>
-                                            <div className="mdi mdi-store-outline label-tab-icon-start" />
-                                            Aanbieders
-                                        </div>
-                                    </div>
-                                </div>
+                                <BlockLabelTabs
+                                    value={targetGroup}
+                                    setValue={(group) => setTargetGroup(group)}
+                                    size={null}
+                                    tabs={[
+                                        {
+                                            value: 'identities',
+                                            label: (
+                                                <Fragment>
+                                                    <div className="mdi mdi-account-multiple-outline label-tab-icon-start" />
+                                                    Aanvragers
+                                                </Fragment>
+                                            ),
+                                        },
+                                        {
+                                            value: 'providers',
+                                            label: (
+                                                <Fragment>
+                                                    <div className="mdi mdi-store-outline label-tab-icon-start" />
+                                                    Aanbieders
+                                                </Fragment>
+                                            ),
+                                        },
+                                    ]}
+                                />
                             </div>
                         </div>
                     </div>

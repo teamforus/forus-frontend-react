@@ -21,6 +21,7 @@ import { useFundService } from '../../../../../services/FundService';
 import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
+import BlockLabelTabs from '../../../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function OrganizationsFundsShowImplementationsCard({
     fund,
@@ -90,19 +91,15 @@ export default function OrganizationsFundsShowImplementationsCard({
                 </div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
-                        <div className="block block-label-tabs">
-                            <div className="label-tab-set">
-                                {viewTypes?.map((type) => (
-                                    <div
-                                        key={type.key}
-                                        data-dusk={`${type.key}_tab`}
-                                        className={`label-tab label-tab-sm ${viewType == type.key ? 'active' : ''}`}
-                                        onClick={() => setViewType(type.key)}>
-                                        {type.name}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <BlockLabelTabs
+                            value={viewType}
+                            setValue={(type) => setViewType(type)}
+                            tabs={viewTypes?.map((type) => ({
+                                value: type.key,
+                                dusk: `${type.key}_tab`,
+                                label: type.name,
+                            }))}
+                        />
 
                         <div className="block block-inline-filters">
                             {filter.show && (

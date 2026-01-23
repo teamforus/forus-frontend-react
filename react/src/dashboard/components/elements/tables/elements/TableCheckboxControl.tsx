@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 export default function TableCheckboxControl({
     checked,
@@ -9,7 +10,7 @@ export default function TableCheckboxControl({
 }) {
     return (
         <label
-            className={`checkbox checkbox-compact checkbox-th ${checked ? 'checked' : ''}`}
+            className={classNames('checkbox', 'checkbox-compact', 'checkbox-th', checked && 'checked')}
             onClick={onClick}
             style={{ cursor: 'pointer' }}>
             <div className="checkbox-box">

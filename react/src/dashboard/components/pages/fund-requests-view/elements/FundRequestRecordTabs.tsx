@@ -4,6 +4,7 @@ import FundRequestRecordAttachmentsTab from './record-tabs/FundRequestRecordAtta
 import FundRequestRecordClarificationsTab from './record-tabs/FundRequestRecordClarificationsTab';
 import FundRequestRecord from '../../../../props/models/FundRequestRecord';
 import useTranslate from '../../../../hooks/useTranslate';
+import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function FundRequestRecordTabs({ fundRequestRecord }: { fundRequestRecord: FundRequestRecord }) {
     const contentMap = useMemo(
@@ -23,40 +24,42 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
     return (
         <div className="block" data-dusk={`fundRequestRecordTabs${fundRequestRecord.id}`}>
             {hasMultiple && (
-                <div className="block block-label-tabs">
-                    {fundRequestRecord.files.length > 0 && (
-                        <div
-                            className={`label-tab ${shownType == 'files' ? 'active' : ''}`}
-                            data-dusk={`fundRequestRecordFilesTab`}
-                            onClick={() => setShownType('files')}>
-                            {translate('validation_request_details.labels.files', {
-                                count: fundRequestRecord.files.length,
-                            })}
-                        </div>
-                    )}
-
-                    {fundRequestRecord.clarifications.length > 0 && (
-                        <div
-                            className={`label-tab ${shownType == 'clarifications' ? 'active' : ''}`}
-                            onClick={() => setShownType('clarifications')}
-                            data-dusk={`fundRequestRecordClarificationsTab`}>
-                            {translate('validation_request_details.labels.clarification_requests', {
-                                count: fundRequestRecord.clarifications.length,
-                            })}
-                        </div>
-                    )}
-
-                    {fundRequestRecord.history.length > 0 && (
-                        <div
-                            className={`label-tab ${shownType == 'history' ? 'active' : ''}`}
-                            onClick={() => setShownType('history')}
-                            data-dusk={`fundRequestRecordHistoryTab`}>
-                            {translate('validation_request_details.labels.history', {
-                                count: fundRequestRecord.history.length,
-                            })}
-                        </div>
-                    )}
-                </div>
+                <BlockLabelTabs
+                    size={null}
+                    value={shownType}
+                    setValue={(type) => setShownType(type)}
+                    tabs={
+                        [
+                            fundRequestRecord.files.length > 0
+                                ? {
+                                      value: 'files',
+                                      dusk: 'fundRequestRecordFilesTab',
+                                      label: translate('validation_request_details.labels.files', {
+                                          count: fundRequestRecord.files.length,
+                                      }),
+                                  }
+                                : null,
+                            fundRequestRecord.clarifications.length > 0
+                                ? {
+                                      value: 'clarifications',
+                                      dusk: 'fundRequestRecordClarificationsTab',
+                                      label: translate('validation_request_details.labels.clarification_requests', {
+                                          count: fundRequestRecord.clarifications.length,
+                                      }),
+                                  }
+                                : null,
+                            fundRequestRecord.history.length > 0
+                                ? {
+                                      value: 'history',
+                                      dusk: 'fundRequestRecordHistoryTab',
+                                      label: translate('validation_request_details.labels.history', {
+                                          count: fundRequestRecord.history.length,
+                                      }),
+                                  }
+                                : null,
+                        ].filter(Boolean) as Array<{ value: string; label: string; dusk?: string }>
+                    }
+                />
             )}
 
             {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
