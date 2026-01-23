@@ -8,6 +8,12 @@ import ModalPdfPreview from '../../modals/ModalPdfPreview';
 import { FileUploaderItem } from './FileUploader';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import {
+    isImageExtension,
+    isPdfExtension,
+    isPreviewableExtension,
+    normalizeFileExtension,
+} from '../../../../dashboard/helpers/filePreview';
 
 export default function FileUploaderItemView({
     item,
@@ -32,22 +38,33 @@ export default function FileUploaderItemView({
     const name = useMemo(() => {
         return item.file?.name || item.file_data?.original_name || '';
     }, [item.file?.name, item.file_data?.original_name]);
-    const extension = useMemo(() => name?.split('.')[name.split('.').length - 1], [name]);
+
+    const extension = useMemo(() => {
+        const lastDotIndex = name.lastIndexOf('.');
+        return lastDotIndex === -1 ? '' : name.slice(lastDotIndex + 1).toLowerCase();
+    }, [name]);
 
     const previewFile = useCallback(
         (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
             e.preventDefault();
             e.stopPropagation();
 
-            if (file.file_data.ext == 'pdf') {
+            const fileData = file.file_data;
+            const fileExtension = normalizeFileExtension(fileData?.ext);
+
+            if (!fileData || !isPreviewableExtension(fileExtension)) {
+                return;
+            }
+
+            if (isPdfExtension(fileExtension)) {
                 fileService
-                    .downloadBlob(file.file_data)
+                    .downloadBlob(fileData)
                     .then((res) => {
                         openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
                     })
                     .catch((err: ResponseError) => console.error(err));
-            } else if (['png', 'jpeg', 'jpg'].includes(file.file_data.ext)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.file_data.url} />);
+            } else if (isImageExtension(fileExtension)) {
+                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={fileData.url} />);
             }
         },
         [fileService, openModal],

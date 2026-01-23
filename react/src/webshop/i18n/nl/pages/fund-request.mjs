@@ -138,7 +138,7 @@ export default {
             application_received: 'Aanvraag ontvangen',
             sent: 'Verzonden!',
             application_processing:
-                'Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.',
+                'Je aanvraag is ontvangen. De aanvraag wordt binnen maximaal 8 weken verwerkt. Je ontvangt hierover een e-mail.',
             back: 'Terug',
         },
         fund_request_step_criteria: {
@@ -240,6 +240,19 @@ export default {
         children: 'Kinderen',
         child: 'Kind',
         partner: 'Gegevens van uw partner',
+
+        children_list: {
+            kind_1: 'Kind 1',
+            kind_2: 'Kind 2',
+            kind_3: 'Kind 3',
+            kind_4: 'Kind 4',
+            kind_5: 'Kind 5',
+            kind_6: 'Kind 6',
+            kind_7: 'Kind 7',
+            kind_8: 'Kind 8',
+            kind_9: 'Kind 9',
+            kind_10: 'Kind 10',
+        },
     },
     cards: {
         back: 'Terug',

@@ -557,7 +557,7 @@ export default function FundRequest() {
                                 (item) => item.record_type_key === criterion.record_type_key,
                             )[0];
 
-                            criterion.input_value = prefillItem?.value || criterion.input_value;
+                            criterion.input_value = prefillItem ? prefillItem.value : criterion.input_value;
                         }
 
                         return criterion;
@@ -685,7 +685,7 @@ export default function FundRequest() {
                         (prefill) => prefill.record_type_key === item.record_type_key,
                     )[0];
 
-                    item.input_value = prefillItem?.value || item.input_value;
+                    item.input_value = prefillItem ? prefillItem.value : item.input_value;
                 }
 
                 if (!shouldRequestRecord(item) && item.input_value != defaultValue) {
