@@ -321,6 +321,9 @@
             },
             "fijnder": {
                 "funds": "Regulations"
+            },
+            "isd": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -479,7 +482,8 @@
             "category": "Categories",
             "payment_options": "Payment options",
             "payment_options_info": "Learn more about payment options",
-            "price_to": "To"
+            "price_to": "To",
+            "price_type_option_payout": "Payout to bank account"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -792,14 +796,14 @@
                 "make_a_choice": "Choose one"
             },
             "fund_request_step_done": {
-                "application_processing": "Your application has been received. The application will be processed within 10 business days. You will receive an email about this.",
                 "application_received": "Application received",
                 "back": "Back",
                 "error_occurred": "An error occurred while applying.",
                 "leave_form": "Leave form",
                 "reason": "Reason:",
                 "sent": "Sent!",
-                "sign_up": "Sign up"
+                "sign_up": "Sign up",
+                "application_processing": "Your application has been received. The application will be processed within a maximum of 8 weeks. You will receive an email about this."
             },
             "fund_request_physical_card_request": {
                 "description": "We will send your physical card to the address you provide as soon as it is ready for use.",
@@ -838,6 +842,55 @@
         "subtitle": "This page contains information about the application. The status, completed data and any additional questions can be viewed here.",
         "modal": {
             "title": "Additional question"
+        },
+        "cards": {
+            "back": "Back",
+            "connection_error": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You are receiving this message because there is a technical error. You can try again at a later time.",
+                "heading": "Application failed",
+                "title": "Technical failure"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You are receiving this message because some of your information was not found in the external system. As a result, your application cannot be fully evaluated.",
+                "heading": "Application failed",
+                "title": "Missing data"
+            },
+            "not_found": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You get this message because your data was not found in the external system.",
+                "heading": "Application failed",
+                "title": "Your information was not found"
+            },
+            "taken_by_partner": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You get this message because the credit was activated by a <br /> family member or guardian. <br /><br /> The credit is available in the account of the person who <br /> activated it first.",
+                "heading": "Application failed",
+                "title": "This credit has already been activated"
+            }
+        },
+        "options": {
+            "no": "No"
+        },
+        "prefills": {
+            "child": "Child",
+            "children": "Children",
+            "partner": "Details of your partner",
+            "children_list": {
+                "kind_1": "Child 1",
+                "kind_10": "Child 10",
+                "kind_2": "Child 2",
+                "kind_3": "Child 3",
+                "kind_4": "Child 4",
+                "kind_5": "Child 5",
+                "kind_6": "Child 6",
+                "kind_7": "Child 7",
+                "kind_8": "Child 8",
+                "kind_9": "Child 9"
+            },
+            "subtitle": "Is the information not correct? If so, please contact the municipality.",
+            "title": "The information below is already filled in"
         }
     },
     "fund_requests": {
@@ -909,7 +962,8 @@
             "potjeswijzer": {
                 "start_request": "Request"
             },
-            "start_request": "Activate"
+            "start_request": "Activate",
+            "open_payouts": "Open payouts"
         },
         "criteria": {
             "key": "{{key}}"
@@ -1558,12 +1612,10 @@
             "collapse_section": "Section Collapse",
             "description_card": "Description",
             "dont_have_voucher": "No credit yet?",
-            "duration_of_promotion": "Duration of promotion",
             "expand_section": "Expand section",
             "expire_by_date": "Valid until {{date}}",
             "how_can_i_pay": "How can I pay?",
             "locations_on_map": "Locations on map",
-            "login_to_order": "Log in to order now",
             "more_info": "Learn more",
             "next_image": "Next image",
             "payment_option_qr": "Show QR code at provider",
@@ -1572,13 +1624,15 @@
             "product_images": "Product Images",
             "provider": "Provider",
             "quantity_limit": "Max. {{limit}} p.p.",
-            "request_one_now": "Apply for one now!",
             "show_image_of_total": "Show image {{current}} from {{total}}",
             "when": "When",
             "where": "Where",
             "add_to_favorites": "Add to Favorites",
             "ideal_logo_alt": "iDEAL logo",
-            "remove_from_favorites": "Remove from favorites"
+            "remove_from_favorites": "Remove from favorites",
+            "duration_of_promotion": "Duration",
+            "login_to_order": "Log in to order",
+            "request_one_now": "Make an inquiry"
         },
         "low_amount": "You do not have a credit with sufficient balance.",
         "map": {
@@ -1588,7 +1642,8 @@
         "tooltip": "How often you can still take advantage of this offer",
         "price": {
             "free": "Free",
-            "informational": "In store only"
+            "informational": "In store only",
+            "payout": "Disbursement"
         },
         "other_products": "You might also like this?"
     },
@@ -1725,7 +1780,8 @@
             "subtract": "Subtraction",
             "title": "Transactions",
             "top_up": "Upgraded",
-            "expired_on": "Expired on {{ date }}"
+            "expired_on": "Expired on {{ date }}",
+            "payout": "Payout"
         },
         "history": {
             "status": {
@@ -1741,7 +1797,9 @@
             "save_qr": "Save QR code",
             "share_with_provider": "Share QR code with provider",
             "view_all_products": "See all products",
-            "declaration_request": "Cost recovery"
+            "declaration_request": "Cost recovery",
+            "transfer_to_bank": "Transfer to bank account",
+            "transfer_to_bank_description": "Choose the credit and amount you want to transfer to your bank account."
         },
         "details": {
             "records": {
@@ -1776,6 +1834,27 @@
         "fund_details": {
             "title": "Information about the scheme",
             "view": "Read more"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "Terms",
+            "amount": "Amount",
+            "cancel": "Cancel",
+            "iban": "IBAN",
+            "iban_name": "Account holder",
+            "submit": "Transfer",
+            "success": {
+                "close": "Close",
+                "description": "Your transfer request has been sent. It may take some time to process.",
+                "title": "Transfer requested"
+            },
+            "transfer_to_bank": "Transfer to bank account",
+            "transfer_to_bank_description": "Choose the credit and amount you want to transfer to your bank account.",
+            "voucher_label": "Credit",
+            "warning_count_reached": "The maximum number of payouts for this credit has been reached.",
+            "warning_not_enough_amount_fixed": "This credit must include a minimum of {{ amount }} for a payout.",
+            "warning_not_enough_amount_min": "This credit must include a minimum of {{ min }} for a payout.",
+            "accept_compliance_rules_info": "<p><strong>I declare that:</strong></p><ul><li>I am using the money only for this activity;</li><li>I am using the money according to the rules of the scheme;</li><li>I understand that I must repay the money if I do not use it correctly.</li></ul>",
+            "accept_compliance_rules": "I agree to the above terms and conditions."
         }
     },
     "vouchers": {
@@ -1997,17 +2076,23 @@
         },
         "empty": {
             "button": "Go to the funds",
-            "subtitle": "Currently you have no disbursements",
-            "title": "No payouts"
+            "subtitle": "Currently you have no payouts",
+            "title": "No payouts",
+            "button_payout": "Transfer"
         },
         "labels": {
-            "created_at": "Disbursed on",
+            "created_at": "Paid out on",
             "iban_from": "IBAN (from)",
             "iban_to": "IBAN (to)",
             "iban_to_name": "IBAN name (to)"
         },
         "search": "Search",
-        "title": "Payouts"
+        "title": "Payouts",
+        "create_card": {
+            "button": "Transfer",
+            "description": "Create a transfer from your credit balance.",
+            "title": "Transfer to bank account"
+        }
     },
     "preferences_emails": {
         "breadcrumbs": {
@@ -3055,12 +3140,12 @@
             "view_file": "View file"
         },
         "file_uploader": {
-            "attachments": "Attachments",
             "max_size": "max size 8Mb",
             "or": "or",
             "title": "Upload a document",
             "upload_button": "Upload a document",
-            "max_files": "maximum {{ count }} files"
+            "max_files": "maximum {{ count }} files",
+            "attachments": "Attachments"
         },
         "info_box": {
             "2fa_description": "For more information on 2FA, check us out:",
@@ -3583,7 +3668,8 @@
         "session_expired": {
             "description": "Log back in and try again.",
             "title": "Session expired!"
-        }
+        },
+        "payout_created": "Payout requested."
     },
     "read_speaker": {
         "read_aloud": "Read for",
@@ -3650,7 +3736,9 @@
         "info_option_informational_title": "In store only",
         "info_option_regular_description": "The product has a fixed price. This is the amount to be paid, for example €10 euros.",
         "info_option_regular_title": "Price",
-        "title": "Payment options"
+        "title": "Payment options",
+        "info_option_payout_description": "Perform a transaction from your balance to the bank account number provided during the fund application.",
+        "info_option_payout_title": "Payout to bank account"
     },
     "pincode_control": {
         "aria_label_num": "Figure {{current}} of the {{total}}",

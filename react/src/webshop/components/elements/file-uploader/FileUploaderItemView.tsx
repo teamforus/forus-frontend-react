@@ -8,6 +8,12 @@ import ModalPdfPreview from '../../modals/ModalPdfPreview';
 import { FileUploaderItem } from './FileUploader';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import {
+    isImageExtension,
+    isPdfExtension,
+    isPreviewableExtension,
+    normalizeFileExtension,
+} from '../../../../dashboard/helpers/filePreview';
 
 export default function FileUploaderItemView({
     item,
@@ -18,7 +24,7 @@ export default function FileUploaderItemView({
     removeFile,
 }: {
     item: FileUploaderItem;
-    template?: 'default' | 'compact' | 'inline';
+    template?: 'default' | 'compact' | 'inline' | 'group';
     hidePreviewButton?: boolean;
     hideDownloadButton?: boolean;
     readOnly?: boolean;
@@ -32,22 +38,33 @@ export default function FileUploaderItemView({
     const name = useMemo(() => {
         return item.file?.name || item.file_data?.original_name || '';
     }, [item.file?.name, item.file_data?.original_name]);
-    const extension = useMemo(() => name?.split('.')[name.split('.').length - 1], [name]);
+
+    const extension = useMemo(() => {
+        const lastDotIndex = name.lastIndexOf('.');
+        return lastDotIndex === -1 ? '' : name.slice(lastDotIndex + 1).toLowerCase();
+    }, [name]);
 
     const previewFile = useCallback(
         (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
             e.preventDefault();
             e.stopPropagation();
 
-            if (file.file_data.ext == 'pdf') {
+            const fileData = file.file_data;
+            const fileExtension = normalizeFileExtension(fileData?.ext);
+
+            if (!fileData || !isPreviewableExtension(fileExtension)) {
+                return;
+            }
+
+            if (isPdfExtension(fileExtension)) {
                 fileService
-                    .downloadBlob(file.file_data)
+                    .downloadBlob(fileData)
                     .then((res) => {
                         openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
                     })
                     .catch((err: ResponseError) => console.error(err));
-            } else if (['png', 'jpeg', 'jpg'].includes(file.file_data.ext)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.file_data.url} />);
+            } else if (isImageExtension(fileExtension)) {
+                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={fileData.url} />);
             }
         },
         [fileService, openModal],
@@ -65,6 +82,16 @@ export default function FileUploaderItemView({
         [fileService],
     );
 
+    const progressValue = useMemo(() => {
+        const value = Number(item.progress);
+
+        if (!Number.isFinite(value)) {
+            return 0;
+        }
+
+        return Math.max(0, Math.min(100, Math.round(value)));
+    }, [item.progress]);
+
     return (
         <div className={classNames('file-item', { 'file-item-uploading': item.uploading })}>
             <div
@@ -78,8 +105,9 @@ export default function FileUploaderItemView({
                 <div className="file-item-name">{name}</div>
                 <div className="file-item-progress">
                     <div className="file-item-progress-container">
-                        <progress max="100" value={item.progress} />
+                        <progress max="100" value={progressValue} />
                     </div>
+                    {template === 'group' && <div className="file-item-progress-value">{progressValue}%</div>}
                 </div>
 
                 {item.has_preview && !hidePreviewButton && (

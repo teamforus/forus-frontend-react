@@ -1,16 +1,13 @@
 import React, { useCallback } from 'react';
 import File from '../../props/models/File';
 import { useFileService } from '../../services/FileService';
-import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
 import useFilePreview from '../../services/helpers/useFilePreview';
+import { isPdfExtension, isPreviewableExtension } from '../../helpers/filePreview';
 
 export default function FileAttachmentsList({ attachments }: { attachments: Array<{ file: File; date?: string }> }) {
     const filePreview = useFilePreview();
 
     const fileService = useFileService();
-    const fundRequestService = useFundRequestValidatorService();
-
-    const hasFilePreview = useCallback((file) => fundRequestService.hasFilePreview(file), [fundRequestService]);
 
     const downloadFile = useCallback(
         (e: React.MouseEvent<HTMLElement>, file: File) => {
@@ -54,12 +51,13 @@ export default function FileAttachmentsList({ attachments }: { attachments: Arra
                             onClick={(e) => downloadFile(e, attachment.file)}>
                             <div className="mdi mdi-download" aria-hidden="true" />
                         </button>
-                        {hasFilePreview(attachment.file) && (
+
+                        {isPreviewableExtension(attachment.file?.ext) && (
                             <button
                                 type="button"
                                 className="attachment-action"
-                                title={attachment.file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
-                                aria-label={attachment.file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                                title={isPdfExtension(attachment.file.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                                aria-label={isPdfExtension(attachment.file.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
                                 onClick={(e) => previewFile(e, attachment.file)}>
                                 <div className="mdi mdi-eye" aria-hidden="true" />
                             </button>

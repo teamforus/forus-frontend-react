@@ -68,6 +68,7 @@ export default function Reservations() {
             order_by: 'created_at',
             order_dir: 'desc',
             per_page: paginatorService.getPerPage(paginatorKey),
+            page: 1,
         },
         {
             queryParams: {

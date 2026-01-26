@@ -87,7 +87,6 @@ export default {
         send: 'Verzenden',
     },
 
-    // VALIDATION REQUEST FOR FUNDS = fund_request.pug
     approved_request_exists: 'Er bestaat al een goedgekeurde aanvraag. Neem contact op met de beheerder.',
     fund_not_active: 'Het fonds waar u voor zich probeert aan te melden is niet actief.',
     bsn_record_is_mandatory: 'Een BSN is verplicht voor het doen van een aanvraag.',
@@ -139,7 +138,7 @@ export default {
             application_received: 'Aanvraag ontvangen',
             sent: 'Verzonden!',
             application_processing:
-                'Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.',
+                'Je aanvraag is ontvangen. De aanvraag wordt binnen maximaal 8 weken verwerkt. Je ontvangt hierover een e-mail.',
             back: 'Terug',
         },
         fund_request_step_criteria: {
@@ -230,6 +229,60 @@ export default {
                 'Ik ga ermee akkoord dat mijn inkomsten worden gecontroleerd. Dit gebeurt door het vergelijken van mijn gegevens in de gemeentelijke bestanden of door het opvragen van specificaties.',
             kindpakket_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
             kindpakket_2018_eligible: 'Ja, ik verklaar dat ik recht heb op kindpakket.',
+        },
+    },
+    options: {
+        no: 'Nee',
+    },
+    prefills: {
+        title: 'De onderstaande gegevens zijn al ingevuld',
+        subtitle: 'Kloppen de gegevens niet? Neem dan contact op met de gemeente.',
+        children: 'Kinderen',
+        child: 'Kind',
+        partner: 'Gegevens van uw partner',
+
+        children_list: {
+            kind_1: 'Kind 1',
+            kind_2: 'Kind 2',
+            kind_3: 'Kind 3',
+            kind_4: 'Kind 4',
+            kind_5: 'Kind 5',
+            kind_6: 'Kind 6',
+            kind_7: 'Kind 7',
+            kind_8: 'Kind 8',
+            kind_9: 'Kind 9',
+            kind_10: 'Kind 10',
+        },
+    },
+    cards: {
+        back: 'Terug',
+
+        taken_by_partner: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_filled_required_criteria: {
+            title: 'Ontbrekende gegevens',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat een aantal gegevens van u niet zijn gevonden in het externe systeem. Hierdoor kan uw aanvraag niet volledig beoordeeld worden.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        connection_error: {
+            title: 'Technische storing',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat er sprake is van een technische storing. U kunt het op een later moment opnieuw proberen.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        not_found: {
+            title: 'Uw gegevens zijn niet gevonden',
+            heading: 'Aanvraag mislukt',
+            description: 'U krijgt deze melding omdat uw gegevens niet gevonden zijn in het externe systeem.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
         },
     },
 };

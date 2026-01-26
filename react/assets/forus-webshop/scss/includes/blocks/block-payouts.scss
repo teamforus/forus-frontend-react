@@ -7,9 +7,10 @@
     .payout-item {
         display: flex;
         flex-direction: row;
-        background: #ffffff;
-        border-radius: var(--border-radius);
-        border: 1px solid var(--border-color);
+        background: var(--showcase-item-background);
+        border-radius: var(--showcase-item-border-radius);
+        box-shadow: var(--showcase-item-shadow);
+        border: var(--showcase-item-border);
         word-wrap: break-word;
         overflow: hidden;
 

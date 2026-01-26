@@ -1,5 +1,4 @@
 export default {
-    // HOME = home.pug
     header: {
         title: '{{implementation}}',
         subtitle:

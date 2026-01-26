@@ -1268,6 +1268,74 @@
         "Verzenden"
     ],
     [
+        "fund_request.cards.back",
+        "Terug"
+    ],
+    [
+        "fund_request.cards.connection_error.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.connection_error.description",
+        "U krijgt deze melding omdat er sprake is van een technische storing. U kunt het op een later moment opnieuw proberen."
+    ],
+    [
+        "fund_request.cards.connection_error.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.connection_error.title",
+        "Technische storing"
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.description",
+        "U krijgt deze melding omdat een aantal gegevens van u niet zijn gevonden in het externe systeem. Hierdoor kan uw aanvraag niet volledig beoordeeld worden."
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.not_filled_required_criteria.title",
+        "Ontbrekende gegevens"
+    ],
+    [
+        "fund_request.cards.not_found.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.not_found.description",
+        "U krijgt deze melding omdat uw gegevens niet gevonden zijn in het externe systeem."
+    ],
+    [
+        "fund_request.cards.not_found.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.not_found.title",
+        "Uw gegevens zijn niet gevonden"
+    ],
+    [
+        "fund_request.cards.taken_by_partner.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_request.cards.taken_by_partner.description",
+        "U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd."
+    ],
+    [
+        "fund_request.cards.taken_by_partner.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_request.cards.taken_by_partner.title",
+        "Dit tegoed is al geactiveerd"
+    ],
+    [
         "fund_request.clarifications.info_requested",
         "Extra vraag gesteld"
     ],
@@ -1350,6 +1418,70 @@
     [
         "fund_request.not_requester",
         "U bent niet de eigenaar van deze aanvraag."
+    ],
+    [
+        "fund_request.options.no",
+        "Nee"
+    ],
+    [
+        "fund_request.prefills.child",
+        "Kind"
+    ],
+    [
+        "fund_request.prefills.children",
+        "Kinderen"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_1",
+        "Kind 1"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_10",
+        "Kind 10"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_2",
+        "Kind 2"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_3",
+        "Kind 3"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_4",
+        "Kind 4"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_5",
+        "Kind 5"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_6",
+        "Kind 6"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_7",
+        "Kind 7"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_8",
+        "Kind 8"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_9",
+        "Kind 9"
+    ],
+    [
+        "fund_request.prefills.partner",
+        "Gegevens van uw partner"
+    ],
+    [
+        "fund_request.prefills.subtitle",
+        "Kloppen de gegevens niet? Neem dan contact op met de gemeente."
+    ],
+    [
+        "fund_request.prefills.title",
+        "De onderstaande gegevens zijn al ingevuld"
     ],
     [
         "fund_request.received.title",
@@ -1617,7 +1749,7 @@
     ],
     [
         "fund_request.sign_up.fund_request_step_done.application_processing",
-        "Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail."
+        "Je aanvraag is ontvangen. De aanvraag wordt binnen maximaal 8 weken verwerkt. Je ontvangt hierover een e-mail."
     ],
     [
         "fund_request.sign_up.fund_request_step_done.application_received",
@@ -1908,6 +2040,10 @@
         "Bekijk meer"
     ],
     [
+        "funds.buttons.open_payouts",
+        "Open uitbetalingen"
+    ],
+    [
         "funds.buttons.potjeswijzer.start_request",
         "Aanvragen"
     ],
@@ -2189,7 +2325,7 @@
     ],
     [
         "global.file_uploader.attachments",
-        "Attachments"
+        "Bijlagen"
     ],
     [
         "global.file_uploader.max_files",
@@ -4528,6 +4664,14 @@
         "Alleen in winkel"
     ],
     [
+        "modal_product_price_type_options_info.info_option_payout_description",
+        "Voer een transactie uit van je tegoed naar het bankrekeningnummer dat is opgegeven tijdens de fondsaanvraag."
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_payout_title",
+        "Uitbetaling naar bankrekening"
+    ],
+    [
         "modal_product_price_type_options_info.info_option_regular_description",
         "Het product heeft een vaste prijs. Dit is het bedrag dat betaald moet worden, bijvoorbeeld €10 euro."
     ],
@@ -5392,8 +5536,24 @@
         "Meer informatie"
     ],
     [
+        "payouts.create_card.button",
+        "Overboeken"
+    ],
+    [
+        "payouts.create_card.description",
+        "Maak een overboeking aan vanuit uw tegoed."
+    ],
+    [
+        "payouts.create_card.title",
+        "Overboeken naar bankrekening"
+    ],
+    [
         "payouts.empty.button",
         "Ga naar de fondsen"
+    ],
+    [
+        "payouts.empty.button_payout",
+        "Overboeken"
     ],
     [
         "payouts.empty.subtitle",
@@ -6429,7 +6589,7 @@
     ],
     [
         "product.labels.duration_of_promotion",
-        "Duur van de promotie"
+        "Looptijd"
     ],
     [
         "product.labels.expand_section",
@@ -6485,7 +6645,7 @@
     ],
     [
         "product.labels.login_to_order",
-        "Log in om nu te bestellen"
+        "Log in om te bestellen"
     ],
     [
         "product.labels.max_limit",
@@ -6553,7 +6713,7 @@
     ],
     [
         "product.labels.request_one_now",
-        "Vraag er nu een aan!"
+        "Doe een aanvraag"
     ],
     [
         "product.labels.show_image_of_total",
@@ -6590,6 +6750,10 @@
     [
         "product.price.informational",
         "Alleen in winkel"
+    ],
+    [
+        "product.price.payout",
+        "Uitbetaling"
     ],
     [
         "product.tooltip",
@@ -6722,6 +6886,10 @@
     [
         "products.filters.price_type_option_informational",
         "Alleen in winkel"
+    ],
+    [
+        "products.filters.price_type_option_payout",
+        "Uitbetaling naar bankrekening"
     ],
     [
         "products.filters.price_type_option_regular",
@@ -7262,6 +7430,10 @@
     [
         "push.fund_activation.success",
         "{{fund_name}} tegoed geactiveerd!"
+    ],
+    [
+        "push.payout_created",
+        "Uitbetaling aangevraagd."
     ],
     [
         "push.pre_check.downloaded",
@@ -8764,6 +8936,10 @@
         "Profiel"
     ],
     [
+        "top_navbar.items.isd.funds",
+        "Regelingen"
+    ],
+    [
         "top_navbar.items.menu.close",
         "Sluiten"
     ],
@@ -9016,6 +9192,14 @@
         "Deel QR-code met aanbieder"
     ],
     [
+        "voucher.actions.transfer_to_bank",
+        "Overboeken naar bankrekening"
+    ],
+    [
+        "voucher.actions.transfer_to_bank_description",
+        "Kies het tegoed en het bedrag dat u wilt overboeken naar uw bankrekening."
+    ],
+    [
         "voucher.actions.view_all_products",
         "Bekijk alle producten"
     ],
@@ -9156,6 +9340,74 @@
         "Lees op deze pagina hoe het tegoed werkt en bekijk het saldo en de uitgaven. Veel plezier met het tegoed!"
     ],
     [
+        "voucher.payout.accept_compliance_rules",
+        "Ik ga akkoord met de bovenstaande voorwaarden."
+    ],
+    [
+        "voucher.payout.accept_compliance_rules_info",
+        "<p><strong>Ik verklaar dat:</strong></p><ul><li>ik het geld alleen gebruik voor deze activiteit;</li><li>ik het geld gebruik volgens de regels van de regeling;</li><li>ik begrijp dat ik het geld moet terugbetalen als ik het niet juist gebruik.</li></ul>"
+    ],
+    [
+        "voucher.payout.accept_compliance_rules_label",
+        "Voorwaarden"
+    ],
+    [
+        "voucher.payout.amount",
+        "Bedrag"
+    ],
+    [
+        "voucher.payout.cancel",
+        "Annuleren"
+    ],
+    [
+        "voucher.payout.iban",
+        "IBAN"
+    ],
+    [
+        "voucher.payout.iban_name",
+        "Rekeninghouder"
+    ],
+    [
+        "voucher.payout.submit",
+        "Overboeken"
+    ],
+    [
+        "voucher.payout.success.close",
+        "Sluit"
+    ],
+    [
+        "voucher.payout.success.description",
+        "Uw aanvraag voor een overboeking is verstuurd. Het kan even duren voordat deze verwerkt is."
+    ],
+    [
+        "voucher.payout.success.title",
+        "Overboeking aangevraagd"
+    ],
+    [
+        "voucher.payout.transfer_to_bank",
+        "Overboeken naar bankrekening"
+    ],
+    [
+        "voucher.payout.transfer_to_bank_description",
+        "Kies het tegoed en het bedrag dat u wilt overboeken naar uw bankrekening."
+    ],
+    [
+        "voucher.payout.voucher_label",
+        "Tegoed"
+    ],
+    [
+        "voucher.payout.warning_count_reached",
+        "Het maximale aantal uitbetalingen voor dit tegoed is bereikt."
+    ],
+    [
+        "voucher.payout.warning_not_enough_amount_fixed",
+        "Dit tegoed moet minimaal {{ amount }} bevatten voor een uitbetaling."
+    ],
+    [
+        "voucher.payout.warning_not_enough_amount_min",
+        "Dit tegoed moet minimaal {{ min }} bevatten voor een uitbetaling."
+    ],
+    [
         "voucher.physical_card.alt",
         "Fysieke pas: '{{ title }}'"
     ],
@@ -9254,6 +9506,10 @@
     [
         "voucher.transactions.no_spending",
         "Geen uitgaven"
+    ],
+    [
+        "voucher.transactions.payout",
+        "Uitbetaling"
     ],
     [
         "voucher.transactions.reservation",

@@ -1,5 +1,4 @@
 export default {
-    // APPLY FOR FUNDS = fund-apply.pug
     header: {
         title: '{{fund_name}} aanmelden',
         criteria: 'Voorwaarden ({{ nth }})',

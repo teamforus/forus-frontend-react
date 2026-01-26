@@ -16,4 +16,7 @@ export default {
     info_option_informational_title: 'Alleen in winkel',
     info_option_informational_description:
         'Dit aanbod is niet online te koop. Het is alleen verkrijgbaar in de winkel of op locatie van de aanbieder.',
+    info_option_payout_title: 'Uitbetaling naar bankrekening',
+    info_option_payout_description:
+        'Voer een transactie uit van je tegoed naar het bankrekeningnummer dat is opgegeven tijdens de fondsaanvraag.',
 };

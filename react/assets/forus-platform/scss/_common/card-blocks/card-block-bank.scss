@@ -1,0 +1,72 @@
+.card-block.card-block-bank {
+    display: flex;
+    margin: -20px;
+    border-radius: inherit;
+
+    .card-block-bank-media {
+        display: flex;
+        width: 140px;
+        border-top-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+        overflow: hidden;
+        border-right: 1px solid var(--border-color);
+
+        img {
+            width: 140px;
+            height: 140px;
+            overflow: hidden;
+            background-color: #f9fafa;
+        }
+    }
+
+    .card-block-bank-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-grow: 1;
+        padding: 20px 25px;
+
+        .card-block-bank-name {
+            font: 700 18px/30px var(--base-font);
+            margin: 0 0 15px;
+        }
+
+        .card-block-bank-properties {
+            display: flex;
+            flex-direction: row;
+
+            .card-block-bank-property {
+                display: flex;
+                flex-direction: column;
+                padding-right: 30px;
+
+                .card-block-bank-property-label {
+                    font: 600 13px/22px var(--base-font);
+                    color: #134478;
+                }
+
+                .card-block-bank-property-value {
+                    font: 600 16px/26px var(--base-font);
+
+                    &.card-block-bank-property-value-link {
+                        transition: 0.4s;
+                        cursor: pointer;
+
+                        .mdi {
+                            transition: 0.4s;
+                            font-size: inherit;
+                            color: var(--color-primary);
+                            margin-left: 2.5px;
+                            line-height: inherit;
+                            font-size: 18px;
+                        }
+
+                        &:hover {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

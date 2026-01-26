@@ -4,9 +4,10 @@
     padding: 25px;
     margin-bottom: 30px;
     position: relative;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    background: var(--showcase-item-background);
+    border-radius: var(--showcase-item-border-radius);
+    box-shadow: var(--showcase-item-shadow);
+    border: var(--showcase-item-border);
     cursor: default;
     flex-direction: row;
 
@@ -110,11 +111,13 @@
 
         .block-card-logo {
             margin: 0 20px 0 0;
+            width: 50px;
+            height: 50px;
         }
 
         .block-card-details {
             .block-card-title {
-                font: 700 18px/25px var(--base-font);
+                font: 700 18px/24px var(--base-font);
 
                 &.block-card-title-sm {
                     font: 400 13px/20px var(--base-font);
@@ -123,6 +126,10 @@
                 &.block-card-title-lg {
                     font: 400 18px/25px var(--base-font);
                 }
+            }
+
+            .block-card-description {
+                font: 400 13px/20px var(--base-font);
             }
         }
     }
@@ -218,6 +225,7 @@
         display: flex;
         flex-direction: column;
         text-align: center;
+        align-items: center;
 
         .block-card-body {
             display: flex;
@@ -243,7 +251,7 @@
         .block-card-details {
             .block-card-title {
                 font: 600 14px/20px var(--base-font);
-                margin: 0 0 15px;
+                margin: 0 0;
 
                 &.block-card-title-sm {
                     margin-bottom: 0;

@@ -174,12 +174,12 @@
             "view_file": "عرض الملف"
         },
         "file_uploader": {
-            "attachments": "المرفقات",
             "max_size": "الحد الأقصى للحجم 8 ميغابايت",
             "or": "أو",
             "title": "تحميل مستند",
             "upload_button": "تحميل مستند",
-            "max_files": "ما يصل إلى {{ count }} الملفات"
+            "max_files": "ما يصل إلى {{ count }} الملفات",
+            "attachments": "المرفقات"
         },
         "info_box": {
             "2fa_description": "لمزيد من المعلومات حول المصادقة الثنائية (2FA)، تفضل بزيارتنا:",
@@ -435,7 +435,8 @@
             "category": "الفئات",
             "payment_options": "خيارات الدفع",
             "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
-            "price_to": "إلى"
+            "price_to": "إلى",
+            "price_type_option_payout": "الدفع إلى الحساب البنكي"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -743,6 +744,9 @@
             },
             "fijnder": {
                 "funds": "المخططات"
+            },
+            "isd": {
+                "funds": "المخططات"
             }
         },
         "user_menu": {
@@ -1037,14 +1041,14 @@
                 "make_a_choice": "اختر واحدة"
             },
             "fund_request_step_done": {
-                "application_processing": "تم استلام طلبك. ستتم معالجة الطلب في غضون 10 أيام عمل. ستتلقى رسالة بريد إلكتروني بهذا الشأن.",
                 "application_received": "تم استلام الطلب",
                 "back": "رجوع",
                 "error_occurred": "حدث خطأ أثناء التقديم.",
                 "leave_form": "استمارة الإجازة",
                 "reason": "السبب:",
                 "sent": "تم الإرسال",
-                "sign_up": "التسجيل"
+                "sign_up": "التسجيل",
+                "application_processing": "تم استلام طلبك. ستتم معالجة الطلب في غضون 8 أسابيع كحد أقصى. ستتلقى رسالة بريد إلكتروني بهذا الشأن."
             },
             "fund_request_physical_card_request": {
                 "description": "سنقوم بإرسال بطاقتك الفعلية إلى العنوان الذي قدمته بمجرد أن تصبح جاهزة للاستخدام.",
@@ -1083,6 +1087,55 @@
         "subtitle": "تحتوي هذه الصفحة على معلومات حول الطلب. يمكن الاطلاع على الحالة والبيانات المكتملة وأي أسئلة إضافية هنا.",
         "modal": {
             "title": "سؤال إضافي"
+        },
+        "cards": {
+            "back": "رجوع",
+            "connection_error": {
+                "contacts": "للأسئلة، اتصل على {{name}}.",
+                "description": "تظهر لك هذه الرسالة بسبب وجود خطأ فني. يمكنك المحاولة مرة أخرى في وقت لاحق.",
+                "heading": "فشل الطلب",
+                "title": "عطل فني"
+            },
+            "not_filled_required_criteria": {
+                "contacts": "للأسئلة، اتصل على {{name}}.",
+                "description": "تتلقى هذه الرسالة لأن بعض التفاصيل الخاصة بك لم يتم العثور عليها في النظام الخارجي. ونتيجة لذلك، لا يمكن تقييم طلبك بشكل كامل.",
+                "heading": "فشل الطلب",
+                "title": "البيانات المفقودة"
+            },
+            "not_found": {
+                "contacts": "للأسئلة، اتصل على {{name}}.",
+                "description": "تظهر لك هذه الرسالة لأن بياناتك لم يتم العثور عليها في النظام الخارجي.",
+                "heading": "فشل الطلب",
+                "title": "لم يتم العثور على بياناتك"
+            },
+            "taken_by_partner": {
+                "contacts": "للأسئلة، اتصل على {{name}}.",
+                "description": "ستصلك هذه الرسالة لأن الرصيد تم تفعيله من قبل أحد أفراد العائلة أو ولي الأمر <br />. <br /><br /> يتوفر الرصيد في حساب الشخص الذي قام <br /> بتفعيله أولاً.",
+                "heading": "فشل الطلب",
+                "title": "تم تفعيل هذا الرصيد بالفعل"
+            }
+        },
+        "options": {
+            "no": "لا يوجد"
+        },
+        "prefills": {
+            "child": "الطفل",
+            "children": "الأطفال",
+            "partner": "تفاصيل شريكك",
+            "children_list": {
+                "kind_1": "الطفل 1",
+                "kind_10": "الطفل 10",
+                "kind_2": "الطفل 2",
+                "kind_3": "الطفل 3",
+                "kind_4": "الطفل 4",
+                "kind_5": "الطفل 5",
+                "kind_6": "الطفل 6",
+                "kind_7": "الطفل 7",
+                "kind_8": "الطفل 8",
+                "kind_9": "الطفل 9"
+            },
+            "subtitle": "هل التفاصيل غير صحيحة؟ إذا كان الأمر كذلك، يرجى الاتصال بالبلدية.",
+            "title": "تم ملء التفاصيل أدناه بالفعل"
         }
     },
     "fund_requests": {
@@ -1184,7 +1237,8 @@
             "potjeswijzer": {
                 "start_request": "الطلب"
             },
-            "start_request": "تفعيل"
+            "start_request": "تفعيل",
+            "open_payouts": "المدفوعات المفتوحة"
         },
         "criteria": {
             "key": "{{key}}"
@@ -1857,12 +1911,10 @@
             "collapse_section": "قسم الطي",
             "description_card": "الوصف",
             "dont_have_voucher": "لا يوجد رصيد بعد؟",
-            "duration_of_promotion": "مدة العرض الترويجي",
             "expand_section": "توسيع القسم",
             "expire_by_date": "صالحة حتى {{date}}",
             "how_can_i_pay": "كيف يمكنني الدفع؟",
             "locations_on_map": "المواقع على الخريطة",
-            "login_to_order": "سجّل الدخول للطلب الآن",
             "more_info": "المزيد من المعلومات",
             "next_image": "الصورة التالية",
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
@@ -1871,13 +1923,15 @@
             "product_images": "صور المنتج",
             "provider": "المزود",
             "quantity_limit": "ماكس {{limit}} ",
-            "request_one_now": "تقدم بطلب للحصول على واحدة الآن!",
             "show_image_of_total": "إظهار الصورة {{current}} من {{total}}",
             "when": "عندما",
             "where": "المكان",
             "add_to_favorites": "إضافة إلى المفضلة",
             "ideal_logo_alt": "شعار iDEAL",
-            "remove_from_favorites": "إزالة من المفضلة"
+            "remove_from_favorites": "إزالة من المفضلة",
+            "duration_of_promotion": "المدة",
+            "login_to_order": "تسجيل الدخول للطلب",
+            "request_one_now": "قم بإجراء استفسار"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -1887,7 +1941,8 @@
         "tooltip": "كم مرة أخرى يمكنك الاستفادة من هذا العرض",
         "price": {
             "free": "مجاناً",
-            "informational": "في المتجر فقط"
+            "informational": "في المتجر فقط",
+            "payout": "الصرف"
         },
         "other_products": "قد يعجبك هذا أيضاً؟"
     },
@@ -2030,7 +2085,8 @@
             "subtract": "الطرح",
             "title": "المعاملات",
             "top_up": "ترقية",
-            "expired_on": "انتهت صلاحيتها في {{ date }}"
+            "expired_on": "انتهت صلاحيتها في {{ date }}",
+            "payout": "الصرف"
         },
         "actions": {
             "choose_action": {
@@ -2040,7 +2096,9 @@
             "save_qr": "حفظ رمز الاستجابة السريعة",
             "share_with_provider": "مشاركة رمز الاستجابة السريعة مع المزود",
             "view_all_products": "عرض جميع المنتجات",
-            "declaration_request": "استرداد التكاليف"
+            "declaration_request": "استرداد التكاليف",
+            "transfer_to_bank": "التحويل إلى حساب مصرفي",
+            "transfer_to_bank_description": "اختر الرصيد والمبلغ الذي تريد تحويله إلى حسابك البنكي."
         },
         "details": {
             "records": {
@@ -2075,6 +2133,27 @@
         "fund_details": {
             "title": "معلومات عن المخطط",
             "view": "اقرأ المزيد"
+        },
+        "payout": {
+            "accept_compliance_rules_label": "الشروط",
+            "amount": "المبلغ",
+            "cancel": "إلغاء",
+            "iban": "رقم الحساب المصرفي الدولي (IBAN)",
+            "iban_name": "صاحب الحساب",
+            "submit": "التحويل",
+            "success": {
+                "close": "إغلاق",
+                "description": "تم إرسال طلب التحويل الخاص بك. قد يستغرق الأمر بعض الوقت لتتم معالجته.",
+                "title": "التحويل المطلوب"
+            },
+            "transfer_to_bank": "التحويل إلى حساب مصرفي",
+            "transfer_to_bank_description": "اختر الرصيد والمبلغ الذي تريد تحويله إلى حسابك البنكي.",
+            "voucher_label": "الائتمان",
+            "warning_count_reached": "تم الوصول إلى الحد الأقصى لعدد المدفوعات لهذا الرصيد.",
+            "warning_not_enough_amount_fixed": "يجب أن يتضمن هذا الرصيد {{ amount }} على الأقل للدفع.",
+            "warning_not_enough_amount_min": "يجب أن يتضمن هذا الرصيد {{ min }} على الأقل للدفع.",
+            "accept_compliance_rules_info": "<p><strong>أقر بأنني:</strong></p><ul><li>أنا أستخدم الأموال لهذا النشاط فقط;</li><li>أنا أستخدم المال وفقاً لقواعد البرنامج;</li><li>أفهم أنني يجب أن أسدد الأموال إذا لم أستخدمها بشكل صحيح.</li></ul>",
+            "accept_compliance_rules": "أوافق على الشروط والأحكام المذكورة أعلاه."
         }
     },
     "vouchers": {
@@ -2297,7 +2376,8 @@
         "empty": {
             "button": "انتقل إلى الصناديق",
             "subtitle": "ليس لديك حالياً أي مدفوعات",
-            "title": "لا توجد مدفوعات"
+            "title": "لا توجد مدفوعات",
+            "button_payout": "التحويل"
         },
         "labels": {
             "created_at": "تم الدفع عند",
@@ -2306,7 +2386,12 @@
             "iban_to_name": "اسم رقم الحساب المصرفي الدولي (إلى)"
         },
         "search": "بحث",
-        "title": "المدفوعات"
+        "title": "المدفوعات",
+        "create_card": {
+            "button": "التحويل",
+            "description": "قم بإنشاء تحويل من رصيدك الائتماني.",
+            "title": "التحويل إلى حساب مصرفي"
+        }
     },
     "preferences_emails": {
         "breadcrumbs": {
@@ -3583,7 +3668,8 @@
         "session_expired": {
             "description": "قم بتسجيل الدخول مرة أخرى وحاول مرة أخرى.",
             "title": "انتهت صلاحية الجلسة"
-        }
+        },
+        "payout_created": "المبلغ المطلوب صرفه"
     },
     "read_speaker": {
         "read_aloud": "اقرأ لـ",
@@ -3650,7 +3736,9 @@
         "info_option_informational_title": "في المتجر فقط",
         "info_option_regular_description": "المنتج له سعر ثابت. هذا هو المبلغ الواجب دفعه، على سبيل المثال 10 يورو.",
         "info_option_regular_title": "السعر",
-        "title": "خيارات الدفع"
+        "title": "خيارات الدفع",
+        "info_option_payout_description": "قم بإجراء معاملة من رصيدك إلى رقم الحساب البنكي المحدد أثناء تقديم طلب التمويل.",
+        "info_option_payout_title": "الدفع إلى الحساب البنكي"
     },
     "pincode_control": {
         "aria_label_num": "الشكل {{current}} من {{total}}",

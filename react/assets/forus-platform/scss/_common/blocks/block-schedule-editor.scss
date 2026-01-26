@@ -1,0 +1,88 @@
+.block.block-schedule-editor {
+    @include cf();
+
+    .schedule-editor-heading {
+        font: 500 16px/20px var(--base-font);
+        margin: 0 0 15px;
+        color: #282b39;
+
+        &.schedule-editor-heading-lg {
+            font: 500 28px/36px var(--base-font);
+        }
+    }
+
+    .ui-control {
+        &.ui-control-checkbox {
+            .ui-checkbox-label {
+                font: 500 13px/16px var(--base-font);
+            }
+        }
+    }
+
+    table {
+        th {
+            font: 600 13px/16px var(--base-font);
+            letter-spacing: 0.08px;
+            text-transform: uppercase;
+            color: #222530;
+            text-align: left;
+        }
+
+        td {
+            padding-right: 22px;
+            height: 30px;
+            font: 400 13px/16px var(--base-font);
+            color: #222530;
+
+            span {
+                font: 400 13px/24px var(--base-font);
+            }
+
+            &.weekend {
+                color: #f15642;
+            }
+
+            &.breaks {
+                padding-left: 40px;
+            }
+        }
+
+        th,
+        td {
+            &.breaks {
+                text-align: center;
+            }
+        }
+
+        .ui-control {
+            &.ui-control-text {
+                width: 80px;
+                height: 30px;
+
+                input {
+                    height: 30px;
+                    border-radius: 6px;
+                }
+            }
+
+            &.breaks {
+                display: table-cell;
+
+                &.end {
+                    input {
+                        margin-right: 0;
+                    }
+                }
+
+                input {
+                    width: 80px;
+                    margin-right: 22px;
+                }
+            }
+
+            .ui-control-clear {
+                display: none;
+            }
+        }
+    }
+}

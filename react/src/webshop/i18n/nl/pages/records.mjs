@@ -1,5 +1,4 @@
 export default {
-    // RECORDS = records.pug
     header: {
         title: 'Persoonsgegevens',
     },

@@ -76,6 +76,9 @@ export default {
         fijnder: {
             funds: 'Regelingen',
         },
+        isd: {
+            funds: 'Regelingen',
+        },
     },
     buttons: {
         westerkwartier: {

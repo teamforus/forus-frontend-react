@@ -43,6 +43,8 @@ import { orderBy, sortBy } from 'lodash';
 import FundRequestHelpBlock from './elements/FundRequestHelpBlock';
 import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequestStepPhysicalCardRequestAddress';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
+import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -57,10 +59,18 @@ export type LocalCriterion = FundCriterion & {
     requested?: boolean;
 };
 
-type FundCriteriaStepLocal = FundCriteriaStep & {
+export type FundCriteriaStepLocal = FundCriteriaStep & {
     uid?: string;
     uploaderTemplate: 'inline' | 'default';
     criteria: Array<LocalCriterion>;
+    groups: Array<FundCriteriaGroup & { criteria: Array<LocalCriterion> }>;
+};
+
+export type Prefills = {
+    person: Array<{ record_type_key: string; value: string }>;
+    partner?: Array<{ record_type_key: string; value: string }>;
+    children?: Array<Array<{ record_type_key: string; value: string }>>;
+    error?: { key: string; message: string };
 };
 
 export default function FundRequest() {
@@ -110,12 +120,14 @@ export default function FundRequest() {
 
     const [criteriaStepKeys, setCriteriaStepKeys] = useState([]);
     const [pendingCriteria, setPendingCriteria] = useState<Array<LocalCriterion>>([]);
+    const [personPrefills, setPersonPrefills] = useState<Prefills>(null);
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
     const [fundRequests, setFundRequests] = useState<Array<FundRequest>>(null);
     const [personApiRecordsFetch, setPersonApiRecordsFetch] = useState(false);
+    const [prefillsError, setPrefillsError] = useState<{ key: string; message: string }>(null);
 
     const bsnIsKnown = useMemo(() => !!authIdentity?.bsn, [authIdentity]);
     const emailSetupShow = useMemo(() => !authIdentity?.email, [authIdentity]);
@@ -143,6 +155,16 @@ export default function FundRequest() {
         }, {});
     }, [pendingCriteria]);
 
+    const hasPersonBsnApi = useMemo(
+        () =>
+            bsnIsKnown &&
+            fund &&
+            authIdentity &&
+            fund.allow_fund_request_prefill &&
+            fund.organization.has_person_bsn_api,
+        [authIdentity, bsnIsKnown, fund],
+    );
+
     const shouldRequestRecord = useShouldRequestRecord(recordTypesByKey, recordValuesByType);
 
     const criteriaSteps = useMemo<Array<FundCriteriaStepLocal>>(() => {
@@ -153,14 +175,42 @@ export default function FundRequest() {
         const fundSteps = fund.criteria_steps.map((step) => step.id);
         const hasOrders = pendingCriteria.filter((item) => item.order !== null).length > 0;
 
+        const prefillGuards = {
+            children_same_address_nth: (p: Prefills) => p.children?.length,
+            partner_same_address_nth: (p: Prefills) => p.partner?.length,
+        };
+
         const customSteps = fund.criteria_steps.map(
             (step): FundCriteriaStepLocal => ({
                 ...step,
                 uid: `criteria_step_${step.id}`,
                 uploaderTemplate: 'inline',
+                groups: fund.criteria_groups
+                    .map((group) => ({
+                        ...group,
+                        criteria: orderBy(
+                            pendingCriteria
+                                .filter((criterion) => criterion.fund_criteria_step_id == step.id)
+                                .filter((criterion) => criterion.fund_criteria_group_id === group.id)
+                                .map((criterion) => ({ ...criterion, requested: shouldRequestRecord(criterion) }))
+                                .filter((item) => item.requested),
+                            'order',
+                        ),
+                    }))
+                    .filter((group) => group.criteria.length > 0),
                 criteria: orderBy(
                     pendingCriteria
                         .filter((criterion) => criterion.fund_criteria_step_id == step.id)
+                        .filter((criterion) => criterion.fund_criteria_group_id === null)
+                        .filter((criterion) => {
+                            if (criterion.fill_type !== 'prefill' || !personPrefills) {
+                                return true;
+                            }
+
+                            const guard = prefillGuards[criterion.record_type_key];
+
+                            return guard ? !!guard(personPrefills) : true;
+                        })
                         .map((criterion) => ({ ...criterion, requested: shouldRequestRecord(criterion) })),
                     'order',
                 ),
@@ -178,15 +228,20 @@ export default function FundRequest() {
                     order: 1000,
                     criteria: [{ ...criterion, requested: shouldRequestRecord(criterion) }],
                     uploaderTemplate: 'default',
+                    groups: [],
                 }),
             );
 
         const combinedSteps = [...customSteps, ...stepLessCriteria].filter(
-            (step) => step.criteria.filter((criterion) => criterion.requested).length > 0,
+            (step) =>
+                step.criteria.filter((criterion) => criterion.requested).length > 0 ||
+                step.groups
+                    .map((group) => group.criteria.filter((criterion) => criterion.requested).length > 0)
+                    .filter((group) => group).length > 0,
         );
 
         return sortBy(combinedSteps, 'order');
-    }, [fund, pendingCriteria, recordTypesByKey, shouldRequestRecord]);
+    }, [fund, pendingCriteria, personPrefills, recordTypesByKey, shouldRequestRecord]);
 
     const setStepByName = useCallback(
         (stepName: string) => {
@@ -480,33 +535,37 @@ export default function FundRequest() {
     }, [authIdentity, fund, fundRequestService, setProgress]);
 
     const checkPersonBsnApiRecords = useCallback(() => {
-        if (
-            !bsnIsKnown ||
-            !fund ||
-            !authIdentity ||
-            !fund.allow_fund_request_prefill ||
-            !fund.organization.has_person_bsn_api ||
-            personApiRecordsFetch
-        ) {
+        if (!hasPersonBsnApi || personApiRecordsFetch) {
             return;
         }
 
         setPersonApiRecordsFetch(true);
 
         fundService.getPersonPrefills(fund.id).then((res) => {
+            if (res.data.error?.key) {
+                setPrefillsError(res.data.error);
+                return;
+            }
+
+            setPersonPrefills(res.data);
+
             setPendingCriteria((criteria) => {
                 return [
                     ...criteria.map((criterion) => {
-                        criterion.input_value =
-                            res.data.filter((item) => item.record_type_key === criterion.record_type_key)[0]?.value ||
-                            criterion.input_value;
+                        if (criterion.fill_type === 'prefill') {
+                            const prefillItem = res.data.person.filter(
+                                (item) => item.record_type_key === criterion.record_type_key,
+                            )[0];
+
+                            criterion.input_value = prefillItem ? prefillItem.value : criterion.input_value;
+                        }
 
                         return criterion;
                     }),
                 ];
             });
         });
-    }, [bsnIsKnown, fund, fundService, authIdentity, personApiRecordsFetch]);
+    }, [hasPersonBsnApi, personApiRecordsFetch, fundService, fund]);
 
     useEffect(() => {
         fetchFund();
@@ -552,8 +611,10 @@ export default function FundRequest() {
         // The user has to sign-in first
         const voucher = getFirstActiveFundVoucher(fund, vouchers);
         const pendingRequests = fundRequests.filter((request) => request.state === 'pending');
-        const pendingCriteria = fund.criteria.filter((criterion) => !criterion.is_valid || !criterion.has_record);
         const invalidCriteria = fund.criteria.filter((criterion) => !criterion.is_valid);
+        const pendingCriteria = fund.criteria
+            .filter((criterion) => !criterion.is_valid || !criterion.has_record)
+            .map((criterion) => ({ ...criterion, requested: true }));
 
         // Voucher already received, go to the voucher
         if (voucher) {
@@ -612,10 +673,20 @@ export default function FundRequest() {
 
     useEffect(() => {
         const removedData = {};
+        const addedData = [];
 
         const criteria = pendingCriteria
             .map((item) => {
                 const defaultValue = fundService.getCriterionControlDefaultValue(item.record_type, item.operator);
+
+                if (shouldRequestRecord(item) && !item.requested && personPrefills && item.fill_type === 'prefill') {
+                    addedData.push(item.record_type_key);
+                    const prefillItem = personPrefills.person.filter(
+                        (prefill) => prefill.record_type_key === item.record_type_key,
+                    )[0];
+
+                    item.input_value = prefillItem ? prefillItem.value : item.input_value;
+                }
 
                 if (!shouldRequestRecord(item) && item.input_value != defaultValue) {
                     removedData[item.record_type_key] = {
@@ -633,6 +704,8 @@ export default function FundRequest() {
                     delete item.is_checked;
                 }
 
+                item.requested = shouldRequestRecord(item);
+
                 return { ...item };
             })
             .map((item) => {
@@ -643,10 +716,10 @@ export default function FundRequest() {
                 return { ...item };
             });
 
-        if (Object.keys(removedData).length > 0) {
+        if (Object.keys(removedData).length > 0 || addedData.length > 0) {
             setPendingCriteria([...criteria]);
         }
-    }, [fundService, pendingCriteria, shouldRequestRecord]);
+    }, [fundService, pendingCriteria, personPrefills, shouldRequestRecord]);
 
     useEffect(() => {
         if (autoSubmit && steps?.[step] == 'confirm_criteria' && !autoSubmitted) {
@@ -655,7 +728,17 @@ export default function FundRequest() {
         }
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
-    if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
+    if (prefillsError) {
+        return <FundRequestPersonBsnApiWarning fund={fund} prefillsError={prefillsError} />;
+    }
+
+    if (
+        !fund ||
+        !vouchers ||
+        !fundRequests ||
+        (steps[step] == 'confirm_criteria' && autoSubmit) ||
+        (hasPersonBsnApi && !personPrefills)
+    ) {
         return <BlockShowcase />;
     }
 
@@ -705,8 +788,10 @@ export default function FundRequest() {
                                         submitInProgress={submitInProgress}
                                         setSubmitInProgress={setSubmitInProgress}
                                         criteria={criterionStep.criteria.filter((item) => item.requested)}
+                                        groups={criterionStep.groups}
                                         uploaderTemplate={criterionStep.uploaderTemplate}
                                         formDataBuild={formDataBuild}
+                                        prefills={personPrefills}
                                         setCriterion={(id, update) => {
                                             setPendingCriteria((criteria) => {
                                                 const criterion = criteria.find((item) => item.id == id);
@@ -718,7 +803,7 @@ export default function FundRequest() {
                                                 return [...criteria];
                                             });
                                         }}
-                                        recordTypes={recordTypes}
+                                        recordTypesByKey={recordTypesByKey}
                                         progress={
                                             <FundRequestProgress
                                                 step={step}
@@ -818,6 +903,8 @@ export default function FundRequest() {
                                     <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
+                                prefills={personPrefills}
+                                recordTypesByKey={recordTypesByKey}
                             />
                         )}
 
