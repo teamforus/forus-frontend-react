@@ -175,7 +175,7 @@ export default function Payouts() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="payoutsPage">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('payouts.header.title')} ({transactions.meta.total})
@@ -184,7 +184,10 @@ export default function Payouts() {
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
                         {fundsWithPayouts?.length > 0 && (
-                            <button className="button button-primary button-sm" onClick={createPayout}>
+                            <button
+                                className="button button-primary button-sm"
+                                onClick={createPayout}
+                                data-dusk="payoutCreateButton">
                                 <em className="mdi mdi-plus-circle icon-start" />
                                 Uitbetaling aanmaken
                             </button>
@@ -331,7 +334,7 @@ export default function Payouts() {
                 filterValues={filterValues}
                 filterUpdate={filterUpdate}
                 fetchTransactions={fetchTransactions}
-                fundsWithPayouts={fundsWithPayouts}
+                funds={funds}
             />
         </div>
     );

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import ReimbursementCategory from '../../props/models/ReimbursementCategory';
 import useFormBuilder from '../../hooks/useFormBuilder';
@@ -6,9 +7,9 @@ import { useReimbursementCategoryService } from '../../services/ReimbursementCat
 import useActiveOrganization from '../../hooks/useActiveOrganization';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import useSetProgress from '../../hooks/useSetProgress';
-import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalReimbursementCategoryEdit({
     modal,
@@ -63,7 +64,7 @@ export default function ModalReimbursementCategoryEdit({
     }, [modal, onCancel]);
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={closeModal} />
 
             <div className="modal-window">
@@ -72,16 +73,19 @@ export default function ModalReimbursementCategoryEdit({
                     <div className="modal-header">Declaratie categorie toevoegen</div>
                     <div className="modal-body modal-body-visible">
                         <div className="modal-section form">
-                            <div className="form-group">
-                                <label className="form-label">Categorie naam</label>
-                                <input
-                                    className="form-control"
-                                    defaultValue={form.values.name}
-                                    placeholder="Categorie naam"
-                                    onChange={(e) => form.update({ name: e.target.value })}
-                                />
-                                <FormError error={form.errors?.name} />
-                            </div>
+                            <FormGroup
+                                label="Categorie naam"
+                                error={form.errors?.name}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        defaultValue={form.values.name}
+                                        placeholder="Categorie naam"
+                                        onChange={(e) => form.update({ name: e.target.value })}
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
 

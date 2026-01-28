@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react';
+import classNames from 'classnames';
 import { strLimit } from '../../../helpers/string';
 import ClickOutside from '../click-outside/ClickOutside';
 
@@ -24,12 +25,19 @@ export default function Tooltip({
                     e.stopPropagation();
                     setShowTooltip(!showTooltip);
                 }}
-                className={`td-icon mdi mdi-information block block-tooltip-details pull-left clickable ${
-                    showTooltip ? 'active' : ''
-                }`}>
+                className={classNames(
+                    'td-icon',
+                    'mdi',
+                    'mdi-information',
+                    'block',
+                    'block-tooltip-details',
+                    'pull-left',
+                    'clickable',
+                    showTooltip && 'active',
+                )}>
                 {showTooltip && (
                     <ClickOutside
-                        className={`tooltip-content ${position === 'bottom' ? 'tooltip-content-bottom' : ''}`}
+                        className={classNames('tooltip-content', position === 'bottom' && 'tooltip-content-bottom')}
                         attr={{ onClick: (e) => e.stopPropagation() }}
                         onClickOutside={() => setShowTooltip(false)}>
                         <div className="tooltip-text" title={[].concat(text)?.join(' ')}>

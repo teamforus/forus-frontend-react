@@ -5,10 +5,12 @@ export default function BlockLabelTabs<t = string>({
     value,
     setValue,
     tabs,
+    size = 'sm',
 }: {
     value: t;
     setValue: (state: t) => void;
-    tabs: Array<{ value: t; label: string }>;
+    tabs: Array<{ value: t; label: React.ReactNode; dusk?: string }>;
+    size?: 'sm' | null;
 }) {
     return (
         <div className="block block-label-tabs">
@@ -16,7 +18,12 @@ export default function BlockLabelTabs<t = string>({
                 {tabs.map((tab, index) => (
                     <div
                         key={index}
-                        className={classNames(`label-tab label-tab-sm`, value == tab.value && 'active')}
+                        data-dusk={tab.dusk}
+                        className={classNames(
+                            'label-tab',
+                            size === 'sm' && 'label-tab-sm',
+                            value == tab.value && 'active',
+                        )}
                         onClick={() => setValue(tab.value)}>
                         {tab.label}
                     </div>

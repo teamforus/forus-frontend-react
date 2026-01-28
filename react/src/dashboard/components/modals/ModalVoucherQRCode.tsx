@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import FormError from '../elements/forms/errors/FormError';
@@ -157,7 +158,14 @@ export default function ModalVoucherQRCode({
     }, [assignType.key, updateForm]);
 
     return (
-        <div className={`modal modal-animated modal-voucher_qr ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div
+            className={classNames(
+                'modal',
+                'modal-animated',
+                'modal-voucher_qr',
+                modal.loading && 'modal-loading',
+                className,
+            )}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             {!assigning && !success && (

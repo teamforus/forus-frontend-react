@@ -796,14 +796,14 @@
                 "make_a_choice": "Choose one"
             },
             "fund_request_step_done": {
-                "application_processing": "Your application has been received. The application will be processed within 10 business days. You will receive an email about this.",
                 "application_received": "Application received",
                 "back": "Back",
                 "error_occurred": "An error occurred while applying.",
                 "leave_form": "Leave form",
                 "reason": "Reason:",
                 "sent": "Sent!",
-                "sign_up": "Sign up"
+                "sign_up": "Sign up",
+                "application_processing": "Your application has been received. The application will be processed within a maximum of 8 weeks. You will receive an email about this."
             },
             "fund_request_physical_card_request": {
                 "description": "We will send your physical card to the address you provide as soon as it is ready for use.",
@@ -877,8 +877,20 @@
             "child": "Child",
             "children": "Children",
             "partner": "Details of your partner",
-            "subtitle": "If your information is incorrect, you can click the button at the bottom.",
-            "title": "Check that the data is correct."
+            "children_list": {
+                "kind_1": "Child 1",
+                "kind_10": "Child 10",
+                "kind_2": "Child 2",
+                "kind_3": "Child 3",
+                "kind_4": "Child 4",
+                "kind_5": "Child 5",
+                "kind_6": "Child 6",
+                "kind_7": "Child 7",
+                "kind_8": "Child 8",
+                "kind_9": "Child 9"
+            },
+            "subtitle": "Is the information not correct? If so, please contact the municipality.",
+            "title": "The information below is already filled in"
         }
     },
     "fund_requests": {

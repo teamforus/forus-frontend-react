@@ -19,6 +19,7 @@ import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleV
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
 import IconPayout from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-payout.svg';
+import useFundRequestBankAccounts from '../../../hooks/useFundRequestBankAccounts';
 
 export default function Payouts() {
     const envData = useEnvData();
@@ -32,7 +33,9 @@ export default function Payouts() {
 
     const [payouts, setPayoutTransactions] = useState<PaginationData<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
-    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers);
+
+    const { fundRequestAccounts } = useFundRequestBankAccounts();
+    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers, fundRequestAccounts);
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string }>(
         { q: '' },

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import useEnvData from '../../../hooks/useEnvData';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 
@@ -9,7 +10,7 @@ export default function AppLinks({
     showIosButton = true,
     showAndroidButton = true,
 }: {
-    type?: string;
+    type?: 'lg';
     iosId?: string;
     androidId?: string;
     showIosButton?: boolean;
@@ -19,7 +20,7 @@ export default function AppLinks({
     const assetUrl = useAssetUrl();
 
     return (
-        <div className={`block block-app_links ${type ? `block-app_links-${type}` : ''}`}>
+        <div className={classNames('block', 'block-app_links', type === 'lg' && 'block-app_links-lg')}>
             {showAndroidButton && (
                 <a
                     href={envData?.config?.android_link}

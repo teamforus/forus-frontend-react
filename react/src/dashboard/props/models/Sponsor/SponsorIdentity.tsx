@@ -7,11 +7,13 @@ export type SponsorIdentityCounts = {
 };
 
 export type ProfileBankAccount = {
-    id: number;
+    id?: number;
     name: string;
     iban: string;
     created_by: string;
     created_by_locale: string;
+    type?: 'profile_bank_account' | 'reimbursement' | 'payout' | 'fund_request';
+    type_id?: number;
     created_at: string;
     created_at_locale: string;
     updated_at: string;

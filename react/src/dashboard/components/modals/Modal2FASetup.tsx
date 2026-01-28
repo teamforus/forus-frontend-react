@@ -472,7 +472,12 @@ export default function Modal2FASetup({
                                         onClick={() => resendCode()}
                                         disabled={timer?.time > 0}>
                                         <div
-                                            className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
+                                            className={classNames(
+                                                'mdi',
+                                                'mdi-refresh',
+                                                'icon-start',
+                                                sendingCode && 'mdi-spin',
+                                            )}
                                         />
                                         Code opnieuw verzenden
                                         {timer?.time > 0 && <span>&nbsp;({timer?.time} seconde(n))</span>}
@@ -556,9 +561,12 @@ export default function Modal2FASetup({
                                             onClick={() => resendCode()}
                                             disabled={timer?.time > 0}>
                                             <div
-                                                className={`mdi mdi-refresh icon-start ${
-                                                    sendingCode ? 'mdi-spin' : ''
-                                                }`}
+                                                className={classNames(
+                                                    'mdi',
+                                                    'mdi-refresh',
+                                                    'icon-start',
+                                                    sendingCode && 'mdi-spin',
+                                                )}
                                             />
                                             Code opnieuw verzenden
                                             {timer?.time > 0 && <span>&nbsp;{timer?.time} seconde(n))</span>}

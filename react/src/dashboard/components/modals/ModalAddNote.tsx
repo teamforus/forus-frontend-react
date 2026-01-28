@@ -1,13 +1,13 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import FormValuesModel from '../../types/FormValuesModel';
 import { ApiResponseSingle, ResponseError } from '../../props/ApiResponses';
 import Note from '../../props/models/Note';
 import useSetProgress from '../../hooks/useSetProgress';
 import classNames from 'classnames';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalAddNote({
     modal,
@@ -55,16 +55,20 @@ export default function ModalAddNote({
                     <div className="modal-section">
                         {title && <div className="modal-heading">{title}</div>}
                         {description && <div className="modal-text">{description}</div>}
-                        <div className="form-group">
-                            <label className="form-label form-label-required">Notitie</label>
-                            <textarea
-                                className="form-control"
-                                value={form.values.description}
-                                data-dusk="noteInput"
-                                onChange={(e) => form.update({ description: e.target.value })}
-                            />
-                            <FormError error={form.errors?.description} />
-                        </div>
+                        <FormGroup
+                            required={true}
+                            label="Notitie"
+                            error={form.errors?.description}
+                            input={(id) => (
+                                <textarea
+                                    className="form-control"
+                                    id={id}
+                                    value={form.values.description}
+                                    data-dusk="noteInput"
+                                    onChange={(e) => form.update({ description: e.target.value })}
+                                />
+                            )}
+                        />
                     </div>
                 </div>
                 <div className="modal-footer text-center">

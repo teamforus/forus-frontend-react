@@ -1,13 +1,16 @@
 import React, { Fragment, useMemo } from 'react';
+import classNames from 'classnames';
 
 export default function FormError({
     error,
     duskPrefix,
-    className = '',
+    textAlign,
+    textWeight,
 }: {
     error?: string | Array<string>;
     duskPrefix?: string;
-    className?: string;
+    textAlign?: 'center';
+    textWeight?: 'semibold';
 }) {
     const errorsList = useMemo(() => (error ? (Array.isArray(error) ? error : [error]) : []), [error]);
 
@@ -15,7 +18,11 @@ export default function FormError({
         <Fragment>
             {errorsList.map((error, index) => (
                 <div
-                    className={`form-error ${className}`}
+                    className={classNames(
+                        'form-error',
+                        textAlign === 'center' && 'text-center',
+                        textWeight === 'semibold' && 'text-semibold',
+                    )}
                     data-dusk={duskPrefix ? `${duskPrefix}${(index + 1)?.toString()}` : null}
                     key={index}>
                     {error}

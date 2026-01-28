@@ -1,6 +1,6 @@
 export default interface Announcement {
     id: number;
-    type: string;
+    type: 'warning' | 'danger' | 'success' | 'primary' | 'default';
     title: string;
     active?: boolean;
     description?: string;

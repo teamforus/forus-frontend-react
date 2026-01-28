@@ -27,6 +27,7 @@ import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReimbursementsTable from './elements/ReimbursementsTable';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -178,25 +179,15 @@ export default function Reimbursements() {
                                 Categorieën
                             </StateNavLink>
 
-                            <div className="block block-label-tabs">
-                                <div className="label-tab-set">
-                                    {archivedOptions.map((viewType) => (
-                                        <div
-                                            key={viewType.value}
-                                            onClick={() => setArchivedOption(viewType.value)}
-                                            className={`label-tab label-tab-sm ${
-                                                filterValues.archived == viewType.value ? 'active' : ''
-                                            }`}
-                                            data-dusk={`${
-                                                viewType.value
-                                                    ? 'reimbursementsFilterArchived'
-                                                    : 'reimbursementsFilterActive'
-                                            }`}>
-                                            {viewType.name}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            <BlockLabelTabs
+                                value={filterValues.archived}
+                                setValue={(archived) => setArchivedOption(archived)}
+                                tabs={archivedOptions.map((option) => ({
+                                    value: option.value,
+                                    dusk: option.value ? 'reimbursementsFilterArchived' : 'reimbursementsFilterActive',
+                                    label: option.name,
+                                }))}
+                            />
 
                             <div className="form">
                                 <div className="form-group">

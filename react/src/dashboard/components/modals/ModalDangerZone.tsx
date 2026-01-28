@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ModalButton } from './elements/ModalButton';
 import classNames from 'classnames';
+import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 
 export default function ModalDangerZone({
     modal,
@@ -70,20 +71,12 @@ export default function ModalDangerZone({
 
                         {confirmation && (
                             <div className="form text-center">
-                                <label className="checkbox checkbox-narrow">
-                                    <input
-                                        type="checkbox"
-                                        checked={confirmed}
-                                        onChange={(e) => setConfirmed(e.target.checked)}
-                                        hidden={true}
-                                    />
-                                    <div className="checkbox-label">
-                                        <div className="checkbox-box">
-                                            <div className="mdi mdi-check" />
-                                        </div>
-                                        <span>{confirmation}</span>
-                                    </div>
-                                </label>
+                                <CheckboxControl
+                                    checked={confirmed}
+                                    narrow={true}
+                                    onChange={(_, checked) => setConfirmed(checked)}
+                                    title={confirmation}
+                                />
                             </div>
                         )}
                     </div>

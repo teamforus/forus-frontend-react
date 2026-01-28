@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import FundRequest from '../../props/models/FundRequest';
@@ -12,6 +11,7 @@ import Employee from '../../props/models/Employee';
 import { strLimit } from '../../helpers/string';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalFundRequestAssignValidator({
     modal,
@@ -68,20 +68,22 @@ export default function ModalFundRequestAssignValidator({
                     <div className="modal-section">
                         <div className="row">
                             <div className="col col-lg-10 col col-lg-offset-1">
-                                <div className="form-group">
-                                    <label className="form-label form-label-required">
-                                        {translate('modal_fund_request_assign.label.employees')}
-                                    </label>
-                                    <SelectControl
-                                        propValue={'label'}
-                                        propKey={'id'}
-                                        options={listEmployees}
-                                        value={form.values.employee_id}
-                                        dusk="employeeSelect"
-                                        onChange={(employee_id: number) => form.update({ employee_id })}
-                                    />
-                                    <FormError error={form.errors?.employee_id} />
-                                </div>
+                                <FormGroup
+                                    required={true}
+                                    label={translate('modal_fund_request_assign.label.employees')}
+                                    error={form.errors?.employee_id}
+                                    input={(id) => (
+                                        <SelectControl
+                                            id={id}
+                                            propValue={'label'}
+                                            propKey={'id'}
+                                            options={listEmployees}
+                                            value={form.values.employee_id}
+                                            dusk="employeeSelect"
+                                            onChange={(employee_id: number) => form.update({ employee_id })}
+                                        />
+                                    )}
+                                />
                             </div>
                         </div>
                     </div>

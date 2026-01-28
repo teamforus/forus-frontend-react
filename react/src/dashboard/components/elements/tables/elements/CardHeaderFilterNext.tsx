@@ -6,6 +6,7 @@ import Fund from '../../../../props/models/Fund';
 import SelectControl from '../../select-control/SelectControl';
 import SelectControlOptionsFund from '../../select-control/templates/SelectControlOptionsFund';
 import useTranslate from '../../../../hooks/useTranslate';
+import FormGroup from '../../forms/elements/FormGroup';
 
 export default function CardHeaderFilterNext({
     funds,
@@ -23,19 +24,22 @@ export default function CardHeaderFilterNext({
     return (
         <div className="block block-inline-filters">
             {funds?.length > 0 && (
-                <div className="form-group">
-                    <SelectControl
-                        className="form-control inline-filter-control"
-                        propKey={'id'}
-                        options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
-                        value={filter.activeValues.fund_id}
-                        placeholder={translate('vouchers.labels.fund')}
-                        allowSearch={false}
-                        onChange={(fund_id: number) => filter.update({ fund_id })}
-                        optionsComponent={SelectControlOptionsFund}
-                        dusk="prevalidationsSelectFund"
-                    />
-                </div>
+                <FormGroup
+                    input={(id) => (
+                        <SelectControl
+                            id={id}
+                            className="form-control inline-filter-control"
+                            propKey={'id'}
+                            options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                            value={filter.activeValues.fund_id}
+                            placeholder={translate('vouchers.labels.fund')}
+                            allowSearch={false}
+                            onChange={(fund_id: number) => filter.update({ fund_id })}
+                            optionsComponent={SelectControlOptionsFund}
+                            dusk="prevalidationsSelectFund"
+                        />
+                    )}
+                />
             )}
 
             {filter.show && (
@@ -51,8 +55,8 @@ export default function CardHeaderFilterNext({
             )}
 
             {!filter.show && (
-                <div className="form">
-                    <div className="form-group">
+                <FormGroup
+                    input={() => (
                         <input
                             type="text"
                             className="form-control"
@@ -61,8 +65,8 @@ export default function CardHeaderFilterNext({
                             onChange={(e) => filter.update({ q: e.target.value })}
                             placeholder={'Zoeken'}
                         />
-                    </div>
-                </div>
+                    )}
+                />
             )}
 
             <CardHeaderFilter filter={filter}>{children}</CardHeaderFilter>

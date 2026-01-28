@@ -8,6 +8,7 @@ import FormError from '../../../elements/forms/errors/FormError';
 import { useMediaService } from '../../../../services/MediaService';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import SelectControl from '../../../elements/select-control/SelectControl';
+import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ImplementationsBlockEditorItem({
@@ -153,22 +154,12 @@ export default function ImplementationsBlockEditorItem({
                                     Button
                                 </label>
                                 <div className="flex-col">
-                                    <label className="form-toggle" htmlFor={`button_enabled_${index}`}>
-                                        <input
-                                            type="checkbox"
-                                            id={`button_enabled_${index}`}
-                                            checked={block.button_enabled}
-                                            onChange={(e) => {
-                                                onChange({ button_enabled: e.target.checked });
-                                            }}
-                                        />
-                                        <div className="form-toggle-inner flex-end">
-                                            <div className="toggle-input">
-                                                <div className="toggle-input-dot" />
-                                            </div>
-                                        </div>
-                                        <FormError error={errors['blocks.' + index + '.button_enabled']} />
-                                    </label>
+                                    <ToggleControl
+                                        id={`button_enabled_${index}`}
+                                        checked={block.button_enabled}
+                                        onChange={(_, checked) => onChange({ button_enabled: checked })}
+                                    />
+                                    <FormError error={errors['blocks.' + index + '.button_enabled']} />
                                 </div>
                             </div>
                         </div>

@@ -259,7 +259,7 @@ export default function ModalPhysicalCardType({
                                 />
                             )}
 
-                            <FormError className={'text-center'} error={activateCodeForm.errors?.code} />
+                            <FormError error={activateCodeForm.errors?.code} textAlign="center" />
                         </div>
                     </div>
                     <div className="modal-footer">

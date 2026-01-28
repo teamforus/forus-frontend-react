@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
-import BlockKeyValueList from '../../elements/block-key-value-list/BlockKeyValueList';
 import RecordType from '../../../../dashboard/props/models/RecordType';
 import ProfileModel from '../../../../dashboard/props/models/Profile';
 import { ProfileRecords, ProfileRecordType } from '../../../../dashboard/props/models/Sponsor/SponsorIdentity';
@@ -14,6 +13,8 @@ import { differenceInYears } from 'date-fns';
 import { dateParse } from '../../../../dashboard/helpers/dates';
 import IdentityAddressCard from './cards/IdentityAddressCard';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import ProfileBankAccountsCard from './cards/ProfileBankAccountsCard';
+import BlockKeyValueList from '../../elements/block-key-value-list/BlockKeyValueList';
 
 export default function Profile() {
     const translate = useTranslate();
@@ -192,33 +193,7 @@ export default function Profile() {
                         setProfile={setProfile}
                     />
 
-                    {profile?.bank_accounts?.length > 0 && (
-                        <div className="card">
-                            <div className="card-header">
-                                <h2 className="card-title">{translate('profile.bank_accounts.title')}</h2>
-                            </div>
-                            <div className="card-section">
-                                <div className="flex flex-vertical flex-gap">
-                                    {profile?.bank_accounts?.map((bank_account, index) => (
-                                        <div className="card-section-pane" key={index}>
-                                            <BlockKeyValueList
-                                                items={[
-                                                    {
-                                                        label: translate('profile.bank_accounts.iban'),
-                                                        value: bank_account.iban,
-                                                    },
-                                                    {
-                                                        label: translate('profile.bank_accounts.name'),
-                                                        value: bank_account.name,
-                                                    },
-                                                ]}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    <ProfileBankAccountsCard bankAccounts={profile?.bank_accounts || []} />
                 </Fragment>
             )}
         </BlockShowcaseProfile>

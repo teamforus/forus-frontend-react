@@ -16,6 +16,9 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
 import { hasPermission } from '../../../../helpers/utils';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
 
 export default function IdentityBankAccountsCard({
     identity,
@@ -33,6 +36,50 @@ export default function IdentityBankAccountsCard({
     const setProgress = useSetProgress();
 
     const sponsorIdentitiesService = useSponsorIdentitiesService();
+
+    const canManageIdentities = hasPermission(organization, Permission.MANAGE_IDENTITIES);
+    const canViewFundRequests = hasPermission(
+        organization,
+        [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+        false,
+    );
+    const canViewReimbursements = hasPermission(organization, Permission.MANAGE_REIMBURSEMENTS);
+    const canViewPayouts = organization.allow_payouts && hasPermission(organization, Permission.MANAGE_PAYOUTS);
+
+    const getBankAccountSourceMeta = useCallback(
+        (bank_account: SponsorIdentity['bank_accounts'][number]) => {
+            const label = bank_account.type_id
+                ? `${bank_account.created_by_locale} #${bank_account.type_id}`
+                : bank_account.created_by_locale;
+
+            if (bank_account.type === 'fund_request' && bank_account.type_id && canViewFundRequests) {
+                return {
+                    label,
+                    name: DashboardRoutes.FUND_REQUEST,
+                    params: { organizationId: organization.id, id: bank_account.type_id },
+                };
+            }
+
+            if (bank_account.type === 'reimbursement' && bank_account.type_id && canViewReimbursements) {
+                return {
+                    label,
+                    name: DashboardRoutes.REIMBURSEMENT,
+                    params: { organizationId: organization.id, id: bank_account.type_id },
+                };
+            }
+
+            if (bank_account.type === 'payout' && canViewPayouts) {
+                return {
+                    label,
+                    name: DashboardRoutes.PAYOUTS,
+                    params: { organizationId: organization.id },
+                };
+            }
+
+            return { label };
+        },
+        [canViewFundRequests, canViewPayouts, canViewReimbursements, organization.id],
+    );
 
     const editBankAccount = useCallback(
         (id?: number) => {
@@ -98,7 +145,7 @@ export default function IdentityBankAccountsCard({
         <Card
             title={`Bankrekeningen (${identity.bank_accounts?.length || 0})`}
             buttons={[
-                hasPermission(organization, Permission.MANAGE_IDENTITIES) && {
+                canManageIdentities && {
                     text: 'Aanmaken',
                     type: 'primary',
                     icon: 'plus-circle',
@@ -109,44 +156,76 @@ export default function IdentityBankAccountsCard({
                 <EmptyCard title={'Geen bankrekening gevonden'} type={'card-section-content'} />
             ) : (
                 <CardTable columns={sponsorIdentitiesService.getBankAccountColumns()}>
-                    {identity?.bank_accounts?.map((bank_account, index) => (
-                        <tr key={index}>
-                            <td>{bank_account.iban}</td>
-                            <td>{bank_account.name}</td>
-                            <td>
-                                <TableDateTime value={bank_account.updated_at_locale} />
-                            </td>
-                            <td>{bank_account.created_by_locale}</td>
-                            <td className="table-td-actions text-right">
-                                {bank_account?.id && hasPermission(organization, Permission.MANAGE_IDENTITIES) ? (
-                                    <TableRowActions
-                                        content={(e) => (
-                                            <div className="dropdown dropdown-actions">
-                                                <div
-                                                    onClick={() => {
-                                                        e.close();
-                                                        editBankAccount(bank_account.id);
-                                                    }}
-                                                    className="dropdown-item">
-                                                    Bewerking
+                    {identity?.bank_accounts?.map((bank_account, index) => {
+                        const sourceMeta = getBankAccountSourceMeta(bank_account);
+                        const canEdit = bank_account?.id && canManageIdentities;
+                        const canViewSource = Boolean(sourceMeta.name);
+
+                        return (
+                            <tr key={index}>
+                                <td>{bank_account.iban}</td>
+                                <td>{bank_account.name}</td>
+                                <td>
+                                    <TableDateTime value={bank_account.updated_at_locale} />
+                                </td>
+                                <td>
+                                    {sourceMeta.name ? (
+                                        <StateNavLink
+                                            name={sourceMeta.name}
+                                            params={sourceMeta.params}
+                                            className="text-primary text-semibold text-inherit text-decoration-link">
+                                            {sourceMeta.label}
+                                        </StateNavLink>
+                                    ) : (
+                                        sourceMeta.label
+                                    )}
+                                </td>
+                                <td className="table-td-actions text-right">
+                                    {canEdit || canViewSource ? (
+                                        <TableRowActions
+                                            content={(e) => (
+                                                <div className="dropdown dropdown-actions">
+                                                    {canViewSource && (
+                                                        <TableRowActionItem
+                                                            type="link"
+                                                            name={sourceMeta.name}
+                                                            params={sourceMeta.params}>
+                                                            <em className="mdi mdi-eye-outline icon-start" />
+                                                            Bekijk bron
+                                                        </TableRowActionItem>
+                                                    )}
+                                                    {canEdit && (
+                                                        <TableRowActionItem
+                                                            type="button"
+                                                            onClick={() => {
+                                                                e.close();
+                                                                editBankAccount(bank_account.id);
+                                                            }}>
+                                                            <em className="mdi mdi-pencil icon-start" />
+                                                            Bewerking
+                                                        </TableRowActionItem>
+                                                    )}
+                                                    {canEdit && (
+                                                        <TableRowActionItem
+                                                            type="button"
+                                                            onClick={() => {
+                                                                e.close();
+                                                                deleteBankAccount(bank_account.id);
+                                                            }}>
+                                                            <em className="mdi mdi-close icon-start" />
+                                                            Verwijderen
+                                                        </TableRowActionItem>
+                                                    )}
                                                 </div>
-                                                <div
-                                                    onClick={() => {
-                                                        e.close();
-                                                        deleteBankAccount(bank_account.id);
-                                                    }}
-                                                    className="dropdown-item">
-                                                    Verwijderen
-                                                </div>
-                                            </div>
-                                        )}
-                                    />
-                                ) : (
-                                    <TableEmptyValue />
-                                )}
-                            </td>
-                        </tr>
-                    ))}
+                                            )}
+                                        />
+                                    ) : (
+                                        <TableEmptyValue />
+                                    )}
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </CardTable>
             )}
         </Card>

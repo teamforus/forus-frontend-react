@@ -20,6 +20,7 @@ import IconReimbursement from '../../../../../../assets/forus-webshop/resources/
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import ModalVoucherPayout from '../../../modals/ModalVoucherPayout';
 import usePayoutEligibleVouchers from '../hooks/usePayoutEligibleVouchers';
+import useFundRequestBankAccounts from '../../../../hooks/useFundRequestBankAccounts';
 
 export default function VoucherActions({
     voucher,
@@ -41,7 +42,8 @@ export default function VoucherActions({
 
     const voucherCard = useVoucherCard(voucher);
     const showPhysicalCardsOption = useShowPhysicalCardsOption(voucher);
-    const payoutEligibleVouchers = usePayoutEligibleVouchers([voucher].filter(Boolean));
+    const { fundRequestAccounts } = useFundRequestBankAccounts();
+    const payoutEligibleVouchers = usePayoutEligibleVouchers([voucher].filter(Boolean), fundRequestAccounts);
 
     const fundPhysicalCardTypes = useMemo(() => {
         return voucher?.fund?.fund_physical_card_types;

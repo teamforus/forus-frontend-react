@@ -36,7 +36,7 @@ export default function MeApp() {
                                     values={{ download_link: envData.config.me_app_link }}
                                 />
                             </div>
-                            <AppLinks className={'hide-sm'} type={'lg'} />
+                            <AppLinks className={'hide-sm'} />
                         </div>
                     </div>
                     <div className="me_app-download flex-center">

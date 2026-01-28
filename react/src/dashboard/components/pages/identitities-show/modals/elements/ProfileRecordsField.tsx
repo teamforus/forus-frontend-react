@@ -25,6 +25,7 @@ export default function ProfileRecordsField({
             input={(id) =>
                 recordType.key === 'birth_date' ? (
                     <DatePickerControl
+                        id={id}
                         value={dateParse(form.values[recordType.key] || '')}
                         placeholder={recordType.name}
                         onChange={(date) => form.update({ [recordType.key]: dateFormat(date) })}

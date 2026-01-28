@@ -3,11 +3,11 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import { useMediaService } from '../../services/MediaService';
 import { ResponseError } from '../../props/ApiResponses';
-import FormError from '../elements/forms/errors/FormError';
 import useSetProgress from '../../hooks/useSetProgress';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import usePushDanger from '../../hooks/usePushDanger';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalMarkdownCustomLink({
     type,
@@ -105,78 +105,78 @@ export default function ModalMarkdownCustomLink({
                 <div className="modal-body">
                     <div className="modal-section">
                         {type === 'customLink' && (
-                            <div className="form-group">
-                                <label className="form-label" htmlFor="link_text">
-                                    {translate('modals.modal_markdown_custom_link.labels.desc')}
-                                </label>
-                                <input
-                                    type="text"
-                                    id="link_text"
-                                    className="form-control"
-                                    value={form.values?.text || ''}
-                                    onChange={(e) => form.update({ text: e.target.value })}
-                                />
-                            </div>
+                            <FormGroup
+                                label={translate('modals.modal_markdown_custom_link.labels.desc')}
+                                input={(id) => (
+                                    <input
+                                        type="text"
+                                        id={id}
+                                        className="form-control"
+                                        value={form.values?.text || ''}
+                                        onChange={(e) => form.update({ text: e.target.value })}
+                                    />
+                                )}
+                            />
                         )}
 
                         {(type === 'customLink' || type === 'youtubeLink') && (
-                            <div className="form-group">
-                                <label className="form-label" htmlFor="link_url">
-                                    {translate('modals.modal_markdown_custom_link.labels.url')}
-                                </label>
-                                <input
-                                    type="text"
-                                    id="link_url"
-                                    className="form-control"
-                                    value={form.values?.url || ''}
-                                    onChange={(e) => form.update({ url: e.target.value })}
-                                />
-                            </div>
+                            <FormGroup
+                                label={translate('modals.modal_markdown_custom_link.labels.url')}
+                                input={(id) => (
+                                    <input
+                                        type="text"
+                                        id={id}
+                                        className="form-control"
+                                        value={form.values?.url || ''}
+                                        onChange={(e) => form.update({ url: e.target.value })}
+                                    />
+                                )}
+                            />
                         )}
 
                         {type === 'imageLink' && (
-                            <div className="form-group">
-                                <div className="flex-row">
-                                    <div className="flex-col flex-grow">
-                                        <label className="form-label" htmlFor="media_url">
-                                            {translate('modals.modal_markdown_custom_link.labels.url_image')}
-                                        </label>
-                                        <input
-                                            className="form-control"
-                                            id="media_url"
-                                            type="text"
-                                            value={form.values?.url || ''}
-                                            onChange={(e) => form.update({ url: e.target.value })}
-                                        />
-                                        <FormError error={errors?.file} />
+                            <FormGroup
+                                label={translate('modals.modal_markdown_custom_link.labels.url_image')}
+                                error={errors?.file}
+                                input={(id) => (
+                                    <div className="flex-row">
+                                        <div className="flex-col flex-grow">
+                                            <input
+                                                className="form-control"
+                                                id={id}
+                                                type="text"
+                                                value={form.values?.url || ''}
+                                                onChange={(e) => form.update({ url: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="flex-col">
+                                            <label className="form-label">&nbsp;</label>
+                                            <button
+                                                className="button button-primary nowrap"
+                                                type="button"
+                                                onClick={selectMedia}>
+                                                <em className="mdi mdi-upload icon-start" />
+                                                {translate('modals.modal_markdown_custom_link.buttons.upload_image')}
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="flex-col">
-                                        <label className="form-label">&nbsp;</label>
-                                        <button
-                                            className="button button-primary nowrap"
-                                            type="button"
-                                            onClick={selectMedia}>
-                                            <em className="mdi mdi-upload icon-start" />
-                                            {translate('modals.modal_markdown_custom_link.buttons.upload_image')}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                                )}
+                            />
                         )}
 
                         {type === 'imageLink' && (
-                            <div className="form-group">
-                                <label className="form-label" htmlFor="media_alt">
-                                    {translate('modals.modal_markdown_custom_link.labels.alt_text')}
-                                </label>
-                                <input
-                                    className="form-control"
-                                    id="media_alt"
-                                    type="text"
-                                    value={form.values.alt}
-                                    onChange={(e) => form.update({ alt: e.target.value })}
-                                />
-                            </div>
+                            <FormGroup
+                                label={translate('modals.modal_markdown_custom_link.labels.alt_text')}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        type="text"
+                                        value={form.values.alt}
+                                        onChange={(e) => form.update({ alt: e.target.value })}
+                                    />
+                                )}
+                            />
                         )}
                     </div>
                 </div>

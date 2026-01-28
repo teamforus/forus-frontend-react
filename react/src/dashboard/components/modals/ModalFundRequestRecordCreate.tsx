@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import { ApiResponseSingle, ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import FundRequest from '../../props/models/FundRequest';
@@ -9,6 +8,7 @@ import { useFundRequestValidatorService } from '../../services/FundRequestValida
 import Organization from '../../props/models/Organization';
 import FundRequestRecord from '../../props/models/FundRequestRecord';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalFundRequestRecordCreate({
     modal,
@@ -67,18 +67,22 @@ export default function ModalFundRequestRecordCreate({
                         <div className="modal-section">
                             <div className="row">
                                 <div className="col col-lg-8 col-lg-offset-2 col-lg-12">
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">Partner</label>
-                                        <input
-                                            className="form-control"
-                                            type="number"
-                                            value={form.values.value}
-                                            onChange={(e) => form.update({ value: e.target.value })}
-                                            placeholder="Partner BSN"
-                                            data-dusk="partnerBsnInput"
-                                        />
-                                        <FormError error={form.errors.value} />
-                                    </div>
+                                    <FormGroup
+                                        required={true}
+                                        label="Partner"
+                                        error={form.errors.value}
+                                        input={(id) => (
+                                            <input
+                                                className="form-control"
+                                                id={id}
+                                                type="number"
+                                                value={form.values.value}
+                                                onChange={(e) => form.update({ value: e.target.value })}
+                                                placeholder="Partner BSN"
+                                                data-dusk="partnerBsnInput"
+                                            />
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>

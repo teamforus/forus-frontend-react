@@ -1,9 +1,9 @@
 import React, { FormEvent, useCallback, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
 import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
-import FormError from '../elements/forms/errors/FormError';
 import { usePhysicalCardsRequestService } from '../../services/PhysicalCardsRequestService';
 import useTranslate from '../../hooks/useTranslate';
 import { ResponseError } from '../../props/ApiResponses';
@@ -103,9 +103,14 @@ export default function ModalOrderPhysicalCard({
 
     return (
         <div
-            className={`modal modal-animated modal-physical-card-order ${state === 'form' ? 'modal-sm' : 'modal-md'} ${
-                modal.loading ? 'modal-loading' : ''
-            } ${className}`}>
+            className={classNames(
+                'modal',
+                'modal-animated',
+                'modal-physical-card-order',
+                state === 'form' ? 'modal-sm' : 'modal-md',
+                modal.loading && 'modal-loading',
+                className,
+            )}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             {state == 'form' && (
@@ -142,116 +147,104 @@ export default function ModalOrderPhysicalCard({
                                 )}
                             />
 
-                            <div className="form-group">
-                                <label
-                                    className="form-label form-label-required"
-                                    htmlFor="modals.modal_physical_card_order.modal_section.request_new_card.address">
-                                    {translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.address',
-                                    )}
-                                </label>
+                            <FormGroup
+                                required={true}
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.address',
+                                )}
+                                error={form.errors?.address}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        defaultValue={form.values.address}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.address_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ address: e.target.value })}
+                                        autoComplete="address-line1"
+                                    />
+                                )}
+                            />
 
-                                <input
-                                    className="form-control"
-                                    id="modals.modal_physical_card_order.modal_section.request_new_card.address"
-                                    defaultValue={form.values.address}
-                                    placeholder={translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.address_placeholder',
-                                    )}
-                                    onChange={(e) => form.update({ address: e.target.value })}
-                                    autoComplete="address-line1"
-                                />
+                            <FormGroup
+                                required={true}
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.house',
+                                )}
+                                error={form.errors?.house}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        defaultValue={form.values.house}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.house_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ house: e.target.value })}
+                                        autoComplete="address-line2"
+                                    />
+                                )}
+                            />
 
-                                <FormError error={form.errors?.address} />
-                            </div>
+                            <FormGroup
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.house_addition',
+                                )}
+                                error={form.errors?.house_addition}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        defaultValue={form.values.house_addition}
+                                        id={id}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.house_addition_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ house_addition: e.target.value })}
+                                        autoComplete="address-line3"
+                                    />
+                                )}
+                            />
 
-                            <div className="form-group">
-                                <label
-                                    className="form-label form-label-required"
-                                    htmlFor="modals.modal_physical_card_order.modal_section.request_new_card.house">
-                                    {translate('modals.modal_physical_card_order.modal_section.request_new_card.house')}
-                                </label>
+                            <FormGroup
+                                required={true}
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.postcode',
+                                )}
+                                error={form.errors?.postcode}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        defaultValue={form.values.postcode}
+                                        id={id}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.postcode_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ postcode: e.target.value })}
+                                        autoComplete="postal-code"
+                                    />
+                                )}
+                            />
 
-                                <input
-                                    className="form-control"
-                                    id="modals.modal_physical_card_order.modal_section.request_new_card.house"
-                                    defaultValue={form.values.house}
-                                    placeholder={translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.house_placeholder',
-                                    )}
-                                    onChange={(e) => form.update({ house: e.target.value })}
-                                    autoComplete="address-line2"
-                                />
-
-                                <FormError error={form.errors?.house} />
-                            </div>
-
-                            <div className="form-group">
-                                <label
-                                    className="form-label"
-                                    htmlFor="modals.modal_physical_card_order.modal_section.request_new_card.house_addition">
-                                    {translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.house_addition',
-                                    )}
-                                </label>
-
-                                <input
-                                    className="form-control"
-                                    defaultValue={form.values.house_addition}
-                                    id="modals.modal_physical_card_order.modal_section.request_new_card.house_addition"
-                                    placeholder={translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.house_addition_placeholder',
-                                    )}
-                                    onChange={(e) => form.update({ house_addition: e.target.value })}
-                                    autoComplete="address-line3"
-                                />
-
-                                <FormError error={form.errors?.house_addition} />
-                            </div>
-
-                            <div className="form-group">
-                                <label
-                                    className="form-label form-label-required"
-                                    htmlFor="modals.modal_physical_card_order.modal_section.request_new_card.postcode">
-                                    {translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.postcode',
-                                    )}
-                                </label>
-
-                                <input
-                                    className="form-control"
-                                    defaultValue={form.values.postcode}
-                                    id="modals.modal_physical_card_order.modal_section.request_new_card.postcode"
-                                    placeholder={translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.postcode_placeholder',
-                                    )}
-                                    onChange={(e) => form.update({ postcode: e.target.value })}
-                                    autoComplete="postal-code"
-                                />
-
-                                <FormError error={form.errors?.postcode} />
-                            </div>
-
-                            <div className="form-group">
-                                <label
-                                    className="form-label form-label-required"
-                                    htmlFor="modals.modal_physical_card_order.modal_section.request_new_card.city">
-                                    {translate('modals.modal_physical_card_order.modal_section.request_new_card.city')}
-                                </label>
-
-                                <input
-                                    className="form-control"
-                                    defaultValue={form.values.city}
-                                    id="modals.modal_physical_card_order.modal_section.request_new_card.city"
-                                    placeholder={translate(
-                                        'modals.modal_physical_card_order.modal_section.request_new_card.city_placeholder',
-                                    )}
-                                    onChange={(e) => form.update({ city: e.target.value })}
-                                    autoComplete="address-level2"
-                                />
-
-                                <FormError error={form.errors?.city} />
-                            </div>
+                            <FormGroup
+                                required={true}
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.city',
+                                )}
+                                error={form.errors?.city}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        defaultValue={form.values.city}
+                                        id={id}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.city_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ city: e.target.value })}
+                                        autoComplete="address-level2"
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
-import FormError from '../elements/forms/errors/FormError';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
 import SelectControl from '../elements/select-control/SelectControl';
@@ -11,6 +11,7 @@ import useFundProviderInvitationsService from '../../services/useFundProviderInv
 import { ResponseError } from '../../props/ApiResponses';
 import FundProviderInvitation from '../../props/models/FundProviderInvitation';
 import useTranslate from '../../hooks/useTranslate';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalFundInviteProviders({
     fund,
@@ -70,7 +71,7 @@ export default function ModalFundInviteProviders({
     }, [updateForm, fund, funds]);
 
     return (
-        <div className={`modal modal-animated modal-md ${modal.loading ? 'modal-loading' : null}`}>
+        <div className={classNames('modal', 'modal-animated', 'modal-md', modal.loading && 'modal-loading')}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <div className="modal-window form">
@@ -81,22 +82,22 @@ export default function ModalFundInviteProviders({
                         <div className="modal-section">
                             <div className="row">
                                 <div className="col col-lg-10 col col-lg-offset-1">
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            Nodig aanbieders uit van:
-                                        </label>
-
-                                        <SelectControl
-                                            className={'form-control'}
-                                            options={funds}
-                                            propKey={'id'}
-                                            allowSearch={true}
-                                            value={form.values?.fund_id}
-                                            onChange={(fund_id: number) => form.update({ fund_id })}
-                                        />
-
-                                        <FormError error={form.errors?.fund_id} />
-                                    </div>
+                                    <FormGroup
+                                        required={true}
+                                        label="Nodig aanbieders uit van:"
+                                        error={form.errors?.fund_id}
+                                        input={(id) => (
+                                            <SelectControl
+                                                id={id}
+                                                className={'form-control'}
+                                                options={funds}
+                                                propKey={'id'}
+                                                allowSearch={true}
+                                                value={form.values?.fund_id}
+                                                onChange={(fund_id: number) => form.update({ fund_id })}
+                                            />
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>

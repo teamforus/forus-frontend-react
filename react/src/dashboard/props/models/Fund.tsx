@@ -137,7 +137,6 @@ export default interface Fund {
     faq_title?: string;
     allow_reimbursements?: boolean;
     allow_voucher_payouts?: boolean;
-    allow_voucher_payout_amount?: string | null;
     allow_voucher_payout_count?: number | null;
     allow_physical_cards?: boolean;
     allow_blocking_vouchers?: boolean;

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import ImageCropper, { ImageCropperPresetValue } from '../elements/image_cropper/ImageCropper';
+import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import useAppConfigs from '../../hooks/useAppConfigs';
 import classNames from 'classnames';
 
@@ -132,27 +133,20 @@ export default function ModalPhotoUploader({
                                 <br />
                             </div>
                             <div className="form text-center">
-                                <label htmlFor="confirmation" className="checkbox">
-                                    <input
-                                        type="checkbox"
-                                        id="confirmation"
-                                        checked={confirmed}
-                                        onChange={(e) => setConfirmed(e.target.checked)}
-                                    />
-                                    <span className="checkbox-label">
-                                        <span className="checkbox-box">
-                                            <span className="mdi mdi-check" />
-                                        </span>
-                                        Ik beschik over&nbsp;
-                                        <a
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            href="https://www.rijksoverheid.nl/onderwerpen/intellectueel-eigendom/vraag-en-antwoord/mag-ik-teksten-muziek-of-foto-s-van-anderen-gebruiken">
-                                            de rechten
-                                        </a>
-                                        &nbsp;van de afbeelding.
-                                    </span>
-                                </label>
+                                <CheckboxControl
+                                    id="confirmation"
+                                    checked={confirmed}
+                                    onChange={(_, checked) => setConfirmed(checked)}
+                                    className="checkbox">
+                                    Ik beschik over&nbsp;
+                                    <a
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://www.rijksoverheid.nl/onderwerpen/intellectueel-eigendom/vraag-en-antwoord/mag-ik-teksten-muziek-of-foto-s-van-anderen-gebruiken">
+                                        de rechten
+                                    </a>
+                                    &nbsp;van de afbeelding.
+                                </CheckboxControl>
                             </div>
                         </div>
                     </div>

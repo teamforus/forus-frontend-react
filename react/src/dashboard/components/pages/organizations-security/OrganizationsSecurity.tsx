@@ -13,6 +13,7 @@ import { authContext } from '../../../contexts/AuthContext';
 import { StringParam, useQueryParam } from 'use-query-params';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function OrganizationsSecurity() {
     const activeOrganization = useActiveOrganization();
@@ -100,23 +101,15 @@ export default function OrganizationsSecurity() {
                                 <div className="block block-inline-filters">
                                     <div className="flex">
                                         <div>
-                                            <div className="block block-label-tabs pull-right">
-                                                <div className="label-tab-set">
-                                                    <div
-                                                        className={`label-tab label-tab-sm ${
-                                                            viewType == 'employees' ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setViewType('employees')}>
-                                                        Medewerkers
-                                                    </div>
-                                                    <div
-                                                        className={`label-tab label-tab-sm ${
-                                                            viewType == 'funds' ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setViewType('funds')}>
-                                                        Fondsen
-                                                    </div>
-                                                </div>
+                                            <div className="pull-right">
+                                                <BlockLabelTabs
+                                                    value={viewType}
+                                                    setValue={(type) => setViewType(type)}
+                                                    tabs={[
+                                                        { value: 'employees', label: 'Medewerkers' },
+                                                        { value: 'funds', label: 'Fondsen' },
+                                                    ]}
+                                                />
                                             </div>
                                         </div>
                                     </div>

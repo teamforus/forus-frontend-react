@@ -966,7 +966,10 @@ export default function ModalPrevalidationsUpload({
 
                                 {csvProgress >= CSVProgress.uploading && (
                                     <div
-                                        className={`csv-upload-progress ${csvProgress == CSVProgress.uploaded ? 'done' : ''}`}>
+                                        className={classNames(
+                                            'csv-upload-progress',
+                                            csvProgress == CSVProgress.uploaded && 'done',
+                                        )}>
                                         <div className="csv-upload-icon">
                                             {csvProgress == CSVProgress.uploading && (
                                                 <div className="mdi mdi-loading" />

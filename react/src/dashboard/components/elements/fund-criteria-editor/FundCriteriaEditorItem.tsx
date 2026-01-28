@@ -3,7 +3,6 @@ import Organization, { Permission } from '../../../props/models/Organization';
 import RecordType from '../../../props/models/RecordType';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../select-control/SelectControl';
-import FormError from '../forms/errors/FormError';
 import { ResponseError } from '../../../props/ApiResponses';
 import FundCriterion from '../../../props/models/FundCriterion';
 import Fund from '../../../props/models/Fund';
@@ -17,6 +16,8 @@ import useTranslate from '../../../hooks/useTranslate';
 import { currencyFormat } from '../../../helpers/string';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import classNames from 'classnames';
+import FormGroup from '../forms/elements/FormGroup';
+import FormError from '../forms/errors/FormError';
 
 type Operators = '<' | '<=' | '>' | '>=' | '!=' | '=' | '*';
 
@@ -298,7 +299,7 @@ export default function FundCriteriaEditorItem({
                                 <div className="col col-xs-12 col-sm-4">
                                     <label className="form-label">Persoonsgegeven</label>
                                     <SelectControl
-                                        className={`form-control ${disabled ? 'disabled' : ''}`}
+                                        className={classNames('form-control', disabled && 'disabled')}
                                         placeholder="Persoonsgegeven"
                                         disabled={disabled}
                                         value={recordType}
@@ -313,7 +314,7 @@ export default function FundCriteriaEditorItem({
                                     <div className="col col-xs-12 col-sm-4">
                                         <label className="form-label">Verhouding</label>
                                         <SelectControl
-                                            className={`form-control ${disabled ? 'disabled' : ''}`}
+                                            className={classNames('form-control', disabled && 'disabled')}
                                             placeholder="Verhouding"
                                             disabled={disabled}
                                             allowSearch={false}
@@ -336,7 +337,7 @@ export default function FundCriteriaEditorItem({
                                             {!['select', 'select_number', 'bool', 'date'].includes(recordType.type) &&
                                                 operators[recordType.key] != '*' && (
                                                     <input
-                                                        className={`form-control ${disabled ? 'disabled' : ''}`}
+                                                        className={classNames('form-control', disabled && 'disabled')}
                                                         type="text"
                                                         placeholder="Waarde"
                                                         defaultValue={values[recordType.key]}
@@ -351,7 +352,7 @@ export default function FundCriteriaEditorItem({
                                             {['select', 'select_number', 'bool'].includes(recordType.type) &&
                                                 operators[recordType.key] != '*' && (
                                                     <SelectControl
-                                                        className={`form-control ${disabled ? 'disabled' : ''}`}
+                                                        className={classNames('form-control', disabled && 'disabled')}
                                                         placeholder="Verhouding"
                                                         allowSearch={false}
                                                         propKey={'value'}
@@ -392,25 +393,28 @@ export default function FundCriteriaEditorItem({
                         </div>
 
                         {hasBooleanLabel && (
-                            <div className="form-group">
-                                <label className="form-label">{'Voeg een aangepaste "Ik verklaar"-tekst toe'}</label>
-                                <input
-                                    type={'text'}
-                                    className="form-control"
-                                    value={label}
-                                    disabled={disabled}
-                                    onChange={(e) => setLabel(e?.target?.value)}
-                                    placeholder={'Ik verklaar aan de bovenstaande voorwaarden te voldoen'}
-                                />
-                                <FormError error={errors?.['criteria.0.label']} />
-                            </div>
+                            <FormGroup
+                                label={'Voeg een aangepaste "Ik verklaar"-tekst toe'}
+                                error={errors?.['criteria.0.label']}
+                                input={(id) => (
+                                    <input
+                                        type={'text'}
+                                        id={id}
+                                        className="form-control"
+                                        value={label}
+                                        disabled={disabled}
+                                        onChange={(e) => setLabel(e?.target?.value)}
+                                        placeholder={'Ik verklaar aan de bovenstaande voorwaarden te voldoen'}
+                                    />
+                                )}
+                            />
                         )}
 
                         {recordType?.key && (
                             <div className="row">
                                 <div className="col flex-xs-12 form-group">
                                     <CheckboxControl
-                                        className={`${disabled ? 'disabled' : ''}`}
+                                        className={classNames(disabled && 'disabled')}
                                         id={`${blockId}_attachments`}
                                         title={translate('components.fund_criteria_editor_item.allow_attachments')}
                                         checked={showAttachments}
@@ -421,7 +425,7 @@ export default function FundCriteriaEditorItem({
 
                                 <div className="col flex-xs-12 form-group">
                                     <CheckboxControl
-                                        className={`checkbox-narrow ${disabled ? 'disabled' : ''}`}
+                                        className={classNames('checkbox-narrow', disabled && 'disabled')}
                                         id={`${blockId}_optional`}
                                         checked={optional}
                                         disabled={disabled}
@@ -448,7 +452,7 @@ export default function FundCriteriaEditorItem({
                                             <label className="form-label">Min</label>
                                             {(recordType.type == 'number' || recordType.type == 'string') && (
                                                 <input
-                                                    className={`form-control ${disabled ? 'disabled' : ''}`}
+                                                    className={classNames('form-control', disabled && 'disabled')}
                                                     type="number"
                                                     placeholder="Min"
                                                     value={validations[recordType.key]?.min || ''}
@@ -484,7 +488,7 @@ export default function FundCriteriaEditorItem({
 
                                             {(recordType.type == 'number' || recordType.type == 'string') && (
                                                 <input
-                                                    className={`form-control ${disabled ? 'disabled' : ''}`}
+                                                    className={classNames('form-control', disabled && 'disabled')}
                                                     type="number"
                                                     placeholder="Max"
                                                     defaultValue={validations[recordType.key]?.max || ''}

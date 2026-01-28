@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import { ModalButton } from './elements/ModalButton';
 import { ResponseError } from '../../props/ApiResponses';
 import SelectControl from '../elements/select-control/SelectControl';
@@ -12,6 +12,7 @@ import useImplementationSocialMediaService from '../../services/ImplementationSo
 import usePushSuccess from '../../hooks/usePushSuccess';
 import useSetProgress from '../../hooks/useSetProgress';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalSocialMediaEdit({
     modal,
@@ -81,9 +82,14 @@ export default function ModalSocialMediaEdit({
 
     return (
         <div
-            className={`modal modal-md modal-animated modal-notification ${modal.loading ? 'modal-loading' : ''} ${
-                className || ''
-            }`}>
+            className={classNames(
+                'modal',
+                'modal-md',
+                'modal-animated',
+                'modal-notification',
+                modal.loading && 'modal-loading',
+                className,
+            )}>
             <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window form" onSubmit={form.submit}>
                 <div className="modal-close mdi mdi-close" onClick={modal.close} />
@@ -91,49 +97,52 @@ export default function ModalSocialMediaEdit({
 
                 <div className="modal-body modal-body-visible">
                     <div className="modal-section">
-                        <div className="form-group">
-                            <label htmlFor="" className="form-label form-label-required">
-                                Kies soort
-                            </label>
-                            <SelectControl
-                                value={form.values.type}
-                                propKey={'key'}
-                                propValue={'name'}
-                                onChange={(type?: string) => form.update({ type })}
-                                options={socialMediaTypes}
-                            />
-                            <FormError error={form.errors.type} />
-                        </div>
+                        <FormGroup
+                            required={true}
+                            label="Kies soort"
+                            error={form.errors.type}
+                            input={(id) => (
+                                <SelectControl
+                                    id={id}
+                                    value={form.values.type}
+                                    propKey={'key'}
+                                    propValue={'name'}
+                                    onChange={(type?: string) => form.update({ type })}
+                                    options={socialMediaTypes}
+                                />
+                            )}
+                        />
 
-                        <div className="form-group">
-                            <label htmlFor="url" className="form-label form-label-required">
-                                URL
-                            </label>
-                            <input
-                                id="url"
-                                type="text"
-                                value={form.values.url}
-                                placeholder="URL"
-                                className="form-control"
-                                onChange={(e) => form.update({ url: e.target.value })}
-                            />
-                            <FormError error={form.errors.url} />
-                        </div>
+                        <FormGroup
+                            required={true}
+                            label="URL"
+                            error={form.errors.url}
+                            input={(id) => (
+                                <input
+                                    id={id}
+                                    type="text"
+                                    value={form.values.url}
+                                    placeholder="URL"
+                                    className="form-control"
+                                    onChange={(e) => form.update({ url: e.target.value })}
+                                />
+                            )}
+                        />
 
-                        <div className="form-group">
-                            <label htmlFor="url" className="form-label">
-                                Titel
-                            </label>
-                            <input
-                                id="url"
-                                type="text"
-                                value={form.values.title}
-                                placeholder="Titel"
-                                className="form-control"
-                                onChange={(e) => form.update({ title: e.target.value })}
-                            />
-                            <FormError error={form.errors.title} />
-                        </div>
+                        <FormGroup
+                            label="Titel"
+                            error={form.errors.title}
+                            input={(id) => (
+                                <input
+                                    id={id}
+                                    type="text"
+                                    value={form.values.title}
+                                    placeholder="Titel"
+                                    className="form-control"
+                                    onChange={(e) => form.update({ title: e.target.value })}
+                                />
+                            )}
+                        />
                     </div>
                 </div>
 

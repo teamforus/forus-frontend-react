@@ -5,6 +5,7 @@ import Transaction from '../props/models/Transaction';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import Papa from 'papaparse';
 import PayoutTransaction from '../props/models/PayoutTransaction';
+import PayoutBankAccount from '../props/models/PayoutBankAccount';
 
 export class PayoutTransactionService<T = PayoutTransaction> {
     /**
@@ -21,6 +22,10 @@ export class PayoutTransactionService<T = PayoutTransaction> {
 
     public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/payouts`, data);
+    }
+
+    public bankAccounts(organizationId: number, data: object = {}): Promise<ApiResponse<PayoutBankAccount>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/payouts/bank-accounts`, data);
     }
 
     public store(organizationId: number, data: object = {}): Promise<ApiResponseSingle<Transaction>> {

@@ -220,6 +220,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: DashboardRoutes.PAYOUTS,
                         stateParams: { organizationId: organization?.id },
                         show: organization.allow_payouts && hasPermission(organization, Permission.MANAGE_PAYOUTS),
+                        dusk: 'payoutsNav',
                     },
                     {
                         id: 'physical_cards',

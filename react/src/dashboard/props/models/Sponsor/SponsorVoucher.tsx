@@ -51,6 +51,7 @@ export default interface SponsorVoucher {
     amount_available_locale?: string;
     amount_spent?: string;
     amount_spent_locale?: string;
+    identity_id?: number;
     note?: string;
     expire_at_locale?: string;
     in_use?: boolean;

@@ -28,6 +28,8 @@ import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReservationsTableFilters, { ReservationsTableFiltersProps } from './elements/ReservationsTableFilters';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function Reservations() {
     const identity = useAuthIdentity();
@@ -68,6 +70,7 @@ export default function Reservations() {
             order_by: 'created_at',
             order_dir: 'desc',
             per_page: paginatorService.getPerPage(paginatorKey),
+            page: 1,
         },
         {
             queryParams: {
@@ -313,23 +316,21 @@ export default function Reservations() {
                                 )}
 
                                 <div className="flex-col">
-                                    <div className="block block-label-tabs pull-right">
-                                        <div className="label-tab-set">
-                                            <div
-                                                className={`label-tab label-tab-sm ${
-                                                    shownReservationsType == 'active' ? 'active' : ''
-                                                }`}
-                                                onClick={() => setShownReservationType('active')}>
-                                                Lopend ({activeReservations.meta.total})
-                                            </div>
-                                            <div
-                                                className={`label-tab label-tab-sm ${
-                                                    shownReservationsType == 'archived' ? 'active' : ''
-                                                }`}
-                                                onClick={() => setShownReservationType('archived')}>
-                                                Archief ({archivedReservations.meta.total})
-                                            </div>
-                                        </div>
+                                    <div className="pull-right">
+                                        <BlockLabelTabs
+                                            value={shownReservationsType}
+                                            setValue={(type) => setShownReservationType(type)}
+                                            tabs={[
+                                                {
+                                                    value: 'active',
+                                                    label: `Lopend (${activeReservations.meta.total})`,
+                                                },
+                                                {
+                                                    value: 'archived',
+                                                    label: `Archief (${archivedReservations.meta.total})`,
+                                                },
+                                            ]}
+                                        />
                                     </div>
                                 </div>
 
@@ -362,23 +363,19 @@ export default function Reservations() {
                 {activeOrganization.identity_address == identity.address && (
                     <div className="card-section form">
                         <div className="flex flex flex-end">
-                            <label>
-                                <div className="form-toggle flex">
-                                    <input
-                                        type="checkbox"
-                                        id="accepted_by_default"
-                                        checked={acceptedByDefault}
-                                        onChange={(e) => toggleAcceptByDefault(e.target.checked)}
-                                    />
-                                    <div className="form-toggle-inner">
+                            <ToggleControl
+                                id="accepted_by_default"
+                                className="flex"
+                                checked={acceptedByDefault}
+                                labelRight={false}
+                                onChange={(_, checked) => toggleAcceptByDefault(checked)}
+                                customElement={
+                                    <span className="flex">
                                         <em className="mdi mdi-information-outline flex" />
-                                        &nbsp;Reserveringen automatisch accepteren &nbsp;
-                                        <div className="toggle-input">
-                                            <div className="toggle-input-dot" role="button" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </label>
+                                        <span>Reserveringen automatisch accepteren</span>
+                                    </span>
+                                }
+                            />
                         </div>
                     </div>
                 )}

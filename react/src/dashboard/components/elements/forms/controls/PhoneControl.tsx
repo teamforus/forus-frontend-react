@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import SelectControl from '../../select-control/SelectControl';
 import SelectControlOptionsCountryCodes from '../../select-control/templates/SelectControlOptionsCountryCodes';
 
@@ -53,7 +54,7 @@ export default function PhoneControl({
     }, [clear, dialCode, onChange, phoneNumber]);
 
     return (
-        <div className={`phone-control ${className}`} id={id}>
+        <div className={classNames('phone-control', className)} id={id}>
             <SelectControl
                 value={dialCode}
                 propKey={'dialCode'}

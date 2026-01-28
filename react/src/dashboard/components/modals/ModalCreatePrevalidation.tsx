@@ -240,8 +240,9 @@ export default function ModalCreatePrevalidation({
                                 <div className="col col-lg-8 col-lg-offset-2 col-lg-12">
                                     <FormGroup
                                         label={'Fonds'}
-                                        input={() => (
+                                        input={(id) => (
                                             <SelectControl
+                                                id={id}
                                                 className="form-control inline-filter-control"
                                                 propKey={'id'}
                                                 options={funds}
@@ -271,7 +272,7 @@ export default function ModalCreatePrevalidation({
                                             }
                                             error={form.errors['data.' + fundRecord]}
                                             key={index}
-                                            input={() => (
+                                            input={(id) => (
                                                 <div className="flex-row">
                                                     <div className="flex-col flex-col-padless-right flex-grow">
                                                         {recordTypesByKey &&
@@ -280,6 +281,7 @@ export default function ModalCreatePrevalidation({
                                                                 recordTypesByKey[fundRecord].type,
                                                             ) && (
                                                                 <SelectControl
+                                                                    id={id}
                                                                     propKey={'value'}
                                                                     placeholder="Waarde"
                                                                     value={form.values[fundRecord]}
@@ -297,6 +299,7 @@ export default function ModalCreatePrevalidation({
                                                                 <div
                                                                     data-dusk={`controlDate${recordTypesByKey[fundRecord].key}`}>
                                                                     <DatePickerControl
+                                                                        id={id}
                                                                         value={dateParse(form.values[fundRecord])}
                                                                         dateFormat="dd-MM-yyyy"
                                                                         placeholder={recordTypesByKey[fundRecord]?.name}
@@ -313,6 +316,7 @@ export default function ModalCreatePrevalidation({
                                                             recordTypesByKey[fundRecord] &&
                                                             recordTypesByKey[fundRecord].type == 'number' && (
                                                                 <input
+                                                                    id={id}
                                                                     type="number"
                                                                     value={form.values[fundRecord] || ''}
                                                                     placeholder={recordTypesByKey[fundRecord]?.name}
@@ -330,6 +334,7 @@ export default function ModalCreatePrevalidation({
                                                                 recordTypesByKey[fundRecord].type,
                                                             ) && (
                                                                 <input
+                                                                    id={id}
                                                                     type="string"
                                                                     value={form.values[fundRecord] || ''}
                                                                     placeholder={recordTypesByKey[fundRecord]?.name}

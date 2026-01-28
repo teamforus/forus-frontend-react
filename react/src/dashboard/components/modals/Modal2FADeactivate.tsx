@@ -4,13 +4,13 @@ import { useIdentity2FAService } from '../../services/Identity2FAService';
 import Identity2FA from '../../props/models/Identity2FA';
 import usePushDanger from '../../hooks/usePushDanger';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import FormError from '../elements/forms/errors/FormError';
 import PincodeControl from '../elements/forms/controls/PincodeControl';
 import Auth2FAInfoBox from '../elements/auth2fa-info-box/Auth2FAInfoBox';
 import useTimer from '../../hooks/useTimer';
 import classNames from 'classnames';
 import usePushApiError from '../../hooks/usePushApiError';
 import { ResponseError } from '../../props/ApiResponses';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function Modal2FADeactivate({
     modal,
@@ -158,26 +158,25 @@ export default function Modal2FADeactivate({
                                 </strong>
                             </div>
                             <div className="modal-text text-center">
-                                <div className="form-group">
-                                    {type == 'phone' && (
-                                        <div className="form-label">Voer de 6-cijferige SMS-code in</div>
+                                <FormGroup
+                                    label={
+                                        type == 'phone'
+                                            ? 'Voer de 6-cijferige SMS-code in'
+                                            : 'Voer de 6-cijferige code in vanuit de app'
+                                    }
+                                    error={errorCode}
+                                    input={() => (
+                                        <PincodeControl
+                                            value={confirmationCode}
+                                            onChange={setConfirmationCode}
+                                            className={'block-pincode-compact'}
+                                            valueType={'num'}
+                                            blockSize={3}
+                                            blockCount={2}
+                                            ariaLabel={'Voer de tweefactorauthenticatiecode in voor deactivering'}
+                                        />
                                     )}
-                                    {type == 'authenticator' && (
-                                        <div className="form-label">Voer de 6-cijferige code in vanuit de app</div>
-                                    )}
-
-                                    <PincodeControl
-                                        value={confirmationCode}
-                                        onChange={setConfirmationCode}
-                                        className={'block-pincode-compact'}
-                                        valueType={'num'}
-                                        blockSize={3}
-                                        blockCount={2}
-                                        ariaLabel={'Voer de tweefactorauthenticatiecode in voor deactivering'}
-                                    />
-
-                                    <FormError error={errorCode} />
-                                </div>
+                                />
                             </div>
                             {type == 'phone' && (
                                 <div className="modal-text text-center">
@@ -187,7 +186,12 @@ export default function Modal2FADeactivate({
                                         onClick={() => resendCode()}
                                         disabled={timer?.time > 0}>
                                         <div
-                                            className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
+                                            className={classNames(
+                                                'mdi',
+                                                'mdi-refresh',
+                                                'icon-start',
+                                                sendingCode && 'mdi-spin',
+                                            )}
                                         />
                                         Code opnieuw verzenden
                                         {timer?.time > 0 && <span>&nbsp;({timer?.time} seconde(n))</span>}

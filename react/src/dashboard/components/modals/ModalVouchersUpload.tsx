@@ -994,7 +994,7 @@ export default function ModalVouchersUpload({
                 <div
                     className={classNames(
                         'modal-body',
-                        classNames(step === STEP_SET_UP ? 'modal-body-visible' : ''),
+                        classNames(step === STEP_SET_UP && 'modal-body-visible'),
                         'form',
                     )}>
                     {step == STEP_SET_UP && (
@@ -1091,7 +1091,7 @@ export default function ModalVouchersUpload({
                                 </div>
 
                                 {csvProgress >= 2 && (
-                                    <div className={`csv-upload-progress ${csvProgress == 3 ? 'done' : ''}`}>
+                                    <div className={classNames('csv-upload-progress', csvProgress == 3 && 'done')}>
                                         <div className="csv-upload-icon">
                                             {csvProgress == 2 && <div className="mdi mdi-loading" />}
                                             {csvProgress == 3 && (

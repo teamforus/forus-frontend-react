@@ -205,7 +205,7 @@ export default function BlockReimbursementCategories({
                 </div>
 
                 {categories?.meta.total > 0 && (
-                    <div className={`card-section ${compact ? 'card-section-narrow' : ''}`}>
+                    <div className={classNames('card-section', compact && 'card-section-narrow')}>
                         <Paginator
                             meta={categories.meta}
                             filters={filterValues}

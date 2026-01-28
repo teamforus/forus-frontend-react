@@ -368,11 +368,12 @@ export default function ModalReservationUpload({
                                     </Fragment>
                                 )}
                                 {progress >= 2 && (
-                                    <div className={`csv-upload-progress ${progress === 3 ? 'done' : ''}`}>
+                                    <div className={classNames('csv-upload-progress', progress === 3 && 'done')}>
                                         <div
-                                            className={`csv-upload-icon ${
-                                                uploadedPartly ? 'csv-upload-icon-warning' : ''
-                                            }`}>
+                                            className={classNames(
+                                                'csv-upload-icon',
+                                                uploadedPartly && 'csv-upload-icon-warning',
+                                            )}>
                                             {progress == 2 && <div className="mdi mdi-loading" />}
                                             {progress == 3 && !uploadedPartly && <div className="mdi mdi-check" />}
                                             {progress == 3 && uploadedPartly && (

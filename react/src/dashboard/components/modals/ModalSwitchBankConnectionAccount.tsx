@@ -1,12 +1,13 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import { useBankConnectionService } from '../../services/BankConnectionService';
 import BankConnection from '../../props/models/BankConnection';
 import SelectControl from '../elements/select-control/SelectControl';
-import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalSwitchBankConnectionAccount({
     modal,
@@ -40,7 +41,7 @@ export default function ModalSwitchBankConnectionAccount({
     );
 
     return (
-        <div className={`modal modal-sm modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-sm', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={modal.close} />
             <div className="modal-window">
                 <form className="form" onSubmit={form.submit}>
@@ -48,24 +49,23 @@ export default function ModalSwitchBankConnectionAccount({
                     <div className="modal-header">Selecteer bankrekeningnummer</div>
                     <div className="modal-body modal-body-visible">
                         <div className="modal-section">
-                            <div className="form-group">
-                                <label className="form-label" htmlFor="bank_connection_account_id">
-                                    IBAN
-                                </label>
-
-                                <SelectControl
-                                    value={form.values.bank_connection_account_id}
-                                    propValue={'monetary_account_iban'}
-                                    propKey={'id'}
-                                    onChange={(bank_connection_account_id: number) => {
-                                        form.update({ bank_connection_account_id });
-                                    }}
-                                    options={bankConnection.accounts}
-                                    allowSearch={false}
-                                />
-
-                                <FormError error={form.errors?.bank_connection_account_id} />
-                            </div>
+                            <FormGroup
+                                label="IBAN"
+                                error={form.errors?.bank_connection_account_id}
+                                input={(id) => (
+                                    <SelectControl
+                                        id={id}
+                                        value={form.values.bank_connection_account_id}
+                                        propValue={'monetary_account_iban'}
+                                        propKey={'id'}
+                                        onChange={(bank_connection_account_id: number) => {
+                                            form.update({ bank_connection_account_id });
+                                        }}
+                                        options={bankConnection.accounts}
+                                        allowSearch={false}
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
 

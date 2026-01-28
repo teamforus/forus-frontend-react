@@ -1,7 +1,6 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import PincodeControl from '../elements/forms/controls/PincodeControl';
 import { useIdentityService } from '../../services/IdentityService';
 import ModalNotification from './ModalNotification';
@@ -10,6 +9,7 @@ import useAssetUrl from '../../hooks/useAssetUrl';
 import { ResponseError } from '../../props/ApiResponses';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
     const assetUrl = useAssetUrl();
@@ -108,14 +108,16 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                             <div className="app-instructions-subtitle" id="pinCodeDialogSubtitle">
                                 {translate('open_in_me.app_header.subtitle')}
                             </div>
-                            <div className="form-group">
-                                <PincodeControl
-                                    value={form.values.pin_code.toString()}
-                                    onChange={(pin_code) => form.update({ pin_code })}
-                                    ariaLabel={'Voer de koppelcode van de Me-app in'}
-                                />
-                                <FormError error={form.errors.auth_code} />
-                            </div>
+                            <FormGroup
+                                error={form.errors.auth_code}
+                                input={() => (
+                                    <PincodeControl
+                                        value={form.values.pin_code.toString()}
+                                        onChange={(pin_code) => form.update({ pin_code })}
+                                        ariaLabel={'Voer de koppelcode van de Me-app in'}
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
                 </div>

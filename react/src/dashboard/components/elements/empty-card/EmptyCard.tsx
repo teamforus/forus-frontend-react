@@ -1,9 +1,10 @@
 import React, { Fragment, ReactNode, useMemo } from 'react';
+import classNames from 'classnames';
 import { NavLink } from 'react-router';
 
 interface EmptyButtonType {
     to?: string;
-    type?: string;
+    type?: 'default' | 'primary' | 'danger';
     icon?: string;
     text?: string;
     dusk?: string;
@@ -17,7 +18,7 @@ export default function EmptyCard({
     imageIcon,
     imageIconImg,
     imageIconSvg,
-    textAlign,
+    textAlign = 'center',
     button = null,
     buttons = [],
     type = 'card',
@@ -54,7 +55,15 @@ export default function EmptyCard({
 
     return (
         <Wrapper>
-            <div className={`block block-empty text-${textAlign || 'center'}`} data-dusk="emptyCard">
+            <div
+                className={classNames(
+                    'block',
+                    'block-empty',
+                    textAlign === 'left' && 'text-left',
+                    textAlign === 'right' && 'text-right',
+                    textAlign === 'center' && 'text-center',
+                )}
+                data-dusk="emptyCard">
                 {imageIconImg && (
                     <div className="empty-icon">
                         <img className="empty-icon-img empty-icon-img-border" src={imageIconImg} alt={''} />
@@ -94,7 +103,12 @@ export default function EmptyCard({
                                     key={index}
                                     to={button.to}
                                     onClick={button.onClick}
-                                    className={`button button-${button.type || 'default'}`}
+                                    className={classNames(
+                                        'button',
+                                        (!button.type || button.type === 'default') && 'button-default',
+                                        button.type === 'primary' && 'button-primary',
+                                        button.type === 'danger' && 'button-danger',
+                                    )}
                                     data-dusk={button.dusk || 'btnEmptyBlock'}>
                                     {button.icon && (!button.iconPosition || button.iconPosition == 'start') && (
                                         <em className={`mdi mdi-${button.icon} icon-start`} />

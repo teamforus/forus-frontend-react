@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -18,9 +19,11 @@ import EmptyCard from '../empty-card/EmptyCard';
 import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
 import TableTopScroller from './TableTopScroller';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
+import CheckboxControl from '../forms/controls/CheckboxControl';
 import useEventLogsExporter from '../../../services/exporters/useEventLogsExporter';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { ArrayParam, NumberParam, StringParam } from 'use-query-params';
+import FormGroup from '../forms/elements/FormGroup';
 
 export default function EventLogsTable({
     organization,
@@ -177,16 +180,19 @@ export default function EventLogsTable({
                             )}
                             {!filter.show && (
                                 <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            type="search"
-                                            className="form-control"
-                                            value={filterValues.q}
-                                            data-dusk="tableEventLogsSearch"
-                                            onChange={(e) => filterUpdate({ q: e.target.value })}
-                                            placeholder={translate('event_logs.labels.search')}
-                                        />
-                                    </div>
+                                    <FormGroup
+                                        input={(id) => (
+                                            <input
+                                                type="search"
+                                                id={id}
+                                                className="form-control"
+                                                value={filterValues.q}
+                                                data-dusk="tableEventLogsSearch"
+                                                onChange={(e) => filterUpdate({ q: e.target.value })}
+                                                placeholder={translate('event_logs.labels.search')}
+                                            />
+                                        )}
+                                    />
                                 </div>
                             )}
 
@@ -205,24 +211,13 @@ export default function EventLogsTable({
                                         <div>
                                             {loggables.map((loggable) => (
                                                 <div key={loggable.key}>
-                                                    <label
-                                                        className="checkbox checkbox-narrow"
-                                                        htmlFor={'checkbox_' + loggable.key}>
-                                                        <input
-                                                            onChange={(e) =>
-                                                                selectLoggable(loggable.key, e.target.checked)
-                                                            }
-                                                            id={'checkbox_' + loggable.key}
-                                                            type="checkbox"
-                                                            checked={filterValues.loggable.indexOf(loggable.key) !== -1}
-                                                        />
-                                                        <div className="checkbox-label">
-                                                            <div className="checkbox-box">
-                                                                <div className="mdi mdi-check" />
-                                                            </div>
-                                                            {loggable.title}
-                                                        </div>
-                                                    </label>
+                                                    <CheckboxControl
+                                                        id={'checkbox_' + loggable.key}
+                                                        checked={filterValues.loggable.indexOf(loggable.key) !== -1}
+                                                        narrow={true}
+                                                        onChange={(_, checked) => selectLoggable(loggable.key, checked)}
+                                                        title={loggable.title}
+                                                    />
                                                 </div>
                                             ))}
                                         </div>
@@ -283,9 +278,15 @@ export default function EventLogsTable({
                                             <td>
                                                 {log.note && log.note != log.note_substr && (
                                                     <a
-                                                        className={`td-icon mdi mdi-information block block-tooltip-details pull-left ${
-                                                            noteTooltip === log.id ? 'active' : ''
-                                                        }`}
+                                                        className={classNames(
+                                                            'td-icon',
+                                                            'mdi',
+                                                            'mdi-information',
+                                                            'block',
+                                                            'block-tooltip-details',
+                                                            'pull-left',
+                                                            noteTooltip === log.id && 'active',
+                                                        )}
                                                         onClick={(e) => showNoteTooltip(e, log)}>
                                                         {noteTooltip && (
                                                             <ClickOutside

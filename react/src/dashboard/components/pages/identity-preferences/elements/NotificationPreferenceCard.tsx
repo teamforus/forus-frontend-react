@@ -1,6 +1,7 @@
 import React from 'react';
 import { PreferenceOption } from '../../../../props/models/NotificationPreference';
 import useTranslate from '../../../../hooks/useTranslate';
+import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 
 export default function NotificationPreferenceCard({
     title,
@@ -20,10 +21,18 @@ export default function NotificationPreferenceCard({
             </div>
             <div className="form block block-preferences">
                 {preferences.map((preference) => (
-                    <label
+                    <div
                         key={preference.key}
-                        htmlFor={`option_${preference.type}_${preference.key}`}
-                        className="preference-option">
+                        className="preference-option"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => togglePreference(preference, !preference.subscribed)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                togglePreference(preference, !preference.subscribed);
+                            }
+                        }}>
                         <div className="preference-option-details">
                             <div className="card-heading card-heading-padless">
                                 {translate(`notification_preferences.types.${preference.key}.title`)}
@@ -34,21 +43,14 @@ export default function NotificationPreferenceCard({
                             </div>
                         </div>
                         <div className="preference-option-input">
-                            <div className="form-toggle">
-                                <input
-                                    type="checkbox"
-                                    id={`option_${preference.type}_${preference.key}`}
-                                    checked={preference.subscribed}
-                                    onChange={(e) => togglePreference(preference, e.target.checked)}
-                                />
-                                <div className="form-toggle-inner flex-end">
-                                    <div className="toggle-input">
-                                        <div className="toggle-input-dot"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <ToggleControl
+                                id={`option_${preference.type}_${preference.key}`}
+                                checked={preference.subscribed}
+                                onChange={(_, checked) => togglePreference(preference, checked)}
+                                onClick={(e) => e.stopPropagation()}
+                            />
                         </div>
-                    </label>
+                    </div>
                 ))}
             </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import BlockReimbursementCategories from '../elements/block-reimbursement-categories/BlockReimbursementCategories';
 
@@ -26,9 +27,13 @@ export default function ModalReimbursementCategoriesEdit({
 
     return (
         <div
-            className={`modal modal-lg modal-animated ${
-                modal.loading || !showModal ? 'modal-loading' : ''
-            } ${className}`}>
+            className={classNames(
+                'modal',
+                'modal-lg',
+                'modal-animated',
+                (modal.loading || !showModal) && 'modal-loading',
+                className,
+            )}>
             <div className="modal-backdrop" onClick={closeModal} />
 
             <div className="modal-window">

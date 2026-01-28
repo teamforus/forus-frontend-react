@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ApiResponseSingle, ResponseError } from '../../props/ApiResponses';
 import Reimbursement from '../../props/models/Reimbursement';
@@ -14,6 +15,7 @@ import ReimbursementCategory from '../../props/models/ReimbursementCategory';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalReimbursementCategoriesEdit from '../modals/ModalReimbursementCategoriesEdit';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalReimbursementDetailsEdit({
     modal,
@@ -89,9 +91,13 @@ export default function ModalReimbursementDetailsEdit({
 
     return (
         <div
-            className={`modal modal-md modal-animated ${
-                modal.loading || !showModal ? 'modal-loading' : ''
-            } ${className}`}>
+            className={classNames(
+                'modal',
+                'modal-md',
+                'modal-animated',
+                (modal.loading || !showModal) && 'modal-loading',
+                className,
+            )}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <div className="modal-window">
@@ -103,16 +109,20 @@ export default function ModalReimbursementDetailsEdit({
                         <div className="modal-section">
                             {description && <div className="modal-text">{description}</div>}
 
-                            <div className="form-group">
-                                <label className="form-label form-label-required">Aanbieder</label>
-                                <input
-                                    className="form-control"
-                                    placeholder="Aanbieder"
-                                    value={form.values.provider_name}
-                                    onChange={(e) => form.update({ provider_name: e.target.value })}
-                                />
-                                <FormError error={form.errors.provider_name} />
-                            </div>
+                            <FormGroup
+                                required={true}
+                                label="Aanbieder"
+                                error={form.errors.provider_name}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        placeholder="Aanbieder"
+                                        value={form.values.provider_name}
+                                        onChange={(e) => form.update({ provider_name: e.target.value })}
+                                    />
+                                )}
+                            />
 
                             <div className="form-group">
                                 <label className="form-label form-label-required">Categorie</label>

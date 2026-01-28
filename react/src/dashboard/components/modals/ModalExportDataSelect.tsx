@@ -4,6 +4,7 @@ import { chunk } from 'lodash';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import ToggleControl from '../elements/forms/controls/ToggleControl';
 
 export type ExportFieldProp = {
     key?: string;
@@ -164,15 +165,19 @@ export default function ModalExportDataSelect({
                             {localSections?.map((section, indexSection) => (
                                 <div
                                     key={indexSection}
-                                    className={`export-section 
-                                    ${section.collapsable ? 'export-section-collapsable' : ''} 
-                                    ${section.key == 'extra_fields' ? 'export-section-extra-fields' : ''}`}>
+                                    className={classNames(
+                                        'export-section',
+                                        section.collapsable && 'export-section-collapsable',
+                                        section.key == 'extra_fields' && 'export-section-extra-fields',
+                                    )}>
                                     <div className="export-section-label flex" onClick={() => collapseSection(section)}>
                                         {section.collapsable && (
                                             <em
-                                                className={`mdi export-section-label-icon ${
-                                                    section.collapsed ? 'mdi-menu-right' : 'mdi-menu-down'
-                                                }`}
+                                                className={classNames(
+                                                    'mdi',
+                                                    'export-section-label-icon',
+                                                    section.collapsed ? 'mdi-menu-right' : 'mdi-menu-down',
+                                                )}
                                             />
                                         )}
                                         <div className="flex flex-grow flex-vertical flex-center">
@@ -180,22 +185,12 @@ export default function ModalExportDataSelect({
                                         </div>
                                         {section.type === 'checkbox' && (
                                             <div className="flex">
-                                                <label
-                                                    className="form-toggle"
-                                                    data-dusk={`toggle_${section.key}`}
-                                                    htmlFor={`checkbox_${section.key}_check_all`}>
-                                                    <input
-                                                        type="checkbox"
-                                                        id={`checkbox_${section.key}_check_all`}
-                                                        checked={section.selectAll}
-                                                        onChange={() => toggleAllFields(section, !section.selectAll)}
-                                                    />
-                                                    <div className="form-toggle-inner flex-end">
-                                                        <div className="toggle-input">
-                                                            <div className="toggle-input-dot" />
-                                                        </div>
-                                                    </div>
-                                                </label>
+                                                <ToggleControl
+                                                    id={`checkbox_${section.key}_check_all`}
+                                                    checked={section.selectAll}
+                                                    dusk={`toggle_${section.key}`}
+                                                    onChange={(_, checked) => toggleAllFields(section, checked)}
+                                                />
                                             </div>
                                         )}
                                     </div>

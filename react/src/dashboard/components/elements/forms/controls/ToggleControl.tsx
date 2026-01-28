@@ -17,6 +17,7 @@ export default function ToggleControl({
     labelRight = true,
     tabIndex,
     onKeyDown,
+    dusk,
 }: {
     id?: string;
     title?: string;
@@ -31,6 +32,7 @@ export default function ToggleControl({
     labelRight?: boolean;
     tabIndex?: number;
     onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
+    dusk?: string;
 }) {
     const formId = useMemo(() => (id ? id : uniqueId('toggle_control_')), [id]);
 
@@ -41,6 +43,7 @@ export default function ToggleControl({
             tabIndex={tabIndex}
             onKeyDown={onKeyDown}
             onClick={onClick}
+            data-dusk={dusk}
             className={classNames('form-toggle', className, disabled && 'form-toggle-disabled')}>
             <input
                 type="checkbox"

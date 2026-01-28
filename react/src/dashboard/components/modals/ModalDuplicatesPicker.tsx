@@ -158,7 +158,7 @@ export default function ModalDuplicatesPicker({
                 <div className="modal-body">
                     <div className="modal-hero">
                         <div className="hero-icon">
-                            <em className={`mdi ${hero_icon ? `mdi-${hero_icon}` : ''}`} />
+                            <em className={classNames('mdi', hero_icon && `mdi-${hero_icon}`)} />
                         </div>
 
                         {hero_title && <div className="hero-title">{hero_title}</div>}
@@ -197,9 +197,10 @@ export default function ModalDuplicatesPicker({
                                                 <td>
                                                     <div className="switch-input">
                                                         <div
-                                                            className={`switch-input-label ${
-                                                                item.blink ? 'switch-input-label-blink' : ''
-                                                            }`}>
+                                                            className={classNames(
+                                                                'switch-input-label',
+                                                                item.blink && 'switch-input-label-blink',
+                                                            )}>
                                                             {item.model ? labels.label_on : labels.label_off}
                                                         </div>
                                                         <div className="switch-input-control">
