@@ -51,5 +51,6 @@ export default {
         title: 'Bankrekening',
         iban: 'IBAN',
         name: 'Tenaam stelling',
+        source: 'Bron',
     },
 };

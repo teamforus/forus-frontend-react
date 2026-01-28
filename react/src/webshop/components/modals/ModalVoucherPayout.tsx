@@ -16,6 +16,7 @@ import UIControlCheckbox from '../../../dashboard/components/elements/forms/ui-c
 import { currencyFormat } from '../../../dashboard/helpers/string';
 import BlockWarning from '../elements/block-warning/BlockWarning';
 import TranslateHtml from '../../../dashboard/components/elements/translate-html/TranslateHtml';
+import useFundRequestBankAccounts from '../../hooks/useFundRequestBankAccounts';
 
 export default function ModalVoucherPayout({
     modal,
@@ -36,7 +37,9 @@ export default function ModalVoucherPayout({
 
     const [state, setState] = useState<'form' | 'success'>('form');
     const [voucherList] = useState<Array<Voucher>>(vouchers || []);
-    const eligibleVouchers = usePayoutEligibleVouchers(voucherList);
+
+    const { fundRequestAccounts } = useFundRequestBankAccounts();
+    const eligibleVouchers = usePayoutEligibleVouchers(voucherList, fundRequestAccounts);
 
     const finish = useCallback(() => {
         modal.close();
@@ -48,12 +51,17 @@ export default function ModalVoucherPayout({
             voucher_id: selectedVoucher?.id || eligibleVouchers?.[0]?.id || null,
             amount: '',
             accept_compliance_rules: false,
+            fund_request_id: fundRequestAccounts?.[0]?.type_id || null,
         },
         (values) => {
             setProgress(0);
 
             payoutService
-                .store({ voucher_id: values.voucher_id, amount: values.amount })
+                .store({
+                    voucher_id: values.voucher_id,
+                    amount: values.amount,
+                    fund_request_id: values.fund_request_id,
+                })
                 .then(() => {
                     setState('success');
                 })
@@ -70,12 +78,23 @@ export default function ModalVoucherPayout({
         return eligibleVouchers.find((voucher) => voucher.id === form.values.voucher_id);
     }, [eligibleVouchers, form.values.voucher_id]);
 
+    const selectedBankAccount = useMemo(() => {
+        return fundRequestAccounts?.find((account) => account.type_id === form.values.fund_request_id);
+    }, [fundRequestAccounts, form.values.fund_request_id]);
+
+    const fundRequestOptions = useMemo(() => {
+        return (fundRequestAccounts || []).map((account) => ({
+            id: account.type_id,
+            name: `${account.created_by_locale} #${account.type_id} - ${account.iban} / ${account.name}`,
+        }));
+    }, [fundRequestAccounts]);
+
     const selectedVoucherId = selectedVoucherItem?.id;
     const updateForm = form.update;
 
     const fixedPayoutAmount = useMemo(() => {
-        return selectedVoucherItem?.fund?.allow_voucher_payout_amount;
-    }, [selectedVoucherItem?.fund?.allow_voucher_payout_amount]);
+        return selectedVoucherItem?.fund?.voucher_payout_fixed_amount;
+    }, [selectedVoucherItem?.fund?.voucher_payout_fixed_amount]);
 
     const payoutCountWarning = useMemo(() => {
         if (!selectedVoucherItem) {
@@ -123,21 +142,6 @@ export default function ModalVoucherPayout({
 
     const warningMessage = payoutCountWarning || payoutAmountWarning;
 
-    const fixedPayoutAmountOption = useMemo(() => {
-        if (fixedPayoutAmount === null || fixedPayoutAmount === undefined) {
-            return [];
-        }
-
-        const amountNumber = parseFloat(fixedPayoutAmount);
-
-        return [
-            {
-                key: fixedPayoutAmount,
-                name: isNaN(amountNumber) ? fixedPayoutAmount : currencyFormat(amountNumber),
-            },
-        ];
-    }, [fixedPayoutAmount]);
-
     useEffect(() => {
         if (!selectedVoucherId) {
             return;
@@ -150,11 +154,35 @@ export default function ModalVoucherPayout({
         }
     }, [fixedPayoutAmount, selectedVoucherId, updateForm]);
 
+    useEffect(() => {
+        if (!fundRequestAccounts?.length) {
+            return;
+        }
+
+        if (!form.values.fund_request_id) {
+            updateForm({ fund_request_id: fundRequestAccounts[0].type_id });
+            return;
+        }
+
+        if (!fundRequestAccounts.find((account) => account.type_id === form.values.fund_request_id)) {
+            updateForm({ fund_request_id: fundRequestAccounts[0].type_id });
+        }
+    }, [fundRequestAccounts, form.values.fund_request_id, updateForm]);
+
+    useEffect(() => {
+        if (!eligibleVouchers.length || form.values.voucher_id) {
+            return;
+        }
+
+        updateForm({ voucher_id: eligibleVouchers[0].id });
+    }, [eligibleVouchers, form.values.voucher_id, updateForm]);
+
     const disableSubmit = useMemo(() => {
         return (
             form.isLocked ||
             !form.values.voucher_id ||
             !form.values.amount ||
+            !form.values.fund_request_id ||
             !form.values.accept_compliance_rules ||
             Boolean(warningMessage)
         );
@@ -162,6 +190,7 @@ export default function ModalVoucherPayout({
         form.isLocked,
         form.values.accept_compliance_rules,
         form.values.amount,
+        form.values.fund_request_id,
         form.values.voucher_id,
         warningMessage,
     ]);
@@ -197,9 +226,9 @@ export default function ModalVoucherPayout({
                             <FormGroup
                                 label={translate('voucher.payout.voucher_label')}
                                 error={form.errors?.voucher_id}
-                                input={(inputId) => (
+                                input={(id) => (
                                     <SelectControl
-                                        id={inputId}
+                                        id={id}
                                         className="form-control"
                                         propKey="id"
                                         propValue="address"
@@ -218,26 +247,54 @@ export default function ModalVoucherPayout({
 
                             {!warningMessage && (
                                 <Fragment>
+                                    {fundRequestOptions.length > 1 && (
+                                        <FormGroup
+                                            label={translate('profile.bank_accounts.source')}
+                                            error={form.errors?.fund_request_id}
+                                            input={(id) => (
+                                                <SelectControl
+                                                    id={id}
+                                                    className="form-control"
+                                                    propKey="id"
+                                                    propValue="name"
+                                                    allowSearch={false}
+                                                    options={fundRequestOptions}
+                                                    value={form.values.fund_request_id ?? ''}
+                                                    onChange={(fund_request_id?: number) =>
+                                                        form.update({ fund_request_id })
+                                                    }
+                                                    dusk="voucherPayoutFundRequestSelect"
+                                                />
+                                            )}
+                                        />
+                                    )}
+
                                     <FormGroup
                                         label={translate('voucher.payout.amount')}
                                         required={true}
                                         error={form.errors?.amount}
-                                        input={(inputId) =>
-                                            fixedPayoutAmount !== null && fixedPayoutAmount !== undefined ? (
-                                                <SelectControl
-                                                    id={inputId}
-                                                    className="form-control"
-                                                    propKey="key"
-                                                    propValue="name"
-                                                    allowSearch={false}
-                                                    options={fixedPayoutAmountOption}
-                                                    value={form.values.amount ?? ''}
-                                                    onChange={(amount?: string) => form.update({ amount })}
-                                                    dusk="voucherPayoutAmount"
-                                                />
-                                            ) : (
+                                        input={(id) => {
+                                            if (fixedPayoutAmount !== null && fixedPayoutAmount !== undefined) {
+                                                const amountNumber = parseFloat(fixedPayoutAmount);
+                                                const displayValue = isNaN(amountNumber)
+                                                    ? fixedPayoutAmount
+                                                    : currencyFormat(amountNumber);
+
+                                                return (
+                                                    <input
+                                                        id={id}
+                                                        className="form-control"
+                                                        type="text"
+                                                        value={displayValue}
+                                                        disabled={true}
+                                                        data-dusk="voucherPayoutAmount"
+                                                    />
+                                                );
+                                            }
+
+                                            return (
                                                 <input
-                                                    id={inputId}
+                                                    id={id}
                                                     className="form-control"
                                                     type="number"
                                                     min={0.1}
@@ -247,8 +304,8 @@ export default function ModalVoucherPayout({
                                                     placeholder={translate('voucher.payout.amount')}
                                                     data-dusk="voucherPayoutAmount"
                                                 />
-                                            )
-                                        }
+                                            );
+                                        }}
                                     />
 
                                     <div className="row">
@@ -256,13 +313,13 @@ export default function ModalVoucherPayout({
                                             <FormGroup
                                                 label={translate('voucher.payout.iban')}
                                                 required={true}
-                                                input={(inputId) => (
+                                                input={(id) => (
                                                     <input
-                                                        id={inputId}
+                                                        id={id}
                                                         className="form-control"
                                                         type="text"
                                                         disabled={true}
-                                                        value={selectedVoucherItem?.fund_request?.iban}
+                                                        value={selectedBankAccount?.iban || ''}
                                                         placeholder={translate('voucher.payout.iban')}
                                                     />
                                                 )}
@@ -273,13 +330,13 @@ export default function ModalVoucherPayout({
                                                 label={translate('voucher.payout.iban_name')}
                                                 required={true}
                                                 error={form.errors?.iban_name}
-                                                input={(inputId) => (
+                                                input={(id) => (
                                                     <input
-                                                        id={inputId}
+                                                        id={id}
                                                         className="form-control"
                                                         type="text"
                                                         disabled={true}
-                                                        value={selectedVoucherItem?.fund_request?.iban_name}
+                                                        value={selectedBankAccount?.name || ''}
                                                         placeholder={translate('voucher.payout.iban_name')}
                                                     />
                                                 )}
@@ -290,7 +347,7 @@ export default function ModalVoucherPayout({
                                     <FormGroup
                                         label={translate('voucher.payout.accept_compliance_rules_label')}
                                         required={true}
-                                        input={(inputId) => (
+                                        input={(id) => (
                                             <div className="flex flex-gap flex-vertical">
                                                 <BlockWarning>
                                                     <div className="block block-markdown">
@@ -300,7 +357,7 @@ export default function ModalVoucherPayout({
                                                     </div>
                                                 </BlockWarning>
                                                 <UIControlCheckbox
-                                                    id={inputId}
+                                                    id={id}
                                                     checked={form.values.accept_compliance_rules}
                                                     name="accept_compliance_rules"
                                                     label={translate('voucher.payout.accept_compliance_rules')}

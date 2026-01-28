@@ -1,11 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
 import useEnvData from '../../../hooks/useEnvData';
 
 export default function Auth2FAInfoBox({ className = '' }: { className?: string }) {
     const envData = useEnvData();
 
     return (
-        <div className={`block block-info-box ${className}`}>
+        <div className={classNames('block', 'block-info-box', className)}>
             <div className="info-box-icon mdi mdi-information-outline" />
             {envData.client_type == 'sponsor' && (
                 <div className="info-box-content">

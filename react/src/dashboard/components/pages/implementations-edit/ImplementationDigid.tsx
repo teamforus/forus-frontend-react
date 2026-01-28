@@ -17,6 +17,7 @@ import FormPaneContainer from '../../elements/forms/elements/FormPaneContainer';
 import FormPane from '../../elements/forms/elements/FormPane';
 import FormGroup from '../../elements/forms/elements/FormGroup';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import ToggleControl from '../../elements/forms/controls/ToggleControl';
 
 export default function ImplementationDigid() {
     const { id } = useParams();
@@ -165,20 +166,12 @@ export default function ImplementationDigid() {
                         <FormGroup
                             label={'Status'}
                             input={(id) => (
-                                <label className="form-toggle form-label" htmlFor={id}>
-                                    <input
-                                        className="form-label"
-                                        type="checkbox"
-                                        id={id}
-                                        checked={form.values?.digid_enabled}
-                                        onChange={(e) => form.update({ digid_enabled: e.target.checked })}
-                                    />
-                                    <div className="form-toggle-inner flex-end">
-                                        <div className="toggle-input">
-                                            <div className="toggle-input-dot" />
-                                        </div>
-                                    </div>
-                                </label>
+                                <ToggleControl
+                                    id={id}
+                                    className="form-label"
+                                    checked={form.values?.digid_enabled}
+                                    onChange={(_, checked) => form.update({ digid_enabled: checked })}
+                                />
                             )}
                         />
                     </FormPane>

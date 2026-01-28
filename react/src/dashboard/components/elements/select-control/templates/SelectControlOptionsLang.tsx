@@ -55,7 +55,7 @@ export default function SelectControlOptionsLang<T>({
             ref={selectorRef}
             onKeyDown={onKeyDown}
             onBlur={onBlur}>
-            <div className={['lang-control-input', showOptions ? 'options' : ''].filter((item) => item).join(' ')}>
+            <div className={classNames('lang-control-input', showOptions && 'options')}>
                 {/* Placeholder */}
                 <label
                     htmlFor={controlId}

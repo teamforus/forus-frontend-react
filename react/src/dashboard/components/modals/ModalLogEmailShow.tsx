@@ -4,6 +4,7 @@ import EmailLog from '../../props/models/EmailLog';
 import classNames from 'classnames';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 import TableDateTime from '../elements/tables/elements/TableDateTime';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalLogEmailShow({
     modal,
@@ -56,34 +57,40 @@ export default function ModalLogEmailShow({
                                     </div>
                                 </div>
                             </div>
-                            <div className="form-group">
-                                <div className="form-label">Onderwerp</div>
-                                <div className={'form-control form-control-dashed'}>{emailLog.subject}</div>
-                            </div>
-                            <div className="form-group">
-                                <div className="form-label">Bericht</div>
-                                <div className={'form-control form-control-dashed email-log-preview'}>
-                                    {!modal.loading && emailLog.content && (
-                                        <iframe
-                                            sandbox={'allow-same-origin'}
-                                            srcDoc={emailLog.content}
-                                            onLoad={(e) => {
-                                                const iframeDoc = e.currentTarget.contentWindow.document;
-                                                const iframeDocHeight = iframeDoc.documentElement.scrollHeight;
+                            <FormGroup
+                                label="Onderwerp"
+                                input={() => (
+                                    <div className={'form-control form-control-dashed'}>{emailLog.subject}</div>
+                                )}
+                            />
+                            <FormGroup
+                                label="Bericht"
+                                input={() => (
+                                    <div className={'form-control form-control-dashed email-log-preview'}>
+                                        {!modal.loading && emailLog.content && (
+                                            <iframe
+                                                sandbox={'allow-same-origin'}
+                                                srcDoc={emailLog.content}
+                                                onLoad={(e) => {
+                                                    const iframeDoc = e.currentTarget.contentWindow.document;
+                                                    const iframeDocHeight = iframeDoc.documentElement.scrollHeight;
 
-                                                iframeDoc.querySelectorAll('a').forEach((el) => {
-                                                    el.onclick = (e) => {
-                                                        e.preventDefault();
-                                                        window.open(el.href, '_blank', 'noopener,noreferrer')?.focus();
-                                                    };
-                                                });
+                                                    iframeDoc.querySelectorAll('a').forEach((el) => {
+                                                        el.onclick = (e) => {
+                                                            e.preventDefault();
+                                                            window
+                                                                .open(el.href, '_blank', 'noopener,noreferrer')
+                                                                ?.focus();
+                                                        };
+                                                    });
 
-                                                e.currentTarget.style.height = `${iframeDocHeight}px`;
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                            </div>
+                                                    e.currentTarget.style.height = `${iframeDocHeight}px`;
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                )}
+                            />
                         </div>
                     </div>
                 </div>

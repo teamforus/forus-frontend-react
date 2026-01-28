@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import classNames from 'classnames';
 import ClickOutside from '../../click-outside/ClickOutside';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../SelectControl';
@@ -36,7 +37,7 @@ export default function SelectControlOptionsCountryCodes<T>({
 
     return (
         <div
-            className={'select-control select-control-country-codes ' + (className ? className : '')}
+            className={classNames('select-control', 'select-control-country-codes', className)}
             tabIndex={0}
             role="button"
             aria-haspopup="listbox"
@@ -46,7 +47,7 @@ export default function SelectControlOptionsCountryCodes<T>({
             ref={selectorRef}
             onKeyDown={onKeyDown}
             onBlur={onBlur}>
-            <div className={['select-control-input', showOptions ? 'options' : ''].filter((item) => item).join(' ')}>
+            <div className={classNames('select-control-input', showOptions && 'options')}>
                 {/* Placeholder */}
                 <label
                     htmlFor={controlId}

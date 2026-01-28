@@ -4,6 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { currencyFormat } from '../../../../helpers/string';
 import { ProviderFinancialStatistics } from '../types/FinancialStatisticTypes';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
+import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -67,19 +68,20 @@ export default function FinancialChart({ chartData }: { chartData: ProviderFinan
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">Grafiek</div>
-                <div className="flex block block-label-tabs">
-                    <div
-                        className={`label-tab ${field === 'amount' ? 'active' : ''}`}
-                        onClick={() => setField('amount')}>
-                        Besteed
-                    </div>
-                    <div className={`label-tab ${field === 'count' ? 'active' : ''}`} onClick={() => setField('count')}>
-                        Totaal transacties
-                    </div>
+                <div className="flex">
+                    <BlockLabelTabs
+                        value={field}
+                        setValue={(value) => setField(value)}
+                        size={null}
+                        tabs={[
+                            { value: 'amount', label: 'Besteed' },
+                            { value: 'count', label: 'Totaal transacties' },
+                        ]}
+                    />
                 </div>
             </div>
             <div className="card-section">
-                <Bar data={data} options={options} height="350px" />
+                <Bar data={data} options={options} height="350px" className={'financial-chart'} />
             </div>
         </div>
     );

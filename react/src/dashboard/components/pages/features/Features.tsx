@@ -11,6 +11,7 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import useTranslate from '../../../hooks/useTranslate';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, StringParam } from 'use-query-params';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function Features() {
     const translate = useTranslate();
@@ -172,20 +173,14 @@ export default function Features() {
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">
                             <div className="form">
-                                <div className="block block-label-tabs">
-                                    <div className="label-tab-set">
-                                        {activeOptions?.map((viewType) => (
-                                            <div
-                                                key={viewType.value}
-                                                className={`label-tab label-tab-sm ${
-                                                    filterValues.state == viewType.value ? 'active' : ''
-                                                }`}
-                                                onClick={() => filterUpdate({ state: viewType.value })}>
-                                                {viewType.name}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                <BlockLabelTabs
+                                    value={filterValues.state}
+                                    setValue={(state) => filterUpdate({ state })}
+                                    tabs={activeOptions?.map((viewType) => ({
+                                        value: viewType.value,
+                                        label: viewType.name,
+                                    }))}
+                                />
                             </div>
                             <div className="form">
                                 <div className="form-group">

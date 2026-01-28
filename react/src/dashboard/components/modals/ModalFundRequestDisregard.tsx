@@ -1,13 +1,14 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import FundRequest from '../../props/models/FundRequest';
 import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
 import Organization from '../../props/models/Organization';
 import classNames from 'classnames';
+import CheckboxControl from '../elements/forms/controls/CheckboxControl';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalFundRequestDisregard({
     modal,
@@ -72,35 +73,33 @@ export default function ModalFundRequestDisregard({
                                 <span>Let op: de aanvrager kan hierna een nieuwe aanvraag starten.</span>
                             </div>
                         </div>
-                        <div className="form-group text-center">
-                            <label className="checkbox checkbox-narrow" form={'notifyDisregard'}>
-                                <input
-                                    type="checkbox"
-                                    checked={form.values.notify}
-                                    onChange={(e) => form.update({ notify: e.target.checked })}
-                                    hidden={true}
+                        <FormGroup
+                            textAlign="center"
+                            error={form.errors?.notify}
+                            input={() => (
+                                <CheckboxControl
                                     id="notifyDisregard"
-                                />
-                                <div className="checkbox-label">
-                                    <div className="checkbox-box">
-                                        <div className="mdi mdi-check" />
-                                    </div>
+                                    checked={form.values.notify}
+                                    narrow={true}
+                                    onChange={(_, checked) => form.update({ notify: checked })}>
                                     <div className="modal-text">Verstuur de aanvrager een bericht</div>
-                                </div>
-                            </label>
-                            <FormError error={form.errors?.notify} />
-                        </div>
+                                </CheckboxControl>
+                            )}
+                        />
                         {form.values.notify && (
-                            <div className="form-group">
-                                <div className="form-label">Bericht (optioneel)</div>
-                                <textarea
-                                    className="form-control"
-                                    value={form.values.note}
-                                    onChange={(e) => form.update({ note: e.target.value })}
-                                    placeholder="Bericht naar aanvrager"
-                                />
-                                <FormError error={form.errors?.note} />
-                            </div>
+                            <FormGroup
+                                label="Bericht (optioneel)"
+                                error={form.errors?.note}
+                                input={(id) => (
+                                    <textarea
+                                        className="form-control"
+                                        id={id}
+                                        value={form.values.note}
+                                        onChange={(e) => form.update({ note: e.target.value })}
+                                        placeholder="Bericht naar aanvrager"
+                                    />
+                                )}
+                            />
                         )}
                     </div>
                 </div>

@@ -7,9 +7,9 @@ import useTranslate from '../../../../hooks/useTranslate';
 import { hasPermission } from '../../../../helpers/utils';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
-import classNames from 'classnames';
 import OrganizationsFundsShowConfigsCard from './tabs-details-card/OrganizationsFundsShowConfigsCard';
 import OrganizationsFundsShowPhysicalCardTypesCard from './tabs-details-card/OrganizationsFundsShowPhysicalCardTypesCard';
+import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function OrganizationsFundsShowDetailsCard({
     fund,
@@ -63,18 +63,14 @@ export default function OrganizationsFundsShowDetailsCard({
                 </div>
 
                 <div className="card-header-filters">
-                    <div className="block block-label-tabs">
-                        <div className="label-tab-set">
-                            {tabs?.map((tab) => (
-                                <div
-                                    key={tab}
-                                    className={classNames('label-tab', 'label-tab-sm', tab == viewType && 'active')}
-                                    onClick={() => setViewType(tab)}>
-                                    {translate(`funds_show.labels.base_card.header.${tab}`)}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <BlockLabelTabs
+                        value={viewType}
+                        setValue={(tab) => setViewType(tab)}
+                        tabs={tabs?.map((tab) => ({
+                            value: tab,
+                            label: translate(`funds_show.labels.base_card.header.${tab}`),
+                        }))}
+                    />
                 </div>
             </div>
 

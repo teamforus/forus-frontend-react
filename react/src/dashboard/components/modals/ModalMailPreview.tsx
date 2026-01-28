@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 
 export default function ModalMailPreview({
@@ -11,7 +12,7 @@ export default function ModalMailPreview({
     content_html?: string;
 }) {
     return (
-        <div className={`modal modal-animated ${modal.loading ? 'modal-loading' : ''}`}>
+        <div className={classNames('modal', 'modal-animated', modal.loading && 'modal-loading')}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <div className="modal-window">

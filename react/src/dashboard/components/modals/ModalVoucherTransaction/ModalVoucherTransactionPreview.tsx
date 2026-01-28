@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import Reimbursement from '../../../props/models/Reimbursement';
+import PayoutBankAccount from '../../../props/models/PayoutBankAccount';
 import Organization from '../../../props/models/Organization';
 import { currencyFormat } from '../../../helpers/string';
 import useTranslate from '../../../hooks/useTranslate';
@@ -8,7 +8,8 @@ export default function ModalVoucherTransactionPreview({
     formValues,
     providers,
     organization,
-    reimbursement,
+    bankAccount,
+    bankAccountSource,
 }: {
     formValues: {
         target?: string;
@@ -16,13 +17,15 @@ export default function ModalVoucherTransactionPreview({
         target_iban?: string;
         target_name?: string;
         amount?: string;
-        iban_source?: string;
+        bank_account_source?: string;
     };
     providers?: Array<Partial<Organization>>;
     organization: Organization;
-    reimbursement: Partial<Reimbursement>;
+    bankAccount?: Partial<PayoutBankAccount>;
+    bankAccountSource?: string;
 }) {
     const translate = useTranslate();
+    const resolvedBankAccountSource = bankAccountSource || formValues.bank_account_source;
 
     const providersById = useMemo(() => {
         return providers?.reduce((list, item) => ({ ...list, [item.id]: item }), {});
@@ -50,12 +53,10 @@ export default function ModalVoucherTransactionPreview({
                                     <strong>{translate('modals.modal_voucher_transaction.labels.target_iban')}</strong>
                                 </div>
 
-                                {formValues.iban_source === 'reimbursement' && (
-                                    <div className="datalist-value">{reimbursement.iban}</div>
-                                )}
-
-                                {formValues.iban_source === 'manual' && (
+                                {resolvedBankAccountSource === 'manual' ? (
                                     <div className="datalist-value">{formValues.target_iban}</div>
+                                ) : (
+                                    <div className="datalist-value">{bankAccount?.iban}</div>
                                 )}
                             </div>
                         )}
@@ -66,12 +67,10 @@ export default function ModalVoucherTransactionPreview({
                                     <strong>{translate('modals.modal_voucher_transaction.labels.target_name')}</strong>
                                 </div>
 
-                                {formValues.iban_source === 'reimbursement' && (
-                                    <div className="datalist-value">{reimbursement.iban_name}</div>
-                                )}
-
-                                {formValues.iban_source === 'manual' && (
+                                {resolvedBankAccountSource === 'manual' ? (
                                     <div className="datalist-value">{formValues.target_name}</div>
+                                ) : (
+                                    <div className="datalist-value">{bankAccount?.iban_name}</div>
                                 )}
                             </div>
                         )}
