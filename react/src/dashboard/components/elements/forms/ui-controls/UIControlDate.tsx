@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 import DatePickerControl from '../controls/DatePickerControl';
 
 export default function UIControlDate({
@@ -27,7 +28,7 @@ export default function UIControlDate({
     }, [onChange]);
 
     return (
-        <div id={id} className={`ui-control ui-control-date ${className}`} data-dusk={dataDusk}>
+        <div id={id} className={classNames('ui-control', 'ui-control-date', className)} data-dusk={dataDusk}>
             <DatePickerControl
                 dateFormat={format || null}
                 value={value}

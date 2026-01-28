@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
 import SelectControl from '../elements/select-control/SelectControl';
-import FormError from '../elements/forms/errors/FormError';
 import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../props/models/Organization';
 import { useRecordTypeService } from '../../services/RecordTypeService';
@@ -16,6 +16,7 @@ import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import usePushApiError from '../../hooks/usePushApiError';
 import { ResponseError } from '../../props/ApiResponses';
 import { ProfileRecordType } from '../../props/models/Sponsor/SponsorIdentity';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalVoucherRecordEdit({
     modal,
@@ -118,7 +119,7 @@ export default function ModalVoucherRecordEdit({
     }, [formUpdate, recordTypes]);
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -129,56 +130,66 @@ export default function ModalVoucherRecordEdit({
                     <div className="modal-section">
                         <div className="row">
                             <div className="col-lg-10 col-offset-lg-1">
-                                <div className="form-group">
-                                    <div className="form-label form-label-required">Soort persoonsgegeven</div>
-
-                                    <SelectControl
-                                        className="form-control"
-                                        value={form.values.record_type_key}
-                                        propKey={'key'}
-                                        options={recordTypes}
-                                        allowSearch={false}
-                                        disabled={!!record || (recordTypes.length == 1 && recordTypes[0].key == null)}
-                                        onChange={(record_type_key: ProfileRecordType) => {
-                                            form.update({ record_type_key: record_type_key });
-                                        }}
-                                    />
-
-                                    <FormError error={form.errors?.record_type_key} />
-                                </div>
-
-                                <div className="form-group">
-                                    <div className="form-label form-label-required">Persoonsgegeven</div>
-
-                                    {form.values.record_type_key != 'birth_date' ? (
-                                        <input
-                                            type="text"
+                                <FormGroup
+                                    required={true}
+                                    label="Soort persoonsgegeven"
+                                    error={form.errors?.record_type_key}
+                                    input={(id) => (
+                                        <SelectControl
+                                            id={id}
                                             className="form-control"
-                                            value={form.values.value || ''}
-                                            placeholder="Value"
-                                            onChange={(e) => form.update({ value: e.target.value })}
-                                        />
-                                    ) : (
-                                        <DatePickerControl
-                                            value={dateParse(form.values.value)}
-                                            placeholder={'yyyy-MM-dd'}
-                                            onChange={(value: Date) => form.update({ value: dateFormat(value) })}
+                                            value={form.values.record_type_key}
+                                            propKey={'key'}
+                                            options={recordTypes}
+                                            allowSearch={false}
+                                            disabled={
+                                                !!record || (recordTypes.length == 1 && recordTypes[0].key == null)
+                                            }
+                                            onChange={(record_type_key: ProfileRecordType) => {
+                                                form.update({ record_type_key: record_type_key });
+                                            }}
                                         />
                                     )}
-                                    <FormError error={form.errors?.value} />
-                                </div>
+                                />
 
-                                <div className="form-group">
-                                    <div className="form-label">Notitie</div>
-                                    <textarea
-                                        placeholder="Note"
-                                        className="form-control r-n"
-                                        value={form.values.note || ''}
-                                        onChange={(e) => form.update({ note: e.target.value })}
-                                    />
+                                <FormGroup
+                                    required={true}
+                                    label="Persoonsgegeven"
+                                    error={form.errors?.value}
+                                    input={(id) =>
+                                        form.values.record_type_key != 'birth_date' ? (
+                                            <input
+                                                type="text"
+                                                id={id}
+                                                className="form-control"
+                                                value={form.values.value || ''}
+                                                placeholder="Value"
+                                                onChange={(e) => form.update({ value: e.target.value })}
+                                            />
+                                        ) : (
+                                            <DatePickerControl
+                                                id={id}
+                                                value={dateParse(form.values.value)}
+                                                placeholder={'yyyy-MM-dd'}
+                                                onChange={(value: Date) => form.update({ value: dateFormat(value) })}
+                                            />
+                                        )
+                                    }
+                                />
 
-                                    <FormError error={form.errors?.note} />
-                                </div>
+                                <FormGroup
+                                    label="Notitie"
+                                    error={form.errors?.note}
+                                    input={(id) => (
+                                        <textarea
+                                            id={id}
+                                            placeholder="Note"
+                                            className="form-control r-n"
+                                            value={form.values.note || ''}
+                                            onChange={(e) => form.update({ note: e.target.value })}
+                                        />
+                                    )}
+                                />
 
                                 <div className="form-group">
                                     <div className="form-label" />

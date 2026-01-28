@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ResponseError } from '../../props/ApiResponses';
 import Fund from '../../props/models/Fund';
@@ -59,7 +60,7 @@ export default function ModalFundTopUp({
     }, [activeOrganization.id, closeModal, fund.id, fundService, modal, pushApiError]);
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={closeModal} />
             <form className="modal-window form">
                 <div className="modal-close mdi mdi-close" onClick={closeModal} role="button" />

@@ -287,7 +287,7 @@ export default function ReimbursementsEdit() {
                                 }}>
                                 {generalErrorMsg && (
                                     <div className="card-section text-center">
-                                        <FormError error={generalErrorMsg} className={'text-semibold'} />
+                                        <FormError error={generalErrorMsg} textWeight="semibold" />
                                     </div>
                                 )}
 

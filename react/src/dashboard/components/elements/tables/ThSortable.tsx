@@ -49,9 +49,11 @@ export default function ThSortable({
                 label
             ) : (
                 <div
-                    className={`th-sort ${value ? 'th-sort-enabled' : ''} ${
-                        value == filter?.values.order_by ? 'th-sort-active' : ''
-                    }`}
+                    className={classNames(
+                        'th-sort',
+                        value && 'th-sort-enabled',
+                        value == filter?.values.order_by && 'th-sort-active',
+                    )}
                     onClick={() => orderBy(value)}>
                     <div className="th-sort-label">{label}</div>
 

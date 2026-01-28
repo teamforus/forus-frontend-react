@@ -26,6 +26,7 @@ import Fund from '../../../props/models/Fund';
 import { hasPermission } from '../../../helpers/utils';
 import { Permission } from '../../../props/models/Organization';
 import { useFundService } from '../../../services/FundService';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function FundRequests() {
     const appConfigs = useAppConfigs();
@@ -200,21 +201,15 @@ export default function FundRequests() {
                 </div>
 
                 <div className="card-header-filters form">
-                    <div className="block block-label-tabs">
-                        <div className="label-tab-set">
-                            {stateGroups?.map((stateGroup) => (
-                                <div
-                                    key={stateGroup.key}
-                                    onClick={() => filterUpdate({ state_group: stateGroup.key })}
-                                    data-dusk={`fundRequestsStateTab_${stateGroup.key}`}
-                                    className={`label-tab label-tab-sm ${
-                                        filterValues.state_group === stateGroup.key ? 'active' : ''
-                                    }`}>
-                                    {stateGroup.label} ({fundRequests.meta.totals[stateGroup.key]})
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <BlockLabelTabs
+                        value={filterValues.state_group}
+                        setValue={(state_group) => filterUpdate({ state_group })}
+                        tabs={stateGroups?.map((stateGroup) => ({
+                            value: stateGroup.key,
+                            dusk: `fundRequestsStateTab_${stateGroup.key}`,
+                            label: `${stateGroup.label} (${fundRequests.meta.totals[stateGroup.key]})`,
+                        }))}
+                    />
 
                     <CardHeaderFilterNext filter={filter} funds={funds} searchDusk={'tableFundRequestSearch'}>
                         <FilterItemToggle show={true} label={translate('validation_requests.labels.search')}>

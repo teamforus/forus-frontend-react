@@ -46,7 +46,6 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
         if (envData && authIdentity) {
             return organizationService
                 .list({
-                    dependency: 'permissions,logo',
                     order_by: `is_${envData.client_type}`,
                     order_dir: 'desc',
                     per_page: 500,

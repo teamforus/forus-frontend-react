@@ -77,10 +77,6 @@
                             .checkbox-label {
                                 font: 600 13px/16px var(--base-font);
                                 color: #646f79;
-
-                                &.active {
-                                    color: #009ef4;
-                                }
                             }
 
                             .block-option-count {
@@ -91,6 +87,10 @@
                                 padding: inherit;
                                 font: inherit;
                                 color: #646f79;
+                            }
+
+                            &.block-option-active .checkbox-label {
+                                color: #009ef4;
                             }
                         }
 
@@ -108,6 +108,10 @@
 
     .card-section {
         border-bottom-color: var(--border-color);
+
+        &>.financial-chart {
+            height: 350px;
+        }
     }
 
     .financial-totals {

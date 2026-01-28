@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 
 export default function NumericControl({
@@ -25,13 +26,13 @@ export default function NumericControl({
 
     return (
         <div className="form-numeric" id={elementId}>
-            <div className={`form-numeric-btn ${viewValue <= minValue ? 'disabled' : ''}`}>
+            <div className={classNames('form-numeric-btn', viewValue <= minValue && 'disabled')}>
                 <em className="mdi mdi-minus icon-start" onClick={() => setViewValue((viewValue) => viewValue - 1)} />
             </div>
 
             <div className="form-numeric-value">{viewValue}</div>
 
-            <div className={`form-numeric-btn ${viewValue >= maxValue ? 'disabled' : ''}`}>
+            <div className={classNames('form-numeric-btn', viewValue >= maxValue && 'disabled')}>
                 <em className="mdi mdi-plus icon-end" onClick={() => setViewValue((viewValue) => viewValue + 1)} />
             </div>
 

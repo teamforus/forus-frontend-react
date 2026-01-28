@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
-import FormError from '../elements/forms/errors/FormError';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import FundCriterion from '../../props/models/FundCriterion';
 import { ResponseError } from '../../props/ApiResponses';
 import MarkdownEditor from '../elements/forms/markdown-editor/MarkdownEditor';
 import useTranslate from '../../hooks/useTranslate';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 type FundCriterionTexts = {
     title: string;
@@ -72,7 +73,7 @@ export default function ModalFundCriteriaDescriptionEdit({
     );
 
     return (
-        <div className={`modal modal-animated ${modal.loading ? 'modal-loading' : null}`}>
+        <div className={classNames('modal', 'modal-animated', modal.loading && 'modal-loading')}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -82,55 +83,52 @@ export default function ModalFundCriteriaDescriptionEdit({
 
                 <div className="modal-body">
                     <div className="modal-section">
-                        <div className="form-group">
-                            <label className="form-label">
-                                {translate('modals.modal_fund_criteria_description.labels.title')}
-                            </label>
+                        <FormGroup
+                            label={translate('modals.modal_fund_criteria_description.labels.title')}
+                            error={form.errors['criteria.0.title']}
+                            input={(id) => (
+                                <input
+                                    className="form-control"
+                                    id={id}
+                                    value={form.values.title || ''}
+                                    placeholder="Titel"
+                                    onChange={(e) => form.update({ title: e.target.value })}
+                                />
+                            )}
+                        />
 
-                            <input
-                                className="form-control"
-                                value={form.values.title || ''}
-                                placeholder="Titel"
-                                onChange={(e) => form.update({ title: e.target.value })}
-                            />
-
-                            <FormError error={form.errors['criteria.0.title']} />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label">
-                                {translate('modals.modal_fund_criteria_description.labels.description')}
-                            </label>
-
-                            <MarkdownEditor
-                                value={form.values.description_html || ''}
-                                height={200}
-                                onChange={(description: string) => form.update({ description: description })}
-                                onUpdatedRaw={(data) => {
-                                    setDescriptionHtml(data.data.content_html);
-                                }}
-                            />
-
-                            <FormError error={form.errors['criteria.0.description']} />
-                        </div>
-
-                        {criterion.fund_criteria_step_id && (
-                            <div className="form-group">
-                                <label className="form-label">
-                                    {translate('modals.modal_fund_criteria_description.labels.extra_description')}
-                                </label>
-
+                        <FormGroup
+                            label={translate('modals.modal_fund_criteria_description.labels.description')}
+                            error={form.errors['criteria.0.description']}
+                            input={() => (
                                 <MarkdownEditor
-                                    value={form.values.extra_description_html || ''}
+                                    value={form.values.description_html || ''}
                                     height={200}
-                                    onChange={(description: string) => form.update({ extra_description: description })}
+                                    onChange={(description: string) => form.update({ description: description })}
                                     onUpdatedRaw={(data) => {
-                                        setExtraDescriptionHtml(data.data.content_html);
+                                        setDescriptionHtml(data.data.content_html);
                                     }}
                                 />
+                            )}
+                        />
 
-                                <FormError error={form.errors['criteria.0.extra_description']} />
-                            </div>
+                        {criterion.fund_criteria_step_id && (
+                            <FormGroup
+                                label={translate('modals.modal_fund_criteria_description.labels.extra_description')}
+                                error={form.errors['criteria.0.extra_description']}
+                                input={() => (
+                                    <MarkdownEditor
+                                        value={form.values.extra_description_html || ''}
+                                        height={200}
+                                        onChange={(description: string) =>
+                                            form.update({ extra_description: description })
+                                        }
+                                        onUpdatedRaw={(data) => {
+                                            setExtraDescriptionHtml(data.data.content_html);
+                                        }}
+                                    />
+                                )}
+                            />
                         )}
                     </div>
                 </div>

@@ -66,7 +66,12 @@ export default function UIControlNumber({
                     setShowClear(false);
                 }
             }}
-            className={`ui-control ui-control-text ${type === 'currency' ? 'ui-control-currency' : ''} ${className}`}
+            className={classNames(
+                'ui-control',
+                'ui-control-text',
+                type === 'currency' && 'ui-control-currency',
+                className,
+            )}
             aria-label={ariaLabel}>
             {type === 'currency' && <div className="ui-control-currency-icon">€</div>}
 

@@ -54,6 +54,7 @@ export default function SelectControlOptionsFund<T>({
         <div
             id={id}
             className={classNames(
+                'form-control',
                 'select-control',
                 'select-control-lg',
                 'select-control-funds',

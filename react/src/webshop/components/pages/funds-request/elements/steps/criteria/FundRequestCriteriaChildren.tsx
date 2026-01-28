@@ -2,7 +2,7 @@ import React, { Fragment, useCallback } from 'react';
 import useTranslate from '../../../../../../../dashboard/hooks/useTranslate';
 import RecordType from '../../../../../../../dashboard/props/models/RecordType';
 import { Prefills } from '../../../FundRequest';
-import { upperFirst } from 'lodash';
+import { snakeCase, upperFirst } from 'lodash';
 
 export default function FundRequestCriteriaChildren({
     prefills,
@@ -15,7 +15,7 @@ export default function FundRequestCriteriaChildren({
 
     const splitChildLabel = useCallback((text?: string) => {
         const match = text ? text.match(/^(Kind\s+\d+)\s+(.+)$/) : null;
-        return match ? { child: match[1], value: upperFirst(match[2]) } : null;
+        return match ? { child: snakeCase(match[1]), value: upperFirst(match[2]) } : null;
     }, []);
 
     return (
@@ -34,7 +34,11 @@ export default function FundRequestCriteriaChildren({
                                     {index === 0 && (
                                         <div className="preview-item-values-item">
                                             <div className="preview-item-values-item-title">
-                                                {splitChildLabel(recordTypesByKey[child.record_type_key]?.name)?.child}
+                                                {translate(
+                                                    'fund_request.prefills.children_list.' +
+                                                        splitChildLabel(recordTypesByKey[child.record_type_key]?.name)
+                                                            ?.child,
+                                                )}
                                             </div>
                                         </div>
                                     )}

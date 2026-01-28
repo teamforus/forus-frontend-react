@@ -41,6 +41,7 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
 import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleVouchers';
 import useIsPayoutInfoProduct from './hooks/useIsPayoutInfoProduct';
+import useFundRequestBankAccounts from '../../../hooks/useFundRequestBankAccounts';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -70,7 +71,8 @@ export default function ProductsShow() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
     const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
-    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers);
+    const { fundRequestAccounts } = useFundRequestBankAccounts();
+    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers, fundRequestAccounts);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
     const price = useProductPriceMinLocale(product);

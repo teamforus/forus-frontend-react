@@ -1,4 +1,5 @@
 import React, { Fragment, useRef, useState } from 'react';
+import classNames from 'classnames';
 import ClickOutside from '../../click-outside/ClickOutside';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../SelectControl';
@@ -50,7 +51,7 @@ export default function SelectControlOptionsOrganization<T>({
 
     return (
         <div
-            className={'select-control select-control-organizations ' + (className ? className : '')}
+            className={classNames('select-control', 'select-control-organizations', className)}
             data-dusk="headerOrganizationSwitcher"
             tabIndex={0}
             ref={selectorRef}
@@ -61,7 +62,7 @@ export default function SelectControlOptionsOrganization<T>({
             aria-controls={`${controlId}_options`}
             onKeyDown={onKeyDown}
             onBlur={onBlur}>
-            <div className={['select-control-input', showOptions ? 'options' : ''].filter((item) => item).join(' ')}>
+            <div className={classNames('select-control-input', showOptions && 'options')}>
                 {/* Placeholder */}
                 <label
                     role="button"
@@ -82,10 +83,10 @@ export default function SelectControlOptionsOrganization<T>({
                     </span>
                     <span className="select-control-search-placeholder">{placeholderValue || placeholder}</span>
                     <span
-                        className={
-                            'select-control-icon ' +
-                            (showOptions ? 'select-control-icon-up' : 'select-control-icon-down')
-                        }
+                        className={classNames(
+                            'select-control-icon',
+                            showOptions ? 'select-control-icon-up' : 'select-control-icon-down',
+                        )}
                     />
                 </label>
 
@@ -110,7 +111,7 @@ export default function SelectControlOptionsOrganization<T>({
                     </div>
 
                     <div
-                        className={'select-control-search-clear ' + (query ? '' : 'disabled')}
+                        className={classNames('select-control-search-clear', !query && 'disabled')}
                         tabIndex={0}
                         onKeyDown={(e) => clickOnKeyEnter(e, true)}
                         onClick={(e) => {
@@ -139,7 +140,10 @@ export default function SelectControlOptionsOrganization<T>({
                             {optionsFiltered.slice(0, visibleCount)?.map((option) => (
                                 <div
                                     data-dusk={`headerOrganizationItem${(option.raw as Organization)?.id}`}
-                                    className={`select-control-option ${option.id == modelValue.id ? 'selected' : ''}`}
+                                    className={classNames(
+                                        'select-control-option',
+                                        option.id == modelValue.id && 'selected',
+                                    )}
                                     tabIndex={0}
                                     key={option.id}
                                     onKeyDown={clickOnKeyEnter}

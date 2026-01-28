@@ -329,7 +329,10 @@ export default function VouchersViewComponent() {
                                 )}
 
                                 {showMakeTransactionButton && (
-                                    <div className="button button-primary button-sm" onClick={makeTransaction}>
+                                    <div
+                                        className="button button-primary button-sm"
+                                        data-dusk="voucherMakeTransaction"
+                                        onClick={makeTransaction}>
                                         <em className="mdi mdi-cash-fast icon-start" />
                                         {translate('vouchers.buttons.make_transaction')}
                                     </div>

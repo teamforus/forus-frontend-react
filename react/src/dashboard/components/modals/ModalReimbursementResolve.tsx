@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ApiResponseSingle, ResponseError } from '../../props/ApiResponses';
 import Reimbursement from '../../props/models/Reimbursement';
@@ -10,6 +11,7 @@ import usePushSuccess from '../../hooks/usePushSuccess';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import Tooltip from '../elements/tooltip/Tooltip';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalReimbursementResolve({
     modal,
@@ -70,7 +72,7 @@ export default function ModalReimbursementResolve({
     );
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={modal.close} />
             <div className="modal-window">
                 <form className="form" onSubmit={form.submit}>
@@ -92,34 +94,44 @@ export default function ModalReimbursementResolve({
                                     <br />
                                 </div>
 
-                                <div className="form-group">
-                                    <label className="form-label">Notitie</label>
-
-                                    <textarea
-                                        className="form-control r-n"
-                                        rows={3}
-                                        defaultValue={form.values.note}
-                                        onChange={(e) => form.update({ note: e.target.value })}
-                                        placeholder="Voeg een persoonlijke notitie toe"
-                                    />
-                                </div>
+                                <FormGroup
+                                    label="Notitie"
+                                    input={(id) => (
+                                        <textarea
+                                            className="form-control r-n"
+                                            id={id}
+                                            rows={3}
+                                            defaultValue={form.values.note}
+                                            onChange={(e) => form.update({ note: e.target.value })}
+                                            placeholder="Voeg een persoonlijke notitie toe"
+                                        />
+                                    )}
+                                />
 
                                 {form.values.state == 'declined' && reimbursement.identity_email && (
-                                    <div className="form-group tooltipped tooltipped-inner">
-                                        <CheckboxControl
-                                            className={'checkbox-narrow'}
-                                            checked={showReason}
-                                            title={`Verstuur een bericht naar de deelnemer`}
-                                            onChange={() => {
-                                                setShowReason(!showReason);
-                                            }}
-                                        />
-                                        <Tooltip
-                                            text={
-                                                'U kunt alleen een bericht naar de deelnemer versturen als er een e-mailadres is opgegeven..'
-                                            }
-                                        />
-                                    </div>
+                                    <FormGroup
+                                        className="tooltipped tooltipped-inner"
+                                        input={() => (
+                                            <Fragment>
+                                                <CheckboxControl
+                                                    className={'checkbox-narrow'}
+                                                    checked={showReason}
+                                                    title={`Verstuur een bericht naar de deelnemer`}
+                                                    onChange={() => {
+                                                        setShowReason(!showReason);
+                                                    }}
+                                                />
+                                                <Tooltip
+                                                    text={
+                                                        <Fragment>
+                                                            U kunt alleen een bericht naar de deelnemer versturen als er
+                                                            een e-mailadres is opgegeven.
+                                                        </Fragment>
+                                                    }
+                                                />
+                                            </Fragment>
+                                        )}
+                                    />
                                 )}
 
                                 {form.values.state == 'declined' && reimbursement.identity_email && (
@@ -148,15 +160,19 @@ export default function ModalReimbursementResolve({
                                     <br />
                                 </div>
 
-                                <div className="form-group">
-                                    <label className="form-label">Notitie</label>
-                                    <textarea
-                                        className="form-control r-n"
-                                        rows={3}
-                                        defaultValue={form.values.note}
-                                        onChange={(e) => form.update({ note: e.target.value })}
-                                        placeholder="Voeg een persoonlijke notitie toe"></textarea>
-                                </div>
+                                <FormGroup
+                                    label="Notitie"
+                                    input={(id) => (
+                                        <textarea
+                                            className="form-control r-n"
+                                            id={id}
+                                            rows={3}
+                                            defaultValue={form.values.note}
+                                            onChange={(e) => form.update({ note: e.target.value })}
+                                            placeholder="Voeg een persoonlijke notitie toe"
+                                        />
+                                    )}
+                                />
                             </div>
                         )}
                     </div>

@@ -147,6 +147,7 @@ export default function VoucherTransactionsCard({
                                                                     organizationId: organization.id,
                                                                 }}>
                                                                 <em className="mdi mdi-eye-outline icon-start" />
+                                                                Bekijken
                                                             </StateNavLink>
                                                         </div>
                                                     )}
