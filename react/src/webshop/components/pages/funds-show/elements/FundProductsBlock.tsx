@@ -31,7 +31,7 @@ export default function FundProductsBlock({ fund }: { fund: Fund }) {
     return (
         <Fragment>
             {products && (!fund.description_html || fund.description_position !== 'replace') && (
-                <BlockProducts display={'grid'} products={products.data} filters={{ fund_id: fund.id }} />
+                <BlockProducts display={'grid'} products={products.data} filters={{ fund_ids: [fund.id] }} />
             )}
         </Fragment>
     );
