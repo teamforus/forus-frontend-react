@@ -59,7 +59,7 @@ export default function FundRequestValuesOverview({
     }, [criteriaSteps]);
 
     const criterionValue = useCallback(
-        (criterion: LocalCriterion, inGroup: boolean = false) => {
+        (criterion: LocalCriterion) => {
             if (criterion.record_type.type === 'select' || criterion.record_type.type === 'select_number') {
                 return (
                     criterion.record_type?.options?.find((item) => item?.value === criterion.input_value)?.name ||
@@ -67,8 +67,12 @@ export default function FundRequestValuesOverview({
                 );
             }
 
-            if (inGroup && criterion.record_type.type === 'bool' && criterion.record_type.control_type === 'checkbox') {
-                return criterion.input_value || translate('fund_request.options.no');
+            if (criterion.record_type.type === 'bool' && criterion.record_type.control_type === 'checkbox') {
+                return (
+                    criterion.record_type?.options?.find((item) => item?.value === criterion.input_value)?.name ||
+                    criterion.input_value ||
+                    translate('fund_request.options.no')
+                );
             }
 
             return criterion.input_value;
@@ -131,7 +135,7 @@ export default function FundRequestValuesOverview({
                                                                         {criterion.title || criterion.title_default}
                                                                     </div>
                                                                     <div className="preview-item-values-item-value">
-                                                                        {criterionValue(criterion, true)}
+                                                                        {criterionValue(criterion)}
                                                                     </div>
                                                                 </div>
                                                             ))}

@@ -64,7 +64,7 @@ export default function UIControlText({
                     setShowClear(false);
                 }
             }}
-            className={`ui-control ui-control-text  ${className}`}
+            className={classNames('ui-control', 'ui-control-text', className)}
             aria-label={ariaLabel}>
             {React.createElement(type === 'textarea' ? 'textarea' : 'input', {
                 ref: inputRef || innerInputRef,

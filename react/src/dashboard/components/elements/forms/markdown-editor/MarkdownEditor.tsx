@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import { useMarkdownService } from '../../../../services/MarkdownService';
 import ModalMarkdownCustomLink from '../../../modals/ModalMarkdownCustomLink';
@@ -512,7 +513,11 @@ export default function MarkdownEditor({
 
     return (
         <div
-            className={`block block-markdownable ${allowAlignment ? `block-markdownable-${blockAlignment}` : ''}`}
+            className={classNames(
+                'block',
+                'block-markdownable',
+                allowAlignment && `block-markdownable-${blockAlignment}`,
+            )}
             ref={$element}>
             <textarea className="markdown-editor block block-markdown" ref={$theEditor} />
         </div>

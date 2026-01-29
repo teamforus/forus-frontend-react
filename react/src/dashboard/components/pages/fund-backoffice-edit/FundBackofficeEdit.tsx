@@ -16,6 +16,7 @@ import SelectControl from '../../elements/select-control/SelectControl';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import ToggleControl from '../../elements/forms/controls/ToggleControl';
 
 export default function FundBackofficeEdit() {
     const { fundId } = useParams();
@@ -246,20 +247,12 @@ export default function FundBackofficeEdit() {
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                 <div className="form-group">
                                     <label className="form-label">Status</label>
-                                    <label className="form-toggle form-label" htmlFor="backoffice_enabled">
-                                        <input
-                                            className="form-label"
-                                            type="checkbox"
-                                            id="backoffice_enabled"
-                                            checked={form.values?.backoffice_enabled}
-                                            onChange={(e) => form.update({ backoffice_enabled: e.target.checked })}
-                                        />
-                                        <div className="form-toggle-inner flex-end">
-                                            <div className="toggle-input">
-                                                <div className="toggle-input-dot" />
-                                            </div>
-                                        </div>
-                                    </label>
+                                    <ToggleControl
+                                        id="backoffice_enabled"
+                                        className="form-label"
+                                        checked={form.values?.backoffice_enabled}
+                                        onChange={(_, checked) => form.update({ backoffice_enabled: checked })}
+                                    />
                                 </div>
 
                                 <div className="form-group">

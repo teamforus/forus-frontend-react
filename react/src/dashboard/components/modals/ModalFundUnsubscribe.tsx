@@ -5,7 +5,6 @@ import Organization from '../../props/models/Organization';
 import { ResponseError } from '../../props/ApiResponses';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import FormError from '../elements/forms/errors/FormError';
 import useSetProgress from '../../hooks/useSetProgress';
 import { clickOnKeyEnter } from '../../helpers/wcag';
 import useTranslate from '../../hooks/useTranslate';
@@ -13,6 +12,7 @@ import classNames from 'classnames';
 import usePushApiError from '../../hooks/usePushApiError';
 import useProviderFundService from '../../services/ProviderFundService';
 import InfoBox from '../elements/info-box/InfoBox';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalFundUnsubscribe({
     modal,
@@ -92,18 +92,20 @@ export default function ModalFundUnsubscribe({
                                     Optioneel kunt u een reden opgeven, zodat de gemeente weet waarom u zich heeft
                                     afgemeld.
                                 </div>
-                                <div className="form-group">
-                                    <label className="form-label">Notitie (optioneel)</label>
-                                    <textarea
-                                        className="form-control"
-                                        value={form.values.note}
-                                        onChange={(e) => form.update({ note: e.target.value })}
-                                        placeholder="Reden"
-                                        data-dusk="noteInput"
-                                    />
-                                    <FormError error={form.errors?.note} />
-                                    <FormError error={form.errors?.fund_provider_id} />
-                                </div>
+                                <FormGroup
+                                    label="Notitie (optioneel)"
+                                    error={form.errors?.note || form.errors?.fund_provider_id}
+                                    input={(id) => (
+                                        <textarea
+                                            className="form-control"
+                                            id={id}
+                                            value={form.values.note}
+                                            onChange={(e) => form.update({ note: e.target.value })}
+                                            placeholder="Reden"
+                                            data-dusk="noteInput"
+                                        />
+                                    )}
+                                />
 
                                 {errorMessage && (
                                     <div className="form-group">

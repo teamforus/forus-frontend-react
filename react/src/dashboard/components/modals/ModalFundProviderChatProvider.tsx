@@ -118,14 +118,16 @@ export default function ModalFundProviderChatProvider({
                                         {messages?.map((message) => (
                                             <div
                                                 key={message.id}
-                                                className={`chat-message ${
-                                                    'chat-message-' +
-                                                    (message.counterpart == 'system'
-                                                        ? 'system'
-                                                        : panelType != message.counterpart
-                                                          ? 'in'
-                                                          : 'out')
-                                                }`}>
+                                                className={classNames(
+                                                    'chat-message',
+                                                    message.counterpart == 'system' && 'chat-message-system',
+                                                    message.counterpart != 'system' &&
+                                                        panelType != message.counterpart &&
+                                                        'chat-message-in',
+                                                    message.counterpart != 'system' &&
+                                                        panelType == message.counterpart &&
+                                                        'chat-message-out',
+                                                )}>
                                                 <div className="chat-message-time">
                                                     {message.time}
                                                     {message.counterpart == 'system' ? ' - Systeembericht' : ''}

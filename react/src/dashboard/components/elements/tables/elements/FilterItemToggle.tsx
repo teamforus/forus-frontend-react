@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 export default function FilterItemToggle({
     children,
@@ -17,7 +18,7 @@ export default function FilterItemToggle({
         <div className="form-group">
             <label
                 htmlFor=""
-                className={`form-label form-label-toggle ${visible ? 'active' : ''}`}
+                className={classNames('form-label', 'form-label-toggle', visible && 'active')}
                 data-dusk={dusk}
                 onClick={() => setVisible(!visible)}>
                 <span>{label}</span>

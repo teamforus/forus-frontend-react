@@ -84,7 +84,10 @@ export default function ModalFundEditPhysicalCardSettings({
                         label={'Kies een fysieke pas'}
                         error={form.errors?.allow_physical_cards}
                         info={
-                            'Met deze optie kan een fysieke pas aan een fonds worden gekoppeld. De fysieke pas kunt u instellen onder het menu Fysieke passen'
+                            <Fragment>
+                                Met deze optie kan een fysieke pas aan een fonds worden gekoppeld. De fysieke pas kunt u
+                                instellen onder het menu Fysieke passen
+                            </Fragment>
                         }
                         input={(id) => (
                             <SelectControl

@@ -43,6 +43,7 @@ import TransactionBulksCard from './elements/TransactionBulksCard';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -458,21 +459,17 @@ export default function Transactions() {
                         {isSponsor && (
                             <div className="flex form">
                                 <div>
-                                    <div className="block block-label-tabs">
-                                        <div className="label-tab-set">
-                                            {viewTypes?.map((viewTypeItem) => (
-                                                <div
-                                                    key={viewTypeItem.key}
-                                                    data-dusk={`transaction_view_${viewTypeItem.key}`}
-                                                    onClick={() => setViewType(viewTypeItem)}
-                                                    className={`label-tab label-tab-sm ${
-                                                        viewType.key === viewTypeItem.key ? 'active' : ''
-                                                    }`}>
-                                                    {viewTypeItem.label}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <BlockLabelTabs
+                                        value={viewType.key}
+                                        setValue={(key) =>
+                                            setViewType(viewTypes.find((type) => type.key === key) || viewType)
+                                        }
+                                        tabs={viewTypes?.map((type) => ({
+                                            value: type.key,
+                                            dusk: `transaction_view_${type.key}`,
+                                            label: type.label,
+                                        }))}
+                                    />
                                 </div>
                             </div>
                         )}

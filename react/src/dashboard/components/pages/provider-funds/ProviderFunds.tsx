@@ -8,6 +8,7 @@ import ProviderFundInvitationsTable from './elements/ProviderFundInvitationsTabl
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { StringParam, useQueryParam } from 'use-query-params';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function ProviderFunds() {
     const translate = useTranslate();
@@ -53,64 +54,53 @@ export default function ProviderFunds() {
             <div className="card-heading flex-row">
                 <div className="flex-col flex-grow">{translate('provider_funds.title.main')}</div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs">
-                        <div className="label-tab-set">
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'active' ? 'active' : ''}`}
-                                data-dusk="fundsActiveTab"
-                                onClick={() => setTab('active')}>
-                                {translate('provider_funds.tabs.active')} ({fundsAvailable.meta.totals.active})
-                            </div>
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'pending_rejected' ? 'active' : ''}`}
-                                data-dusk="fundsPendingTab"
-                                onClick={() => setTab('pending_rejected')}>
-                                {translate('provider_funds.tabs.pending_rejected')} (
-                                {fundsAvailable.meta.totals.pending})
-                            </div>
-
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'available' ? 'active' : ''}`}
-                                data-dusk="fundsAvailableTab"
-                                onClick={() => setTab('available')}>
-                                {translate('provider_funds.tabs.available')} ({fundsAvailable.meta.totals.available})
-                            </div>
-
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'archived' ? 'active' : ''}`}
-                                data-dusk="fundsArchivedTab"
-                                onClick={() => setTab('archived')}>
-                                {translate('provider_funds.tabs.archived')} ({fundsAvailable.meta.totals.archived})
-                            </div>
-
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'unsubscribed' ? 'active' : ''}`}
-                                data-dusk="fundsUnsubscribedTab"
-                                onClick={() => setTab('unsubscribed')}>
-                                {translate('provider_funds.tabs.unsubscribed')} (
-                                {fundsAvailable.meta.totals.unsubscribed})
-                            </div>
-                        </div>
-                    </div>
+                    <BlockLabelTabs
+                        value={tabQuery}
+                        setValue={(tab) => setTab(tab)}
+                        tabs={[
+                            {
+                                value: 'active',
+                                label: `${translate('provider_funds.tabs.active')} (${fundsAvailable.meta.totals.active})`,
+                                dusk: 'fundsActiveTab',
+                            },
+                            {
+                                value: 'pending_rejected',
+                                label: `${translate('provider_funds.tabs.pending_rejected')} (${fundsAvailable.meta.totals.pending})`,
+                                dusk: 'fundsPendingTab',
+                            },
+                            {
+                                value: 'available',
+                                label: `${translate('provider_funds.tabs.available')} (${fundsAvailable.meta.totals.available})`,
+                                dusk: 'fundsAvailableTab',
+                            },
+                            {
+                                value: 'archived',
+                                label: `${translate('provider_funds.tabs.archived')} (${fundsAvailable.meta.totals.archived})`,
+                                dusk: 'fundsArchivedTab',
+                            },
+                            {
+                                value: 'unsubscribed',
+                                label: `${translate('provider_funds.tabs.unsubscribed')} (${fundsAvailable.meta.totals.unsubscribed})`,
+                                dusk: 'fundsUnsubscribedTab',
+                            },
+                        ]}
+                    />
                 </div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs">
-                        <div className="label-tab-set">
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'invitations' ? 'active' : ''}`}
-                                onClick={() => setTab('invitations')}>
-                                {translate('provider_funds.tabs.invitations')} ({fundsAvailable.meta.totals.invitations}
-                                )
-                            </div>
-
-                            <div
-                                className={`label-tab label-tab-sm ${tabQuery == 'invitations_archived' ? 'active' : ''}`}
-                                onClick={() => setTab('invitations_archived')}>
-                                {translate('provider_funds.tabs.invitations_archived')} (
-                                {fundsAvailable.meta.totals.invitations_archived})
-                            </div>
-                        </div>
-                    </div>
+                    <BlockLabelTabs
+                        value={tabQuery}
+                        setValue={(tab) => setTab(tab)}
+                        tabs={[
+                            {
+                                value: 'invitations',
+                                label: `${translate('provider_funds.tabs.invitations')} (${fundsAvailable.meta.totals.invitations})`,
+                            },
+                            {
+                                value: 'invitations_archived',
+                                label: `${translate('provider_funds.tabs.invitations_archived')} (${fundsAvailable.meta.totals.invitations_archived})`,
+                            },
+                        ]}
+                    />
                 </div>
             </div>
 

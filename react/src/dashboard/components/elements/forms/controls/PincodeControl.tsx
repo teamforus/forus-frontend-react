@@ -1,4 +1,5 @@
 import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { chunk } from 'lodash';
 import useTranslate from '../../../../hooks/useTranslate';
 
@@ -92,7 +93,7 @@ export default function PincodeControl({
         <div
             id={id}
             title={title}
-            className={`block block-pincode ${className || ''}`}
+            className={classNames('block', 'block-pincode', className)}
             onClick={() => inputRefs[cursor].current?.focus()}>
             <div className="flex flex-vertical">
                 <div className="flex" role="group" aria-labelledby="pincode-label">

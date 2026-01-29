@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
-import FormError from '../elements/forms/errors/FormError';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalDangerZone from './ModalDangerZone';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalVoucherDeactivation({
     modal,
@@ -113,29 +113,32 @@ export default function ModalVoucherDeactivation({
                             <span />
                         </div>
 
-                        <div className="form-group">
-                            <div className="form-label">
-                                {translate('modals.modal_voucher_deactivation.labels.note')}
-                            </div>
-                            <textarea
-                                className="form-control r-n"
-                                maxLength={140}
-                                value={form.values.note || ''}
-                                placeholder={translate('modals.modal_voucher_deactivation.placeholders.note')}
-                                onChange={(e) => form.update({ note: e.target.value })}
-                            />
-                            <div className="form-hint">{translate('modals.modal_voucher_activation.hints.note')}</div>
-                            <FormError error={form.errors?.note} />
-                        </div>
+                        <FormGroup
+                            label={translate('modals.modal_voucher_deactivation.labels.note')}
+                            hint={translate('modals.modal_voucher_activation.hints.note')}
+                            error={form.errors?.note}
+                            input={(id) => (
+                                <textarea
+                                    className="form-control r-n"
+                                    id={id}
+                                    maxLength={140}
+                                    value={form.values.note || ''}
+                                    placeholder={translate('modals.modal_voucher_deactivation.placeholders.note')}
+                                    onChange={(e) => form.update({ note: e.target.value })}
+                                />
+                            )}
+                        />
 
                         {hasEmail && (
-                            <div className="form-group">
-                                <CheckboxControl
-                                    title={'Informeer de gebruiker via een e-mailbericht.'}
-                                    checked={form.values.notify_by_email || false}
-                                    onChange={(e) => form.update({ notify_by_email: e.target.checked })}
-                                />
-                            </div>
+                            <FormGroup
+                                input={() => (
+                                    <CheckboxControl
+                                        title={'Informeer de gebruiker via een e-mailbericht.'}
+                                        checked={form.values.notify_by_email || false}
+                                        onChange={(e) => form.update({ notify_by_email: e.target.checked })}
+                                    />
+                                )}
+                            />
                         )}
                     </div>
                 </div>

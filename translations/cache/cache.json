@@ -1432,16 +1432,56 @@
         "Kinderen"
     ],
     [
+        "fund_request.prefills.children_list.kind_1",
+        "Kind 1"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_10",
+        "Kind 10"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_2",
+        "Kind 2"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_3",
+        "Kind 3"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_4",
+        "Kind 4"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_5",
+        "Kind 5"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_6",
+        "Kind 6"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_7",
+        "Kind 7"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_8",
+        "Kind 8"
+    ],
+    [
+        "fund_request.prefills.children_list.kind_9",
+        "Kind 9"
+    ],
+    [
         "fund_request.prefills.partner",
         "Gegevens van uw partner"
     ],
     [
         "fund_request.prefills.subtitle",
-        "Als uw informatie niet correct is, kunt u onderaan op de knop klikken."
+        "Kloppen de gegevens niet? Neem dan contact op met de gemeente."
     ],
     [
         "fund_request.prefills.title",
-        "Controleer of de gegevens correct zijn."
+        "De onderstaande gegevens zijn al ingevuld"
     ],
     [
         "fund_request.received.title",
@@ -1709,7 +1749,7 @@
     ],
     [
         "fund_request.sign_up.fund_request_step_done.application_processing",
-        "Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail."
+        "Je aanvraag is ontvangen. De aanvraag wordt binnen maximaal 8 weken verwerkt. Je ontvangt hierover een e-mail."
     ],
     [
         "fund_request.sign_up.fund_request_step_done.application_received",

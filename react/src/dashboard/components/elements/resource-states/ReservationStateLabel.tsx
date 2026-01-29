@@ -25,5 +25,5 @@ export default function ReservationStateLabel({ reservation }: { reservation: Re
         return <Label type="danger">{reservation.state_locale}</Label>;
     }
 
-    return <Label type={'default'}>reservation.state_locale</Label>;
+    return <Label type={'default'}>{reservation.state_locale}</Label>;
 }

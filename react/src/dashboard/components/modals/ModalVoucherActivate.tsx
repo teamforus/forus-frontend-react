@@ -1,9 +1,10 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
-import FormError from '../elements/forms/errors/FormError';
 import useTranslate from '../../hooks/useTranslate';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalVoucherActivate({
     modal,
@@ -24,7 +25,7 @@ export default function ModalVoucherActivate({
     });
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window" onSubmit={form.submit}>
@@ -41,18 +42,21 @@ export default function ModalVoucherActivate({
                             <span />
                         </div>
 
-                        <div className="form-group">
-                            <div className="form-label">{translate('modals.modal_voucher_activation.labels.note')}</div>
-                            <textarea
-                                className="form-control r-n"
-                                maxLength={140}
-                                value={form.values.note}
-                                placeholder={translate('modals.modal_voucher_activation.placeholders.note')}
-                                onChange={(e) => form.update({ note: e.target.value })}
-                            />
-                            <div className="form-hint">{translate('modals.modal_voucher_activation.hints.note')}</div>
-                            <FormError error={form.errors?.note} />
-                        </div>
+                        <FormGroup
+                            label={translate('modals.modal_voucher_activation.labels.note')}
+                            hint={translate('modals.modal_voucher_activation.hints.note')}
+                            error={form.errors?.note}
+                            input={(id) => (
+                                <textarea
+                                    className="form-control r-n"
+                                    id={id}
+                                    maxLength={140}
+                                    value={form.values.note}
+                                    placeholder={translate('modals.modal_voucher_activation.placeholders.note')}
+                                    onChange={(e) => form.update({ note: e.target.value })}
+                                />
+                            )}
+                        />
                     </div>
                 </div>
 

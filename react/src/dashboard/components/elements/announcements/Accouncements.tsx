@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import Announcement from '../../../props/models/Announcement';
 
 export const Announcements = ({ announcements }: { announcements: Array<Announcement> }) => {
@@ -43,9 +44,15 @@ export const Announcements = ({ announcements }: { announcements: Array<Announce
             {listActive?.map((announcement) => (
                 <div
                     key={announcement.id}
-                    className={`announcement announcement-${announcement.type} ${
-                        announcement.dismissed ? ' dismissed' : ''
-                    }`}>
+                    className={classNames(
+                        'announcement',
+                        announcement.type === 'warning' && 'announcement-warning',
+                        announcement.type === 'danger' && 'announcement-danger',
+                        announcement.type === 'success' && 'announcement-success',
+                        announcement.type === 'primary' && 'announcement-primary',
+                        announcement.type === 'default' && 'announcement-default',
+                        announcement.dismissed && 'dismissed',
+                    )}>
                     <div className="announcement-wrapper">
                         <div className="title">{announcement.title}</div>
                         <div className="description">

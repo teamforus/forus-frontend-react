@@ -33,6 +33,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -246,25 +247,20 @@ export default function OrganizationFunds() {
                         <div className="form">
                             <div className="flex">
                                 <div>
-                                    <div className="block block-label-tabs">
-                                        <div className="label-tab-set">
-                                            <div
-                                                onClick={() => filterUpdate({ funds_type: 'active' })}
-                                                className={`label-tab label-tab-sm ${
-                                                    filterValues.funds_type == 'active' ? 'active' : ''
-                                                }`}>
-                                                Lopend ({funds.meta.unarchived_funds_total})
-                                            </div>
-
-                                            <div
-                                                onClick={() => filterUpdate({ funds_type: 'archived' })}
-                                                className={`label-tab label-tab-sm ${
-                                                    filterValues.funds_type == 'archived' ? 'active' : ''
-                                                }`}>
-                                                Archief ({funds.meta.archived_funds_total})
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <BlockLabelTabs
+                                        value={filterValues.funds_type}
+                                        setValue={(funds_type) => filterUpdate({ funds_type })}
+                                        tabs={[
+                                            {
+                                                value: 'active',
+                                                label: `Lopend (${funds.meta.unarchived_funds_total})`,
+                                            },
+                                            {
+                                                value: 'archived',
+                                                label: `Archief (${funds.meta.archived_funds_total})`,
+                                            },
+                                        ]}
+                                    />
                                 </div>
                             </div>
                         </div>
