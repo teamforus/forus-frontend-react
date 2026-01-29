@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react';
+import React, { Fragment, useContext, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -9,8 +9,10 @@ import SelectControl from '../../elements/select-control/SelectControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import { mainContext } from '../../../contexts/MainContext';
 
 export default function TransactionSettings() {
+    const { setOrganizationData } = useContext(mainContext);
     const activeOrganization = useActiveOrganization();
 
     const pushSuccess = usePushSuccess();
@@ -49,7 +51,13 @@ export default function TransactionSettings() {
     const form = useFormBuilder(activeOrganization.bank_statement_details, (values) => {
         organizationService
             .updateBankFields(activeOrganization.id, values)
-            .then(() => pushSuccess('Opgeslagen!'))
+            .then((res) => {
+                pushSuccess('Opgeslagen!');
+
+                setOrganizationData(activeOrganization.id, {
+                    bank_statement_details: res.data.data.bank_statement_details,
+                });
+            })
             .catch(pushApiError)
             .finally(() => form.setIsLocked(false));
     });
