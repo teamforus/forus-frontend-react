@@ -103,7 +103,7 @@
     "file-saver": "^2.0.5",
     "i18n-iso-countries": "^7.13.0",
     "i18next": "^25.0.2",
-    "jquery": "^3.6.3",
+    "jquery": "^4.0.0",
     "jszip": "^3.10.1",
     "libphonenumber-js": "^1.10.41",
     "lodash": "^4.17.23",
