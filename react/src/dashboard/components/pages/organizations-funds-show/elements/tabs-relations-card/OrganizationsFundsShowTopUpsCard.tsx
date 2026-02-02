@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import Fund from '../../../../../props/models/Fund';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../../../elements/forms/controls/DatePickerControl';
@@ -233,7 +234,7 @@ export default function OrganizationsFundsShowTopUpsCard({
                                         {topUpTransactions.data.map((top_up_transaction: FundTopUpTransaction) => (
                                             <tr key={top_up_transaction.id}>
                                                 <td>{top_up_transaction.code}</td>
-                                                <td className={!top_up_transaction.iban ? 'text-muted' : ''}>
+                                                <td className={classNames(!top_up_transaction.iban && 'text-muted')}>
                                                     {top_up_transaction.iban || 'Geen IBAN'}
                                                 </td>
                                                 <td>{top_up_transaction.amount_locale}</td>

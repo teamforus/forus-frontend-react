@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
@@ -7,7 +8,7 @@ export default function ModalImagePreview({ modal, imageSrc }: { modal: ModalSta
     const translate = useTranslate();
 
     return (
-        <div className={`modal modal-animated modal-file-preview ${modal.loading ? '' : 'modal-loaded'}`}>
+        <div className={classNames('modal', 'modal-animated', 'modal-file-preview', !modal.loading && 'modal-loaded')}>
             <div
                 className="modal-backdrop"
                 onClick={modal.close}

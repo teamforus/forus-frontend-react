@@ -1,5 +1,6 @@
 import Transaction from '../../../../props/models/Transaction';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import useEnvData from '../../../../hooks/useEnvData';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { currencyFormat, strLimit } from '../../../../helpers/string';
@@ -119,7 +120,7 @@ export default function VoucherTransactionsCard({
                                             <td>{transaction.target_locale}</td>
                                             {isSponsor && (
                                                 <td
-                                                    className={transaction.organization ? '' : 'text-muted'}
+                                                    className={classNames(!transaction.organization && 'text-muted')}
                                                     title={transaction.organization?.name || ''}>
                                                     {strLimit(transaction.organization?.name || '-', 25)}
                                                 </td>

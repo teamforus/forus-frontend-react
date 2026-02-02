@@ -100,11 +100,17 @@ export default function ReimbursementsTable({
 
                                         <td>{reimbursement.lead_time_locale}</td>
 
-                                        <td className={reimbursement.employee ? 'text-primary' : 'text-muted-dark'}>
+                                        <td
+                                            className={classNames(
+                                                reimbursement.employee ? 'text-primary' : 'text-muted-dark',
+                                            )}>
                                             {strLimit(reimbursement.employee?.email || 'Niet toegewezen', 25)}
                                         </td>
 
-                                        <td className={reimbursement.expired ? 'text-primary' : 'text-muted-dark'}>
+                                        <td
+                                            className={classNames(
+                                                reimbursement.expired ? 'text-primary' : 'text-muted-dark',
+                                            )}>
                                             {reimbursement.expired ? 'Ja' : 'Nee'}
                                         </td>
 

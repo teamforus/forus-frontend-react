@@ -36,7 +36,7 @@ export default function FormGroup({
                 className,
             )}>
             {label && (
-                <label htmlFor={input_id} className={classNames(`form-label`, required && 'form-label-required')}>
+                <label htmlFor={input_id} className={classNames('form-label', required && 'form-label-required')}>
                     {label}
                 </label>
             )}

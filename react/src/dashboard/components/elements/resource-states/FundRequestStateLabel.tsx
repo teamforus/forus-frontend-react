@@ -41,12 +41,29 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
         };
     }, [fundRequest, hasRecordsWithPendingClarifications]);
 
+    const getLabelClass = useCallback((label?: string) => {
+        switch (label) {
+            case 'primary-light':
+                return classNames('label-primary-light');
+            case 'danger':
+                return classNames('label-danger');
+            case 'success':
+                return classNames('label-success');
+            case 'default':
+                return classNames('label-default');
+            case 'warning':
+                return classNames('label-warning');
+            default:
+                return null;
+        }
+    }, []);
+
     return (
         <Fragment>
             {fundRequest.state == 'pending' && fundRequest.employee ? (
                 <Fragment>
                     {hasRecordsWithPendingClarifications ? (
-                        <div className={classNames('label', `label-${stateLabels.clarification_requested?.label}`)}>
+                        <div className={classNames('label', getLabelClass(stateLabels.clarification_requested?.label))}>
                             <em
                                 className={classNames(
                                     'mdi',
@@ -64,7 +81,7 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
                     )}
                 </Fragment>
             ) : (
-                <div className={classNames('label', `label-${stateLabels[localState.key]?.label}`)}>
+                <div className={classNames('label', getLabelClass(stateLabels[localState.key]?.label))}>
                     <em className={classNames('mdi', `mdi-${stateLabels[localState.key]?.icon}`, `icon-start`)} />
                     {localState.label}
                 </div>

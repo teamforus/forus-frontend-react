@@ -296,11 +296,13 @@ export default function ProductView() {
                                                 )}
                                                 <td className="nowrap">
                                                     <button
-                                                        className={`button button-icon ${
+                                                        className={classNames(
+                                                            'button',
+                                                            'button-icon',
                                                             fund.chat?.provider_unseen_messages > 0
                                                                 ? 'button-primary-light'
-                                                                : 'button-default'
-                                                        }`}
+                                                                : 'button-default',
+                                                        )}
                                                         disabled={!fund.chat}
                                                         onClick={() => showTheChat(fund)}>
                                                         <em
@@ -353,7 +355,7 @@ export default function ProductView() {
                     </div>
                 ) : (
                     <div className="card-section">
-                        <div className={`block block-empty text-center}`}>
+                        <div className="block block-empty text-center">
                             <div className="empty-details">
                                 Uw aanbod kan nog niet op een website worden geplaatst omdat u zich eerst voor een fonds
                                 moet aanmelden. Meld u aan voor één of meerdere fondsen.

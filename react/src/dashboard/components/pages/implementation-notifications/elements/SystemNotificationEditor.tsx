@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 import useImplementationNotificationService from '../../../../services/ImplementationNotificationService';
 import { keyBy } from 'lodash';
@@ -131,8 +132,14 @@ export default function SystemNotificationEditor({
     return (
         <div className="block block-system-notification-editor">
             <div className="card card-collapsed">
-                <div className={`card-header ${notification.enable_all ? '' : 'card-header-danger'}`}>
-                    <div className={`flex flex-grow card-title ${notification.enable_all ? '' : 'text-muted-dark'}`}>
+                <div className={classNames('card-header', !notification.enable_all && 'card-header-danger')}>
+                    <div
+                        className={classNames(
+                            'flex',
+                            'flex-grow',
+                            'card-title',
+                            !notification.enable_all && 'text-muted-dark',
+                        )}>
                         <em className="mdi mdi-web" />
                         <span>{notification.title}</span>
                         <span>{translate(`system_notifications.notifications.${notification.key}.title`)}</span>
@@ -154,7 +161,7 @@ export default function SystemNotificationEditor({
                 </div>
 
                 {funds && funds.length > 0 && (
-                    <div className={`card-section ${notification.enable_all ? '' : 'card-section-danger'}`}>
+                    <div className={classNames('card-section', !notification.enable_all && 'card-section-danger')}>
                         <div className="card-block card-block-keyvalue">
                             <div className="keyvalue-item flex">
                                 <div className="keyvalue-key text-right flex flex-vertical flex-center">
@@ -177,7 +184,7 @@ export default function SystemNotificationEditor({
                     </div>
                 )}
 
-                <div className={`card-section ${notification.enable_all ? '' : 'card-section-danger'}`}>
+                <div className={classNames('card-section', !notification.enable_all && 'card-section-danger')}>
                     <div className="card-block card-block-keyvalue">
                         <div className="keyvalue-item">
                             <div className="keyvalue-key text-right">

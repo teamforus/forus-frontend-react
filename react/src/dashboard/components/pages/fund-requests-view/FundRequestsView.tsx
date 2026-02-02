@@ -516,11 +516,12 @@ export default function FundRequestsView() {
                             <div className="button-group">
                                 {fundRequestMeta.is_assignable && (
                                     <button
-                                        className={`button ${
+                                        className={classNames(
+                                            'button',
                                             fundRequestMeta.is_assignable_as_supervisor
                                                 ? 'button-default'
-                                                : 'button-primary'
-                                        }`}
+                                                : 'button-primary',
+                                        )}
                                         data-dusk="fundRequestAssignBtn"
                                         onClick={() => assignRequest()}>
                                         <em className="mdi mdi-account-plus icon-start" />
@@ -565,7 +566,12 @@ export default function FundRequestsView() {
                                     className="keyvalue-value-info-block-toggle"
                                     onClick={() => setShowCriteria(!showCriteria)}>
                                     Voorwaarden ({fundRequestMeta.fund.criteria.length})
-                                    <em className={`mdi mdi-chevron-${showCriteria ? 'up' : 'down'}`} />
+                                    <em
+                                        className={classNames(
+                                            'mdi',
+                                            showCriteria ? 'mdi-chevron-up' : 'mdi-chevron-down',
+                                        )}
+                                    />
                                 </span>
                             </Fragment>
                         </KeyValueItem>
@@ -617,13 +623,13 @@ export default function FundRequestsView() {
 
                         <KeyValueItem
                             label={translate('validation_requests.labels.email')}
-                            className={fundRequestMeta.email ? 'text-black' : 'text-muted'}>
+                            className={classNames(fundRequestMeta.email ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.email || 'Geen E-mail'}
                         </KeyValueItem>
 
                         <KeyValueItem
                             label={translate('validation_requests.labels.bsn')}
-                            className={fundRequestMeta.bsn ? 'text-black' : 'text-muted'}>
+                            className={classNames(fundRequestMeta.bsn ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.bsn || 'Geen BSN'}
                         </KeyValueItem>
                     </div>
@@ -761,13 +767,13 @@ export default function FundRequestsView() {
                                             <td>{record.record_type.name}</td>
 
                                             {record?.record_type.type != 'select' && (
-                                                <td className={record.value !== null ? 'text-muted' : ''}>
+                                                <td className={classNames(record.value !== null && 'text-muted')}>
                                                     {record?.value || 'Niet beschikbaar'}
                                                 </td>
                                             )}
 
                                             {record?.record_type.type == 'select' && (
-                                                <td className={record.value !== null ? 'text-muted' : ''}>
+                                                <td className={classNames(record.value !== null && 'text-muted')}>
                                                     {record?.record_type.options?.find(
                                                         (option) => option.value == record?.value,
                                                     )?.name || 'Niet beschikbaar'}

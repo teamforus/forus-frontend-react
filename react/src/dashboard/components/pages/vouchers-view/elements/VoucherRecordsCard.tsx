@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -163,7 +164,7 @@ export default function VoucherRecordsCard({
                                             <td className="nowrap">{record.record_type.name}</td>
                                             <td>{record.value_locale}</td>
                                             <td className="nowrap">{record.created_at_locale}</td>
-                                            <td className={record.note ? '' : 'text-muted'}>
+                                            <td className={classNames(!record.note && 'text-muted')}>
                                                 {record.note || 'Geen notitie'}
                                             </td>
 

@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { mainContext } from '../../../contexts/MainContext';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import { NavLink } from 'react-router';
@@ -319,7 +320,10 @@ export default function Employees() {
                                                         )}
                                                     </td>
                                                     <td>
-                                                        <div className={employee?.branch?.number ? '' : 'text-muted'}>
+                                                        <div
+                                                            className={classNames(
+                                                                !employee?.branch?.number && 'text-muted',
+                                                            )}>
                                                             {strLimit(employee.branch?.number?.toString(), 32) || (
                                                                 <TableEmptyValue />
                                                             )}

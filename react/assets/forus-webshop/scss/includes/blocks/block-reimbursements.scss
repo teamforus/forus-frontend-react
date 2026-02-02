@@ -66,13 +66,13 @@
                 }
             }
 
-            &.reimbursement-image-rejected {
+            &.reimbursement-image-declined {
                 svg .fill-color-primary {
                     fill: #d38c87;
                 }
             }
 
-            &.reimbursement-image-accepted {
+            &.reimbursement-image-approved {
                 svg .fill-color-primary {
                     fill: #9bbfa1;
                 }
@@ -119,7 +119,7 @@
         }
 
         .reimbursement-values {
-            padding: 0px 15px 15px 20px;
+            padding: 0 15px 15px 20px;
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
@@ -161,8 +161,6 @@
             flex-direction: column;
             padding: 15px;
             position: relative;
-            display: flex;
-            flex-direction: column;
             justify-content: flex-end;
             white-space: nowrap;
 
@@ -184,7 +182,6 @@
                 bottom: 25px;
                 left: 25px;
                 text-align: right;
-                flex-direction: column;
                 justify-content: flex-end;
                 margin: 0 0 5px;
 

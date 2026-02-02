@@ -146,7 +146,12 @@ export default function Products() {
                         <StateNavLink
                             name={DashboardRoutes.PRODUCT_CREATE}
                             params={{ organizationId: activeOrganization.id }}
-                            className={`button button-primary button-sm ${productHardLimitReached ? 'disabled' : ''}`}
+                            className={classNames(
+                                'button',
+                                'button-primary',
+                                'button-sm',
+                                productHardLimitReached && 'disabled',
+                            )}
                             id="add_product"
                             disabled={productHardLimitReached}>
                             <em className="mdi mdi-plus-circle icon-start" />
@@ -234,11 +239,11 @@ export default function Products() {
 
                                         <td>{product.price_locale}</td>
 
-                                        <td className={product.expire_at_locale ? '' : 'text-muted'}>
+                                        <td className={classNames(!product.expire_at_locale && 'text-muted')}>
                                             {product.expire_at_locale ? product.expire_at_locale : 'Geen'}
                                         </td>
 
-                                        <td className={product.expired ? '' : 'text-muted'}>
+                                        <td className={classNames(!product.expired && 'text-muted')}>
                                             {product.expired ? 'Ja' : 'Nee'}
                                         </td>
 

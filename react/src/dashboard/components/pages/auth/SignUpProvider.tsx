@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import ProgressStorage from '../../../helpers/ProgressStorage';
@@ -1398,9 +1399,10 @@ export default function SignUpProvider() {
                                     {organizationsList?.map((item) => (
                                         <a
                                             key={item.id}
-                                            className={`sign_up-organization ${
-                                                item.id == organization?.id ? 'active' : ''
-                                            }`}
+                                            className={classNames(
+                                                'sign_up-organization',
+                                                item.id == organization?.id && 'active',
+                                            )}
                                             onClick={(e) => {
                                                 e?.preventDefault();
                                                 selectOrganization(item);
@@ -1739,11 +1741,10 @@ export default function SignUpProvider() {
                                         {!office.edit ? (
                                             <div className="sign_up-office">
                                                 <div
-                                                    className={`office-media ${
-                                                        !office.photo?.sizes?.thumbnail
-                                                            ? 'office-media-placeholder'
-                                                            : ''
-                                                    }`}>
+                                                    className={classNames(
+                                                        'office-media',
+                                                        !office.photo?.sizes?.thumbnail && 'office-media-placeholder',
+                                                    )}>
                                                     <img
                                                         alt={''}
                                                         src={

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../../dashboard/modules/modals/context/ModalContext';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { cover } from '../../../../dashboard/components/elements/image_cropper/helpers/image';
@@ -292,7 +293,7 @@ export default function ModalPhotoCropper({
 
     return (
         <div
-            className={`modal modal-animated modal-photo-cropper ${modal.loading ? '' : 'modal-loaded'}`}
+            className={classNames('modal', 'modal-animated', 'modal-photo-cropper', !modal.loading && 'modal-loaded')}
             data-dusk={'modalPhotoCropper'}>
             <div className="modal-backdrop" onClick={modal.close} />
             <div className="modal-window">
@@ -320,9 +321,10 @@ export default function ModalPhotoCropper({
                                 {cropperFiles?.map((file, index) => (
                                     <div
                                         key={file.uid}
-                                        className={`cropper-preview-container ${
-                                            index !== fileIndex ? 'cropper-preview-container-inactive' : ''
-                                        }`}>
+                                        className={classNames(
+                                            'cropper-preview-container',
+                                            index !== fileIndex && 'cropper-preview-container-inactive',
+                                        )}>
                                         {file.is_image && file.file && (
                                             <ModalPhotoCropperControl file={file} onCropperChange={onCropperChange} />
                                         )}
@@ -360,7 +362,10 @@ export default function ModalPhotoCropper({
                                             role="button"
                                             tabIndex={0}
                                             onKeyDown={clickOnKeyEnter}
-                                            className={`cropper-pagination-item ${index === fileIndex ? 'active' : ''}`}
+                                            className={classNames(
+                                                'cropper-pagination-item',
+                                                index === fileIndex && 'active',
+                                            )}
                                             onClick={() => setFileIndex(index)}
                                             aria-label={translate('modal_photo_cropper.number', { number: index + 1 })}
                                         />

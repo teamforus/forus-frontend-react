@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
@@ -311,7 +312,7 @@ export default function ProviderFundsAvailableTable({
                                     {funds.data?.map((fund) => (
                                         <tr
                                             key={fund.id}
-                                            className={selected.includes(fund.id) ? 'selected' : ''}
+                                            className={classNames(selected.includes(fund.id) && 'selected')}
                                             data-dusk={`tableFundsAvailableRow${fund.id}`}>
                                             <td className="td-narrow">
                                                 <TableCheckboxControl

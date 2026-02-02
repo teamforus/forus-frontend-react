@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import Transaction from '../../../props/models/Transaction';
@@ -898,7 +899,10 @@ export default function Transactions() {
                                             )}
                                             {isProvider && (
                                                 <td>
-                                                    <div className={transaction?.branch_number ? '' : 'text-muted'}>
+                                                    <div
+                                                        className={classNames(
+                                                            !transaction?.branch_number && 'text-muted',
+                                                        )}>
                                                         {strLimit(transaction.branch_number?.toString(), 32) ||
                                                             'Geen...'}
                                                     </div>

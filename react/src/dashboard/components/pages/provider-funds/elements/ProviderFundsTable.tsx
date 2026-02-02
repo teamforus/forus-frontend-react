@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
@@ -284,7 +285,7 @@ export default function ProviderFundsTable({
                                     {providerFunds.data?.map((providerFund) => (
                                         <tr
                                             key={providerFund.id}
-                                            className={selected.includes(providerFund.id) ? 'selected' : ''}
+                                            className={classNames(selected.includes(providerFund.id) && 'selected')}
                                             data-dusk={`${type}TableFundsRow${providerFund.id}`}>
                                             {type !== 'archived' && (
                                                 <td className="td-narrow">

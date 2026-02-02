@@ -516,7 +516,7 @@ export default function ModalVoucherTransactionsUpload({
 
                                 {csvFile && progress < 2 && (
                                     <div className="csv-upload-actions">
-                                        <div className={classNames(`block block-file`, !isValid && 'has-error')}>
+                                        <div className={classNames('block', 'block-file', !isValid && 'has-error')}>
                                             <div className="block-file-details">
                                                 <div className="file-icon">
                                                     {isValid ? (

@@ -32,6 +32,7 @@ import useAssetUrl from '../../hooks/useAssetUrl';
 import useThumbnailUrl from '../../hooks/useThumbnailUrl';
 import useAuthIdentity2FAState from '../../hooks/useAuthIdentity2FAState';
 import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 interface IdentityMenuItemProps {
     url?: string;
@@ -46,7 +47,7 @@ interface IdentityMenuItemProps {
 const IdentityMenuItem = ({ url, href, name, icon, dusk, active, onClick }: IdentityMenuItemProps) => {
     if (url) {
         return (
-            <NavLink to={url} data-dusk={dusk} className={() => `auth-user-menu-item ${active ? 'active' : ''}`}>
+            <NavLink to={url} data-dusk={dusk} className={() => classNames('auth-user-menu-item', active && 'active')}>
                 <div className="auth-user-menu-item-icon">{icon}</div>
                 {name}
             </NavLink>
@@ -54,7 +55,11 @@ const IdentityMenuItem = ({ url, href, name, icon, dusk, active, onClick }: Iden
     }
 
     return (
-        <a href={href} data-dusk={dusk} className={`auth-user-menu-item ${active ? 'active' : ''}`} onClick={onClick}>
+        <a
+            href={href}
+            data-dusk={dusk}
+            className={classNames('auth-user-menu-item', active && 'active')}
+            onClick={onClick}>
             <div className="auth-user-menu-item-icon">{icon}</div>
             {name}
         </a>
@@ -172,7 +177,12 @@ export const LayoutHeader = () => {
                             />
 
                             <div className="auth-user-caret">
-                                <em className={showIdentityMenu ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'} />
+                                <em
+                                    className={classNames(
+                                        'mdi',
+                                        showIdentityMenu ? 'mdi-chevron-up' : 'mdi-chevron-down',
+                                    )}
+                                />
                             </div>
 
                             {showIdentityMenu && (

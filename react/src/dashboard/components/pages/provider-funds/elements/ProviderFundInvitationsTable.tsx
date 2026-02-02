@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
@@ -233,7 +234,7 @@ export default function ProviderFundInvitationsTable({
                                     {invitations.data?.map((invitation) => (
                                         <tr
                                             key={invitation.id}
-                                            className={selected.includes(invitation.id) ? 'selected' : ''}>
+                                            className={classNames(selected.includes(invitation.id) && 'selected')}>
                                             {[null, 'pending'].includes(filterValues.state) && (
                                                 <td className="td-narrow">
                                                     <TableCheckboxControl
@@ -285,7 +286,7 @@ export default function ProviderFundInvitationsTable({
                                                     {invitation.fund?.end_date_locale}
                                                 </strong>
                                             </td>
-                                            <td className={`nowrap`}>
+                                            <td className="nowrap">
                                                 <Label type={invitation.status_type}>{invitation.status_text}</Label>
                                             </td>
                                             {type === 'invitations' && invitation.can_be_accepted ? (

@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import ProviderFinancialTablesTransactions from './ProviderFinancialTablesTransactions';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
@@ -135,12 +136,15 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                                             <strong>{provider.provider.name}</strong>
                                                         </div>
                                                     </td>
-                                                    <td className={!provider.total_spent ? 'text-muted' : ''}>
+                                                    <td className={classNames(!provider.total_spent && 'text-muted')}>
                                                         {provider.total_spent
                                                             ? provider.total_spent_locale
                                                             : 'Geen transacties'}
                                                     </td>
-                                                    <td className={!provider.highest_transaction ? 'text-muted' : ''}>
+                                                    <td
+                                                        className={classNames(
+                                                            !provider.highest_transaction && 'text-muted',
+                                                        )}>
                                                         {provider.highest_transaction
                                                             ? provider.highest_transaction_locale
                                                             : 'Geen transacties'}

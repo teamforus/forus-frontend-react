@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { strLimit } from '../../../../helpers/string';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Paginator from '../../../../modules/paginator/components/Paginator';
@@ -153,7 +154,7 @@ export default function TransactionBulkTransactionsTable({
 
                                         <td>{strLimit(transaction.fund.name, 25)}</td>
 
-                                        <td className={transaction.organization ? '' : 'text-muted'}>
+                                        <td className={classNames(!transaction.organization && 'text-muted')}>
                                             {strLimit(transaction.organization?.name || '-', 25) || '-'}
                                         </td>
 

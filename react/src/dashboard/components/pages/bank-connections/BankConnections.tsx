@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import 'react-image-crop/dist/ReactCrop.css';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
@@ -352,7 +353,10 @@ export default function BankConnections() {
                                                 <tr key={bankConnection.id}>
                                                     <td>{bankConnection.created_at_locale}</td>
                                                     <td>{bankConnection.bank.name}</td>
-                                                    <td className={bankConnection.expire_at ? '' : 'text-muted'}>
+                                                    <td
+                                                        className={classNames(
+                                                            !bankConnection.expire_at && 'text-muted',
+                                                        )}>
                                                         {bankConnection.expire_at
                                                             ? bankConnection.expire_at_locale
                                                             : 'Geen verloopdatum'}

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../../services/FundService';
@@ -28,10 +29,10 @@ export default function SponsorProviderOffices({ offices }: { offices: Array<Off
                             <tbody>
                                 {offices.map((office) => (
                                     <tr key={office.id}>
-                                        <td className={!office.address ? 'text-muted' : ''}>
+                                        <td className={classNames(!office.address && 'text-muted')}>
                                             {office.address || 'n.v.t.'}
                                         </td>
-                                        <td className={`${!office.phone ? 'text-muted' : ''}`}>
+                                        <td className={classNames(!office.phone && 'text-muted')}>
                                             {office.phone || 'n.v.t.'}
                                         </td>
                                         <td className={'table-td-actions text-right'}>

@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
@@ -95,7 +96,11 @@ export default function FundRequests() {
                         <div className="block block-label-tabs form pull-right">
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${!filterValues.archived ? 'active' : ''}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        !filterValues.archived && 'active',
+                                    )}
                                     role="button"
                                     data-dusk="fundRequestsFilterActive"
                                     onClick={() => filterUpdate({ archived: false })}
@@ -104,7 +109,11 @@ export default function FundRequests() {
                                     {translate('fund_requests.filters.active')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        filterValues.archived && 'active',
+                                    )}
                                     role="button"
                                     data-dusk="fundRequestsFilterArchived"
                                     onClick={() => filterUpdate({ archived: true })}

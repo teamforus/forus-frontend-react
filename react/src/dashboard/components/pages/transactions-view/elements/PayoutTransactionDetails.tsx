@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -73,7 +74,7 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                     <div className="keyvalue-item">
                                         <div className="keyvalue-key">IBAN (van)</div>
                                         <div className="keyvalue-value">
-                                            <span className={transaction.iban_final ? '' : 'text-muted-dark'}>
+                                            <span className={classNames(!transaction.iban_final && 'text-muted-dark')}>
                                                 {transaction.iban_from}
                                             </span>
                                             {!transaction.iban_final && (
@@ -88,11 +89,11 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                         <div className="keyvalue-key">IBAN (naar)</div>
                                         <div className="keyvalue-value">
                                             <span
-                                                className={
-                                                    !transaction.iban_final && transaction.target != 'iban'
-                                                        ? 'text-muted-dark'
-                                                        : ''
-                                                }>
+                                                className={classNames(
+                                                    !transaction.iban_final &&
+                                                        transaction.target != 'iban' &&
+                                                        'text-muted-dark',
+                                                )}>
                                                 {transaction.iban_to}
                                             </span>
 
@@ -108,11 +109,11 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                         <div className="keyvalue-key">IBAN naam (naar)</div>
                                         <div className="keyvalue-value">
                                             <span
-                                                className={
-                                                    !transaction.iban_final && transaction.target != 'iban'
-                                                        ? 'text-muted-dark'
-                                                        : ''
-                                                }>
+                                                className={classNames(
+                                                    !transaction.iban_final &&
+                                                        transaction.target != 'iban' &&
+                                                        'text-muted-dark',
+                                                )}>
                                                 {transaction.iban_to_name}
                                             </span>
                                             {!transaction.iban_final && transaction.target != 'iban' && (

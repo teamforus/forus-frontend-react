@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
+import classNames from 'classnames';
 import Reimbursement from '../../../../props/models/Reimbursement';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { currencyFormat } from '../../../../../dashboard/helpers/string';
@@ -46,9 +47,10 @@ export default function ReimbursementDetailsCard({
                                     {reimbursement.files.map((file, index) => (
                                         <div
                                             key={file.uid}
-                                            className={`media-pagination-item ${
-                                                index === previewIndex ? 'active' : ''
-                                            }`}
+                                            className={classNames(
+                                                'media-pagination-item',
+                                                index === previewIndex && 'active',
+                                            )}
                                             onClick={() => setPreviewIndex(index)}
                                         />
                                     ))}

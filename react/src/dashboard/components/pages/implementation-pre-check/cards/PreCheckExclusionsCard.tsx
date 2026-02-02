@@ -149,7 +149,7 @@ export default function PreCheckExclusionsCard({
                                                     content={(e) => (
                                                         <div className="dropdown dropdown-actions">
                                                             <a
-                                                                className={`dropdown-item`}
+                                                                className="dropdown-item"
                                                                 onClick={() => {
                                                                     e.close();
                                                                     editFundPreCheckSettings(fund);
@@ -158,7 +158,7 @@ export default function PreCheckExclusionsCard({
                                                                 Bewerken
                                                             </a>
                                                             <a
-                                                                className={`dropdown-item`}
+                                                                className="dropdown-item"
                                                                 onClick={() => {
                                                                     e.close();
                                                                     removeFundPreCheckExclusion(fund.id);
