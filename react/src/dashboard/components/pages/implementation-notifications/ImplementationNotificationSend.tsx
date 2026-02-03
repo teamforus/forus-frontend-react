@@ -12,7 +12,6 @@ import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../../elements/select-control/SelectControl';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import SponsorIdentity, { SponsorIdentityCounts } from '../../../props/models/Sponsor/SponsorIdentity';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
@@ -24,10 +23,9 @@ import SystemNotification from '../../../props/models/SystemNotification';
 import useFundIdentitiesExporter from '../../../services/exporters/useFundIdentitiesExporter';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
@@ -156,14 +154,6 @@ export default function ImplementationNotificationSend() {
         order_by: 'created_at',
         order_dir: 'desc',
     });
-
-    const { headElement, configsElement } = useConfigurableTable(
-        implementationNotificationsService.getIdentitiesColumns(),
-        {
-            sortable: true,
-            filter: identitiesFilter,
-        },
-    );
 
     const exportIdentities = useCallback(() => {
         fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, {
@@ -605,55 +595,35 @@ export default function ImplementationNotificationSend() {
                                 </div>
                             )}
 
-                            {showIdentities && identities.meta.total > 0 && (
-                                <div className="card-section">
-                                    <div className="card-block card-block-table">
-                                        {configsElement}
-
-                                        <TableTopScroller>
-                                            <table className="table">
-                                                {headElement}
-
-                                                <tbody>
-                                                    {identities.data.map((identity) => (
-                                                        <tr key={identity.id}>
-                                                            <td>{identity.id}</td>
-                                                            <td>{identity.email}</td>
-                                                            <td>{identity.count_vouchers}</td>
-                                                            <td>{identity.count_vouchers_active}</td>
-                                                            <td>{identity.count_vouchers_active_with_balance}</td>
-                                                            <td className={'table-td-actions text-right'}>
-                                                                <TableEmptyValue />
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </TableTopScroller>
-                                    </div>
-                                </div>
-                            )}
-
-                            {showIdentities && identities.meta.total == 0 && (
-                                <EmptyCard
-                                    type={'card-section'}
-                                    title={
+                            {showIdentities && (
+                                <LoaderTableCard
+                                    empty={identities?.meta?.total == 0}
+                                    emptyTitle={
                                         lastIdentitiesQuery
                                             ? `Geen gebruikers gevonden voor "${lastIdentitiesQuery}"`
                                             : 'Geen gebruikers gevonden'
                                     }
-                                />
-                            )}
-
-                            {showIdentities && identities && identities?.meta && (
-                                <div className="card-section card-section-narrow">
-                                    <Paginator
-                                        meta={identities.meta}
-                                        filters={identitiesFilterValues}
-                                        updateFilters={identitiesFilterUpdate}
-                                        perPageKey={perPageKey}
-                                    />
-                                </div>
+                                    columns={implementationNotificationsService.getIdentitiesColumns()}
+                                    tableOptions={{ sortable: true, filter: identitiesFilter }}
+                                    paginator={{
+                                        key: perPageKey,
+                                        data: identities,
+                                        filterValues: identitiesFilterValues,
+                                        filterUpdate: identitiesFilterUpdate,
+                                    }}>
+                                    {identities?.data?.map((identity) => (
+                                        <tr key={identity.id}>
+                                            <td>{identity.id}</td>
+                                            <td>{identity.email}</td>
+                                            <td>{identity.count_vouchers}</td>
+                                            <td>{identity.count_vouchers_active}</td>
+                                            <td>{identity.count_vouchers_active_with_balance}</td>
+                                            <td className={'table-td-actions text-right'}>
+                                                <TableEmptyValue />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </LoaderTableCard>
                             )}
 
                             <div className="card-section card-section-primary">

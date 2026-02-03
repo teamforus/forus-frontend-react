@@ -13,8 +13,8 @@ export default function TableTopScrollerConfigTh({
     tableConfigCategory: string;
 }) {
     return (
-        <th className="table-th-actions table-th-actions-with-list">
-            {!hidden && (
+        !hidden && (
+            <th className="table-th-actions table-th-actions-with-list">
                 <div className="table-th-actions-list">
                     <div
                         className={classNames(
@@ -25,7 +25,7 @@ export default function TableTopScrollerConfigTh({
                         <em className="mdi mdi-information-variant-circle" />
                     </div>
                 </div>
-            )}
-        </th>
+            </th>
+        )
     );
 }

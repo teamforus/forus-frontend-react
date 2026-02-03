@@ -4,7 +4,6 @@ import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
 import FundProviderInvitation from '../../../../props/models/FundProviderInvitation';
@@ -12,10 +11,8 @@ import useFundProviderInvitationsService from '../../../../services/useFundProvi
 import { strLimit } from '../../../../helpers/string';
 import useTableToggles from '../../../../hooks/useTableToggles';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import useTranslate from '../../../../hooks/useTranslate';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label, { LabelType } from '../../../elements/image_cropper/Label';
@@ -86,21 +83,6 @@ export default function ProviderFundInvitationsTable({
             selected_active: list?.filter((item) => item.can_be_accepted),
         };
     }, [invitations?.data, selected]);
-
-    const { headElement, configsElement } = useConfigurableTable(fundProviderInvitationsService.getColumns(), {
-        trPrepend: (
-            <Fragment>
-                {[null, 'pending'].includes(filterValues.state) && (
-                    <th className="th-narrow">
-                        <TableCheckboxControl
-                            checked={selected.length == invitations?.data?.length}
-                            onClick={(e) => toggleAll(e, invitations?.data)}
-                        />
-                    </th>
-                )}
-            </Fragment>
-        ),
-    });
 
     const mapProviderFunds = useCallback(
         (
@@ -192,7 +174,7 @@ export default function ProviderFundInvitationsTable({
                     {translate(`provider_funds.title.${type}`)}
 
                     {!loading && selected.length > 0 && ` (${selected.length}/${invitations.data.length})`}
-                    {!loading && selected.length == 0 && ` (${invitations.meta.total})`}
+                    {!loading && selected.length == 0 && ` (${invitations?.meta?.total})`}
                 </div>
 
                 <div className="card-header-filters">
@@ -221,121 +203,99 @@ export default function ProviderFundInvitationsTable({
                 </div>
             </div>
 
-            {!loading && invitations.data.length > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table form">
-                        {configsElement}
+            <LoaderTableCard
+                loading={loading}
+                empty={!loading && invitations?.meta?.total == 0}
+                emptyTitle={translate(`provider_funds.empty_block.${type}`)}
+                columns={fundProviderInvitationsService.getColumns()}
+                tableOptions={{
+                    trPrepend: (
+                        <Fragment>
+                            {[null, 'pending'].includes(filterValues.state) && (
+                                <th className="th-narrow">
+                                    <TableCheckboxControl
+                                        checked={selected.length == invitations?.data?.length}
+                                        onClick={(e) => toggleAll(e, invitations?.data)}
+                                    />
+                                </th>
+                            )}
+                        </Fragment>
+                    ),
+                }}
+                paginator={{ key: paginatorKey, data: invitations, filterValues, filterUpdate }}>
+                {invitations?.data?.map((invitation) => (
+                    <tr key={invitation.id} className={classNames(selected.includes(invitation.id) && 'selected')}>
+                        {[null, 'pending'].includes(filterValues.state) && (
+                            <td className="td-narrow">
+                                <TableCheckboxControl
+                                    checked={selected.includes(invitation.id)}
+                                    onClick={(e) => toggle(e, invitation)}
+                                />
+                            </td>
+                        )}
+                        <td>
+                            <div className="td-collapsable">
+                                <div className="collapsable-media">
+                                    <img
+                                        className="td-media td-media-sm"
+                                        src={
+                                            invitation.fund?.logo?.sizes?.thumbnail ||
+                                            assetUrl('/assets/img/placeholders/fund-thumbnail.png')
+                                        }
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="collapsable-content">
+                                    <div className="text-primary text-semibold" title={invitation.fund.name}>
+                                        {strLimit(invitation.fund.name, 32)}
+                                    </div>
+                                    <a
+                                        href={invitation.fund.implementation?.url_webshop}
+                                        target="_blank"
+                                        className="text-strong text-md text-muted-dark text-inherit"
+                                        rel="noreferrer">
+                                        {strLimit(invitation.fund.implementation?.name, 32)}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td title={invitation.fund?.organization?.name}>
+                            {strLimit(invitation.fund?.organization?.name, 25)}
+                        </td>
 
-                                <tbody>
-                                    {invitations.data?.map((invitation) => (
-                                        <tr
-                                            key={invitation.id}
-                                            className={classNames(selected.includes(invitation.id) && 'selected')}>
-                                            {[null, 'pending'].includes(filterValues.state) && (
-                                                <td className="td-narrow">
-                                                    <TableCheckboxControl
-                                                        checked={selected.includes(invitation.id)}
-                                                        onClick={(e) => toggle(e, invitation)}
-                                                    />
-                                                </td>
-                                            )}
-                                            <td>
-                                                <div className="td-collapsable">
-                                                    <div className="collapsable-media">
-                                                        <img
-                                                            className="td-media td-media-sm"
-                                                            src={
-                                                                invitation.fund?.logo?.sizes?.thumbnail ||
-                                                                assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                                            }
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div className="collapsable-content">
-                                                        <div
-                                                            className="text-primary text-semibold"
-                                                            title={invitation.fund.name}>
-                                                            {strLimit(invitation.fund.name, 32)}
-                                                        </div>
-                                                        <a
-                                                            href={invitation.fund.implementation?.url_webshop}
-                                                            target="_blank"
-                                                            className="text-strong text-md text-muted-dark text-inherit"
-                                                            rel="noreferrer">
-                                                            {strLimit(invitation.fund.implementation?.name, 32)}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td title={invitation.fund?.organization?.name}>
-                                                {strLimit(invitation.fund?.organization?.name, 25)}
-                                            </td>
-
-                                            <td className="nowrap">
-                                                <strong className="text-strong text-md text-muted-dark">
-                                                    {invitation.fund?.start_date_locale}
-                                                </strong>
-                                            </td>
-                                            <td className="nowrap">
-                                                <strong className="text-strong text-md text-muted-dark">
-                                                    {invitation.fund?.end_date_locale}
-                                                </strong>
-                                            </td>
-                                            <td className="nowrap">
-                                                <Label type={invitation.status_type}>{invitation.status_text}</Label>
-                                            </td>
-                                            {type === 'invitations' && invitation.can_be_accepted ? (
-                                                <td>
-                                                    <div className="button-group flex-end">
-                                                        <div
-                                                            className="button button-primary button-sm"
-                                                            onClick={() => acceptInvitations([invitation])}>
-                                                            <em className="mdi mdi-check-circle icon-start" />
-                                                            {translate('provider_funds.labels.accept_invitation')}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            ) : (
-                                                <td className={'table-td-actions text-right'}>
-                                                    <TableEmptyValue />
-                                                </td>
-                                            )}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {loading && (
-                <div className="card-section">
-                    <div className="card-loading">
-                        <div className="mdi mdi-loading mdi-spin" />
-                    </div>
-                </div>
-            )}
-
-            {!loading && invitations?.meta?.total == 0 && (
-                <EmptyCard type={'card-section'} title={translate(`provider_funds.empty_block.${type}`)} />
-            )}
-
-            {invitations?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={invitations.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                        <td className="nowrap">
+                            <strong className="text-strong text-md text-muted-dark">
+                                {invitation.fund?.start_date_locale}
+                            </strong>
+                        </td>
+                        <td className="nowrap">
+                            <strong className="text-strong text-md text-muted-dark">
+                                {invitation.fund?.end_date_locale}
+                            </strong>
+                        </td>
+                        <td className="nowrap">
+                            <Label type={invitation.status_type}>{invitation.status_text}</Label>
+                        </td>
+                        {type === 'invitations' && invitation.can_be_accepted ? (
+                            <td>
+                                <div className="button-group flex-end">
+                                    <div
+                                        className="button button-primary button-sm"
+                                        onClick={() => acceptInvitations([invitation])}>
+                                        <em className="mdi mdi-check-circle icon-start" />
+                                        {translate('provider_funds.labels.accept_invitation')}
+                                    </div>
+                                </div>
+                            </td>
+                        ) : (
+                            <td className={'table-td-actions text-right'}>
+                                <TableEmptyValue />
+                            </td>
+                        )}
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

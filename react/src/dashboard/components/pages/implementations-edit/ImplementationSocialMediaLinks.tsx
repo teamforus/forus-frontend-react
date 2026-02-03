@@ -6,7 +6,6 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalDangerZone from '../../modals/ModalDangerZone';
@@ -18,13 +17,11 @@ import useTranslate from '../../../hooks/useTranslate';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam } from 'use-query-params';
 import { useParams } from 'react-router';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 
 export default function ImplementationSocialMediaLinks() {
     const { id } = useParams();
@@ -58,8 +55,6 @@ export default function ImplementationSocialMediaLinks() {
             queryParamsRemoveDefault: true,
         },
     );
-
-    const { headElement, configsElement } = useConfigurableTable(implementationService.getSocialMediaColumns());
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -101,7 +96,7 @@ export default function ImplementationSocialMediaLinks() {
                     organization={activeOrganization}
                     implementation={implementation}
                     socialMedia={socialMedia}
-                    usedTypes={socialMedias.data.map((socialMedia) => socialMedia.type)}
+                    usedTypes={socialMedias?.data?.map((socialMedia) => socialMedia.type)}
                     onSubmit={() => fetchSocialMedias()}
                 />
             ));
@@ -171,7 +166,7 @@ export default function ImplementationSocialMediaLinks() {
             <div className="card">
                 <div className="card-header">
                     <div className="flex flex-grow card-title">
-                        <div className="card-title">{`${translate('implementation_edit.labels.cms_media_links')} (${socialMedias.meta.total})`}</div>
+                        <div className="card-title">{`${translate('implementation_edit.labels.cms_media_links')} (${socialMedias?.meta?.total})`}</div>
                     </div>
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">
@@ -186,72 +181,45 @@ export default function ImplementationSocialMediaLinks() {
                     </div>
                 </div>
 
-                {socialMedias.data.length > 0 && (
-                    <div className="card-section card-section-primary">
-                        <div className="card-block card-block-table">
-                            {configsElement}
+                <LoaderTableCard
+                    empty={socialMedias?.meta?.total == 0}
+                    emptyTitle={'Er zijn momenteel geen socialmediakanalen.'}
+                    columns={implementationService.getSocialMediaColumns()}
+                    paginator={{ key: paginatorKey, data: socialMedias, filterValues, filterUpdate }}>
+                    {socialMedias?.data?.map((socialMedia) => (
+                        <tr key={socialMedia.id}>
+                            <td className="td-narrow">
+                                <div className={`td-icon text-dark mdi mdi-${socialMedia.type}`} />
+                            </td>
+                            <td>{socialMedia.type_locale}</td>
+                            <td>{socialMedia.url}</td>
+                            <td>{socialMedia.title || '-'}</td>
 
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
+                            <td className={'table-td-actions text-right'}>
+                                <TableRowActions
+                                    content={({ close }) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <a className="dropdown-item" onClick={() => editSocialMedia(socialMedia)}>
+                                                <em className="mdi mdi-pen icon-start" />
+                                                Bewerken
+                                            </a>
 
-                                    <tbody>
-                                        {socialMedias.data.map((socialMedia) => (
-                                            <tr key={socialMedia.id}>
-                                                <td className="td-narrow">
-                                                    <div className={`td-icon text-dark mdi mdi-${socialMedia.type}`} />
-                                                </td>
-                                                <td>{socialMedia.type_locale}</td>
-                                                <td>{socialMedia.url}</td>
-                                                <td>{socialMedia.title || '-'}</td>
-
-                                                <td className={'table-td-actions text-right'}>
-                                                    <TableRowActions
-                                                        content={({ close }) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <a
-                                                                    className="dropdown-item"
-                                                                    onClick={() => editSocialMedia(socialMedia)}>
-                                                                    <em className="mdi mdi-pen icon-start" />
-                                                                    Bewerken
-                                                                </a>
-
-                                                                <a
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        deleteSocialMedia(socialMedia);
-                                                                        close();
-                                                                    }}>
-                                                                    <em className="icon-start mdi mdi-delete" />
-                                                                    Verwijderen
-                                                                </a>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
-                )}
-
-                {socialMedias.meta.total == 0 && (
-                    <EmptyCard type={'card-section'} title={'Er zijn momenteel geen socialmediakanalen.'} />
-                )}
-
-                {socialMedias?.meta && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={socialMedias.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                                            <a
+                                                className="dropdown-item"
+                                                onClick={() => {
+                                                    deleteSocialMedia(socialMedia);
+                                                    close();
+                                                }}>
+                                                <em className="icon-start mdi mdi-delete" />
+                                                Verwijderen
+                                            </a>
+                                        </div>
+                                    )}
+                                />
+                            </td>
+                        </tr>
+                    ))}
+                </LoaderTableCard>
             </div>
         </Fragment>
     );

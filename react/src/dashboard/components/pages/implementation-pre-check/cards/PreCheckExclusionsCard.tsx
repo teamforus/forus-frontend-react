@@ -1,6 +1,5 @@
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import React, { useCallback, useMemo, useState } from 'react';
 import Fund from '../../../../props/models/Fund';
 import ModalPreCheckEditFundExclusions from '../../../modals/ModalPreCheckEditFundExclusions';
@@ -12,9 +11,7 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import Implementation from '../../../../props/models/Implementation';
 import usePreCheckService from '../../../../services/PreCheckService';
 import { strLimit } from '../../../../helpers/string';
-import PreCheckFundsLogo from '../../../../../../assets/forus-platform/resources/_platform-common/assets/img/pre-check-funds-logo.svg';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function PreCheckExclusionsCard({
     funds,
@@ -34,8 +31,6 @@ export default function PreCheckExclusionsCard({
     const [showExcludedFunds, setShowExcludedFunds] = useState(true);
 
     const preCheckService = usePreCheckService();
-
-    const { headElement, configsElement } = useConfigurableTable(preCheckService.getExclusionColumns());
 
     const excludedFunds = useMemo(() => {
         return funds?.filter((fund) => fund.pre_check_excluded || fund.pre_check_note) || [];
@@ -123,63 +118,50 @@ export default function PreCheckExclusionsCard({
                 </button>
             </div>
 
-            {excludedFunds?.length > 0 ? (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {excludedFunds.map((fund) => (
-                                        <tr key={fund.id}>
-                                            <td>{fund.name}</td>
-                                            <td>{fund.pre_check_excluded ? 'Ja' : 'Nee'}</td>
-                                            <td>
-                                                {!fund.pre_check_excluded && fund.pre_check_note ? (
-                                                    strLimit(fund.pre_check_note, 500)
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                            <td className={'table-td-actions text-right'}>
-                                                <TableRowActions
-                                                    content={(e) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <a
-                                                                className="dropdown-item"
-                                                                onClick={() => {
-                                                                    e.close();
-                                                                    editFundPreCheckSettings(fund);
-                                                                }}>
-                                                                <em className="mdi mdi-pencil icon-start" />
-                                                                Bewerken
-                                                            </a>
-                                                            <a
-                                                                className="dropdown-item"
-                                                                onClick={() => {
-                                                                    e.close();
-                                                                    removeFundPreCheckExclusion(fund.id);
-                                                                }}>
-                                                                <em className="mdi mdi-close-circle-outline icon-start" />
-                                                                Verwijderen
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            ) : (
-                <EmptyCard title={'Geen fondsen'} imageIconSvg={<PreCheckFundsLogo />} type={'card-section'} />
-            )}
+            <LoaderTableCard
+                empty={excludedFunds.length === 0}
+                emptyTitle={'Geen fondsen'}
+                columns={preCheckService.getExclusionColumns()}>
+                {excludedFunds.map((fund) => (
+                    <tr key={fund.id}>
+                        <td>{fund.name}</td>
+                        <td>{fund.pre_check_excluded ? 'Ja' : 'Nee'}</td>
+                        <td>
+                            {!fund.pre_check_excluded && fund.pre_check_note ? (
+                                strLimit(fund.pre_check_note, 500)
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                        <td className={'table-td-actions text-right'}>
+                            <TableRowActions
+                                content={(e) => (
+                                    <div className="dropdown dropdown-actions">
+                                        <a
+                                            className="dropdown-item"
+                                            onClick={() => {
+                                                e.close();
+                                                editFundPreCheckSettings(fund);
+                                            }}>
+                                            <em className="mdi mdi-pencil icon-start" />
+                                            Bewerken
+                                        </a>
+                                        <a
+                                            className="dropdown-item"
+                                            onClick={() => {
+                                                e.close();
+                                                removeFundPreCheckExclusion(fund.id);
+                                            }}>
+                                            <em className="mdi mdi-close-circle-outline icon-start" />
+                                            Verwijderen
+                                        </a>
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

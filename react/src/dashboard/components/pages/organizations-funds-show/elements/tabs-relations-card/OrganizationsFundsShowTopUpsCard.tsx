@@ -1,21 +1,17 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Fund from '../../../../../props/models/Fund';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../../helpers/dates';
 import FundTopUpTransaction from '../../../../../props/models/FundTopUpTransaction';
-import EmptyCard from '../../../../elements/empty-card/EmptyCard';
-import Paginator from '../../../../../modules/paginator/components/Paginator';
+import LoaderTableCard from '../../../../elements/loader-table-card/LoaderTableCard';
 import useTranslate from '../../../../../hooks/useTranslate';
 import useSetProgress from '../../../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import { useFundService } from '../../../../../services/FundService';
 import usePaginatorService from '../../../../../modules/paginator/services/usePaginatorService';
 import { PaginationData } from '../../../../../props/ApiResponses';
-import LoadingCard from '../../../../elements/loading-card/LoadingCard';
-import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
@@ -66,11 +62,6 @@ export default function OrganizationsFundsShowTopUpsCard({
     );
 
     const { resetFilters: resetFilters } = filter;
-
-    const { headElement, configsElement } = useConfigurableTable(fundService.getTopUpColumns(), {
-        filter,
-        sortable: true,
-    });
 
     const fetchTopUps = useCallback(() => {
         if (!fund?.is_configured) {
@@ -220,58 +211,32 @@ export default function OrganizationsFundsShowTopUpsCard({
                 </div>
             </div>
 
-            {topUpTransactions ? (
-                <Fragment>
-                    {topUpTransactions?.meta?.total > 0 ? (
-                        <div className="card-section card-section-padless">
-                            {configsElement}
-
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    <tbody>
-                                        {topUpTransactions.data.map((top_up_transaction: FundTopUpTransaction) => (
-                                            <tr key={top_up_transaction.id}>
-                                                <td>{top_up_transaction.code}</td>
-                                                <td className={classNames(!top_up_transaction.iban && 'text-muted')}>
-                                                    {top_up_transaction.iban || 'Geen IBAN'}
-                                                </td>
-                                                <td>{top_up_transaction.amount_locale}</td>
-                                                <td>{top_up_transaction.created_at_locale}</td>
-                                                <td className={'table-td-actions text-right'}>
-                                                    <TableEmptyValue />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    ) : (
-                        <EmptyCard
-                            title="No top-ups"
-                            type={'card-section'}
-                            description={
-                                lastQueryTopUpTransactions
-                                    ? `Could not find any top-ups for "${lastQueryTopUpTransactions}"`
-                                    : null
-                            }
-                        />
-                    )}
-
-                    <div className={'card-section card-section-narrow'} hidden={topUpTransactions?.meta?.total < 2}>
-                        <Paginator
-                            meta={topUpTransactions.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginationPerPageKey}
-                        />
-                    </div>
-                </Fragment>
-            ) : (
-                <LoadingCard type={'card-section'} />
-            )}
+            <LoaderTableCard
+                loading={!topUpTransactions}
+                empty={topUpTransactions?.meta?.total === 0}
+                emptyTitle="No top-ups"
+                emptyDescription={
+                    lastQueryTopUpTransactions
+                        ? `Could not find any top-ups for "${lastQueryTopUpTransactions}"`
+                        : undefined
+                }
+                columns={fundService.getTopUpColumns()}
+                tableOptions={{ filter, sortable: true }}
+                paginator={{ key: paginationPerPageKey, data: topUpTransactions, filterValues, filterUpdate }}>
+                {topUpTransactions?.data?.map((top_up_transaction: FundTopUpTransaction) => (
+                    <tr key={top_up_transaction.id}>
+                        <td>{top_up_transaction.code}</td>
+                        <td className={classNames(!top_up_transaction.iban && 'text-muted')}>
+                            {top_up_transaction.iban || 'Geen IBAN'}
+                        </td>
+                        <td>{top_up_transaction.amount_locale}</td>
+                        <td>{top_up_transaction.created_at_locale}</td>
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

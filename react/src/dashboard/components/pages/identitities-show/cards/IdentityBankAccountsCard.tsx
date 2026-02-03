@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
 import Organization, { Permission } from '../../../../props/models/Organization';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import Card from '../../../elements/card/Card';
-import CardTable from '../../../elements/card-table/CardTable';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -19,6 +17,7 @@ import { hasPermission } from '../../../../helpers/utils';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function IdentityBankAccountsCard({
     identity,
@@ -144,6 +143,7 @@ export default function IdentityBankAccountsCard({
     return (
         <Card
             title={`Bankrekeningen (${identity.bank_accounts?.length || 0})`}
+            section={false}
             buttons={[
                 canManageIdentities && {
                     text: 'Aanmaken',
@@ -152,82 +152,81 @@ export default function IdentityBankAccountsCard({
                     onClick: () => editBankAccount(null),
                 },
             ]}>
-            {identity?.bank_accounts.length === 0 ? (
-                <EmptyCard title={'Geen bankrekening gevonden'} type={'card-section-content'} />
-            ) : (
-                <CardTable columns={sponsorIdentitiesService.getBankAccountColumns()}>
-                    {identity?.bank_accounts?.map((bank_account, index) => {
-                        const sourceMeta = getBankAccountSourceMeta(bank_account);
-                        const canEdit = bank_account?.id && canManageIdentities;
-                        const canViewSource = Boolean(sourceMeta.name);
+            <LoaderTableCard
+                empty={identity?.bank_accounts.length === 0}
+                emptyTitle={'Geen bankrekening gevonden'}
+                columns={sponsorIdentitiesService.getBankAccountColumns()}>
+                {identity?.bank_accounts?.map((bank_account, index) => {
+                    const sourceMeta = getBankAccountSourceMeta(bank_account);
+                    const canEdit = bank_account?.id && canManageIdentities;
+                    const canViewSource = Boolean(sourceMeta.name);
 
-                        return (
-                            <tr key={index}>
-                                <td>{bank_account.iban}</td>
-                                <td>{bank_account.name}</td>
-                                <td>
-                                    <TableDateTime value={bank_account.updated_at_locale} />
-                                </td>
-                                <td>
-                                    {sourceMeta.name ? (
-                                        <StateNavLink
-                                            name={sourceMeta.name}
-                                            params={sourceMeta.params}
-                                            className="text-primary text-semibold text-inherit text-decoration-link">
-                                            {sourceMeta.label}
-                                        </StateNavLink>
-                                    ) : (
-                                        sourceMeta.label
-                                    )}
-                                </td>
-                                <td className="table-td-actions text-right">
-                                    {canEdit || canViewSource ? (
-                                        <TableRowActions
-                                            content={(e) => (
-                                                <div className="dropdown dropdown-actions">
-                                                    {canViewSource && (
-                                                        <TableRowActionItem
-                                                            type="link"
-                                                            name={sourceMeta.name}
-                                                            params={sourceMeta.params}>
-                                                            <em className="mdi mdi-eye-outline icon-start" />
-                                                            Bekijk bron
-                                                        </TableRowActionItem>
-                                                    )}
-                                                    {canEdit && (
-                                                        <TableRowActionItem
-                                                            type="button"
-                                                            onClick={() => {
-                                                                e.close();
-                                                                editBankAccount(bank_account.id);
-                                                            }}>
-                                                            <em className="mdi mdi-pencil icon-start" />
-                                                            Bewerking
-                                                        </TableRowActionItem>
-                                                    )}
-                                                    {canEdit && (
-                                                        <TableRowActionItem
-                                                            type="button"
-                                                            onClick={() => {
-                                                                e.close();
-                                                                deleteBankAccount(bank_account.id);
-                                                            }}>
-                                                            <em className="mdi mdi-close icon-start" />
-                                                            Verwijderen
-                                                        </TableRowActionItem>
-                                                    )}
-                                                </div>
-                                            )}
-                                        />
-                                    ) : (
-                                        <TableEmptyValue />
-                                    )}
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </CardTable>
-            )}
+                    return (
+                        <tr key={index}>
+                            <td>{bank_account.iban}</td>
+                            <td>{bank_account.name}</td>
+                            <td>
+                                <TableDateTime value={bank_account.updated_at_locale} />
+                            </td>
+                            <td>
+                                {sourceMeta.name ? (
+                                    <StateNavLink
+                                        name={sourceMeta.name}
+                                        params={sourceMeta.params}
+                                        className="text-primary text-semibold text-inherit text-decoration-link">
+                                        {sourceMeta.label}
+                                    </StateNavLink>
+                                ) : (
+                                    sourceMeta.label
+                                )}
+                            </td>
+                            <td className="table-td-actions text-right">
+                                {canEdit || canViewSource ? (
+                                    <TableRowActions
+                                        content={(e) => (
+                                            <div className="dropdown dropdown-actions">
+                                                {canViewSource && (
+                                                    <TableRowActionItem
+                                                        type="link"
+                                                        name={sourceMeta.name}
+                                                        params={sourceMeta.params}>
+                                                        <em className="mdi mdi-eye-outline icon-start" />
+                                                        Bekijk bron
+                                                    </TableRowActionItem>
+                                                )}
+                                                {canEdit && (
+                                                    <TableRowActionItem
+                                                        type="button"
+                                                        onClick={() => {
+                                                            e.close();
+                                                            editBankAccount(bank_account.id);
+                                                        }}>
+                                                        <em className="mdi mdi-pencil icon-start" />
+                                                        Bewerking
+                                                    </TableRowActionItem>
+                                                )}
+                                                {canEdit && (
+                                                    <TableRowActionItem
+                                                        type="button"
+                                                        onClick={() => {
+                                                            e.close();
+                                                            deleteBankAccount(bank_account.id);
+                                                        }}>
+                                                        <em className="mdi mdi-close icon-start" />
+                                                        Verwijderen
+                                                    </TableRowActionItem>
+                                                )}
+                                            </div>
+                                        )}
+                                    />
+                                ) : (
+                                    <TableEmptyValue />
+                                )}
+                            </td>
+                        </tr>
+                    );
+                })}
+            </LoaderTableCard>
         </Card>
     );
 }

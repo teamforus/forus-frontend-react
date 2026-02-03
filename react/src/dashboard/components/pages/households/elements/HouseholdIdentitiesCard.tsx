@@ -1,14 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
 import TableRowActions from '../../../elements/tables/TableRowActions';
@@ -79,11 +76,6 @@ export default function HouseholdIdentitiesCard({ household }: { household: Hous
         pushApiError,
     ]);
 
-    const { headElement, configsElement } = useConfigurableTable(
-        sponsorIdentitiesService.getColumns(activeOrganization),
-        { filter: filter, sortable: false, hasTooltips: true },
-    );
-
     useEffect(() => {
         fetchHouseholdMembers();
     }, [fetchHouseholdMembers]);
@@ -147,80 +139,55 @@ export default function HouseholdIdentitiesCard({ household }: { household: Hous
 
             <LoaderTableCard
                 loading={loading}
-                empty={householdMembers.meta.total == 0}
-                emptyTitle={'Geen personen gevonden'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {householdMembers.data.map((member) => (
-                                        <StateNavLink
-                                            key={member?.identity.id}
-                                            name={DashboardRoutes.IDENTITY}
-                                            dataDusk={`tableProfilesRow${member?.identity.id}`}
-                                            params={{
-                                                organizationId: activeOrganization.id,
-                                                id: member?.identity.id,
-                                            }}
-                                            className={'tr-clickable'}
-                                            customElement={'tr'}>
-                                            <IdentitiesTableRowItems
-                                                actions={
-                                                    <TableRowActions
-                                                        content={(e) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <TableRowActionItem
-                                                                    type={'link'}
-                                                                    name={DashboardRoutes.IDENTITY}
-                                                                    params={{
-                                                                        organizationId: activeOrganization.id,
-                                                                        id: member?.identity.id,
-                                                                    }}>
-                                                                    <em className="mdi mdi-eye-outline icon-start" />
-                                                                    Bekijken
-                                                                </TableRowActionItem>
-                                                                <TableRowActionItem
-                                                                    type={'button'}
-                                                                    onClick={() => {
-                                                                        e?.close();
-                                                                        householdDeleteIdentity(
-                                                                            member,
-                                                                            fetchHouseholdMembers,
-                                                                        );
-                                                                    }}>
-                                                                    <em className="mdi mdi-close icon-start" />
-                                                                    Verwijderen
-                                                                </TableRowActionItem>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                }
-                                                identity={member?.identity}
-                                                organization={activeOrganization}
-                                            />
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {householdMembers.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={householdMembers.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
+                empty={householdMembers?.meta?.total == 0}
+                emptyTitle={'Geen personen gevonden'}
+                columns={sponsorIdentitiesService.getColumns(activeOrganization)}
+                tableOptions={{ filter, sortable: false, hasTooltips: true }}
+                paginator={{ key: paginatorKey, data: householdMembers, filterValues, filterUpdate }}>
+                {householdMembers?.data?.map((member) => (
+                    <StateNavLink
+                        key={member?.identity.id}
+                        name={DashboardRoutes.IDENTITY}
+                        dataDusk={`tableProfilesRow${member?.identity.id}`}
+                        params={{
+                            organizationId: activeOrganization.id,
+                            id: member?.identity.id,
+                        }}
+                        className={'tr-clickable'}
+                        customElement={'tr'}>
+                        <IdentitiesTableRowItems
+                            actions={
+                                <TableRowActions
+                                    content={(e) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <TableRowActionItem
+                                                type={'link'}
+                                                name={DashboardRoutes.IDENTITY}
+                                                params={{
+                                                    organizationId: activeOrganization.id,
+                                                    id: member?.identity.id,
+                                                }}>
+                                                <em className="mdi mdi-eye-outline icon-start" />
+                                                Bekijken
+                                            </TableRowActionItem>
+                                            <TableRowActionItem
+                                                type={'button'}
+                                                onClick={() => {
+                                                    e?.close();
+                                                    householdDeleteIdentity(member, fetchHouseholdMembers);
+                                                }}>
+                                                <em className="mdi mdi-close icon-start" />
+                                                Verwijderen
+                                            </TableRowActionItem>
+                                        </div>
+                                    )}
+                                />
+                            }
+                            identity={member?.identity}
+                            organization={activeOrganization}
                         />
-                    </div>
-                )}
+                    </StateNavLink>
+                ))}
             </LoaderTableCard>
         </div>
     );

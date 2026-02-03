@@ -1,7 +1,5 @@
 import React from 'react';
 import Organization from '../../../../props/models/Organization';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import { PaginationData } from '../../../../props/ApiResponses';
 import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
@@ -12,7 +10,6 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import { useReimbursementsService } from '../../../../services/ReimbursementService';
 import Reimbursement from '../../../../props/models/Reimbursement';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import ReimbursementStateLabel from '../../../elements/resource-states/ReimbursementStateLabel';
 import Label from '../../../elements/image_cropper/Label';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
@@ -34,150 +31,107 @@ export default function ReimbursementsTable({
 }) {
     const reimbursementService = useReimbursementsService();
 
-    const { headElement, configsElement } = useConfigurableTable(reimbursementService.getColumns());
-
     return (
         <LoaderTableCard
+            dusk="reimbursementsList"
             loading={loading}
-            empty={reimbursements.meta.total == 0}
-            emptyTitle={'Geen declaraties gevonden'}>
-            <div className="card-section" data-dusk="reimbursementsList">
-                <div className="card-block card-block-table">
-                    {configsElement}
+            empty={reimbursements?.meta?.total == 0}
+            emptyTitle={'Geen declaraties gevonden'}
+            columns={reimbursementService.getColumns()}
+            paginator={{ key: paginatorKey, data: reimbursements, filterValues, filterUpdate }}>
+            {reimbursements?.data?.map((reimbursement) => (
+                <StateNavLink
+                    customElement={'tr'}
+                    name={DashboardRoutes.REIMBURSEMENT}
+                    params={{ id: reimbursement.id, organizationId: organization.id }}
+                    key={reimbursement.id}
+                    dataDusk={`tableReimbursementRow${reimbursement.id}`}
+                    className={classNames('tr-clickable', reimbursement.expired && 'tr-warning')}>
+                    <td>
+                        <div
+                            className="text-primary text-semibold"
+                            data-dusk={`reimbursementIdentityEmail${reimbursement.id}`}>
+                            {strLimit(reimbursement.identity_email, 25) || 'Geen E-mail'}
+                        </div>
 
-                    <TableTopScroller>
-                        <table className="table">
-                            {headElement}
+                        {organization.bsn_enabled && (
+                            <div className="text-strong text-md text-muted-dark">
+                                {reimbursement.identity_bsn ? 'BSN: ' + reimbursement.identity_bsn : 'Geen BSN'}
+                            </div>
+                        )}
+                    </td>
+                    <td>
+                        <div className="text-primary text-semibold">{strLimit(reimbursement.fund.name, 25)}</div>
+                        <div className="text-strong text-md text-muted-dark">
+                            {strLimit(reimbursement.implementation_name, 25)}
+                        </div>
+                    </td>
 
-                            <tbody>
-                                {reimbursements.data.map((reimbursement) => (
+                    <td className="nowrap" data-dusk={'reimbursementAmount' + reimbursement.id}>
+                        {reimbursement.amount_locale}
+                    </td>
+
+                    <td>
+                        <div className="text-primary text-semibold">
+                            {reimbursement.created_at_locale.split(' - ')[0]}
+                        </div>
+                        <div className="text-strong text-md text-muted-dark">
+                            {reimbursement.created_at_locale.split(' - ')[1]}
+                        </div>
+                    </td>
+
+                    <td>{reimbursement.lead_time_locale}</td>
+
+                    <td className={classNames(reimbursement.employee ? 'text-primary' : 'text-muted-dark')}>
+                        {strLimit(reimbursement.employee?.email || 'Niet toegewezen', 25)}
+                    </td>
+
+                    <td className={classNames(reimbursement.expired ? 'text-primary' : 'text-muted-dark')}>
+                        {reimbursement.expired ? 'Ja' : 'Nee'}
+                    </td>
+
+                    <td>
+                        <ReimbursementStateLabel
+                            reimbursement={reimbursement}
+                            dusk={'reimbursementState' + reimbursement.id}
+                        />
+                    </td>
+
+                    <td>
+                        {reimbursement.voucher_transaction?.state == 'pending' && (
+                            <Label type="default">{reimbursement.voucher_transaction.state_locale}</Label>
+                        )}
+
+                        {reimbursement.voucher_transaction?.state == 'success' && (
+                            <Label type="success">{reimbursement.voucher_transaction.state_locale}</Label>
+                        )}
+
+                        {reimbursement.voucher_transaction?.state == 'canceled' && (
+                            <Label type="danger">{reimbursement.voucher_transaction.state_locale}</Label>
+                        )}
+
+                        {!reimbursement.voucher_transaction && <TableEmptyValue />}
+                    </td>
+
+                    <td className={'table-td-actions text-right'}>
+                        <TableRowActions
+                            content={() => (
+                                <div className="dropdown dropdown-actions">
                                     <StateNavLink
-                                        customElement={'tr'}
                                         name={DashboardRoutes.REIMBURSEMENT}
-                                        params={{ id: reimbursement.id, organizationId: organization.id }}
-                                        key={reimbursement.id}
-                                        dataDusk={`tableReimbursementRow${reimbursement.id}`}
-                                        className={classNames('tr-clickable', reimbursement.expired && 'tr-warning')}>
-                                        <td>
-                                            {/* Email */}
-                                            <div
-                                                className="text-primary text-semibold"
-                                                data-dusk={`reimbursementIdentityEmail${reimbursement.id}`}>
-                                                {strLimit(reimbursement.identity_email, 25) || 'Geen E-mail'}
-                                            </div>
-
-                                            {/* BSN */}
-                                            {organization.bsn_enabled && (
-                                                <div className="text-strong text-md text-muted-dark">
-                                                    {reimbursement.identity_bsn
-                                                        ? 'BSN: ' + reimbursement.identity_bsn
-                                                        : 'Geen BSN'}
-                                                </div>
-                                            )}
-                                        </td>
-                                        <td>
-                                            <div className="text-primary text-semibold">
-                                                {strLimit(reimbursement.fund.name, 25)}
-                                            </div>
-                                            <div className="text-strong text-md text-muted-dark">
-                                                {strLimit(reimbursement.implementation_name, 25)}
-                                            </div>
-                                        </td>
-
-                                        {/* Amount */}
-                                        <td className="nowrap" data-dusk={'reimbursementAmount' + reimbursement.id}>
-                                            {reimbursement.amount_locale}
-                                        </td>
-
-                                        <td>
-                                            <div className="text-primary text-semibold">
-                                                {reimbursement.created_at_locale.split(' - ')[0]}
-                                            </div>
-                                            <div className="text-strong text-md text-muted-dark">
-                                                {reimbursement.created_at_locale.split(' - ')[1]}
-                                            </div>
-                                        </td>
-
-                                        <td>{reimbursement.lead_time_locale}</td>
-
-                                        <td
-                                            className={classNames(
-                                                reimbursement.employee ? 'text-primary' : 'text-muted-dark',
-                                            )}>
-                                            {strLimit(reimbursement.employee?.email || 'Niet toegewezen', 25)}
-                                        </td>
-
-                                        <td
-                                            className={classNames(
-                                                reimbursement.expired ? 'text-primary' : 'text-muted-dark',
-                                            )}>
-                                            {reimbursement.expired ? 'Ja' : 'Nee'}
-                                        </td>
-
-                                        <td>
-                                            <ReimbursementStateLabel
-                                                reimbursement={reimbursement}
-                                                dusk={'reimbursementState' + reimbursement.id}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            {reimbursement.voucher_transaction?.state == 'pending' && (
-                                                <Label type="default">
-                                                    {reimbursement.voucher_transaction.state_locale}
-                                                </Label>
-                                            )}
-
-                                            {reimbursement.voucher_transaction?.state == 'success' && (
-                                                <Label type="success">
-                                                    {reimbursement.voucher_transaction.state_locale}
-                                                </Label>
-                                            )}
-
-                                            {reimbursement.voucher_transaction?.state == 'canceled' && (
-                                                <Label type="danger">
-                                                    {reimbursement.voucher_transaction.state_locale}
-                                                </Label>
-                                            )}
-
-                                            {!reimbursement.voucher_transaction && <TableEmptyValue />}
-                                        </td>
-
-                                        <td className={'table-td-actions text-right'}>
-                                            <TableRowActions
-                                                content={() => (
-                                                    <div className="dropdown dropdown-actions">
-                                                        <StateNavLink
-                                                            name={DashboardRoutes.REIMBURSEMENT}
-                                                            className="dropdown-item"
-                                                            params={{
-                                                                id: reimbursement.id,
-                                                                organizationId: organization.id,
-                                                            }}>
-                                                            <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                        </StateNavLink>
-                                                    </div>
-                                                )}
-                                            />
-                                        </td>
+                                        className="dropdown-item"
+                                        params={{
+                                            id: reimbursement.id,
+                                            organizationId: organization.id,
+                                        }}>
+                                        <em className="mdi mdi-eye icon-start" /> Bekijken
                                     </StateNavLink>
-                                ))}
-                            </tbody>
-                        </table>
-                    </TableTopScroller>
-                </div>
-            </div>
-
-            {reimbursements.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={reimbursements.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                                </div>
+                            )}
+                        />
+                    </td>
+                </StateNavLink>
+            ))}
         </LoaderTableCard>
     );
 }

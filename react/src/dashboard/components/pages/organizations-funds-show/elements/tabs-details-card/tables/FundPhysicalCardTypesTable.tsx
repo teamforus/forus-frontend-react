@@ -1,11 +1,8 @@
 import { PaginationData } from '../../../../../../props/ApiResponses';
-import TableTopScroller from '../../../../../elements/tables/TableTopScroller';
 import StateNavLink from '../../../../../../modules/state_router/StateNavLink';
 import TableRowActions from '../../../../../elements/tables/TableRowActions';
-import Paginator from '../../../../../../modules/paginator/components/Paginator';
 import LoaderTableCard from '../../../../../elements/loader-table-card/LoaderTableCard';
 import React, { useCallback, useEffect, useState } from 'react';
-import useConfigurableTable from '../../../../vouchers/hooks/useConfigurableTable';
 import usePaginatorService from '../../../../../../modules/paginator/services/usePaginatorService';
 import Organization from '../../../../../../props/models/Organization';
 import useTranslate from '../../../../../../hooks/useTranslate';
@@ -33,16 +30,11 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
     const paginatorService = usePaginatorService();
     const fundPhysicalCardTypeService = useFundPhysicalCardTypeService();
 
-    const [, filterActiveValues, filterUpdate, filter] = useFilterNext<{
+    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q: string;
         fund_id?: number;
         per_page?: number;
     }>({ q: '', fund_id: fund?.id, per_page: paginatorService.getPerPage(paginatorKey) });
-
-    const { headElement, configsElement } = useConfigurableTable(fundPhysicalCardTypeService.getColumns(), {
-        sortable: true,
-        filter: filter,
-    });
 
     const fetchPhysicalCardTypes = useCallback(() => {
         setProgress(0);
@@ -73,7 +65,7 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
                                     organization,
                                     fund,
                                     null,
-                                    fundPhysicalCardTypes.data.map((type) => type.physical_card_type_id),
+                                    fundPhysicalCardTypes?.data?.map((type) => type.physical_card_type_id),
                                     fetchPhysicalCardTypes,
                                 )
                             }
@@ -101,117 +93,83 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
                 loading={!fundPhysicalCardTypes?.meta}
                 empty={fundPhysicalCardTypes?.meta?.total === 0}
                 emptyTitle={'Geen fysieke passen'}
-                emptyDescription={'Er zijn momenteel geen fysieke passen.'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                emptyDescription={'Er zijn momenteel geen fysieke passen.'}
+                columns={fundPhysicalCardTypeService.getColumns()}
+                tableOptions={{ sortable: true, filter }}
+                paginator={{ key: paginatorKey, data: fundPhysicalCardTypes, filterValues, filterUpdate }}>
+                {fundPhysicalCardTypes?.data?.map((cardType) => (
+                    <StateNavLink
+                        key={cardType.id}
+                        name={DashboardRoutes.PHYSICAL_CARD_TYPE}
+                        params={{
+                            id: cardType.physical_card_type_id,
+                            organizationId: organization.id,
+                        }}
+                        customElement={'tr'}
+                        className={'tr-clickable'}>
+                        <td title={cardType.physical_card_type.name}>
+                            <TableEntityMain
+                                title={strLimit(cardType.physical_card_type.name, 64)}
+                                subtitle={strLimit(cardType.physical_card_type.description || 'Geen omschrijving', 64)}
+                                media={cardType.physical_card_type.photo}
+                                mediaRound={false}
+                                mediaSize={'md'}
+                                mediaPlaceholder={'physical_card_type'}
+                            />
+                        </td>
+                        <td>{cardType?.allow_physical_card_linking ? 'Ja' : 'Nee'}</td>
+                        <td>{cardType?.allow_physical_card_deactivation ? 'Ja' : 'Nee'}</td>
+                        <td>{cardType?.allow_physical_card_requests ? 'Ja' : 'Nee'}</td>
+                        <td className={'table-td-actions text-right'}>
+                            {filter.values.source != 'archive' ? (
+                                <TableRowActions
+                                    content={(e) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <StateNavLink
+                                                name={DashboardRoutes.PHYSICAL_CARD_TYPE}
+                                                params={{
+                                                    id: cardType.physical_card_type_id,
+                                                    organizationId: organization.id,
+                                                }}
+                                                className="dropdown-item">
+                                                <div className="mdi mdi-eye-outline icon-start" />
+                                                Bekijk
+                                            </StateNavLink>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                                            <div
+                                                onClick={() => {
+                                                    e?.close();
+                                                    storeFundPhysicalCardType(
+                                                        organization,
+                                                        fund,
+                                                        cardType,
+                                                        null,
+                                                        fetchPhysicalCardTypes,
+                                                    );
+                                                }}
+                                                className="dropdown-item">
+                                                <div className="mdi mdi-pencil-outline icon-start" />
+                                                Bewerking
+                                            </div>
 
-                                <tbody>
-                                    {fundPhysicalCardTypes?.data.map((cardType) => (
-                                        <StateNavLink
-                                            key={cardType.id}
-                                            name={DashboardRoutes.PHYSICAL_CARD_TYPE}
-                                            params={{
-                                                id: cardType.physical_card_type_id,
-                                                organizationId: organization.id,
-                                            }}
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}>
-                                            <td title={cardType.physical_card_type.name}>
-                                                <TableEntityMain
-                                                    title={strLimit(cardType.physical_card_type.name, 64)}
-                                                    subtitle={strLimit(
-                                                        cardType.physical_card_type.description || 'Geen omschrijving',
-                                                        64,
-                                                    )}
-                                                    media={cardType.physical_card_type.photo}
-                                                    mediaRound={false}
-                                                    mediaSize={'md'}
-                                                    mediaPlaceholder={'physical_card_type'}
-                                                />
-                                            </td>
-                                            <td>{cardType?.allow_physical_card_linking ? 'Ja' : 'Nee'}</td>
-                                            <td>{cardType?.allow_physical_card_deactivation ? 'Ja' : 'Nee'}</td>
-                                            <td>{cardType?.allow_physical_card_requests ? 'Ja' : 'Nee'}</td>
-                                            <td className={'table-td-actions text-right'}>
-                                                {filter.values.source != 'archive' ? (
-                                                    <TableRowActions
-                                                        content={(e) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <StateNavLink
-                                                                    name={DashboardRoutes.PHYSICAL_CARD_TYPE}
-                                                                    params={{
-                                                                        id: cardType.physical_card_type_id,
-                                                                        organizationId: organization.id,
-                                                                    }}
-                                                                    className="dropdown-item">
-                                                                    <div className="mdi mdi-eye-outline icon-start" />
-                                                                    Bekijk
-                                                                </StateNavLink>
-
-                                                                <div
-                                                                    onClick={() => {
-                                                                        e?.close();
-                                                                        storeFundPhysicalCardType(
-                                                                            organization,
-                                                                            fund,
-                                                                            cardType,
-                                                                            null,
-                                                                            fetchPhysicalCardTypes,
-                                                                        );
-                                                                    }}
-                                                                    className="dropdown-item">
-                                                                    <div className="mdi mdi-pencil-outline icon-start" />
-                                                                    Bewerking
-                                                                </div>
-
-                                                                <div
-                                                                    className={classNames(
-                                                                        'dropdown-item',
-                                                                        cardType?.in_use && 'disabled',
-                                                                    )}
-                                                                    onClick={() => {
-                                                                        e?.close();
-                                                                        deleteFundPhysicalCardType(
-                                                                            fund,
-                                                                            cardType,
-                                                                            fetchPhysicalCardTypes,
-                                                                        );
-                                                                    }}>
-                                                                    <em className="mdi mdi-close icon-start icon-start" />
-                                                                    Verwijderen
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    <span className={'text-muted'}>
-                                                        {translate('organization_employees.labels.owner')}
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {fundPhysicalCardTypes?.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={fundPhysicalCardTypes.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                                            <div
+                                                className={classNames('dropdown-item', cardType?.in_use && 'disabled')}
+                                                onClick={() => {
+                                                    e?.close();
+                                                    deleteFundPhysicalCardType(fund, cardType, fetchPhysicalCardTypes);
+                                                }}>
+                                                <em className="mdi mdi-close icon-start icon-start" />
+                                                Verwijderen
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                <span className={'text-muted'}>{translate('organization_employees.labels.owner')}</span>
+                            )}
+                        </td>
+                    </StateNavLink>
+                ))}
             </LoaderTableCard>
         </div>
     );
