@@ -102,6 +102,7 @@ export default function FundRequestRecordRow({
                                     'td-menu-icon',
                                     uncollapsedRecords.includes(record.id) ? 'mdi-menu-up' : 'mdi-menu-down',
                                 )}
+                                data-dusk={`fundRequestRecordToggleCollapse${record.id}`}
                                 onClick={() => {
                                     setUncollapsedRecords((shownRecords) => {
                                         return shownRecords?.includes(record.id)
