@@ -134,8 +134,36 @@ export class FundRequestValidatorService<T = FundRequest> {
         }));
     }
 
+    public getRecordsHasClarificationsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['type', 'value', 'source', 'state'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `validation_requests.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_requests.labels.${key}`,
+                description: `validation_requests.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordGroupsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['group_title'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `validation_requests.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_requests.labels.${key}`,
+                description: `validation_requests.tooltips.${key}`,
+            },
+        }));
+    }
+
     public getRecordsColumns(): Array<ConfigurableTableColumn> {
-        const list = ['type', 'value', 'date'].filter((item) => item);
+        const list = ['type', 'value', 'source', 'has_files', 'has_clarifications', 'state'].filter((item) => item);
 
         return list.map((key) => ({
             key,

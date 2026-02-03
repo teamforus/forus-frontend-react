@@ -1581,6 +1581,13 @@ export default {
             assignee_email: 'Toegewezen aan',
             assignee_state: 'Toegewezen staat',
             assigned_to_employee: 'Beoordelaar',
+            source: 'Bron',
+            records_has_clarifications: 'Openstaande aanvullingen',
+            has_files: 'Has files',
+            has_clarifications: 'Has clarifications',
+            group_title: 'Group title',
+            yes: 'Ja',
+            no_group: 'Without group',
         },
         tooltips: {
             id: 'Uniek ID van de aanvraag.',
@@ -1592,6 +1599,10 @@ export default {
             type: 'Type gegeven (bijv. aantal kinderen).',
             value: 'Opgegeven waarde door inwoner.',
             date: 'Datum en tijdstip van indiening.',
+            source: 'Bron',
+            has_files: 'Has files',
+            has_clarifications: 'Has clarifications',
+            group_title: 'Group title',
         },
         tabs: {
             all: 'Alles',
@@ -1630,9 +1641,19 @@ export default {
             assign_to_me: 'Zelf beoordelen',
             assign: 'Toewijzen aan collega',
             resign: 'Meld af',
+            uncollapse: 'Alles uitklappen',
+            collapse: 'Alles inklappen',
         },
         header: {
             title: 'Aanvragen',
+        },
+        sources: {
+            brp: 'BRP',
+            form: 'E-formulier',
+        },
+        clarification_states: {
+            pending: 'Pending',
+            answered: 'Answered',
         },
     },
 
