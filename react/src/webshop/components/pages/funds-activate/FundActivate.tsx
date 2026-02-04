@@ -719,7 +719,7 @@ export default function FundActivate() {
                                         <div className="form-group text-center">
                                             <button
                                                 data-dusk="codeFormSubmit"
-                                                className={`button button-primary`}
+                                                className="button button-primary"
                                                 disabled={codeForm.values.code.length != 8 || codeForm.isLoading}
                                                 type="submit">
                                                 {translate('popup_auth.buttons.submit')}

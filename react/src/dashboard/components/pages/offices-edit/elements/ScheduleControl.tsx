@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import useOfficeService from '../../../../services/OfficeService';
 import FormError from '../../../elements/forms/errors/FormError';
 import UIControlCheckbox from '../../../elements/forms/ui-controls/UIControlCheckbox';
@@ -285,7 +286,7 @@ export default function ScheduleControl({
                     {weekDaysKeys.map((weekDayNumber) => (
                         <tbody key={weekDayNumber}>
                             <tr>
-                                <td className={`schedule-day-name ${weekDayNumber >= 5 ? 'weekend' : ''}`}>
+                                <td className={classNames('schedule-day-name', weekDayNumber >= 5 && 'weekend')}>
                                     {weekDays[weekDayNumber]}
                                 </td>
                                 <td className="schedule-day-available">
@@ -415,7 +416,7 @@ export default function ScheduleControl({
                     <div className="block-schedule-day" key={weekDayNumber}>
                         <div className="block-schedule-day-name">
                             <div className="flex-row">
-                                <div className={`flex-col ${weekDayNumber >= 5 ? 'text-danger' : ''}`}>
+                                <div className={classNames('flex-col', weekDayNumber >= 5 && 'text-danger')}>
                                     {weekDays[weekDayNumber]}
                                 </div>
                                 {scheduleData[weekDayNumber].is_closed && (

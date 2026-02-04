@@ -4,6 +4,7 @@ import Organization from '../../../../../props/models/Organization';
 import { useOrganizationService } from '../../../../../services/OrganizationService';
 import useTranslate from '../../../../../hooks/useTranslate';
 import SignUpFooter from '../../../../../../webshop/components/elements/sign-up/SignUpFooter';
+import classNames from 'classnames';
 
 export default function SignUpStepOrganizationSelect({
     panelType,
@@ -72,9 +73,10 @@ export default function SignUpStepOrganizationSelect({
                     {organizationsList?.map((organization) => (
                         <div
                             key={organization.id}
-                            className={`sign_up-organization ${
-                                organization.id == selectedOrganization?.id ? 'active' : ''
-                            }`}
+                            className={classNames(
+                                'sign_up-organization',
+                                organization.id == selectedOrganization?.id && 'active',
+                            )}
                             onClick={() => selectOrganization(organization)}>
                             <div className="sign_up-organization-logo">
                                 <img

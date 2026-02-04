@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Product from '../../../../../props/models/Product';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
@@ -36,7 +37,7 @@ export default function ProductsListItemGrid({
                     onKeyDown={clickOnKeyEnter}
                     role={'button'}
                     tabIndex={0}
-                    className={`block block-bookmark-toggle ${product.bookmarked ? 'active' : ''}`}
+                    className={classNames('block', 'block-bookmark-toggle', product.bookmarked && 'active')}
                     aria-label={translate('list_blocks.product_item.bookmark')}
                     aria-pressed={product.bookmarked}>
                     {product.bookmarked ? (

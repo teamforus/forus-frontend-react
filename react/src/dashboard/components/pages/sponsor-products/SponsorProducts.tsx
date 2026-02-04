@@ -1,10 +1,10 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useProductService from '../../../services/ProductService';
 import { PaginationData } from '../../../props/ApiResponses';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
@@ -19,9 +19,7 @@ import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function SponsorProducts() {
@@ -101,10 +99,8 @@ export default function SponsorProducts() {
         },
     );
 
-    const columns = productService.getColumnsSponsor(view);
-    const { headElement, configsElement } = useConfigurableTable(columns);
-
     const { resetFilters: resetFilters } = filter;
+    const columns = productService.getColumnsSponsor(view);
 
     const fetchProducts = useCallback(() => {
         setProgress(0);
@@ -154,7 +150,7 @@ export default function SponsorProducts() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('products.offers')} ({products.meta.total})
+                    {translate('products.offers')} ({products?.meta?.total})
                 </div>
 
                 <div className="card-header-filters form">
@@ -329,50 +325,31 @@ export default function SponsorProducts() {
                 </div>
             </div>
 
-            {loading ? (
-                <LoadingCard type={'card-section'} />
-            ) : (
-                <Fragment>
-                    {products?.meta?.total > 0 && (
-                        <div className="card-section">
-                            <div className="card-block card-block-table">
-                                {configsElement}
-
-                                {view == 'products' ? (
-                                    <SponsorProductsTable
-                                        columns={columns}
-                                        products={products?.data}
-                                        headElement={headElement}
-                                        activeOrganization={activeOrganization}
-                                    />
-                                ) : (
-                                    <SponsorProductsChangesTable
-                                        columns={columns}
-                                        products={products?.data}
-                                        headElement={headElement}
-                                        activeOrganization={activeOrganization}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {products?.meta?.total === 0 && (
-                        <EmptyCard title={'Er zijn momenteel geen aanbiedingen.'} type={'card-section'} />
-                    )}
-
-                    {products?.meta && (
-                        <div className="card-section">
-                            <Paginator
-                                meta={products.meta}
-                                filters={filter.values}
-                                updateFilters={filter.update}
-                                perPageKey={paginatorKey}
-                            />
-                        </div>
-                    )}
-                </Fragment>
-            )}
+            <LoaderTableCard
+                loading={loading}
+                empty={products?.meta?.total === 0}
+                emptyTitle={'Er zijn momenteel geen aanbiedingen.'}
+                columns={columns}
+                paginator={{
+                    key: paginatorKey,
+                    data: products,
+                    filterValues: filter.values,
+                    filterUpdate: filter.update,
+                }}>
+                {view == 'products' ? (
+                    <SponsorProductsTable
+                        columns={columns}
+                        products={products?.data}
+                        activeOrganization={activeOrganization}
+                    />
+                ) : (
+                    <SponsorProductsChangesTable
+                        columns={columns}
+                        products={products?.data}
+                        activeOrganization={activeOrganization}
+                    />
+                )}
+            </LoaderTableCard>
         </div>
     );
 }

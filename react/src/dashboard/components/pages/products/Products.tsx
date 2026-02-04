@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
@@ -8,12 +9,9 @@ import { PaginationData } from '../../../props/ApiResponses';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import ModalNotification from '../../modals/ModalNotification';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
@@ -83,11 +81,6 @@ export default function Products() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(productService.getColumns(), {
-        sortable: true,
-        filter: filter,
-    });
-
     const deleteProduct = useCallback(
         function (product: Product) {
             openModal((modal) => (
@@ -138,7 +131,7 @@ export default function Products() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('products.offers')} ({products.meta.total})
+                    {translate('products.offers')} ({products?.meta?.total})
                 </div>
 
                 <div className="card-header-filters">
@@ -146,13 +139,18 @@ export default function Products() {
                         <StateNavLink
                             name={DashboardRoutes.PRODUCT_CREATE}
                             params={{ organizationId: activeOrganization.id }}
-                            className={`button button-primary button-sm ${productHardLimitReached ? 'disabled' : ''}`}
+                            className={classNames(
+                                'button',
+                                'button-primary',
+                                'button-sm',
+                                productHardLimitReached && 'disabled',
+                            )}
                             id="add_product"
                             disabled={productHardLimitReached}>
                             <em className="mdi mdi-plus-circle icon-start" />
                             {translate('products.add')}
                             {productSoftLimitReached
-                                ? ` (${products.meta.total_provider} / ${maxProductHardLimit})`
+                                ? ` (${products?.meta?.total_provider} / ${maxProductHardLimit})`
                                 : ``}
                         </StateNavLink>
 
@@ -181,178 +179,133 @@ export default function Products() {
                 </div>
             </div>
 
-            {loading && (
-                <div className="card-section">
-                    <div className="card-loading">
-                        <div className="mdi mdi-loading mdi-spin" />
-                    </div>
-                </div>
-            )}
-
-            {!loading && products?.meta.total > 0 && (
-                <div className="card-section card-section-padless">
-                    {configsElement}
-
-                    <TableTopScroller>
-                        <table className="table">
-                            {headElement}
-
-                            <tbody>
-                                {products?.data.map((product) => (
-                                    <StateNavLink
-                                        key={product.id}
-                                        name={DashboardRoutes.PRODUCT}
-                                        params={{
-                                            id: product.id,
-                                            organizationId: activeOrganization.id,
-                                        }}
-                                        customElement={'tr'}
-                                        className={'tr-clickable'}>
-                                        <td className={'td-narrow'}>{product.id}</td>
-                                        <td title={product.name}>
-                                            <TableEntityMain
-                                                title={product.name}
-                                                titleLimit={64}
-                                                media={product.photos[0]}
-                                                mediaRound={false}
-                                                mediaSize={'md'}
-                                                mediaPlaceholder={'product'}
-                                            />
-                                        </td>
-
-                                        {product?.price_type === 'informational' ? (
-                                            <td>
-                                                <TableEmptyValue />
-                                            </td>
-                                        ) : (
-                                            <td>
-                                                {product.unlimited_stock
-                                                    ? translate('product_edit.labels.unlimited')
-                                                    : product.stock_amount}
-                                            </td>
-                                        )}
-
-                                        <td>{product.price_locale}</td>
-
-                                        <td className={product.expire_at_locale ? '' : 'text-muted'}>
-                                            {product.expire_at_locale ? product.expire_at_locale : 'Geen'}
-                                        </td>
-
-                                        <td className={product.expired ? '' : 'text-muted'}>
-                                            {product.expired ? 'Ja' : 'Nee'}
-                                        </td>
-
-                                        <td className={'table-td-actions text-right'}>
-                                            {filterValues.source != 'archive' ? (
-                                                <TableRowActions
-                                                    content={(e) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <StateNavLink
-                                                                name={DashboardRoutes.PRODUCT}
-                                                                params={{
-                                                                    id: product.id,
-                                                                    organizationId: activeOrganization.id,
-                                                                }}
-                                                                className="dropdown-item">
-                                                                <div className="mdi mdi-eye-outline icon-start" />
-                                                                Bekijk
-                                                            </StateNavLink>
-
-                                                            <StateNavLink
-                                                                name={DashboardRoutes.PRODUCT_EDIT}
-                                                                params={{
-                                                                    id: product.id,
-                                                                    organizationId: activeOrganization.id,
-                                                                }}
-                                                                className="dropdown-item">
-                                                                <div className="mdi mdi-pencil-outline icon-start" />
-                                                                Bewerking
-                                                            </StateNavLink>
-
-                                                            {product.sponsor_organization ? (
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        deleteProduct(product);
-                                                                        e.close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-close icon-start icon-start" />
-                                                                    Verwijderen
-                                                                </div>
-                                                            ) : (
-                                                                <StateNavLink
-                                                                    name={DashboardRoutes.PRODUCT}
-                                                                    params={{
-                                                                        id: product.id,
-                                                                        organizationId: activeOrganization.id,
-                                                                    }}
-                                                                    className={classNames(
-                                                                        'dropdown-item',
-                                                                        !(product.unseen_messages > 0) && 'disabled',
-                                                                    )}>
-                                                                    <em className="mdi mdi-message-text icon-start" />
-                                                                    Bericht
-                                                                </StateNavLink>
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                />
-                                            ) : (
-                                                <span className={'text-muted'}>
-                                                    {translate('organization_employees.labels.owner')}
-                                                </span>
-                                            )}
-                                        </td>
-                                    </StateNavLink>
-                                ))}
-                            </tbody>
-                        </table>
-                    </TableTopScroller>
-                </div>
-            )}
-
-            {!loading && filterValues.source == 'provider' && products.meta.total == 0 && !filterValuesActive.q && (
-                <div className="card-section text-center">
-                    <div className="card-subtitle">Er zijn momenteel geen aanbiedingen.</div>
-                    <br />
+            <LoaderTableCard
+                loading={loading}
+                empty={products?.meta?.total == 0}
+                emptyTitle={
+                    filterValues.source == 'provider' && filterValuesActive.q
+                        ? 'Er zijn geen aanbiedingen gevonden voor de zoekopdracht.'
+                        : 'Er zijn momenteel geen aanbiedingen.'
+                }
+                emptyButton={
+                    filterValues.source == 'provider' &&
+                    !filterValuesActive.q && {
+                        state: DashboardRoutes.PRODUCT_CREATE,
+                        stateParams: { organizationId: activeOrganization.id },
+                        type: 'primary',
+                        icon: 'plus-circle',
+                        text: 'Aanbieding toevoegen',
+                    }
+                }
+                columns={productService.getColumns()}
+                tableOptions={{ sortable: true, filter }}
+                paginator={{ key: paginatorKey, data: products, filterValues, filterUpdate }}>
+                {products?.data?.map((product) => (
                     <StateNavLink
-                        name={DashboardRoutes.PRODUCT_CREATE}
-                        params={{ organizationId: activeOrganization.id }}
-                        className="button button-primary">
-                        <em className="mdi mdi-plus-circle icon-start" />
-                        Aanbieding toevoegen
+                        key={product.id}
+                        name={DashboardRoutes.PRODUCT}
+                        params={{
+                            id: product.id,
+                            organizationId: activeOrganization.id,
+                        }}
+                        customElement={'tr'}
+                        className={'tr-clickable'}>
+                        <td className={'td-narrow'}>{product.id}</td>
+                        <td title={product.name}>
+                            <TableEntityMain
+                                title={product.name}
+                                titleLimit={64}
+                                media={product.photos[0]}
+                                mediaRound={false}
+                                mediaSize={'md'}
+                                mediaPlaceholder={'product'}
+                            />
+                        </td>
+
+                        {product?.price_type === 'informational' ? (
+                            <td>
+                                <TableEmptyValue />
+                            </td>
+                        ) : (
+                            <td>
+                                {product.unlimited_stock
+                                    ? translate('product_edit.labels.unlimited')
+                                    : product.stock_amount}
+                            </td>
+                        )}
+
+                        <td>{product.price_locale}</td>
+
+                        <td className={classNames(!product.expire_at_locale && 'text-muted')}>
+                            {product.expire_at_locale ? product.expire_at_locale : 'Geen'}
+                        </td>
+
+                        <td className={classNames(!product.expired && 'text-muted')}>
+                            {product.expired ? 'Ja' : 'Nee'}
+                        </td>
+
+                        <td className={'table-td-actions text-right'}>
+                            {filterValues.source != 'archive' ? (
+                                <TableRowActions
+                                    content={(e) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <StateNavLink
+                                                name={DashboardRoutes.PRODUCT}
+                                                params={{
+                                                    id: product.id,
+                                                    organizationId: activeOrganization.id,
+                                                }}
+                                                className="dropdown-item">
+                                                <div className="mdi mdi-eye-outline icon-start" />
+                                                Bekijk
+                                            </StateNavLink>
+
+                                            <StateNavLink
+                                                name={DashboardRoutes.PRODUCT_EDIT}
+                                                params={{
+                                                    id: product.id,
+                                                    organizationId: activeOrganization.id,
+                                                }}
+                                                className="dropdown-item">
+                                                <div className="mdi mdi-pencil-outline icon-start" />
+                                                Bewerking
+                                            </StateNavLink>
+
+                                            {product.sponsor_organization ? (
+                                                <div
+                                                    className="dropdown-item"
+                                                    onClick={() => {
+                                                        deleteProduct(product);
+                                                        e.close();
+                                                    }}>
+                                                    <em className="mdi mdi-close icon-start icon-start" />
+                                                    Verwijderen
+                                                </div>
+                                            ) : (
+                                                <StateNavLink
+                                                    name={DashboardRoutes.PRODUCT}
+                                                    params={{
+                                                        id: product.id,
+                                                        organizationId: activeOrganization.id,
+                                                    }}
+                                                    className={classNames(
+                                                        'dropdown-item',
+                                                        !(product.unseen_messages > 0) && 'disabled',
+                                                    )}>
+                                                    <em className="mdi mdi-message-text icon-start" />
+                                                    Bericht
+                                                </StateNavLink>
+                                            )}
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                <span className={'text-muted'}>{translate('organization_employees.labels.owner')}</span>
+                            )}
+                        </td>
                     </StateNavLink>
-                </div>
-            )}
-
-            {!loading && filterValues.source == 'provider' && products.meta.total == 0 && filterValuesActive.q && (
-                <div className="card-section text-center">
-                    <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
-                </div>
-            )}
-
-            {!loading && filterValues.source == 'sponsor' && products.meta.total == 0 && (
-                <div className="card-section">
-                    <div className="card-subtitle text-center">Er zijn momenteel geen aanbiedingen.</div>
-                </div>
-            )}
-
-            {!loading && filterValues.source == 'archive' && products.meta.total == 0 && (
-                <div className="card-section">
-                    <div className="card-subtitle text-center">Er zijn momenteel geen aanbiedingen.</div>
-                </div>
-            )}
-
-            {!loading && products?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={products.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

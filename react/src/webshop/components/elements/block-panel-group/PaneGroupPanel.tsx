@@ -1,4 +1,5 @@
 import React, { ReactNode, Ref, useId, useState } from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 type PaneGroupIcon =
@@ -50,7 +51,10 @@ export default function PaneGroupPanel({
                 <h2 className="panel-header-title" id={titleId}>
                     {title}
                 </h2>
-                <em className={`mdi ${isOpen ? 'mdi-chevron-down' : 'mdi-chevron-right'}`} aria-hidden="true" />
+                <em
+                    className={classNames('mdi', isOpen ? 'mdi-chevron-down' : 'mdi-chevron-right')}
+                    aria-hidden="true"
+                />
                 <span className="sr-only">
                     {isOpen ? translate('product.labels.collapse_section') : translate('product.labels.expand_section')}
                 </span>

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function FundRequestProgress({
@@ -13,11 +14,13 @@ export default function FundRequestProgress({
     const translate = useTranslate();
 
     return (
-        <div className={`sign_up-progress ${criteriaSteps.length >= 5 ? 'sign_up-progress-compact' : ''}`}>
+        <div className={classNames('sign_up-progress', criteriaSteps.length >= 5 && 'sign_up-progress-compact')}>
             <div
-                className={`sign_up-step sign_up-step-info ${
-                    step < steps.indexOf(criteriaSteps[0]) ? 'sign_up-step-active' : 'sign_up-step-done'
-                }`}
+                className={classNames(
+                    'sign_up-step',
+                    'sign_up-step-info',
+                    step < steps.indexOf(criteriaSteps[0]) ? 'sign_up-step-active' : 'sign_up-step-done',
+                )}
                 aria-hidden="true">
                 <div className="sign_up-step-border" />
                 <div className="mdi mdi-information-outline" />
@@ -26,10 +29,11 @@ export default function FundRequestProgress({
             {criteriaSteps?.map((_, index) => (
                 <div
                     key={index}
-                    className={`sign_up-step ${
-                        step == steps.indexOf(_) && steps.includes(_) ? 'sign_up-step-active' : ''
-                    }
-                    ${step > steps.indexOf(_) ? 'sign_up-step-done' : ''}`}
+                    className={classNames(
+                        'sign_up-step',
+                        step == steps.indexOf(_) && steps.includes(_) && 'sign_up-step-active',
+                        step > steps.indexOf(_) && 'sign_up-step-done',
+                    )}
                     aria-hidden="true">
                     <div className="sign_up-step-border" />
                     <div className="sign-up-step-block">

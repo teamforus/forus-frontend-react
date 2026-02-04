@@ -4,6 +4,7 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
@@ -13,12 +14,8 @@ import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../../elements/tables/TableRowActions';
-import Paginator from '../../../modules/paginator/components/Paginator';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import usePushApiError from '../../../hooks/usePushApiError';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
@@ -50,8 +47,6 @@ export default function FundForms() {
         { value: 'active', label: `Actief` },
         { value: 'archived', label: `Archief` },
     ]);
-
-    const { headElement, configsElement } = useConfigurableTable(fundFormService.getColumns());
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q: string;
@@ -118,7 +113,7 @@ export default function FundForms() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
-                    E-formulieren ({fundForms.meta.total})
+                    E-formulieren ({fundForms?.meta?.total})
                 </div>
 
                 <div className="card-header-filters">
@@ -223,99 +218,76 @@ export default function FundForms() {
                 </div>
             </div>
 
-            {!loading && fundForms.meta.total > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+            <LoaderTableCard
+                loading={loading}
+                empty={fundForms?.meta?.total == 0}
+                emptyTitle={'Geen formulieren'}
+                columns={fundFormService.getColumns()}
+                paginator={{ key: paginatorKey, data: fundForms, filterValues, filterUpdate }}>
+                {fundForms?.data?.map((fundForm) => (
+                    <StateNavLink
+                        key={fundForm.id}
+                        name={DashboardRoutes.FUND_FORM}
+                        params={{
+                            organizationId: activeOrganization.id,
+                            id: fundForm.id,
+                        }}
+                        customElement={'tr'}
+                        className={'tr-clickable'}>
+                        <td>
+                            <TableEntityMain
+                                title={fundForm.name}
+                                subtitle={`#${fundForm.id}`}
+                                mediaPlaceholder={'form'}
+                                mediaRound={false}
+                                mediaBorder={false}
+                                media={null}
+                            />
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td>
+                            <TableDateTime value={fundForm.created_at_locale} />
+                        </td>
 
-                                <tbody>
-                                    {fundForms.data.map((fundForm) => (
+                        <td>
+                            <TableEntityMain
+                                title={strLimit(fundForm.fund.name, 50)}
+                                subtitle={fundForm?.fund.organization?.name}
+                                mediaPlaceholder={'fund'}
+                                media={fundForm?.fund?.logo}
+                            />
+                        </td>
+
+                        <td className="text-strong text-muted-dark">
+                            {fundForm.fund.implementation?.name || <TableEmptyValue />}
+                        </td>
+
+                        <td className="text-strong text-muted-dark">{fundForm?.steps || <TableEmptyValue />}</td>
+
+                        <td>
+                            <FundFormStateLabels fundForm={fundForm} />
+                        </td>
+
+                        <td className={'table-td-actions text-right'}>
+                            <TableRowActions
+                                content={() => (
+                                    <div className="dropdown dropdown-actions">
                                         <StateNavLink
-                                            key={fundForm.id}
                                             name={DashboardRoutes.FUND_FORM}
-                                            params={{ organizationId: activeOrganization.id, id: fundForm.id }}
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}>
-                                            <td>
-                                                <TableEntityMain
-                                                    title={fundForm.name}
-                                                    subtitle={`#${fundForm.id}`}
-                                                    mediaPlaceholder={'form'}
-                                                    mediaRound={false}
-                                                    mediaBorder={false}
-                                                    media={null}
-                                                />
-                                            </td>
-
-                                            <td>
-                                                <TableDateTime value={fundForm.created_at_locale} />
-                                            </td>
-
-                                            <td>
-                                                <TableEntityMain
-                                                    title={strLimit(fundForm.fund.name, 50)}
-                                                    subtitle={fundForm?.fund.organization?.name}
-                                                    mediaPlaceholder={'fund'}
-                                                    media={fundForm?.fund?.logo}
-                                                />
-                                            </td>
-
-                                            <td className="text-strong text-muted-dark">
-                                                {fundForm.fund.implementation?.name || <TableEmptyValue />}
-                                            </td>
-
-                                            <td className="text-strong text-muted-dark">
-                                                {fundForm?.steps || <TableEmptyValue />}
-                                            </td>
-
-                                            <td>
-                                                <FundFormStateLabels fundForm={fundForm} />
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                <TableRowActions
-                                                    content={() => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <StateNavLink
-                                                                name={DashboardRoutes.FUND_FORM}
-                                                                params={{
-                                                                    organizationId: activeOrganization.id,
-                                                                    id: fundForm.id,
-                                                                }}
-                                                                className="dropdown-item">
-                                                                <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                            </StateNavLink>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
+                                            params={{
+                                                organizationId: activeOrganization.id,
+                                                id: fundForm.id,
+                                            }}
+                                            className="dropdown-item">
+                                            <em className="mdi mdi-eye icon-start" /> Bekijken
                                         </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {!loading && fundForms.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen formulieren'} />}
-
-            {loading && <LoadingCard type={'card-section'} />}
-
-            {!loading && fundForms.meta.total > 0 && (
-                <div className="card-section">
-                    <Paginator
-                        meta={fundForms.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </StateNavLink>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

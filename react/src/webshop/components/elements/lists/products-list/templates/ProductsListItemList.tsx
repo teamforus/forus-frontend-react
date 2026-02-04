@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import classNames from 'classnames';
 import Product from '../../../../../props/models/Product';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
@@ -51,7 +52,7 @@ export default function ProductsListItemList({
                     <div className="product-details-bookmark">
                         {authIdentity && (
                             <div
-                                className={`block block-bookmark-toggle ${product.bookmarked ? 'active' : ''}`}
+                                className={classNames('block', 'block-bookmark-toggle', product.bookmarked && 'active')}
                                 onClick={toggleBookmark}
                                 onKeyDown={clickOnKeyEnter}
                                 role={'button'}

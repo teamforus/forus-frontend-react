@@ -10,8 +10,6 @@ import ImplementationPage from '../../../props/models/ImplementationPage';
 import useTranslate from '../../../hooks/useTranslate';
 import { keyBy } from 'lodash';
 import usePushApiError from '../../../hooks/usePushApiError';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
@@ -19,6 +17,7 @@ import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 
 export default function ImplementationPages() {
     const { id } = useParams();
@@ -39,8 +38,6 @@ export default function ImplementationPages() {
     }, [implementation?.page_types]);
 
     const [pagesByKey, setPagesByKey] = useState<{ [key: string]: ImplementationPage }>(null);
-
-    const { headElement, configsElement } = useConfigurableTable(implementationPageService.getColumns());
 
     const fetchPages = useCallback(() => {
         if (!implementation) return;
@@ -112,119 +109,97 @@ export default function ImplementationPages() {
                 <div className="card-header">
                     <div className="card-title">{translate('implementation_edit.implementations_table.title')}</div>
                 </div>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                <LoaderTableCard
+                    empty={pageTypes.length === 0}
+                    emptyTitle={'Geen pagina’s'}
+                    columns={implementationPageService.getColumns()}>
+                    {pageTypes.map((pageType) => (
+                        <StateNavLink
+                            key={pageType.key}
+                            name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
+                            params={{
+                                id: pagesByKey?.[pageType.key]?.id,
+                                organizationId: implementation.organization_id,
+                                implementationId: implementation.id,
+                            }}
+                            customElement={'tr'}
+                            className={'tr-clickable'}>
+                            <td>{translate(`implementation_edit.labels.${pageType.key}`)}</td>
+                            {pageType.type === 'static' && <td className="text-muted">Standaard pagina</td>}
+                            {pageType.type === 'extra' && <td className="text-muted">Optionele pagina</td>}
+                            {pageType.type === 'element' && <td className="text-muted">Pagina element</td>}
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                            {pageType.blocks ? (
+                                <td>{pagesByKey?.[pageType.key]?.blocks?.length || 'None'}</td>
+                            ) : (
+                                <td className="text-muted">Niet beschikbaar</td>
+                            )}
 
-                                <tbody>
-                                    {pageTypes.map((pageType) => (
-                                        <StateNavLink
-                                            key={pageType.key}
-                                            name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
-                                            params={{
-                                                id: pagesByKey?.[pageType.key]?.id,
-                                                organizationId: implementation.organization_id,
-                                                implementationId: implementation.id,
-                                            }}
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}>
-                                            <td>{translate(`implementation_edit.labels.${pageType.key}`)}</td>
-                                            {pageType.type === 'static' && (
-                                                <td className="text-muted">Standaard pagina</td>
-                                            )}
-                                            {pageType.type === 'extra' && (
-                                                <td className="text-muted">Optionele pagina</td>
-                                            )}
-                                            {pageType.type === 'element' && (
-                                                <td className="text-muted">Pagina element</td>
-                                            )}
-
-                                            {pageType.blocks ? (
-                                                <td>{pagesByKey?.[pageType.key]?.blocks?.length || 'None'}</td>
+                            <td>{pagesByKey?.[pageType.key]?.state == 'public' ? 'Ja' : 'Nee'}</td>
+                            <td>
+                                {(pagesByKey?.[pageType.key]?.id && pagesByKey?.[pageType.key]?.state === 'public') ||
+                                pageType.type == 'static' ? (
+                                    <a
+                                        className="button button-sm button-text"
+                                        href={pageType.webshop_url}
+                                        rel="noreferrer"
+                                        target="_blank">
+                                        Bekijk
+                                        <em className="mdi mdi-open-in-new icon-end" />
+                                    </a>
+                                ) : (
+                                    <div className="text-muted">-</div>
+                                )}
+                            </td>
+                            <td className={'td-narrow text-right'}>
+                                <TableRowActions
+                                    content={({ close }) => (
+                                        <div className="dropdown dropdown-actions">
+                                            {pagesByKey?.[pageType.key]?.id ? (
+                                                <StateNavLink
+                                                    name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
+                                                    params={{
+                                                        id: pagesByKey?.[pageType.key]?.id,
+                                                        implementationId: implementation.id,
+                                                        organizationId: implementation.organization_id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    <em className="mdi mdi-pen icon-start" />
+                                                    {translate('implementation_edit.implementations_table.labels.edit')}
+                                                </StateNavLink>
                                             ) : (
-                                                <td className="text-muted">Niet beschikbaar</td>
+                                                <StateNavLink
+                                                    name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_CREATE}
+                                                    params={{
+                                                        organizationId: implementation.organization_id,
+                                                        implementationId: implementation.id,
+                                                    }}
+                                                    query={{ type: pageType.key }}
+                                                    className="dropdown-item">
+                                                    <em className="mdi mdi-plus icon-start" />
+                                                    {translate('implementation_edit.implementations_table.labels.edit')}
+                                                </StateNavLink>
                                             )}
 
-                                            <td>{pagesByKey?.[pageType.key]?.state == 'public' ? 'Ja' : 'Nee'}</td>
-                                            <td>
-                                                {(pagesByKey?.[pageType.key]?.id &&
-                                                    pagesByKey?.[pageType.key]?.state === 'public') ||
-                                                pageType.type == 'static' ? (
-                                                    <a
-                                                        className="button button-sm button-text"
-                                                        href={pageType.webshop_url}
-                                                        rel="noreferrer"
-                                                        target="_blank">
-                                                        Bekijk
-                                                        <em className="mdi mdi-open-in-new icon-end" />
-                                                    </a>
-                                                ) : (
-                                                    <div className="text-muted">-</div>
+                                            <a
+                                                className={classNames(
+                                                    'dropdown-item',
+                                                    !pagesByKey?.[pageType.key]?.id && 'disabled',
                                                 )}
-                                            </td>
-                                            <td className={'td-narrow text-right'}>
-                                                <TableRowActions
-                                                    content={({ close }) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            {pagesByKey?.[pageType.key]?.id ? (
-                                                                <StateNavLink
-                                                                    name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
-                                                                    params={{
-                                                                        id: pagesByKey?.[pageType.key]?.id,
-                                                                        implementationId: implementation.id,
-                                                                        organizationId: implementation.organization_id,
-                                                                    }}
-                                                                    className="dropdown-item">
-                                                                    <em className="mdi mdi-pen icon-start" />
-                                                                    {translate(
-                                                                        'implementation_edit.implementations_table.labels.edit',
-                                                                    )}
-                                                                </StateNavLink>
-                                                            ) : (
-                                                                <StateNavLink
-                                                                    name={
-                                                                        DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_CREATE
-                                                                    }
-                                                                    params={{
-                                                                        organizationId: implementation.organization_id,
-                                                                        implementationId: implementation.id,
-                                                                    }}
-                                                                    query={{ type: pageType.key }}
-                                                                    className="dropdown-item">
-                                                                    <em className="mdi mdi-plus icon-start" />
-                                                                    {translate(
-                                                                        'implementation_edit.implementations_table.labels.edit',
-                                                                    )}
-                                                                </StateNavLink>
-                                                            )}
-
-                                                            <a
-                                                                className={classNames(
-                                                                    'dropdown-item',
-                                                                    !pagesByKey?.[pageType.key]?.id && 'disabled',
-                                                                )}
-                                                                onClick={() => {
-                                                                    deletePage(pagesByKey?.[pageType.key]);
-                                                                    close();
-                                                                }}>
-                                                                <em className="icon-start mdi mdi-delete" />
-                                                                Verwijderen
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
+                                                onClick={() => {
+                                                    deletePage(pagesByKey?.[pageType.key]);
+                                                    close();
+                                                }}>
+                                                <em className="icon-start mdi mdi-delete" />
+                                                Verwijderen
+                                            </a>
+                                        </div>
+                                    )}
+                                />
+                            </td>
+                        </StateNavLink>
+                    ))}
+                </LoaderTableCard>
             </div>
         </Fragment>
     );

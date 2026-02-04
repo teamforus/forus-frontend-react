@@ -553,9 +553,12 @@ export default function ModalProductReserve({
 
                         <div className="modal-section">
                             <div
-                                className={`block block-vouchers block-vouchers-padding ${
-                                    vouchersList.length === 1 ? 'block-vouchers-compact' : ''
-                                }`}>
+                                className={classNames(
+                                    'block',
+                                    'block-vouchers',
+                                    'block-vouchers-padding',
+                                    vouchersList.length === 1 && 'block-vouchers-compact',
+                                )}>
                                 {vouchersList?.map((voucher) => (
                                     <div
                                         key={voucher.id}
@@ -821,9 +824,10 @@ export default function ModalProductReserve({
                                                         active: field.showInfo,
                                                     })}>
                                                     <div
-                                                        className={`form-group-info-control ${
-                                                            field.description ? 'has-info-btn' : ''
-                                                        }`}>
+                                                        className={classNames(
+                                                            'form-group-info-control',
+                                                            field.description && 'has-info-btn',
+                                                        )}>
                                                         {field.type === 'text' && (
                                                             <input
                                                                 className="form-control"
@@ -1194,9 +1198,10 @@ export default function ModalProductReserve({
                                                     </div>
                                                     <div
                                                         data-dusk={`overviewValueCustomField${field.key}`}
-                                                        className={`overview-item-value ${
-                                                            !form.values[fieldKey] ? 'overview-item-value-empty' : ''
-                                                        }`}>
+                                                        className={classNames(
+                                                            'overview-item-value',
+                                                            !form.values[fieldKey] && 'overview-item-value-empty',
+                                                        )}>
                                                         {field.type === 'date'
                                                             ? dateFormat(
                                                                   dateParse(form.values[fieldKey]),
@@ -1210,9 +1215,10 @@ export default function ModalProductReserve({
                                                     <div className="overview-item-label">{field.label}</div>
                                                     <div
                                                         data-dusk={`overviewValueCustomField${field.key}`}
-                                                        className={`overview-item-value ${
-                                                            !customFieldValue ? 'overview-item-value-empty' : ''
-                                                        }`}>
+                                                        className={classNames(
+                                                            'overview-item-value',
+                                                            !customFieldValue && 'overview-item-value-empty',
+                                                        )}>
                                                         {field.type === 'file' && customFieldFile ? (
                                                             <FileUploader
                                                                 type="product_reservation_custom_field"

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import classNames from 'classnames';
 import useAppConfigs from '../../hooks/useAppConfigs';
 import Reservation from '../../../dashboard/props/models/Reservation';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
@@ -21,7 +22,7 @@ export default function ModalProductReserveCancel({
 
     return (
         <div
-            className={`modal modal-product-reserve modal-animated ${modal.loading ? '' : 'modal-loaded'}`}
+            className={classNames('modal', 'modal-product-reserve', 'modal-animated', !modal.loading && 'modal-loaded')}
             data-dusk="modalProductReserveCancel">
             <div
                 className="modal-backdrop"

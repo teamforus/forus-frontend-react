@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import FinancialFilter from './FinancialFilter';
 import {
     addMonths,
@@ -516,7 +517,7 @@ export default function FinancialFilters({
                         {yearsList.map((item, index) => (
                             <div
                                 key={index}
-                                className={`timeframe-item ${year === item ? 'timeframe-item-active' : ''}`}
+                                className={classNames('timeframe-item', year === item && 'timeframe-item-active')}
                                 onClick={() => setYear(item)}>
                                 <div className="timeframe-item-title">{item.title}</div>
                             </div>
@@ -533,7 +534,10 @@ export default function FinancialFilters({
                 <div className="card-section">
                     <div className="block block-timeframes">
                         <div
-                            className={`timeframe-item ${year.year - 1 <= startYear ? 'timeframe-item-disabled' : ''}`}
+                            className={classNames(
+                                'timeframe-item',
+                                year.year - 1 <= startYear && 'timeframe-item-disabled',
+                            )}
                             onClick={() => prevPage()}>
                             <em className="mdi mdi-chevron-left" />
                         </div>
@@ -541,9 +545,11 @@ export default function FinancialFilters({
                         {quartersList.map((item, index) => (
                             <div
                                 key={index}
-                                className={`timeframe-item ${quarter === item ? 'timeframe-item-active' : ''} ${
-                                    !item.active ? 'timeframe-item-disabled' : ''
-                                }`}
+                                className={classNames(
+                                    'timeframe-item',
+                                    quarter === item && 'timeframe-item-active',
+                                    !item.active && 'timeframe-item-disabled',
+                                )}
                                 onClick={() => setQuarter(item)}>
                                 <div className="timeframe-item-title">{item.title}</div>
                                 <div className="timeframe-item-subtitle">{item.subtitle}</div>
@@ -551,7 +557,7 @@ export default function FinancialFilters({
                         ))}
 
                         <div
-                            className={`timeframe-item ${year.year >= endYear ? 'timeframe-item-disabled' : ''}`}
+                            className={classNames('timeframe-item', year.year >= endYear && 'timeframe-item-disabled')}
                             onClick={() => nextPage()}>
                             <em className="mdi mdi-chevron-right" />
                         </div>
@@ -563,7 +569,10 @@ export default function FinancialFilters({
                 <div className="card-section">
                     <div className="block block-timeframes">
                         <div
-                            className={`timeframe-item ${year.year - 1 <= startYear ? 'timeframe-item-disabled' : ''}`}
+                            className={classNames(
+                                'timeframe-item',
+                                year.year - 1 <= startYear && 'timeframe-item-disabled',
+                            )}
                             onClick={() => prevPage()}>
                             <em className="mdi mdi-chevron-left" />
                         </div>
@@ -571,9 +580,11 @@ export default function FinancialFilters({
                         {monthsList.map((item, index) => (
                             <div
                                 key={index}
-                                className={`timeframe-item ${month === item ? 'timeframe-item-active' : ''} ${
-                                    !item.active ? 'timeframe-item-disabled' : ''
-                                }`}
+                                className={classNames(
+                                    'timeframe-item',
+                                    month === item && 'timeframe-item-active',
+                                    !item.active && 'timeframe-item-disabled',
+                                )}
                                 onClick={() => setMonth(item)}>
                                 <div className="timeframe-item-title">{item.title}</div>
                                 <div className="timeframe-item-subtitle">{item.subtitle}</div>
@@ -581,7 +592,7 @@ export default function FinancialFilters({
                         ))}
 
                         <div
-                            className={`timeframe-item ${year.year >= endYear ? 'timeframe-item-disabled' : ''}`}
+                            className={classNames('timeframe-item', year.year >= endYear && 'timeframe-item-disabled')}
                             onClick={() => nextPage()}>
                             <em className="mdi mdi-chevron-right" />
                         </div>

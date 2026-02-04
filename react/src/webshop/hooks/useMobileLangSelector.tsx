@@ -36,7 +36,7 @@ export default function useMobileLangSelector() {
                         {`${languageResource.locale.toUpperCase()} - ${languageResource.name}`}
                     </div>
                     <div className="mobile-menu-languages-header-toggle">
-                        <em className={showOptions ? 'mdi mdi-chevron-down' : 'mdi mdi-chevron-right'} />
+                        <em className={classNames('mdi', showOptions ? 'mdi-chevron-down' : 'mdi-chevron-right')} />
                     </div>
                 </div>
 

@@ -108,7 +108,14 @@ export default function Markdown({
             role={role}
             aria-level={ariaLevel}
             style={{ fontSize: fontSize ? `${fontSize}px` : undefined }}
-            className={classNames('block', 'block-markdown', align && `block-markdown-${align}`, className)}
+            className={classNames(
+                'block',
+                'block-markdown',
+                align === 'left' && 'block-markdown-left',
+                align === 'center' && 'block-markdown-center',
+                align === 'right' && 'block-markdown-right',
+                className,
+            )}
             dangerouslySetInnerHTML={{ __html: content }}
         />
     );

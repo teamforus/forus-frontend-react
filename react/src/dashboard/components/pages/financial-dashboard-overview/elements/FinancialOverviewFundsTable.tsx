@@ -9,9 +9,8 @@ import SelectControl from '../../../elements/select-control/SelectControl';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import useFundExporter from '../../../../services/exporters/useFundExporter';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -39,8 +38,6 @@ export default function FinancialOverviewFundsTable({
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
-
-    const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBalance());
 
     const exportFunds = useCallback(() => {
         fundExporter.exportData(organization.id, false, year);
@@ -100,43 +97,31 @@ export default function FinancialOverviewFundsTable({
             {financialOverview?.year != year ? (
                 <LoadingCard />
             ) : (
-                <div className="card-section">
-                    <div className="card-block card-block-table card-block-financial">
-                        {configsElement}
+                <LoaderTableCard columns={fundService.getColumnsBalance()}>
+                    {funds.map((fund) => (
+                        <tr key={fund.id}>
+                            <td>{fund.name}</td>
+                            <td>{fund.budget?.total_locale || <TableEmptyValue />}</td>
+                            <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
+                            <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
+                            <td>{fund.budget?.transaction_costs_locale}</td>
+                            <td className={'table-td-actions text-right'}>
+                                <TableEmptyValue />
+                            </td>
+                        </tr>
+                    ))}
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {funds.map((fund) => (
-                                        <tr key={fund.id}>
-                                            <td>{fund.name}</td>
-                                            <td>{fund.budget?.total_locale || <TableEmptyValue />}</td>
-                                            <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
-                                            <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
-                                            <td>{fund.budget?.transaction_costs_locale}</td>
-                                            <td className={'table-td-actions text-right'}>
-                                                <TableEmptyValue />
-                                            </td>
-                                        </tr>
-                                    ))}
-
-                                    <tr className="table-totals">
-                                        <td>{translate('financial_dashboard_overview.labels.total')}</td>
-                                        <td>{financialOverview?.funds.budget_locale}</td>
-                                        <td>{financialOverview?.funds.budget_used_locale}</td>
-                                        <td>{financialOverview?.funds.budget_left_locale}</td>
-                                        <td>{financialOverview?.funds.transaction_costs_locale}</td>
-                                        <td className={'table-td-actions text-right'}>
-                                            <TableEmptyValue />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
+                    <tr className="table-totals">
+                        <td>{translate('financial_dashboard_overview.labels.total')}</td>
+                        <td>{financialOverview?.funds.budget_locale}</td>
+                        <td>{financialOverview?.funds.budget_used_locale}</td>
+                        <td>{financialOverview?.funds.budget_left_locale}</td>
+                        <td>{financialOverview?.funds.transaction_costs_locale}</td>
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
+                    </tr>
+                </LoaderTableCard>
             )}
         </div>
     );

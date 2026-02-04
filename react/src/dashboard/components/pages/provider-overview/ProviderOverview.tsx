@@ -14,6 +14,7 @@ import { hasPermission } from '../../../helpers/utils';
 import ProductsRequiredNotification from './elements/ProductsRequiredNotification';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function ProviderOverview() {
     const envData = useEnvData();
@@ -101,9 +102,11 @@ export default function ProviderOverview() {
                                             <StateNavLink
                                                 name={DashboardRoutes.PRODUCT_CREATE}
                                                 params={{ organizationId: activeOrganization.id }}
-                                                className={`button button-primary ${
-                                                    productHardLimitReached ? 'disabled' : ''
-                                                }`}
+                                                className={classNames(
+                                                    'button',
+                                                    'button-primary',
+                                                    productHardLimitReached && 'disabled',
+                                                )}
                                                 id="add_product"
                                                 disabled={productHardLimitReached}>
                                                 <em className="mdi mdi-plus-circle icon-start" />

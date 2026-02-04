@@ -18,7 +18,6 @@ import { usePrevalidationService } from '../../../services/PrevalidationService'
 import Employee from '../../../props/models/Employee';
 import { PaginationData } from '../../../props/ApiResponses';
 import Prevalidation from '../../../props/models/Prevalidation';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import ModalNotification from '../../modals/ModalNotification';
 import ModalCreatePrevalidation from '../../modals/ModalCreatePrevalidation';
@@ -28,11 +27,9 @@ import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import { NumberParam, StringParam } from 'use-query-params';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
@@ -149,10 +146,6 @@ export default function Prevalidations() {
             }),
         }));
     }, [headers, prevalidations?.data]);
-
-    const { headElement, configsElement } = useConfigurableTable(
-        prevalidationService.getColumns(headers || [], typesByKey),
-    );
 
     const exportData = useCallback(() => {
         prevalidationExporter.exportData(activeOrganization.id, { ...filterValuesActive, ...filter.activeValues });
@@ -410,10 +403,10 @@ export default function Prevalidations() {
                                                     className="button button-primary button-wide"
                                                     onClick={() => exportData()}
                                                     data-dusk="export"
-                                                    disabled={prevalidations?.meta.total == 0}>
+                                                    disabled={prevalidations?.meta?.total == 0}>
                                                     <em className="mdi mdi-download icon-start" />
                                                     {translate('components.dropdown.export', {
-                                                        total: prevalidations.meta.total,
+                                                        total: prevalidations?.meta?.total,
                                                     })}
                                                 </button>
                                             </div>
@@ -435,98 +428,69 @@ export default function Prevalidations() {
 
             <LoaderTableCard
                 loading={!prevalidations.meta}
-                empty={prevalidations.meta.total == 0}
+                empty={prevalidations?.meta?.total == 0}
                 emptyTitle={'Geen aanvragers toevoegen'}
                 emptyDescription={
                     'U bent geen beoordelaar voor een fonds dat actief is om aanvragers aan toe te voegen.'
-                }>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                }
+                columns={prevalidationService.getColumns(headers || [], typesByKey)}
+                paginator={{ key: paginatorKey, data: prevalidations, filterValues, filterUpdate }}>
+                {rows?.map((row) => (
+                    <tr key={row.id} data-dusk={`tablePrevalidationRow${row.id}`}>
+                        <td className="text-primary text-strong">{row.uid}</td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td>
+                            <div className="text-primary text-semibold">
+                                {row.fund ? strLimit(row.fund?.name, 32) : <TableEmptyValue />}
+                            </div>
 
-                                <tbody>
-                                    {rows?.map((row) => (
-                                        <tr key={row.id} data-dusk={`tablePrevalidationRow${row.id}`}>
-                                            <td className="text-primary text-strong">{row.uid}</td>
+                            <div className="text-strong text-md text-muted-dark">
+                                {row.fund ? strLimit(row.fund?.implementation?.name, 32) : <TableEmptyValue />}
+                            </div>
+                        </td>
+                        <td className="text-primary text-strong">
+                            {employeesByAddress?.[row?.identity_address] || 'Unknown'}
+                        </td>
 
-                                            <td>
-                                                <div className="text-primary text-semibold">
-                                                    {row.fund ? strLimit(row.fund?.name, 32) : <TableEmptyValue />}
-                                                </div>
+                        {row.records?.map((record, index) => (
+                            <td key={index} className={'text-left'}>
+                                {record ? record.value : <TableEmptyValue />}
+                            </td>
+                        ))}
 
-                                                <div className="text-strong text-md text-muted-dark">
-                                                    {row.fund ? (
-                                                        strLimit(row.fund?.implementation?.name, 32)
-                                                    ) : (
-                                                        <TableEmptyValue />
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td className="text-primary text-strong">
-                                                {employeesByAddress?.[row?.identity_address] || 'Unknown'}
-                                            </td>
+                        <td>
+                            <Label type={row.state == 'pending' ? 'default' : 'success'}>
+                                {row.state == 'pending' ? 'Nee' : 'Ja'}
+                            </Label>
+                        </td>
 
-                                            {row.records?.map((record, index) => (
-                                                <td key={index} className={'text-left'}>
-                                                    {record ? record.value : <TableEmptyValue />}
-                                                </td>
-                                            ))}
+                        <td>
+                            <Label type={!row.exported ? 'default' : 'success'}>{!row.exported ? 'Nee' : 'Ja'}</Label>
+                        </td>
 
-                                            <td>
-                                                <Label type={row.state == 'pending' ? 'default' : 'success'}>
-                                                    {row.state == 'pending' ? 'Nee' : 'Ja'}
-                                                </Label>
-                                            </td>
-
-                                            <td>
-                                                <Label type={!row.exported ? 'default' : 'success'}>
-                                                    {!row.exported ? 'Nee' : 'Ja'}
-                                                </Label>
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                {row.state === 'pending' ? (
-                                                    <TableRowActions
-                                                        content={(e) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <a
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        deletePrevalidation(row);
-                                                                        e.close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-close icon-start icon-start" />
-                                                                    Verwijderen
-                                                                </a>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {prevalidations?.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={prevalidations.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                        <td className={'table-td-actions text-right'}>
+                            {row.state === 'pending' ? (
+                                <TableRowActions
+                                    content={(e) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <a
+                                                className="dropdown-item"
+                                                onClick={() => {
+                                                    deletePrevalidation(row);
+                                                    e.close();
+                                                }}>
+                                                <em className="mdi mdi-close icon-start icon-start" />
+                                                Verwijderen
+                                            </a>
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                    </tr>
+                ))}
             </LoaderTableCard>
         </div>
     );

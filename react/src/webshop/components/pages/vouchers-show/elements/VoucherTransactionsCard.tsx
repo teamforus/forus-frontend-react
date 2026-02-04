@@ -17,7 +17,7 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                 {voucherCard.transactionsList?.map((transaction) => (
                     <div
                         key={transaction.unique_id}
-                        className={classNames(`transactions-item`, transaction.incoming && 'transactions-item-out')}>
+                        className={classNames('transactions-item', transaction.incoming && 'transactions-item-out')}>
                         <div className="transactions-item-icon">
                             <TransactionIconBg aria-hidden="true" />
 

@@ -3,16 +3,14 @@ import React, { useState } from 'react';
 import useTranslate from '../../../../hooks/useTranslate';
 import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 import ProductMonitoredHistoryCardItem from './ProductMonitoredHistoryCardItem';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../../services/FundService';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function ProductMonitoredHistoryCard({ product }: { product: SponsorProduct }) {
     const translate = useTranslate();
     const [historyView, setHistoryView] = useState<'compare' | 'diff'>('compare');
 
     const fundService = useFundService();
-    const { headElement, configsElement } = useConfigurableTable(fundService.getProductHistoryColumns());
 
     return (
         <div className="card">
@@ -30,35 +28,14 @@ export default function ProductMonitoredHistoryCard({ product }: { product: Spon
                 />
             </div>
 
-            {product?.monitored_history?.length > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {product?.monitored_history?.map((item, id) => (
-                                        <ProductMonitoredHistoryCardItem
-                                            key={id}
-                                            item={item}
-                                            historyView={historyView}
-                                        />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {product?.monitored_history.length == 0 && (
-                <div className="card-section text-center">
-                    <div className="card-subtitle">Er zijn geen wijzigingen geregistreerd.</div>
-                </div>
-            )}
+            <LoaderTableCard
+                empty={product?.monitored_history.length == 0}
+                emptyTitle={'Er zijn geen wijzigingen geregistreerd.'}
+                columns={fundService.getProductHistoryColumns()}>
+                {product?.monitored_history?.map((item, id) => (
+                    <ProductMonitoredHistoryCardItem key={id} item={item} historyView={historyView} />
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

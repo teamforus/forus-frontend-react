@@ -108,7 +108,15 @@ export default function ReservationsShow() {
                                             <h1 className="reservation-title">
                                                 {translate('reservation.details.title')}
                                             </h1>
-                                            <div className={`label label-${stateData.stateClass}`}>
+                                            <div
+                                                className={classNames(
+                                                    'label',
+                                                    stateData.stateClass === 'warning' && 'label-warning',
+                                                    stateData.stateClass === 'success' && 'label-success',
+                                                    stateData.stateClass === 'default' && 'label-default',
+                                                    stateData.stateClass === 'waiting' && 'label-waiting',
+                                                    stateData.stateClass === 'danger' && 'label-danger',
+                                                )}>
                                                 {stateData.stateText}
                                             </div>
                                         </div>
@@ -255,7 +263,7 @@ export default function ReservationsShow() {
                     </div>
 
                     {reservation.extra_payment && (
-                        <div className={classNames(`card card-collapsable`, showReservationExtraAmount && 'open')}>
+                        <div className={classNames('card', 'card-collapsable', showReservationExtraAmount && 'open')}>
                             <div
                                 className="card-header"
                                 onClick={() => setShowReservationExtraAmount(!showReservationExtraAmount)}>
@@ -457,7 +465,7 @@ export default function ReservationsShow() {
                     )}
 
                     {reservation?.extra_payment?.refunds?.length > 0 && (
-                        <div className={classNames(`card card-collapsable`, showReservationRefunds && 'open')}>
+                        <div className={classNames('card', 'card-collapsable', showReservationRefunds && 'open')}>
                             <div
                                 className="card-header"
                                 onClick={() => setShowReservationRefunds(!showReservationRefunds)}>

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAppConfigs from '../../../hooks/useAppConfigs';
@@ -117,7 +118,7 @@ export default function ProvidersOffice() {
                         </div>
                     )}
 
-                    <div className={`office-content ${!appConfigs.show_office_map ? 'office-content-top' : ''}`}>
+                    <div className={classNames('office-content', !appConfigs.show_office_map && 'office-content-top')}>
                         <div className="block block-pane">
                             <div className="pane-head">
                                 <h1 className="sr-only">{office.address}</h1>
@@ -232,7 +233,10 @@ export default function ProvidersOffice() {
 
                                     <div className="organization-chevron">
                                         <div
-                                            className={`mdi ${showOffices ? 'mdi-chevron-up' : 'mdi-chevron-right'}`}
+                                            className={classNames(
+                                                'mdi',
+                                                showOffices ? 'mdi-chevron-up' : 'mdi-chevron-right',
+                                            )}
                                             role="button"
                                             aria-expanded={showOffices}
                                             aria-label={translate('providers_office.providers.show_more')}

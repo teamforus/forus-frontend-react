@@ -564,7 +564,7 @@ export default function ModalPayoutsUpload({
 
                                 {csvFile && csvProgress < 2 && (
                                     <div className="csv-upload-actions">
-                                        <div className={classNames(`block block-file`, !csvIsValid && 'has-error')}>
+                                        <div className={classNames('block', 'block-file', !csvIsValid && 'has-error')}>
                                             <div className="block-file-details">
                                                 <div className="file-icon">
                                                     {csvIsValid ? (
@@ -641,7 +641,7 @@ export default function ModalPayoutsUpload({
 
                     <div className="button-group">
                         <button
-                            className={`button button-default`}
+                            className="button button-default"
                             disabled={step == STEP_SET_UP || loading}
                             onClick={() => setStep(STEP_SET_UP)}>
                             Terug

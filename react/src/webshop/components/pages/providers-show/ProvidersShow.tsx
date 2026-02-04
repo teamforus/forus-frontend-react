@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { ErrorResponse, useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAppConfigs from '../../../hooks/useAppConfigs';
@@ -116,7 +117,10 @@ export default function ProvidersShow() {
                 <Section type={'default'}>
                     <div className="block block-provider">
                         <div
-                            className={`provider-content ${appConfigs.show_provider_map ? '' : 'provider-content-top'}`}>
+                            className={classNames(
+                                'provider-content',
+                                !appConfigs.show_provider_map && 'provider-content-top',
+                            )}>
                             <div className="block block-pane">
                                 <div className="pane-head">
                                     <h1 className="sr-only">{provider.name}</h1>
