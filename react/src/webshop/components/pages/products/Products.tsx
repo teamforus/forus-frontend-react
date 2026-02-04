@@ -222,7 +222,13 @@ export default function Products() {
                     setProducts(res.data);
                     setToMax((max) => Math.max(res.data?.meta?.price_max, max));
                 })
-                .catch((e: ResponseError) => setErrors(e.data?.errors))
+                .catch((e: ResponseError) => {
+                    if (e?.status === 0) {
+                        return;
+                    }
+
+                    setErrors(e.data?.errors);
+                })
                 .finally(() => setProgress(100));
         },
         [productService, setProgress],
