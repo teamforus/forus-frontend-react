@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { authContext } from '../../../contexts/AuthContext';
 import { useNavigateState, useStateHref, useStateParams } from '../../../modules/state_router/Router';
 import { useAuthService } from '../../../services/AuthService';
@@ -442,9 +443,10 @@ export default function Start() {
                         {state === 'start' && (
                             <div className="block block-sign_up">
                                 <div
-                                    className={`block-wrapper ${
-                                        !envData.config.flags?.startPage?.combineColumns ? 'block-wrapper-lg' : ''
-                                    }`}>
+                                    className={classNames(
+                                        'block-wrapper',
+                                        !envData.config.flags?.startPage?.combineColumns && 'block-wrapper-lg',
+                                    )}>
                                     <h1 className="block-title">
                                         {translate(
                                             `signup.items.${envData.client_key}.title`,
@@ -458,7 +460,11 @@ export default function Start() {
                                             {envData.config?.flags?.startPage?.combineColumns ? (
                                                 <div className="sign_up-row">
                                                     <div className="sign_up-col">
-                                                        <div className={`sign_up-options ${loading ? 'disabled' : ''}`}>
+                                                        <div
+                                                            className={classNames(
+                                                                'sign_up-options',
+                                                                loading && 'disabled',
+                                                            )}>
                                                             {inlineEmailForm(false)}
 
                                                             {!envData.config.flags.startPage.hideSignUpQrCodeOption &&
@@ -476,7 +482,11 @@ export default function Start() {
                                                                 {translate('auth.sign_in_up_title')}
                                                             </div>
                                                         </h2>
-                                                        <div className={`sign_up-options ${loading ? 'disabled' : ''}`}>
+                                                        <div
+                                                            className={classNames(
+                                                                'sign_up-options',
+                                                                loading && 'disabled',
+                                                            )}>
                                                             {appConfigs.digid &&
                                                                 !envData.config?.flags?.startPage
                                                                     ?.hideSignUpDigidOption &&
@@ -496,7 +506,11 @@ export default function Start() {
                                                                 )}
                                                             </div>
                                                         </h2>
-                                                        <div className={`sign_up-options ${loading ? 'disabled' : ''}`}>
+                                                        <div
+                                                            className={classNames(
+                                                                'sign_up-options',
+                                                                loading && 'disabled',
+                                                            )}>
                                                             {appConfigs.digid &&
                                                                 envData.config?.flags?.startPage
                                                                     ?.hideSignInDigidOption &&

@@ -1,7 +1,6 @@
 import FormValuesModel from '../../../types/FormValuesModel';
 import { useCallback, useEffect, useState } from 'react';
 import { ApiResponse, ApiResponseSingle, PaginationData } from '../../../props/ApiResponses';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import React from 'react';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalDangerZone from '../../modals/ModalDangerZone';
@@ -16,9 +15,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 import TableRowActions from '../tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
-import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import TableTopScroller from '../tables/TableTopScroller';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
 
@@ -52,8 +49,6 @@ export default function BlockCardNotes({
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
-
-    const { headElement, configsElement } = useConfigurableTable(organizationService.getNoteColumns());
 
     const updateNotes = useCallback(() => {
         setProgress(0);
@@ -127,7 +122,7 @@ export default function BlockCardNotes({
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('notes.header.title')}({notes.meta.total})
+                    {translate('notes.header.title')}({notes?.meta?.total})
                 </div>
                 <div className="button-group">
                     {showCreate && (
@@ -139,68 +134,47 @@ export default function BlockCardNotes({
                 </div>
             </div>
 
-            <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notities'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+            <LoaderTableCard
+                empty={!notes?.meta?.total}
+                emptyTitle={'Geen notities'}
+                columns={organizationService.getNoteColumns()}
+                paginator={{ key: paginatorKey, data: notes, filterValues, filterUpdate }}>
+                {notes?.data?.map((note) => (
+                    <tr key={note.id} data-dusk={`noteRow${note.id}`}>
+                        <td className="td-narrow nowrap">{note.id}</td>
+                        <td className="nowrap">{note.created_at_locale}</td>
+                        <td className="nowrap text-primary">{note.employee.email}</td>
+                        <td>
+                            {note.description?.split('\n').map((line: string, index) => (
+                                <div key={index} className="td-text">
+                                    {line}
+                                </div>
+                            ))}
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {notes.data?.map((note) => (
-                                        <tr key={note.id} data-dusk={`noteRow${note.id}`}>
-                                            <td className="td-narrow nowrap">{note.id}</td>
-                                            <td className="nowrap">{note.created_at_locale}</td>
-                                            <td className="nowrap text-primary">{note.employee.email}</td>
-                                            <td>
-                                                {note.description?.split('\n').map((line: string, index) => (
-                                                    <div key={index} className="td-text">
-                                                        {line}
-                                                    </div>
-                                                ))}
-                                            </td>
-
-                                            <td className="td-narrow text-right">
-                                                {note.employee.identity_address === identity.address && (
-                                                    <TableRowActions
-                                                        dataDusk={`noteMenuBtn${note.id}`}
-                                                        content={(e) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        e?.close();
-                                                                        onDeleteNote(note);
-                                                                    }}
-                                                                    data-dusk="deleteNoteBtn">
-                                                                    <em className="mdi mdi-delete-outline icon-start" />
-                                                                    Verwijderen
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {notes?.meta && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={notes.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                        <td className="td-narrow text-right">
+                            {note.employee.identity_address === identity.address && (
+                                <TableRowActions
+                                    dataDusk={`noteMenuBtn${note.id}`}
+                                    content={(e) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <div
+                                                className="dropdown-item"
+                                                onClick={() => {
+                                                    e?.close();
+                                                    onDeleteNote(note);
+                                                }}
+                                                data-dusk="deleteNoteBtn">
+                                                <em className="mdi mdi-delete-outline icon-start" />
+                                                Verwijderen
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                            )}
+                        </td>
+                    </tr>
+                ))}
             </LoaderTableCard>
         </div>
     );

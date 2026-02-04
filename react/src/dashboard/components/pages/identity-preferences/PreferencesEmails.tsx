@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { useIdentityEmailsService } from '../../../services/IdentityEmailService';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
@@ -166,7 +167,9 @@ export default function PreferencesEmails() {
                     {emails?.data.map((email) => (
                         <div key={`email_${email.id}`} className="user_email-item" id={`email_${email.id}`}>
                             <div className="user_email-icon">
-                                <em className={`mdi mdi-email-outline ${email.primary ? 'text-primary' : ''}`} />
+                                <em
+                                    className={classNames('mdi', 'mdi-email-outline', email.primary && 'text-primary')}
+                                />
                             </div>
                             <div className="user_email-details">
                                 <div className="user_email-address" data-dusk="identityEmailListItemEmail">

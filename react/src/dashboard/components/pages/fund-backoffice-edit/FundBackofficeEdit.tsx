@@ -17,6 +17,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import classNames from 'classnames';
 
 export default function FundBackofficeEdit() {
     const { fundId } = useParams();
@@ -374,9 +375,13 @@ export default function FundBackofficeEdit() {
                                         </div>
                                         <div className="form-group-info-button">
                                             <div
-                                                className={`button button-default button-icon pull-left ${
-                                                    showInfoBlock ? 'active' : ''
-                                                }`}
+                                                className={classNames(
+                                                    'button',
+                                                    'button-default',
+                                                    'button-icon',
+                                                    'pull-left',
+                                                    showInfoBlock && 'active',
+                                                )}
                                                 onClick={() => setShowInfoBlock(!showInfoBlock)}>
                                                 <em className="mdi mdi-information" />
                                             </div>
@@ -424,9 +429,13 @@ export default function FundBackofficeEdit() {
                                         </div>
                                         <div className="form-group-info-button">
                                             <div
-                                                className={`button button-default button-icon pull-left ${
-                                                    showPolicyInfoBlock ? 'active' : ''
-                                                }`}
+                                                className={classNames(
+                                                    'button',
+                                                    'button-default',
+                                                    'button-icon',
+                                                    'pull-left',
+                                                    showPolicyInfoBlock && 'active',
+                                                )}
                                                 onClick={() => setShowPolicyInfoBlock(!showPolicyInfoBlock)}>
                                                 <em className="mdi mdi-information" />
                                             </div>

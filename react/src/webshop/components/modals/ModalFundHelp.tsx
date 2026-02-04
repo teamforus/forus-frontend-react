@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import Fund from '../../props/models/Fund';
@@ -14,7 +15,7 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
     const translate = useTranslate();
 
     return (
-        <div className={`modal modal-fund-help modal-animated ${modal.loading ? '' : 'modal-loaded'}`}>
+        <div className={classNames('modal', 'modal-fund-help', 'modal-animated', !modal.loading && 'modal-loaded')}>
             <div className="modal-backdrop" onClick={modal.close} aria-label={translate('modal_fund_help.close')} />
             <div className="modal-window">
                 <div

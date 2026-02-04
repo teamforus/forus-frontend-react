@@ -18,13 +18,10 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import ModalFundTopUp from '../../modals/ModalFundTopUp';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
@@ -92,10 +89,6 @@ export default function OrganizationFunds() {
     );
 
     const { resetFilters: resetFilters } = filter;
-
-    const { headElement, configsElement } = useConfigurableTable(
-        fundService.getColumns(activeOrganization, filterValues.funds_type),
-    );
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -217,7 +210,7 @@ export default function OrganizationFunds() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
-                    {translate('components.organization_funds.title')} ({funds.meta.total})
+                    {translate('components.organization_funds.title')} ({funds?.meta?.total})
                 </div>
 
                 <div className="card-header-filters">
@@ -330,177 +323,135 @@ export default function OrganizationFunds() {
             <LoaderTableCard
                 loading={!funds?.meta}
                 empty={funds?.meta?.total === 0}
+                columns={fundService.getColumns(activeOrganization, filterValues.funds_type)}
+                paginator={{ key: paginatorKey, data: funds, filterValues, filterUpdate }}
                 emptyTitle={'Geen fondsen'}
                 emptyDescription={'Geen fondsen gevonden.'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                {funds?.data?.map((fund) => (
+                    <StateNavLink
+                        key={fund.id}
+                        name={DashboardRoutes.FUND}
+                        params={{ organizationId: activeOrganization.id, fundId: fund.id }}
+                        customElement={'tr'}
+                        className={'tr-clickable'}>
+                        <td>
+                            <TableEntityMain
+                                title={strLimit(fund.name, 50)}
+                                subtitle={fund.organization?.name}
+                                mediaPlaceholder={'fund'}
+                                media={fund?.logo}
+                            />
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td className="text-strong text-muted-dark">
+                            {fund?.implementation?.name || <TableEmptyValue />}
+                        </td>
 
-                                <tbody>
-                                    {funds.data.map((fund) => (
-                                        <StateNavLink
-                                            key={fund.id}
-                                            name={DashboardRoutes.FUND}
-                                            params={{ organizationId: activeOrganization.id, fundId: fund.id }}
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}>
-                                            <td>
-                                                <TableEntityMain
-                                                    title={strLimit(fund.name, 50)}
-                                                    subtitle={fund.organization?.name}
-                                                    mediaPlaceholder={'fund'}
-                                                    media={fund?.logo}
-                                                />
-                                            </td>
+                        {filterValues.funds_type == 'active' && (
+                            <Fragment>
+                                {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
+                                    <td>{fund.budget?.left_locale}</td>
+                                )}
 
-                                            <td className="text-strong text-muted-dark">
-                                                {fund?.implementation?.name || <TableEmptyValue />}
-                                            </td>
+                                <td className="text-strong text-muted-dark">{fund.requester_count}</td>
+                            </Fragment>
+                        )}
 
-                                            {filterValues.funds_type == 'active' && (
-                                                <Fragment>
-                                                    {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
-                                                        <td>{fund.budget?.left_locale}</td>
-                                                    )}
+                        <td>
+                            <FundStateLabels fund={fund} />
+                        </td>
 
-                                                    <td className="text-strong text-muted-dark">
-                                                        {fund.requester_count}
-                                                    </td>
-                                                </Fragment>
+                        <td className={'table-td-actions text-right'}>
+                            {!fund.archived ? (
+                                <TableRowActions
+                                    content={({ close }) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <StateNavLink
+                                                name={DashboardRoutes.FUND}
+                                                params={{
+                                                    organizationId: activeOrganization.id,
+                                                    fundId: fund.id,
+                                                }}
+                                                className="dropdown-item">
+                                                <em className="mdi mdi-eye icon-start" /> Bekijken
+                                            </StateNavLink>
+
+                                            {hasPermission(
+                                                activeOrganization,
+                                                [Permission.MANAGE_FUNDS, Permission.MANAGE_FUND_TEXTS],
+                                                false,
+                                            ) && (
+                                                <StateNavLink
+                                                    name={DashboardRoutes.FUND_EDIT}
+                                                    className="dropdown-item"
+                                                    params={{
+                                                        organizationId: activeOrganization.id,
+                                                        fundId: fund.id,
+                                                    }}>
+                                                    <em className="mdi mdi-pencil icon-start" />
+                                                    Bewerken
+                                                </StateNavLink>
                                             )}
 
-                                            <td>
-                                                <FundStateLabels fund={fund} />
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                {!fund.archived ? (
-                                                    <TableRowActions
-                                                        content={({ close }) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <StateNavLink
-                                                                    name={DashboardRoutes.FUND}
-                                                                    params={{
-                                                                        organizationId: activeOrganization.id,
-                                                                        fundId: fund.id,
-                                                                    }}
-                                                                    className="dropdown-item">
-                                                                    <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                                </StateNavLink>
-
-                                                                {hasPermission(
-                                                                    activeOrganization,
-                                                                    [
-                                                                        Permission.MANAGE_FUNDS,
-                                                                        Permission.MANAGE_FUND_TEXTS,
-                                                                    ],
-                                                                    false,
-                                                                ) && (
-                                                                    <StateNavLink
-                                                                        name={DashboardRoutes.FUND_EDIT}
-                                                                        className="dropdown-item"
-                                                                        params={{
-                                                                            organizationId: activeOrganization.id,
-                                                                            fundId: fund.id,
-                                                                        }}>
-                                                                        <em className="mdi mdi-pencil icon-start" />
-                                                                        Bewerken
-                                                                    </StateNavLink>
-                                                                )}
-
-                                                                {activeOrganization.allow_2fa_restrictions &&
-                                                                    hasPermission(
-                                                                        activeOrganization,
-                                                                        Permission.MANAGE_FUNDS,
-                                                                    ) && (
-                                                                        <StateNavLink
-                                                                            className="dropdown-item"
-                                                                            name={DashboardRoutes.FUND_SECURITY}
-                                                                            params={{
-                                                                                fundId: fund.id,
-                                                                                organizationId: activeOrganization.id,
-                                                                            }}>
-                                                                            <em className="mdi mdi-security icon-start" />
-                                                                            Beveiliging
-                                                                        </StateNavLink>
-                                                                    )}
-
-                                                                {hasPermission(
-                                                                    activeOrganization,
-                                                                    Permission.VIEW_FINANCES,
-                                                                ) &&
-                                                                    fund.key &&
-                                                                    fund.state != 'closed' && (
-                                                                        <a
-                                                                            className={classNames(
-                                                                                'dropdown-item',
-                                                                                !fund.organization
-                                                                                    .has_bank_connection && 'disabled',
-                                                                            )}
-                                                                            onClick={() => {
-                                                                                topUpModal(fund);
-                                                                                close();
-                                                                            }}>
-                                                                            <em className="mdi mdi-plus-circle icon-start" />
-                                                                            Budget toevoegen
-                                                                        </a>
-                                                                    )}
-
-                                                                {hasPermission(
-                                                                    activeOrganization,
-                                                                    Permission.MANAGE_FUNDS,
-                                                                ) && (
-                                                                    <a
-                                                                        className={classNames(
-                                                                            'dropdown-item',
-                                                                            fund.state != 'closed' && 'disabled',
-                                                                        )}
-                                                                        onClick={() => {
-                                                                            archiveFund(fund);
-                                                                            close();
-                                                                        }}>
-                                                                        <em className="mdi mdi-download-box-outline icon-start" />
-                                                                        {translate(
-                                                                            'components.organization_funds.buttons.archive',
-                                                                        )}
-                                                                    </a>
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
-                                                        <button
-                                                            className="button button-primary"
-                                                            onClick={(e) => restoreFund(e, fund)}>
-                                                            <em className="mdi mdi-lock-reset icon-start" />
-                                                            {translate('components.organization_funds.buttons.restore')}
-                                                        </button>
-                                                    )
+                                            {activeOrganization.allow_2fa_restrictions &&
+                                                hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
+                                                    <StateNavLink
+                                                        className="dropdown-item"
+                                                        name={DashboardRoutes.FUND_SECURITY}
+                                                        params={{
+                                                            fundId: fund.id,
+                                                            organizationId: activeOrganization.id,
+                                                        }}>
+                                                        <em className="mdi mdi-security icon-start" />
+                                                        Beveiliging
+                                                    </StateNavLink>
                                                 )}
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
 
-                {funds?.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={funds.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                                            {hasPermission(activeOrganization, Permission.VIEW_FINANCES) &&
+                                                fund.key &&
+                                                fund.state != 'closed' && (
+                                                    <a
+                                                        className={classNames(
+                                                            'dropdown-item',
+                                                            !fund.organization.has_bank_connection && 'disabled',
+                                                        )}
+                                                        onClick={() => {
+                                                            topUpModal(fund);
+                                                            close();
+                                                        }}>
+                                                        <em className="mdi mdi-plus-circle icon-start" />
+                                                        Budget toevoegen
+                                                    </a>
+                                                )}
+
+                                            {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
+                                                <a
+                                                    className={classNames(
+                                                        'dropdown-item',
+                                                        fund.state != 'closed' && 'disabled',
+                                                    )}
+                                                    onClick={() => {
+                                                        archiveFund(fund);
+                                                        close();
+                                                    }}>
+                                                    <em className="mdi mdi-download-box-outline icon-start" />
+                                                    {translate('components.organization_funds.buttons.archive')}
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
+                                    <button className="button button-primary" onClick={(e) => restoreFund(e, fund)}>
+                                        <em className="mdi mdi-lock-reset icon-start" />
+                                        {translate('components.organization_funds.buttons.restore')}
+                                    </button>
+                                )
+                            )}
+                        </td>
+                    </StateNavLink>
+                ))}
             </LoaderTableCard>
         </div>
     );

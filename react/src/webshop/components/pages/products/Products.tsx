@@ -245,7 +245,11 @@ export default function Products() {
                     {authIdentity && (
                         <div className="showcase-aside-tabs">
                             <div
-                                className={`showcase-aside-tab clickable ${!filterValues?.bookmarked ? 'active' : ''}`}
+                                className={classNames(
+                                    'showcase-aside-tab',
+                                    'clickable',
+                                    !filterValues?.bookmarked && 'active',
+                                )}
                                 onClick={() => filterUpdate({ bookmarked: false })}
                                 onKeyDown={clickOnKeyEnter}
                                 tabIndex={0}
@@ -255,7 +259,11 @@ export default function Products() {
                                 {translate('products.filters.all_products')}
                             </div>
                             <div
-                                className={`showcase-aside-tab clickable ${filterValues?.bookmarked ? 'active' : ''}`}
+                                className={classNames(
+                                    'showcase-aside-tab',
+                                    'clickable',
+                                    filterValues?.bookmarked && 'active',
+                                )}
                                 onClick={() => filterUpdate({ bookmarked: true })}
                                 onKeyDown={clickOnKeyEnter}
                                 role="button"

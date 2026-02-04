@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import Announcement from '../../../../dashboard/props/models/Announcement';
 import Markdown from '../markdown/Markdown';
 
@@ -44,9 +45,12 @@ export default function Announcements({ announcements }: { announcements?: Array
             {listActive?.map((announcement) => (
                 <div
                     key={announcement.id}
-                    className={`block block-announcement ${
-                        'announcement-' + announcement.type + (announcement.dismissed ? ' dismissed' : '')
-                    }`}>
+                    className={classNames(
+                        'block',
+                        'block-announcement',
+                        `announcement-${announcement.type}`,
+                        announcement.dismissed && 'dismissed',
+                    )}>
                     {announcement.title && (
                         <div className="announcement-title">
                             {(announcement.type == 'default' || announcement.type == 'primary') && (

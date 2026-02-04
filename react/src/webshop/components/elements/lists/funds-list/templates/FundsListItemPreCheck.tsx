@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import { PreCheckCriteria, PreCheckTotalsFund } from '../../../../../services/types/PreCheckTotals';
 import { useNavigateState } from '../../../../../modules/state_router/Router';
@@ -71,10 +72,12 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
         <div
             data-search-item="1"
             data-dusk={`listFundsPreCheckRow${fund.id}`}
-            className={`fund-item ${fund.parent ? 'fund-item-child' : ''} ${
-                fund.children.length > 0 ? 'fund-item-parent' : ''
-            }`}>
-            <div className={`fund-content ${showMoreRequestInfo ? 'fund-content-expanded' : ''}`}>
+            className={classNames(
+                'fund-item',
+                fund.parent && 'fund-item-child',
+                fund.children.length > 0 && 'fund-item-parent',
+            )}>
+            <div className={classNames('fund-content', showMoreRequestInfo && 'fund-content-expanded')}>
                 <div className="fund-photo">
                     <img
                         src={
@@ -159,15 +162,16 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                 )}
             </div>
 
-            <div className={`fund-actions ${showMoreRequestInfo ? 'expanded' : ''}`}>
+            <div className={classNames('fund-actions', showMoreRequestInfo && 'expanded')}>
                 <div className="fund-request-block">
                     <div className="fund-request-block-progress">
                         <div className="fund-request-block-progress-title">{progressStatusTitle}</div>
                         <div className="fund-request-block-progress-bar">
                             <div
-                                className={`fund-request-block-progress-bar-value ${
-                                    criteriaValidPercentage <= 49 ? 'fund-request-block-progress-bar-value-low' : ''
-                                }`}
+                                className={classNames(
+                                    'fund-request-block-progress-bar-value',
+                                    criteriaValidPercentage <= 49 && 'fund-request-block-progress-bar-value-low',
+                                )}
                                 style={{ width: `${criteriaValidPercentage}%` }}
                             />
                         </div>
@@ -242,13 +246,11 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                             {fund.criteria?.map((criterion) => (
                                 <div
                                     key={criterion.id}
-                                    className={`fund-pre-check-info-list-item ${
-                                        criterion.is_valid ? 'criteria-valid' : ''
-                                    } ${
-                                        criterion.is_knock_out && !criterion.is_valid
-                                            ? 'criteria-invalid-knock-out'
-                                            : ''
-                                    }`}>
+                                    className={classNames(
+                                        'fund-pre-check-info-list-item',
+                                        criterion.is_valid && 'criteria-valid',
+                                        criterion.is_knock_out && !criterion.is_valid && 'criteria-invalid-knock-out',
+                                    )}>
                                     <div className="fund-pre-check-info-list-item-content">
                                         <div className="fund-pre-check-info-list-item-icon">
                                             {criterion.is_valid ? (

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import { useNavigateState } from '../../modules/state_router/Router';
@@ -21,7 +22,12 @@ export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState
 
     return (
         <div
-            className={`modal modal-identity-proxy-expired modal-animated  ${modal.loading ? '' : 'modal-loaded'}`}
+            className={classNames(
+                'modal',
+                'modal-identity-proxy-expired',
+                'modal-animated',
+                !modal.loading && 'modal-loaded',
+            )}
             role="dialog">
             <div
                 className="modal-backdrop"

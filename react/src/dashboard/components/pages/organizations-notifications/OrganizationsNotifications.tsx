@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { PaginationData } from '../../../props/ApiResponses';
 import Notification from '../../../props/models/Notification';
 import { useNotificationService } from '../../../services/NotificationService';
@@ -82,7 +83,7 @@ export default function OrganizationsNotifications() {
                     {notifications.data.map((notification) => (
                         <div
                             key={notification.id}
-                            className={`notification-item ${!notification.seen ? 'notification-item-new' : ''}`}>
+                            className={classNames('notification-item', !notification.seen && 'notification-item-new')}>
                             <div className="notification-details">
                                 <div className="notification-title">{notification.title}</div>
                                 <div className="notification-description">

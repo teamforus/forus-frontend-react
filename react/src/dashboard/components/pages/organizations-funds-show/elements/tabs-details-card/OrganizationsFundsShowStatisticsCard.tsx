@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
+import classNames from 'classnames';
 import Fund from '../../../../../props/models/Fund';
 import EmptyCard from '../../../../elements/empty-card/EmptyCard';
 import { useNavigateState } from '../../../../../modules/state_router/Router';
@@ -79,9 +80,12 @@ export default function OrganizationsFundsShowStatisticsCard({
                         </a>
 
                         <div
-                            className={`keyvalue-item col col-lg-3 ${
-                                !canInviteProviders ? 'keyvalue-item-disabled' : ''
-                            }`}
+                            className={classNames(
+                                'keyvalue-item',
+                                'col',
+                                'col-lg-3',
+                                !canInviteProviders && 'keyvalue-item-disabled',
+                            )}
                             onClick={() => inviteProvider(fund)}>
                             <div className="keyvalue-key">{translate('fund_card_sponsor.labels.providers')}</div>
                             <div className="keyvalue-value">
@@ -91,7 +95,12 @@ export default function OrganizationsFundsShowStatisticsCard({
                         </div>
 
                         <a
-                            className={`keyvalue-item col col-lg-3 ${!canAccessFund ? 'keyvalue-item-disabled' : ''}`}
+                            className={classNames(
+                                'keyvalue-item',
+                                'col',
+                                'col-lg-3',
+                                !canAccessFund && 'keyvalue-item-disabled',
+                            )}
                             onClick={() => {
                                 navigateState(DashboardRoutes.CSV_VALIDATION, { organizationId: fund.organization_id });
                             }}>

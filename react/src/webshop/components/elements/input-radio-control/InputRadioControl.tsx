@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 
 export default function InputRadioControl({
@@ -25,9 +26,7 @@ export default function InputRadioControl({
     return (
         <label
             htmlFor={inputId}
-            className={`radio ${narrow ? 'radio-narrow' : ''} ${compact ? 'radio-compact' : ''} ${
-                fill ? 'radio-fill' : ''
-            }`}>
+            className={classNames('radio', narrow && 'radio-narrow', compact && 'radio-compact', fill && 'radio-fill')}>
             <input
                 id={inputId}
                 name="name"

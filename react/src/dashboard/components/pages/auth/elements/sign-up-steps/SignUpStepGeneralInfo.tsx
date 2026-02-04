@@ -2,6 +2,7 @@ import React from 'react';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../hooks/useTranslate';
 import SignUpFooter from '../../../../../../webshop/components/elements/sign-up/SignUpFooter';
+import classNames from 'classnames';
 
 export default function SignUpStepGeneralInfo({
     panelType,
@@ -18,9 +19,10 @@ export default function SignUpStepGeneralInfo({
             <div className="sign_up-pane-header">{translate(`sign_up_${panelType}.header.title_step_1`)}</div>
 
             <div
-                className={`sign_up-pane-body ${
-                    panelType == 'validator' ? '' : 'flex flex-vertical flex-vertical-reverse'
-                }`}>
+                className={classNames(
+                    'sign_up-pane-body',
+                    panelType != 'validator' && 'flex flex-vertical flex-vertical-reverse',
+                )}>
                 <div className="sign_up-pane-text">{translate(`sign_up_${panelType}.header.subtitle_step_1`)}</div>
 
                 <div className="sign_up-pane-media">

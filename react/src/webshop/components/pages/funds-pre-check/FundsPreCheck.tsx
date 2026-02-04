@@ -282,7 +282,7 @@ export default function FundsPreCheck() {
 
     const PreCheckProgress = useCallback(
         ({ id, title = true }: { id?: string; title?: boolean }) => (
-            <div id={id} className={`pre-check-progress ${totals ? 'pre-check-progress-complete' : ''}`}>
+            <div className={classNames('pre-check-progress', totals && 'pre-check-progress-complete')} id={id}>
                 {totals && (
                     <a
                         className="pre-check-progress-header"
