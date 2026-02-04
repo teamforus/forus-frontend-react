@@ -104,7 +104,7 @@ export default function Products() {
             order_dir: (defaultSortOption || sortByOptions[0])?.value.order_dir,
         },
         {
-            throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment'],
+            throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment', 'postcode'],
             queryParams: {
                 q: StringParam,
                 page: NumberParam,
