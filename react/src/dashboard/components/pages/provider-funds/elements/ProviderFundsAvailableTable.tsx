@@ -4,7 +4,6 @@ import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { strLimit } from '../../../../helpers/string';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
@@ -16,10 +15,8 @@ import SelectControl from '../../../elements/select-control/SelectControl';
 import useTableToggles from '../../../../hooks/useTableToggles';
 import Implementation from '../../../../props/models/Implementation';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import useTranslate from '../../../../hooks/useTranslate';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
@@ -94,19 +91,6 @@ export default function ProviderFundsAvailableTable({
     );
 
     const { resetFilters: resetFilters } = filter;
-
-    const { headElement, configsElement } = useConfigurableTable(providerFundService.getColumnsAvailable(), {
-        filter: filter,
-        sortable: true,
-        trPrepend: (
-            <th className="th-narrow">
-                <TableCheckboxControl
-                    checked={selected.length == funds?.data?.length}
-                    onClick={(e) => toggleAll(e, funds?.data)}
-                />
-            </th>
-        ),
-    });
 
     const fetchFunds = useCallback(() => {
         setSelected([]);
@@ -211,7 +195,7 @@ export default function ProviderFundsAvailableTable({
                     {translate(`provider_funds.title.available`)}
 
                     {!loading && selected.length > 0 && ` (${selected.length}/${funds.data.length})`}
-                    {!loading && selected.length == 0 && ` (${funds.meta.total})`}
+                    {!loading && selected.length == 0 && ` (${funds?.meta?.total})`}
                 </div>
 
                 <div className="card-header-filters">
@@ -299,114 +283,88 @@ export default function ProviderFundsAvailableTable({
                 </div>
             </div>
 
-            {!loading && funds.data.length > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table form">
-                        {configsElement}
+            <LoaderTableCard
+                loading={loading}
+                empty={!loading && funds?.meta?.total == 0}
+                emptyTitle={translate(`provider_funds.empty_block.available`)}
+                columns={providerFundService.getColumnsAvailable()}
+                tableOptions={{
+                    filter,
+                    sortable: true,
+                    trPrepend: (
+                        <th className="th-narrow">
+                            <TableCheckboxControl
+                                checked={selected.length == funds?.data?.length}
+                                onClick={(e) => toggleAll(e, funds?.data)}
+                            />
+                        </th>
+                    ),
+                }}
+                paginator={{ key: paginatorKey, data: funds, filterValues, filterUpdate }}>
+                {funds?.data?.map((fund) => (
+                    <tr
+                        key={fund.id}
+                        className={classNames(selected.includes(fund.id) && 'selected')}
+                        data-dusk={`tableFundsAvailableRow${fund.id}`}>
+                        <td className="td-narrow">
+                            <TableCheckboxControl
+                                checked={selected.includes(fund.id)}
+                                onClick={(e) => toggle(e, fund)}
+                            />
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td>
+                            <div className="td-collapsable">
+                                <div className="collapsable-media">
+                                    <img
+                                        className="td-media td-media-sm"
+                                        src={
+                                            fund.logo?.sizes?.thumbnail ||
+                                            assetUrl('/assets/img/placeholders/fund-thumbnail.png')
+                                        }
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="collapsable-content">
+                                    <div className="text-primary text-semibold" title={fund.name}>
+                                        {strLimit(fund.name, 32)}
+                                    </div>
+                                    <a
+                                        href={fund.implementation.url_webshop}
+                                        target="_blank"
+                                        className="text-strong text-md text-muted-dark text-inherit"
+                                        rel="noreferrer">
+                                        {strLimit(fund.implementation?.name, 32)}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
 
-                                <tbody>
-                                    {funds.data?.map((fund) => (
-                                        <tr
-                                            key={fund.id}
-                                            className={classNames(selected.includes(fund.id) && 'selected')}
-                                            data-dusk={`tableFundsAvailableRow${fund.id}`}>
-                                            <td className="td-narrow">
-                                                <TableCheckboxControl
-                                                    checked={selected.includes(fund.id)}
-                                                    onClick={(e) => toggle(e, fund)}
-                                                />
-                                            </td>
+                        <td title={fund.organization.name}>{strLimit(fund.organization?.name, 25)}</td>
 
-                                            <td>
-                                                <div className="td-collapsable">
-                                                    <div className="collapsable-media">
-                                                        <img
-                                                            className="td-media td-media-sm"
-                                                            src={
-                                                                fund.logo?.sizes?.thumbnail ||
-                                                                assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                                            }
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div className="collapsable-content">
-                                                        <div className="text-primary text-semibold" title={fund.name}>
-                                                            {strLimit(fund.name, 32)}
-                                                        </div>
-                                                        <a
-                                                            href={fund.implementation.url_webshop}
-                                                            target="_blank"
-                                                            className="text-strong text-md text-muted-dark text-inherit"
-                                                            rel="noreferrer">
-                                                            {strLimit(fund.implementation?.name, 32)}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
+                        <td className="nowrap">
+                            <strong className="text-strong text-md text-muted-dark">{fund.start_date_locale}</strong>
+                        </td>
 
-                                            <td title={fund.organization.name}>
-                                                {strLimit(fund.organization?.name, 25)}
-                                            </td>
+                        <td className="nowrap">
+                            <strong className="text-strong text-md text-muted-dark">{fund.end_date_locale}</strong>
+                        </td>
 
-                                            <td className="nowrap">
-                                                <strong className="text-strong text-md text-muted-dark">
-                                                    {fund.start_date_locale}
-                                                </strong>
-                                            </td>
-
-                                            <td className="nowrap">
-                                                <strong className="text-strong text-md text-muted-dark">
-                                                    {fund.end_date_locale}
-                                                </strong>
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                <div className="button-group flex-end">
-                                                    {fund.state != 'closed' && (
-                                                        <button
-                                                            className="button button-primary button-sm"
-                                                            onClick={() => applyFunds([fund])}>
-                                                            <em className="mdi mdi-send-circle-outline icon-start" />
-                                                            {translate('provider_funds.buttons.join')}
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {loading && (
-                <div className="card-section">
-                    <div className="card-loading">
-                        <div className="mdi mdi-loading mdi-spin" />
-                    </div>
-                </div>
-            )}
-
-            {!loading && funds?.meta?.total == 0 && (
-                <EmptyCard type={'card-section'} title={translate(`provider_funds.empty_block.available`)} />
-            )}
-
-            {!loading && funds?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={funds.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                        <td className={'table-td-actions text-right'}>
+                            <div className="button-group flex-end">
+                                {fund.state != 'closed' && (
+                                    <button
+                                        className="button button-primary button-sm"
+                                        onClick={() => applyFunds([fund])}>
+                                        <em className="mdi mdi-send-circle-outline icon-start" />
+                                        {translate('provider_funds.buttons.join')}
+                                    </button>
+                                )}
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

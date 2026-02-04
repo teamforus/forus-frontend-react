@@ -11,13 +11,12 @@ import SystemNotification from '../../../props/models/SystemNotification';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import InfoBox from '../../elements/info-box/InfoBox';
 import { useParams } from 'react-router';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 
 export default function ImplementationNotifications() {
     const { id } = useParams();
@@ -51,7 +50,7 @@ export default function ImplementationNotifications() {
 
         const groupOrder = Object.keys(groupLabels);
 
-        const list = notifications.data.map((notification) => ({
+        const list = notifications?.data?.map((notification) => ({
             ...notification,
             state: implementationNotificationsService.notificationToStateLabel(notification),
             title: translate(`system_notifications.notifications.${notification.key}.title`),
@@ -65,8 +64,6 @@ export default function ImplementationNotifications() {
             .map((item) => ({ ...item, notifications: item.notifications.sort((a, b) => a.order - b.order) }))
             .sort((a, b) => groupOrder.indexOf(a.group) - groupOrder.indexOf(b.group));
     }, [translate, groupLabels, notifications, implementationNotificationsService]);
-
-    const { headElement, configsElement } = useConfigurableTable(implementationNotificationsService.getColumns());
 
     const notificationIconColor = useCallback(
         (notification: SystemNotification, type: 'database' | 'mail' | 'push') => {
@@ -204,110 +201,82 @@ export default function ImplementationNotifications() {
                     <div className="card-header">
                         <div className="card-title">{notificationGroup.groupLabel}</div>
                     </div>
-                    <div className="card-section">
-                        <div className="card-block card-block-table">
-                            {configsElement}
-
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    <tbody>
-                                        {notificationGroup.notifications.map((notification) => (
-                                            <tr key={notification.id}>
-                                                <td className="td-grow">
-                                                    <div>
-                                                        {notification.editable ? (
-                                                            <em className="mdi mdi-pencil-outline text-muted-dark">
-                                                                {' '}
-                                                            </em>
-                                                        ) : (
-                                                            <em className="mdi mdi-lock-outline text-muted-dark"> </em>
-                                                        )}
-                                                        <span>{notification.title}</span>
+                    <LoaderTableCard columns={implementationNotificationsService.getColumns()}>
+                        {notificationGroup.notifications.map((notification) => (
+                            <tr key={notification.id}>
+                                <td className="td-grow">
+                                    <div>
+                                        {notification.editable ? (
+                                            <em className="mdi mdi-pencil-outline text-muted-dark"> </em>
+                                        ) : (
+                                            <em className="mdi mdi-lock-outline text-muted-dark"> </em>
+                                        )}
+                                        <span>{notification.title}</span>
+                                    </div>
+                                    <small>{notification.description}</small>
+                                </td>
+                                <td className="nowrap">
+                                    <div className="td-icons">
+                                        {channels.map((channel, index) => (
+                                            <em
+                                                key={index}
+                                                className={`block block-tooltip-details block-tooltip-hover mdi mdi-${notificationIcon(
+                                                    notification,
+                                                    channel,
+                                                )} ${notificationIconColor(notification, channel)}`}>
+                                                <div className="tooltip-content tooltip-content-fit tooltip-content-ghost">
+                                                    <div className="tooltip-heading text-left">
+                                                        {notificationIconTooltip(notification, channel).heading}
                                                     </div>
-                                                    <small>{notification.description}</small>
-                                                </td>
-                                                <td className="nowrap">
-                                                    <div className="td-icons">
-                                                        {channels.map((channel, index) => (
-                                                            <em
-                                                                key={index}
-                                                                className={`block block-tooltip-details block-tooltip-hover mdi mdi-${notificationIcon(
-                                                                    notification,
-                                                                    channel,
-                                                                )} ${notificationIconColor(notification, channel)}`}>
-                                                                <div className="tooltip-content tooltip-content-fit tooltip-content-ghost">
-                                                                    <div className="tooltip-heading text-left">
-                                                                        {
-                                                                            notificationIconTooltip(
-                                                                                notification,
-                                                                                channel,
-                                                                            ).heading
-                                                                        }
-                                                                    </div>
-                                                                    <div className="tooltip-text text-left">
-                                                                        {
-                                                                            notificationIconTooltip(
-                                                                                notification,
-                                                                                channel,
-                                                                            ).text
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </em>
-                                                        ))}
+                                                    <div className="tooltip-text text-left">
+                                                        {notificationIconTooltip(notification, channel).text}
                                                     </div>
-                                                </td>
-
-                                                <td className="nowrap">
-                                                    {notification.state?.state === 'active' && (
-                                                        <Label type={'success'}>{notification.state.stateLabel}</Label>
-                                                    )}
-
-                                                    {notification.state?.state === 'inactive' && (
-                                                        <Label type={'danger'}>{notification.state.stateLabel}</Label>
-                                                    )}
-
-                                                    {notification.state?.state === 'active_partly' && (
-                                                        <Label type={'warning'}>{notification.state.stateLabel}</Label>
-                                                    )}
-
-                                                    {!['active', 'inactive', 'active_partly'].includes(
-                                                        notification.state?.state,
-                                                    ) && (
-                                                        <Label type={'default'}>{notification.state.stateLabel}</Label>
-                                                    )}
-                                                </td>
-
-                                                <td className={'td-narrow text-right'}>
-                                                    <TableRowActions
-                                                        content={() => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <StateNavLink
-                                                                    name={
-                                                                        DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT
-                                                                    }
-                                                                    params={{
-                                                                        organizationId: activeOrganization.id,
-                                                                        implementationId: implementation.id,
-                                                                        id: notification.id,
-                                                                    }}
-                                                                    className="dropdown-item">
-                                                                    <em className="mdi mdi-eye-outline icon-start" />
-                                                                    Bekijken
-                                                                </StateNavLink>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </em>
                                         ))}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
+                                    </div>
+                                </td>
+
+                                <td className="nowrap">
+                                    {notification.state?.state === 'active' && (
+                                        <Label type={'success'}>{notification.state.stateLabel}</Label>
+                                    )}
+
+                                    {notification.state?.state === 'inactive' && (
+                                        <Label type={'danger'}>{notification.state.stateLabel}</Label>
+                                    )}
+
+                                    {notification.state?.state === 'active_partly' && (
+                                        <Label type={'warning'}>{notification.state.stateLabel}</Label>
+                                    )}
+
+                                    {!['active', 'inactive', 'active_partly'].includes(notification.state?.state) && (
+                                        <Label type={'default'}>{notification.state.stateLabel}</Label>
+                                    )}
+                                </td>
+
+                                <td className={'td-narrow text-right'}>
+                                    <TableRowActions
+                                        content={() => (
+                                            <div className="dropdown dropdown-actions">
+                                                <StateNavLink
+                                                    name={DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT}
+                                                    params={{
+                                                        organizationId: activeOrganization.id,
+                                                        implementationId: implementation.id,
+                                                        id: notification.id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    <em className="mdi mdi-eye-outline icon-start" />
+                                                    Bekijken
+                                                </StateNavLink>
+                                            </div>
+                                        )}
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                    </LoaderTableCard>
                 </div>
             ))}
         </Fragment>

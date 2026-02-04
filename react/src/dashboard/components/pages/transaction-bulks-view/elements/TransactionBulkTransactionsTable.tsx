@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { strLimit } from '../../../../helpers/string';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import Transaction from '../../../../props/models/Transaction';
 import { PaginationData } from '../../../../props/ApiResponses';
 import useTransactionExporter from '../../../../services/exporters/useTransactionExporter';
@@ -16,11 +15,10 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -62,11 +60,6 @@ export default function TransactionBulkTransactionsTable({
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(transactionService.getBulkTransactionsColumns(), {
-        filter,
-        sortable: true,
-    });
-
     const exportTransactions = useCallback(() => {
         transactionExporter.exportData(organization.id, {
             ...filterValuesActive,
@@ -105,7 +98,7 @@ export default function TransactionBulkTransactionsTable({
         <div className="card">
             <div className="card-header">
                 <div className="flex flex-grow card-title">
-                    {`${translate('transactions.header.title')} (${transactions.meta.total})`}
+                    {`${translate('transactions.header.title')} (${transactions?.meta?.total})`}
                 </div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
@@ -116,84 +109,66 @@ export default function TransactionBulkTransactionsTable({
                     </div>
                 </div>
             </div>
-            <div className="card-section">
-                <div className="card-block card-block-table">
-                    {configsElement}
+            <LoaderTableCard
+                empty={transactions?.meta?.total == 0}
+                emptyTitle={'Geen transacties gevonden'}
+                columns={transactionService.getBulkTransactionsColumns()}
+                tableOptions={{ filter, sortable: true }}
+                paginator={{ key: perPageKey, data: transactions, filterValues, filterUpdate }}>
+                {transactions?.data?.map((transaction) => (
+                    <tr key={transaction.id}>
+                        <td>{transaction.id}</td>
 
-                    <TableTopScroller>
-                        <table className="table">
-                            {headElement}
+                        <td title={transaction.uid || '-'}>{strLimit(transaction.uid || '-', 25)}</td>
 
-                            <tbody>
-                                {transactions?.data.map((transaction) => (
-                                    <tr key={transaction.id}>
-                                        <td>{transaction.id}</td>
+                        <td>
+                            <StateNavLink
+                                name={DashboardRoutes.TRANSACTION}
+                                params={{
+                                    organizationId: organization.id,
+                                    address: transaction.address,
+                                }}
+                                className="text-primary-light">
+                                {transaction.amount_locale}
+                            </StateNavLink>
+                        </td>
 
-                                        <td title={transaction.uid || '-'}>{strLimit(transaction.uid || '-', 25)}</td>
+                        <td>
+                            <div className="text-primary text-semibold">
+                                {transaction.created_at_locale.split(' - ')[0]}
+                            </div>
+                            <div className="text-strong text-md text-muted-dark">
+                                {transaction.created_at_locale.split(' - ')[1]}
+                            </div>
+                        </td>
 
-                                        <td>
-                                            <StateNavLink
-                                                name={DashboardRoutes.TRANSACTION}
-                                                params={{
-                                                    organizationId: organization.id,
-                                                    address: transaction.address,
-                                                }}
-                                                className="text-primary-light">
-                                                {transaction.amount_locale}
-                                            </StateNavLink>
-                                        </td>
+                        <td>{strLimit(transaction.fund.name, 25)}</td>
 
-                                        <td>
-                                            <div className="text-primary text-semibold">
-                                                {transaction.created_at_locale.split(' - ')[0]}
-                                            </div>
-                                            <div className="text-strong text-md text-muted-dark">
-                                                {transaction.created_at_locale.split(' - ')[1]}
-                                            </div>
-                                        </td>
+                        <td className={classNames(!transaction.organization && 'text-muted')}>
+                            {strLimit(transaction.organization?.name || '-', 25) || '-'}
+                        </td>
 
-                                        <td>{strLimit(transaction.fund.name, 25)}</td>
+                        <td>{strLimit(transaction.product?.name || '-', 25) || '-'}</td>
 
-                                        <td className={classNames(!transaction.organization && 'text-muted')}>
-                                            {strLimit(transaction.organization?.name || '-', 25) || '-'}
-                                        </td>
-
-                                        <td>{strLimit(transaction.product?.name || '-', 25) || '-'}</td>
-
-                                        <td>
-                                            <Label type={transaction.state == 'success' ? 'success' : 'default'}>
-                                                {transaction.state_locale}
-                                            </Label>
-                                        </td>
-                                        <td>
-                                            <StateNavLink
-                                                name={DashboardRoutes.TRANSACTION}
-                                                params={{
-                                                    organizationId: organization.id,
-                                                    address: transaction.address,
-                                                }}
-                                                className="button button-sm button-primary button-icon pull-right">
-                                                <em className="mdi mdi-eye-outline icon-start" />
-                                            </StateNavLink>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </TableTopScroller>
-                </div>
-            </div>
-
-            {transactions?.meta.last_page > 1 && (
-                <div className="card-section">
-                    <Paginator
-                        meta={transactions.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={perPageKey}
-                    />
-                </div>
-            )}
+                        <td>
+                            <Label type={transaction.state == 'success' ? 'success' : 'default'}>
+                                {transaction.state_locale}
+                            </Label>
+                        </td>
+                        <td>
+                            <StateNavLink
+                                name={DashboardRoutes.TRANSACTION}
+                                params={{
+                                    organizationId: organization.id,
+                                    address: transaction.address,
+                                }}
+                                className="button button-sm button-primary button-icon pull-right">
+                                <em className="mdi mdi-eye-outline icon-start" />
+                            </StateNavLink>
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

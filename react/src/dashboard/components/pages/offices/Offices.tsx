@@ -387,7 +387,8 @@ export default function Offices() {
                     description={'Je hebt momenteel geen vestigingen.'}
                     button={{
                         text: 'Vestiging toevoegen',
-                        to: getStateRouteUrl(DashboardRoutes.OFFICE_CREATE, { organizationId: organization.id }),
+                        state: DashboardRoutes.OFFICE_CREATE,
+                        stateParams: { organizationId: organization.id },
                     }}
                 />
             )}

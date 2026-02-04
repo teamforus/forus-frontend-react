@@ -9,9 +9,6 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import { useFundService } from '../../../services/FundService';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import { hasPermission } from '../../../helpers/utils';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
-import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import useReimbursementsExporter from '../../../services/exporters/useReimbursementsExporter';
 import useImplementationService from '../../../services/ImplementationService';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
@@ -25,7 +22,6 @@ import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReimbursementsTable from './elements/ReimbursementsTable';
-import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
@@ -365,24 +361,6 @@ export default function Reimbursements() {
                     filterUpdate={filterUpdate}
                 />
             </div>
-
-            {funds?.length == 0 && (
-                <Fragment>
-                    {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) ? (
-                        <EmptyCard
-                            description={'Je hebt momenteel geen fondsen.'}
-                            button={{
-                                text: 'Fonds toevoegen',
-                                to: getStateRouteUrl(DashboardRoutes.ORGANIZATION_FUNDS, {
-                                    organizationId: activeOrganization.id,
-                                }),
-                            }}
-                        />
-                    ) : (
-                        <EmptyCard description={'Je hebt momenteel geen fondsen.'} />
-                    )}
-                </Fragment>
-            )}
         </Fragment>
     );
 }
