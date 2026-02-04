@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import FormError from '../../../elements/forms/errors/FormError';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
@@ -373,7 +374,8 @@ export default function SystemNotificationTemplateEditor({
                     </div>
                 </div>
             ) : (
-                <div className={`card-header ${enable && notification.enable_all ? '' : 'card-header-danger'}`}>
+                <div
+                    className={classNames('card-header', !(enable && notification.enable_all) && 'card-header-danger')}>
                     <div className="flex flex-grow card-title">
                         <em className={`mdi mdi-${header.icon}`} />
                         <span>{header.title}</span>
@@ -386,7 +388,10 @@ export default function SystemNotificationTemplateEditor({
                             <div className="block block-inline-filters">
                                 <ToggleControl
                                     id={'enable_' + type}
-                                    className={`form-toggle-danger ${notification.enable_all ? '' : 'form-toggle-off'}`}
+                                    className={classNames(
+                                        'form-toggle-danger',
+                                        !notification.enable_all && 'form-toggle-off',
+                                    )}
                                     title={!notification.enable_all || !enable ? disabledNotes.disabled : ''}
                                     checked={enable}
                                     disabled={!notification.enable_all}
@@ -425,9 +430,10 @@ export default function SystemNotificationTemplateEditor({
             )}
 
             <div
-                className={`card-section ${
-                    (enable && notification.enable_all) || compose ? '' : 'card-section-danger'
-                }`}>
+                className={classNames(
+                    'card-section',
+                    !((enable && notification.enable_all) || compose) && 'card-section-danger',
+                )}>
                 <form onSubmit={form.submit}>
                     {!compose && notification.editable && !edit && (
                         <div className="card-section-actions">
@@ -499,7 +505,7 @@ export default function SystemNotificationTemplateEditor({
 
                         {type != 'mail' ? (
                             <div>
-                                <div className={edit ? 'editor-variables' : ''}>
+                                <div className={classNames(edit && 'editor-variables')}>
                                     {!edit && type === 'push' && (
                                         <div className="card-text">{template.content || 'Geen bericht'}</div>
                                     )}

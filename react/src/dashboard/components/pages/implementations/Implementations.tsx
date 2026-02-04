@@ -10,7 +10,6 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
@@ -19,6 +18,7 @@ import ImplementationsRootBreadcrumbs from './elements/ImplementationsRootBreadc
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../hooks/useSetProgress';
+import { ConfigurableTableColumn } from '../vouchers/hooks/useConfigurableTable';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Implementations() {
@@ -31,6 +31,11 @@ export default function Implementations() {
 
     const [paginatorKey] = useState('implementations');
     const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
+    const columns: Array<ConfigurableTableColumn> = [
+        { key: 'name', label: 'Webshop' },
+        { key: 'url', label: 'Website url' },
+        { key: 'actions', label: 'Acties' },
+    ];
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
@@ -96,174 +101,143 @@ export default function Implementations() {
                     loading={!implementations}
                     empty={implementations?.meta?.total === 0}
                     emptyTitle={'Geen webshops'}
-                    emptyDescription={'Geen webshops gevonden.'}>
-                    <div className="card-section">
-                        <div className="card-block card-block-table">
-                            <TableTopScroller>
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Webshop</th>
-                                            <th>Website url</th>
-                                            <th className="table-th-actions text-right">Acties</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {implementations.data.map((implementation: Implementation) => {
-                                            const organizationId =
-                                                implementation.organization_id || activeOrganization.id;
-                                            const implementationLogo: Media = {
-                                                identity_address: '',
-                                                original_name: '',
-                                                type: '',
-                                                ext: '',
-                                                uid: `implementation-logo-${implementation.id}`,
-                                                sizes: {
-                                                    thumbnail: implementation.logo || '',
-                                                },
-                                            };
+                    emptyDescription={'Geen webshops gevonden.'}
+                    columns={columns}
+                    tableOptions={{ hasTooltips: false }}
+                    paginator={{ key: paginatorKey, data: implementations, filterValues, filterUpdate }}>
+                    {implementations?.data?.map((implementation: Implementation) => {
+                        const organizationId = implementation.organization_id || activeOrganization.id;
 
-                                            return (
+                        const implementationLogo: Media = {
+                            identity_address: '',
+                            original_name: '',
+                            type: '',
+                            ext: '',
+                            uid: `implementation-logo-${implementation.id}`,
+                            sizes: {
+                                thumbnail: implementation.logo || '',
+                            },
+                        };
+
+                        return (
+                            <StateNavLink
+                                key={implementation.id}
+                                name={DashboardRoutes.IMPLEMENTATION}
+                                params={{ id: implementation.id, organizationId }}
+                                customElement={'tr'}
+                                className={'tr-clickable'}>
+                                <td>
+                                    <TableEntityMain
+                                        media={implementationLogo}
+                                        mediaPlaceholder="organization"
+                                        title={implementation.name}
+                                        subtitle={implementation.key}
+                                    />
+                                </td>
+                                <td>
+                                    {implementation.url_webshop ? (
+                                        <a
+                                            className="text-primary text-semibold text-underline"
+                                            href={implementation.url_webshop}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            onClick={(e) => e.stopPropagation()}>
+                                            {implementation.url_webshop}
+                                        </a>
+                                    ) : (
+                                        <TableEmptyValue />
+                                    )}
+                                </td>
+                                <td className="table-td-actions text-right">
+                                    <TableRowActions
+                                        content={(e) => (
+                                            <div className="dropdown dropdown-actions">
                                                 <StateNavLink
-                                                    key={implementation.id}
                                                     name={DashboardRoutes.IMPLEMENTATION}
-                                                    params={{ id: implementation.id, organizationId }}
-                                                    customElement={'tr'}
-                                                    className={'tr-clickable'}>
-                                                    <td>
-                                                        <TableEntityMain
-                                                            media={implementationLogo}
-                                                            mediaPlaceholder="organization"
-                                                            title={implementation.name}
-                                                            subtitle={implementation.key}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        {implementation.url_webshop ? (
-                                                            <a
-                                                                className="text-primary text-semibold text-underline"
-                                                                href={implementation.url_webshop}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                onClick={(e) => e.stopPropagation()}>
-                                                                {implementation.url_webshop}
-                                                            </a>
-                                                        ) : (
-                                                            <TableEmptyValue />
-                                                        )}
-                                                    </td>
-                                                    <td className="table-td-actions text-right">
-                                                        <TableRowActions
-                                                            content={(e) => (
-                                                                <div className="dropdown dropdown-actions">
-                                                                    <StateNavLink
-                                                                        name={DashboardRoutes.IMPLEMENTATION}
-                                                                        params={{
-                                                                            id: implementation.id,
-                                                                            organizationId,
-                                                                        }}
-                                                                        className="dropdown-item"
-                                                                        onClick={e.close}>
-                                                                        <em className="mdi mdi-eye icon-start" />{' '}
-                                                                        Bekijken
-                                                                    </StateNavLink>
-
-                                                                    {activeOrganization.allow_translations &&
-                                                                        hasPermission(
-                                                                            activeOrganization,
-                                                                            Permission.MANAGE_IMPLEMENTATION,
-                                                                        ) && (
-                                                                            <StateNavLink
-                                                                                name={
-                                                                                    DashboardRoutes.IMPLEMENTATION_TRANSLATIONS
-                                                                                }
-                                                                                params={{
-                                                                                    id: implementation.id,
-                                                                                    organizationId:
-                                                                                        implementation.organization_id,
-                                                                                }}
-                                                                                className="dropdown-item"
-                                                                                onClick={e.close}>
-                                                                                <em className="mdi mdi-translate-variant icon-start" />
-                                                                                Vertalingen beheren
-                                                                            </StateNavLink>
-                                                                        )}
-
-                                                                    {hasPermission(
-                                                                        activeOrganization,
-                                                                        Permission.MANAGE_IMPLEMENTATION,
-                                                                    ) && (
-                                                                        <StateNavLink
-                                                                            name={
-                                                                                DashboardRoutes.IMPLEMENTATION_COOKIES
-                                                                            }
-                                                                            params={{
-                                                                                id: implementation.id,
-                                                                                organizationId:
-                                                                                    implementation.organization_id,
-                                                                            }}
-                                                                            className="dropdown-item"
-                                                                            onClick={e.close}>
-                                                                            <em className="mdi mdi-cookie icon-start" />
-                                                                            Cookiemelding beheren
-                                                                        </StateNavLink>
-                                                                    )}
-
-                                                                    {hasPermission(
-                                                                        activeOrganization,
-                                                                        Permission.MANAGE_IMPLEMENTATION,
-                                                                    ) && (
-                                                                        <StateNavLink
-                                                                            name={DashboardRoutes.IMPLEMENTATION_EMAIL}
-                                                                            params={{
-                                                                                id: implementation.id,
-                                                                                organizationId: activeOrganization.id,
-                                                                            }}
-                                                                            className="dropdown-item"
-                                                                            onClick={e.close}>
-                                                                            <em className="mdi mdi-email-outline icon-start" />
-                                                                            E-mailinstellingen
-                                                                        </StateNavLink>
-                                                                    )}
-
-                                                                    {hasPermission(
-                                                                        activeOrganization,
-                                                                        Permission.MANAGE_IMPLEMENTATION,
-                                                                    ) && (
-                                                                        <StateNavLink
-                                                                            name={DashboardRoutes.IMPLEMENTATION_DIGID}
-                                                                            params={{
-                                                                                id: implementation.id,
-                                                                                organizationId: activeOrganization.id,
-                                                                            }}
-                                                                            className="dropdown-item"
-                                                                            onClick={e.close}>
-                                                                            <em className="mdi mdi-shield-key-outline icon-start" />
-                                                                            DigiD-instellingen
-                                                                        </StateNavLink>
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                        />
-                                                    </td>
+                                                    params={{
+                                                        id: implementation.id,
+                                                        organizationId,
+                                                    }}
+                                                    className="dropdown-item"
+                                                    onClick={e.close}>
+                                                    <em className="mdi mdi-eye icon-start" /> Bekijken
                                                 </StateNavLink>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
 
-                    {implementations?.meta?.total > 0 && (
-                        <div className="card-section">
-                            <div className="table-pagination">
-                                <div className="table-pagination-counter">
-                                    {implementations?.meta?.total || 0} resultaten
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                                                {activeOrganization.allow_translations &&
+                                                    hasPermission(
+                                                        activeOrganization,
+                                                        Permission.MANAGE_IMPLEMENTATION,
+                                                    ) && (
+                                                        <StateNavLink
+                                                            name={DashboardRoutes.IMPLEMENTATION_TRANSLATIONS}
+                                                            params={{
+                                                                id: implementation.id,
+                                                                organizationId: implementation.organization_id,
+                                                            }}
+                                                            className="dropdown-item"
+                                                            onClick={e.close}>
+                                                            <em className="mdi mdi-translate-variant icon-start" />
+                                                            Vertalingen beheren
+                                                        </StateNavLink>
+                                                    )}
+
+                                                {hasPermission(
+                                                    activeOrganization,
+                                                    Permission.MANAGE_IMPLEMENTATION,
+                                                ) && (
+                                                    <StateNavLink
+                                                        name={DashboardRoutes.IMPLEMENTATION_COOKIES}
+                                                        params={{
+                                                            id: implementation.id,
+                                                            organizationId: implementation.organization_id,
+                                                        }}
+                                                        className="dropdown-item"
+                                                        onClick={e.close}>
+                                                        <em className="mdi mdi-cookie icon-start" />
+                                                        Cookiemelding beheren
+                                                    </StateNavLink>
+                                                )}
+
+                                                {hasPermission(
+                                                    activeOrganization,
+                                                    Permission.MANAGE_IMPLEMENTATION,
+                                                ) && (
+                                                    <StateNavLink
+                                                        name={DashboardRoutes.IMPLEMENTATION_EMAIL}
+                                                        params={{
+                                                            id: implementation.id,
+                                                            organizationId: activeOrganization.id,
+                                                        }}
+                                                        className="dropdown-item"
+                                                        onClick={e.close}>
+                                                        <em className="mdi mdi-email-outline icon-start" />
+                                                        E-mailinstellingen
+                                                    </StateNavLink>
+                                                )}
+
+                                                {hasPermission(
+                                                    activeOrganization,
+                                                    Permission.MANAGE_IMPLEMENTATION,
+                                                ) && (
+                                                    <StateNavLink
+                                                        name={DashboardRoutes.IMPLEMENTATION_DIGID}
+                                                        params={{
+                                                            id: implementation.id,
+                                                            organizationId: activeOrganization.id,
+                                                        }}
+                                                        className="dropdown-item"
+                                                        onClick={e.close}>
+                                                        <em className="mdi mdi-shield-key-outline icon-start" />
+                                                        DigiD-instellingen
+                                                    </StateNavLink>
+                                                )}
+                                            </div>
+                                        )}
+                                    />
+                                </td>
+                            </StateNavLink>
+                        );
+                    })}
                 </LoaderTableCard>
             </div>
         </Fragment>

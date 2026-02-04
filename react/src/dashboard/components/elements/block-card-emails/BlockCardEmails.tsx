@@ -13,15 +13,12 @@ import TableRowActions from '../tables/TableRowActions';
 import ModalLogEmailShow from '../../modals/ModalLogEmailShow';
 import { ApiResponse, PaginationData } from '../../../props/ApiResponses';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import { trimStart } from 'lodash';
 import { extractText } from '../../../helpers/utils';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import useEmailLogService from '../../../services/EmailLogService';
 import { useFileService } from '../../../services/FileService';
 import Organization from '../../../props/models/Organization';
-import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../tables/TableTopScroller';
 import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
 import FormGroup from '../forms/elements/FormGroup';
 
@@ -55,8 +52,6 @@ export default function BlockCardEmails({
         page: 1,
         per_page: paginatorService.getPerPage(paginatorKey),
     });
-
-    const { headElement, configsElement } = useConfigurableTable(emailLogService.getColumns());
 
     const exportEmailLog = useCallback(
         (emailLog: EmailLog) => {
@@ -135,92 +130,66 @@ export default function BlockCardEmails({
                     </div>
                 </div>
             </div>
-            <LoaderTableCard empty={!emailLogs.meta.total} emptyTitle={'De lijst van berichten is leeg'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {emailLogs?.data.map((emailLog) => (
-                                        <tr key={emailLog.id} data-dusk={`emailLogRow${emailLog.id}`}>
-                                            <td className="nowrap">
-                                                <TableDateTime value={emailLog.created_at_locale} />
-                                            </td>
-                                            <td>
-                                                <div className={'text-semibold'}>{emailLog.subject}</div>
-                                                <div className={'text-md ellipsis'}>
-                                                    {strLimit(
-                                                        trimStart(
-                                                            extractText(emailLog.content).trim(),
-                                                            emailLog.subject,
-                                                        ).trim(),
-                                                        64,
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className={'text-primary text-semibold'}>
-                                                    {emailLog.to_address || <TableEmptyValue />}
-                                                </div>
-                                                <div>{emailLog.to_name || <TableEmptyValue />}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'text-primary text-semibold'}>
-                                                    {emailLog.from_address || <TableEmptyValue />}
-                                                </div>
-                                                <div>{emailLog.from_name || <TableEmptyValue />}</div>
-                                            </td>
-                                            <td className={'text-right'}>
-                                                <TableRowActions
-                                                    dataDusk={`btnEmailLogMenu${emailLog.id}`}
-                                                    content={({ close }) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <a
-                                                                className={'dropdown-item'}
-                                                                data-dusk="openEmail"
-                                                                onClick={() => {
-                                                                    openEmail(emailLog);
-                                                                    close();
-                                                                }}>
-                                                                <em className="mdi mdi-eye icon-start" />
-                                                                Bekijken
-                                                            </a>
-                                                            <a
-                                                                className={'dropdown-item'}
-                                                                data-dusk="exportEmail"
-                                                                onClick={() => {
-                                                                    exportEmailLog(emailLog);
-                                                                    close();
-                                                                }}>
-                                                                <em className="mdi mdi-content-save-outline icon-start" />
-                                                                Download
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {emailLogs?.meta && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={emailLogs.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+            <LoaderTableCard
+                empty={!emailLogs?.meta?.total}
+                emptyTitle={'De lijst van berichten is leeg'}
+                columns={emailLogService.getColumns()}
+                paginator={{ key: paginatorKey, data: emailLogs, filterValues, filterUpdate }}>
+                {emailLogs?.data?.map((emailLog) => (
+                    <tr key={emailLog.id} data-dusk={`emailLogRow${emailLog.id}`}>
+                        <td className="nowrap">
+                            <TableDateTime value={emailLog.created_at_locale} />
+                        </td>
+                        <td>
+                            <div className={'text-semibold'}>{emailLog.subject}</div>
+                            <div className={'text-md ellipsis'}>
+                                {strLimit(trimStart(extractText(emailLog.content).trim(), emailLog.subject).trim(), 64)}
+                            </div>
+                        </td>
+                        <td>
+                            <div className={'text-primary text-semibold'}>
+                                {emailLog.to_address || <TableEmptyValue />}
+                            </div>
+                            <div>{emailLog.to_name || <TableEmptyValue />}</div>
+                        </td>
+                        <td>
+                            <div className={'text-primary text-semibold'}>
+                                {emailLog.from_address || <TableEmptyValue />}
+                            </div>
+                            <div>{emailLog.from_name || <TableEmptyValue />}</div>
+                        </td>
+                        <td className={'text-right'}>
+                            <TableRowActions
+                                dataDusk={`btnEmailLogMenu${emailLog.id}`}
+                                content={({ close }) => (
+                                    <div className="dropdown dropdown-actions">
+                                        <a
+                                            className={'dropdown-item'}
+                                            data-dusk="openEmail"
+                                            onClick={() => {
+                                                openEmail(emailLog);
+                                                close();
+                                            }}>
+                                            <em className="mdi mdi-eye icon-start" />
+                                            Bekijken
+                                        </a>
+                                        <a
+                                            className={'dropdown-item'}
+                                            data-dusk="exportEmail"
+                                            onClick={() => {
+                                                exportEmailLog(emailLog);
+                                                close();
+                                            }}>
+                                            <em className="mdi mdi-content-save-outline icon-start" />
+                                            Download
+                                        </a>
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </tr>
+                ))}
             </LoaderTableCard>
         </div>
     );

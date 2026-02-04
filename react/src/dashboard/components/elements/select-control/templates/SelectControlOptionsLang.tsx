@@ -71,7 +71,7 @@ export default function SelectControlOptionsLang<T>({
                             rawValue?.toString()?.toUpperCase()}
                     </span>
                     <span className={'lang-control-icon'}>
-                        <em className={showOptions ? 'mdi mdi-menu-up' : 'mdi mdi-menu-down'} />
+                        <em className={classNames('mdi', showOptions ? 'mdi-menu-up' : 'mdi-menu-down')} />
                     </span>
                 </label>
 

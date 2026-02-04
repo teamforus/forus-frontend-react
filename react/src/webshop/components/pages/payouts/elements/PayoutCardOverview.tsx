@@ -22,7 +22,7 @@ export default function PayoutCardOverview({ payout, className }: { payout: Payo
                 aria-expanded={showMore}
                 aria-controls="payout-details-extra">
                 {showMore ? translate('payouts.buttons.show_less') : translate('payouts.buttons.show_more')}
-                <em className={`mdi ${showMore ? 'mdi-chevron-up' : 'mdi-chevron-down'} icon-right`} />
+                <em className={classNames('mdi', showMore ? 'mdi-chevron-up' : 'mdi-chevron-down', 'icon-right')} />
             </button>
 
             {showMore && (

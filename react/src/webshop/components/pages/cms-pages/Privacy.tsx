@@ -6,6 +6,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function Privacy() {
     const envData = useEnvData();
@@ -22,9 +23,11 @@ export default function Privacy() {
             {page && (
                 <div className="section">
                     <div
-                        className={`flex flex-vertical ${
-                            page.description_position == 'after' ? 'flex-vertical-reverse' : ''
-                        }`}>
+                        className={classNames(
+                            'flex',
+                            'flex-vertical',
+                            page.description_position == 'after' && 'flex-vertical-reverse',
+                        )}>
                         {page && <CmsBlocks page={page} largeMarkdown={true} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (

@@ -306,7 +306,7 @@ export default function Modal2FASetup({
                 'modal',
                 'modal-animated',
                 'modal-2fa-setup',
-                modal.loading ? '' : 'modal-loaded',
+                !modal.loading && 'modal-loaded',
                 className,
             )}>
             <div className="modal-backdrop" onClick={cancel} />
@@ -545,7 +545,12 @@ export default function Modal2FASetup({
                                         onClick={() => resendCode()}
                                         disabled={timer?.time > 0}>
                                         <div
-                                            className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
+                                            className={classNames(
+                                                'mdi',
+                                                'mdi-refresh',
+                                                'icon-start',
+                                                sendingCode && 'mdi-spin',
+                                            )}
                                         />
                                         {translate('modal_2fa_setup.resend_code')}
                                         {timer?.time > 0 && (
@@ -646,7 +651,12 @@ export default function Modal2FASetup({
                                         onClick={() => resendCode()}
                                         disabled={timer?.time > 0}>
                                         <div
-                                            className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
+                                            className={classNames(
+                                                'mdi',
+                                                'mdi-refresh',
+                                                'icon-start',
+                                                sendingCode && 'mdi-spin',
+                                            )}
                                         />
                                         {translate('modal_2fa_setup.resend_code')}
                                         {timer?.time > 0 && (

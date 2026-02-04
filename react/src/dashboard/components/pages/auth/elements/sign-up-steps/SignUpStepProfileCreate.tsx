@@ -13,6 +13,7 @@ import ProgressStorage from '../../../../../helpers/ProgressStorage';
 import { authContext } from '../../../../../contexts/AuthContext';
 import useTranslate from '../../../../../hooks/useTranslate';
 import { makeQrCodeContent } from '../../../../../helpers/utils';
+import classNames from 'classnames';
 
 export default function SignUpStepProfileCreate({ panelType }: { panelType: 'sponsor' | 'validator' }) {
     const envData = useEnvData();
@@ -138,9 +139,12 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                                     <label className="form-label">&nbsp;</label>
                                     <button
                                         type="submit"
-                                        className={`button button-primary button-fill ${
-                                            formSignUp.values.email ? '' : 'button-disabled'
-                                        }`}>
+                                        className={classNames(
+                                            'button',
+                                            'button-primary',
+                                            'button-fill',
+                                            !formSignUp.values.email && 'button-disabled',
+                                        )}>
                                         {translate(`sign_up_${panelType}.app_instruction.create_profile`)}
                                     </button>
                                 </div>

@@ -11,6 +11,7 @@ services:
       - "5001:5000"
     volumes:
       - ./:/ng-app
+      - node_modules_data:/ng-app/node_modules
     networks:
       - forus-network
 
@@ -33,3 +34,7 @@ networks:
   forus-network:
     name: forus-network
     driver: bridge
+
+volumes:
+  node_modules_data:
+    driver: local

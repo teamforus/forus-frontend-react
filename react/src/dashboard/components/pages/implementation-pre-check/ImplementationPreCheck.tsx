@@ -9,7 +9,7 @@ import { PaginationData, ResponseError } from '../../../props/ApiResponses';
 import type PreCheck from '../../../props/models/PreCheck';
 import PreCheckStepEditor from './elements/PreCheckStepEditor';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
-import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
+import { useNavigateState } from '../../../modules/state_router/Router';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import PhotoSelector from '../../elements/photo-selector/PhotoSelector';
 import useImplementationService from '../../../services/ImplementationService';
@@ -383,9 +383,8 @@ export default function ImplementationPreCheck() {
                                 text: 'Ga naar de fondsenpagina',
                                 type: 'primary',
                                 icon: 'plus',
-                                to: getStateRouteUrl(DashboardRoutes.FUND_CREATE, {
-                                    organizationId: activeOrganization.id,
-                                }),
+                                state: DashboardRoutes.FUND_CREATE,
+                                stateParams: { organizationId: activeOrganization.id },
                             }}
                         />
                     )}

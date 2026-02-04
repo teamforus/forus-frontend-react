@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useFilter from '../../../../dashboard/hooks/useFilter';
@@ -78,7 +79,11 @@ export default function PhysicalCards() {
                         <div className="block block-label-tabs form pull-right">
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${filter.values.archived ? '' : 'active'}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        !filter.values.archived && 'active',
+                                    )}
                                     onClick={() => filter.update({ archived: 0 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
@@ -88,7 +93,11 @@ export default function PhysicalCards() {
                                     {translate('physical_cards.filters.active')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${filter.values.archived ? 'active' : ''}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        filter.values.archived && 'active',
+                                    )}
                                     onClick={() => filter.update({ archived: 1 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}

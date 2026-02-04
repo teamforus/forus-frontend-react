@@ -52,7 +52,7 @@ export default function ProductMedia({ product }: { product: Product }) {
                         <div className="product-overview-media-items-list">
                             {photos.map((media, i) => (
                                 <div
-                                    className={classNames(`product-overview-media-item`, i === activeIndex && 'active')}
+                                    className={classNames('product-overview-media-item', i === activeIndex && 'active')}
                                     key={media.uid}
                                     role="button"
                                     tabIndex={0}

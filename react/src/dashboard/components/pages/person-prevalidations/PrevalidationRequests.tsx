@@ -12,17 +12,14 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import { PaginationData } from '../../../props/ApiResponses';
 import PrevalidationRequest from '../../../props/models/PrevalidationRequest';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import { strLimit } from '../../../helpers/string';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import { Permission } from '../../../props/models/Organization';
@@ -97,8 +94,6 @@ export default function PrevalidationRequests() {
             },
         },
     );
-
-    const { headElement, configsElement } = useConfigurableTable(prevalidationRequestService.getColumns());
 
     const fetchPrevalidationRequests = useCallback(() => {
         if (activeOrganization?.allow_prevalidation_requests) {
@@ -372,102 +367,67 @@ export default function PrevalidationRequests() {
 
             <LoaderTableCard
                 loading={!prevalidationRequests.meta}
-                empty={prevalidationRequests.meta.total == 0}
+                empty={prevalidationRequests?.meta?.total == 0}
                 emptyTitle={translate('prevalidation_requests.empty.title')}
-                emptyDescription={translate('prevalidation_requests.empty.description')}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                emptyDescription={translate('prevalidation_requests.empty.description')}
+                columns={prevalidationRequestService.getColumns()}
+                paginator={{ key: paginatorKey, data: prevalidationRequests, filterValues, filterUpdate }}>
+                {prevalidationRequests?.data?.map((row) => (
+                    <tr key={row.id} data-dusk={`tablePrevalidationRequestRow${row.id}`}>
+                        <td className="text-primary text-strong">{row.bsn}</td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td>
+                            <div className="text-primary text-semibold">
+                                {row.fund ? strLimit(row.fund?.name, 32) : <TableEmptyValue />}
+                            </div>
 
-                                <tbody>
-                                    {prevalidationRequests.data.map((row) => (
-                                        <tr key={row.id} data-dusk={`tablePrevalidationRequestRow${row.id}`}>
-                                            <td className="text-primary text-strong">{row.bsn}</td>
+                            <div className="text-strong text-md text-muted-dark">
+                                {row.fund ? strLimit(row.fund?.implementation?.name, 32) : <TableEmptyValue />}
+                            </div>
+                        </td>
+                        <td className="text-primary text-strong">{row.employee?.email || 'Onbekend'}</td>
+                        <td>
+                            <PrevalidationRequestStateLabels request={row} />
+                        </td>
+                        <td>
+                            {row.state === 'fail' && row.failed_reason ? row.failed_reason_locale : <TableEmptyValue />}
+                        </td>
 
-                                            <td>
-                                                <div className="text-primary text-semibold">
-                                                    {row.fund ? strLimit(row.fund?.name, 32) : <TableEmptyValue />}
-                                                </div>
-
-                                                <div className="text-strong text-md text-muted-dark">
-                                                    {row.fund ? (
-                                                        strLimit(row.fund?.implementation?.name, 32)
-                                                    ) : (
-                                                        <TableEmptyValue />
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td className="text-primary text-strong">
-                                                {row.employee?.email || 'Onbekend'}
-                                            </td>
-                                            <td>
-                                                <PrevalidationRequestStateLabels request={row} />
-                                            </td>
-                                            <td>
-                                                {row.state === 'fail' && row.failed_reason ? (
-                                                    row.failed_reason_locale
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                {row.state === 'fail' ? (
-                                                    <TableRowActions
-                                                        dataDusk={'btnPrevalidationRequestMenu'}
-                                                        content={({ close }) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    data-dusk={`btnPrevalidationRequestResubmit${row.id}`}
-                                                                    onClick={() => {
-                                                                        resubmitRequest(row);
-                                                                        close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-restart icon-start" />{' '}
-                                                                    {translate(
-                                                                        'prevalidation_requests.buttons.resubmit',
-                                                                    )}
-                                                                </div>
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    data-dusk={`btnPrevalidationRequestDelete${row.id}`}
-                                                                    onClick={() => {
-                                                                        deleteRequest(row);
-                                                                        close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-close icon-start" />{' '}
-                                                                    {translate('prevalidation_requests.buttons.delete')}
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {prevalidationRequests?.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={prevalidationRequests.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                        <td className={'table-td-actions text-right'}>
+                            {row.state === 'fail' ? (
+                                <TableRowActions
+                                    dataDusk={'btnPrevalidationRequestMenu'}
+                                    content={({ close }) => (
+                                        <div className="dropdown dropdown-actions">
+                                            <div
+                                                className="dropdown-item"
+                                                data-dusk={`btnPrevalidationRequestResubmit${row.id}`}
+                                                onClick={() => {
+                                                    resubmitRequest(row);
+                                                    close();
+                                                }}>
+                                                <em className="mdi mdi-restart icon-start" />{' '}
+                                                {translate('prevalidation_requests.buttons.resubmit')}
+                                            </div>
+                                            <div
+                                                className="dropdown-item"
+                                                data-dusk={`btnPrevalidationRequestDelete${row.id}`}
+                                                onClick={() => {
+                                                    deleteRequest(row);
+                                                    close();
+                                                }}>
+                                                <em className="mdi mdi-close icon-start" />{' '}
+                                                {translate('prevalidation_requests.buttons.delete')}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                    </tr>
+                ))}
             </LoaderTableCard>
         </div>
     );

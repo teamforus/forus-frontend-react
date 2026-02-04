@@ -4,6 +4,7 @@ import IconFundRequest from '../../../../../assets/forus-webshop/resources/_webs
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import ButtonType from '../../../../props/elements/ButtonType';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function EmptyBlock({
     title,
@@ -48,7 +49,22 @@ export default function EmptyBlock({
             {button && (
                 <div className="block-actions">
                     <button
-                        className={`button button-${button.type}`}
+                        className={classNames(
+                            'button',
+                            button.type === 'default' && 'button-default',
+                            button.type === 'primary' && 'button-primary',
+                            button.type === 'primary-outline' && 'button-primary-outline',
+                            button.type === 'primary-light' && 'button-primary-light',
+                            button.type === 'primary-variant' && 'button-primary-variant',
+                            button.type === 'secondary' && 'button-secondary',
+                            button.type === 'danger' && 'button-danger',
+                            button.type === 'text' && 'button-text',
+                            button.type === 'text-primary' && 'button-text-primary',
+                            button.type === 'text-padless' && 'button-text-padless',
+                            button.type === 'dashed' && 'button-dashed',
+                            button.type === 'default-dashed' && 'button-default-dashed',
+                            button.className,
+                        )}
                         onClick={button.onClick}
                         data-dusk="btnEmptyBlock">
                         {button.icon && !button.iconEnd && (

@@ -637,6 +637,40 @@ export default function ProductsForm({
                             />
                         </FormPane>
 
+                        <FormPane title={'Aanvullende informatie'}>
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_duration')}
+                                error={form.errors.info_duration}
+                                value={form.values.info_duration || ''}
+                                setValue={(info_duration: string) => form.update({ info_duration })}
+                            />
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_when')}
+                                error={form.errors.info_when}
+                                value={form.values.info_when || ''}
+                                setValue={(info_when: string) => form.update({ info_when })}
+                            />
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_where')}
+                                error={form.errors.info_where}
+                                value={form.values.info_where || ''}
+                                setValue={(info_where: string) => form.update({ info_where })}
+                            />
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_more_info')}
+                                error={form.errors.info_more_info}
+                                value={form.values.info_more_info || ''}
+                                setValue={(info_more_info: string) => form.update({ info_more_info })}
+                            />
+
+                            <FormGroupInput
+                                label={translate('product_edit.labels.info_attention')}
+                                error={form.errors.info_attention}
+                                value={form.values.info_attention || ''}
+                                setValue={(info_attention: string) => form.update({ info_attention })}
+                            />
+                        </FormPane>
+
                         <FormPane title={'Prijs en type'}>
                             <div className="row">
                                 <div className="col col-xs-12 col-sm-6">
@@ -795,153 +829,157 @@ export default function ProductsForm({
                                     )}
                                 </div>
                             </div>
-                        </FormPane>
 
-                        {!isInformational && (
-                            <FormPane title={'Voorraad'}>
-                                {(!product || (product && !product.unlimited_stock)) && (
-                                    <div className="row">
-                                        <div className="col col-xs-12 col-sm-6">
-                                            <FormGroup
-                                                label={'Voorraad'}
-                                                required={true}
-                                                info={
-                                                    <Fragment>
-                                                        Kies of het product een voorraadlimiet heeft of altijd
-                                                        beschikbaar is.
-                                                    </Fragment>
-                                                }
-                                                input={(id) => (
-                                                    <SelectControl
-                                                        id={id}
-                                                        propKey={'value'}
-                                                        propValue={'label'}
-                                                        disabled={!isEditable || (product && !product.unlimited_stock)}
-                                                        value={form.values.unlimited_stock}
-                                                        options={[
-                                                            { value: false, label: 'Aantal op voorraad' },
-                                                            { value: true, label: 'Onbeperkt aanbod' },
-                                                        ]}
-                                                        onChange={(unlimited_stock: boolean) => {
-                                                            form.update({ unlimited_stock });
-                                                        }}
-                                                    />
-                                                )}
-                                            />
-                                        </div>
-
-                                        <div className="col col-xs-12 col-sm-6">
-                                            <FormGroup
-                                                label={translate('product_edit.labels.total')}
-                                                required={true}
-                                                info={
-                                                    <Fragment>
-                                                        Kies of het product een voorraadlimiet heeft of altijd
-                                                        beschikbaar is.
-                                                    </Fragment>
-                                                }
-                                                error={form.errors.total_amount}
-                                                input={(id) =>
-                                                    !form.values.unlimited_stock ? (
-                                                        <input
+                            {!isInformational && (
+                                <Fragment>
+                                    {(!product || (product && !product.unlimited_stock)) && (
+                                        <div className="row">
+                                            <div className="col col-xs-12 col-sm-6">
+                                                <FormGroup
+                                                    label={'Voorraad'}
+                                                    required={true}
+                                                    info={
+                                                        <Fragment>
+                                                            Kies of het product een voorraadlimiet heeft of altijd
+                                                            beschikbaar is.
+                                                        </Fragment>
+                                                    }
+                                                    input={(id) => (
+                                                        <SelectControl
                                                             id={id}
-                                                            className="form-control"
+                                                            propKey={'value'}
+                                                            propValue={'label'}
                                                             disabled={
-                                                                !isEditable || !!product || form.values.unlimited_stock
+                                                                !isEditable || (product && !product.unlimited_stock)
                                                             }
-                                                            value={form.values.total_amount}
-                                                            onChange={(e) => {
-                                                                form.update({
-                                                                    total_amount: e.target.value
-                                                                        ? parseFloat(e.target.value)
-                                                                        : '',
-                                                                });
+                                                            value={form.values.unlimited_stock}
+                                                            options={[
+                                                                { value: false, label: 'Aantal op voorraad' },
+                                                                { value: true, label: 'Onbeperkt aanbod' },
+                                                            ]}
+                                                            onChange={(unlimited_stock: boolean) => {
+                                                                form.update({ unlimited_stock });
                                                             }}
-                                                            type="number"
-                                                            placeholder="Aantal in voorraad"
                                                         />
-                                                    ) : (
-                                                        <input
-                                                            id={id}
-                                                            className="form-control"
-                                                            value={translate('product_edit.labels.stock_unlimited')}
-                                                            disabled={true}
-                                                        />
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                )}
+                                                    )}
+                                                />
+                                            </div>
 
-                                {product && (
-                                    <div className="row">
-                                        <div className="col col-xs-12 col-sm-6">
-                                            <FormGroup
-                                                label={translate('product_edit.labels.sold')}
-                                                error={form.errors.sold_amount}
-                                                info={
-                                                    <Fragment>
-                                                        Hoe vaak dit aanbod is gekocht. Dit wordt automatisch
-                                                        bijgewerkt.
-                                                    </Fragment>
-                                                }
-                                                input={(id) => (
-                                                    <input
-                                                        id={id}
-                                                        className="form-control"
-                                                        disabled={true}
-                                                        value={form.values.sold_amount}
-                                                        onChange={(e) =>
-                                                            form.update({
-                                                                sold_amount: e.target.value
-                                                                    ? parseFloat(e.target.value)
-                                                                    : '',
-                                                            })
-                                                        }
-                                                        type="number"
-                                                        placeholder="Verkocht"
-                                                    />
-                                                )}
-                                            />
+                                            <div className="col col-xs-12 col-sm-6">
+                                                <FormGroup
+                                                    label={translate('product_edit.labels.total')}
+                                                    required={true}
+                                                    info={
+                                                        <Fragment>
+                                                            Kies of het product een voorraadlimiet heeft of altijd
+                                                            beschikbaar is.
+                                                        </Fragment>
+                                                    }
+                                                    error={form.errors.total_amount}
+                                                    input={(id) =>
+                                                        !form.values.unlimited_stock ? (
+                                                            <input
+                                                                id={id}
+                                                                className="form-control"
+                                                                disabled={
+                                                                    !isEditable ||
+                                                                    !!product ||
+                                                                    form.values.unlimited_stock
+                                                                }
+                                                                value={form.values.total_amount}
+                                                                onChange={(e) => {
+                                                                    form.update({
+                                                                        total_amount: e.target.value
+                                                                            ? parseFloat(e.target.value)
+                                                                            : '',
+                                                                    });
+                                                                }}
+                                                                type="number"
+                                                                placeholder="Aantal in voorraad"
+                                                            />
+                                                        ) : (
+                                                            <input
+                                                                id={id}
+                                                                className="form-control"
+                                                                value={translate('product_edit.labels.stock_unlimited')}
+                                                                disabled={true}
+                                                            />
+                                                        )
+                                                    }
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="col col-xs-12 col-sm-6">
-                                            <FormGroup
-                                                label={translate('product_edit.labels.stock_amount')}
-                                                error={form.errors.stock_amount}
-                                                info={translate('tooltip.product.limit')}
-                                                input={(id) =>
-                                                    product.unlimited_stock ? (
+                                    )}
+
+                                    {product && (
+                                        <div className="row">
+                                            <div className="col col-xs-12 col-sm-6">
+                                                <FormGroup
+                                                    label={translate('product_edit.labels.sold')}
+                                                    error={form.errors.sold_amount}
+                                                    info={
+                                                        <Fragment>
+                                                            Hoe vaak dit aanbod is gekocht. Dit wordt automatisch
+                                                            bijgewerkt.
+                                                        </Fragment>
+                                                    }
+                                                    input={(id) => (
                                                         <input
                                                             id={id}
                                                             className="form-control"
                                                             disabled={true}
-                                                            value={translate('product_edit.labels.stock_unlimited')}
-                                                        />
-                                                    ) : (
-                                                        <input
-                                                            id={id}
-                                                            className="form-control"
-                                                            value={form.values.stock_amount}
+                                                            value={form.values.sold_amount}
                                                             onChange={(e) =>
                                                                 form.update({
-                                                                    stock_amount: e.target.value
+                                                                    sold_amount: e.target.value
                                                                         ? parseFloat(e.target.value)
                                                                         : '',
                                                                 })
                                                             }
                                                             type="number"
-                                                            placeholder="Current stock"
-                                                            disabled={!isEditable}
+                                                            placeholder="Verkocht"
                                                         />
-                                                    )
-                                                }
-                                            />
+                                                    )}
+                                                />
+                                            </div>
+                                            <div className="col col-xs-12 col-sm-6">
+                                                <FormGroup
+                                                    label={translate('product_edit.labels.stock_amount')}
+                                                    error={form.errors.stock_amount}
+                                                    info={translate('tooltip.product.limit')}
+                                                    input={(id) =>
+                                                        product.unlimited_stock ? (
+                                                            <input
+                                                                id={id}
+                                                                className="form-control"
+                                                                disabled={true}
+                                                                value={translate('product_edit.labels.stock_unlimited')}
+                                                            />
+                                                        ) : (
+                                                            <input
+                                                                id={id}
+                                                                className="form-control"
+                                                                value={form.values.stock_amount}
+                                                                onChange={(e) =>
+                                                                    form.update({
+                                                                        stock_amount: e.target.value
+                                                                            ? parseFloat(e.target.value)
+                                                                            : '',
+                                                                    })
+                                                                }
+                                                                type="number"
+                                                                placeholder="Current stock"
+                                                                disabled={!isEditable}
+                                                            />
+                                                        )
+                                                    }
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </FormPane>
-                        )}
+                                    )}
+                                </Fragment>
+                            )}
+                        </FormPane>
 
                         {!isInformational && (
                             <FormPane title={'Productcodes'}>
@@ -1321,42 +1359,6 @@ export default function ProductsForm({
                             onChange={(product_category_id) => form.update({ product_category_id })}
                             errors={form.errors.product_category_id}
                         />
-
-                        <FormPane title={'Aanvullende informatie'}>
-                            <FormGroupInput
-                                label={translate('product_edit.labels.info_duration')}
-                                error={form.errors.info_duration}
-                                value={form.values.info_duration || ''}
-                                setValue={(info_duration: string) => form.update({ info_duration })}
-                            />
-                            <FormGroupInput
-                                label={translate('product_edit.labels.info_when')}
-                                error={form.errors.info_when}
-                                value={form.values.info_when || ''}
-                                setValue={(info_when: string) => form.update({ info_when })}
-                            />
-                            <FormGroupInput
-                                label={translate('product_edit.labels.info_where')}
-                                error={form.errors.info_where}
-                                value={form.values.info_where || ''}
-                                setValue={(info_where: string) => form.update({ info_where })}
-                            />
-                            <FormGroupInput
-                                label={translate('product_edit.labels.info_more_info')}
-                                error={form.errors.info_more_info}
-                                value={form.values.info_more_info || ''}
-                                setValue={(info_more_info: string) => form.update({ info_more_info })}
-                            />
-
-                            <FormPane title={'Belangrijke informatie over het aanbod.'}>
-                                <FormGroupInput
-                                    label={translate('product_edit.labels.info_attention')}
-                                    error={form.errors.info_attention}
-                                    value={form.values.info_attention || ''}
-                                    setValue={(info_attention: string) => form.update({ info_attention })}
-                                />
-                            </FormPane>
-                        </FormPane>
                     </FormPaneContainer>
                 </div>
 

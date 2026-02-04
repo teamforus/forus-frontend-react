@@ -1,12 +1,9 @@
 import { PaginationData } from '../../../../props/ApiResponses';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import React, { useCallback, useEffect, useState } from 'react';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { usePhysicalCardService } from '../../../../services/PhysicalCardService';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import Organization from '../../../../props/models/Organization';
@@ -72,11 +69,6 @@ export default function PhysicalCardsTable({
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(physicalCardService.getColumns(), {
-        sortable: true,
-        filter: filter,
-    });
-
     const fetchPhysicalCards = useCallback(() => {
         setProgress(0);
 
@@ -131,122 +123,98 @@ export default function PhysicalCardsTable({
                 loading={!physicalCards?.meta}
                 empty={physicalCards?.meta?.total === 0}
                 emptyTitle={'Geen fysieke passen'}
-                emptyDescription={'Er zijn momenteel geen fysieke passen.'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                emptyDescription={'Er zijn momenteel geen fysieke passen.'}
+                columns={physicalCardService.getColumns()}
+                tableOptions={{ sortable: true, filter }}
+                paginator={{ key: paginatorKey, data: physicalCards, filterValues, filterUpdate }}>
+                {physicalCards?.data?.map((card) => (
+                    <tr key={card.id}>
+                        <td className={'td-narrow'}>{card.id}</td>
+                        <td className={'text-strong'}>
+                            <BlockInlineCopy value={card.code}>{card.code_locale}</BlockInlineCopy>
+                        </td>
+                        <td>
+                            {card?.voucher ? (
+                                <StateNavLink
+                                    className={'text-primary text-underline text-semibold'}
+                                    name={DashboardRoutes.VOUCHER}
+                                    params={{
+                                        id: card?.voucher.id,
+                                        organizationId: organization.id,
+                                    }}>{`#${card?.voucher?.number}`}</StateNavLink>
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                        <td>
+                            {card?.voucher?.fund ? (
+                                <StateNavLink
+                                    className={'text-primary text-underline text-semibold'}
+                                    name={DashboardRoutes.VOUCHER}
+                                    params={{
+                                        id: card?.voucher.id,
+                                        organizationId: organization.id,
+                                    }}>
+                                    {strLimit(card?.voucher?.fund.name, 64)}
+                                </StateNavLink>
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                        <td>
+                            {card?.physical_card_type ? (
+                                <StateNavLink
+                                    className={'text-primary text-underline text-semibold'}
+                                    name={DashboardRoutes.PHYSICAL_CARD_TYPE}
+                                    params={{
+                                        id: card?.physical_card_type.id,
+                                        organizationId: organization.id,
+                                    }}>
+                                    {strLimit(card?.physical_card_type?.name, 53)}
+                                </StateNavLink>
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                        <td className={'table-td-actions text-right'}>
+                            {filterValues.source != 'archive' ? (
+                                <TableRowActions
+                                    content={() => (
+                                        <div className="dropdown dropdown-actions">
+                                            {card?.voucher && (
+                                                <StateNavLink
+                                                    name={DashboardRoutes.VOUCHER}
+                                                    params={{
+                                                        id: card?.voucher.id,
+                                                        organizationId: organization.id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    <div className="mdi mdi-eye-outline icon-start" />
+                                                    Bekijk tegoeden
+                                                </StateNavLink>
+                                            )}
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {physicalCards?.data.map((card) => (
-                                        <tr key={card.id}>
-                                            <td className={'td-narrow'}>{card.id}</td>
-                                            <td className={'text-strong'}>
-                                                <BlockInlineCopy value={card.code}>{card.code_locale}</BlockInlineCopy>
-                                            </td>
-                                            <td>
-                                                {card?.voucher ? (
-                                                    <StateNavLink
-                                                        className={'text-primary text-underline text-semibold'}
-                                                        name={DashboardRoutes.VOUCHER}
-                                                        params={{
-                                                            id: card?.voucher.id,
-                                                            organizationId: organization.id,
-                                                        }}>{`#${card?.voucher?.number}`}</StateNavLink>
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                            <td>
-                                                {card?.voucher?.fund ? (
-                                                    <StateNavLink
-                                                        className={'text-primary text-underline text-semibold'}
-                                                        name={DashboardRoutes.VOUCHER}
-                                                        params={{
-                                                            id: card?.voucher.id,
-                                                            organizationId: organization.id,
-                                                        }}>
-                                                        {strLimit(card?.voucher?.fund.name, 64)}
-                                                    </StateNavLink>
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                            <td>
-                                                {card?.physical_card_type ? (
-                                                    <StateNavLink
-                                                        className={'text-primary text-underline text-semibold'}
-                                                        name={DashboardRoutes.PHYSICAL_CARD_TYPE}
-                                                        params={{
-                                                            id: card?.physical_card_type.id,
-                                                            organizationId: organization.id,
-                                                        }}>
-                                                        {strLimit(card?.physical_card_type?.name, 53)}
-                                                    </StateNavLink>
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                            <td className={'table-td-actions text-right'}>
-                                                {filterValues.source != 'archive' ? (
-                                                    <TableRowActions
-                                                        content={() => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                {card?.voucher && (
-                                                                    <StateNavLink
-                                                                        name={DashboardRoutes.VOUCHER}
-                                                                        params={{
-                                                                            id: card?.voucher.id,
-                                                                            organizationId: organization.id,
-                                                                        }}
-                                                                        className="dropdown-item">
-                                                                        <div className="mdi mdi-eye-outline icon-start" />
-                                                                        Bekijk tegoeden
-                                                                    </StateNavLink>
-                                                                )}
-
-                                                                {card.physical_card_type && (
-                                                                    <StateNavLink
-                                                                        name={DashboardRoutes.PHYSICAL_CARD_TYPE}
-                                                                        params={{
-                                                                            id: card.physical_card_type?.id,
-                                                                            organizationId: organization.id,
-                                                                        }}
-                                                                        className="dropdown-item">
-                                                                        <div className="mdi mdi-eye-outline icon-start" />
-                                                                        Bekijk passen type
-                                                                    </StateNavLink>
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    <span className={'text-muted'}>
-                                                        {translate('organization_employees.labels.owner')}
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {physicalCards?.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={physicalCards.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                                            {card.physical_card_type && (
+                                                <StateNavLink
+                                                    name={DashboardRoutes.PHYSICAL_CARD_TYPE}
+                                                    params={{
+                                                        id: card.physical_card_type?.id,
+                                                        organizationId: organization.id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    <div className="mdi mdi-eye-outline icon-start" />
+                                                    Bekijk passen type
+                                                </StateNavLink>
+                                            )}
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                <span className={'text-muted'}>{translate('organization_employees.labels.owner')}</span>
+                            )}
+                        </td>
+                    </tr>
+                ))}
             </LoaderTableCard>
         </div>
     );

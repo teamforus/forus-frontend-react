@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import classNames from 'classnames';
 
 export default function FaqItem({
     title,
@@ -11,7 +12,7 @@ export default function FaqItem({
 
     return (
         <Fragment>
-            <div className={`feature-faq-item ${active ? 'active' : ''}`} onClick={() => setActive(!active)}>
+            <div className={classNames('feature-faq-item', active && 'active')} onClick={() => setActive(!active)}>
                 <div className="feature-faq-item-title">
                     {title}
                     <div className="feature-faq-item-icon mdi mdi-menu-down" />

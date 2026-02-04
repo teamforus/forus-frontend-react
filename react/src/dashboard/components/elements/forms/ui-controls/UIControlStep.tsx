@@ -34,7 +34,7 @@ export default function UIControlStep({
 
     return (
         <div
-            className={classNames(`ui-control ui-control-step`, className)}
+            className={classNames('ui-control', 'ui-control-step', className)}
             role={role}
             data-dusk={dataDusk}
             aria-label="Aanpassen"

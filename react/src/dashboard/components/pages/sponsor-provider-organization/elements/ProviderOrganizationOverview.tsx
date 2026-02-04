@@ -8,6 +8,7 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import classNames from 'classnames';
 
 export default function ProviderOrganizationOverview({
     organization,
@@ -170,9 +171,10 @@ export default function ProviderOrganizationOverview({
                                 <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
                                     <div className="card-block-listing-label">{property.label}</div>
                                     <div
-                                        className={`card-block-listing-value ${
-                                            property.primary ? 'text-primary-light' : ''
-                                        }`}>
+                                        className={classNames(
+                                            'card-block-listing-value',
+                                            property.primary && 'text-primary-light',
+                                        )}>
                                         {property.value}
                                     </div>
                                 </div>

@@ -9,12 +9,10 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
@@ -55,8 +53,6 @@ export default function ImplementationFunds() {
                 pushApiError(err);
             });
     }, [activeOrganization.id, id, implementationService, navigate, pushApiError]);
-
-    const { headElement, configsElement } = useConfigurableTable(implementationService.getColumns());
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -107,93 +103,77 @@ export default function ImplementationFunds() {
                     </div>
                 </div>
 
-                {funds.meta.total > 0 ? (
-                    <div className="card-section">
-                        <div className="card-block card-block-table">
-                            {configsElement}
+                <LoaderTableCard
+                    empty={funds?.meta?.total == 0}
+                    emptyTitle={'Geen fondsen gekoppeld aan deze implementatie.'}
+                    columns={implementationService.getColumns()}>
+                    {funds?.data?.map((fund) => (
+                        <StateNavLink
+                            key={fund.id}
+                            name={DashboardRoutes.FUND}
+                            className={'tr-clickable'}
+                            customElement={'tr'}
+                            params={{
+                                fundId: fund.id,
+                                organizationId: activeOrganization.id,
+                            }}>
+                            <td>
+                                <TableEntityMain
+                                    title={strLimit(fund.name, 50)}
+                                    subtitle={fund.organization?.name}
+                                    mediaPlaceholder={'fund'}
+                                    media={fund?.logo}
+                                />
+                            </td>
+                            <td className="text-strong text-muted-dark">
+                                {fund?.implementation?.name || <TableEmptyValue />}
+                            </td>
+                            <td>
+                                <FundStateLabels fund={fund} />
+                            </td>
+                            <td className={'table-td-actions text-right'}>
+                                {activeOrganization.backoffice_available ? (
+                                    <TableRowActions
+                                        content={() => (
+                                            <div className="dropdown dropdown-actions">
+                                                <StateNavLink
+                                                    name={DashboardRoutes.FUND}
+                                                    params={{
+                                                        fundId: fund.id,
+                                                        organizationId: activeOrganization.id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    <em className="mdi mdi-eye-outline icon-start" />
+                                                    Bekijken
+                                                </StateNavLink>
 
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    <tbody>
-                                        {funds.data.map((fund) => (
-                                            <StateNavLink
-                                                key={fund.id}
-                                                name={DashboardRoutes.FUND}
-                                                className={'tr-clickable'}
-                                                customElement={'tr'}
-                                                params={{ fundId: fund.id, organizationId: activeOrganization.id }}>
-                                                <td>
-                                                    <TableEntityMain
-                                                        title={strLimit(fund.name, 50)}
-                                                        subtitle={fund.organization?.name}
-                                                        mediaPlaceholder={'fund'}
-                                                        media={fund?.logo}
-                                                    />
-                                                </td>
-                                                <td className="text-strong text-muted-dark">
-                                                    {fund?.implementation?.name || <TableEmptyValue />}
-                                                </td>
-                                                <td>
-                                                    <FundStateLabels fund={fund} />
-                                                </td>
-                                                <td className={'table-td-actions text-right'}>
-                                                    {activeOrganization.backoffice_available ? (
-                                                        <TableRowActions
-                                                            content={() => (
-                                                                <div className="dropdown dropdown-actions">
-                                                                    <StateNavLink
-                                                                        name={DashboardRoutes.FUND}
-                                                                        params={{
-                                                                            fundId: fund.id,
-                                                                            organizationId: activeOrganization.id,
-                                                                        }}
-                                                                        className="dropdown-item">
-                                                                        <em className="mdi mdi-eye-outline icon-start" />
-                                                                        Bekijken
-                                                                    </StateNavLink>
-
-                                                                    {hasPermission(
-                                                                        activeOrganization,
-                                                                        Permission.MANAGE_FUNDS,
-                                                                    ) &&
-                                                                        fund.key && (
-                                                                            <StateNavLink
-                                                                                name={
-                                                                                    DashboardRoutes.FUND_BACKOFFICE_EDIT
-                                                                                }
-                                                                                params={{
-                                                                                    fundId: fund.id,
-                                                                                    organizationId:
-                                                                                        activeOrganization.id,
-                                                                                }}
-                                                                                className="dropdown-item">
-                                                                                <em className="mdi mdi-cog icon-start" />
-                                                                                Backoffice
-                                                                            </StateNavLink>
-                                                                        )}
-                                                                </div>
-                                                            )}
-                                                        />
-                                                    ) : (
-                                                        <TableEmptyValue />
+                                                {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) &&
+                                                    fund.key && (
+                                                        <StateNavLink
+                                                            name={DashboardRoutes.FUND_BACKOFFICE_EDIT}
+                                                            params={{
+                                                                fundId: fund.id,
+                                                                organizationId: activeOrganization.id,
+                                                            }}
+                                                            className="dropdown-item">
+                                                            <em className="mdi mdi-cog icon-start" />
+                                                            Backoffice
+                                                        </StateNavLink>
                                                     )}
-                                                </td>
-                                            </StateNavLink>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
-                ) : (
-                    <EmptyCard type={'card-section'} title={'Geen fondsen gekoppeld aan deze implementatie.'} />
-                )}
+                                            </div>
+                                        )}
+                                    />
+                                ) : (
+                                    <TableEmptyValue />
+                                )}
+                            </td>
+                        </StateNavLink>
+                    ))}
+                </LoaderTableCard>
 
                 <div className="card-section">
                     <div className="table-pagination">
-                        <div className="table-pagination-counter">{funds.meta.total} resultaten</div>
+                        <div className="table-pagination-counter">{funds?.meta?.total} resultaten</div>
                     </div>
                 </div>
             </div>

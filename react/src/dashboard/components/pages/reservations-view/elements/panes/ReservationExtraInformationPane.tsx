@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import classNames from 'classnames';
 import Organization from '../../../../../props/models/Organization';
 import Reservation, { ReservationCustomFieldValue } from '../../../../../props/models/Reservation';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
@@ -107,7 +108,7 @@ export default function ReservationExtraInformationPane({
                     <KeyValueItem key={index} label={field.reservation_field.label}>
                         <BlockInlineEdit
                             onClick={() => editCustomFieldValue(field)}
-                            className={field.file ? 'flex flex-grow' : null}
+                            className={classNames(field.file && 'flex flex-grow')}
                             editDusk={`editCustomFieldBtn${field.id}`}>
                             {field.file ? (
                                 <FileAttachmentsList attachments={[{ file: field.file }]} />

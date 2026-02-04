@@ -1,28 +1,25 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import LoadingCard from '../../elements/loading-card/LoadingCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useExtraPaymentService from '../../../services/ExtraPaymentService';
 import ExtraPayment from '../../../props/models/ExtraPayment';
 import { PaginationData } from '../../../props/ApiResponses';
 import { strLimit } from '../../../helpers/string';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import LoadingCard from '../../elements/loading-card/LoadingCard';
 
 export default function ExtraPayments() {
     const activeOrganization = useActiveOrganization();
@@ -68,11 +65,6 @@ export default function ExtraPayments() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(extraPaymentService.getColumns(), {
-        sortable: true,
-        filter: filter,
-    });
-
     const fetchExtraPayments = useCallback(() => {
         setProgress(0);
         setLoading(true);
@@ -115,7 +107,7 @@ export default function ExtraPayments() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('extra_payments.header.title')} ({extraPayments.meta.total})
+                    {translate('extra_payments.header.title')} ({extraPayments?.meta?.total})
                 </div>
 
                 <div className="card-header-filters">
@@ -187,77 +179,49 @@ export default function ExtraPayments() {
                 </div>
             </div>
 
-            {!loading && extraPayments?.meta.total > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {extraPayments?.data.map((extraPayment) => (
-                                        <tr key={extraPayment.id} data-dusk="extraPaymentItem">
-                                            <td>{extraPayment.id}</td>
-                                            <td>{extraPayment.reservation.price_locale}</td>
-                                            <td>{extraPayment.amount_locale}</td>
-                                            <td>{extraPayment.method}</td>
-                                            <td>
-                                                <strong className="text-primary">
-                                                    {extraPayment.paid_at_locale.split(' - ')[0]}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-strong text-md text-muted-dark">
-                                                    {extraPayment.paid_at_locale.split(' - ')[1]}
-                                                </strong>
-                                            </td>
-                                            <td title={extraPayment.reservation.fund.name || ''}>
-                                                {strLimit(extraPayment.reservation.fund.name, 25)}
-                                            </td>
-                                            <td title={extraPayment.reservation.product?.name || '-'}>
-                                                {strLimit(extraPayment.reservation.product?.name || '-', 25)}
-                                            </td>
-                                            <td title={extraPayment.reservation.product?.organization?.name || '-'}>
-                                                {strLimit(
-                                                    extraPayment.reservation.product?.organization?.name || '-',
-                                                    25,
-                                                )}
-                                            </td>
-                                            <td className="td-narrow text-right">
-                                                <StateNavLink
-                                                    name={DashboardRoutes.EXTRA_PAYMENT}
-                                                    params={{
-                                                        organizationId: activeOrganization.id,
-                                                        id: extraPayment.id,
-                                                    }}
-                                                    className="button button-sm button-primary button-icon pull-right">
-                                                    <em className="mdi mdi-eye-outline icon-start" />
-                                                </StateNavLink>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {!loading && extraPayments.meta.total === 0 && (
-                <EmptyCard type="card-section" title="Geen extra payments gevonden" />
-            )}
-
-            {!loading && extraPayments?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={extraPayments.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+            <LoaderTableCard
+                loading={loading}
+                empty={extraPayments?.meta?.total === 0}
+                emptyTitle="Geen extra payments gevonden"
+                columns={extraPaymentService.getColumns()}
+                tableOptions={{ sortable: true, filter }}
+                paginator={{ key: paginatorKey, data: extraPayments, filterValues, filterUpdate }}>
+                {extraPayments?.data?.map((extraPayment) => (
+                    <tr key={extraPayment.id} data-dusk="extraPaymentItem">
+                        <td>{extraPayment.id}</td>
+                        <td>{extraPayment.reservation.price_locale}</td>
+                        <td>{extraPayment.amount_locale}</td>
+                        <td>{extraPayment.method}</td>
+                        <td>
+                            <strong className="text-primary">{extraPayment.paid_at_locale.split(' - ')[0]}</strong>
+                            <br />
+                            <strong className="text-strong text-md text-muted-dark">
+                                {extraPayment.paid_at_locale.split(' - ')[1]}
+                            </strong>
+                        </td>
+                        <td title={extraPayment.reservation.fund.name || ''}>
+                            {strLimit(extraPayment.reservation.fund.name, 25)}
+                        </td>
+                        <td title={extraPayment.reservation.product?.name || '-'}>
+                            {strLimit(extraPayment.reservation.product?.name || '-', 25)}
+                        </td>
+                        <td title={extraPayment.reservation.product?.organization?.name || '-'}>
+                            {strLimit(extraPayment.reservation.product?.organization?.name || '-', 25)}
+                        </td>
+                        <td className="td-narrow text-right">
+                            <StateNavLink
+                                name={DashboardRoutes.EXTRA_PAYMENT}
+                                params={{
+                                    organizationId: activeOrganization.id,
+                                    id: extraPayment.id,
+                                }}
+                                className="button button-sm button-primary button-icon pull-right">
+                                <em className="mdi mdi-eye-outline icon-start" />
+                            </StateNavLink>
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }
