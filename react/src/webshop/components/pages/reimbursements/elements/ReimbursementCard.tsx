@@ -11,6 +11,7 @@ import { useReimbursementService } from '../../../../services/ReimbursementServi
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function ReimbursementCard({
     onDelete,
@@ -70,7 +71,13 @@ export default function ReimbursementCard({
             dataDusk={`listReimbursementsRow${reimbursement.id}`}
             dataAttributes={{ 'data-search-item': 1 }}>
             <div
-                className={`reimbursement-image reimbursement-image-${reimbursement.state}`}
+                className={classNames(
+                    'reimbursement-image',
+                    reimbursement.state === 'draft' && 'reimbursement-image-draft',
+                    reimbursement.state === 'pending' && 'reimbursement-image-pending',
+                    reimbursement.state === 'approved' && 'reimbursement-image-approved',
+                    reimbursement.state === 'declined' && 'reimbursement-image-declined',
+                )}
                 role="img"
                 aria-hidden={!reimbursement?.files?.[0]?.preview}>
                 {!reimbursement?.files?.[0]?.preview ? (

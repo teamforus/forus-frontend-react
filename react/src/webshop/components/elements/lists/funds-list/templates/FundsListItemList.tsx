@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import classNames from 'classnames';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
@@ -88,7 +89,11 @@ export default function FundsListItemList({
                                         ? translate('list_blocks.fund_item_list.show_less')
                                         : translate('list_blocks.fund_item_list.show_more')}
                                     <em
-                                        className={`mdi ${showMore ? 'mdi-chevron-up' : 'mdi-chevron-down'} icon-right`}
+                                        className={classNames(
+                                            'mdi',
+                                            showMore ? 'mdi-chevron-up' : 'mdi-chevron-down',
+                                            'icon-right',
+                                        )}
                                     />
                                 </button>
                             )}

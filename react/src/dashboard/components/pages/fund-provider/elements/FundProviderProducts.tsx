@@ -1,17 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
+import React, { useCallback, useEffect, useState, MouseEvent } from 'react';
 import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import SponsorProduct, { DealHistoryItem } from '../../../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import Fund from '../../../../props/models/Fund';
 import useProductChat from '../hooks/useProductChat';
 import FundProviderProductRowData from './FundProviderProductRowData';
@@ -44,8 +41,7 @@ export default function FundProviderProducts({
     const { openProductChat, makeProductChat } = useProductChat(fund, fundProvider, organization);
 
     const [products, setProducts] = useState<PaginationData<ProductLocal>>(null);
-
-    const tableRef = useRef<HTMLTableElement>(null);
+    const [paginatorKey] = useState('fund_provider_products');
     const fundService = useFundService();
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
@@ -57,10 +53,6 @@ export default function FundProviderProducts({
         type: source,
         per_page: 15,
     });
-
-    const { headElement, configsElement } = useConfigurableTable(
-        fundService.getProviderProductColumns(fund, null, false),
-    );
 
     const fetchProducts = useCallback(() => {
         setProgress(0);
@@ -141,7 +133,7 @@ export default function FundProviderProducts({
                 </div>
             </div>
 
-            {fundProvider.allow_products && products.meta.total > 0 && (
+            {fundProvider.allow_products && products?.meta?.total > 0 && (
                 <div className="card-section card-section-success card-section-narrow">
                     <em>
                         Een aanbod kan niet worden uitgeschakeld zolang de optie &apos;Accepteer aanbiedingen&apos; aan
@@ -151,53 +143,37 @@ export default function FundProviderProducts({
                 </div>
             )}
 
-            {products.meta.total > 0 ? (
-                <div className="card-section card-section-padless">
-                    {configsElement}
-
-                    <TableTopScroller onScroll={() => tableRef.current?.click()}>
-                        <table className="table">
-                            {headElement}
-
-                            <tbody>
-                                {products.data.map((product) => (
-                                    <StateNavLink
-                                        customElement={'tr'}
-                                        name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
-                                        className={'tr-clickable'}
-                                        params={{
-                                            id: product.id,
-                                            fundId: fundProvider.fund_id,
-                                            fundProviderId: fundProvider.id,
-                                            organizationId: organization.id,
-                                        }}
-                                        key={product.id}>
-                                        <FundProviderProductRowData
-                                            deal={product?.active_deal}
-                                            product={product}
-                                            onStartChat={onStartChat}
-                                            fund={fund}
-                                            organization={organization}
-                                            fundProvider={fundProvider}
-                                            onChange={fetchProducts}
-                                            onChangeProvider={onChangeProvider}
-                                            history={false}
-                                        />
-                                    </StateNavLink>
-                                ))}
-                            </tbody>
-                        </table>
-                    </TableTopScroller>
-                </div>
-            ) : (
-                <EmptyCard title={'Geen aanbiedingen'} type={'card-section'} />
-            )}
-
-            {products.meta && (
-                <div className="card-section card-section-narrow" hidden={products?.meta?.total < 1}>
-                    <Paginator meta={products.meta} filters={filterValues} updateFilters={filterUpdate} />
-                </div>
-            )}
+            <LoaderTableCard
+                empty={products?.meta?.total == 0}
+                emptyTitle={'Geen aanbiedingen'}
+                columns={fundService.getProviderProductColumns(fund, null, false)}
+                paginator={{ key: paginatorKey, data: products, filterValues, filterUpdate }}>
+                {products?.data?.map((product) => (
+                    <StateNavLink
+                        customElement={'tr'}
+                        name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
+                        className={'tr-clickable'}
+                        params={{
+                            id: product.id,
+                            fundId: fundProvider.fund_id,
+                            fundProviderId: fundProvider.id,
+                            organizationId: organization.id,
+                        }}
+                        key={product.id}>
+                        <FundProviderProductRowData
+                            deal={product?.active_deal}
+                            product={product}
+                            onStartChat={onStartChat}
+                            fund={fund}
+                            organization={organization}
+                            fundProvider={fundProvider}
+                            onChange={fetchProducts}
+                            onChangeProvider={onChangeProvider}
+                            history={false}
+                        />
+                    </StateNavLink>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

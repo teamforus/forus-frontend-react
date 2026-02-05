@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import useFormBuilder from '../../../dashboard/hooks/useFormBuilder';
@@ -48,7 +49,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
     );
 
     return (
-        <div className={`modal modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
+        <div className={classNames('modal', 'modal-animated', !modal.loading && 'modal-loaded')} role="dialog">
             <div
                 className="modal-backdrop"
                 onClick={modal.close}

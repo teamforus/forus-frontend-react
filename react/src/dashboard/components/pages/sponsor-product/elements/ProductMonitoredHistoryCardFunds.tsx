@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../../services/FundService';
 import Organization from '../../../../props/models/Organization';
 import classNames from 'classnames';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import Label from '../../../elements/image_cropper/Label';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function ProductMonitoredHistoryCardFunds({
     type = 'card',
@@ -22,120 +21,113 @@ export default function ProductMonitoredHistoryCardFunds({
     activeOrganization: Organization;
 }) {
     const fundService = useFundService();
-    const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsProductFunds(), {
-        hasTooltips: type !== 'table',
-    });
 
     const tableElement = (
-        <TableTopScroller>
-            <table className="table">
-                {headElement}
-
-                <tbody>
-                    {product.funds?.map((fund) => (
-                        <StateNavLink
-                            disabled={!fund.fund_provider_id}
-                            name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
-                            params={{
-                                id: product.id,
-                                fundId: fund.id,
-                                fundProviderId: fund.fund_provider_id,
-                                organizationId: fund.organization_id,
-                            }}
-                            className={classNames(
-                                fund.fund_provider_id && 'tr-clickable',
-                                type === 'table' && 'tr-gray',
-                                type === 'table' && 'tr-narrow',
-                            )}
-                            customElement={'tr'}
-                            key={fund.id}>
-                            <td>
-                                <TableEntityMain
-                                    title={fund.name}
-                                    mediaPlaceholder={'fund'}
-                                    subtitle={fund.type_locale}
-                                    media={fund?.logo}
-                                />
-                            </td>
-                            <td>
-                                {fund.implementation ? (
-                                    <Fragment>
-                                        {fund.state === 'approved' ? (
-                                            <a
-                                                title={'Bekijk aanbod op webshop'}
-                                                onClick={(e) => e.stopPropagation()}
-                                                className="text-primary text-semibold flex flex-gap-sm text-underline"
-                                                href={fund.url_product}
-                                                target={'_blank'}
-                                                rel="noreferrer">
-                                                {fund.implementation?.name}
-                                                <em className="mdi mdi-link-variant icon-end" />
-                                            </a>
-                                        ) : (
-                                            fund.implementation?.name
-                                        )}
-                                    </Fragment>
+        <LoaderTableCard
+            empty={product.funds?.length === 0}
+            emptyTitle={'Geen fondsen'}
+            columns={fundService.getColumnsProductFunds()}
+            tableOptions={{ hasTooltips: type !== 'table' }}>
+            {product.funds?.map((fund) => (
+                <StateNavLink
+                    disabled={!fund.fund_provider_id}
+                    name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
+                    params={{
+                        id: product.id,
+                        fundId: fund.id,
+                        fundProviderId: fund.fund_provider_id,
+                        organizationId: fund.organization_id,
+                    }}
+                    className={classNames(
+                        fund.fund_provider_id && 'tr-clickable',
+                        type === 'table' && 'tr-gray',
+                        type === 'table' && 'tr-narrow',
+                    )}
+                    customElement={'tr'}
+                    key={fund.id}>
+                    <td>
+                        <TableEntityMain
+                            title={fund.name}
+                            mediaPlaceholder={'fund'}
+                            subtitle={fund.type_locale}
+                            media={fund?.logo}
+                        />
+                    </td>
+                    <td>
+                        {fund.implementation ? (
+                            <Fragment>
+                                {fund.state === 'approved' ? (
+                                    <a
+                                        title={'Bekijk aanbod op webshop'}
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="text-primary text-semibold flex flex-gap-sm text-underline"
+                                        href={fund.url_product}
+                                        target={'_blank'}
+                                        rel="noreferrer">
+                                        {fund.implementation?.name}
+                                        <em className="mdi mdi-link-variant icon-end" />
+                                    </a>
                                 ) : (
-                                    <TableEmptyValue />
+                                    fund.implementation?.name
                                 )}
-                            </td>
-                            <td>
-                                {fund.state === 'approved' && <Label type="success">{fund.state_locale}</Label>}
-                                {fund.state === 'pending' && <Label type="default">{fund.state_locale}</Label>}
-                                {fund.state === 'not_applied' && <Label type="warning">{fund.state_locale}</Label>}
-                            </td>
-                            <td className={'table-td-actions text-right'}>
-                                <TableRowActions
-                                    disabled={
-                                        !fund.fund_provider_id && !(fund.state === 'approved' && fund.url_product)
-                                    }
-                                    content={() => (
-                                        <div className="dropdown dropdown-actions">
-                                            {fund.fund_provider_id && (
-                                                <StateNavLink
-                                                    name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
-                                                    params={{
-                                                        id: product.id,
-                                                        fundId: fund.id,
-                                                        fundProviderId: fund.fund_provider_id,
-                                                        organizationId: fund.organization_id,
-                                                    }}
-                                                    className="dropdown-item">
-                                                    Bekijk aanbod
-                                                </StateNavLink>
-                                            )}
-
-                                            {fund.fund_provider_id && (
-                                                <StateNavLink
-                                                    name={DashboardRoutes.FUND_PROVIDER}
-                                                    params={{
-                                                        id: fund.fund_provider_id,
-                                                        fundId: fund.id,
-                                                        organizationId: fund.organization_id,
-                                                    }}
-                                                    className="dropdown-item">
-                                                    Bekijk aanbieder
-                                                </StateNavLink>
-                                            )}
-
-                                            {fund.state === 'approved' && fund.url_product && (
-                                                <a
-                                                    className="dropdown-item"
-                                                    href={fund.url_product}
-                                                    target={'_blank'}
-                                                    rel="noreferrer">
-                                                    Bekijk aanbod op webshop
-                                                </a>
-                                            )}
-                                        </div>
+                            </Fragment>
+                        ) : (
+                            <TableEmptyValue />
+                        )}
+                    </td>
+                    <td>
+                        {fund.state === 'approved' && <Label type="success">{fund.state_locale}</Label>}
+                        {fund.state === 'pending' && <Label type="default">{fund.state_locale}</Label>}
+                        {fund.state === 'not_applied' && <Label type="warning">{fund.state_locale}</Label>}
+                    </td>
+                    <td className={'table-td-actions text-right'}>
+                        <TableRowActions
+                            disabled={!fund.fund_provider_id && !(fund.state === 'approved' && fund.url_product)}
+                            content={() => (
+                                <div className="dropdown dropdown-actions">
+                                    {fund.fund_provider_id && (
+                                        <StateNavLink
+                                            name={DashboardRoutes.FUND_PROVIDER_PRODUCT}
+                                            params={{
+                                                id: product.id,
+                                                fundId: fund.id,
+                                                fundProviderId: fund.fund_provider_id,
+                                                organizationId: fund.organization_id,
+                                            }}
+                                            className="dropdown-item">
+                                            Bekijk aanbod
+                                        </StateNavLink>
                                     )}
-                                />
-                            </td>
-                        </StateNavLink>
-                    ))}
-                </tbody>
-            </table>
-        </TableTopScroller>
+
+                                    {fund.fund_provider_id && (
+                                        <StateNavLink
+                                            name={DashboardRoutes.FUND_PROVIDER}
+                                            params={{
+                                                id: fund.fund_provider_id,
+                                                fundId: fund.id,
+                                                organizationId: fund.organization_id,
+                                            }}
+                                            className="dropdown-item">
+                                            Bekijk aanbieder
+                                        </StateNavLink>
+                                    )}
+
+                                    {fund.state === 'approved' && fund.url_product && (
+                                        <a
+                                            className="dropdown-item"
+                                            href={fund.url_product}
+                                            target={'_blank'}
+                                            rel="noreferrer">
+                                            Bekijk aanbod op webshop
+                                        </a>
+                                    )}
+                                </div>
+                            )}
+                        />
+                    </td>
+                </StateNavLink>
+            ))}
+        </LoaderTableCard>
     );
 
     if (type === 'table') {
@@ -158,12 +150,7 @@ export default function ProductMonitoredHistoryCardFunds({
                     </div>
                 </div>
             </div>
-            <div className="card-section">
-                <div className="card-block card-block-table">
-                    {configsElement}
-                    {tableElement}
-                </div>
-            </div>
+            {tableElement}
         </div>
     );
 }

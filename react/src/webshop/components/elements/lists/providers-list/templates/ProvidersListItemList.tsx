@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import Provider from '../../../../../props/models/Provider';
@@ -19,7 +20,7 @@ export default function ProvidersListItemList({
 
     return (
         <div className="organization-item" data-dusk={`listProvidersRow${provider.id}`} data-search-item="1">
-            <div className={`organization-pane`}>
+            <div className="organization-pane">
                 <StateNavLink
                     name={WebshopRoutes.PROVIDER}
                     params={{ id: provider.id }}
@@ -54,12 +55,12 @@ export default function ProvidersListItemList({
                     role="button"
                     tabIndex={0}>
                     <div className="organization-chevron">
-                        <em className={`mdi ${showOffices ? 'mdi-chevron-up' : 'mdi-chevron-down'}`} />
+                        <em className={classNames('mdi', showOffices ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
                     </div>
                     <div className="organization-total-offices">
                         {translate('list_blocks.provider_item_list.show_locations')}
                     </div>
-                    <div className={`organization-total-offices-count ${showOffices ? 'active' : ''}`}>
+                    <div className={classNames('organization-total-offices-count', showOffices && 'active')}>
                         {provider.offices.length}
                     </div>
                 </div>

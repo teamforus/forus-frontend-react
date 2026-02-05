@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import PdfPreview from '../../../dashboard/components/elements/pdf-preview/PdfPreview';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
@@ -16,7 +17,14 @@ export default function ModalPdfPreview({
     const translate = useTranslate();
 
     return (
-        <div className={`modal modal-animated modal-file-preview ${className} ${modal.loading ? '' : 'modal-loaded'}`}>
+        <div
+            className={classNames(
+                'modal',
+                'modal-animated',
+                'modal-file-preview',
+                className,
+                !modal.loading && 'modal-loaded',
+            )}>
             <div className="modal-backdrop" onClick={modal.close} aria-label={translate('pdf_preview.buttons.close')} />
 
             <div className="modal-window">

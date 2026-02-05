@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import Reimbursement from '../../props/models/Reimbursement';
 import ReimbursementDetailsCard from '../pages/reimbursements/elements/ReimbursementDetailsCard';
@@ -23,7 +24,12 @@ export default function ModalReimbursementConfirm({
 
     return (
         <div
-            className={`modal modal-reimbursement-confirm modal-animated ${modal.loading ? '' : 'modal-loaded'}`}
+            className={classNames(
+                'modal',
+                'modal-reimbursement-confirm',
+                'modal-animated',
+                !modal.loading && 'modal-loaded',
+            )}
             data-dusk="modalReimbursementConfirmation"
             aria-describedby="pinCodeDialogSubtitle"
             aria-labelledby="pinCodeDialogTitle"

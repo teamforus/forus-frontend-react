@@ -98,7 +98,7 @@ export default function Paginator({
     }, [meta?.current_page, loadingPage]);
 
     return (
-        <div className={`table-pagination form ${className}`}>
+        <div className={classNames('table-pagination', 'form', className)}>
             {meta.from && meta.to && (
                 <div className={perPageKey && 'form'}>
                     <div className="table-pagination-counter">
@@ -131,7 +131,7 @@ export default function Paginator({
                     onKeyDown={clickOnKeyEnter}
                     tabIndex={meta.current_page === 1 ? undefined : 0}
                     disabled={loading || meta.current_page === 1}
-                    className={`table-pagination-button`}>
+                    className="table-pagination-button">
                     {translate('paginator.buttons.first')}
                 </button>
                 {pages.map((page) => (
@@ -157,7 +157,7 @@ export default function Paginator({
                     onKeyDown={clickOnKeyEnter}
                     disabled={loading || meta.current_page === meta.last_page}
                     tabIndex={meta.current_page === meta.last_page ? undefined : 0}
-                    className={`table-pagination-button`}>
+                    className="table-pagination-button">
                     {translate('paginator.buttons.last')}
                 </button>
             </div>

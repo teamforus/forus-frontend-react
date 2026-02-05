@@ -7,6 +7,7 @@ import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import usePayReservationExtra from '../hooks/usePayReservationExtra';
 import useCancelReservation from '../hooks/useCancelReservation';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function ReservationCard({
     reservation,
@@ -91,7 +92,14 @@ export default function ReservationCard({
                                         </div>
                                     )}
                                     <div
-                                        className={`label label-${stateData.stateClass}`}
+                                        className={classNames(
+                                            'label',
+                                            stateData.stateClass === 'warning' && 'label-warning',
+                                            stateData.stateClass === 'success' && 'label-success',
+                                            stateData.stateClass === 'default' && 'label-default',
+                                            stateData.stateClass === 'waiting' && 'label-waiting',
+                                            stateData.stateClass === 'danger' && 'label-danger',
+                                        )}
                                         data-dusk={stateData.stateDusk}>
                                         {stateData.stateText}
                                     </div>

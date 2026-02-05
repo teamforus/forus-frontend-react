@@ -17,7 +17,7 @@ export default function useComposeStateAndExpires() {
 
             const data: {
                 stateText?: string;
-                stateClass?: string;
+                stateClass?: 'warning' | 'success' | 'default' | 'waiting' | 'danger';
                 stateDusk?: string;
                 expiresIn?: number;
             } = {

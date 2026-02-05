@@ -25,6 +25,7 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import Section from '../../elements/sections/Section';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function FundsShow() {
     const { id } = useParams();
@@ -217,9 +218,12 @@ export default function FundsShow() {
                                 <div className="button-group">
                                     {fund.external_link_text && fund.external_link_url && (
                                         <a
-                                            className={`button button ${
-                                                fundMeta.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'
-                                            }`}
+                                            className={classNames(
+                                                'button',
+                                                fundMeta.linkPrimaryButton
+                                                    ? 'button-primary'
+                                                    : 'button-primary-outline',
+                                            )}
                                             target="_blank"
                                             href={fund.external_link_url}
                                             rel="noreferrer">

@@ -124,9 +124,7 @@ export default function LayoutAsideNavGroup({
                             });
                         }
                     }}>
-                    {hasItems && (
-                        <em className={classNames('mdi', classNames(isOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'))} />
-                    )}
+                    {hasItems && <em className={classNames('mdi', isOpen ? 'mdi-chevron-up' : 'mdi-chevron-down')} />}
                 </div>
             </StateNavLink>
 

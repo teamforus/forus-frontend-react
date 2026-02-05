@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
 import Fund from '../../../../props/models/Fund';
@@ -11,8 +10,6 @@ import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../hooks/useTranslate';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import SelectControlOptionsFund from '../../../elements/select-control/templates/SelectControlOptionsFund';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
@@ -51,11 +48,6 @@ export default function IdentitiesTable() {
 
     const { filter, filterValues, filterUpdate, loading, identities, fetchIdentities, paginatorKey } =
         useFetchSponsorIdentities(activeOrganization);
-
-    const { headElement, configsElement } = useConfigurableTable(
-        sponsorIdentitiesService.getColumns(activeOrganization),
-        { filter: filter, sortable: true, hasTooltips: true },
-    );
 
     const { setShow } = filter;
 
@@ -120,7 +112,7 @@ export default function IdentitiesTable() {
         <div className="card" data-dusk="tableProfilesContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('identities.header.title')} ({identities.meta.total})
+                    {translate('identities.header.title')} ({identities?.meta?.total})
                 </div>
 
                 <div className={'card-header-filters'}>
@@ -274,9 +266,9 @@ export default function IdentitiesTable() {
                                     className="button button-primary button-wide"
                                     onClick={exportIdentities}
                                     data-dusk="export"
-                                    disabled={identities.meta.total == 0}>
+                                    disabled={identities?.meta?.total == 0}>
                                     <em className="mdi mdi-download icon-start" />
-                                    {translate('components.dropdown.export', { total: identities.meta.total })}
+                                    {translate('components.dropdown.export', { total: identities?.meta?.total })}
                                 </button>
                             </div>
                         </CardHeaderFilter>
@@ -284,66 +276,44 @@ export default function IdentitiesTable() {
                 </div>
             </div>
 
-            <LoaderTableCard loading={loading} empty={identities.meta.total == 0} emptyTitle={'Geen personen gevonden'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {identities.data.map((identity) => (
-                                        <StateNavLink
-                                            key={identity.id}
-                                            name={DashboardRoutes.IDENTITY}
-                                            dataDusk={`tableProfilesRow${identity.id}`}
-                                            params={{
-                                                organizationId: activeOrganization.id,
-                                                id: identity.id,
-                                            }}
-                                            className={'tr-clickable'}
-                                            customElement={'tr'}>
-                                            <IdentitiesTableRowItems
-                                                actions={
-                                                    <TableRowActions
-                                                        content={() => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <TableRowActionItem
-                                                                    type={'link'}
-                                                                    name={DashboardRoutes.IDENTITY}
-                                                                    params={{
-                                                                        organizationId: activeOrganization.id,
-                                                                        id: identity.id,
-                                                                    }}>
-                                                                    <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                                </TableRowActionItem>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                }
-                                                identity={identity}
-                                                organization={activeOrganization}
-                                            />
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {identities.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={identities.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
+            <LoaderTableCard
+                loading={loading}
+                empty={identities?.meta?.total == 0}
+                emptyTitle={'Geen personen gevonden'}
+                columns={sponsorIdentitiesService.getColumns(activeOrganization)}
+                tableOptions={{ filter, sortable: true, hasTooltips: true }}
+                paginator={{ key: paginatorKey, data: identities, filterValues, filterUpdate }}>
+                {identities?.data?.map((identity) => (
+                    <StateNavLink
+                        key={identity.id}
+                        name={DashboardRoutes.IDENTITY}
+                        dataDusk={`tableProfilesRow${identity.id}`}
+                        params={{ organizationId: activeOrganization.id, id: identity.id }}
+                        className={'tr-clickable'}
+                        customElement={'tr'}>
+                        <IdentitiesTableRowItems
+                            actions={
+                                <TableRowActions
+                                    content={() => (
+                                        <div className="dropdown dropdown-actions">
+                                            <TableRowActionItem
+                                                type={'link'}
+                                                name={DashboardRoutes.IDENTITY}
+                                                params={{
+                                                    organizationId: activeOrganization.id,
+                                                    id: identity.id,
+                                                }}>
+                                                <em className="mdi mdi-eye icon-start" /> Bekijken
+                                            </TableRowActionItem>
+                                        </div>
+                                    )}
+                                />
+                            }
+                            identity={identity}
+                            organization={activeOrganization}
                         />
-                    </div>
-                )}
+                    </StateNavLink>
+                ))}
             </LoaderTableCard>
         </div>
     );

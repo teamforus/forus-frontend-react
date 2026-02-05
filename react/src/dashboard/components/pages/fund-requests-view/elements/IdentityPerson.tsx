@@ -7,6 +7,7 @@ import IdentitiesApiPerson from '../../../../props/models/IdentitiesApiPerson';
 import Card from '../../../elements/card/Card';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import classNames from 'classnames';
 
 type Person = {
     bsn_expanded?: boolean;
@@ -107,9 +108,10 @@ export default function IdentityPerson({
                         {person.person_breadcrumbs.map((breadcrumb, index) => (
                             <div
                                 key={index}
-                                className={`breadcrumb-item ${
-                                    index == person.person_breadcrumbs.length - 1 ? 'active' : ''
-                                }`}
+                                className={classNames(
+                                    'breadcrumb-item',
+                                    index == person.person_breadcrumbs.length - 1 && 'active',
+                                )}
                                 onClick={(e) => (index == 0 ? fetchPerson(person) : e.preventDefault())}>
                                 {breadcrumb.name}
                             </div>
@@ -122,9 +124,11 @@ export default function IdentityPerson({
                                     <div key={index} className="keyvalue-item">
                                         <div className="keyvalue-key">{field.label}</div>
                                         <div
-                                            className={`keyvalue-value text-pre-line ${
-                                                field.value == null ? 'text-muted' : ''
-                                            }`}>
+                                            className={classNames(
+                                                'keyvalue-value',
+                                                'text-pre-line',
+                                                field.value == null && 'text-muted',
+                                            )}>
                                             {field?.value || 'Geen data'}
                                         </div>
                                     </div>

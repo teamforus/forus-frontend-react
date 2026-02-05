@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -104,7 +105,11 @@ export default function Vouchers() {
                         <div className="block block-label-tabs form pull-right">
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${filterValues.archived ? '' : 'active'}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        !filterValues.archived && 'active',
+                                    )}
                                     onClick={() => filterUpdate({ archived: 0 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
@@ -114,7 +119,11 @@ export default function Vouchers() {
                                     {translate('vouchers.filters.active')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        filterValues.archived && 'active',
+                                    )}
                                     onClick={() => filterUpdate({ archived: 1 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}

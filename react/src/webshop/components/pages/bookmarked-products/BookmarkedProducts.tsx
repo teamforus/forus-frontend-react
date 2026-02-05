@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
@@ -92,9 +93,11 @@ export default function BookmarkedProducts() {
                             </div>*/}
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${
-                                        filterValues.display_type == 'grid' ? 'active' : ''
-                                    }`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        filterValues.display_type == 'grid' && 'active',
+                                    )}
                                     onClick={() => filterUpdate({ display_type: 'grid' })}
                                     aria-pressed={filterValues.display_type == 'grid'}
                                     role="button">
@@ -102,9 +105,11 @@ export default function BookmarkedProducts() {
                                     {translate('bookmarked_products.view_grid')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${
-                                        filterValues.display_type == 'list' ? 'active' : ''
-                                    }`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        filterValues.display_type == 'list' && 'active',
+                                    )}
                                     onClick={() => filterUpdate({ display_type: 'list' })}
                                     aria-pressed={filterValues.display_type == 'list'}
                                     role="button">

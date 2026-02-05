@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import useAppConfigs from '../../hooks/useAppConfigs';
@@ -63,7 +64,9 @@ export default function ModalOpenInMe({ modal }: { modal: ModalState }) {
     );
 
     return (
-        <div className={`modal modal-open-in-me modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
+        <div
+            className={classNames('modal', 'modal-open-in-me', 'modal-animated', !modal.loading && 'modal-loaded')}
+            role="dialog">
             <div
                 className="modal-backdrop"
                 onClick={modal.close}

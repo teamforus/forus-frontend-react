@@ -7,6 +7,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function ProfileMenu({ className }: { className?: string }) {
     const envData = useEnvData();
@@ -18,7 +19,7 @@ export default function ProfileMenu({ className }: { className?: string }) {
     const navigateState = useNavigateState();
 
     return (
-        <div className={`profile-menu ${className || ''}`}>
+        <div className={classNames('profile-menu', className)}>
             <StateNavLink
                 name={WebshopRoutes.VOUCHERS}
                 className="profile-menu-item"

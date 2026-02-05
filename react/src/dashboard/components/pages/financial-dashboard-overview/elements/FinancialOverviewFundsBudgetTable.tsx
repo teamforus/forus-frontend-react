@@ -10,10 +10,9 @@ import SelectControl from '../../../elements/select-control/SelectControl';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import useFundExporter from '../../../../services/exporters/useFundExporter';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function FinancialOverviewFundsBudgetTable({
     years,
@@ -45,8 +44,6 @@ export default function FinancialOverviewFundsBudgetTable({
     }, [funds]);
 
     const fundService = useFundService();
-
-    const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBudget());
 
     const exportFunds = useCallback(() => {
         fundExporter.exportData(organization.id, true, year);
@@ -102,41 +99,29 @@ export default function FinancialOverviewFundsBudgetTable({
             {financialOverview?.year != year ? (
                 <LoadingCard />
             ) : (
-                <div className="card-section">
-                    <div className="card-block card-block-table card-block-financial">
-                        {configsElement}
+                <LoaderTableCard columns={fundService.getColumnsBudget()}>
+                    {budgetFunds.map((fund) => (
+                        <FinancialOverviewFundsBudgetTableItem key={fund.id} fund={fund} />
+                    ))}
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                {budgetFunds.map((fund) => (
-                                    <FinancialOverviewFundsBudgetTableItem key={fund.id} fund={fund} />
-                                ))}
-
-                                <tbody>
-                                    <tr className="table-totals">
-                                        <td>{translate('financial_dashboard_overview.labels.total')}</td>
-                                        <td>{financialOverview?.funds.vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.funds.active_vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.funds.inactive_vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.funds.deactivated_vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.funds.budget_used_active_vouchers_locale}</td>
-                                        <td>
-                                            {currencyFormat(
-                                                parseFloat(financialOverview?.funds.vouchers_amount) -
-                                                    financialOverview?.funds.budget_used_active_vouchers,
-                                            )}
-                                        </td>
-                                        <td className={'table-td-actions text-right'}>
-                                            <TableEmptyValue />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
+                    <tr className="table-totals">
+                        <td>{translate('financial_dashboard_overview.labels.total')}</td>
+                        <td>{financialOverview?.funds.vouchers_amount_locale}</td>
+                        <td>{financialOverview?.funds.active_vouchers_amount_locale}</td>
+                        <td>{financialOverview?.funds.inactive_vouchers_amount_locale}</td>
+                        <td>{financialOverview?.funds.deactivated_vouchers_amount_locale}</td>
+                        <td>{financialOverview?.funds.budget_used_active_vouchers_locale}</td>
+                        <td>
+                            {currencyFormat(
+                                parseFloat(financialOverview?.funds.vouchers_amount) -
+                                    financialOverview?.funds.budget_used_active_vouchers,
+                            )}
+                        </td>
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
+                    </tr>
+                </LoaderTableCard>
             )}
         </div>
     );

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { NavLink, useNavigate } from 'react-router';
@@ -175,16 +176,21 @@ export default function Offices() {
                     <div className="card-block card-block-keyvalue card-block-keyvalue-horizontal row">
                         <div className="keyvalue-item col-xs-12 col-sm-6 col-lg-4">
                             <div className="keyvalue-key">{translate('offices.labels.business_type')}</div>
-                            <div className={`keyvalue-value ${!organization.business_type?.name ? 'text-muted' : ''}`}>
+                            <div
+                                className={classNames(
+                                    'keyvalue-value',
+                                    !organization.business_type?.name && 'text-muted',
+                                )}>
                                 {organization.business_type?.name || 'Geen data'}
                             </div>
                         </div>
                         <div className="keyvalue-item col-xs-12 col-sm-6 col-lg-4">
                             <div className="keyvalue-key">{translate('offices.labels.mail')}</div>
                             <div
-                                className={`keyvalue-value ${
-                                    !organization.email ? 'text-muted' : 'text-primary-light'
-                                }`}>
+                                className={classNames(
+                                    'keyvalue-value',
+                                    !organization.email ? 'text-muted' : 'text-primary-light',
+                                )}>
                                 {organization.email || 'Geen data'}
                             </div>
                         </div>
@@ -194,19 +200,19 @@ export default function Offices() {
                     <div className="card-block card-block-keyvalue card-block-keyvalue-horizontal row">
                         <div className="keyvalue-item col-xs-12 col-sm-6 col-lg-4">
                             <div className="keyvalue-key">KVK</div>
-                            <div className={`keyvalue-value ${!organization.kvk ? 'text-muted' : ''}`}>
+                            <div className={classNames('keyvalue-value', !organization.kvk && 'text-muted')}>
                                 {organization.kvk || 'Geen data'}
                             </div>
                         </div>
                         <div className="keyvalue-item col-xs-12 col-sm-6 col-lg-4">
                             <div className="keyvalue-key">BTW</div>
-                            <div className={`keyvalue-value ${!organization.btw ? 'text-muted' : ''}`}>
+                            <div className={classNames('keyvalue-value', !organization.btw && 'text-muted')}>
                                 {organization.btw || 'Geen data'}
                             </div>
                         </div>
                         <div className="keyvalue-item col-xs-12 col-sm-6 col-lg-4">
                             <div className="keyvalue-key">IBAN</div>
-                            <div className={`keyvalue-value ${!organization.iban ? 'text-muted' : ''}`}>
+                            <div className={classNames('keyvalue-value', !organization.iban && 'text-muted')}>
                                 {organization.iban || 'Geen data'}
                             </div>
                         </div>
@@ -381,7 +387,8 @@ export default function Offices() {
                     description={'Je hebt momenteel geen vestigingen.'}
                     button={{
                         text: 'Vestiging toevoegen',
-                        to: getStateRouteUrl(DashboardRoutes.OFFICE_CREATE, { organizationId: organization.id }),
+                        state: DashboardRoutes.OFFICE_CREATE,
+                        stateParams: { organizationId: organization.id },
                     }}
                 />
             )}
