@@ -40,8 +40,9 @@ export default function FundRequestStepEmailSetup({
     const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
     const privacyUrl = useStateHref(WebshopRoutes.PRIVACY);
 
-    const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
+    const [skipEmail, setSkipEmail] = useState(false);
     const [emailSubmitted, setEmailSubmitted] = useState(false);
+    const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const emailSetupRequired = useMemo(() => fund?.email_required, [fund?.email_required]);
 
     const hasPrivacy = useMemo(() => {
@@ -157,111 +158,136 @@ export default function FundRequestStepEmailSetup({
                                 </div>
                             </div>
 
-                            {!emailSetupRequired && (
-                                <div className="sign_up-info">
-                                    <div className="sign_up-info-title">
-                                        <div className="sign_up-info-title-icon">
-                                            <div className="mdi mdi-information-outline" />
+                            <div className="flex flex-vertical flex-gap">
+                                <div className="flex flex-vertical">
+                                    {hasPrivacy ? (
+                                        <div className="row">
+                                            <div className="col col-lg-12">
+                                                <br className="hidden-lg" />
+                                                <label
+                                                    className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
+                                                    htmlFor="privacy"
+                                                    tabIndex={0}
+                                                    onKeyDown={(e) => {
+                                                        e.stopPropagation();
+                                                        clickOnKeyEnter(e);
+                                                    }}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={emailForm.values.privacy}
+                                                        onChange={(e) => {
+                                                            emailForm.update({ privacy: e.target.checked });
+                                                            e.target?.parentElement?.focus();
+                                                        }}
+                                                        id="privacy"
+                                                    />
+                                                    <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                                                        <strong>
+                                                            <TranslateHtml
+                                                                i18n={'auth.privacy_link.text'}
+                                                                values={{ link_url: privacyUrl }}
+                                                            />
+                                                        </strong>
+                                                    </BindLinksInside>
+                                                </label>
+                                            </div>
                                         </div>
-                                        {translate(
-                                            'fund_request.sign_up.fund_request_email_setup.continue_without_email',
+                                    ) : null}
+
+                                    {hasTerms ? (
+                                        <div className="row">
+                                            <div className="col col-lg-12">
+                                                <br className="hidden-lg" />
+                                                <label
+                                                    className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
+                                                    htmlFor="terms"
+                                                    tabIndex={0}
+                                                    onKeyDown={(e) => {
+                                                        e.stopPropagation();
+                                                        clickOnKeyEnter(e);
+                                                    }}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={emailForm.values.terms}
+                                                        onChange={(e) => {
+                                                            emailForm.update({ terms: e.target.checked });
+                                                            e.target?.parentElement?.focus();
+                                                        }}
+                                                        id="terms"
+                                                    />
+                                                    <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                                                        <strong>
+                                                            <TranslateHtml
+                                                                i18n={'auth.terms_link.text'}
+                                                                values={{ link_url: termsUrl }}
+                                                            />
+                                                        </strong>
+                                                    </BindLinksInside>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    ) : null}
+                                </div>
+
+                                {!emailSetupRequired && (
+                                    <Fragment>
+                                        {skipEmail ? (
+                                            <div className="sign_up-info">
+                                                <div className="sign_up-info-title">
+                                                    <div className="sign_up-info-title-icon">
+                                                        <div className="mdi mdi-information-outline" />
+                                                    </div>
+                                                    {translate(
+                                                        'fund_request.sign_up.fund_request_email_setup.continue_without_email',
+                                                    )}
+                                                </div>
+                                                <div className="sign_up-info-description flex flex-vertical flex-gap">
+                                                    <div>
+                                                        <span className="text-strong">
+                                                            {translate(
+                                                                'fund_request.sign_up.fund_request_email_setup.warning',
+                                                            )}{' '}
+                                                        </span>
+                                                        {translate(
+                                                            'fund_request.sign_up.fund_request_email_setup.no_email_info',
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            type="button"
+                                                            className="text-primary-light sign_up-pane-link sign_up-pane-link-button"
+                                                            aria-disabled={disableSubmitBtn}
+                                                            onClick={() => nextStep()}
+                                                            disabled={disableSubmitBtn}>
+                                                            {translate(
+                                                                'fund_request.sign_up.fund_request_email_setup.continue_without_email_link',
+                                                            )}
+                                                            <em className="mdi mdi-chevron-right" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                className="sign_up-pane-link sign_up-pane-link-button"
+                                                aria-disabled={disableSubmitBtn}
+                                                onClick={() => setSkipEmail(true)}
+                                                disabled={disableSubmitBtn}>
+                                                {translate(
+                                                    'fund_request.sign_up.fund_request_email_setup.no_email_link',
+                                                )}
+                                            </button>
                                         )}
-                                    </div>
-                                    <div className="sign_up-info-description">
-                                        <span className="text-strong">
-                                            {translate('fund_request.sign_up.fund_request_email_setup.warning')}{' '}
-                                        </span>
-                                        {translate('fund_request.sign_up.fund_request_email_setup.no_email_info')}
-                                    </div>
-                                </div>
-                            )}
-
-                            {hasPrivacy ? (
-                                <div className="row">
-                                    <div className="col col-lg-12">
-                                        <br className="hidden-lg" />
-                                        <label
-                                            className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
-                                            htmlFor="privacy"
-                                            tabIndex={0}
-                                            onKeyDown={(e) => {
-                                                e.stopPropagation();
-                                                clickOnKeyEnter(e);
-                                            }}>
-                                            <input
-                                                type="checkbox"
-                                                checked={emailForm.values.privacy}
-                                                onChange={(e) => {
-                                                    emailForm.update({ privacy: e.target.checked });
-                                                    e.target?.parentElement?.focus();
-                                                }}
-                                                id="privacy"
-                                            />
-                                            <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
-                                                <strong>
-                                                    <TranslateHtml
-                                                        i18n={'auth.privacy_link.text'}
-                                                        values={{ link_url: privacyUrl }}
-                                                    />
-                                                </strong>
-                                            </BindLinksInside>
-                                        </label>
-                                    </div>
-                                </div>
-                            ) : null}
-
-                            {hasTerms ? (
-                                <div className="row">
-                                    <div className="col col-lg-12">
-                                        <br className="hidden-lg" />
-                                        <label
-                                            className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
-                                            htmlFor="terms"
-                                            tabIndex={0}
-                                            onKeyDown={(e) => {
-                                                e.stopPropagation();
-                                                clickOnKeyEnter(e);
-                                            }}>
-                                            <input
-                                                type="checkbox"
-                                                checked={emailForm.values.terms}
-                                                onChange={(e) => {
-                                                    emailForm.update({ terms: e.target.checked });
-                                                    e.target?.parentElement?.focus();
-                                                }}
-                                                id="terms"
-                                            />
-                                            <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
-                                                <strong>
-                                                    <TranslateHtml
-                                                        i18n={'auth.terms_link.text'}
-                                                        values={{ link_url: termsUrl }}
-                                                    />
-                                                </strong>
-                                            </BindLinksInside>
-                                        </label>
-                                    </div>
-                                </div>
-                            ) : null}
+                                    </Fragment>
+                                )}
+                            </div>
                         </form>
                     </div>
 
                     <SignUpFooter
                         startActions={
                             <FundRequestGoBackButton prevStep={prevStep} fund={fund} step={step} tabIndex={0} />
-                        }
-                        endActions={
-                            !emailSetupRequired && (
-                                <button
-                                    className="button button-text button-text-padless"
-                                    disabled={disableSubmitBtn}
-                                    onClick={nextStep}
-                                    role="button"
-                                    tabIndex={0}>
-                                    {translate('fund_request.sign_up.fund_request_email_setup.skip')}
-                                    <em className="mdi mdi-chevron-right icon-right" />
-                                </button>
-                            )
                         }
                     />
 

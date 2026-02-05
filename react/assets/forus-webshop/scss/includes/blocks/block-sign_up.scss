@@ -249,7 +249,6 @@
                 .sign_up-pane-link {
                     font: 600 13px/18px var(--base-font);
                     color: var(--sign_up_accent_color);
-                    text-decoration: none;
                 }
 
                 &.sign_up-pane-text-sm {
@@ -311,10 +310,9 @@
             }
 
             .sign_up-pane-link {
-                font: 500 14px/27px var(--base-font);
-                margin: 0 0 15px;
+                font: 500 14px/20px var(--base-font);
                 color: var(--sign_up_accent_color);
-                transition: color .4s;
+                transition: color 0.4s;
                 display: inline;
                 text-decoration: underline;
                 cursor: pointer;
@@ -322,6 +320,26 @@
                 &:hover {
                     text-decoration: none;
                     color: var(--tc);
+                }
+
+                &.sign_up-pane-link-button {
+                    display: inline-flex;
+                    align-items: center;
+                    background: none;
+                    border: 0;
+                    padding: 0;
+
+                    .mdi {
+                        line-height: 20px;
+                        height: 20px;
+                        font-size: 20px;
+                    }
+
+                    &[disabled] {
+                        pointer-events: none;
+                        color: #646464 !important;
+                        text-decoration: none;
+                    }
                 }
             }
 
@@ -1101,8 +1119,7 @@
                 padding: 20px;
 
                 .sign_up-pane-heading,
-                .sign_up-pane-text,
-                .sign_up-pane-link {
+                .sign_up-pane-text {
                     margin: 0 0 15px;
                 }
 

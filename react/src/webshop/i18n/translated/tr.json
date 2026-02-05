@@ -999,13 +999,14 @@
             },
             "fund_request_email_setup": {
                 "continue_without_email": "E-posta olmadan devam etme",
+                "continue_without_email_link": "E-posta adresi olmadan devam edin",
                 "email_required": "Başvuruya devam etmek için lütfen e-posta adresinizi girin",
                 "email_sent": "E-posta gönderildi",
                 "email_sent_screen": "Bir onay e-postası gönderildi",
-                "no_email_info": "Bir e-posta adresi bırakmazsanız, QR kodlu e-posta gibi önemli mesajları veya bir işlem yapıldığında alamazsınız. Ayrıca, yalnızca DigiD ile giriş yapabilirsiniz.",
+                "no_email_link": "Bir e-posta adresim yok",
                 "sign_up_with_email": "E-posta adresi ile oturum açın",
-                "skip": "Atla",
-                "warning": "Dikkat!"
+                "no_email_info": "E-posta adresi olmadan, kredi ve harcamalarınız hakkında önemli mesajlar alamazsınız. Daha sonra sadece DigiD ile giriş yapabilirsiniz.",
+                "warning": "Not:"
             },
             "fund_request_overview": {
                 "application_summary": "Talebe genel bakış",
@@ -2624,7 +2625,8 @@
         "bank_accounts": {
             "title": "Banka hesabı",
             "iban": "IBAN",
-            "name": "Ascription"
+            "name": "Ascription",
+            "source": "Kaynak"
         },
         "breadcrumbs": {
             "home": "Ev",

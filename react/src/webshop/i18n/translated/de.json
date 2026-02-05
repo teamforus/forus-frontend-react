@@ -597,13 +597,14 @@
             },
             "fund_request_email_setup": {
                 "continue_without_email": "Weiterfahrt ohne E-Mail",
+                "continue_without_email_link": "Weiter ohne E-Mail Adresse",
                 "email_required": "Um mit der Bewerbung fortzufahren, geben Sie bitte Ihre E-Mail-Adresse ein",
                 "email_sent": "E-Mail gesendet",
                 "email_sent_screen": "Eine Bestätigungs-E-Mail wurde verschickt",
-                "no_email_info": "Wenn Sie keine E-Mail-Adresse hinterlassen, erhalten Sie keine wichtigen Nachrichten, wie z. B. die E-Mail mit dem QR-Code oder wenn eine Transaktion stattgefunden hat. Außerdem können Sie sich nur mit DigiD anmelden.",
+                "no_email_link": "Ich habe keine E-Mail Adresse",
                 "sign_up_with_email": "Anmeldung mit E-Mail Adresse",
-                "skip": "Überspringen",
-                "warning": "Achtung!"
+                "no_email_info": "Ohne E-Mail-Adresse erhalten Sie keine wichtigen Nachrichten über Ihr Guthaben und Ihre Ausgaben. Sie können sich dann nur mit DigiD anmelden.",
+                "warning": "Anmerkung:"
             },
             "fund_request_overview": {
                 "application_summary": "Übersicht anfordern",
@@ -2485,7 +2486,8 @@
         "bank_accounts": {
             "title": "Bankkonto",
             "iban": "IBAN",
-            "name": "Zuschreibung"
+            "name": "Zuschreibung",
+            "source": "Quelle"
         },
         "breadcrumbs": {
             "home": "Startseite",
