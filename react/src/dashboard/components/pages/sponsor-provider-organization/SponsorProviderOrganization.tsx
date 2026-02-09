@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { PaginationData } from '../../../props/ApiResponses';
 import { useParams } from 'react-router';
@@ -6,22 +6,19 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import FundProvider from '../../../props/models/FundProvider';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import FundProviderTableItem from './elements/FundProviderTableItem';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import ProviderOrganizationOverview from './elements/ProviderOrganizationOverview';
 import type { SponsorProviderOrganization } from '../../../props/models/Organization';
 import useTranslate from '../../../hooks/useTranslate';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../services/FundService';
 import SponsorProviderOffices from './elements/SponsorProviderOffices';
 import SponsorProviderEmployees from './elements/SponsorProviderEmployees';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 
 export default function SponsorProviderOrganization() {
     const { id } = useParams();
@@ -36,6 +33,7 @@ export default function SponsorProviderOrganization() {
 
     const [fundProviders, setFundProviders] = useState<PaginationData<FundProvider>>(null);
     const [providerOrganization, setProviderOrganization] = useState<SponsorProviderOrganization>(null);
+    const [paginatorKey] = useState('fund_providers');
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
@@ -54,10 +52,6 @@ export default function SponsorProviderOrganization() {
             },
         },
     );
-
-    const tableRef = useRef<HTMLTableElement>(null);
-
-    const { headElement, configsElement } = useConfigurableTable(fundService.getProviderFundColumns());
 
     const updateFundProviderInList = useCallback(
         (data: FundProvider, index: number) => {
@@ -133,34 +127,20 @@ export default function SponsorProviderOrganization() {
                     </div>
                 </div>
 
-                <div className="card-section card-section-padless">
-                    {configsElement}
-
-                    <TableTopScroller onScroll={() => tableRef.current?.click()}>
-                        <table className="table form">
-                            {headElement}
-
-                            <tbody>
-                                {fundProviders.data.map((fundProvider, index) => (
-                                    <FundProviderTableItem
-                                        key={fundProvider.id}
-                                        fundProvider={fundProvider}
-                                        organization={activeOrganization}
-                                        onChange={(data) => updateFundProviderInList(data, index)}
-                                    />
-                                ))}
-                            </tbody>
-                        </table>
-                    </TableTopScroller>
-                </div>
-
-                {fundProviders.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen aanmeldingen'} />}
-
-                {fundProviders.meta && (
-                    <div className="card-section card-section-narrow">
-                        <Paginator meta={fundProviders.meta} filters={filterValues} updateFilters={filterUpdate} />
-                    </div>
-                )}
+                <LoaderTableCard
+                    empty={fundProviders?.meta?.total == 0}
+                    emptyTitle={'Geen aanmeldingen'}
+                    columns={fundService.getProviderFundColumns()}
+                    paginator={{ key: paginatorKey, data: fundProviders, filterValues, filterUpdate }}>
+                    {fundProviders?.data?.map((fundProvider, index) => (
+                        <FundProviderTableItem
+                            key={fundProvider.id}
+                            fundProvider={fundProvider}
+                            organization={activeOrganization}
+                            onChange={(data) => updateFundProviderInList(data, index)}
+                        />
+                    ))}
+                </LoaderTableCard>
             </div>
 
             <div className="card">

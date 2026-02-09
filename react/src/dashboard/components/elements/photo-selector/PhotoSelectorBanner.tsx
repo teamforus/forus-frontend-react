@@ -128,7 +128,7 @@ export default function PhotoSelectorBanner({
                     style={{ backgroundImage: thumbnailValue ? 'url(' + thumbnailValue + ')' : 'none' }}>
                     {templateData.overlay_enabled && (
                         <div
-                            className={`banner-editor-photo-pattern`}
+                            className="banner-editor-photo-pattern"
                             style={{
                                 ...(templateData.overlay_type === 'color'
                                     ? { backgroundColor: '#000' }

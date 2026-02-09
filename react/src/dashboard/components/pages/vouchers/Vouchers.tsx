@@ -174,7 +174,7 @@ export default function Vouchers() {
 
     return (
         <div className="card" data-dusk={`tableVoucherContent${filterValues?.fund_id || ''}`}>
-            <div className={classNames(`card-header`, loading && 'card-header-inactive')}>
+            <div className={classNames('card-header', loading && 'card-header-inactive')}>
                 <div className="card-title flex flex-grow" data-dusk="vouchersTitle">
                     {translate('vouchers.header.title')} ({vouchers?.meta?.total})
                 </div>

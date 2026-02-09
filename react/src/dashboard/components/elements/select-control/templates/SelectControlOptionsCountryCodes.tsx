@@ -59,7 +59,7 @@ export default function SelectControlOptionsCountryCodes<T>({
                         {modelValue?.raw['code'] + ' +' + modelValue?.raw['dialCode']}
                     </span>
                     <span className={'select-control-icon'}>
-                        <em className={showOptions ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'} />
+                        <em className={classNames('mdi', showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
                     </span>
                 </label>
                 {showOptions && (

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import useEnvData from '../../../hooks/useEnvData';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -25,7 +26,7 @@ export default function AppLinks({
     const translate = useTranslate();
 
     return (
-        <div className={`block block-app_links ${className} ${type ? `block-app_links-${type}` : ''}`}>
+        <div className={classNames('block', 'block-app_links', className, type === 'lg' && 'block-app_links-lg')}>
             {showAndroidButton && (
                 <a
                     href={envData?.config?.android_link}

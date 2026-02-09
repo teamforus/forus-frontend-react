@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
+import classNames from 'classnames';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Organization, { Permission } from '../../../../props/models/Organization';
@@ -190,14 +191,20 @@ export default function VouchersTableRow({
                                 voucher.state != 'deactivated' && (
                                     <Fragment>
                                         <a
-                                            className={`dropdown-item ${voucher.state === 'active' ? 'disabled' : ''}`}
+                                            className={classNames(
+                                                'dropdown-item',
+                                                voucher.state === 'active' && 'disabled',
+                                            )}
                                             onClick={onOpenAction}>
                                             <em className="mdi mdi-bookmark icon-start" />
                                             Activeren
                                         </a>
 
                                         <a
-                                            className={`dropdown-item ${voucher.state === 'pending' ? 'disabled' : ''}`}
+                                            className={classNames(
+                                                'dropdown-item',
+                                                voucher.state === 'pending' && 'disabled',
+                                            )}
                                             onClick={onOpenAction}>
                                             <em className="mdi mdi-qrcode icon-start" />
                                             QR-code

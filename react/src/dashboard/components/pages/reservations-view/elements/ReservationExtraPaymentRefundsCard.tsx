@@ -2,19 +2,14 @@ import React from 'react';
 import ExtraPaymentRefund from '../../../../props/models/ExtraPaymentRefund';
 import useTranslate from '../../../../hooks/useTranslate';
 import Label from '../../../elements/image_cropper/Label';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import useProductReservationService from '../../../../services/ProductReservationService';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function ReservationExtraPaymentRefundsCard({ refunds }: { refunds: Array<ExtraPaymentRefund> }) {
     const translate = useTranslate();
 
     const productReservationService = useProductReservationService();
-
-    const { headElement, configsElement } = useConfigurableTable(
-        productReservationService.getExtraPaymentRefundsColumns(),
-    );
 
     return (
         <div className="card">
@@ -26,46 +21,33 @@ export default function ReservationExtraPaymentRefundsCard({ refunds }: { refund
                 </div>
             </div>
 
-            <div className="card-section">
-                <div className="card-block card-block-table form">
-                    {configsElement}
+            <LoaderTableCard
+                empty={refunds.length === 0}
+                emptyTitle={'Geen restituties'}
+                columns={productReservationService.getExtraPaymentRefundsColumns()}>
+                {refunds?.map((refund) => (
+                    <tr key={refund.id}>
+                        <td>
+                            <strong className="text-strong text-md text-muted-dark">{refund.created_at_locale}</strong>
+                        </td>
+                        <td>{refund.amount_locale}</td>
+                        <td>
+                            {refund.state == 'refunded' && <Label type="success">{refund.state_locale}</Label>}
 
-                    <TableTopScroller>
-                        <table className="table">
-                            {headElement}
+                            {['canceled', 'failed'].includes(refund.state) && (
+                                <Label type="danger">{refund.state_locale}</Label>
+                            )}
 
-                            <tbody>
-                                {refunds?.map((refund) => (
-                                    <tr key={refund.id}>
-                                        <td>
-                                            <strong className="text-strong text-md text-muted-dark">
-                                                {refund.created_at_locale}
-                                            </strong>
-                                        </td>
-                                        <td>{refund.amount_locale}</td>
-                                        <td>
-                                            {refund.state == 'refunded' && (
-                                                <Label type="success">{refund.state_locale}</Label>
-                                            )}
-
-                                            {['canceled', 'failed'].includes(refund.state) && (
-                                                <Label type="danger">{refund.state_locale}</Label>
-                                            )}
-
-                                            {!['refunded', 'canceled', 'failed'].includes(refund.state) && (
-                                                <Label type="warning">{refund.state_locale}</Label>
-                                            )}
-                                        </td>
-                                        <td className={'table-td-actions text-right'}>
-                                            <TableEmptyValue />
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </TableTopScroller>
-                </div>
-            </div>
+                            {!['refunded', 'canceled', 'failed'].includes(refund.state) && (
+                                <Label type="warning">{refund.state_locale}</Label>
+                            )}
+                        </td>
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

@@ -20,7 +20,7 @@ export default function TableConfig({
     const translate = useTranslate();
 
     return (
-        <div className={`block block-table-settings`} ref={settingsRef}>
+        <div className="block block-table-settings" ref={settingsRef}>
             <div className="table-settings-close" onClick={onClose}>
                 <em className="mdi mdi-close" />
             </div>

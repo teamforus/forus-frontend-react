@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -213,7 +214,11 @@ export default function Reservations() {
                             <div className="block block-label-tabs form pull-right">
                                 <div className="label-tab-set">
                                     <div
-                                        className={`label-tab label-tab-sm ${!filterValues.archived ? 'active' : ''}`}
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            !filterValues.archived && 'active',
+                                        )}
                                         onClick={() => filterUpdate({ archived: 0 })}
                                         aria-pressed={!filterValues.archived}
                                         data-dusk="reservationsFilterActive"
@@ -221,7 +226,11 @@ export default function Reservations() {
                                         {translate('reservations.types.active')}
                                     </div>
                                     <div
-                                        className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            filterValues.archived && 'active',
+                                        )}
                                         onClick={() => filterUpdate({ archived: 1 })}
                                         aria-pressed={!!filterValues.archived}
                                         data-dusk="reservationsFilterArchived"

@@ -14,6 +14,7 @@ import { Libraries, LoadScript } from '@react-google-maps/api';
 import useEnvData from '../hooks/useEnvData';
 import Printable from '../modules/printable/components/Printable';
 import ErrorBoundaryHandler from '../components/elements/error-boundary-handler/ErrorBoundaryHandler';
+import classNames from 'classnames';
 
 export const Layout = ({ children }: { children: React.ReactElement }) => {
     const { modals } = useContext(modalsContext);
@@ -43,9 +44,11 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
         <LoadScript googleMapsApiKey={envData?.config?.google_maps_api_key} libraries={libraries}>
             <ErrorBoundaryHandler type={'main'} front={'dashboard'}>
                 <div
-                    className={`app ${route?.state?.name == 'sign-in' ? 'landing-root' : ''} ${
-                        [LayoutType.landingClearNew].includes(layout) ? 'signup-layout signup-layout-new' : ''
-                    }`}
+                    className={classNames(
+                        'app',
+                        route?.state?.name == 'sign-in' && 'landing-root',
+                        [LayoutType.landingClearNew].includes(layout) && 'signup-layout signup-layout-new',
+                    )}
                     ref={pageScrollRef}
                     style={{
                         width: '100%',
@@ -61,7 +64,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                         {layout == LayoutType.dashboard && activeOrganization && <LayoutAside />}
 
                         {isReady && (
-                            <section className={`app app-content`}>
+                            <section className="app app-content">
                                 <ErrorBoundaryHandler
                                     type={
                                         [LayoutType.landingClearNew, LayoutType.landingClear].includes(layout)

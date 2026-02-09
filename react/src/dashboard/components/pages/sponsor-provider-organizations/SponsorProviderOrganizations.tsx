@@ -173,7 +173,7 @@ export default function SponsorProviderOrganizations() {
             <div className="card-header">
                 <div className="flex flex-grow">
                     <div className="card-title flex flex-grow">
-                        {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})
+                        {translate('provider_organizations.header.title')} ({providerOrganizations?.meta?.total})
                     </div>
                 </div>
 
@@ -434,12 +434,12 @@ export default function SponsorProviderOrganizations() {
                                 {providerOrganizations && (
                                     <button
                                         className="button button-primary button-wide"
-                                        disabled={providerOrganizations.meta.total == 0}
+                                        disabled={providerOrganizations?.meta?.total == 0}
                                         data-dusk="export"
                                         onClick={() => exportList()}>
                                         <em className="mdi mdi-download icon-start" />
                                         {translate('components.dropdown.export', {
-                                            total: providerOrganizations.meta.total,
+                                            total: providerOrganizations?.meta?.total,
                                         })}
                                     </button>
                                 )}
@@ -451,7 +451,7 @@ export default function SponsorProviderOrganizations() {
 
             <LoaderTableCard
                 loading={loading}
-                empty={providerOrganizations.meta.total == 0}
+                empty={providerOrganizations?.meta?.total == 0}
                 emptyTitle={translate(`provider_organizations.empty_title.${filterActiveValues.state_group}`)}
                 emptyDescription={translate(
                     `provider_organizations.empty_description.${filterActiveValues.state_group}`,
@@ -464,7 +464,7 @@ export default function SponsorProviderOrganizations() {
                             <table className="table">
                                 {headElement}
 
-                                {providerOrganizations.data.map((providerOrganization) => (
+                                {providerOrganizations?.data?.map((providerOrganization) => (
                                     <ProvidersTableItem
                                         key={providerOrganization.id}
                                         organization={activeOrganization}
@@ -476,7 +476,7 @@ export default function SponsorProviderOrganizations() {
                     </div>
                 </div>
 
-                {providerOrganizations.meta.total > 0 && (
+                {providerOrganizations?.meta?.total > 0 && (
                     <div className="card-section">
                         <Paginator
                             meta={providerOrganizations.meta}

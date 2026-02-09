@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useHelperService } from '../../../../services/HelperService';
 import { Fragment, useMemo } from 'react';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -23,7 +24,10 @@ export default function EmailProviderLink({
         <Fragment>
             {url && (
                 <a
-                    className={`button ${type == 'button' ? 'button-primary' : 'button-text button-text-primary'}`}
+                    className={classNames(
+                        'button',
+                        type == 'button' ? 'button-primary' : 'button-text button-text-primary',
+                    )}
                     href={url}>
                     {icon && <em className={`mdi icon-start mdi-${icon}`} />}
                     {translate('email_service_switch.confirm')}

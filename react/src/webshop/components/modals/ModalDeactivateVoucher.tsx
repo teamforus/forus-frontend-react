@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useFormBuilder from '../../../dashboard/hooks/useFormBuilder';
 import FormError from '../../../dashboard/components/elements/forms/errors/FormError';
@@ -52,7 +53,7 @@ export default function ModalDeactivateVoucher({
     });
 
     return (
-        <div className={`modal modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
+        <div className={classNames('modal', 'modal-animated', !modal.loading && 'modal-loaded')} role="dialog">
             <div
                 className="modal-backdrop"
                 onClick={modal.close}

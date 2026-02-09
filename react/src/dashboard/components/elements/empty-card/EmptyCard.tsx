@@ -1,10 +1,12 @@
 import React, { Fragment, ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
-import { NavLink } from 'react-router';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
 
-interface EmptyButtonType {
-    to?: string;
+export interface EmptyButtonType {
     type?: 'default' | 'primary' | 'danger';
+    state?: DashboardRoutes;
+    stateParams?: object;
     icon?: string;
     text?: string;
     dusk?: string;
@@ -20,8 +22,8 @@ export default function EmptyCard({
     imageIconSvg,
     textAlign = 'center',
     button = null,
-    buttons = [],
     type = 'card',
+    actions,
 }: {
     title?: string;
     description?: string;
@@ -30,8 +32,8 @@ export default function EmptyCard({
     imageIconSvg?: ReactNode;
     textAlign?: 'left' | 'center' | 'right';
     button?: EmptyButtonType;
-    buttons?: Array<EmptyButtonType>;
     type?: 'card' | 'card-section' | 'card-section-content';
+    actions?: ReactNode;
 }) {
     const descriptionLines = useMemo(() => {
         return description?.split('\n') || [];
@@ -95,31 +97,31 @@ export default function EmptyCard({
                     </div>
                 )}
 
-                {button && (
-                    <div className={'empty-actions'}>
-                        <div className="button-group">
-                            {[button, ...buttons].map((button, index) => (
-                                <NavLink
-                                    key={index}
-                                    to={button.to}
-                                    onClick={button.onClick}
-                                    className={classNames(
-                                        'button',
-                                        (!button.type || button.type === 'default') && 'button-default',
-                                        button.type === 'primary' && 'button-primary',
-                                        button.type === 'danger' && 'button-danger',
-                                    )}
-                                    data-dusk={button.dusk || 'btnEmptyBlock'}>
-                                    {button.icon && (!button.iconPosition || button.iconPosition == 'start') && (
-                                        <em className={`mdi mdi-${button.icon} icon-start`} />
-                                    )}
-                                    {button.text}
-                                    {button.icon && button.iconPosition == 'end' && (
-                                        <em className={`mdi mdi-${button.icon} icon-end`} />
-                                    )}
-                                </NavLink>
-                            ))}
-                        </div>
+                {(button || actions) && (
+                    <div className="empty-actions">
+                        {button && (
+                            <StateNavLink
+                                name={button.state}
+                                params={button.stateParams}
+                                onClick={button.onClick}
+                                className={classNames(
+                                    'button',
+                                    (!button.type || button.type === 'default') && 'button-default',
+                                    button.type === 'primary' && 'button-primary',
+                                    button.type === 'danger' && 'button-danger',
+                                )}
+                                dataDusk={button.dusk || 'btnEmptyBlock'}>
+                                {button.icon && (!button.iconPosition || button.iconPosition == 'start') && (
+                                    <em className={`mdi mdi-${button.icon} icon-start`} />
+                                )}
+                                {button.text}
+                                {button.icon && button.iconPosition == 'end' && (
+                                    <em className={`mdi mdi-${button.icon} icon-end`} />
+                                )}
+                            </StateNavLink>
+                        )}
+
+                        {actions}
                     </div>
                 )}
             </div>

@@ -46,5 +46,5 @@ export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
     if (!showProducts || !products) {
         return;
     }
-    return <BlockProducts products={products.data} filters={{ fund_id: voucher.fund_id }} />;
+    return <BlockProducts products={products.data} filters={{ fund_ids: [voucher.fund_id] }} />;
 }

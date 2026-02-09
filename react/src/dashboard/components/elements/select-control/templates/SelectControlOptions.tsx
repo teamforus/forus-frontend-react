@@ -81,7 +81,7 @@ export default function SelectControlOptions<T>({
                     title={placeholderValue || placeholder}>
                     <span className="select-control-search-placeholder">{placeholderValue || placeholder}</span>
                     <span className={'select-control-icon'}>
-                        <em className={showOptions ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'} />
+                        <em className={classNames('mdi', showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
                     </span>
                 </span>
 

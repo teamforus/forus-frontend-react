@@ -7,6 +7,7 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function ProvidersSignUp() {
     const page = useCmsPage('provider');
@@ -42,9 +43,11 @@ export default function ProvidersSignUp() {
             ]}>
             {page && (
                 <div
-                    className={`flex flex-vertical ${
-                        page.description_position == 'after' ? 'flex-vertical-reverse' : ''
-                    }`}>
+                    className={classNames(
+                        'flex',
+                        'flex-vertical',
+                        page.description_position == 'after' && 'flex-vertical-reverse',
+                    )}>
                     {page && <CmsBlocks page={page} largeMarkdown={true} />}
 
                     {(!page.description_html || page.description_position !== 'replace') && (

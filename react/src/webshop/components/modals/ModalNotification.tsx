@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState, ReactElement } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
@@ -78,7 +79,13 @@ export default function ModalNotification({
 
     return (
         <div
-            className={`modal modal-notification modal-animated ${className} ${modal.loading ? '' : 'modal-loaded'}`}
+            className={classNames(
+                'modal',
+                'modal-notification',
+                'modal-animated',
+                className,
+                !modal.loading && 'modal-loaded',
+            )}
             role="dialog">
             <div
                 className="modal-backdrop"
@@ -104,7 +111,14 @@ export default function ModalNotification({
                 <div className="modal-body">
                     <div className="modal-section">
                         {mdiIconClass && (
-                            <div className={`modal-section-icon modal-section-icon-${mdiIconType}`}>
+                            <div
+                                className={classNames(
+                                    'modal-section-icon',
+                                    mdiIconType === 'primary' && 'modal-section-icon-primary',
+                                    mdiIconType === 'warning' && 'modal-section-icon-warning',
+                                    mdiIconType === 'success' && 'modal-section-icon-success',
+                                    mdiIconType === 'default' && 'modal-section-icon-default',
+                                )}>
                                 {mdiIconType && mdiIconClass && <div className={`mdi mdi-${mdiIconClass}`} />}
                             </div>
                         )}

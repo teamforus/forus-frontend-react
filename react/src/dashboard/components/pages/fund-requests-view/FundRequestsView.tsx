@@ -36,8 +36,7 @@ import Icon from '../../../../../assets/forus-platform/resources/_platform-commo
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useEmailLogService from '../../../services/EmailLogService';
 import { Permission } from '../../../props/models/Organization';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundRequestsView() {
@@ -144,10 +143,6 @@ export default function FundRequestsView() {
                 (!isAssigned && isDisregarded && fundRequest.replaced),
         };
     }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor]);
-
-    const { headElement, configsElement } = useConfigurableTable(fundRequestService.getRecordsColumns(), {
-        trPrepend: <Fragment>{fundRequestMeta?.hasContent && <th className="cell-chevron th-narrow" />}</Fragment>,
-    });
 
     const updateNotesRef = useRef<() => void>(null);
     const fetchEmailsRef = useRef<() => void>(null);
@@ -516,11 +511,12 @@ export default function FundRequestsView() {
                             <div className="button-group">
                                 {fundRequestMeta.is_assignable && (
                                     <button
-                                        className={`button ${
+                                        className={classNames(
+                                            'button',
                                             fundRequestMeta.is_assignable_as_supervisor
                                                 ? 'button-default'
-                                                : 'button-primary'
-                                        }`}
+                                                : 'button-primary',
+                                        )}
                                         data-dusk="fundRequestAssignBtn"
                                         onClick={() => assignRequest()}>
                                         <em className="mdi mdi-account-plus icon-start" />
@@ -565,7 +561,12 @@ export default function FundRequestsView() {
                                     className="keyvalue-value-info-block-toggle"
                                     onClick={() => setShowCriteria(!showCriteria)}>
                                     Voorwaarden ({fundRequestMeta.fund.criteria.length})
-                                    <em className={`mdi mdi-chevron-${showCriteria ? 'up' : 'down'}`} />
+                                    <em
+                                        className={classNames(
+                                            'mdi',
+                                            showCriteria ? 'mdi-chevron-up' : 'mdi-chevron-down',
+                                        )}
+                                    />
                                 </span>
                             </Fragment>
                         </KeyValueItem>
@@ -617,13 +618,13 @@ export default function FundRequestsView() {
 
                         <KeyValueItem
                             label={translate('validation_requests.labels.email')}
-                            className={fundRequestMeta.email ? 'text-black' : 'text-muted'}>
+                            className={classNames(fundRequestMeta.email ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.email || 'Geen E-mail'}
                         </KeyValueItem>
 
                         <KeyValueItem
                             label={translate('validation_requests.labels.bsn')}
-                            className={fundRequestMeta.bsn ? 'text-black' : 'text-muted'}>
+                            className={classNames(fundRequestMeta.bsn ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.bsn || 'Geen BSN'}
                         </KeyValueItem>
                     </div>
@@ -725,105 +726,100 @@ export default function FundRequestsView() {
                         </div>
                     )}
                 </div>
-                <div className="card-section">
-                    <div className="card-block card-block-table card-block-request-record">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                {fundRequestMeta.records.map((record) => (
-                                    <tbody key={record.id} data-dusk={`tableFundRequestRecordRow${record.id}`}>
-                                        <tr>
-                                            {fundRequestMeta.hasContent && (
-                                                <td className="cell-chevron">
-                                                    {record.hasContent && (
-                                                        <a
-                                                            className={classNames(
-                                                                'mdi',
-                                                                'td-menu-icon',
-                                                                !collapsedRecords.includes(record.id)
-                                                                    ? 'mdi-menu-up'
-                                                                    : 'mdi-menu-down',
-                                                            )}
-                                                            onClick={() => {
-                                                                setCollapsedRecords((shownRecords) => {
-                                                                    return shownRecords?.includes(record.id)
-                                                                        ? shownRecords?.filter((id) => id !== record.id)
-                                                                        : [...shownRecords, record.id];
-                                                                });
-                                                            }}
-                                                        />
-                                                    )}
-                                                </td>
-                                            )}
-                                            <td>{record.record_type.name}</td>
-
-                                            {record?.record_type.type != 'select' && (
-                                                <td className={record.value !== null ? 'text-muted' : ''}>
-                                                    {record?.value || 'Niet beschikbaar'}
-                                                </td>
-                                            )}
-
-                                            {record?.record_type.type == 'select' && (
-                                                <td className={record.value !== null ? 'text-muted' : ''}>
-                                                    {record?.record_type.options?.find(
-                                                        (option) => option.value == record?.value,
-                                                    )?.name || 'Niet beschikbaar'}
-                                                </td>
-                                            )}
-
-                                            <td>{record.created_at_locale}</td>
-
-                                            <td className="td-narrow text-right">
-                                                {fundRequestMeta.is_assigned ? (
-                                                    <TableRowActions
-                                                        dataDusk={`fundRequestRecordMenuBtn${record.id}`}
-                                                        content={(e) => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        e.close();
-                                                                        clarifyRecord(record);
-                                                                    }}>
-                                                                    <em className="mdi mdi-message-text icon-start" />
-                                                                    Aanvullingsverzoek
-                                                                </div>
-                                                                {activeOrganization.allow_fund_request_record_edit && (
-                                                                    <div
-                                                                        className="dropdown-item"
-                                                                        onClick={() => {
-                                                                            e.close();
-                                                                            editRecord(record);
-                                                                        }}
-                                                                        data-dusk="fundRequestRecordEditBtn">
-                                                                        <em className="mdi mdi-pencil icon-start" />
-                                                                        Bewerking
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    <TableEmptyValue />
+                <LoaderTableCard
+                    empty={fundRequestMeta.records.length === 0}
+                    emptyTitle={'Geen records'}
+                    columns={fundRequestService.getRecordsColumns()}
+                    tableOptions={{
+                        trPrepend: fundRequestMeta?.hasContent ? <th className="cell-chevron th-narrow" /> : null,
+                    }}>
+                    {fundRequestMeta.records.map((record) => (
+                        <Fragment key={record.id}>
+                            <tr data-dusk={`tableFundRequestRecordRow${record.id}`}>
+                                {fundRequestMeta.hasContent && (
+                                    <td className="cell-chevron">
+                                        {record.hasContent && (
+                                            <a
+                                                className={classNames(
+                                                    'mdi',
+                                                    'td-menu-icon',
+                                                    !collapsedRecords.includes(record.id)
+                                                        ? 'mdi-menu-up'
+                                                        : 'mdi-menu-down',
                                                 )}
-                                            </td>
-                                        </tr>
-                                        {record.hasContent && !collapsedRecords.includes(record.id) && (
-                                            <tr className="tr-dim">
-                                                <td className="collapse-content" colSpan={6}>
-                                                    <FundRequestRecordTabs fundRequestRecord={record} />
-                                                </td>
-                                            </tr>
+                                                onClick={() => {
+                                                    setCollapsedRecords((shownRecords) => {
+                                                        return shownRecords?.includes(record.id)
+                                                            ? shownRecords?.filter((id) => id !== record.id)
+                                                            : [...shownRecords, record.id];
+                                                    });
+                                                }}
+                                            />
                                         )}
-                                    </tbody>
-                                ))}
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
+                                    </td>
+                                )}
+                                <td>{record.record_type.name}</td>
+
+                                {record?.record_type.type != 'select' && (
+                                    <td className={classNames(record.value !== null && 'text-muted')}>
+                                        {record?.value || 'Niet beschikbaar'}
+                                    </td>
+                                )}
+
+                                {record?.record_type.type == 'select' && (
+                                    <td className={classNames(record.value !== null && 'text-muted')}>
+                                        {record?.record_type.options?.find((option) => option.value == record?.value)
+                                            ?.name || 'Niet beschikbaar'}
+                                    </td>
+                                )}
+
+                                <td>{record.created_at_locale}</td>
+
+                                <td className="td-narrow text-right">
+                                    {fundRequestMeta.is_assigned ? (
+                                        <TableRowActions
+                                            dataDusk={`fundRequestRecordMenuBtn${record.id}`}
+                                            content={(e) => (
+                                                <div className="dropdown dropdown-actions">
+                                                    <div
+                                                        className="dropdown-item"
+                                                        onClick={() => {
+                                                            e.close();
+                                                            clarifyRecord(record);
+                                                        }}>
+                                                        <em className="mdi mdi-message-text icon-start" />
+                                                        Aanvullingsverzoek
+                                                    </div>
+                                                    {activeOrganization.allow_fund_request_record_edit && (
+                                                        <div
+                                                            className="dropdown-item"
+                                                            onClick={() => {
+                                                                e.close();
+                                                                editRecord(record);
+                                                            }}
+                                                            data-dusk="fundRequestRecordEditBtn">
+                                                            <em className="mdi mdi-pencil icon-start" />
+                                                            Bewerking
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        />
+                                    ) : (
+                                        <TableEmptyValue />
+                                    )}
+                                </td>
+                            </tr>
+                            {record.hasContent && !collapsedRecords.includes(record.id) && (
+                                <tr className="tr-dim">
+                                    <td className="collapse-content" colSpan={6}>
+                                        <FundRequestRecordTabs fundRequestRecord={record} />
+                                    </td>
+                                </tr>
+                            )}
+                        </Fragment>
+                    ))}
+                </LoaderTableCard>
             </div>
 
             <BlockCardNotes

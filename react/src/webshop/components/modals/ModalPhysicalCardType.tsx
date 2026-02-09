@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import Voucher from '../../../dashboard/props/models/Voucher';
@@ -176,7 +177,8 @@ export default function ModalPhysicalCardType({
     }, [requestPhysicalCardForm]);
 
     return (
-        <div className={`modal modal-animated modal-physical-cards ${modal.loading ? '' : 'modal-loaded'}`}>
+        <div
+            className={classNames('modal', 'modal-animated', 'modal-physical-cards', !modal.loading && 'modal-loaded')}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             {state == 'card_code' && (

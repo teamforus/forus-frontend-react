@@ -195,7 +195,11 @@ export default function Reimbursements() {
 
                             <div className="label-tab-set">
                                 <div
-                                    className={`label-tab label-tab-sm ${!filterValues.archived ? 'active' : ''}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        !filterValues.archived && 'active',
+                                    )}
                                     role="button"
                                     data-dusk="reimbursementsFilterActive"
                                     onClick={() => filterUpdate({ archived: 0 })}
@@ -203,7 +207,11 @@ export default function Reimbursements() {
                                     {translate('reimbursements.types.active')}
                                 </div>
                                 <div
-                                    className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
+                                    className={classNames(
+                                        'label-tab',
+                                        'label-tab-sm',
+                                        filterValues.archived && 'active',
+                                    )}
                                     onClick={() => filterUpdate({ archived: 1 })}
                                     role="button"
                                     data-dusk="reimbursementsFilterArchived"

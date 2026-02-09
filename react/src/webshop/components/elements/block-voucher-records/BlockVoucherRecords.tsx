@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
@@ -17,9 +18,12 @@ export default function BlockVoucherRecords({
 
     return (
         <div
-            className={`block block-voucher-records ${toggle ? 'block-voucher-records-toggle' : ''} ${
-                compact ? 'block-voucher-records-compact' : ''
-            }`}>
+            className={classNames(
+                'block',
+                'block-voucher-records',
+                toggle && 'block-voucher-records-toggle',
+                compact && 'block-voucher-records-compact',
+            )}>
             {toggle && (
                 <div className="records-toggle clickable" onClick={() => setShowRecords(!showRecords)}>
                     {showRecords
