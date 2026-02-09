@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { useFundService } from '../../../services/FundService';
 import useSetProgress from '../../../hooks/useSetProgress';
 import Fund from '../../../props/models/Fund';
@@ -656,9 +657,13 @@ export default function OrganizationsFundsEdit() {
                                         </div>
                                         <div className="form-group-info-button">
                                             <div
-                                                className={`button button-default button-icon pull-left ${
-                                                    showInfoBlock ? 'active' : ''
-                                                }`}
+                                                className={classNames(
+                                                    'button',
+                                                    'button-default',
+                                                    'button-icon',
+                                                    'pull-left',
+                                                    showInfoBlock && 'active',
+                                                )}
                                                 onClick={() => setShowInfoBlock(!showInfoBlock)}>
                                                 <em className="mdi mdi-information" />
                                             </div>

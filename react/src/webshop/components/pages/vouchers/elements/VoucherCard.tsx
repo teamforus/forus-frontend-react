@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
+import classNames from 'classnames';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { useVoucherService } from '../../../../services/VoucherService';
@@ -97,7 +98,7 @@ export default function VoucherCard({
                         )}
 
                         {voucherCard.type == 'product' && !voucher.expired && (
-                            <div className={`label ${voucherCard.used ? 'label-warning' : 'label-success'}`}>
+                            <div className={classNames('label', voucherCard.used ? 'label-warning' : 'label-success')}>
                                 {!voucherCard.used
                                     ? translate('vouchers.card.unused')
                                     : translate('vouchers.card.used')}

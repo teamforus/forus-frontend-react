@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, useCallback, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { strLimit } from '../../../../helpers/string';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -10,24 +10,20 @@ import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 import { ConfigurableTableColumn } from '../../vouchers/hooks/useConfigurableTable';
 import ProductMonitoredHistoryCardFunds from '../../sponsor-product/elements/ProductMonitoredHistoryCardFunds';
 import Organization from '../../../../props/models/Organization';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function SponsorProductsTable({
-    columns = null,
+    columns,
     products = null,
-    headElement = null,
     activeOrganization,
 }: {
     columns: Array<ConfigurableTableColumn>;
     products: Array<SponsorProduct>;
-    headElement: ReactNode;
     activeOrganization: Organization;
 }) {
     const translate = useTranslate();
     const [shownIds, setShownIds] = useState<Array<number>>([]);
-    const tableRef = useRef<HTMLTableElement>(null);
 
     const toggleCollapsed = useCallback((e: { stopPropagation: () => void }, id: number) => {
         e.stopPropagation();
@@ -37,112 +33,99 @@ export default function SponsorProductsTable({
         });
     }, []);
 
-    return (
-        <TableTopScroller onScroll={() => tableRef.current?.click()}>
-            <table className="table" ref={tableRef}>
-                {headElement}
+    return products?.map((product) => (
+        <Fragment key={product.id}>
+            <StateNavLink
+                name={DashboardRoutes.SPONSOR_PRODUCT}
+                params={{ productId: product?.id, organizationId: activeOrganization.id }}
+                className={'tr-clickable'}
+                customElement={'tr'}>
+                <td title={product.name}>
+                    <TableEntityMain
+                        title={strLimit(product.name, 64)}
+                        subtitle={strLimit(product.organization.name, 64)}
+                        media={product.photos[0]}
+                        mediaRound={false}
+                        mediaSize={'md'}
+                        mediaPlaceholder={'product'}
+                        collapsedClicked={(e) => toggleCollapsed(e, product.id)}
+                        collapsed={!shownIds.includes(product.id)}
+                    />
+                </td>
 
-                <tbody>
-                    {products?.map((product) => (
-                        <Fragment key={product.id}>
-                            <StateNavLink
-                                name={DashboardRoutes.SPONSOR_PRODUCT}
-                                params={{ productId: product?.id, organizationId: activeOrganization.id }}
-                                className={'tr-clickable'}
-                                customElement={'tr'}>
-                                <td title={product.name}>
-                                    <TableEntityMain
-                                        title={strLimit(product.name, 64)}
-                                        subtitle={strLimit(product.organization.name, 64)}
-                                        media={product.photos[0]}
-                                        mediaRound={false}
-                                        mediaSize={'md'}
-                                        mediaPlaceholder={'product'}
-                                        collapsedClicked={(e) => toggleCollapsed(e, product.id)}
-                                        collapsed={!shownIds.includes(product.id)}
-                                    />
-                                </td>
+                <td>
+                    <TableDateTime value={product.last_monitored_changed_at_locale} />
+                </td>
 
-                                <td>
-                                    <TableDateTime value={product.last_monitored_changed_at_locale} />
-                                </td>
+                <td
+                    title={product.funds
+                        .filter((item) => item.state === 'approved')
+                        .map((fund) => fund.name)
+                        ?.join(', ')}>
+                    <div className={'text-primary text-semibold'}>
+                        {product.funds.filter((item) => item.state === 'approved').length}/{product.funds.length}
+                    </div>
+                </td>
 
-                                <td
-                                    title={product.funds
-                                        .filter((item) => item.state === 'approved')
-                                        .map((fund) => fund.name)
-                                        ?.join(', ')}>
-                                    <div className={'text-primary text-semibold'}>
-                                        {product.funds.filter((item) => item.state === 'approved').length}/
-                                        {product.funds.length}
-                                    </div>
-                                </td>
+                <td>{product.price_locale}</td>
 
-                                <td>{product.price_locale}</td>
+                {product?.price_type === 'informational' ? (
+                    <td>
+                        <TableEmptyValue />
+                    </td>
+                ) : (
+                    <td>
+                        {product.unlimited_stock ? translate('product_edit.labels.unlimited') : product.stock_amount}
+                    </td>
+                )}
 
-                                {product?.price_type === 'informational' ? (
-                                    <td>
-                                        <TableEmptyValue />
-                                    </td>
-                                ) : (
-                                    <td>
-                                        {product.unlimited_stock
-                                            ? translate('product_edit.labels.unlimited')
-                                            : product.stock_amount}
-                                    </td>
-                                )}
+                <td>{product.product_category?.name || <EmptyValue />}</td>
 
-                                <td>{product.product_category?.name || <EmptyValue />}</td>
+                <td>
+                    <TableDateTime value={product.created_at_locale} />
+                </td>
 
-                                <td>
-                                    <TableDateTime value={product.created_at_locale} />
-                                </td>
+                <td className={'table-td-actions text-right'}>
+                    <TableRowActions
+                        content={() => (
+                            <div className="dropdown dropdown-actions">
+                                <StateNavLink
+                                    className="dropdown-item"
+                                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        id: product.organization_id,
+                                    }}>
+                                    <em className="mdi mdi-eye icon-start" />
+                                    Bekijk aanbieder
+                                </StateNavLink>
+                                <StateNavLink
+                                    className="dropdown-item"
+                                    name={DashboardRoutes.SPONSOR_PRODUCT}
+                                    params={{
+                                        productId: product?.id,
+                                        organizationId: activeOrganization.id,
+                                    }}>
+                                    <em className="mdi mdi-history icon-start" />
+                                    Bekijk aanbod
+                                </StateNavLink>
+                            </div>
+                        )}
+                    />
+                </td>
+            </StateNavLink>
 
-                                <td className={'table-td-actions text-right'}>
-                                    <TableRowActions
-                                        content={() => (
-                                            <div className="dropdown dropdown-actions">
-                                                <StateNavLink
-                                                    className="dropdown-item"
-                                                    name={DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION}
-                                                    params={{
-                                                        organizationId: activeOrganization.id,
-                                                        id: product.organization_id,
-                                                    }}>
-                                                    <em className="mdi mdi-eye icon-start" />
-                                                    Bekijk aanbieder
-                                                </StateNavLink>
-                                                <StateNavLink
-                                                    className="dropdown-item"
-                                                    name={DashboardRoutes.SPONSOR_PRODUCT}
-                                                    params={{
-                                                        productId: product?.id,
-                                                        organizationId: activeOrganization.id,
-                                                    }}>
-                                                    <em className="mdi mdi-history icon-start" />
-                                                    Bekijk aanbod
-                                                </StateNavLink>
-                                            </div>
-                                        )}
-                                    />
-                                </td>
-                            </StateNavLink>
-
-                            {shownIds?.includes(product.id) && (
-                                <tr>
-                                    <td colSpan={columns.length + 1} className={'td-paddless'}>
-                                        <ProductMonitoredHistoryCardFunds
-                                            type={'table'}
-                                            product={product}
-                                            activeOrganization={activeOrganization}
-                                        />
-                                    </td>
-                                </tr>
-                            )}
-                        </Fragment>
-                    ))}
-                </tbody>
-            </table>
-        </TableTopScroller>
-    );
+            {shownIds?.includes(product.id) && (
+                <tr>
+                    <td colSpan={columns.length + 1} className={'td-paddless'}>
+                        <ProductMonitoredHistoryCardFunds
+                            type={'table'}
+                            product={product}
+                            activeOrganization={activeOrganization}
+                        />
+                    </td>
+                </tr>
+            )}
+        </Fragment>
+    ));
 }

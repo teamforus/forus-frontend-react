@@ -17,6 +17,7 @@ import remove_reservation_field from './modals/danger-zone/remove-reservation-fi
 import remove_mollie_connection from './modals/danger-zone/remove-mollie-connection';
 import exclude_pre_check_fund from './modals/danger-zone/exclude_pre_check_fund';
 import remove_prevalidation_request from './modals/danger-zone/remove-prevalidation-request';
+import confirm_extra_payment_refund from './modals/danger-zone/confirm-extra-payment-refund';
 
 export default {
     remove_provider_application,
@@ -38,4 +39,5 @@ export default {
     remove_mollie_connection,
     exclude_pre_check_fund,
     remove_prevalidation_request,
+    confirm_extra_payment_refund,
 };

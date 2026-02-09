@@ -1,4 +1,5 @@
 import React, { Fragment, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../../../../../dashboard/components/elements/select-control/SelectControl';
 import ClickOutside from '../../../../../dashboard/components/elements/click-outside/ClickOutside';
@@ -46,7 +47,7 @@ export default function SelectControlOptionsVouchers<T>({
     return (
         <div
             id={id}
-            className={'select-control ' + (className ? className : '') + (disabled ? ' select-control-disabled' : '')}
+            className={classNames('select-control', className, disabled && 'select-control-disabled')}
             role="button"
             aria-haspopup="listbox"
             aria-expanded={showOptions}
@@ -56,14 +57,17 @@ export default function SelectControlOptionsVouchers<T>({
             ref={selectorRef}
             onKeyDown={disabled ? undefined : onKeyDown}
             onBlur={disabled ? undefined : onBlur}>
-            <div className={['select-control-input', showOptions ? 'options' : ''].filter((item) => item).join(' ')}>
+            <div className={classNames('select-control-input', showOptions && 'options')}>
                 {/* Placeholder */}
                 <label
                     htmlFor={controlId}
                     role="presentation"
-                    className={`block block-vouchers block-vouchers-select ${
-                        showOptions ? 'block-vouchers-select-open' : ''
-                    }`}
+                    className={classNames(
+                        'block',
+                        'block-vouchers',
+                        'block-vouchers-select',
+                        showOptions && 'block-vouchers-select-open',
+                    )}
                     ref={placeholderRef}
                     data-dusk={dusk || 'voucherSelector'}
                     onClick={disabled ? undefined : searchOption}

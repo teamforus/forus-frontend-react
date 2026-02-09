@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { PaginationData } from '../../../props/ApiResponses';
 import ReimbursementCategory from '../../../props/models/ReimbursementCategory';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
@@ -14,8 +13,6 @@ import useTranslate from '../../../hooks/useTranslate';
 import LoadingCard from '../loading-card/LoadingCard';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 import usePushApiError from '../../../hooks/usePushApiError';
-import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../tables/TableTopScroller';
 import TableRowActions from '../tables/TableRowActions';
 import classNames from 'classnames';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
@@ -47,8 +44,6 @@ export default function BlockReimbursementCategories({
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
-
-    const { headElement, configsElement } = useConfigurableTable(reimbursementCategoryService.getColumns());
 
     const fetchReimbursementCategories = useCallback(() => {
         setLoading(true);
@@ -129,7 +124,7 @@ export default function BlockReimbursementCategories({
                 <div className="card-header">
                     <div className="flex flex-grow card-title">
                         {categories?.meta
-                            ? `Declaratie categorieën (${categories?.meta.total})`
+                            ? `Declaratie categorieën (${categories?.meta?.total})`
                             : `Declaratie categorieën`}
                     </div>
 
@@ -149,71 +144,47 @@ export default function BlockReimbursementCategories({
 
             <LoaderTableCard
                 loading={loading}
-                empty={categories?.data.length === 0}
-                emptyTitle={'Er zijn momenteel geen declaratie categorieën.'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                empty={categories?.data?.length === 0}
+                emptyTitle={'Er zijn momenteel geen declaratie categorieën.'}
+                columns={reimbursementCategoryService.getColumns()}
+                paginator={{ key: paginatorKey, data: categories, filterValues, filterUpdate }}>
+                {categories?.data?.map((reimbursementCategory) => (
+                    <tr key={reimbursementCategory.id}>
+                        <td>{reimbursementCategory.name}</td>
+                        <td>{reimbursementCategory.organization.name}</td>
+                        <td>{reimbursementCategory.reimbursements_count}</td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {categories?.data.map((reimbursementCategory) => (
-                                        <tr key={reimbursementCategory.id}>
-                                            <td>{reimbursementCategory.name}</td>
-                                            <td>{reimbursementCategory.organization.name}</td>
-                                            <td>{reimbursementCategory.reimbursements_count}</td>
-
-                                            <td className="td-narrow text-right">
-                                                <TableRowActions
-                                                    content={({ close }) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <a
-                                                                className="dropdown-item"
-                                                                onClick={() => {
-                                                                    editReimbursementCategory(reimbursementCategory);
-                                                                    close();
-                                                                }}>
-                                                                <em className="mdi mdi-pen icon-start" />
-                                                                {translate('Bewerken')}
-                                                            </a>
-                                                            <a
-                                                                className={classNames(
-                                                                    'dropdown-item',
-                                                                    reimbursementCategory.reimbursements_count > 0 &&
-                                                                        'disabled',
-                                                                )}
-                                                                onClick={() => {
-                                                                    deleteReimbursementCategory(reimbursementCategory);
-                                                                    close();
-                                                                }}>
-                                                                <em className="icon-start mdi mdi-delete" />
-                                                                Verwijderen
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {categories?.meta.total > 0 && (
-                    <div className={classNames('card-section', compact && 'card-section-narrow')}>
-                        <Paginator
-                            meta={categories.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                        <td className="td-narrow text-right">
+                            <TableRowActions
+                                content={({ close }) => (
+                                    <div className="dropdown dropdown-actions">
+                                        <a
+                                            className="dropdown-item"
+                                            onClick={() => {
+                                                editReimbursementCategory(reimbursementCategory);
+                                                close();
+                                            }}>
+                                            <em className="mdi mdi-pen icon-start" />
+                                            {translate('Bewerken')}
+                                        </a>
+                                        <a
+                                            className={classNames(
+                                                'dropdown-item',
+                                                reimbursementCategory.reimbursements_count > 0 && 'disabled',
+                                            )}
+                                            onClick={() => {
+                                                deleteReimbursementCategory(reimbursementCategory);
+                                                close();
+                                            }}>
+                                            <em className="icon-start mdi mdi-delete" />
+                                            Verwijderen
+                                        </a>
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </tr>
+                ))}
             </LoaderTableCard>
         </div>
     );

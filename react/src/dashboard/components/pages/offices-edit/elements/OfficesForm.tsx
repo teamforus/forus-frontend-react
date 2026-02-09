@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import FormError from '../../../elements/forms/errors/FormError';
@@ -197,9 +198,13 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
                                     <div className="form-group-info-button">
                                         <div
-                                            className={`button button-default button-icon pull-left ${
-                                                showBranchNumberTooltip ? 'active' : ''
-                                            }`}
+                                            className={classNames(
+                                                'button',
+                                                'button-default',
+                                                'button-icon',
+                                                'pull-left',
+                                                showBranchNumberTooltip && 'active',
+                                            )}
                                             onClick={() => setShowBranchNumberTooltip(!showBranchNumberTooltip)}>
                                             <em className="mdi mdi-information" />
                                         </div>
@@ -234,9 +239,13 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
                                     <div className="form-group-info-button">
                                         <div
-                                            className={`button button-default button-icon pull-left ${
-                                                showBranchNameTooltip ? 'active' : ''
-                                            }`}
+                                            className={classNames(
+                                                'button',
+                                                'button-default',
+                                                'button-icon',
+                                                'pull-left',
+                                                showBranchNameTooltip && 'active',
+                                            )}
                                             onClick={() => setShowBranchNameTooltip(!showBranchNameTooltip)}>
                                             <em className="mdi mdi-information" />
                                         </div>
@@ -271,9 +280,13 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
                                     <div className="form-group-info-button">
                                         <div
-                                            className={`button button-default button-icon pull-left ${
-                                                showBranchIdTooltip ? 'active' : ''
-                                            }`}
+                                            className={classNames(
+                                                'button',
+                                                'button-default',
+                                                'button-icon',
+                                                'pull-left',
+                                                showBranchIdTooltip && 'active',
+                                            )}
                                             onClick={() => setShowBranchIdTooltip(!showBranchIdTooltip)}>
                                             <em className="mdi mdi-information" />
                                         </div>

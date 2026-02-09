@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useRef } from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
@@ -77,7 +78,7 @@ export const TopNavbarDesktopMenuUser = () => {
                 </div>
 
                 <div className="navbar-desktop-user-caret">
-                    <em className={`mdi ${userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'}`} />
+                    <em className={classNames('mdi', userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
                 </div>
 
                 {userMenuOpened && (

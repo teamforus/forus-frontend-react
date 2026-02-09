@@ -1,8 +1,6 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Fund from '../../../../../props/models/Fund';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
-import EmptyCard from '../../../../elements/empty-card/EmptyCard';
-import Paginator from '../../../../../modules/paginator/components/Paginator';
 import useTranslate from '../../../../../hooks/useTranslate';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../../../modules/paginator/services/usePaginatorService';
@@ -15,13 +13,12 @@ import { useFundService } from '../../../../../services/FundService';
 import useFundIdentitiesExporter from '../../../../../services/exporters/useFundIdentitiesExporter';
 import { hasPermission } from '../../../../../helpers/utils';
 import { Permission } from '../../../../../props/models/Organization';
-import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../../elements/tables/TableRowActions';
 import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 import BlockLabelTabs from '../../../../elements/block-label-tabs/BlockLabelTabs';
+import LoaderTableCard from '../../../../elements/loader-table-card/LoaderTableCard';
 
 export default function OrganizationsFundsShowIdentitiesCard({
     fund,
@@ -53,11 +50,6 @@ export default function OrganizationsFundsShowIdentitiesCard({
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string; per_page?: number }>({
         q: '',
         per_page: paginatorService.getPerPage(paginationPerPageKey),
-    });
-
-    const { headElement, configsElement } = useConfigurableTable(fundService.getIdentitiesColumns(), {
-        filter,
-        sortable: true,
     });
 
     const fetchIdentities = useCallback(() => {
@@ -158,7 +150,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                         <em className="mdi mdi-download icon-start" />
                                         <span>
                                             {translate('components.dropdown.export', {
-                                                total: identities.meta.total,
+                                                total: identities?.meta?.total,
                                             })}
                                         </span>
                                     </button>
@@ -169,81 +161,49 @@ export default function OrganizationsFundsShowIdentitiesCard({
                 </div>
             </div>
 
-            {identities ? (
-                <Fragment>
-                    {identities?.meta?.total > 0 ? (
-                        <div className="card-section card-section-padless">
-                            {configsElement}
+            <LoaderTableCard
+                empty={identities?.meta?.total == 0}
+                emptyTitle={'Geen gebruikers gevonden'}
+                emptyDescription={lastQueryIdentities ? `Geen gebruikers gevonden voor "${lastQueryIdentities}"` : null}
+                columns={fundService.getIdentitiesColumns()}
+                tableOptions={{ filter, sortable: true }}
+                paginator={{ key: paginationPerPageKey, data: identities, filterValues, filterUpdate }}>
+                {identities?.data?.map((identity: SponsorIdentity, index: number) => (
+                    <tr key={index} data-dusk={`tableIdentityRow${identity.id}`}>
+                        <td>{identity.id}</td>
+                        <td>{identity.email}</td>
+                        <td>{identity.count_vouchers}</td>
+                        <td>{identity.count_vouchers_active}</td>
+                        <td>{identity.count_vouchers_active_with_balance}</td>
 
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    <tbody>
-                                        {identities.data.map((identity: SponsorIdentity, index: number) => (
-                                            <tr key={index} data-dusk={`tableIdentityRow${identity.id}`}>
-                                                <td>{identity.id}</td>
-                                                <td>{identity.email}</td>
-                                                <td>{identity.count_vouchers}</td>
-                                                <td>{identity.count_vouchers_active}</td>
-                                                <td>{identity.count_vouchers_active_with_balance}</td>
-
-                                                <td className={'table-td-actions text-right'}>
-                                                    <TableRowActions
-                                                        disabled={
-                                                            !hasPermission(
-                                                                activeOrganization,
-                                                                [
-                                                                    Permission.VIEW_IDENTITIES,
-                                                                    Permission.MANAGE_IDENTITIES,
-                                                                ],
-                                                                false,
-                                                            )
-                                                        }
-                                                        content={() => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <StateNavLink
-                                                                    className="dropdown-item"
-                                                                    name={DashboardRoutes.IDENTITY}
-                                                                    params={{
-                                                                        organizationId: fund.organization_id,
-                                                                        id: identity.id,
-                                                                    }}>
-                                                                    <em className="icon-start mdi mdi-eye-outline" />
-                                                                    Bekijken
-                                                                </StateNavLink>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    ) : (
-                        <EmptyCard
-                            title={'Geen gebruikers gevonden'}
-                            type={'card-section'}
-                            description={
-                                lastQueryIdentities ? `Geen gebruikers gevonden voor "${lastQueryIdentities}"` : null
-                            }
-                        />
-                    )}
-
-                    <div className="card-section card-section-narrow" hidden={identities.meta.total < 1}>
-                        <Paginator
-                            meta={identities.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginationPerPageKey}
-                        />
-                    </div>
-                </Fragment>
-            ) : (
-                <LoadingCard type={'card-section'} />
-            )}
+                        <td className={'table-td-actions text-right'}>
+                            <TableRowActions
+                                disabled={
+                                    !hasPermission(
+                                        activeOrganization,
+                                        [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES],
+                                        false,
+                                    )
+                                }
+                                content={() => (
+                                    <div className="dropdown dropdown-actions">
+                                        <StateNavLink
+                                            className="dropdown-item"
+                                            name={DashboardRoutes.IDENTITY}
+                                            params={{
+                                                organizationId: fund.organization_id,
+                                                id: identity.id,
+                                            }}>
+                                            <em className="icon-start mdi mdi-eye-outline" />
+                                            Bekijken
+                                        </StateNavLink>
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
 
             {identities?.meta?.total > 0 && (
                 <div className="card-section card-section-primary">

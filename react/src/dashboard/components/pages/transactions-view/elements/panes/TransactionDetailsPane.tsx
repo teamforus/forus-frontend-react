@@ -3,6 +3,7 @@ import useTransactionService from '../../../../../services/TransactionService';
 import useProductReservationService from '../../../../../services/ProductReservationService';
 import Reservation from '../../../../../props/models/Reservation';
 import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
+import classNames from 'classnames';
 import useEnvData from '../../../../../hooks/useEnvData';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
@@ -222,7 +223,7 @@ export default function TransactionDetailsPane({
                     {transaction.iban_from && (
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.iban_from')}>
                             <Fragment>
-                                <span className={transaction.iban_final ? '' : 'text-muted-dark'}>
+                                <span className={classNames(!transaction.iban_final && 'text-muted-dark')}>
                                     {transaction.iban_from}
                                 </span>
                                 {!transaction.iban_final && (
@@ -238,9 +239,9 @@ export default function TransactionDetailsPane({
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.iban_to')}>
                             <Fragment>
                                 <span
-                                    className={
-                                        !transaction.iban_final && transaction.target != 'iban' ? 'text-muted-dark' : ''
-                                    }>
+                                    className={classNames(
+                                        !transaction.iban_final && transaction.target != 'iban' && 'text-muted-dark',
+                                    )}>
                                     {transaction.iban_to}
                                 </span>
 
@@ -257,9 +258,9 @@ export default function TransactionDetailsPane({
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.iban_to_name')}>
                             <Fragment>
                                 <span
-                                    className={
-                                        !transaction.iban_final && transaction.target != 'iban' ? 'text-muted-dark' : ''
-                                    }>
+                                    className={classNames(
+                                        !transaction.iban_final && transaction.target != 'iban' && 'text-muted-dark',
+                                    )}>
                                     {transaction.iban_to_name}
                                 </span>
                                 {!transaction.iban_final && transaction.target != 'iban' && (

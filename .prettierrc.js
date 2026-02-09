@@ -6,10 +6,10 @@ module.exports = {
     singleQuote: true,
     trailingComma: 'all',
     bracketSpacing: true,
-    jsxBracketSameLine: true,
+    bracketSameLine: true,
     arrowParens: 'always',
     requirePragma: false,
     insertPragma: false,
     proseWrap: 'always',
-    endOfLine:"auto",
+    endOfLine: 'auto',
 };

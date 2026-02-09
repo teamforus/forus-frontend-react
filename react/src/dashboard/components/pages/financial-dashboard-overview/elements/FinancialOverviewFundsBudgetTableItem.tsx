@@ -51,7 +51,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
     );
 
     return (
-        <tbody>
+        <Fragment>
             <tr
                 className={classNames('tr-clickable', !collapsed && 'table-separator')}
                 onClick={() => setCollapsed(!collapsed)}>
@@ -201,6 +201,6 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                     )}
                 </Fragment>
             )}
-        </tbody>
+        </Fragment>
     );
 }

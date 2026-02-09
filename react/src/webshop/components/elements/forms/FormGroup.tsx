@@ -25,7 +25,7 @@ export default function FormGroup({
     return (
         <div className={classNames('form-group', error && 'form-group-error', className)} hidden={hidden}>
             {label && (
-                <label htmlFor={input_id} className={classNames(`form-label`, required && 'form-label-required')}>
+                <label htmlFor={input_id} className={classNames('form-label', required && 'form-label-required')}>
                     {label}
                 </label>
             )}

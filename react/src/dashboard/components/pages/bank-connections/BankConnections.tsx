@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import 'react-image-crop/dist/ReactCrop.css';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
@@ -245,7 +246,14 @@ export default function BankConnections() {
                                 <EmptyCard
                                     title={'Bunq integratie'}
                                     imageIconImg={assetUrl('/assets/img/bunq-logo.jpg')}
-                                    button={{ text: 'Selecteer', type: 'primary', onClick: () => selectBank('bunq') }}
+                                    actions={
+                                        <button
+                                            type="button"
+                                            className="button button-primary"
+                                            onClick={() => selectBank('bunq')}>
+                                            Selecteer
+                                        </button>
+                                    }
                                 />
                             </div>
 
@@ -253,7 +261,14 @@ export default function BankConnections() {
                                 <EmptyCard
                                     title={'BNG integratie'}
                                     imageIconImg={assetUrl('/assets/img/bng-logo.jpg')}
-                                    button={{ text: 'Selecteer', type: 'primary', onClick: () => selectBank('bng') }}
+                                    actions={
+                                        <button
+                                            type="button"
+                                            className="button button-primary"
+                                            onClick={() => selectBank('bng')}>
+                                            Selecteer
+                                        </button>
+                                    }
                                 />
                             </div>
                         </div>
@@ -267,12 +282,18 @@ export default function BankConnections() {
                             imageIconImg={assetUrl(
                                 bank?.key === 'bunq' ? '/assets/img/bunq-logo.jpg' : '/assets/img/bng-logo.jpg',
                             )}
-                            button={{
-                                text: 'Koppelen',
-                                type: 'primary',
-                                icon: submittingConnection ? 'loading mdi-spin icon-start' : 'link-variant icon-start',
-                                onClick: () => makeBankConnection(bank),
-                            }}
+                            actions={
+                                <button className={'button button-primary'} onClick={() => makeBankConnection(bank)}>
+                                    <em
+                                        className={classNames(
+                                            'mdi',
+                                            'icon-start',
+                                            submittingConnection ? 'mdi-loading mdi-spin' : 'mdi-link-variant',
+                                        )}
+                                    />
+                                    Koppelen
+                                </button>
+                            }
                         />
                     )}
                 </Fragment>
@@ -352,7 +373,10 @@ export default function BankConnections() {
                                                 <tr key={bankConnection.id}>
                                                     <td>{bankConnection.created_at_locale}</td>
                                                     <td>{bankConnection.bank.name}</td>
-                                                    <td className={bankConnection.expire_at ? '' : 'text-muted'}>
+                                                    <td
+                                                        className={classNames(
+                                                            !bankConnection.expire_at && 'text-muted',
+                                                        )}>
                                                         {bankConnection.expire_at
                                                             ? bankConnection.expire_at_locale
                                                             : 'Geen verloopdatum'}

@@ -97,11 +97,12 @@ export default function LayoutFooter() {
 
                         <div className="col col-md-3 footer-col footer-col-last">
                             <div
-                                className={`flex flex-vertical ${
-                                    appConfigs?.pages?.footer_app_info?.description_position == 'after'
-                                        ? 'flex-vertical-reverse'
-                                        : ''
-                                }`}>
+                                className={classNames(
+                                    'flex',
+                                    'flex-vertical',
+                                    appConfigs?.pages?.footer_app_info?.description_position == 'after' &&
+                                        'flex-vertical-reverse',
+                                )}>
                                 {appConfigs?.pages?.footer_app_info?.description_html && (
                                     <div className="block block-markdown">
                                         <Markdown content={appConfigs?.pages?.footer_app_info?.description_html} />

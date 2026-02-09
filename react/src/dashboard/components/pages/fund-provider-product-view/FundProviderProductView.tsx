@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router';
 import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
@@ -16,9 +16,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
 import useProductChat from '../fund-provider/hooks/useProductChat';
 import FundProviderProductRowData from '../fund-provider/elements/FundProviderProductRowData';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import FormPane from '../../elements/forms/elements/FormPane';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import EmptyValue from '../../elements/empty-value/EmptyValue';
@@ -43,11 +41,7 @@ export default function FundProviderProductView() {
         return product?.deals_history?.find((item) => item.active);
     }, [product?.deals_history]);
 
-    const tableRef = useRef<HTMLTableElement>(null);
-
-    const { headElement, configsElement } = useConfigurableTable(
-        fundService.getProviderProductColumns(fund, product, true),
-    );
+    const dealsHistory = product?.deals_history || [];
 
     const { disableProduct, editProduct, mapProduct, isProductConfigurable } = useUpdateProduct();
     const { openProductChat, makeProductChat } = useProductChat(fund, fundProvider, activeOrganization);
@@ -299,43 +293,29 @@ export default function FundProviderProductView() {
                 <div className="card-header">
                     <div className="card-title">Toon geschiedenis</div>
                 </div>
-                {product.deals_history?.length === 0 ? (
-                    <EmptyCard
-                        title={'Toon geschiedenis'}
-                        description={'Er zijn momenteel geen beperkingen op het aanbod ingesteld.'}
-                        type={'card-section'}
-                    />
-                ) : (
-                    <div className="card-section card-section-padless">
-                        {configsElement}
-
-                        <TableTopScroller onScroll={() => tableRef.current?.click()}>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {product.deals_history.map((item) => (
-                                        <tr key={item.id}>
-                                            <td>{item.voucher_transactions_count}</td>
-                                            <td>{item.product_reservations_pending_count}</td>
-                                            <td>{product.price_locale}</td>
-                                            <FundProviderProductRowData
-                                                deal={item}
-                                                product={product}
-                                                history={true}
-                                                fund={fund}
-                                                organization={activeOrganization}
-                                                fundProvider={fundProvider}
-                                                onChange={fetchProduct}
-                                                onChangeProvider={setFundProvider}
-                                            />
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                )}
+                <LoaderTableCard
+                    empty={dealsHistory.length === 0}
+                    emptyTitle={'Toon geschiedenis'}
+                    emptyDescription={'Er zijn momenteel geen beperkingen op het aanbod ingesteld.'}
+                    columns={fundService.getProviderProductColumns(fund, product, true)}>
+                    {dealsHistory.map((item) => (
+                        <tr key={item.id}>
+                            <td>{item.voucher_transactions_count}</td>
+                            <td>{item.product_reservations_pending_count}</td>
+                            <td>{product.price_locale}</td>
+                            <FundProviderProductRowData
+                                deal={item}
+                                product={product}
+                                history={true}
+                                fund={fund}
+                                organization={activeOrganization}
+                                fundProvider={fundProvider}
+                                onChange={fetchProduct}
+                                onChangeProvider={setFundProvider}
+                            />
+                        </tr>
+                    ))}
+                </LoaderTableCard>
             </div>
         </Fragment>
     );

@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { SearchItem, useSearchService } from '../../../services/SearchService';
@@ -394,7 +395,11 @@ export default function Search() {
 
                                 <div className="label-tab-set">
                                     <div
-                                        className={`label-tab label-tab-sm ${displayType == 'list' ? 'active' : ''}`}
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            displayType == 'list' && 'active',
+                                        )}
                                         onClick={() => setDisplayType('list')}
                                         onKeyDown={clickOnKeyEnter}
                                         tabIndex={0}
@@ -404,7 +409,11 @@ export default function Search() {
                                         {translate('search.view.list')}
                                     </div>
                                     <div
-                                        className={`label-tab label-tab-sm ${displayType == 'grid' ? 'active' : ''}`}
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            displayType == 'grid' && 'active',
+                                        )}
                                         onClick={() => setDisplayType('grid')}
                                         onKeyDown={clickOnKeyEnter}
                                         tabIndex={0}

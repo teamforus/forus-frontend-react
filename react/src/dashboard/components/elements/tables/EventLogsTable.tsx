@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import LoadingCard from '../loading-card/LoadingCard';
 import FilterItemToggle from './elements/FilterItemToggle';
 import CardHeaderFilter from './elements/CardHeaderFilter';
@@ -15,15 +14,13 @@ import ClickOutside from '../click-outside/ClickOutside';
 import { strLimit } from '../../../helpers/string';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import EmptyCard from '../empty-card/EmptyCard';
-import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
-import TableTopScroller from './TableTopScroller';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 import CheckboxControl from '../forms/controls/CheckboxControl';
 import useEventLogsExporter from '../../../services/exporters/useEventLogsExporter';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { ArrayParam, NumberParam, StringParam } from 'use-query-params';
 import FormGroup from '../forms/elements/FormGroup';
+import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 
 export default function EventLogsTable({
     organization,
@@ -67,8 +64,6 @@ export default function EventLogsTable({
             { key: 'voucher', title: 'Tegoeden' },
         ].filter((item) => hasPermission(organization, permissionsMap[item.key]));
     }, [organization, permissionsMap]);
-
-    const { headElement, configsElement } = useConfigurableTable(eventLogService.getColumns(hideEntity));
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
@@ -167,7 +162,7 @@ export default function EventLogsTable({
         <div className="card" data-dusk="tableEventLogsContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {title || 'Activiteitenlogboek'} ({logs.meta.total})
+                    {title || 'Activiteitenlogboek'} ({logs?.meta?.total})
                 </div>
                 <div className="card-header-filters">
                     {!hideFilterForm && (
@@ -228,10 +223,10 @@ export default function EventLogsTable({
                                             className="button button-primary button-wide"
                                             onClick={() => exportLogs()}
                                             data-dusk="export"
-                                            disabled={logs.meta.total == 0}>
+                                            disabled={logs?.meta?.total == 0}>
                                             <em className="mdi mdi-download icon-start"> </em>
                                             {translate('components.dropdown.export', {
-                                                total: logs.meta.total,
+                                                total: logs?.meta?.total,
                                             })}
                                         </button>
                                     </div>
@@ -242,93 +237,63 @@ export default function EventLogsTable({
                 </div>
             </div>
 
-            {logs.meta.total > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+            <LoaderTableCard
+                empty={logs?.meta?.total === 0}
+                emptyTitle={'Geen logboeken gevonden'}
+                columns={eventLogService.getColumns(hideEntity)}
+                tableOptions={{ filter, sortable: true }}
+                paginator={{ key: perPageKey, data: logs, filterValues, filterUpdate }}>
+                {logs?.data?.map((log) => (
+                    <tr key={log.id} data-dusk={`tableEventLogsRow${log.id}`}>
+                        <td>
+                            <div className="text-semibold text-primary nowrap">
+                                {log.created_at_locale.split(' - ')[0]}
+                            </div>
+                            <div className="text-strong text-md text-muted-dark nowrap">
+                                {log.created_at_locale.split(' - ')[1]}
+                            </div>
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        {!hideEntity && <td dangerouslySetInnerHTML={{ __html: log.loggable_locale }} />}
 
-                                <tbody>
-                                    {logs.data.map((log) => (
-                                        <tr key={log.id} data-dusk={`tableEventLogsRow${log.id}`}>
-                                            <td>
-                                                <div className="text-semibold text-primary nowrap">
-                                                    {log.created_at_locale.split(' - ')[0]}
-                                                </div>
-                                                <div className="text-strong text-md text-muted-dark nowrap">
-                                                    {log.created_at_locale.split(' - ')[1]}
-                                                </div>
-                                            </td>
+                        <td dangerouslySetInnerHTML={{ __html: log.event_locale }} />
 
-                                            {!hideEntity && (
-                                                <td dangerouslySetInnerHTML={{ __html: log.loggable_locale }} />
-                                            )}
+                        {log.identity_email ? (
+                            <td>{log.identity_email}</td>
+                        ) : (
+                            <td className="text-muted">Geen e-mailadres bekend</td>
+                        )}
 
-                                            <td dangerouslySetInnerHTML={{ __html: log.event_locale }} />
+                        <td>
+                            {log.note && log.note != log.note_substr && (
+                                <a
+                                    className={classNames(
+                                        'td-icon',
+                                        'mdi',
+                                        'mdi-information',
+                                        'block',
+                                        'block-tooltip-details',
+                                        'pull-left',
+                                        noteTooltip === log.id && 'active',
+                                    )}
+                                    onClick={(e) => showNoteTooltip(e, log)}>
+                                    {noteTooltip && (
+                                        <ClickOutside className="tooltip-content" onClickOutside={hideNoteTooltip}>
+                                            <div className="tooltip-text">{log.note}</div>
+                                        </ClickOutside>
+                                    )}
+                                    &nbsp;
+                                </a>
+                            )}
 
-                                            {log.identity_email ? (
-                                                <td>{log.identity_email}</td>
-                                            ) : (
-                                                <td className="text-muted">Geen e-mailadres bekend</td>
-                                            )}
-
-                                            <td>
-                                                {log.note && log.note != log.note_substr && (
-                                                    <a
-                                                        className={classNames(
-                                                            'td-icon',
-                                                            'mdi',
-                                                            'mdi-information',
-                                                            'block',
-                                                            'block-tooltip-details',
-                                                            'pull-left',
-                                                            noteTooltip === log.id && 'active',
-                                                        )}
-                                                        onClick={(e) => showNoteTooltip(e, log)}>
-                                                        {noteTooltip && (
-                                                            <ClickOutside
-                                                                className="tooltip-content"
-                                                                onClickOutside={hideNoteTooltip}>
-                                                                <div className="tooltip-text">{log.note}</div>
-                                                            </ClickOutside>
-                                                        )}
-                                                        &nbsp;
-                                                    </a>
-                                                )}
-
-                                                {log.note ? (
-                                                    <div>{log.note_substr}</div>
-                                                ) : (
-                                                    <div className="text-muted">Geen notitie</div>
-                                                )}
-                                            </td>
-                                            <td className={'table-td-actions text-right'}>
-                                                <TableEmptyValue />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {logs.meta.total === 0 ? (
-                <EmptyCard title={'Geen logboeken gevonden'} type={'card-section'} />
-            ) : (
-                <div className="card-section">
-                    <Paginator
-                        meta={logs.meta}
-                        filters={filterValues}
-                        perPageKey={perPageKey}
-                        updateFilters={filterUpdate}
-                    />
-                </div>
-            )}
+                            {log.note ? <div>{log.note_substr}</div> : <div className="text-muted">Geen notitie</div>}
+                        </td>
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

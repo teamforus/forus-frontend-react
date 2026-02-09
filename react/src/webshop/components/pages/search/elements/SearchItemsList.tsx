@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
 import { useProductService } from '../../../../services/ProductService';
 import { strLimit } from '../../../../../dashboard/helpers/string';
@@ -37,7 +38,7 @@ export default function SearchItemsList({
     }, []);
 
     return (
-        <div className={`block block-search-results ${display === 'grid' ? 'block-search-results-grid' : ''}`}>
+        <div className={classNames('block', 'block-search-results', display === 'grid' && 'block-search-results-grid')}>
             {items?.map((item, index) => (
                 <div className="search-wrapper" key={index}>
                     {item.item_type === 'product' && (

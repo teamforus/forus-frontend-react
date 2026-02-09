@@ -27,7 +27,7 @@ export default function ModalFundRequestClarificationResponse({
     const [shownClarificationForms, setShownClarificationForms] = useState(clarification?.id ? [clarification.id] : []);
 
     return (
-        <div className={classNames(`modal modal-animated`, !modal.loading && 'modal-loaded')} role="dialog">
+        <div className={classNames('modal', 'modal-animated', !modal.loading && 'modal-loaded')} role="dialog">
             <div
                 className="modal-backdrop"
                 onClick={modal.close}

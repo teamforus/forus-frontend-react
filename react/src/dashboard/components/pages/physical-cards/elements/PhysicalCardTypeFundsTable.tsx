@@ -1,11 +1,8 @@
 import { PaginationData } from '../../../../props/ApiResponses';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
@@ -65,10 +62,6 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
         physical_card_type_id: physicalCardType?.id,
     });
 
-    const { headElement, configsElement } = useConfigurableTable(
-        fundService.getColumns(activeOrganization, filterActiveValues?.funds_type),
-    );
-
     const fetchFunds = useCallback(() => {
         setProgress(0);
 
@@ -99,7 +92,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
-                    {translate('components.organization_funds.title')} ({funds.meta.total})
+                    {translate('components.organization_funds.title')} ({funds?.meta?.total})
                 </div>
 
                 <div className="card-header-filters">
@@ -187,87 +180,62 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
                 loading={!funds?.meta}
                 empty={funds?.meta?.total === 0}
                 emptyTitle={'Geen fondsen'}
-                emptyDescription={'Geen fondsen gevonden.'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                emptyDescription={'Geen fondsen gevonden.'}
+                columns={fundService.getColumns(activeOrganization, filterActiveValues?.funds_type)}
+                paginator={{ key: paginatorKey, data: funds, filterValues, filterUpdate }}>
+                {funds?.data?.map((fund) => (
+                    <StateNavLink
+                        key={fund.id}
+                        name={DashboardRoutes.FUND}
+                        params={{ organizationId: activeOrganization.id, fundId: fund.id }}
+                        customElement={'tr'}
+                        className={'tr-clickable'}>
+                        <td>
+                            <TableEntityMain
+                                title={strLimit(fund.name, 50)}
+                                subtitle={fund.organization?.name}
+                                mediaPlaceholder={'fund'}
+                                media={fund?.logo}
+                            />
+                        </td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td className="text-strong text-muted-dark">
+                            {fund?.implementation?.name || <TableEmptyValue />}
+                        </td>
 
-                                <tbody>
-                                    {funds.data.map((fund) => (
+                        {filterActiveValues?.funds_type == 'active' && (
+                            <Fragment>
+                                {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
+                                    <td>{fund.budget?.left_locale}</td>
+                                )}
+
+                                <td className="text-strong text-muted-dark">{fund.requester_count}</td>
+                            </Fragment>
+                        )}
+
+                        <td>
+                            <FundStateLabels fund={fund} />
+                        </td>
+
+                        <td className={'table-td-actions text-right'}>
+                            <TableRowActions
+                                content={() => (
+                                    <div className="dropdown dropdown-actions">
                                         <StateNavLink
-                                            key={fund.id}
                                             name={DashboardRoutes.FUND}
-                                            params={{ organizationId: activeOrganization.id, fundId: fund.id }}
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}>
-                                            <td>
-                                                <TableEntityMain
-                                                    title={strLimit(fund.name, 50)}
-                                                    subtitle={fund.organization?.name}
-                                                    mediaPlaceholder={'fund'}
-                                                    media={fund?.logo}
-                                                />
-                                            </td>
-
-                                            <td className="text-strong text-muted-dark">
-                                                {fund?.implementation?.name || <TableEmptyValue />}
-                                            </td>
-
-                                            {filterActiveValues?.funds_type == 'active' && (
-                                                <Fragment>
-                                                    {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
-                                                        <td>{fund.budget?.left_locale}</td>
-                                                    )}
-
-                                                    <td className="text-strong text-muted-dark">
-                                                        {fund.requester_count}
-                                                    </td>
-                                                </Fragment>
-                                            )}
-
-                                            <td>
-                                                <FundStateLabels fund={fund} />
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                <TableRowActions
-                                                    content={() => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <StateNavLink
-                                                                name={DashboardRoutes.FUND}
-                                                                params={{
-                                                                    organizationId: activeOrganization.id,
-                                                                    fundId: fund.id,
-                                                                }}
-                                                                className="dropdown-item">
-                                                                <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                            </StateNavLink>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
+                                            params={{
+                                                organizationId: activeOrganization.id,
+                                                fundId: fund.id,
+                                            }}
+                                            className="dropdown-item">
+                                            <em className="mdi mdi-eye icon-start" /> Bekijken
                                         </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {funds?.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={funds.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </StateNavLink>
+                ))}
             </LoaderTableCard>
         </div>
     );

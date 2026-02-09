@@ -70,7 +70,12 @@ export default function PushNotificationsGroup({
                 {shownNotifications?.map((notification) => (
                     <div
                         key={notification.id}
-                        className={classNames('notification', `notification-${notification.type}`)}
+                        className={classNames(
+                            'notification',
+                            notification.type === 'success' && 'notification-success',
+                            notification.type === 'danger' && 'notification-danger',
+                            notification.type === 'info' && 'notification-info',
+                        )}
                         role="status"
                         data-dusk={`${notification.type}Notification`}>
                         {notification.icon && <em className={`notification-icon mdi mdi-${notification.icon}`} />}

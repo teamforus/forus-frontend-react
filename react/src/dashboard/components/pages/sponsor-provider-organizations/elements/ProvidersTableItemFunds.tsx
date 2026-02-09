@@ -11,6 +11,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
+import classNames from 'classnames';
 
 export default function ProvidersTableItemFunds({
     filterValues,
@@ -76,14 +77,13 @@ export default function ProvidersTableItemFunds({
                                         </td>
                                         <td>
                                             <div
-                                                className={`label label-${
-                                                    {
-                                                        accepted: 'success',
-                                                        pending: 'default',
-                                                        rejected: 'danger',
-                                                        unsubscribed: 'danger-light',
-                                                    }[fundProvider.state]
-                                                }`}>
+                                                className={classNames(
+                                                    'label',
+                                                    fundProvider.state === 'accepted' && 'label-success',
+                                                    fundProvider.state === 'pending' && 'label-default',
+                                                    fundProvider.state === 'rejected' && 'label-danger',
+                                                    fundProvider.state === 'unsubscribed' && 'label-danger-light',
+                                                )}>
                                                 {fundProvider.state_locale}
                                             </div>
                                         </td>

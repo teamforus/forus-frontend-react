@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import Organization from '../../../../props/models/Organization';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import Fund from '../../../../props/models/Fund';
@@ -206,9 +207,12 @@ export default function SignUpAvailableFunds({
                 {funds?.data.map((fund) => (
                     <div className="card" key={fund.id}>
                         <div
-                            className={`card-section card-section-fund ${fund.applied ? 'applied' : ''} ${
-                                selected[fund.id] ? 'selected' : ''
-                            }`}>
+                            className={classNames(
+                                'card-section',
+                                'card-section-fund',
+                                fund.applied && 'applied',
+                                selected[fund.id] && 'selected',
+                            )}>
                             <div className="card-block-checkbox">
                                 <UIControlCheckbox
                                     className="ui-control-checkbox-primary"
