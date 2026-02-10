@@ -17,18 +17,16 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import ProductDetailsBlock from './elements/ProductDetailsBlock';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import ProductFund from '../../../props/models/ProductFund';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -73,8 +71,6 @@ export default function ProductView() {
             },
         },
     );
-
-    const { headElement, configsElement } = useConfigurableTable(productService.getFundsColumns(product));
 
     const deleteProduct = useCallback(
         (product: Product) => {
@@ -121,7 +117,7 @@ export default function ProductView() {
         ): PaginationData<ProductFundLocal> => {
             return {
                 ...funds,
-                data: funds.data.map((fund) => ({
+                data: funds?.data?.map((fund) => ({
                     ...fund,
                     chat: chats.data.find((chat) => fund.id == chat.fund_id),
                 })),
@@ -250,139 +246,101 @@ export default function ProductView() {
                     </div>
                 </div>
 
-                {funds?.meta.total > 0 ? (
-                    <div className="card-section">
-                        <div className="card-block card-block-table">
-                            {configsElement}
+                <LoaderTableCard
+                    empty={funds?.meta?.total == 0}
+                    emptyTitle={'Geen fondsen'}
+                    emptyDescription={
+                        'Uw aanbod kan nog niet op een website worden geplaatst omdat u zich eerst voor een fonds moet ' +
+                        'aanmelden. Meld u aan voor één of meerdere fondsen.'
+                    }
+                    emptyButton={{
+                        state: DashboardRoutes.PROVIDER_FUNDS,
+                        stateParams: { organizationId: activeOrganization.id },
+                        type: 'primary',
+                        icon: 'plus',
+                        text: 'Bekijk beschikbare fondsen',
+                    }}
+                    columns={productService.getFundsColumns(product)}
+                    paginator={{ key: paginatorKey, data: funds, filterValues, filterUpdate }}>
+                    {funds?.data?.map((fund) => (
+                        <tr key={fund.id}>
+                            <td>
+                                <TableEntityMain
+                                    title={fund.name}
+                                    subtitle={fund.organization.name}
+                                    media={fund.logo}
+                                    mediaRound={false}
+                                    mediaSize={'md'}
+                                    mediaPlaceholder={'fund'}
+                                />
+                            </td>
+                            <td>
+                                {fund.approved ? (
+                                    <Label type="success">Geaccepteerd</Label>
+                                ) : (
+                                    <Label type="default">Wachtend</Label>
+                                )}
+                            </td>
+                            {!product.sponsor_organization && fundToggles && (
+                                <td className="form">
+                                    <ToggleControl
+                                        id={`fund_exclusion_id_${fund.id}`}
+                                        checked={!fundToggles[fund.id]}
+                                        onChange={() => {
+                                            setFundToggles((fundToggles) => ({
+                                                ...fundToggles,
+                                                [fund.id]: !fundToggles[fund.id],
+                                            }));
+                                            changeFundExclusion(fund, fundToggles[fund.id]);
+                                        }}
+                                    />
+                                </td>
+                            )}
+                            <td className="nowrap">
+                                <button
+                                    className={classNames(
+                                        'button',
+                                        'button-icon',
+                                        fund.chat?.provider_unseen_messages > 0
+                                            ? 'button-primary-light'
+                                            : 'button-default',
+                                    )}
+                                    disabled={!fund.chat}
+                                    onClick={() => showTheChat(fund)}>
+                                    <em
+                                        className={`mdi mdi-message-text ${
+                                            fund.chat && !fund.chat.provider_unseen_messages ? 'text-primary' : ''
+                                        }`}
+                                    />
+                                </button>
 
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    <tbody>
-                                        {funds?.data?.map((fund) => (
-                                            <tr key={fund.id}>
-                                                <td>
-                                                    <TableEntityMain
-                                                        title={fund.name}
-                                                        subtitle={fund.organization.name}
-                                                        media={fund.logo}
-                                                        mediaRound={false}
-                                                        mediaSize={'md'}
-                                                        mediaPlaceholder={'fund'}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    {fund.approved ? (
-                                                        <Label type="success">Geaccepteerd</Label>
-                                                    ) : (
-                                                        <Label type="default">Wachtend</Label>
-                                                    )}
-                                                </td>
-                                                {!product.sponsor_organization && fundToggles && (
-                                                    <td className="form">
-                                                        <ToggleControl
-                                                            id={`fund_exclusion_id_${fund.id}`}
-                                                            checked={!fundToggles[fund.id]}
-                                                            onChange={() => {
-                                                                setFundToggles((fundToggles) => ({
-                                                                    ...fundToggles,
-                                                                    [fund.id]: !fundToggles[fund.id],
-                                                                }));
-                                                                changeFundExclusion(fund, fundToggles[fund.id]);
-                                                            }}
-                                                        />
-                                                    </td>
+                                {!fund.chat && <span>&nbsp;&nbsp; Geen berichten</span>}
+                                {fund.chat?.provider_unseen_messages > 0 && (
+                                    <span>&nbsp;&nbsp; {`${fund.chat.provider_unseen_messages} nieuwe`}</span>
+                                )}
+                            </td>
+                            <td className={'table-td-actions text-right'}>
+                                <TableRowActions
+                                    content={() => (
+                                        <div className="dropdown dropdown-actions">
+                                            <a
+                                                className={classNames(
+                                                    'dropdown-item',
+                                                    (!fund.approved || fund.provider_excluded) && 'disabled',
                                                 )}
-                                                <td className="nowrap">
-                                                    <button
-                                                        className={`button button-icon ${
-                                                            fund.chat?.provider_unseen_messages > 0
-                                                                ? 'button-primary-light'
-                                                                : 'button-default'
-                                                        }`}
-                                                        disabled={!fund.chat}
-                                                        onClick={() => showTheChat(fund)}>
-                                                        <em
-                                                            className={`mdi mdi-message-text ${
-                                                                fund.chat && !fund.chat.provider_unseen_messages
-                                                                    ? 'text-primary'
-                                                                    : ''
-                                                            }`}
-                                                        />
-                                                    </button>
-
-                                                    {!fund.chat && <span>&nbsp;&nbsp; Geen berichten</span>}
-                                                    {fund.chat?.provider_unseen_messages > 0 && (
-                                                        <span>
-                                                            &nbsp;&nbsp;{' '}
-                                                            {`${fund.chat.provider_unseen_messages} nieuwe`}
-                                                        </span>
-                                                    )}
-                                                </td>
-                                                <td className={'table-td-actions text-right'}>
-                                                    <TableRowActions
-                                                        content={() => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <a
-                                                                    className={classNames(
-                                                                        'dropdown-item',
-                                                                        (!fund.approved || fund.provider_excluded) &&
-                                                                            'disabled',
-                                                                    )}
-                                                                    href={`${fund.implementation.url_webshop}products/${product.id}`}
-                                                                    target="_blank"
-                                                                    rel="noreferrer">
-                                                                    <em className="mdi mdi-eye-outline icon-start">
-                                                                        {' '}
-                                                                    </em>
-                                                                    {fund.provider_excluded
-                                                                        ? 'Verborgen op webshop'
-                                                                        : 'Bekijk op webshop'}
-                                                                </a>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="card-section">
-                        <div className={`block block-empty text-center}`}>
-                            <div className="empty-details">
-                                Uw aanbod kan nog niet op een website worden geplaatst omdat u zich eerst voor een fonds
-                                moet aanmelden. Meld u aan voor één of meerdere fondsen.
-                            </div>
-                            <div className="empty-actions">
-                                <div className="button-group">
-                                    <StateNavLink
-                                        name={DashboardRoutes.PROVIDER_FUNDS}
-                                        params={{ organizationId: activeOrganization.id }}
-                                        className="button button-primary">
-                                        <em className="mdi mdi-plus icon-start" />
-                                        Bekijk beschikbare fondsen
-                                    </StateNavLink>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {funds?.meta && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={funds.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                                                href={`${fund.implementation.url_webshop}products/${product.id}`}
+                                                target="_blank"
+                                                rel="noreferrer">
+                                                <em className="mdi mdi-eye-outline icon-start"> </em>
+                                                {fund.provider_excluded ? 'Verborgen op webshop' : 'Bekijk op webshop'}
+                                            </a>
+                                        </div>
+                                    )}
+                                />
+                            </td>
+                        </tr>
+                    ))}
+                </LoaderTableCard>
             </div>
         </Fragment>
     );

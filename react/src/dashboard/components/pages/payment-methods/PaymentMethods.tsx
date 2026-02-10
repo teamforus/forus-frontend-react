@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -184,7 +185,9 @@ export default function PaymentMethods() {
                                         Een nieuw Mollie account aanmaken
                                     </button>
 
-                                    <div className={(privacy ? '' : 'text-muted') + ' button-text-divider'}>or</div>
+                                    <div className={classNames('button-text-divider', !privacy && 'text-muted')}>
+                                        or
+                                    </div>
                                     <button
                                         className="button button-text"
                                         type="button"

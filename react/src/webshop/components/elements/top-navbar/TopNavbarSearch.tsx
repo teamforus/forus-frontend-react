@@ -163,7 +163,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
     }, [currentState?.state?.name, clearSearch]);
 
     return (
-        <div className={classNames(`block block-navbar-search`, dropdown && 'block-navbar-search-results')}>
+        <div className={classNames('block', 'block-navbar-search', dropdown && 'block-navbar-search-results')}>
             <form
                 onSubmit={(e) => {
                     e?.preventDefault();
@@ -177,7 +177,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                     navigateState(WebshopRoutes.SEARCH, {}, { q: filterValues.q });
                     document.querySelector<HTMLInputElement>('#main_search')?.focus();
                 }}
-                className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
+                className={classNames('search-form', 'form', resultsAll?.length > 0 && 'search-form-found')}>
                 <ClickOutside onClickOutside={hideSearchBox}>
                     <div
                         className="search-area"

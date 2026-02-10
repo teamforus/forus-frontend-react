@@ -13,7 +13,7 @@ export default function BlockOrganizationOffices({ provider }: { provider: Provi
 
     return (
         <div className="block block-organization-offices">
-            <div className={`organization-pane`}>
+            <div className="organization-pane">
                 <div className="organization-pane-info">
                     <div className="organization-logo">
                         <img
@@ -46,12 +46,12 @@ export default function BlockOrganizationOffices({ provider }: { provider: Provi
                     aria-controls={'organization-offices-list'}
                     onClick={() => setShowOffices(!showOffices)}>
                     <div className="organization-chevron">
-                        <em className={`mdi ${showOffices ? 'mdi-chevron-up' : 'mdi-chevron-right'}`} />
+                        <em className={classNames('mdi', showOffices ? 'mdi-chevron-up' : 'mdi-chevron-right')} />
                     </div>
                     <div className="organization-total-offices">
                         {translate('list_blocks.provider_item_list.show_locations')}
                     </div>
-                    <div className={classNames(`organization-total-offices-count`, showOffices && 'active')}>
+                    <div className={classNames('organization-total-offices-count', showOffices && 'active')}>
                         {provider.offices.length}
                     </div>
                 </button>

@@ -250,7 +250,7 @@ export default function FundCriteriaEditorItem({
     return (
         <div className="criterion-item">
             <div className="criterion-head">
-                <div className={classNames(`criterion-title`, !isEditing && 'criterion-title-large')}>
+                <div className={classNames('criterion-title', !isEditing && 'criterion-title-large')}>
                     {title || defaultTitle}
                 </div>
 

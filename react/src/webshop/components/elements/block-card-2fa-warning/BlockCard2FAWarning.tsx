@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function BlockCard2FAWarning({
     fund,
@@ -59,7 +60,12 @@ export default function BlockCard2FAWarning({
                 )}
 
                 {hasRestrictions && (
-                    <div className={`block-card-actions ${buttonPosition}`}>
+                    <div
+                        className={classNames(
+                            'block-card-actions',
+                            buttonPosition === 'top' && 'block-card-actions-top',
+                            buttonPosition === 'bottom' && 'block-card-actions-bottom',
+                        )}>
                         {showMore2FADetails ? (
                             <div className="button button-text" onClick={() => setShowMore2FADetails(false)}>
                                 {translate('global.card_2fa_warning.2fa_policy.show_less')}

@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import IdentityEmail from '../../../../dashboard/props/models/IdentityEmail';
@@ -170,7 +171,13 @@ export default function PreferencesEmails() {
                                     <div className="block block-user_emails">
                                         <div className="user_email-item">
                                             <div className="user_email-icon">
-                                                <em className={`mdi mdi-at ${email.primary ? 'text-primary' : ''}`} />
+                                                <em
+                                                    className={classNames(
+                                                        'mdi',
+                                                        'mdi-at',
+                                                        email.primary && 'text-primary',
+                                                    )}
+                                                />
                                             </div>
                                             <div className="user_email-details">
                                                 <div

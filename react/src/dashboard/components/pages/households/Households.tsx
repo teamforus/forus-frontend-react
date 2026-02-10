@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
@@ -13,8 +12,6 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
@@ -78,12 +75,6 @@ export default function Households() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(householdsService.getColumns(), {
-        filter: filter,
-        sortable: true,
-        hasTooltips: true,
-    });
-
     const { resetFilters: resetFilters, setShow } = filter;
 
     const exportHouseholds = useCallback(() => {
@@ -135,7 +126,7 @@ export default function Households() {
         <div className="card" data-dusk="tableProfilesContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('households.header.title')} ({households.meta.total})
+                    {translate('households.header.title')} ({households?.meta?.total})
                 </div>
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
@@ -201,9 +192,9 @@ export default function Households() {
                                     className="button button-primary button-wide"
                                     onClick={exportHouseholds}
                                     data-dusk="export"
-                                    disabled={households.meta.total == 0}>
+                                    disabled={households?.meta?.total == 0}>
                                     <em className="mdi mdi-download icon-start" />
-                                    {translate('components.dropdown.export', { total: households.meta.total })}
+                                    {translate('components.dropdown.export', { total: households?.meta?.total })}
                                 </button>
                             </div>
                         </CardHeaderFilter>
@@ -213,95 +204,73 @@ export default function Households() {
 
             <LoaderTableCard
                 loading={loading}
-                empty={households.meta.total == 0}
-                emptyTitle={'Geen huishoudens gevonden'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+                empty={households?.meta?.total == 0}
+                emptyTitle={'Geen huishoudens gevonden'}
+                columns={householdsService.getColumns()}
+                tableOptions={{ filter, sortable: true, hasTooltips: true }}
+                paginator={{ key: paginatorTransactionsKey, data: households, filterValues, filterUpdate }}>
+                {households?.data?.map((household) => (
+                    <StateNavLink
+                        key={household.id}
+                        name={DashboardRoutes.HOUSEHOLD}
+                        dataDusk={`tableProfilesRow${household.id}`}
+                        params={{
+                            organizationId: activeOrganization.id,
+                            id: household.id,
+                        }}
+                        className={'tr-clickable'}
+                        customElement={'tr'}>
+                        <td>{household.uid ?? <TableEmptyValue />}</td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
+                        <td>{household.count_people ?? <TableEmptyValue />}</td>
+                        <td>{household.count_minors ?? <TableEmptyValue />}</td>
+                        <td>{household.count_adults ?? <TableEmptyValue />}</td>
+                        <td>{household.city || <TableEmptyValue />}</td>
+                        <td>{household.postal_code || <TableEmptyValue />}</td>
+                        <td>
+                            {[household.house_nr, household.house_nr_addition].filter((item) => item).join(' ') || (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                        <td>{household.neighborhood_name || <TableEmptyValue />}</td>
+                        <td>{household.municipality_name || <TableEmptyValue />}</td>
 
-                                <tbody>
-                                    {households.data.map((household) => (
-                                        <StateNavLink
-                                            key={household.id}
+                        <td className={'table-td-actions'}>
+                            <TableRowActions
+                                content={(e) => (
+                                    <div className="dropdown dropdown-actions">
+                                        <TableRowActionItem
+                                            type="link"
                                             name={DashboardRoutes.HOUSEHOLD}
-                                            dataDusk={`tableProfilesRow${household.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 id: household.id,
-                                            }}
-                                            className={'tr-clickable'}
-                                            customElement={'tr'}>
-                                            <td>{household.uid ?? <TableEmptyValue />}</td>
-
-                                            <td>{household.count_people ?? <TableEmptyValue />}</td>
-                                            <td>{household.count_minors ?? <TableEmptyValue />}</td>
-                                            <td>{household.count_adults ?? <TableEmptyValue />}</td>
-                                            <td>{household.city || <TableEmptyValue />}</td>
-                                            <td>{household.postal_code || <TableEmptyValue />}</td>
-                                            <td>
-                                                {[household.house_nr, household.house_nr_addition]
-                                                    .filter((item) => item)
-                                                    .join(' ') || <TableEmptyValue />}
-                                            </td>
-                                            <td>{household.neighborhood_name || <TableEmptyValue />}</td>
-                                            <td>{household.municipality_name || <TableEmptyValue />}</td>
-
-                                            <td className={'table-td-actions'}>
-                                                <TableRowActions
-                                                    content={(e) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <TableRowActionItem
-                                                                type="link"
-                                                                name={DashboardRoutes.HOUSEHOLD}
-                                                                params={{
-                                                                    organizationId: activeOrganization.id,
-                                                                    id: household.id,
-                                                                }}>
-                                                                <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                            </TableRowActionItem>
-                                                            <TableRowActionItem
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    e?.close();
-                                                                    editHousehold(household, fetchHouseholds);
-                                                                }}>
-                                                                <em className="mdi mdi-pencil icon-start" /> Bewerking
-                                                            </TableRowActionItem>
-                                                            <TableRowActionItem
-                                                                type="button"
-                                                                disable={!household?.removable}
-                                                                onClick={() => {
-                                                                    e?.close();
-                                                                    deleteHousehold(household, fetchHouseholds);
-                                                                }}>
-                                                                <em className="mdi mdi-close icon-start" /> Verwijderen
-                                                            </TableRowActionItem>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {households.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={households.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorTransactionsKey}
-                        />
-                    </div>
-                )}
+                                            }}>
+                                            <em className="mdi mdi-eye icon-start" /> Bekijken
+                                        </TableRowActionItem>
+                                        <TableRowActionItem
+                                            type="button"
+                                            onClick={() => {
+                                                e?.close();
+                                                editHousehold(household, fetchHouseholds);
+                                            }}>
+                                            <em className="mdi mdi-pencil icon-start" /> Bewerking
+                                        </TableRowActionItem>
+                                        <TableRowActionItem
+                                            type="button"
+                                            disable={!household?.removable}
+                                            onClick={() => {
+                                                e?.close();
+                                                deleteHousehold(household, fetchHouseholds);
+                                            }}>
+                                            <em className="mdi mdi-close icon-start" /> Verwijderen
+                                        </TableRowActionItem>
+                                    </div>
+                                )}
+                            />
+                        </td>
+                    </StateNavLink>
+                ))}
             </LoaderTableCard>
         </div>
     );

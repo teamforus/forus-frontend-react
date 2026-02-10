@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import useOpenModal from '../../../../hooks/useOpenModal';
-import Paginator from '../../../../modules/paginator/components/Paginator';
 import ModalVoucherRecordEdit from '../../../modals/ModalVoucherRecordEdit';
 import useVoucherRecordService from '../../../../services/VoucherRecordService';
 import { PaginationData } from '../../../../props/ApiResponses';
@@ -14,13 +14,11 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import { hasPermission } from '../../../../helpers/utils';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 
 export default function VoucherRecordsCard({
     voucher,
@@ -52,11 +50,6 @@ export default function VoucherRecordsCard({
         per_page: paginatorService.getPerPage(paginatorKey),
         order_by: 'created_at',
         order_dir: 'asc',
-    });
-
-    const { headElement, configsElement } = useConfigurableTable(voucherRecordService.getColumns(), {
-        filter,
-        sortable: true,
     });
 
     const fetchRecords = useCallback(() => {
@@ -124,7 +117,7 @@ export default function VoucherRecordsCard({
             <div className="card-header">
                 <div className="flex flex-grow card-title">
                     {translate('voucher_records.header.title')}
-                    {records.meta ? ` (${records.meta.total})` : ''}
+                    {records?.meta ? ` (${records?.meta?.total})` : ''}
                 </div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters form">
@@ -147,71 +140,43 @@ export default function VoucherRecordsCard({
                 </div>
             </div>
 
-            {records.data.length > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
+            <LoaderTableCard
+                empty={records?.meta?.total == 0}
+                emptyTitle={'Geen persoonsgegevens gevonden'}
+                columns={voucherRecordService.getColumns()}
+                tableOptions={{ filter, sortable: true }}
+                paginator={{ key: paginatorKey, data: records, filterValues, filterUpdate }}>
+                {records?.data?.map((record, index: number) => (
+                    <tr key={index}>
+                        <td className="td-narrow nowrap">{record.id}</td>
+                        <td className="nowrap">{record.record_type.name}</td>
+                        <td>{record.value_locale}</td>
+                        <td className="nowrap">{record.created_at_locale}</td>
+                        <td className={classNames(!record.note && 'text-muted')}>{record.note || 'Geen notitie'}</td>
 
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {records.data.map((record, index: number) => (
-                                        <tr key={index}>
-                                            <td className="td-narrow nowrap">{record.id}</td>
-                                            <td className="nowrap">{record.record_type.name}</td>
-                                            <td>{record.value_locale}</td>
-                                            <td className="nowrap">{record.created_at_locale}</td>
-                                            <td className={record.note ? '' : 'text-muted'}>
-                                                {record.note || 'Geen notitie'}
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                {hasPermission(organization, Permission.MANAGE_VOUCHERS) ? (
-                                                    <TableRowActions
-                                                        content={() => (
-                                                            <div className="dropdown dropdown-actions">
-                                                                <a
-                                                                    className="dropdown-item"
-                                                                    onClick={() => editRecord(record)}>
-                                                                    <div className="mdi mdi-pencil-outline icon-start" />
-                                                                    Bewerking
-                                                                </a>
-                                                                <a
-                                                                    className="dropdown-item"
-                                                                    onClick={() => deleteRecord(record)}>
-                                                                    <div className="mdi mdi-delete-outline icon-start" />
-                                                                    Verwijderen
-                                                                </a>
-                                                            </div>
-                                                        )}
-                                                    />
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {records.meta.total == 0 ? (
-                <EmptyCard title={'Geen persoonsgegevens gevonden'} type={'card-section'} />
-            ) : (
-                <div className="card-section">
-                    <Paginator
-                        meta={records.meta}
-                        filters={filterValues}
-                        perPageKey={paginatorKey}
-                        updateFilters={filterUpdate}
-                    />
-                </div>
-            )}
+                        <td className={'table-td-actions text-right'}>
+                            {hasPermission(organization, Permission.MANAGE_VOUCHERS) ? (
+                                <TableRowActions
+                                    content={() => (
+                                        <div className="dropdown dropdown-actions">
+                                            <a className="dropdown-item" onClick={() => editRecord(record)}>
+                                                <div className="mdi mdi-pencil-outline icon-start" />
+                                                Bewerking
+                                            </a>
+                                            <a className="dropdown-item" onClick={() => deleteRecord(record)}>
+                                                <div className="mdi mdi-delete-outline icon-start" />
+                                                Verwijderen
+                                            </a>
+                                        </div>
+                                    )}
+                                />
+                            ) : (
+                                <TableEmptyValue />
+                            )}
+                        </td>
+                    </tr>
+                ))}
+            </LoaderTableCard>
         </div>
     );
 }

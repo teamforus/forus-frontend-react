@@ -30,8 +30,7 @@ import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import Icon from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/fund-request-icon.svg';
 import useEmailLogService from '../../../services/EmailLogService';
 import { Permission } from '../../../props/models/Organization';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import { sortBy } from 'lodash';
 import Employee from '../../../props/models/Employee';
@@ -218,10 +217,6 @@ export default function FundRequestsView() {
                 (!isAssigned && isDisregarded && fundRequest.replaced),
         };
     }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor, translate]);
-
-    const { headElement, configsElement } = useConfigurableTable(fundRequestService.getRecordGroupsColumns(), {
-        trPrepend: <th className="cell-chevron th-narrow" />,
-    });
 
     const updateNotesRef = useRef<() => void>(null);
     const fetchEmailsRef = useRef<() => void>(null);
@@ -550,11 +545,12 @@ export default function FundRequestsView() {
                             <div className="button-group">
                                 {fundRequestMeta.is_assignable && (
                                     <button
-                                        className={`button ${
+                                        className={classNames(
+                                            'button',
                                             fundRequestMeta.is_assignable_as_supervisor
                                                 ? 'button-default'
-                                                : 'button-primary'
-                                        }`}
+                                                : 'button-primary',
+                                        )}
                                         data-dusk="fundRequestAssignBtn"
                                         onClick={() => assignRequest()}>
                                         <em className="mdi mdi-account-plus icon-start" />
@@ -599,7 +595,12 @@ export default function FundRequestsView() {
                                     className="keyvalue-value-info-block-toggle"
                                     onClick={() => setShowCriteria(!showCriteria)}>
                                     Voorwaarden ({fundRequestMeta.fund.criteria.length})
-                                    <em className={`mdi mdi-chevron-${showCriteria ? 'up' : 'down'}`} />
+                                    <em
+                                        className={classNames(
+                                            'mdi',
+                                            showCriteria ? 'mdi-chevron-up' : 'mdi-chevron-down',
+                                        )}
+                                    />
                                 </span>
                             </Fragment>
                         </KeyValueItem>
@@ -651,13 +652,13 @@ export default function FundRequestsView() {
 
                         <KeyValueItem
                             label={translate('validation_requests.labels.email')}
-                            className={fundRequestMeta.email ? 'text-black' : 'text-muted'}>
+                            className={classNames(fundRequestMeta.email ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.email || 'Geen E-mail'}
                         </KeyValueItem>
 
                         <KeyValueItem
                             label={translate('validation_requests.labels.bsn')}
-                            className={fundRequestMeta.bsn ? 'text-black' : 'text-muted'}>
+                            className={classNames(fundRequestMeta.bsn ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.bsn || 'Geen BSN'}
                         </KeyValueItem>
                     </div>
@@ -795,35 +796,26 @@ export default function FundRequestsView() {
                         </div>
                     </div>
                 </div>
-
                 <LoaderTableCard
-                    empty={fundRequestMeta.record_groups.length == 0}
-                    emptyTitle={translate('validation_requests.labels.empty_table')}>
-                    <div className="card-section">
-                        <div className="card-block card-block-table card-block-request-record">
-                            {configsElement}
-
-                            <TableTopScroller>
-                                <table className="table">
-                                    {headElement}
-
-                                    {fundRequestMeta.record_groups.map((group: FundRequestRecordGroupLocal) => (
-                                        <FundRequestRecordGroupRow
-                                            key={group.id}
-                                            organization={activeOrganization}
-                                            group={group}
-                                            fundRequest={fundRequestMeta}
-                                            uncollapsedRecords={uncollapsedRecords}
-                                            setUncollapsedRecords={setUncollapsedRecords}
-                                            uncollapsedRecordGroups={uncollapsedRecordGroups}
-                                            setUncollapsedRecordGroups={setUncollapsedRecordGroups}
-                                            reloadRequest={reloadRequest}
-                                        />
-                                    ))}
-                                </table>
-                            </TableTopScroller>
-                        </div>
-                    </div>
+                    empty={fundRequestMeta.record_groups.length === 0}
+                    emptyTitle={'Geen records'}
+                    columns={fundRequestService.getRecordGroupsColumns()}
+                    tableOptions={{
+                        trPrepend: <th className="cell-chevron th-narrow" />,
+                    }}>
+                    {fundRequestMeta.record_groups.map((group: FundRequestRecordGroupLocal) => (
+                        <FundRequestRecordGroupRow
+                            key={group.id}
+                            organization={activeOrganization}
+                            group={group}
+                            fundRequest={fundRequestMeta}
+                            uncollapsedRecords={uncollapsedRecords}
+                            setUncollapsedRecords={setUncollapsedRecords}
+                            uncollapsedRecordGroups={uncollapsedRecordGroups}
+                            setUncollapsedRecordGroups={setUncollapsedRecordGroups}
+                            reloadRequest={reloadRequest}
+                        />
+                    ))}
                 </LoaderTableCard>
             </div>
 

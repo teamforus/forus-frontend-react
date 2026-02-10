@@ -12,6 +12,7 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function FundProviderTableItem({
     fundProvider,
@@ -94,11 +95,13 @@ export default function FundProviderTableItem({
             </td>
             <td>
                 <div
-                    className={`label label-${
-                        { accepted: 'success', pending: 'default', rejected: 'danger', unsubscribed: 'danger-light' }[
-                            fundProvider.state
-                        ]
-                    }`}>
+                    className={classNames(
+                        'label',
+                        fundProvider.state === 'accepted' && 'label-success',
+                        fundProvider.state === 'pending' && 'label-default',
+                        fundProvider.state === 'rejected' && 'label-danger',
+                        fundProvider.state === 'unsubscribed' && 'label-danger-light',
+                    )}>
                     {fundProvider.state_locale}
                 </div>
             </td>

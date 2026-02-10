@@ -16,7 +16,7 @@ export default function TableRowActions({
     disabled?: boolean;
 }) {
     return (
-        <div className={`table-td-actions-buttons`}>
+        <div className="table-td-actions-buttons">
             {buttons}
             {disabled ? (
                 <button className="button button-text button-menu" data-dusk={dataDusk} disabled={true}>

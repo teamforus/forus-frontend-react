@@ -169,7 +169,7 @@ export default function FundRequestsShow() {
                     </div>
 
                     {(fundRequest.payouts?.length > 0 || fundRequest.vouchers?.length > 0) && (
-                        <div className={`card card-collapsable ${showCreditInfo ? 'open' : ''}`}>
+                        <div className={classNames('card', 'card-collapsable', showCreditInfo && 'open')}>
                             <div
                                 className="card-header"
                                 onClick={() => setShowCreditInfo(!showCreditInfo)}
@@ -256,7 +256,7 @@ export default function FundRequestsShow() {
                     />
 
                     {fundRequest.state === 'declined' && (
-                        <div className={`card card-collapsable ${showDeclinedNote ? 'open' : ''}`}>
+                        <div className={classNames('card', 'card-collapsable', showDeclinedNote && 'open')}>
                             <div
                                 className="card-header"
                                 onClick={() => setShowDeclinedNote(!showDeclinedNote)}

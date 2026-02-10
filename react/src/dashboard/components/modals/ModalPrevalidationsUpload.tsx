@@ -984,7 +984,7 @@ export default function ModalPrevalidationsUpload({
 
                                 {csvFile && csvProgress < CSVProgress.uploading && (
                                     <div className="csv-upload-actions">
-                                        <div className={classNames(`block block-file`, !csvIsValid && 'has-error')}>
+                                        <div className={classNames('block', 'block-file', !csvIsValid && 'has-error')}>
                                             <div className="block-file-details">
                                                 <div className="file-icon">
                                                     {csvIsValid ? (
@@ -1042,7 +1042,7 @@ export default function ModalPrevalidationsUpload({
                     <div className="button-group">
                         {/* Cancel button */}
                         <button
-                            className={`button button-default`}
+                            className="button button-default"
                             disabled={step == Steps.select_fund || loading}
                             onClick={() => setStep(Steps.select_fund)}>
                             Terug

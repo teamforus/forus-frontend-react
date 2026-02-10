@@ -25,6 +25,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import ReimbursementStateLabel from '../../elements/resource-states/ReimbursementStateLabel';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -328,11 +329,10 @@ export default function ReimbursementsView() {
                                                 </div>
                                                 {activeOrganization.bsn_enabled ? (
                                                     <div
-                                                        className={`${
-                                                            reimbursement.identity_bsn
-                                                                ? 'text-semibold text-black'
-                                                                : 'text-semibold text-muted'
-                                                        }`}>
+                                                        className={classNames(
+                                                            'text-semibold',
+                                                            reimbursement.identity_bsn ? 'text-black' : 'text-muted',
+                                                        )}>
                                                         {reimbursement.identity_bsn || 'Geen BSN'}
                                                     </div>
                                                 ) : (
@@ -356,9 +356,10 @@ export default function ReimbursementsView() {
                                                     {translate('reimbursements.labels.employee')}
                                                 </div>
                                                 <div
-                                                    className={`text-semibold ${
-                                                        reimbursement.employee_id ? 'text-black' : 'text-muted'
-                                                    }`}>
+                                                    className={classNames(
+                                                        'text-semibold',
+                                                        reimbursement.employee_id ? 'text-black' : 'text-muted',
+                                                    )}>
                                                     {reimbursement.employee?.email || 'Niet toegewezen'}
                                                 </div>
                                             </td>
