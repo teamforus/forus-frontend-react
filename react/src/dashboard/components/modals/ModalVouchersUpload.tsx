@@ -442,7 +442,10 @@ export default function ModalVouchersUpload({
                     { icon: 'timer-sand' },
                 );
 
-                const emails = data.map((voucher) => voucher.identity_email?.toLowerCase());
+                const emails = data
+                    .map((voucher) => voucher.identity_email?.toLowerCase())
+                    .filter((email) => Boolean(email));
+
                 const bsnList = [
                     ...data.map((voucher) => voucher.relation_bsn),
                     ...data.map((voucher) => voucher.identity_bsn),
