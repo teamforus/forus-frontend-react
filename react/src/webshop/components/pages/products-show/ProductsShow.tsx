@@ -172,13 +172,6 @@ export default function ProductsShow() {
     }, [authIdentity, fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
-        if (!appConfigs?.products?.show) {
-            navigateState(WebshopRoutes.HOME);
-            return;
-        }
-    }, [appConfigs, navigateState]);
-
-    useEffect(() => {
         if (product?.name && product?.organization?.name && envData?.client_key) {
             setTitle(
                 translate('page_state_titles.product', {
