@@ -36,7 +36,6 @@ import { sortBy } from 'lodash';
 import Employee from '../../../props/models/Employee';
 import classNames from 'classnames';
 import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
-import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import FundRequestRecordGroupRow from './elements/FundRequestRecordGroupRow';
 
 export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
@@ -155,7 +154,7 @@ export default function FundRequestsView() {
             .map((record) => ({
                 ...record,
                 hasContent: record.files.length > 0 || record.clarifications.length > 0 || record.history.length > 0,
-                group_id: null,
+                group_id: 0,
             }))
             .map((record) => {
                 let assigned = false;

@@ -117,11 +117,13 @@ export default function FundRequestRecordRow({
                 <td>{record.record_type.name}</td>
 
                 {record?.record_type.type != 'select' && (
-                    <td className={record.value !== null ? 'text-muted' : ''}>{record?.value || 'Niet beschikbaar'}</td>
+                    <td className={classNames(record.value !== null && 'text-muted')}>
+                        {record?.value || 'Niet beschikbaar'}
+                    </td>
                 )}
 
                 {record?.record_type.type == 'select' && (
-                    <td className={record.value !== null ? 'text-muted' : ''}>
+                    <td className={classNames(record.value !== null && 'text-muted')}>
                         {record?.record_type.options?.find((option) => option.value == record?.value)?.name ||
                             'Niet beschikbaar'}
                     </td>

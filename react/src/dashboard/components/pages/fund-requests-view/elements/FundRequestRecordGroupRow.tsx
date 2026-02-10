@@ -33,8 +33,8 @@ export default function FundRequestRecordGroupRow({
     });
 
     return (
-        <tbody data-dusk={`tableFundRequestRecordGroupRow${group.id}`}>
-            <tr>
+        <Fragment>
+            <tr data-dusk={`tableFundRequestRecordGroupRow${group.id}`}>
                 <td className="cell-chevron">
                     <a
                         className={classNames(
@@ -87,6 +87,6 @@ export default function FundRequestRecordGroupRow({
                     </td>
                 </tr>
             )}
-        </tbody>
+        </Fragment>
     );
 }

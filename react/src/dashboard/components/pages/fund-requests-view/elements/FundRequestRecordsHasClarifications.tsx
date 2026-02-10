@@ -59,14 +59,8 @@ export default function FundRequestRecordsHasClarifications({
                                         className="tr-clickable"
                                         key={record.id}
                                         onClick={() => {
-                                            if (record.group_id) {
-                                                setUncollapsedRecordGroups((groups) =>
-                                                    uniq([...groups, record.group_id]),
-                                                );
-                                            }
-
+                                            setUncollapsedRecordGroups((groups) => uniq([...groups, record.group_id]));
                                             setUncollapsedRecords((records) => uniq([...records, record.id]));
-
                                             scrollToItem(`recordRow${record.id}`, 100);
                                         }}>
                                         <td>{record.record_type.name}</td>
