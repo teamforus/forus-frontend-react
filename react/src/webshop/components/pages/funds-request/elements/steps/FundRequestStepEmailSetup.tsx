@@ -92,7 +92,7 @@ export default function FundRequestStepEmailSetup({
                     </h2>
 
                     <div className="sign_up-pane-body">
-                        <div className="sign_up-email_sent">
+                        <div className="sign_up-email_sent" data-dusk="fundRequestEmailSent">
                             <div className="sign_up-email_sent-icon">
                                 <img
                                     className="sign_up-email_sent-icon-img"
@@ -122,7 +122,7 @@ export default function FundRequestStepEmailSetup({
                         </h2>
                     </div>
                     <div className="sign_up-pane-body">
-                        <form onSubmit={emailForm.submit}>
+                        <form onSubmit={emailForm.submit} data-dusk="fundRequestEmailForm">
                             {emailSetupRequired && (
                                 <p className="sign_up-pane-text">
                                     {translate('fund_request.sign_up.fund_request_email_setup.email_required')}
@@ -142,6 +142,7 @@ export default function FundRequestStepEmailSetup({
                                             }}
                                             tabIndex={0}
                                             autoComplete={'email'}
+                                            dataDusk="fundRequestEmailInput"
                                         />
                                         <FormError error={emailForm.errors.email} />
                                     </div>
@@ -151,7 +152,8 @@ export default function FundRequestStepEmailSetup({
                                             className="button button-primary button-fill"
                                             disabled={disableSubmitBtn}
                                             type="submit"
-                                            tabIndex={0}>
+                                            tabIndex={0}
+                                            data-dusk="fundRequestEmailSubmit">
                                             {translate('popup_auth.buttons.submit')}
                                         </button>
                                     </div>
@@ -258,7 +260,8 @@ export default function FundRequestStepEmailSetup({
                                                             className="text-primary-light sign_up-pane-link sign_up-pane-link-button"
                                                             aria-disabled={disableSubmitBtn}
                                                             onClick={() => nextStep()}
-                                                            disabled={disableSubmitBtn}>
+                                                            disabled={disableSubmitBtn}
+                                                            data-dusk="fundRequestContinueWithoutEmail">
                                                             {translate(
                                                                 'fund_request.sign_up.fund_request_email_setup.continue_without_email_link',
                                                             )}
@@ -273,7 +276,8 @@ export default function FundRequestStepEmailSetup({
                                                 className="sign_up-pane-link sign_up-pane-link-button"
                                                 aria-disabled={disableSubmitBtn}
                                                 onClick={() => setSkipEmail(true)}
-                                                disabled={disableSubmitBtn}>
+                                                disabled={disableSubmitBtn}
+                                                data-dusk="fundRequestSkipEmail">
                                                 {translate(
                                                     'fund_request.sign_up.fund_request_email_setup.no_email_link',
                                                 )}
