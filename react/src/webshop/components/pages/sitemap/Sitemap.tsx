@@ -40,15 +40,14 @@ export default function Sitemap() {
                                     </StateNavLink>
                                 </li>
                             )}
-                        {appConfigs?.has_internal_funds &&
-                            appConfigs?.products.list &&
-                            (envData.config.flags.productsMenu || authIdentity) && (
-                                <li>
-                                    <StateNavLink name={WebshopRoutes.PRODUCTS}>
-                                        {translate('top_navbar.items.products')}
-                                    </StateNavLink>
-                                </li>
-                            )}
+
+                        {appConfigs?.has_internal_funds && (envData.config.flags.productsMenu || authIdentity) && (
+                            <li>
+                                <StateNavLink name={WebshopRoutes.PRODUCTS}>
+                                    {translate('top_navbar.items.products')}
+                                </StateNavLink>
+                            </li>
+                        )}
 
                         {envData.config.flags.providersMenu && (
                             <li>
