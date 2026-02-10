@@ -322,22 +322,24 @@ export default function ProductsShow() {
                                     </PaneGroupPanel>
                                 )}
 
-                                <PaneGroupPanel
-                                    title={translate('product.labels.locations_on_map')}
-                                    openByDefault={false}>
-                                    <div className="product-map-container">
-                                        <GoogleMap
-                                            appConfigs={appConfigs}
-                                            mapPointers={product.offices}
-                                            mapGestureHandling={'greedy'}
-                                            mapGestureHandlingMobile={'none'}
-                                            fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
-                                            markerTemplate={(office: Office) => (
-                                                <MapMarkerProviderOffice office={office} />
-                                            )}
-                                        />
-                                    </div>
-                                </PaneGroupPanel>
+                                {appConfigs?.show_product_map && (
+                                    <PaneGroupPanel
+                                        title={translate('product.labels.locations_on_map')}
+                                        openByDefault={false}>
+                                        <div className="product-map-container">
+                                            <GoogleMap
+                                                appConfigs={appConfigs}
+                                                mapPointers={product.offices}
+                                                mapGestureHandling={'greedy'}
+                                                mapGestureHandlingMobile={'none'}
+                                                fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
+                                                markerTemplate={(office: Office) => (
+                                                    <MapMarkerProviderOffice office={office} />
+                                                )}
+                                            />
+                                        </div>
+                                    </PaneGroupPanel>
+                                )}
                             </PaneGroup>
                         </div>
                     </Section>
