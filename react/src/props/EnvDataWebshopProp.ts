@@ -49,16 +49,10 @@ export default interface EnvDataWebshopProp {
 
         flags: {
             genericSearch?: boolean;
-            showAccountSidebar?: boolean;
-            showOnlyUsedCategories?: boolean;
             show2FAMenu?: boolean;
             useLightAppIcons?: boolean;
 
             // menu settings
-            meAppMenu?: boolean;
-            forusPlatformMenu?: boolean;
-            portfolioMenu?: boolean;
-            aboutSiteMenu?: boolean;
             fundsMenu?: boolean;
             fundsMenuIfLoggedOut?: boolean;
             productsMenu?: boolean;
@@ -68,7 +62,6 @@ export default interface EnvDataWebshopProp {
 
             noPrintOption?: boolean;
             activateFirstFund?: boolean;
-            accessibilityPage?: boolean;
 
             // home
             showStartButton?: boolean;
@@ -76,17 +69,13 @@ export default interface EnvDataWebshopProp {
             showFooterSponsorLogo?: boolean;
             productDetailsOnlyAvailableFunds?: boolean;
 
-            productsAlign?: 'left' | 'center' | 'right';
-
             menuItems?: Array<MenuItem>;
 
             startPage?: {
                 combineColumns?: boolean;
-                hideSignUpColumn?: boolean;
                 hideSignUpDigidOption?: boolean;
                 hideSignUpEmailOption?: boolean;
                 hideSignUpQrCodeOption?: boolean;
-                hideSignInColumn?: boolean;
                 hideSignInDigidOption?: boolean;
                 hideSignInEmailOption?: boolean;
                 hideSignInQrCodeOption?: boolean;
