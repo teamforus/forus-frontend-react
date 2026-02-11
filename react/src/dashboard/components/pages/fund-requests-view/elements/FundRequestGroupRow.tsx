@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import { FundRequestLocal, FundRequestRecordGroupLocal, FundRequestRecordLocal } from '../FundRequestsView';
 import Organization from '../../../../props/models/Organization';
-import FundRequestRecordRow from './FundRequestRecordRow';
+import FundRequestGroupRecordRow from './FundRequestGroupRecordRow';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
 
@@ -29,30 +29,37 @@ export default function FundRequestRecordGroupRow({
     const fundRequestService = useFundRequestValidatorService();
 
     const { headElement, configsElement } = useConfigurableTable(fundRequestService.getRecordsColumns(), {
-        trPrepend: <Fragment>{group?.hasContent && <th className="cell-chevron th-narrow" />}</Fragment>,
+        trPrepend: <Fragment>{group?.hasContent && <th className="th-narrow" />}</Fragment>,
     });
 
     return (
         <Fragment>
-            <tr data-dusk={`tableFundRequestRecordGroupRow${group.id}`}>
-                <td className="cell-chevron">
-                    <a
-                        className={classNames(
-                            'mdi',
-                            'td-menu-icon',
-                            uncollapsedRecordGroups.includes(group.id) ? 'mdi-menu-up' : 'mdi-menu-down',
-                        )}
-                        onClick={() => {
-                            setUncollapsedRecordGroups((groups) => {
-                                return groups?.includes(group.id)
-                                    ? groups?.filter((id) => id !== group.id)
-                                    : [...groups, group.id];
-                            });
-                        }}
-                    />
-                </td>
-                <td className="text-semibold text-lg">
-                    {group.title} ({group.records.length})
+            <tr
+                className="tr-clickable"
+                data-dusk={`tableFundRequestRecordGroupRow${group.id}`}
+                onClick={() => {
+                    setUncollapsedRecordGroups((groups) => {
+                        return groups?.includes(group.id)
+                            ? groups?.filter((id) => id !== group.id)
+                            : [...groups, group.id];
+                    });
+                }}>
+                <td>
+                    <div className="td-collapsable td-collapsable-lg">
+                        <div className="collapsable-icon">
+                            <div
+                                className={classNames(
+                                    'mdi',
+                                    'icon-collapse',
+                                    uncollapsedRecordGroups.includes(group.id) ? 'mdi-menu-down' : 'mdi-menu-right',
+                                )}
+                            />
+                        </div>
+
+                        <div className="collapsable-content text-semibold">
+                            {group.title} ({group.records.length})
+                        </div>
+                    </div>
                 </td>
                 <td className="td-narrow text-right">
                     <TableEmptyValue />
@@ -70,7 +77,7 @@ export default function FundRequestRecordGroupRow({
                             <tbody>
                                 <Fragment>
                                     {group.records.map((record: FundRequestRecordLocal) => (
-                                        <FundRequestRecordRow
+                                        <FundRequestGroupRecordRow
                                             key={record.id}
                                             organization={organization}
                                             record={record}

@@ -36,7 +36,7 @@ import { sortBy } from 'lodash';
 import Employee from '../../../props/models/Employee';
 import classNames from 'classnames';
 import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
-import FundRequestRecordGroupRow from './elements/FundRequestRecordGroupRow';
+import FundRequestGroupRow from './elements/FundRequestGroupRow';
 
 export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
 
@@ -81,7 +81,6 @@ export default function FundRequestsView() {
     const [showCriteria, setShowCriteria] = useState(null);
     const [uncollapsedRecords, setUncollapsedRecords] = useState<Array<number>>([]);
     const [uncollapsedRecordGroups, setUncollapsedRecordGroups] = useState<Array<number>>([]);
-    const [recordGroupsCollapsedState, setRecordGroupsCollapsedState] = useState(true);
 
     const fund = useMemo(() => {
         return fundRequest?.fund;
@@ -138,59 +137,32 @@ export default function FundRequestsView() {
             };
         });
 
-        const recordsNoGroup = [];
+        const records = fundRequest.records.map((record) => ({
+            ...record,
+            hasContent: record.files.length > 0 || record.clarifications.length > 0 || record.history.length > 0,
+            group_id: 0,
+        }));
 
-        // sort groups by priority fund, organization
-        let recordGroups: Array<FundRequestRecordGroupLocal> = fundRequest.record_groups
-            .sort(
-                (a, b) =>
-                    (a.fund_id != null ? 0 : a.organization_id != null ? 1 : 2) -
-                    (b.fund_id != null ? 0 : b.organization_id != null ? 1 : 2),
-            )
-            .map((group) => ({ ...group, records: [] }));
+        const recordsById = new Map(records.map((record) => [record.id, record]));
 
-        // assign records
-        const records = fundRequest.records
-            .map((record) => ({
-                ...record,
-                hasContent: record.files.length > 0 || record.clarifications.length > 0 || record.history.length > 0,
-                group_id: 0,
-            }))
-            .map((record) => {
-                let assigned = false;
+        const recordGroups: Array<FundRequestRecordGroupLocal> = fundRequest.record_groups.map((group) => {
+            const groupRecords = (group.record_ids || [])
+                .map((recordId) => recordsById.get(recordId))
+                .filter((record) => record);
 
-                recordGroups.forEach((group) => {
-                    if (group.record_types.includes(record.record_type_key) && !assigned) {
-                        group.records.push(record);
-                        record.group_id = group.id;
-                        assigned = true;
-                    }
-                });
-
-                if (!assigned) {
-                    recordsNoGroup.push(record);
-                }
-
-                return record;
+            groupRecords.forEach((record) => {
+                record.group_id = group.id;
             });
 
-        recordGroups.push({
-            id: 0,
-            title: translate('validation_requests.labels.no_group'),
-            order: 999,
-            record_types: [],
-            records: recordsNoGroup,
-        });
-
-        recordGroups = recordGroups
-            .filter((group) => group.records.length > 0)
-            .map((group) => ({
+            return {
                 ...group,
+                records: groupRecords,
                 hasContent:
-                    group.records.filter((record) => {
+                    groupRecords.filter((record) => {
                         return record.files?.length || record.clarifications?.length || record.history?.length;
                     }).length > 0,
-            }));
+            };
+        });
 
         return {
             ...fundRequest,
@@ -215,7 +187,7 @@ export default function FundRequestsView() {
                 (isAssigned && isDisregarded) ||
                 (!isAssigned && isDisregarded && fundRequest.replaced),
         };
-    }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor, translate]);
+    }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor]);
 
     const updateNotesRef = useRef<() => void>(null);
     const fetchEmailsRef = useRef<() => void>(null);
@@ -495,6 +467,12 @@ export default function FundRequestsView() {
         return <LoadingCard />;
     }
 
+    const hasCollapsedRecordGroups = fundRequestMeta.record_groups.some(
+        (group) => !uncollapsedRecordGroups.includes(group.id),
+    );
+    const hasCollapsedRecords = fundRequestMeta.records.some((record) => !uncollapsedRecords.includes(record.id));
+    const hasCollapsedGroupsOrRecords = hasCollapsedRecordGroups || hasCollapsedRecords;
+
     return (
         <Fragment>
             <div className="block block-breadcrumbs">
@@ -759,27 +737,30 @@ export default function FundRequestsView() {
                                 data-dusk="toggleCollapseBtn"
                                 className="button button-default button-sm"
                                 onClick={() => {
-                                    setRecordGroupsCollapsedState((state) => {
-                                        if (state) {
-                                            setUncollapsedRecordGroups(
-                                                fundRequestMeta.record_groups.map((group) => group.id),
-                                            );
-                                        } else {
-                                            setUncollapsedRecordGroups([]);
-                                        }
+                                    if (hasCollapsedGroupsOrRecords) {
+                                        setUncollapsedRecordGroups(
+                                            fundRequestMeta.record_groups.map((group) => group.id),
+                                        );
+                                        setUncollapsedRecords(fundRequestMeta.records.map((record) => record.id));
+                                        return;
+                                    }
 
-                                        return !state;
-                                    });
+                                    setUncollapsedRecordGroups([]);
+                                    setUncollapsedRecords([]);
                                 }}>
                                 <em
                                     className={classNames(
                                         'mdi',
                                         'icon-start',
-                                        recordGroupsCollapsedState ? 'mdi-chevron-down' : 'mdi-chevron-up',
+                                        hasCollapsedGroupsOrRecords
+                                            ? 'mdi-arrow-expand-vertical'
+                                            : 'mdi-arrow-collapse-vertical',
                                     )}
                                 />
                                 {translate(
-                                    `validation_requests.buttons.${recordGroupsCollapsedState ? 'uncollapse' : 'collapse'}`,
+                                    `validation_requests.buttons.${
+                                        hasCollapsedGroupsOrRecords ? 'uncollapse' : 'collapse'
+                                    }`,
                                 )}
                             </button>
 
@@ -798,12 +779,9 @@ export default function FundRequestsView() {
                 <LoaderTableCard
                     empty={fundRequestMeta.record_groups.length === 0}
                     emptyTitle={'Geen records'}
-                    columns={fundRequestService.getRecordGroupsColumns()}
-                    tableOptions={{
-                        trPrepend: <th className="cell-chevron th-narrow" />,
-                    }}>
+                    columns={fundRequestService.getRecordGroupsColumns()}>
                     {fundRequestMeta.record_groups.map((group: FundRequestRecordGroupLocal) => (
-                        <FundRequestRecordGroupRow
+                        <FundRequestGroupRow
                             key={group.id}
                             organization={activeOrganization}
                             group={group}

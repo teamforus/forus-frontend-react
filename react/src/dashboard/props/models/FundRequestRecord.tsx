@@ -24,5 +24,5 @@ export default interface FundRequestRecord {
     value?: string;
     updated_at: string;
     updated_at_locale: string;
-    source?: string;
+    source?: 'form' | 'brp';
 }

@@ -13,8 +13,9 @@ import ModalFundRequestRecordEdit from '../../../modals/ModalFundRequestRecordEd
 import ModalNotification from '../../../modals/ModalNotification';
 import useTranslate from '../../../../hooks/useTranslate';
 import Label from '../../../elements/image_cropper/Label';
+import EmptyValue from '../../../elements/empty-value/EmptyValue';
 
-export default function FundRequestRecordRow({
+export default function FundRequestGroupRecordRow({
     organization,
     record,
     group,
@@ -92,29 +93,38 @@ export default function FundRequestRecordRow({
 
     return (
         <Fragment>
-            <tr data-dusk={`tableFundRequestRecordRow${record.id}`} id={`recordRow${record.id}`}>
-                {group.hasContent && (
-                    <td className="cell-chevron">
+            <tr
+                className={classNames('tr-narrow', record.hasContent && 'tr-clickable')}
+                data-dusk={`tableFundRequestRecordRow${record.id}`}
+                id={`recordRow${record.id}`}
+                onClick={() => {
+                    if (!record.hasContent) {
+                        return;
+                    }
+
+                    setUncollapsedRecords((shownRecords) => {
+                        return shownRecords?.includes(record.id)
+                            ? shownRecords?.filter((id) => id !== record.id)
+                            : [...shownRecords, record.id];
+                    });
+                }}>
+                {group.hasContent && <td className="td-narrow"></td>}
+                <td>
+                    <div className="td-collapsable" data-dusk={`fundRequestRecordToggleCollapse${record.id}`}>
                         {record.hasContent && (
-                            <a
-                                className={classNames(
-                                    'mdi',
-                                    'td-menu-icon',
-                                    uncollapsedRecords.includes(record.id) ? 'mdi-menu-up' : 'mdi-menu-down',
-                                )}
-                                data-dusk={`fundRequestRecordToggleCollapse${record.id}`}
-                                onClick={() => {
-                                    setUncollapsedRecords((shownRecords) => {
-                                        return shownRecords?.includes(record.id)
-                                            ? shownRecords?.filter((id) => id !== record.id)
-                                            : [...shownRecords, record.id];
-                                    });
-                                }}
-                            />
+                            <div className="collapsable-icon">
+                                <div
+                                    className={classNames(
+                                        `mdi icon-collapse `,
+                                        uncollapsedRecords.includes(record.id) ? 'mdi-menu-down' : 'mdi-menu-right',
+                                    )}
+                                />
+                            </div>
                         )}
-                    </td>
-                )}
-                <td>{record.record_type.name}</td>
+
+                        <div className="collapsable-content text-semibold">{record.record_type.name}</div>
+                    </div>
+                </td>
 
                 {record?.record_type.type != 'select' && (
                     <td className={classNames(record.value !== null && 'text-muted')}>
@@ -130,11 +140,13 @@ export default function FundRequestRecordRow({
                 )}
 
                 <td>{translate(`validation_requests.sources.${record.source}`)}</td>
-                <td>{record.files.length > 0 && translate('validation_requests.labels.yes')}</td>
-                <td>{record.clarifications.length > 0 && translate('validation_requests.labels.yes')}</td>
+                <td>{record.files.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}</td>
+                <td>
+                    {record.clarifications.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}
+                </td>
 
                 <td>
-                    {record.clarifications.length > 0 && (
+                    {record.clarifications.length > 0 ? (
                         <Label
                             type={
                                 record.clarifications[record.clarifications.length - 1].state == 'pending'
@@ -145,6 +157,8 @@ export default function FundRequestRecordRow({
                                 `validation_requests.clarification_states.${record.clarifications[record.clarifications.length - 1].state}`,
                             )}
                         </Label>
+                    ) : (
+                        <EmptyValue />
                     )}
                 </td>
 
@@ -185,7 +199,8 @@ export default function FundRequestRecordRow({
             </tr>
             {record.hasContent && uncollapsedRecords.includes(record.id) && (
                 <tr className="tr-dim">
-                    <td className="collapse-content" colSpan={8}>
+                    {group.hasContent && <td className="td-narrow"></td>}
+                    <td className="collapse-content" colSpan={7}>
                         <FundRequestRecordTabs fundRequestRecord={record} />
                     </td>
                 </tr>

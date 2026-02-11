@@ -30,7 +30,7 @@ export interface FundRequestRecordGroup {
     organization_id?: number;
     fund_id?: number;
     order: number;
-    record_types: Array<string>;
+    record_ids: Array<number>;
 };
 
 export default interface FundRequest {
