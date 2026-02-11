@@ -622,7 +622,7 @@ export default function FundRequest() {
         }
 
         // Hot linking is not allowed
-        if (from !== 'fund-activate') {
+        if (from !== WebshopRoutes.FUND_ACTIVATE) {
             return navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
         }
 

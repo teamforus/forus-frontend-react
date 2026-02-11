@@ -154,9 +154,13 @@ export default class ApiRequestService<T = null> {
                 };
             }
 
-            if (cfg?.onAbort) {
-                xhr.onabort = cfg?.onAbort;
-            }
+            xhr.onabort = (event) => {
+                if (cfg?.onAbort) {
+                    cfg.onAbort.call(xhr, event);
+                }
+
+                reject({ data: null, status: xhr.status, response: xhr });
+            };
 
             if (cfg?.responseType) {
                 xhr.responseType = cfg?.responseType;
