@@ -597,13 +597,14 @@
             },
             "fund_request_email_setup": {
                 "continue_without_email": "Kontynuacja bez wiadomości e-mail",
+                "continue_without_email_link": "Kontynuuj bez adresu e-mail",
                 "email_required": "Aby kontynuować aplikację, wprowadź swój adres e-mail",
                 "email_sent": "E-mail wysłany",
                 "email_sent_screen": "Wiadomość e-mail z potwierdzeniem została wysłana",
-                "no_email_info": "Jeśli nie zostawisz adresu e-mail, nie będziesz otrzymywać ważnych wiadomości, takich jak e-mail z kodem QR lub gdy dokonano transakcji. Ponadto możesz zalogować się tylko za pomocą DigiD.",
+                "no_email_link": "Nie mam adresu e-mail",
                 "sign_up_with_email": "Zaloguj się za pomocą adresu e-mail",
-                "skip": "Pomiń",
-                "warning": "Uwaga!"
+                "no_email_info": "Bez adresu e-mail nie będziesz otrzymywać ważnych wiadomości o swoich kredytach i wydatkach. Możesz zalogować się tylko za pomocą DigiD.",
+                "warning": "Uwaga:"
             },
             "fund_request_overview": {
                 "application_summary": "Przegląd żądań",
@@ -2485,7 +2486,8 @@
         "bank_accounts": {
             "title": "Konto bankowe",
             "iban": "IBAN",
-            "name": "Napis"
+            "name": "Napis",
+            "source": "Źródło"
         },
         "breadcrumbs": {
             "home": "Strona główna",
