@@ -775,13 +775,14 @@
             },
             "fund_request_email_setup": {
                 "continue_without_email": "Continuing without email",
+                "continue_without_email_link": "Continue without an email address",
                 "email_required": "To proceed with the application, please provide your email address",
                 "email_sent": "E-mail sent",
                 "email_sent_screen": "An email confirmation has been sent",
-                "no_email_info": "If you do not leave an email address, you will not receive essential messages such as the email with the QR code or when there has been a transaction. In addition, you can only log in with DigiD.",
+                "no_email_link": "I do not have an email address",
                 "sign_up_with_email": "Sign in with email address",
-                "skip": "Skip",
-                "warning": "Note!"
+                "no_email_info": "Without an e-mail address, you will not receive important messages about your credit and expenses. You can then only log in with DigiD.",
+                "warning": "Notice:"
             },
             "fund_request_overview": {
                 "application_summary": "Request Overview",
@@ -2325,7 +2326,8 @@
         "bank_accounts": {
             "title": "Bank account",
             "iban": "IBAN",
-            "name": "Attribution"
+            "name": "Attribution",
+            "source": "Source"
         },
         "breadcrumbs": {
             "home": "Home",

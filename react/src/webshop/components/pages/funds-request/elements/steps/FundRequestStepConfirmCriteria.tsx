@@ -54,6 +54,7 @@ export default function FundRequestStepConfirmCriteria({
                                 checked={confirmCriteria || false}
                                 onChangeValue={(checked) => setConfirmCriteria(checked)}
                                 id="confirm_criteria"
+                                dataDusk="confirmCriteriaCheckbox"
                                 label={translate(
                                     'fund_request.sign_up.fund_request_confirm_criteria.confirm_meet_conditions',
                                 )}
@@ -66,6 +67,7 @@ export default function FundRequestStepConfirmCriteria({
                                     checked={confirmCriteriaWarning || false}
                                     onChangeValue={(checked) => setConfirmCriteriaWarning(checked)}
                                     id="confirm_criteria_warning"
+                                    dataDusk="confirmCriteriaWarningCheckbox"
                                     label={translate(
                                         'fund_request.sign_up.fund_request_confirm_criteria.provide_correct_info',
                                     )}

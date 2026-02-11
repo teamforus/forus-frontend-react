@@ -762,6 +762,7 @@ export default function FundActivate() {
                                         <div className="sign_up-pane-text">
                                             <UIControlCheckbox
                                                 id={'confirm_criteria'}
+                                                dataDusk={'confirmCriteriaCheckbox'}
                                                 checked={criteriaChecked}
                                                 label={translate('fund_activate.cards.digid.confirm')}
                                                 onChange={(e) => setCriteriaChecked(e.target.checked)}
