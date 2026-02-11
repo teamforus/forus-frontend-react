@@ -203,7 +203,16 @@ export default function ImplementationNotifications() {
                     </div>
                     <LoaderTableCard columns={implementationNotificationsService.getColumns()}>
                         {notificationGroup.notifications.map((notification) => (
-                            <tr key={notification.id}>
+                            <StateNavLink
+                                key={notification.id}
+                                name={DashboardRoutes.IMPLEMENTATION_NOTIFICATION_EDIT}
+                                params={{
+                                    organizationId: activeOrganization.id,
+                                    implementationId: implementation.id,
+                                    id: notification.id,
+                                }}
+                                customElement={'tr'}
+                                className={'tr-clickable'}>
                                 <td className="td-grow">
                                     <div>
                                         {notification.editable ? (
@@ -274,7 +283,7 @@ export default function ImplementationNotifications() {
                                         )}
                                     />
                                 </td>
-                            </tr>
+                            </StateNavLink>
                         ))}
                     </LoaderTableCard>
                 </div>
