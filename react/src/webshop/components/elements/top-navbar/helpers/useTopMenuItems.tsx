@@ -59,11 +59,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
                 state: WebshopRoutes.PRODUCTS,
                 stateParams: {},
                 target: '_self',
-                enabled: !!(
-                    appConfigs?.has_internal_funds &&
-                    appConfigs?.products?.list &&
-                    (envData.config.flags.productsMenu || !!identity)
-                ),
+                enabled: !!(appConfigs?.has_internal_funds && (envData.config.flags.productsMenu || !!identity)),
             },
             {
                 id: 'providers_page',

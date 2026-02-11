@@ -1656,6 +1656,10 @@
         "Verder zonder e-mail"
     ],
     [
+        "fund_request.sign_up.fund_request_email_setup.continue_without_email_link",
+        "Ga verder zonder e-mailadres"
+    ],
+    [
         "fund_request.sign_up.fund_request_email_setup.email_required",
         "Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven"
     ],
@@ -1669,19 +1673,19 @@
     ],
     [
         "fund_request.sign_up.fund_request_email_setup.no_email_info",
-        "Als u geen e-mailadres achterlaat ontvangt u geen essentiële berichten zoals de e-mail met de QR-code of wanneer er een transactie is geweest. Daarnaast kan u alleen inloggen met DigiD."
+        "Zonder e-mailadres ontvangt u geen belangrijke berichten over uw tegoed en uitgaven. U kunt dan alleen inloggen met DigiD."
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.no_email_link",
+        "Ik heb geen e-mailadres"
     ],
     [
         "fund_request.sign_up.fund_request_email_setup.sign_up_with_email",
         "Aanmelden met e-mailadres"
     ],
     [
-        "fund_request.sign_up.fund_request_email_setup.skip",
-        "Overslaan"
-    ],
-    [
         "fund_request.sign_up.fund_request_email_setup.warning",
-        "Let op!"
+        "Let op:"
     ],
     [
         "fund_request.sign_up.fund_request_overview.application_summary",
@@ -7082,6 +7086,10 @@
     [
         "profile.bank_accounts.name",
         "Tenaam stelling"
+    ],
+    [
+        "profile.bank_accounts.source",
+        "Bron"
     ],
     [
         "profile.bank_accounts.title",
