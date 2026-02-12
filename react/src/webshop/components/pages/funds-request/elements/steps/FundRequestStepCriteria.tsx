@@ -236,8 +236,12 @@ export default function FundRequestStepCriteria({
                                 <Fragment>
                                     {criteria
                                         .filter((criterion) => criterion.fill_type === 'prefill')
-                                        .filter((criterion) => criterion.record_type_key === 'partner_same_address_nth')
-                                        .length > 0 &&
+                                        .filter((criterion) =>
+                                            [
+                                                'partner_same_address_nth',
+                                                'partner_same_address_gender_female_nth',
+                                            ].includes(criterion.record_type_key),
+                                        ).length > 0 &&
                                         prefills.partner.length > 0 && (
                                             <FundRequestCriteriaPartner
                                                 recordTypesByKey={recordTypesByKey}
@@ -261,9 +265,11 @@ export default function FundRequestStepCriteria({
                                         .filter((criterion) => criterion.fill_type === 'prefill')
                                         .filter(
                                             (criterion) =>
-                                                !['children_same_address_nth', 'partner_same_address_nth'].includes(
-                                                    criterion.record_type_key,
-                                                ),
+                                                ![
+                                                    'children_same_address_nth',
+                                                    'partner_same_address_nth',
+                                                    'partner_same_address_gender_female_nth',
+                                                ].includes(criterion.record_type_key),
                                         ).length > 0 && (
                                         <div className="preview-item-panel">
                                             <div className="preview-item-values">
@@ -274,6 +280,7 @@ export default function FundRequestStepCriteria({
                                                             ![
                                                                 'children_same_address_nth',
                                                                 'partner_same_address_nth',
+                                                                'partner_same_address_gender_female_nth',
                                                             ].includes(criterion.record_type_key),
                                                     )
                                                     .map((criterion) => (

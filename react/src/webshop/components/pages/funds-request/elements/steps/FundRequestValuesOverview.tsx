@@ -164,8 +164,11 @@ export default function FundRequestValuesOverview({
 
                                 {step.criteria
                                     .filter((criterion) => criterion.fill_type === 'prefill')
-                                    .filter((criterion) => criterion.record_type_key === 'partner_same_address_nth')
-                                    .length > 0 &&
+                                    .filter((criterion) =>
+                                        ['partner_same_address_nth', 'partner_same_address_gender_female_nth'].includes(
+                                            criterion.record_type_key,
+                                        ),
+                                    ).length > 0 &&
                                     prefills.partner.length > 0 && (
                                         <FundRequestCriteriaPartner
                                             recordTypesByKey={recordTypesByKey}
@@ -190,9 +193,11 @@ export default function FundRequestValuesOverview({
                                         (criterion) =>
                                             !(
                                                 criterion.fill_type === 'prefill' &&
-                                                ['children_same_address_nth', 'partner_same_address_nth'].includes(
-                                                    criterion.record_type_key,
-                                                )
+                                                [
+                                                    'children_same_address_nth',
+                                                    'partner_same_address_nth',
+                                                    'partner_same_address_gender_female_nth',
+                                                ].includes(criterion.record_type_key)
                                             ),
                                     ).length > 0 && (
                                     <div className="preview-item-panel">
@@ -206,6 +211,7 @@ export default function FundRequestValuesOverview({
                                                             [
                                                                 'children_same_address_nth',
                                                                 'partner_same_address_nth',
+                                                                'partner_same_address_gender_female_nth',
                                                             ].includes(criterion.record_type_key)
                                                         ),
                                                 )
