@@ -125,10 +125,11 @@ export default {
             sign_up_with_email: 'Aanmelden met e-mailadres',
             email_required: 'Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven',
             continue_without_email: 'Verder zonder e-mail',
-            warning: 'Let op!',
+            continue_without_email_link: 'Ga verder zonder e-mailadres',
+            warning: 'Let op:',
+            no_email_link: 'Ik heb geen e-mailadres',
             no_email_info:
-                'Als u geen e-mailadres achterlaat ontvangt u geen essentiële berichten zoals de e-mail met de QR-code of wanneer er een transactie is geweest. Daarnaast kan u alleen inloggen met DigiD.',
-            skip: 'Overslaan',
+                'Zonder e-mailadres ontvangt u geen belangrijke berichten over uw tegoed en uitgaven. U kunt dan alleen inloggen met DigiD.',
         },
         fund_request_step_done: {
             sign_up: 'Aanmelden',

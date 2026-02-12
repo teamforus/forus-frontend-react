@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProductService } from '../../../services/ProductService';
 import { PaginationData, ResponseError } from '../../../../dashboard/props/ApiResponses';
 import Product from '../../../props/models/Product';
@@ -43,6 +43,8 @@ export default function Products() {
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
 
     const [toMax, setToMax] = useState(0);
+
+    const activeFetchListRef = useRef<XMLHttpRequest | null>(null);
 
     const defaultSortOption = useMemo(() => {
         return sortByOptions?.find((option) => {
@@ -102,7 +104,7 @@ export default function Products() {
             order_dir: (defaultSortOption || sortByOptions[0])?.value.order_dir,
         },
         {
-            throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment'],
+            throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment', 'postcode'],
             queryParams: {
                 q: StringParam,
                 page: NumberParam,
@@ -209,16 +211,24 @@ export default function Products() {
 
     const fetchProducts = useCallback(
         (query: object) => {
+            activeFetchListRef.current?.abort();
+
             setErrors(null);
             setProgress(0);
 
             productService
-                .list({ ...query })
+                .list({ ...query }, { onXhr: (xhr: XMLHttpRequest) => (activeFetchListRef.current = xhr) })
                 .then((res) => {
                     setProducts(res.data);
                     setToMax((max) => Math.max(res.data?.meta?.price_max, max));
                 })
-                .catch((e: ResponseError) => setErrors(e.data?.errors))
+                .catch((e: ResponseError) => {
+                    if (e?.status === 0) {
+                        return;
+                    }
+
+                    setErrors(e.data?.errors);
+                })
                 .finally(() => setProgress(100));
         },
         [productService, setProgress],
@@ -226,6 +236,10 @@ export default function Products() {
 
     useEffect(() => {
         fetchProducts(buildQuery(filterValuesActive));
+
+        return () => {
+            activeFetchListRef.current?.abort();
+        };
     }, [fetchProducts, buildQuery, filterValuesActive]);
 
     useEffect(() => {

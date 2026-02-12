@@ -96,14 +96,8 @@ function RouterSelector({ children, envData }: { envData: EnvDataProp; children:
  */
 export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): React.ReactElement {
     envData.config.flags = {
-        showAccountSidebar: true,
-
         // menu settings
         productsMenu: true,
-        meAppMenu: true,
-        forusPlatformMenu: true,
-        portfolioMenu: true,
-        aboutSiteMenu: true,
 
         // home settings
         fundsMenu: false, // Show funds option on the top menu

@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import { useParams } from 'react-router';
 import { useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import FundRequest from '../../../props/models/FundRequest';
+import FundRequest, { FundRequestRecordGroup } from '../../../props/models/FundRequest';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
@@ -14,30 +14,52 @@ import ModalNotification from '../../modals/ModalNotification';
 import FundRequestRecord from '../../../props/models/FundRequestRecord';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { ResponseError } from '../../../props/ApiResponses';
-import ModalFundRequestClarify from '../../modals/ModalFundRequestClarify';
 import ModalFundRequestDecline from '../../modals/ModalFundRequestDecline';
-import ModalFundRequestRecordEdit from '../../modals/ModalFundRequestRecordEdit';
 import ModalFundRequestRecordCreate from '../../modals/ModalFundRequestRecordCreate';
 import ModalFundRequestDisregard from '../../modals/ModalFundRequestDisregard';
 import ModalFundRequestDisregardUndo from '../../modals/ModalFundRequestDisregardUndo';
 import ModalFundRequestAssignValidator from '../../modals/ModalFundRequestAssignValidator';
 import useEnvData from '../../../hooks/useEnvData';
-import FundRequestRecordTabs from './elements/FundRequestRecordTabs';
 import IdentityPerson from './elements/IdentityPerson';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
-import classNames from 'classnames';
 import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
 import Note from '../../../props/models/Note';
 import FundRequestStateLabel from '../../elements/resource-states/FundRequestStateLabel';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
-import TableRowActions from '../../elements/tables/TableRowActions';
 import Icon from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/fund-request-icon.svg';
-import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useEmailLogService from '../../../services/EmailLogService';
 import { Permission } from '../../../props/models/Organization';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import { sortBy } from 'lodash';
+import Employee from '../../../props/models/Employee';
+import classNames from 'classnames';
+import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
+import FundRequestGroupRow from './elements/FundRequestGroupRow';
+
+export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
+
+export type FundRequestRecordGroupLocal = FundRequestRecordGroup & {
+    records?: Array<FundRequestRecordLocal>;
+    hasContent?: boolean;
+};
+
+export type FundRequestLocal = FundRequest & {
+    // records: Array<FundRequestRecordLocal>;
+    record_has_clarifications: Array<FundRequestRecordLocal>;
+    record_groups: Array<FundRequestRecordGroupLocal>;
+    assignable_employees: Array<Employee>;
+    can_disregarded: boolean;
+    can_disregarded_undo: boolean;
+    is_assignable: boolean;
+    is_assignable_as_supervisor: boolean;
+    is_assigned: boolean;
+    can_add_partner_bsn: boolean;
+    can_resign: boolean;
+    can_resign_as_supervisor: boolean;
+    has_actions: boolean;
+};
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -57,7 +79,8 @@ export default function FundRequestsView() {
 
     const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [showCriteria, setShowCriteria] = useState(null);
-    const [collapsedRecords, setCollapsedRecords] = useState<Array<number>>([]);
+    const [uncollapsedRecords, setUncollapsedRecords] = useState<Array<number>>([]);
+    const [uncollapsedRecordGroups, setUncollapsedRecordGroups] = useState<Array<number>>([]);
 
     const fund = useMemo(() => {
         return fundRequest?.fund;
@@ -77,16 +100,16 @@ export default function FundRequestsView() {
         [activeOrganization],
     );
 
-    const fundRequestMeta = useMemo(() => {
+    const fundRequestMeta: FundRequestLocal = useMemo(() => {
         if (!fundRequest) {
             return null;
         }
 
-        const { state, records, allowed_employees, employee } = fundRequest;
+        const { state, allowed_employees, employee } = fundRequest;
         const isPending = state == 'pending';
         const isDisregarded = state == 'disregarded';
 
-        const recordTypes = records.map((record) => record.record_type_key);
+        const recordTypes = fundRequest.records.map((record) => record.record_type_key);
 
         const assignableEmployees = allowed_employees.filter((item) => {
             return item.identity_address !== authIdentity?.address && item.id !== employee?.id;
@@ -114,16 +137,38 @@ export default function FundRequestsView() {
             };
         });
 
+        const records = fundRequest.records.map((record) => ({
+            ...record,
+            hasContent: record.files.length > 0 || record.clarifications.length > 0 || record.history.length > 0,
+            group_id: 0,
+        }));
+
+        const recordsById = new Map(records.map((record) => [record.id, record]));
+
+        const recordGroups: Array<FundRequestRecordGroupLocal> = fundRequest.record_groups.map((group) => {
+            const groupRecords = (group.record_ids || [])
+                .map((recordId) => recordsById.get(recordId))
+                .filter((record) => record);
+
+            groupRecords.forEach((record) => {
+                record.group_id = group.id;
+            });
+
+            return {
+                ...group,
+                records: groupRecords,
+                hasContent:
+                    groupRecords.filter((record) => {
+                        return record.files?.length || record.clarifications?.length || record.history?.length;
+                    }).length > 0,
+            };
+        });
+
         return {
             ...fundRequest,
-            hasContent:
-                records.filter((record) => {
-                    return record.files?.length || record.clarifications?.length || record.history?.length;
-                }).length > 0,
-            records: fundRequest.records.map((record) => ({
-                ...record,
-                hasContent: record.files.length > 0 || record.clarifications.length > 0 || record.history.length > 0,
-            })),
+
+            record_has_clarifications: records.filter((record) => record.clarifications?.length),
+            record_groups: sortBy(recordGroups, 'order'),
 
             assignable_employees: assignableEmployees,
             can_disregarded: isAssigned && isPending,
@@ -179,28 +224,6 @@ export default function FundRequestsView() {
             updateNotesRef?.current?.();
         }, pushApiError);
     }, [activeOrganization.id, fundRequestMeta?.id, fundRequestService, pushApiError]);
-
-    const clarifyRecord = useCallback(
-        (requestRecord: FundRequestRecord) => {
-            openModal((modal) => (
-                <ModalFundRequestClarify
-                    modal={modal}
-                    fundRequest={fundRequestMeta}
-                    organization={activeOrganization}
-                    fundRequestRecord={requestRecord}
-                    onSubmitted={(err) => {
-                        if (err) {
-                            return showInfoModal('Error', `Reden: ${err.data.message}`);
-                        }
-
-                        reloadRequest();
-                        pushSuccess('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
-                    }}
-                />
-            ));
-        },
-        [activeOrganization, fundRequestMeta, openModal, pushSuccess, reloadRequest, showInfoModal],
-    );
 
     const requestApprove = useCallback(() => {
         if (!enableCustomConfirmationModal) {
@@ -412,24 +435,6 @@ export default function FundRequestsView() {
         ));
     }, [activeOrganization, fundRequestMeta, openModal, pushSuccess, reloadRequest]);
 
-    const editRecord = useCallback(
-        (fundRequestRecord: FundRequestRecord) => {
-            openModal((modal) => (
-                <ModalFundRequestRecordEdit
-                    modal={modal}
-                    fundRequest={fundRequestMeta}
-                    organization={activeOrganization}
-                    fundRequestRecord={fundRequestRecord}
-                    onEdit={() => {
-                        pushSuccess('Gelukt!', 'Persoonsgegeven toegevoegd.');
-                        reloadRequest();
-                    }}
-                />
-            ));
-        },
-        [activeOrganization, fundRequestMeta, openModal, pushSuccess, reloadRequest],
-    );
-
     const fetchNotes = useCallback(
         (query = {}) => fundRequestService.notes(activeOrganization.id, fundRequestMeta.id, query),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
@@ -461,6 +466,12 @@ export default function FundRequestsView() {
     if (!fundRequestMeta) {
         return <LoadingCard />;
     }
+
+    const hasCollapsedRecordGroups = fundRequestMeta.record_groups.some(
+        (group) => !uncollapsedRecordGroups.includes(group.id),
+    );
+    const hasCollapsedRecords = fundRequestMeta.records.some((record) => !uncollapsedRecords.includes(record.id));
+    const hasCollapsedGroupsOrRecords = hasCollapsedRecordGroups || hasCollapsedRecords;
 
     return (
         <Fragment>
@@ -706,15 +717,54 @@ export default function FundRequestsView() {
                 </div>
             )}
 
+            {fundRequestMeta.record_has_clarifications.length > 0 && (
+                <FundRequestRecordsHasClarifications
+                    fundRequest={fundRequestMeta}
+                    setUncollapsedRecords={setUncollapsedRecords}
+                    setUncollapsedRecordGroups={setUncollapsedRecordGroups}
+                />
+            )}
+
             <div className="card">
                 <div className="card-header">
                     <div className="flex flex-grow card-title">
                         {translate('validation_requests.labels.records')} ({fundRequestMeta.records.length})
                     </div>
 
-                    {fundRequestMeta.can_add_partner_bsn && (
-                        <div className="card-header-filters">
-                            <div className="block block-inline-filters">
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <button
+                                data-dusk="toggleCollapseBtn"
+                                className="button button-default button-sm"
+                                onClick={() => {
+                                    if (hasCollapsedGroupsOrRecords) {
+                                        setUncollapsedRecordGroups(
+                                            fundRequestMeta.record_groups.map((group) => group.id),
+                                        );
+                                        setUncollapsedRecords(fundRequestMeta.records.map((record) => record.id));
+                                        return;
+                                    }
+
+                                    setUncollapsedRecordGroups([]);
+                                    setUncollapsedRecords([]);
+                                }}>
+                                <em
+                                    className={classNames(
+                                        'mdi',
+                                        'icon-start',
+                                        hasCollapsedGroupsOrRecords
+                                            ? 'mdi-arrow-expand-vertical'
+                                            : 'mdi-arrow-collapse-vertical',
+                                    )}
+                                />
+                                {translate(
+                                    `validation_requests.buttons.${
+                                        hasCollapsedGroupsOrRecords ? 'uncollapse' : 'collapse'
+                                    }`,
+                                )}
+                            </button>
+
+                            {fundRequestMeta.can_add_partner_bsn && (
                                 <button
                                     className="button button-primary button-sm"
                                     data-dusk="addPartnerBsnBtn"
@@ -722,102 +772,26 @@ export default function FundRequestsView() {
                                     <em className="mdi mdi-plus icon-start" />
                                     {translate('validation_requests.buttons.add_partner_bsn')}
                                 </button>
-                            </div>
+                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
                 <LoaderTableCard
-                    empty={fundRequestMeta.records.length === 0}
+                    empty={fundRequestMeta.record_groups.length === 0}
                     emptyTitle={'Geen records'}
-                    columns={fundRequestService.getRecordsColumns()}
-                    tableOptions={{
-                        trPrepend: fundRequestMeta?.hasContent ? <th className="cell-chevron th-narrow" /> : null,
-                    }}>
-                    {fundRequestMeta.records.map((record) => (
-                        <Fragment key={record.id}>
-                            <tr data-dusk={`tableFundRequestRecordRow${record.id}`}>
-                                {fundRequestMeta.hasContent && (
-                                    <td className="cell-chevron">
-                                        {record.hasContent && (
-                                            <a
-                                                className={classNames(
-                                                    'mdi',
-                                                    'td-menu-icon',
-                                                    !collapsedRecords.includes(record.id)
-                                                        ? 'mdi-menu-up'
-                                                        : 'mdi-menu-down',
-                                                )}
-                                                onClick={() => {
-                                                    setCollapsedRecords((shownRecords) => {
-                                                        return shownRecords?.includes(record.id)
-                                                            ? shownRecords?.filter((id) => id !== record.id)
-                                                            : [...shownRecords, record.id];
-                                                    });
-                                                }}
-                                            />
-                                        )}
-                                    </td>
-                                )}
-                                <td>{record.record_type.name}</td>
-
-                                {record?.record_type.type != 'select' && (
-                                    <td className={classNames(record.value !== null && 'text-muted')}>
-                                        {record?.value || 'Niet beschikbaar'}
-                                    </td>
-                                )}
-
-                                {record?.record_type.type == 'select' && (
-                                    <td className={classNames(record.value !== null && 'text-muted')}>
-                                        {record?.record_type.options?.find((option) => option.value == record?.value)
-                                            ?.name || 'Niet beschikbaar'}
-                                    </td>
-                                )}
-
-                                <td>{record.created_at_locale}</td>
-
-                                <td className="td-narrow text-right">
-                                    {fundRequestMeta.is_assigned ? (
-                                        <TableRowActions
-                                            dataDusk={`fundRequestRecordMenuBtn${record.id}`}
-                                            content={(e) => (
-                                                <div className="dropdown dropdown-actions">
-                                                    <div
-                                                        className="dropdown-item"
-                                                        onClick={() => {
-                                                            e.close();
-                                                            clarifyRecord(record);
-                                                        }}>
-                                                        <em className="mdi mdi-message-text icon-start" />
-                                                        Aanvullingsverzoek
-                                                    </div>
-                                                    {activeOrganization.allow_fund_request_record_edit && (
-                                                        <div
-                                                            className="dropdown-item"
-                                                            onClick={() => {
-                                                                e.close();
-                                                                editRecord(record);
-                                                            }}
-                                                            data-dusk="fundRequestRecordEditBtn">
-                                                            <em className="mdi mdi-pencil icon-start" />
-                                                            Bewerking
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-                                        />
-                                    ) : (
-                                        <TableEmptyValue />
-                                    )}
-                                </td>
-                            </tr>
-                            {record.hasContent && !collapsedRecords.includes(record.id) && (
-                                <tr className="tr-dim">
-                                    <td className="collapse-content" colSpan={6}>
-                                        <FundRequestRecordTabs fundRequestRecord={record} />
-                                    </td>
-                                </tr>
-                            )}
-                        </Fragment>
+                    columns={fundRequestService.getRecordGroupsColumns()}>
+                    {fundRequestMeta.record_groups.map((group: FundRequestRecordGroupLocal) => (
+                        <FundRequestGroupRow
+                            key={group.id}
+                            organization={activeOrganization}
+                            group={group}
+                            fundRequest={fundRequestMeta}
+                            uncollapsedRecords={uncollapsedRecords}
+                            setUncollapsedRecords={setUncollapsedRecords}
+                            uncollapsedRecordGroups={uncollapsedRecordGroups}
+                            setUncollapsedRecordGroups={setUncollapsedRecordGroups}
+                            reloadRequest={reloadRequest}
+                        />
                     ))}
                 </LoaderTableCard>
             </div>

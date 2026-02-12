@@ -168,12 +168,6 @@
                 & > a {
                     font: inherit;
                 }
-
-                &.cell-chevron,
-                &.cell-chevron {
-                    width: 1px;
-                    padding: 10px 0 10px 15px;
-                }
             }
 
             th {
@@ -539,6 +533,14 @@
                         justify-content: center;
                         @include ellipsis();
                         display: flex;
+                    }
+
+                    &.td-collapsable-lg {
+                        min-height: 30px;
+
+                        .collapsable-content {
+                            font: 500 14px/20px var(--base-font);
+                        }
                     }
                 }
 
