@@ -24,6 +24,15 @@ export interface FundRequestFormula {
     }>;
 }
 
+export interface FundRequestRecordGroup {
+    id: number;
+    title: string;
+    organization_id?: number;
+    fund_id?: number;
+    order: number;
+    record_ids: Array<number>;
+};
+
 export default interface FundRequest {
     id: number;
     bsn?: string | null;
@@ -40,6 +49,7 @@ export default interface FundRequest {
     contact_information: string | null;
     note: string;
     records: Array<FundRequestRecord>;
+    record_groups?: Array<FundRequestRecordGroup>;
     replaced: boolean;
     state: 'pending' | 'approved' | 'declined' | 'disregarded';
     employee: Employee;

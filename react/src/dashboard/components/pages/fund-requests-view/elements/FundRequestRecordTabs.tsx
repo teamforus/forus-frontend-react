@@ -22,7 +22,7 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
     const [shownType, setShownType] = useState(contentMap.filter((value) => value)[0] || null);
 
     return (
-        <div className="block" data-dusk={`fundRequestRecordTabs${fundRequestRecord.id}`}>
+        <div className="flex flex-vertical flex-gap" data-dusk={`fundRequestRecordTabs${fundRequestRecord.id}`}>
             {hasMultiple && (
                 <BlockLabelTabs
                     size={null}
