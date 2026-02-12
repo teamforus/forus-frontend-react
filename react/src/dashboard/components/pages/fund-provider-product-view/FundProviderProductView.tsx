@@ -274,15 +274,13 @@ export default function FundProviderProductView() {
                                     )}
                                 </Fragment>
                             ) : (
-                                <a
+                                <button
                                     className="button button-primary button-sm nowrap"
-                                    onClick={(e) => {
-                                        e?.preventDefault();
-                                        editProduct(fund, fundProvider, product).then(setFundProvider);
-                                    }}>
+                                    disabled={product.expired}
+                                    onClick={() => editProduct(fund, fundProvider, product).then(setFundProvider)}>
                                     <em className="mdi mdi-play" />
                                     {translate('product.buttons.approve_product')}
-                                </a>
+                                </button>
                             )}
                         </Fragment>
                     )}
