@@ -8,6 +8,7 @@ import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
 import FormPane from '../../../../elements/forms/elements/FormPane';
 import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';
+import Label from '../../../../elements/image_cropper/Label';
 
 export default function ProductDetailsBlockPropertiesPane({
     title = null,
@@ -52,7 +53,10 @@ export default function ProductDetailsBlockPropertiesPane({
                     )}
 
                     <KeyValueItem label={translate('product.labels.expire')}>
-                        {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+                        <Fragment>
+                            {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+                            {product.expired && <Label type={'default'}>{translate('product.labels.expired')}</Label>}
+                        </Fragment>
                     </KeyValueItem>
 
                     {showStockAndReservations && (
