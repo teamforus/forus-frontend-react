@@ -49,11 +49,16 @@ export default function Redirect() {
                 .confirmVerification(email_confirmation_token)
                 .then(() => {
                     setResolved(true);
+
                     pushSuccess(
                         translate('push.email_verification_success.title'),
                         translate('push.email_verification_success.description'),
                     );
-                    navigateState(WebshopRoutes.IDENTITY_EMAILS, {}, {});
+
+                    if (!target || !handleAuthTarget(target)) {
+                        setResolved(true);
+                        navigateState(WebshopRoutes.IDENTITY_EMAILS, {}, {});
+                    }
                 })
                 .catch((err: ResponseError) => {
                     pushDanger(

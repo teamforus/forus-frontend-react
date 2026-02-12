@@ -58,7 +58,12 @@ export function useAuthService() {
 
             if (target && target[0] == 'fundRequest') {
                 if (target[1]) {
-                    navigateState(WebshopRoutes.FUND_REQUEST, { id: target[1] });
+                    navigateState(
+                        WebshopRoutes.FUND_REQUEST,
+                        { id: target[1] },
+                        {},
+                        { state: { from: WebshopRoutes.FUND_ACTIVATE } },
+                    );
                 } else {
                     navigateState(WebshopRoutes.START, {});
                 }

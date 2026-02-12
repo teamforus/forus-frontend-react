@@ -442,13 +442,16 @@ export default function ModalVouchersUpload({
                     { icon: 'timer-sand' },
                 );
 
-                const emails = data.map((voucher) => voucher.identity_email);
+                const emails = data
+                    .map((voucher) => voucher.identity_email?.toLowerCase())
+                    .filter((email) => Boolean(email));
+
                 const bsnList = [
                     ...data.map((voucher) => voucher.relation_bsn),
                     ...data.map((voucher) => voucher.identity_bsn),
                 ];
 
-                const existingEmails = list.filter((row) => emails.includes(row.email));
+                const existingEmails = list.filter((row) => emails.includes(row.email?.toLowerCase()));
                 const existingBsn = list.filter((csvRow) => bsnList.includes(csvRow.bsn));
 
                 if (existingEmails.length === 0 && existingBsn.length === 0) {

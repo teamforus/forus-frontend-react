@@ -21,7 +21,7 @@ export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
             !voucher?.deactivated &&
             !voucher?.product &&
             !voucher?.external &&
-            appConfigs?.products.list,
+            appConfigs?.has_internal_funds,
         [appConfigs, voucher],
     );
 
@@ -46,5 +46,6 @@ export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
     if (!showProducts || !products) {
         return;
     }
+
     return <BlockProducts products={products.data} filters={{ fund_ids: [voucher.fund_id] }} />;
 }
