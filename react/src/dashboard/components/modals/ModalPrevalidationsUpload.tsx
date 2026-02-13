@@ -766,6 +766,81 @@ export default function ModalPrevalidationsUpload({
         ],
     );
 
+    const showDuplicateRows = useCallback(
+        (rows = []) => {
+            const message = [
+                `${rows.length} van ${data.length}`,
+                'rij(en) uit het bulkbestand zijn niet',
+                'geïmporteerd vanwege dubbele waarden.',
+                'Bekijk het bestand bij welke rij(en) het mis gaat.',
+            ].join(' ');
+
+            pushDanger('Waarschuwing', message);
+            setHideModal(true);
+
+            openModal((modal) => (
+                <ModalDuplicatesPicker
+                    modal={modal}
+                    hero_title={'Er is een fout opgetreden bij het importeren van het bulkbestand'}
+                    hero_subtitle={message}
+                    enableToggles={false}
+                    label_on={'Aanmaken'}
+                    label_off={'Overslaan'}
+                    items={rows}
+                    onConfirm={() => {
+                        reset();
+                        setHideModal(false);
+                    }}
+                    onCancel={() => {
+                        reset();
+                        setHideModal(false);
+                    }}
+                />
+            ));
+        },
+        [data, openModal, pushDanger, reset],
+    );
+
+    const checkDuplicates = useCallback(() => {
+        return new Promise((resolve, reject) => {
+            const submitData: RowDataPropData[] = JSON.parse(JSON.stringify(data));
+            const keyMap = new Map();
+            const duplicates = [];
+
+            submitData.forEach((item, index) => {
+                const primary_key = item?.[fund.csv_primary_key];
+
+                if (!primary_key) {
+                    return;
+                }
+
+                if (!keyMap.has(primary_key)) {
+                    keyMap.set(primary_key, [index]);
+                } else {
+                    keyMap.get(primary_key).push(index);
+                }
+            });
+
+            keyMap.forEach((indexes, primary_key) => {
+                if (indexes.length > 1) {
+                    indexes.forEach((i) => {
+                        duplicates.push({
+                            value: `Rij: ${i + 1}: ${fund?.csv_primary_key} - ${primary_key}`,
+                            _uid: uniqueId('rand_'),
+                        });
+                    });
+                }
+            });
+
+            if (duplicates.length) {
+                showDuplicateRows(duplicates);
+                reject();
+            }
+
+            resolve(true);
+        });
+    }, [data, fund?.csv_primary_key, showDuplicateRows]);
+
     const submitCollectionCheck = useCallback(() => {
         setCsvProgress(CSVProgress.uploading);
         abortRef.current = false;
@@ -854,14 +929,16 @@ export default function ModalPrevalidationsUpload({
     ]);
 
     const onConfirmUpload = useCallback(() => {
-        setCsvComparing(true);
+        checkDuplicates().then(() => {
+            setCsvComparing(true);
 
-        pushSuccess('Inladen...', 'Inladen van gegevens voor controle op dubbele waarden!', {
-            icon: 'download-outline',
-        });
+            pushSuccess('Inladen...', 'Inladen van gegevens voor controle op dubbele waarden!', {
+                icon: 'download-outline',
+            });
 
-        submitCollectionCheck();
-    }, [pushSuccess, submitCollectionCheck]);
+            submitCollectionCheck();
+        }, console.error);
+    }, [checkDuplicates, pushSuccess, submitCollectionCheck]);
 
     const onDragEvent = useCallback((e: React.DragEvent, isDragOver: boolean) => {
         e?.preventDefault();
