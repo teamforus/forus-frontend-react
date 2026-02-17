@@ -305,11 +305,8 @@ export default function ModalVouchersUpload({
                             `Er zijn ${lowAmountOptions.length} tegoeden met een laag bedrag.`,
                             'Wilt u doorgaan?',
                         ]}
-                        button_none={'Alle overslaan'}
                         button_all={'Alle aanmaken'}
                         enableToggles={true}
-                        label_on={'Aanmaken'}
-                        label_off={'Overslaan'}
                         items={lowAmountOptions}
                         onConfirm={(data) => {
                             resolve(pickSelectedOrUnflagged(originalRows, data.uids, lowAmountOptionIds));
@@ -348,11 +345,8 @@ export default function ModalVouchersUpload({
                             `Weet u zeker dat u voor ${duplicateOptions.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
                             'Deze e-mailadressen bezitten al een tegoed van dit fonds.',
                         ]}
-                        button_none={'Alle overslaan'}
                         button_all={'Alle aanmaken'}
                         enableToggles={true}
-                        label_on={'Aanmaken'}
-                        label_off={'Overslaan'}
                         items={duplicateOptions}
                         onConfirm={(data) => {
                             resolve(pickSelectedOrUnflagged(originalRows, data.uids, duplicateOptionIds));
@@ -393,10 +387,7 @@ export default function ModalVouchersUpload({
                             'Deze bsn(s) bezitten al een tegoed van dit fonds.',
                         ]}
                         enableToggles={true}
-                        button_none={'Alle overslaan'}
                         button_all={'Alle aanmaken'}
-                        label_on={'Aanmaken'}
-                        label_off={'Overslaan'}
                         items={bsnOptions}
                         onConfirm={(data) => {
                             resolve(pickSelectedOrUnflagged(originalRows, data.uids, bsnOptionIds));
@@ -614,8 +605,6 @@ export default function ModalVouchersUpload({
                         hero_title={'Er zijn fouten opgetreden bij het importeren van de tegoeden'}
                         hero_subtitle={message}
                         enableToggles={false}
-                        label_on={'Aanmaken'}
-                        label_off={'Overslaan'}
                         items={items.map((item) => ({
                             _uid: uniqueId('rand_'),
                             label: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,

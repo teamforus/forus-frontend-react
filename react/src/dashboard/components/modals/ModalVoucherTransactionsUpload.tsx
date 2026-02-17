@@ -193,8 +193,6 @@ export default function ModalVoucherTransactionsUpload({
                     hero_title={'Transactie aanmaken mislukt!'}
                     hero_subtitle={[validation ? messageValidation : message]}
                     enableToggles={false}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items.map((item) => ({
                         _uid: uniqueId('rand_'),
                         label: `Rij: ${item[0]}: ${item[2]['uid'] || ''} - ${item[1]}`,

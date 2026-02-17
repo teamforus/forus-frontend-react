@@ -185,8 +185,6 @@ export default function ModalPrevalidationRequestsUpload({
                     hero_title={'Er zijn fouten opgetreden bij het importeren van de aanvragers'}
                     hero_subtitle={message}
                     enableToggles={false}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items.map((item) => ({
                         value: `Rij: ${item[0]}: ${item[2]} - ${item[1]}`,
                         _uid: uniqueId('rand_'),
