@@ -275,6 +275,7 @@ export default function FundProviderProductView() {
                                 </Fragment>
                             ) : (
                                 <button
+                                    type="button"
                                     className="button button-primary button-sm nowrap"
                                     disabled={product.expired}
                                     onClick={() => editProduct(fund, fundProvider, product).then(setFundProvider)}>
