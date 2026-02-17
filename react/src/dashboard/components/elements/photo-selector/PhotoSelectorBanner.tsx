@@ -15,6 +15,8 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Implementation from '../../../props/models/Implementation';
 import Organization from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFileTypeValidation from '../../../services/helpers/useFileTypeValidation';
+import usePushDanger from '../../../hooks/usePushDanger';
 
 export default function PhotoSelectorBanner({
     disabled,
@@ -49,6 +51,10 @@ export default function PhotoSelectorBanner({
 
     const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
+    const pushDanger = usePushDanger();
+    const fileTypeIsValid = useFileTypeValidation();
+
+    const [acceptedFiles] = useState(['.apng', '.png', '.jpg', '.jpeg', '.svg', '.webp']);
     const [activeDropdown, setActiveDropdown] = useState<'style' | 'button' | 'color' | 'background' | 'overlay'>(null);
     const [descriptionPreview, setDescriptionPreview] = useState<string>(null);
 
@@ -78,12 +84,17 @@ export default function PhotoSelectorBanner({
             const file = e.target.files[0];
             e.target.value = null;
 
+            if (!fileTypeIsValid(file, acceptedFiles)) {
+                return pushDanger(`Toegestaande formaten: ${acceptedFiles.join(', ')}`);
+            }
+
             openModal((modal) => (
                 <ModalPhotoUploader
                     type={'implementation_banner'}
                     file={file}
                     modal={modal}
                     initialCropWidth={100}
+                    acceptedFiles={acceptedFiles}
                     onSubmit={(file, presets) => {
                         const thumbnail = presets.find((preset) => preset.key == 'final');
 
@@ -93,7 +104,7 @@ export default function PhotoSelectorBanner({
                 />
             ));
         },
-        [openModal, selectPhoto],
+        [acceptedFiles, fileTypeIsValid, openModal, pushDanger, selectPhoto],
     );
 
     useEffect(() => {
@@ -113,7 +124,7 @@ export default function PhotoSelectorBanner({
 
     return (
         <div className="block block-banner-editor">
-            <input type="file" hidden={true} accept={'image/*'} ref={inputRef} onChange={onPhotoChange} />
+            <input type="file" hidden={true} accept={acceptedFiles.join(',')} ref={inputRef} onChange={onPhotoChange} />
 
             <div
                 className={classNames(

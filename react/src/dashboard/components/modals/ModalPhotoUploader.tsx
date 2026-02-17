@@ -11,6 +11,7 @@ export default function ModalPhotoUploader({
     modal,
     onSubmit,
     className,
+    acceptedFiles = ['.apng', '.png', '.jpg', '.jpeg', '.svg', '.webp'],
     initialCropWidth = 90,
 }: {
     type: string;
@@ -18,6 +19,7 @@ export default function ModalPhotoUploader({
     modal: ModalState;
     onSubmit: (file: Blob, sizes: Array<ImageCropperPresetValue>) => void;
     className?: string;
+    acceptedFiles?: Array<string>;
     initialCropWidth?: number;
 }) {
     const appConfigs = useAppConfigs();
@@ -44,13 +46,13 @@ export default function ModalPhotoUploader({
         const input = document.createElement('input');
         input.style.display = 'none';
         input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/!*');
+        input.setAttribute('accept', (acceptedFiles || []).join(','));
         input.addEventListener('change', () => {
             setTargetFile(null);
             window.setTimeout(() => setTargetFile(input.files[0]), 0);
         });
         input.click();
-    }, []);
+    }, [acceptedFiles]);
 
     useEffect(() => {
         setMediaConfig(appConfigs.media[type]);
@@ -129,7 +131,7 @@ export default function ModalPhotoUploader({
                                 De afmeting van de afbeelding dient bijvoorbeeld {mediaConfig?.size.large[0]}x
                                 {mediaConfig?.size.large[1]}px te zijn. (breedte keer hoogte)
                                 <br />
-                                Toegestaande formaten: .JPG, .PNG
+                                Toegestaande formaten: {acceptedFiles.join(', ')}
                                 <br />
                             </div>
                             <div className="form text-center">

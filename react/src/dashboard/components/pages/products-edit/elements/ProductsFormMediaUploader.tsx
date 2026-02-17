@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import Media from '../../../../props/models/Media';
 import ModalPhotoUploader from '../../../modals/ModalPhotoUploader';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -20,6 +20,8 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import usePushDanger from '../../../../hooks/usePushDanger';
+import useFileTypeValidation from '../../../../services/helpers/useFileTypeValidation';
 
 export default function ProductsFormMediaUploader({
     media,
@@ -36,8 +38,12 @@ export default function ProductsFormMediaUploader({
 
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
+    const pushDanger = usePushDanger();
 
     const mediaService = useMediaService();
+    const fileTypeIsValid = useFileTypeValidation();
+
+    const [acceptedFiles] = useState(['.apng', '.png', '.jpg', '.jpeg', '.svg', '.webp']);
 
     const uploadMedia = useCallback(
         (mediaFile: Blob): Promise<Media> => {
@@ -61,24 +67,25 @@ export default function ProductsFormMediaUploader({
             const file = e.target.files[0];
             e.target.value = null;
 
+            if (!fileTypeIsValid(file, acceptedFiles)) {
+                return pushDanger(`Toegestaande formaten: ${acceptedFiles.join(', ')}`);
+            }
+
             openModal((modal) => (
                 <ModalPhotoUploader
                     type={'product_photo'}
                     file={file}
                     modal={modal}
-                    onSubmit={(file /*, presets*/) => {
-                        //const thumbnail = presets.find((preset) => preset.key == 'thumbnail');
-
+                    acceptedFiles={acceptedFiles}
+                    onSubmit={(file) =>
                         uploadMedia(file).then((result) => {
                             setMedia((media) => [...media, result]);
-                        });
-                        /*selectPhoto(file);
-                        setThumbnailValue(thumbnail?.data);*/
-                    }}
+                        })
+                    }
                 />
             ));
         },
-        [openModal, setMedia, uploadMedia],
+        [acceptedFiles, fileTypeIsValid, openModal, pushDanger, setMedia, uploadMedia],
     );
 
     const sensors = useSensors(
@@ -103,7 +110,7 @@ export default function ProductsFormMediaUploader({
 
     return (
         <div className="block block-product-media-uploader">
-            <input type="file" hidden={true} accept={'image/*'} ref={inputRef} onChange={onPhotoChange} />
+            <input type="file" hidden={true} accept={acceptedFiles.join(',')} ref={inputRef} onChange={onPhotoChange} />
             <div className="product-media-preview">
                 {media?.[0] ? (
                     <img src={media?.[0]?.sizes?.small} alt="Front view of product" />
