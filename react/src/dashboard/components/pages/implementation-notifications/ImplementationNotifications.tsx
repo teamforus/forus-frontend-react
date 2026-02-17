@@ -10,7 +10,7 @@ import useImplementationNotificationService from '../../../services/Implementati
 import SystemNotification from '../../../props/models/SystemNotification';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import InfoBox from '../../elements/info-box/InfoBox';
 import { useParams } from 'react-router';
@@ -248,19 +248,19 @@ export default function ImplementationNotifications() {
 
                                 <td className="nowrap">
                                     {notification.state?.state === 'active' && (
-                                        <Label type={'success'}>{notification.state.stateLabel}</Label>
+                                        <Label type="success">{notification.state.stateLabel}</Label>
                                     )}
 
                                     {notification.state?.state === 'inactive' && (
-                                        <Label type={'danger'}>{notification.state.stateLabel}</Label>
+                                        <Label type="danger">{notification.state.stateLabel}</Label>
                                     )}
 
                                     {notification.state?.state === 'active_partly' && (
-                                        <Label type={'warning'}>{notification.state.stateLabel}</Label>
+                                        <Label type="warning">{notification.state.stateLabel}</Label>
                                     )}
 
                                     {!['active', 'inactive', 'active_partly'].includes(notification.state?.state) && (
-                                        <Label type={'default'}>{notification.state.stateLabel}</Label>
+                                        <Label type="default">{notification.state.stateLabel}</Label>
                                     )}
                                 </td>
 
