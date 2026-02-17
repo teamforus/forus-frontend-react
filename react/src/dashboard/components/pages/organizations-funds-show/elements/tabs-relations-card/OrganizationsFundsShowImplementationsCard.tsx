@@ -11,7 +11,7 @@ import { hasPermission } from '../../../../../helpers/utils';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import Implementation from '../../../../../props/models/Implementation';
-import Label from '../../../../elements/image_cropper/Label';
+import Label from '../../../../elements/label/Label';
 import { Permission } from '../../../../../props/models/Organization';
 import { useFundService } from '../../../../../services/FundService';
 import { DashboardRoutes } from '../../../../../modules/state_router/RouterBuilder';

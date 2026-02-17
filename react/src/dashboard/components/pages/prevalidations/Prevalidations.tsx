@@ -31,11 +31,11 @@ import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import { NumberParam, StringParam } from 'use-query-params';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import { Permission } from '../../../props/models/Organization';
 import { uniq } from 'lodash';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Prevalidations() {
     const translate = useTranslate();
@@ -265,10 +265,6 @@ export default function Prevalidations() {
         fetchRecordTypes();
     }, [fetchRecordTypes]);
 
-    if (funds?.length === 0) {
-        return <EmptyCard title={'Geen fondsen gevonden'} />;
-    }
-
     if (!prevalidations) {
         return <LoadingCard />;
     }
@@ -428,10 +424,22 @@ export default function Prevalidations() {
 
             <LoaderTableCard
                 loading={!prevalidations.meta}
-                empty={prevalidations?.meta?.total == 0}
-                emptyTitle={'Geen aanvragers toevoegen'}
+                empty={prevalidations?.meta?.total == 0 || funds?.length === 0}
+                emptyTitle={funds?.length === 0 ? 'Geen fondsen gevonden' : 'Geen aanvragers toevoegen'}
                 emptyDescription={
-                    'U bent geen beoordelaar voor een fonds dat actief is om aanvragers aan toe te voegen.'
+                    funds?.length === 0
+                        ? 'Maak eerst een fonds aan om prevalidaties toe te voegen.'
+                        : 'U bent geen beoordelaar voor een fonds dat actief is om aanvragers aan toe te voegen.'
+                }
+                emptyButton={
+                    funds?.length === 0 &&
+                    hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && {
+                        text: 'Fonds aanmaken',
+                        type: 'primary',
+                        icon: 'plus',
+                        state: DashboardRoutes.FUND_CREATE,
+                        stateParams: { organizationId: activeOrganization.id },
+                    }
                 }
                 columns={prevalidationService.getColumns(headers || [], typesByKey)}
                 paginator={{ key: paginatorKey, data: prevalidations, filterValues, filterUpdate }}>

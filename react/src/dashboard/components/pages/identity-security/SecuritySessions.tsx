@@ -15,7 +15,7 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
@@ -228,7 +228,7 @@ export default function SecuritySessions() {
 
                             {session.current && (
                                 <div className="session-label">
-                                    <Label type="primary_light">Huidig</Label>
+                                    <Label type="primary-light">Huidig</Label>
                                 </div>
                             )}
 

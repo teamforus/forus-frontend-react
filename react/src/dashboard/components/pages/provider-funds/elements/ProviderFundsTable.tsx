@@ -20,7 +20,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
@@ -346,7 +346,7 @@ export default function ProviderFundsTable({
                                 )}
 
                                 {providerFund.state == 'unsubscribed' && (
-                                    <Label type="danger_light">{providerFund.state_locale}</Label>
+                                    <Label type="danger-light">{providerFund.state_locale}</Label>
                                 )}
                             </td>
                         )}

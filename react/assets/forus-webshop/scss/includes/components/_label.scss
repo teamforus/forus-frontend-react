@@ -36,14 +36,6 @@
         }
     }
 
-    .label-close {
-        color: #fff;
-        float: left;
-        font-size: 14px;
-        margin: 0 2.5px 0 -2.5px;
-        cursor: pointer;
-    }
-
     &.label-success {
         color: var(--label-success-color);
         background: var(--label-success-background);
