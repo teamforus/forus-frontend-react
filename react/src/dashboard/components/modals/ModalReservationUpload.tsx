@@ -196,8 +196,6 @@ export default function ModalReservationUpload({
                             'Om de reserveringen alsnog aan te maken dient het bestand aangepast en opnieuw aangeboden te worden.',
                     ]}
                     enableToggles={true}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items.map((item) => ({
                         _uid: uniqueId('rand_'),
                         label: item[2]?.['number'] ? item[2]?.['number'] + ' - ' + item[1] : item[1],

@@ -223,8 +223,6 @@ export default function ModalPrevalidationsUpload({
                     hero_title={'Er zijn fouten opgetreden bij het importeren van de aanvragers'}
                     hero_subtitle={message}
                     enableToggles={false}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items.map((item) => ({
                         value: `Rij: ${item[0]}: ${item[2]} - ${item[1]}`,
                         _uid: uniqueId('rand_'),
@@ -478,8 +476,6 @@ export default function ModalPrevalidationsUpload({
                         hero_title={title}
                         hero_subtitle={subtitle}
                         enableToggles={false}
-                        label_on={'Aanmaken'}
-                        label_off={'Overslaan'}
                         items={items}
                         onConfirm={() => {
                             setHideModal(false);
@@ -514,8 +510,6 @@ export default function ModalPrevalidationsUpload({
                         hero_subtitle={subtitle}
                         enableToggles={true}
                         label_on={'Aanpassen'}
-                        label_off={'Overslaan'}
-                        button_none={'Alles overslaan'}
                         button_all={'Pas alles aan'}
                         items={items}
                         onConfirm={({ list }) => {
@@ -784,8 +778,6 @@ export default function ModalPrevalidationsUpload({
                     hero_title={'Er is een fout opgetreden bij het importeren van het bulkbestand'}
                     hero_subtitle={message}
                     enableToggles={false}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={rows}
                     onConfirm={() => {
                         reset();
@@ -809,23 +801,26 @@ export default function ModalPrevalidationsUpload({
 
             submitData.forEach((item, index) => {
                 const primary_key = item?.[fund.csv_primary_key];
+                const normalized_key = typeof primary_key === 'string' ? primary_key.toLowerCase() : primary_key;
 
-                if (!primary_key) {
+                if (!normalized_key) {
                     return;
                 }
 
-                if (!keyMap.has(primary_key)) {
-                    keyMap.set(primary_key, [index]);
+                if (!keyMap.has(normalized_key)) {
+                    keyMap.set(normalized_key, [index]);
                 } else {
-                    keyMap.get(primary_key).push(index);
+                    keyMap.get(normalized_key).push(index);
                 }
             });
 
-            keyMap.forEach((indexes, primary_key) => {
+            keyMap.forEach((indexes) => {
                 if (indexes.length > 1) {
                     indexes.forEach((i) => {
+                        const originalValue = submitData[i]?.[fund.csv_primary_key];
+
                         duplicates.push({
-                            value: `Rij: ${i + 1}: ${fund?.csv_primary_key} - ${primary_key}`,
+                            value: `Rij: ${i + 1}: ${fund?.csv_primary_key} - ${originalValue}`,
                             _uid: uniqueId('rand_'),
                         });
                     });

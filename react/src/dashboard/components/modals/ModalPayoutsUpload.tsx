@@ -193,8 +193,6 @@ export default function ModalPayoutsUpload({
                     hero_title={'Er zijn fouten opgetreden bij het importeren van de uitbetalingen'}
                     hero_subtitle={message}
                     enableToggles={false}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items.map((item) => ({
                         _uid: uniqueId('rand_'),
                         label: `Rij: ${item[0]}: ${item[3] || item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
