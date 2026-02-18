@@ -73,19 +73,22 @@ export default function Employees() {
         },
     );
 
-    const fetchEmployees = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
+    const fetchEmployees = useCallback(
+        (query = {}) => {
+            setLoading(true);
+            setProgress(0);
 
-        employeeService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setEmployees(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [activeOrganization.id, employeeService, filterValuesActive, setProgress, pushApiError]);
+            employeeService
+                .list(activeOrganization.id, query)
+                .then((res) => setEmployees(res.data))
+                .catch(pushApiError)
+                .finally(() => {
+                    setLoading(false);
+                    setProgress(100);
+                });
+        },
+        [activeOrganization.id, employeeService, setProgress, pushApiError],
+    );
 
     const fetchAdminEmployees = useCallback(() => {
         employeeService
@@ -116,7 +119,11 @@ export default function Employees() {
                     employee={employee}
                     onSubmit={() => {
                         fetchAdminEmployees();
-                        filterUpdate({ page: employee ? employees.meta.current_page : employees.meta.last_page });
+
+                        fetchEmployees({
+                            ...filterValuesActive,
+                            ...{ page: employee ? employees.meta.current_page : employees.meta.last_page },
+                        });
 
                         if (!employee) {
                             pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
@@ -131,7 +138,8 @@ export default function Employees() {
             openModal,
             activeOrganization,
             fetchAdminEmployees,
-            filterUpdate,
+            filterValuesActive,
+            fetchEmployees,
             employees?.meta.current_page,
             employees?.meta.last_page,
             pushSuccess,
@@ -178,7 +186,7 @@ export default function Employees() {
                             employeeService
                                 .delete(activeOrganization.id, employee.id)
                                 .then(() => {
-                                    filterUpdate({});
+                                    fetchEmployees();
                                     pushSuccess('Gelukt!', 'Medewerker verwijderd.');
                                     modal.close();
                                 })
@@ -189,7 +197,7 @@ export default function Employees() {
                 />
             ));
         },
-        [openModal, translate, employeeService, activeOrganization.id, filterUpdate, pushSuccess, pushApiError],
+        [openModal, translate, employeeService, activeOrganization.id, fetchEmployees, pushSuccess, pushApiError],
     );
 
     const canEditEmployee = useCallback(
@@ -203,8 +211,8 @@ export default function Employees() {
     );
 
     useEffect(() => {
-        fetchEmployees();
-    }, [fetchEmployees]);
+        fetchEmployees(filterValuesActive);
+    }, [fetchEmployees, filterValuesActive]);
 
     useEffect(() => {
         fetchAdminEmployees();
