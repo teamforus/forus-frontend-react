@@ -37,7 +37,7 @@ export default {
     },
     details: {
         title: 'Declaratie gegevens',
-        code: 'Nummer: #:code',
+        code: 'Nummer: #{{code}}',
         labels: {
             title: 'Titel',
             amount: 'Bedrag',
