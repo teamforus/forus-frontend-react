@@ -6,6 +6,7 @@ import Provider from '../../../../../props/models/Provider';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
+import Label from '../../../label/Label';
 
 export default function ProvidersListItemList({
     provider,
@@ -92,10 +93,10 @@ export default function ProvidersListItemList({
                                         <div className="office-details">
                                             <div className="office-title">{office.address}</div>
                                             <div className="office-labels">
-                                                <div className="label label-default">
+                                                <Label type="default">
                                                     {provider.business_type.name ||
                                                         translate('list_blocks.provider_item_list.no_data')}
-                                                </div>
+                                                </Label>
                                             </div>
                                             {(office.phone || provider.phone || provider.email) && (
                                                 <div>

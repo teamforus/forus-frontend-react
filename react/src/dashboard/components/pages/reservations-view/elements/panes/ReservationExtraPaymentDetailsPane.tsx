@@ -10,7 +10,7 @@ import useOpenModal from '../../../../../hooks/useOpenModal';
 import useEnvData from '../../../../../hooks/useEnvData';
 import useTranslate from '../../../../../hooks/useTranslate';
 import usePushApiError from '../../../../../hooks/usePushApiError';
-import Label from '../../../../elements/image_cropper/Label';
+import Label from '../../../../elements/label/Label';
 import ModalReservationExtraPaymentRefund from '../../../../modals/ModalReservationExtraPaymentRefund';
 import FormPane from '../../../../elements/forms/elements/FormPane';
 

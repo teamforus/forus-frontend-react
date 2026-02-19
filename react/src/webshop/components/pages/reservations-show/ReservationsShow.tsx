@@ -15,6 +15,7 @@ import classNames from 'classnames';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FileUploader from '../../elements/file-uploader/FileUploader';
+import Label from '../../elements/label/Label';
 
 export default function ReservationsShow() {
     const { id } = useParams();
@@ -108,17 +109,7 @@ export default function ReservationsShow() {
                                             <h1 className="reservation-title">
                                                 {translate('reservation.details.title')}
                                             </h1>
-                                            <div
-                                                className={classNames(
-                                                    'label',
-                                                    stateData.stateClass === 'warning' && 'label-warning',
-                                                    stateData.stateClass === 'success' && 'label-success',
-                                                    stateData.stateClass === 'default' && 'label-default',
-                                                    stateData.stateClass === 'waiting' && 'label-waiting',
-                                                    stateData.stateClass === 'danger' && 'label-danger',
-                                                )}>
-                                                {stateData.stateText}
-                                            </div>
+                                            <Label type={stateData.stateClass}>{stateData.stateText}</Label>
                                         </div>
                                         <div className="block block-key-value-list block-key-value-list-pane">
                                             <div className="block-key-value-list-item">
@@ -283,30 +274,30 @@ export default function ReservationsShow() {
                                             <div className="key-value-list-item-value">
                                                 {!reservation.extra_payment.is_fully_refunded &&
                                                     reservation.extra_payment.is_paid && (
-                                                        <div className="label label-success">
+                                                        <Label type="success">
                                                             {reservation.extra_payment.state_locale}
-                                                        </div>
+                                                        </Label>
                                                     )}
 
                                                 {!reservation.extra_payment.is_fully_refunded &&
                                                     reservation.extra_payment.is_pending && (
-                                                        <div className="label label-default">
+                                                        <Label type="default">
                                                             {reservation.extra_payment.state_locale}
-                                                        </div>
+                                                        </Label>
                                                     )}
 
                                                 {['failed', 'canceled', 'expired'].includes(
                                                     reservation.extra_payment.state,
                                                 ) && (
-                                                    <div className="label label-danger">
+                                                    <Label type="danger">
                                                         {reservation.extra_payment.state_locale}
-                                                    </div>
+                                                    </Label>
                                                 )}
 
                                                 {reservation.extra_payment.is_fully_refunded && (
-                                                    <div className="label label-danger">
+                                                    <Label type="danger">
                                                         {translate('reservation.extra_amount.refunded')}:
-                                                    </div>
+                                                    </Label>
                                                 )}
                                             </div>
                                         </div>
@@ -503,23 +494,17 @@ export default function ReservationsShow() {
                                                                     {translate('reservation.extra_amount_refund.state')}
                                                                 </div>
                                                                 {refund.state == 'refunded' && (
-                                                                    <div className="label label-success">
-                                                                        {refund.state_locale}
-                                                                    </div>
+                                                                    <Label type="success">{refund.state_locale}</Label>
                                                                 )}
 
                                                                 {['canceled', 'failed'].includes(refund.state) && (
-                                                                    <div className="label label-danger">
-                                                                        {refund.state_locale}
-                                                                    </div>
+                                                                    <Label type="danger">{refund.state_locale}</Label>
                                                                 )}
 
                                                                 {!['refunded', 'canceled', 'failed'].includes(
                                                                     refund.state,
                                                                 ) && (
-                                                                    <div className="label label-warning">
-                                                                        {refund.state_locale}
-                                                                    </div>
+                                                                    <Label type="warning">{refund.state_locale}</Label>
                                                                 )}
                                                             </div>
                                                         </td>
@@ -538,23 +523,17 @@ export default function ReservationsShow() {
                                                         <td className="hide-sm">
                                                             <div className="block-card-table-item">
                                                                 {refund.state == 'refunded' && (
-                                                                    <div className="label label-success">
-                                                                        {refund.state_locale}
-                                                                    </div>
+                                                                    <Label type="success">{refund.state_locale}</Label>
                                                                 )}
 
                                                                 {['canceled', 'failed'].includes(refund.state) && (
-                                                                    <div className="label label-danger">
-                                                                        {refund.state_locale}
-                                                                    </div>
+                                                                    <Label type="danger">{refund.state_locale}</Label>
                                                                 )}
 
                                                                 {!['refunded', 'canceled', 'failed'].includes(
                                                                     refund.state,
                                                                 ) && (
-                                                                    <div className="label label-warning">
-                                                                        {refund.state_locale}
-                                                                    </div>
+                                                                    <Label type="warning">{refund.state_locale}</Label>
                                                                 )}
                                                             </div>
                                                         </td>

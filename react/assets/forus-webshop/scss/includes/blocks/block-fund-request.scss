@@ -96,14 +96,8 @@
                 }
             }
 
-            .label {
-                &:not(:last-child):not(:last-of-type) {
-                    margin: 0;
-                }
-
-                .label-text {
-                    display: inline-block;
-                }
+            .label:not(:last-child):not(:last-of-type) {
+                margin: 0;
             }
 
             &:last-child {

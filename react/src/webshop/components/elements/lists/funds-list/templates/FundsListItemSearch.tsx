@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import FundsListItemModel from '../../../../../services/types/FundsListItemModel';
+import Label from '../../../label/Label';
 
 export default function FundsListItemSearch({
     fund,
@@ -31,15 +32,11 @@ export default function FundsListItemSearch({
                     <div className="search-subtitle">{fund.organization?.name}</div>
                     <div className="search-status-label">
                         {fund.showPendingButton && (
-                            <div className="label label-default">
-                                {translate('list_blocks.fund_item_search.buttons.is_pending')}
-                            </div>
+                            <Label type="default">{translate('list_blocks.fund_item_search.buttons.is_pending')}</Label>
                         )}
 
                         {fund.alreadyReceived && (
-                            <div className="label label-success">
-                                {translate('list_blocks.fund_item_search.status.active')}
-                            </div>
+                            <Label type="success">{translate('list_blocks.fund_item_search.status.active')}</Label>
                         )}
                     </div>
                 </div>

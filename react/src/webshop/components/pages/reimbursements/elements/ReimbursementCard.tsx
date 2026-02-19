@@ -12,6 +12,7 @@ import IconReimbursement from '../../../../../../assets/forus-webshop/resources/
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import classNames from 'classnames';
+import Label from '../../../elements/label/Label';
 
 export default function ReimbursementCard({
     onDelete,
@@ -114,7 +115,9 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'draft' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelDraft">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-default label-round">{reimbursement?.state_locale}</div>
+                                <Label type="default" round={true}>
+                                    {reimbursement?.state_locale}
+                                </Label>
                             </div>
                             <div className="reimbursement-overview-item">
                                 <div className="reimbursement-overview-label">
@@ -130,9 +133,9 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'pending' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelPending">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-warning label-round">
+                                <Label type="warning" round={true}>
                                     {translate('reimbursements.item.states.pending')}
-                                </div>
+                                </Label>
                             </div>
                             <div className="reimbursement-overview-item">
                                 <div className="reimbursement-overview-label">
@@ -148,9 +151,9 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'approved' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelApproved">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-success label-round">
+                                <Label type="success" round={true}>
                                     {translate('reimbursements.item.states.accepted')}
-                                </div>
+                                </Label>
                             </div>
                             <div className="reimbursement-overview-item">
                                 <div className="reimbursement-overview-label">
@@ -166,9 +169,9 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'declined' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelDeclined">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-default label-round">
+                                <Label type="default" round={true}>
                                     {translate('reimbursements.item.states.declined')}
-                                </div>
+                                </Label>
                             </div>
                             <div className="reimbursement-overview-item">
                                 <div className="reimbursement-overview-label">
@@ -190,9 +193,9 @@ export default function ReimbursementCard({
                     {reimbursement.expired && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelExpired">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-danger label-round">
+                                <Label type="danger" round={true}>
                                     {translate('reimbursements.item.states.expired')}
-                                </div>
+                                </Label>
                             </div>
                             <div className="reimbursement-overview-item">
                                 <div className="reimbursement-overview-label">

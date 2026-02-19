@@ -14,6 +14,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import Label from '../../elements/label/Label';
 
 export default function PreferencesEmails() {
     const translate = useTranslate();
@@ -239,18 +240,16 @@ export default function PreferencesEmails() {
                                                 <div className="flex-row">
                                                     <div className="flex flex-col flex-center flex">
                                                         {email.primary && (
-                                                            <label
-                                                                className="label label-success"
-                                                                data-dusk="identityEmailListItemPrimary">
+                                                            <Label type="success" dusk="identityEmailListItemPrimary">
                                                                 {translate('preferences_emails.labels.primary')}
-                                                            </label>
+                                                            </Label>
                                                         )}
                                                         {!email.verified && !email.primary && (
-                                                            <label
-                                                                className="label label-default"
-                                                                data-dusk="identityEmailListItemNotVerified">
+                                                            <Label
+                                                                type="default"
+                                                                dusk="identityEmailListItemNotVerified">
                                                                 {translate('preferences_emails.labels.not_confirmed')}
-                                                            </label>
+                                                            </Label>
                                                         )}
                                                     </div>
                                                     {!email.primary && (

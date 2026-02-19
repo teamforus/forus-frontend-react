@@ -13,7 +13,7 @@ import usePaginatorService from '../../modules/paginator/services/usePaginatorSe
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
-import Label from '../elements/image_cropper/Label';
+import Label from '../elements/label/Label';
 import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../modules/filter_next/useFilterNext';
 

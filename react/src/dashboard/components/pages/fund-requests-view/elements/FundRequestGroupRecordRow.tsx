@@ -12,7 +12,7 @@ import Organization from '../../../../props/models/Organization';
 import ModalFundRequestRecordEdit from '../../../modals/ModalFundRequestRecordEdit';
 import ModalNotification from '../../../modals/ModalNotification';
 import useTranslate from '../../../../hooks/useTranslate';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import EmptyValue from '../../../elements/empty-value/EmptyValue';
 
 export default function FundRequestGroupRecordRow({

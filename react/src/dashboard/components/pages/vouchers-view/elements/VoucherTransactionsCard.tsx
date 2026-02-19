@@ -9,7 +9,7 @@ import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';

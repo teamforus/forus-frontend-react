@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback } from 'react';
-import classNames from 'classnames';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { useVoucherService } from '../../../../services/VoucherService';
@@ -9,6 +8,7 @@ import ModalNotification from '../../../modals/ModalNotification';
 import useVoucherData from '../../../../services/helpers/useVoucherData';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import Label from '../../../elements/label/Label';
 
 export default function VoucherCard({
     type = 'voucher',
@@ -93,23 +93,21 @@ export default function VoucherCard({
 
                 {!voucher.deactivated && (
                     <div className="voucher-status-label">
-                        {voucher.expired && (
-                            <div className="label label-light">{translate('vouchers.card.expired')}</div>
-                        )}
+                        {voucher.expired && <Label type="light">{translate('vouchers.card.expired')}</Label>}
 
                         {voucherCard.type == 'product' && !voucher.expired && (
-                            <div className={classNames('label', voucherCard.used ? 'label-warning' : 'label-success')}>
+                            <Label type={voucherCard.used ? 'warning' : 'success'}>
                                 {!voucherCard.used
                                     ? translate('vouchers.card.unused')
                                     : translate('vouchers.card.used')}
-                            </div>
+                            </Label>
                         )}
                     </div>
                 )}
 
                 {voucher.deactivated && (
                     <div className="voucher-status-label">
-                        <div className="label label-danger">{translate('vouchers.card.deactivated')}</div>
+                        <Label type="danger">{translate('vouchers.card.deactivated')}</Label>
                     </div>
                 )}
 

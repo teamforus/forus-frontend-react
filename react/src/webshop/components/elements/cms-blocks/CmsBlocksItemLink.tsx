@@ -2,6 +2,7 @@ import React from 'react';
 import Markdown from '../markdown/Markdown';
 import ImplementationPageBlock from '../../../props/models/ImplementationPageBlock';
 import useAssetUrl from '../../../hooks/useAssetUrl';
+import Label from '../label/Label';
 
 export default function CmsBlocksItemLink({ block }: { block: ImplementationPageBlock }) {
     const assetUrl = useAssetUrl();
@@ -20,7 +21,11 @@ export default function CmsBlocksItemLink({ block }: { block: ImplementationPage
             </div>
             <div className="fund-information">
                 {block.title && <h2 className="fund-title">{block.title}</h2>}
-                {block.label && <div className="fund-label label label-primary">{block.label}</div>}
+                {block.label && (
+                    <Label type="primary" className="fund-label">
+                        {block.label}
+                    </Label>
+                )}
 
                 <div className="fund-description">
                     <Markdown content={block.description_html} />

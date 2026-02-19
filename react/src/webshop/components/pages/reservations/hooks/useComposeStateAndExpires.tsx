@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import Reservation from '../../../../../dashboard/props/models/Reservation';
 import { startCase } from 'lodash';
+import { LabelType } from '../../../elements/label/Label';
 
 export default function useComposeStateAndExpires() {
     const translate = useTranslate();
@@ -12,12 +13,12 @@ export default function useComposeStateAndExpires() {
                 pending: 'warning',
                 accepted: 'success',
                 rejected: 'default',
-                waiting: 'waiting',
+                waiting: 'warning',
             };
 
             const data: {
                 stateText?: string;
-                stateClass?: 'warning' | 'success' | 'default' | 'waiting' | 'danger';
+                stateClass?: LabelType;
                 stateDusk?: string;
                 expiresIn?: number;
             } = {

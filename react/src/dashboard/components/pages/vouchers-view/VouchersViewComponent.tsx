@@ -27,7 +27,7 @@ import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
 import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import { Permission } from '../../../props/models/Organization';
 import VoucherReservationsCard from './elements/VoucherReservationsCard';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';

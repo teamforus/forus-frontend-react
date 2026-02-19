@@ -1,10 +1,10 @@
 import React from 'react';
 import Reservation from '../../../props/models/Reservation';
-import Label from '../image_cropper/Label';
+import Label from '../label/Label';
 
 export default function ReservationStateLabel({ reservation }: { reservation: Reservation }) {
     if (reservation.expired) {
-        return <Label type="danger_light">Verlopen</Label>;
+        return <Label type="danger-light">Verlopen</Label>;
     }
 
     if (reservation?.state === 'waiting' || reservation?.state === 'pending') {
@@ -25,5 +25,5 @@ export default function ReservationStateLabel({ reservation }: { reservation: Re
         return <Label type="danger">{reservation.state_locale}</Label>;
     }
 
-    return <Label type={'default'}>{reservation.state_locale}</Label>;
+    return <Label type="default">{reservation.state_locale}</Label>;
 }

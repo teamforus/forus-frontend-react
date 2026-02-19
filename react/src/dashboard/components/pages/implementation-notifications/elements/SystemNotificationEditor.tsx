@@ -14,7 +14,7 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 
 export default function SystemNotificationEditor({
     fund,
@@ -191,28 +191,12 @@ export default function SystemNotificationEditor({
                                 <div className="text-strong">Status</div>
                             </div>
                             <div className="keyvalue-value">
-                                {state?.state === 'active' && (
-                                    <Label type={'success'} className={'transition-background'}>
-                                        {state.stateLabel}
-                                    </Label>
-                                )}
-
-                                {state?.state === 'inactive' && (
-                                    <Label type={'danger'} className={'transition-background'}>
-                                        {state.stateLabel}
-                                    </Label>
-                                )}
-
-                                {state?.state === 'active_partly' && (
-                                    <Label type={'warning'} className={'transition-background'}>
-                                        {state.stateLabel}
-                                    </Label>
-                                )}
+                                {state?.state === 'active' && <Label type="success">{state.stateLabel}</Label>}
+                                {state?.state === 'inactive' && <Label type="danger">{state.stateLabel}</Label>}
+                                {state?.state === 'active_partly' && <Label type="warning">{state.stateLabel}</Label>}
 
                                 {!['active', 'inactive', 'active_partly'].includes(state?.state) && (
-                                    <Label type={'default'} className={'transition-background'}>
-                                        {state.stateLabel}
-                                    </Label>
+                                    <Label type="default">{state.stateLabel}</Label>
                                 )}
                             </div>
                         </div>

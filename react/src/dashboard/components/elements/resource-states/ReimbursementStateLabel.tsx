@@ -1,5 +1,5 @@
 import React from 'react';
-import Label from '../image_cropper/Label';
+import Label from '../label/Label';
 import Reimbursement from '../../../props/models/Reimbursement';
 
 export default function ReimbursementStateLabel({
@@ -11,7 +11,7 @@ export default function ReimbursementStateLabel({
 }) {
     if (reimbursement.expired) {
         return (
-            <Label type="danger_light" dusk={dusk}>
+            <Label type="danger-light" dusk={dusk}>
                 Verlopen
             </Label>
         );
@@ -19,7 +19,7 @@ export default function ReimbursementStateLabel({
 
     if (reimbursement.state === 'pending') {
         return (
-            <Label type={'default'} dusk={dusk}>
+            <Label type="default" dusk={dusk}>
                 {reimbursement.state_locale}
             </Label>
         );
@@ -27,7 +27,7 @@ export default function ReimbursementStateLabel({
 
     if (reimbursement.state === 'approved') {
         return (
-            <Label type={'success'} dusk={dusk}>
+            <Label type="success" dusk={dusk}>
                 {reimbursement.state_locale}
             </Label>
         );
@@ -35,7 +35,7 @@ export default function ReimbursementStateLabel({
 
     if (reimbursement.state === 'declined') {
         return (
-            <Label type={'danger'} dusk={dusk}>
+            <Label type="danger" dusk={dusk}>
                 {reimbursement.state_locale}
             </Label>
         );

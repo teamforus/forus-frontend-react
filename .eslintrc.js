@@ -26,6 +26,7 @@ module.exports = {
     plugins: ['no-for-of-loops', 'no-function-declare-after-return', 'react', 'react-hooks', 'prettier'],
     rules: {
         // ...
+        // 'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
         'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
         'react/react-in-jsx-scope': 'off',

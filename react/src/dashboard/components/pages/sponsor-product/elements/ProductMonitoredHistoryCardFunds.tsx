@@ -7,7 +7,7 @@ import { useFundService } from '../../../../services/FundService';
 import Organization from '../../../../props/models/Organization';
 import classNames from 'classnames';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 

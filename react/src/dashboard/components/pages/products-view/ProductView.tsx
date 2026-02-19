@@ -19,7 +19,7 @@ import ProductDetailsBlock from './elements/ProductDetailsBlock';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import ProductFund from '../../../props/models/ProductFund';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';

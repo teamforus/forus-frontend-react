@@ -22,7 +22,7 @@ import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function BankConnections() {

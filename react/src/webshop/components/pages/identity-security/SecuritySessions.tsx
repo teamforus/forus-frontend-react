@@ -17,6 +17,7 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
+import Label from '../../elements/label/Label';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
@@ -257,17 +258,17 @@ export default function SecuritySessions() {
                                             </div>
                                             {session.current && (
                                                 <div className="session-label">
-                                                    <div className="label label-primary">
+                                                    <Label type="primary">
                                                         {translate('security_sessions.labels.online')}
-                                                    </div>
+                                                    </Label>
                                                 </div>
                                             )}
 
                                             {session.active && !session.current && (
                                                 <div className="session-label">
-                                                    <div className="label label-success">
+                                                    <Label type="success">
                                                         {translate('security_sessions.labels.online')}
-                                                    </div>
+                                                    </Label>
                                                 </div>
                                             )}
                                         </div>

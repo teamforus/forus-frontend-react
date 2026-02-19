@@ -23,8 +23,8 @@ import { GoogleMap } from '../../../../dashboard/components/elements/google-map/
 import Office from '../../../../dashboard/props/models/Office';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import classNames from 'classnames';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import Label from '../../elements/label/Label';
 
 export default function VouchersShow() {
     const { number } = useParams();
@@ -164,13 +164,9 @@ export default function VouchersShow() {
                                         <div className="voucher-details">
                                             <div className="voucher-details-info">
                                                 {voucher?.product && (
-                                                    <div
-                                                        className={classNames(
-                                                            'label',
-                                                            voucher?.used ? 'label-default' : 'label-success',
-                                                        )}>
+                                                    <Label type={voucher?.used ? 'default' : 'success'}>
                                                         {voucher?.used ? 'Gebruikt' : 'Ongebruikt'}
-                                                    </div>
+                                                    </Label>
                                                 )}
                                                 <div className="voucher-details-info-fund" data-dusk="voucherTitle">
                                                     {voucherCard.title}

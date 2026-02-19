@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { uniq, uniqueId } from 'lodash';
 import SelectControl from '../../select-control/SelectControl';
-import Label from '../../image_cropper/Label';
+import Label from '../../label/Label';
 
 export default function MultiSelectControl<T = number>({
     id = uniqueId('multiselect_'),
@@ -70,9 +70,13 @@ export default function MultiSelectControl<T = number>({
                     <label className="form-label">&nbsp;</label>
 
                     {value?.map((id) => (
-                        <Label type="primary" key={id.toString()}>
+                        <Label
+                            type="primary"
+                            key={id.toString()}
+                            icon="close"
+                            iconPosition="close"
+                            iconOnClick={() => removeItem(id)}>
                             {optionsById?.[id.toString()] || ''}
-                            <div className="mdi mdi-close label-close" onClick={() => removeItem(id)} />
                         </Label>
                     ))}
                 </div>

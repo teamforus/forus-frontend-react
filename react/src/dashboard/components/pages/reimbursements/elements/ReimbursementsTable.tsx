@@ -11,7 +11,7 @@ import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard
 import { useReimbursementsService } from '../../../../services/ReimbursementService';
 import Reimbursement from '../../../../props/models/Reimbursement';
 import ReimbursementStateLabel from '../../../elements/resource-states/ReimbursementStateLabel';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ReimbursementsTable({

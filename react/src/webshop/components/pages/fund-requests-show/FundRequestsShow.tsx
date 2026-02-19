@@ -20,6 +20,7 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import useIsMobile from '../../../hooks/useIsMobile';
 import FundRequestClarification from '../../../../dashboard/props/models/FundRequestClarification';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import Label from '../../elements/label/Label';
 
 export default function FundRequestsShow() {
     const { id } = useParams();
@@ -138,16 +139,20 @@ export default function FundRequestsShow() {
                                         {translate('fund_request.details.status')}
                                     </div>
                                     <div className="fund-request-prop-value" aria-live="polite">
-                                        <div
-                                            className={classNames(
-                                                'label',
-                                                fundRequest.state === 'pending' && 'label-warning',
-                                                fundRequest.state === 'approved' && 'label-success',
-                                                fundRequest.state === 'declined' && 'label-default',
-                                                fundRequest.state === 'disregarded' && 'label-danger',
-                                            )}>
+                                        <Label
+                                            type={
+                                                fundRequest.state === 'pending'
+                                                    ? 'warning'
+                                                    : fundRequest.state === 'approved'
+                                                      ? 'success'
+                                                      : fundRequest.state === 'declined'
+                                                        ? 'default'
+                                                        : fundRequest.state === 'disregarded'
+                                                          ? 'danger'
+                                                          : undefined
+                                            }>
                                             {fundRequest.state_locale}
-                                        </div>
+                                        </Label>
                                     </div>
                                 </div>
                                 <div className="fund-request-prop">

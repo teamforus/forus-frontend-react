@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { uniq } from 'lodash';
 import useIsMobile from '../../../../hooks/useIsMobile';
 import FundRequestClarification from '../../../../../dashboard/props/models/FundRequestClarification';
+import Label from '../../../elements/label/Label';
 
 export default function FundRequestRecordsBlockItem({
     record,
@@ -70,17 +71,17 @@ export default function FundRequestRecordsBlockItem({
 
                 <div className="fund-request-record-header-actions">
                     {notAnsweredCount > 0 && (
-                        <div className="label label-primary label-xl nowrap">
-                            <div className="label-blink" aria-hidden="true" />
-                            {notAnsweredCount} <div className="label-text">{translate('fund_request.record.new')}</div>
-                        </div>
+                        <Label type="primary" size="xl" nowrap={true}>
+                            <span className="label-blink" aria-hidden="true" />
+                            {notAnsweredCount} <span>{translate('fund_request.record.new')}</span>
+                        </Label>
                     )}
 
                     {notAnsweredCount === 0 && answeredCount > 0 && (
-                        <div className="label label-light label-xl nowrap">
+                        <Label type="light" size="xl" nowrap={true}>
                             {translate('fund_request.record.answer')}
                             <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
-                        </div>
+                        </Label>
                     )}
 
                     {record.clarifications.length > 0 && !inline && (

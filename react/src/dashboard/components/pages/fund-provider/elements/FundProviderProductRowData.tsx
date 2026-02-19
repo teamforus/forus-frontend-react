@@ -2,7 +2,7 @@ import React, { Fragment, MouseEvent, useCallback, useMemo } from 'react';
 import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import classNames from 'classnames';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import TableDateOnly from '../../../elements/tables/elements/TableDateOnly';
 import SponsorProduct, { DealHistoryItem } from '../../../../props/models/Sponsor/SponsorProduct';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
@@ -244,7 +244,7 @@ export default function FundProviderProductRowData({
                                 ) : (
                                     <div className="flex flex-center">
                                         <div className="flex-self-center">
-                                            <Label type="text" className="nowrap">
+                                            <Label type="text" nowrap={true}>
                                                 Niet beschikbaar
                                             </Label>
                                             <div className="hidden" />
