@@ -73,22 +73,19 @@ export default function Employees() {
         },
     );
 
-    const fetchEmployees = useCallback(
-        (query = {}) => {
-            setLoading(true);
-            setProgress(0);
+    const fetchEmployees = useCallback(() => {
+        setLoading(true);
+        setProgress(0);
 
-            employeeService
-                .list(activeOrganization.id, query)
-                .then((res) => setEmployees(res.data))
-                .catch(pushApiError)
-                .finally(() => {
-                    setLoading(false);
-                    setProgress(100);
-                });
-        },
-        [activeOrganization.id, employeeService, setProgress, pushApiError],
-    );
+        employeeService
+            .list(activeOrganization.id, filterValuesActive)
+            .then((res) => setEmployees(res.data))
+            .catch(pushApiError)
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [activeOrganization.id, employeeService, setProgress, pushApiError, filterValuesActive]);
 
     const fetchAdminEmployees = useCallback(() => {
         employeeService
@@ -118,12 +115,8 @@ export default function Employees() {
                     organization={activeOrganization}
                     employee={employee}
                     onSubmit={() => {
+                        fetchEmployees();
                         fetchAdminEmployees();
-
-                        fetchEmployees({
-                            ...filterValuesActive,
-                            ...{ page: employee ? employees.meta.current_page : employees.meta.last_page },
-                        });
 
                         if (!employee) {
                             pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
@@ -134,16 +127,7 @@ export default function Employees() {
                 />
             ));
         },
-        [
-            openModal,
-            activeOrganization,
-            fetchAdminEmployees,
-            filterValuesActive,
-            fetchEmployees,
-            employees?.meta.current_page,
-            employees?.meta.last_page,
-            pushSuccess,
-        ],
+        [openModal, activeOrganization, fetchAdminEmployees, fetchEmployees, pushSuccess],
     );
 
     const exportEmployees = useCallback(() => {
@@ -197,7 +181,7 @@ export default function Employees() {
                 />
             ));
         },
-        [openModal, translate, employeeService, activeOrganization.id, fetchEmployees, pushSuccess, pushApiError],
+        [openModal, translate, employeeService, activeOrganization.id, pushApiError, fetchEmployees, pushSuccess],
     );
 
     const canEditEmployee = useCallback(
@@ -211,8 +195,8 @@ export default function Employees() {
     );
 
     useEffect(() => {
-        fetchEmployees(filterValuesActive);
-    }, [fetchEmployees, filterValuesActive]);
+        fetchEmployees();
+    }, [fetchEmployees]);
 
     useEffect(() => {
         fetchAdminEmployees();
@@ -340,10 +324,10 @@ export default function Employees() {
                             )}
                         </td>
                         <td>
-                            <TableDateTime value={employee.created_at_locale} />
+                            <TableDateTime value={employee.last_activity_at_locale} />
                         </td>
                         <td>
-                            <TableDateTime value={employee.last_activity_at_locale} />
+                            <TableDateTime value={employee.created_at_locale} />
                         </td>
 
                         {activeOrganization.identity_address != employee.identity_address ? (
