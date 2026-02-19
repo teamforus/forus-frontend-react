@@ -41,15 +41,20 @@ export default function PhotoSelector({
     const pushDanger = usePushDanger();
     const fileTypeIsValid = useFileTypeValidation();
 
-    const [acceptedFiles] = useState(['.apng', '.png', '.jpg', '.jpeg', '.svg', '.webp']);
+    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
+    const acceptedFilesLabel = acceptedFiles.map((item) => item.toUpperCase()).join(', ');
 
     const onPhotoChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             const file = e.target.files[0];
             e.target.value = null;
 
+            if (!file) {
+                return;
+            }
+
             if (!fileTypeIsValid(file, acceptedFiles)) {
-                return pushDanger(`Toegestaande formaten: ${acceptedFiles.join(', ')}`);
+                return pushDanger(`Toegestaande formaten: ${acceptedFilesLabel}`);
             }
 
             openModal((modal) => (
@@ -67,7 +72,7 @@ export default function PhotoSelector({
                 />
             ));
         },
-        [acceptedFiles, fileTypeIsValid, openModal, pushDanger, selectPhoto, type],
+        [acceptedFiles, acceptedFilesLabel, fileTypeIsValid, openModal, pushDanger, selectPhoto, type],
     );
 
     useEffect(() => {
@@ -169,7 +174,7 @@ export default function PhotoSelector({
                     <div className="photo-selector-notifications-hint">
                         De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.
                         <br />
-                        Toegestaande formaten: JPG, PNG
+                        Toegestaande formaten: {acceptedFilesLabel}
                     </div>
                     <div className="button-group">
                         <button

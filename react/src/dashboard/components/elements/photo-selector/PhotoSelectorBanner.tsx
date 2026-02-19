@@ -54,7 +54,7 @@ export default function PhotoSelectorBanner({
     const pushDanger = usePushDanger();
     const fileTypeIsValid = useFileTypeValidation();
 
-    const [acceptedFiles] = useState(['.apng', '.png', '.jpg', '.jpeg', '.svg', '.webp']);
+    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
     const [activeDropdown, setActiveDropdown] = useState<'style' | 'button' | 'color' | 'background' | 'overlay'>(null);
     const [descriptionPreview, setDescriptionPreview] = useState<string>(null);
 
@@ -84,8 +84,14 @@ export default function PhotoSelectorBanner({
             const file = e.target.files[0];
             e.target.value = null;
 
+            if (!file) {
+                return;
+            }
+
             if (!fileTypeIsValid(file, acceptedFiles)) {
-                return pushDanger(`Toegestaande formaten: ${acceptedFiles.join(', ')}`);
+                return pushDanger(
+                    `Toegestaande formaten: ${acceptedFiles.map((item) => item.toUpperCase()).join(', ')}`,
+                );
             }
 
             openModal((modal) => (

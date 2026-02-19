@@ -43,7 +43,7 @@ export default function ProductsFormMediaUploader({
     const mediaService = useMediaService();
     const fileTypeIsValid = useFileTypeValidation();
 
-    const [acceptedFiles] = useState(['.apng', '.png', '.jpg', '.jpeg', '.svg', '.webp']);
+    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
 
     const uploadMedia = useCallback(
         (mediaFile: Blob): Promise<Media> => {
@@ -67,8 +67,14 @@ export default function ProductsFormMediaUploader({
             const file = e.target.files[0];
             e.target.value = null;
 
+            if (!file) {
+                return;
+            }
+
             if (!fileTypeIsValid(file, acceptedFiles)) {
-                return pushDanger(`Toegestaande formaten: ${acceptedFiles.join(', ')}`);
+                return pushDanger(
+                    `Toegestaande formaten: ${acceptedFiles.map((item) => item.toUpperCase()).join(', ')}`,
+                );
             }
 
             openModal((modal) => (
