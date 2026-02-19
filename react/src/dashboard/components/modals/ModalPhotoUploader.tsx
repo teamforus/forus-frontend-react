@@ -11,6 +11,7 @@ export default function ModalPhotoUploader({
     modal,
     onSubmit,
     className,
+    acceptedFiles = ['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp'],
     initialCropWidth = 90,
 }: {
     type: string;
@@ -18,6 +19,7 @@ export default function ModalPhotoUploader({
     modal: ModalState;
     onSubmit: (file: Blob, sizes: Array<ImageCropperPresetValue>) => void;
     className?: string;
+    acceptedFiles?: Array<string>;
     initialCropWidth?: number;
 }) {
     const appConfigs = useAppConfigs();
@@ -31,26 +33,34 @@ export default function ModalPhotoUploader({
     const [targetFile, setTargetFile] = useState<File>(file);
 
     const apply = useCallback(() => {
+        if (!final?.blob || !targetFile) {
+            return;
+        }
+
+        const dotIndex = targetFile.name.lastIndexOf('.');
+        const baseName = dotIndex === -1 ? targetFile.name : targetFile.name.slice(0, dotIndex);
+        const fileName = `${baseName}.jpg`;
+
         const blob = Object.assign(final.blob, {
-            name: targetFile.name,
+            name: fileName,
             lastModified: targetFile.lastModified,
         });
 
         onSubmit(blob, presets);
         modal.close();
-    }, [presets, targetFile, final, modal, onSubmit]);
+    }, [final, modal, onSubmit, presets, targetFile]);
 
     const changePhoto = useCallback(() => {
         const input = document.createElement('input');
         input.style.display = 'none';
         input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/!*');
+        input.setAttribute('accept', (acceptedFiles || []).join(','));
         input.addEventListener('change', () => {
             setTargetFile(null);
             window.setTimeout(() => setTargetFile(input.files[0]), 0);
         });
         input.click();
-    }, []);
+    }, [acceptedFiles]);
 
     useEffect(() => {
         setMediaConfig(appConfigs.media[type]);
@@ -129,7 +139,7 @@ export default function ModalPhotoUploader({
                                 De afmeting van de afbeelding dient bijvoorbeeld {mediaConfig?.size.large[0]}x
                                 {mediaConfig?.size.large[1]}px te zijn. (breedte keer hoogte)
                                 <br />
-                                Toegestaande formaten: .JPG, .PNG
+                                Toegestaande formaten: {acceptedFiles.map((item) => item.toUpperCase()).join(', ')}
                                 <br />
                             </div>
                             <div className="form text-center">

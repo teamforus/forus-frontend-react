@@ -4,6 +4,8 @@ import { uniqueId } from 'lodash';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushDanger from '../../../hooks/usePushDanger';
+import useFileTypeValidation from '../../../services/helpers/useFileTypeValidation';
 
 export default function PhotoSelector({
     id,
@@ -36,17 +38,31 @@ export default function PhotoSelector({
 
     const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
+    const pushDanger = usePushDanger();
+    const fileTypeIsValid = useFileTypeValidation();
+
+    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
+    const acceptedFilesLabel = acceptedFiles.map((item) => item.toUpperCase()).join(', ');
 
     const onPhotoChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             const file = e.target.files[0];
             e.target.value = null;
 
+            if (!file) {
+                return;
+            }
+
+            if (!fileTypeIsValid(file, acceptedFiles)) {
+                return pushDanger(`Toegestaande formaten: ${acceptedFilesLabel}`);
+            }
+
             openModal((modal) => (
                 <ModalPhotoUploader
                     type={type}
                     file={file}
                     modal={modal}
+                    acceptedFiles={acceptedFiles}
                     onSubmit={(file, presets) => {
                         const thumbnail = presets.find((preset) => preset.key == 'thumbnail');
 
@@ -56,7 +72,7 @@ export default function PhotoSelector({
                 />
             ));
         },
-        [openModal, selectPhoto, type],
+        [acceptedFiles, acceptedFilesLabel, fileTypeIsValid, openModal, pushDanger, selectPhoto, type],
     );
 
     useEffect(() => {
@@ -70,7 +86,13 @@ export default function PhotoSelector({
                     <img src={thumbnailValue || assetUrl('/assets/img/placeholders/image-thumbnail.png')} alt="" />
                 </label>
                 <div className="photo-details">
-                    <input type="file" hidden={true} accept={'image/*'} ref={inputRef} onChange={onPhotoChange} />
+                    <input
+                        type="file"
+                        hidden={true}
+                        accept={acceptedFiles.join(',')}
+                        ref={inputRef}
+                        onChange={onPhotoChange}
+                    />
                     <div className="photo-label">{label || translate('photo_selector.labels.image')}</div>
                     {description && <div className="photo-description">{description}</div>}
 
@@ -92,7 +114,13 @@ export default function PhotoSelector({
         return (
             <div className="block block-photo-selector">
                 <label htmlFor={id ? id : `photo_selector_${selectorId}`} className="photo-img">
-                    <input type="file" hidden={true} accept={'image/*'} ref={inputRef} onChange={onPhotoChange} />
+                    <input
+                        type="file"
+                        hidden={true}
+                        accept={acceptedFiles.join(',')}
+                        ref={inputRef}
+                        onChange={onPhotoChange}
+                    />
                     <img src={thumbnailValue || assetUrl('/assets/img/placeholders/photo-selector.svg')} alt="" />
                 </label>
                 <div className="photo-details">
@@ -125,7 +153,13 @@ export default function PhotoSelector({
                 <label
                     htmlFor={id ? id : `photo_selector_${selectorId}`}
                     className="photo-selector-notifications-media">
-                    <input type="file" hidden={true} accept={'image/*'} ref={inputRef} onChange={onPhotoChange} />
+                    <input
+                        type="file"
+                        hidden={true}
+                        accept={acceptedFiles.join(',')}
+                        ref={inputRef}
+                        onChange={onPhotoChange}
+                    />
                     <img
                         src={
                             thumbnailValue ||
@@ -140,7 +174,7 @@ export default function PhotoSelector({
                     <div className="photo-selector-notifications-hint">
                         De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.
                         <br />
-                        Toegestaande formaten: JPG, PNG
+                        Toegestaande formaten: {acceptedFilesLabel}
                     </div>
                     <div className="button-group">
                         <button
