@@ -69,8 +69,8 @@ export class EmployeeService<T = Employee> {
             isProviderPanel ? 'branch_name_id' : null,
             isProviderPanel ? 'branch_number' : null,
             'auth_2fa',
-            'created_at',
             'last_activity',
+            'created_at',
         ].filter((item) => item);
 
         return list.map((key) => ({
