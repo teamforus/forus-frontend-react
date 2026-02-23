@@ -41,7 +41,10 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
     }
 
     return (
-        <LoadScript googleMapsApiKey={envData?.config?.google_maps_api_key} libraries={libraries}>
+        <LoadScript
+            googleMapsApiKey={envData?.config?.google_maps_api_key}
+            libraries={libraries}
+            loadingElement={<></>}>
             <ErrorBoundaryHandler type={'main'} front={'dashboard'}>
                 <div
                     className={classNames(
