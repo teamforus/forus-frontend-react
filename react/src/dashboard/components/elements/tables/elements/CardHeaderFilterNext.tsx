@@ -1,6 +1,5 @@
 import React from 'react';
-import FilterScope from '../../../../types/FilterScope';
-import FilterModel from '../../../../types/FilterModel';
+import { FilterModel, FilterScope } from '../../../../modules/filter_next/types/FilterParams';
 import CardHeaderFilter from './CardHeaderFilter';
 import Fund from '../../../../props/models/Fund';
 import SelectControl from '../../select-control/SelectControl';
