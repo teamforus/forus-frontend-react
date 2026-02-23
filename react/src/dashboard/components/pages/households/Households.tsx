@@ -60,6 +60,7 @@ export default function Households() {
         {
             q: '',
             fund_id: null,
+            page: 1,
             order_by: 'created_at',
             order_dir: 'desc',
             per_page: paginatorService.getPerPage(paginatorTransactionsKey),

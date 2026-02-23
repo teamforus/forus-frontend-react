@@ -60,6 +60,7 @@ export default function ProviderFundInvitationsTable({
             from: '',
             to: '',
             state: null,
+            page: 1,
             per_page: paginatorService.getPerPage(paginatorKey),
         },
         {
