@@ -52,6 +52,7 @@ export default function ProviderFundInvitationsTable({
         from?: string;
         to?: string;
         state?: string;
+        page?: number;
         per_page?: number;
     }>(
         {
@@ -67,6 +68,7 @@ export default function ProviderFundInvitationsTable({
                 from: StringParam,
                 to: StringParam,
                 state: StringParam,
+                page: NumberParam,
                 per_page: NumberParam,
             },
         },

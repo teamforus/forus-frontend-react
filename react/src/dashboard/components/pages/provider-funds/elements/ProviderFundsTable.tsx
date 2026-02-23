@@ -53,9 +53,13 @@ export default function ProviderFundsTable({
     const [paginatorKey] = useState(`provider_funds_${type}`);
     const [providerFunds, setProviderFunds] = useState<PaginationData<FundProvider>>(null);
 
-    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string; per_page?: number }>(
-        { q: '', per_page: paginatorService.getPerPage(paginatorKey) },
-        { queryParams: { q: StringParam, per_page: NumberParam } },
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        per_page?: number;
+        page?: number;
+    }>(
+        { q: '', per_page: paginatorService.getPerPage(paginatorKey), page: 1 },
+        { queryParams: { q: StringParam, per_page: NumberParam, page: NumberParam } },
     );
 
     const { resetFilters: resetFilters } = filter;
