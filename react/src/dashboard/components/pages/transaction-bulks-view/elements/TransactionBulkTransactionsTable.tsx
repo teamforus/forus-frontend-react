@@ -42,6 +42,7 @@ export default function TransactionBulkTransactionsTable({
     const [perPageKey] = useState('transaction_bulks_transactions');
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        page?: number;
         per_page?: number;
         order_by: string;
         order_dir: string;
@@ -53,6 +54,7 @@ export default function TransactionBulkTransactionsTable({
         },
         {
             queryParams: {
+                page: NumberParam,
                 per_page: NumberParam,
                 order_by: StringParam,
                 order_dir: StringParam,

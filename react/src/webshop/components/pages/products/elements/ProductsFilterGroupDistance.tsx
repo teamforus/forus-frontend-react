@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormGroup from '../../../elements/forms/FormGroup';
 import SelectControl from '../../../../../dashboard/components/elements/select-control/SelectControl';
-import FilterSetter from '../../../../../dashboard/types/FilterSetter';
+import { FilterSetter } from '../../../../../dashboard/modules/filter_next/types/FilterParams';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 
 export default function ProductsFilterGroupDistance({
