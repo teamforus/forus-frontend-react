@@ -121,7 +121,7 @@ export default function Employees() {
                         if (!employee) {
                             pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
                         } else {
-                            pushSuccess('Gelukt!', 'Employee updated.');
+                            pushSuccess('Gelukt!', 'De rollen zijn aagepast.');
                         }
                     }}
                 />
