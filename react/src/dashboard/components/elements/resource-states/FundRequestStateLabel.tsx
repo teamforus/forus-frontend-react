@@ -1,18 +1,17 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
+import React, { useCallback, useMemo, useState } from 'react';
 import FundRequest from '../../../props/models/FundRequest';
 import FundRequestClarification from '../../../props/models/FundRequestClarification';
-import Label from '../image_cropper/Label';
+import Label, { LabelType } from '../label/Label';
 
 export default function FundRequestStateLabel({ fundRequest }: { fundRequest: FundRequest }) {
-    const [stateLabels] = useState({
-        pending: { label: 'primary-light', icon: 'circle-outline' },
-        declined: { label: 'danger', icon: 'circle-off-outline' },
-        approved: { label: 'success', icon: 'circle-slice-8' },
-        approved_partly: { label: 'success', icon: 'circle-slice-4' },
-        disregarded: { label: 'default', icon: 'circle-outline' },
-        assigned: { label: 'default', icon: 'circle-outline' },
-        clarification_requested: { label: 'warning', icon: 'circle-outline' },
+    const [stateLabels] = useState<Record<string, { type: LabelType; icon: string }>>({
+        pending: { type: 'primary-light', icon: 'circle-outline' },
+        declined: { type: 'danger', icon: 'circle-off-outline' },
+        approved: { type: 'success', icon: 'circle-slice-8' },
+        approved_partly: { type: 'success', icon: 'circle-slice-4' },
+        disregarded: { type: 'default', icon: 'circle-outline' },
+        assigned: { type: 'default', icon: 'circle-outline' },
+        clarification_requested: { type: 'warning', icon: 'circle-outline' },
     });
 
     const hasPendingClarifications = useCallback((clarifications: Array<FundRequestClarification>) => {
@@ -41,51 +40,19 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
         };
     }, [fundRequest, hasRecordsWithPendingClarifications]);
 
-    const getLabelClass = useCallback((label?: string) => {
-        switch (label) {
-            case 'primary-light':
-                return classNames('label-primary-light');
-            case 'danger':
-                return classNames('label-danger');
-            case 'success':
-                return classNames('label-success');
-            case 'default':
-                return classNames('label-default');
-            case 'warning':
-                return classNames('label-warning');
-            default:
-                return null;
-        }
-    }, []);
-
-    return (
-        <Fragment>
-            {fundRequest.state == 'pending' && fundRequest.employee ? (
-                <Fragment>
-                    {hasRecordsWithPendingClarifications ? (
-                        <div className={classNames('label', getLabelClass(stateLabels.clarification_requested?.label))}>
-                            <em
-                                className={classNames(
-                                    'mdi',
-                                    `mdi-${stateLabels.clarification_requested?.icon}`,
-                                    `icon-start`,
-                                )}
-                            />
-                            Extra info nodig
-                        </div>
-                    ) : (
-                        <Label type="primary">
-                            <em className="mdi mdi-circle-outline icon-start" />
-                            In behandeling
-                        </Label>
-                    )}
-                </Fragment>
-            ) : (
-                <div className={classNames('label', getLabelClass(stateLabels[localState.key]?.label))}>
-                    <em className={classNames('mdi', `mdi-${stateLabels[localState.key]?.icon}`, `icon-start`)} />
-                    {localState.label}
-                </div>
-            )}
-        </Fragment>
+    return fundRequest.state == 'pending' && fundRequest.employee ? (
+        hasRecordsWithPendingClarifications ? (
+            <Label type={stateLabels.clarification_requested?.type} icon={stateLabels.clarification_requested?.icon}>
+                Extra info nodig
+            </Label>
+        ) : (
+            <Label type="primary" icon="circle-outline">
+                In behandeling
+            </Label>
+        )
+    ) : (
+        <Label type={stateLabels[localState.key]?.type} icon={stateLabels[localState.key]?.icon}>
+            {localState.label}
+        </Label>
     );
 }

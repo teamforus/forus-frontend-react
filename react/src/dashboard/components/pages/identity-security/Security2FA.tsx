@@ -13,7 +13,7 @@ import { authContext } from '../../../contexts/AuthContext';
 import { ResponseError } from '../../../props/ApiResponses';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 
 export default function Security2FA() {
     const assetUrl = useAssetUrl();

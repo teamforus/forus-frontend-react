@@ -7,7 +7,7 @@ import { ConfigurableTableColumn } from '../../vouchers/hooks/useConfigurableTab
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 
