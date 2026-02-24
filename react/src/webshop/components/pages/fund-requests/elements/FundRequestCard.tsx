@@ -4,6 +4,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import Label from '../../../elements/label/Label';
 
 export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequest }) {
     const assetUrl = useAssetUrl();
@@ -41,30 +42,19 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                         </div>
                     </div>
                     <div className="fund-request-overview">
-                        {fundRequest.state === 'pending' && (
-                            <div className="label label-warning">{fundRequest.state_locale}</div>
-                        )}
-
-                        {fundRequest.state === 'approved' && (
-                            <div className="label label-success">{fundRequest.state_locale}</div>
-                        )}
-
-                        {fundRequest.state === 'declined' && (
-                            <div className="label label-default">{fundRequest.state_locale}</div>
-                        )}
-
-                        {fundRequest.state === 'disregarded' && (
-                            <div className="label label-danger">{fundRequest.state_locale}</div>
-                        )}
+                        {fundRequest.state === 'pending' && <Label type="warning">{fundRequest.state_locale}</Label>}
+                        {fundRequest.state === 'approved' && <Label type="success">{fundRequest.state_locale}</Label>}
+                        {fundRequest.state === 'declined' && <Label type="default">{fundRequest.state_locale}</Label>}
+                        {fundRequest.state === 'disregarded' && <Label type="danger">{fundRequest.state_locale}</Label>}
                     </div>
                 </div>
                 <div className="fund-request-values">
                     <div className="fund-request-values-label">
                         {notAnsweredCount > 0 && (
-                            <div className="label label-primary label-xl">
-                                <div className="label-blink" aria-hidden="true" />
+                            <Label type="primary" size="xl">
+                                <span className="label-blink" aria-hidden="true" />
                                 {translate('fund_requests.card.questions_count', { count: notAnsweredCount })}
-                            </div>
+                            </Label>
                         )}
                     </div>
                     <div className="fund-request-values-date">
@@ -80,10 +70,10 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                 </div>
                 <div className="fund-request-values-label">
                     {notAnsweredCount > 0 && (
-                        <div className="label label-primary label-xl">
-                            <div className="label-blink" aria-hidden="true" />
+                        <Label type="primary" size="xl">
+                            <span className="label-blink" aria-hidden="true" />
                             {translate('fund_requests.card.questions_count', { count: notAnsweredCount })}
-                        </div>
+                        </Label>
                     )}
                 </div>
             </div>
