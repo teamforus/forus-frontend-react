@@ -12,7 +12,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 
 export default function PreferencesEmails() {
     const openModal = useOpenModal();
@@ -211,13 +211,13 @@ export default function PreferencesEmails() {
                             </div>
                             <div className="user_email-actions">
                                 {email.primary && (
-                                    <Label dusk="identityEmailListItemPrimary" type="success" className="pull-left">
+                                    <Label dusk="identityEmailListItemPrimary" type="success">
                                         Hoofd e-mailadres
                                     </Label>
                                 )}
 
                                 {!email.verified && !email.primary && (
-                                    <Label dusk="identityEmailListItemNotVerified" type="default" className="pull-left">
+                                    <Label dusk="identityEmailListItemNotVerified" type="default">
                                         Niet bevestigd
                                     </Label>
                                 )}

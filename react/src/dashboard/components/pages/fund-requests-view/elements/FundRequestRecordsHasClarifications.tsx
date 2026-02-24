@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { FundRequestLocal, FundRequestRecordLocal } from '../FundRequestsView';
 import useTranslate from '../../../../hooks/useTranslate';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import { uniq } from 'lodash';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';

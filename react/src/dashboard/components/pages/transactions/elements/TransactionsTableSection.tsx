@@ -12,7 +12,7 @@ import { strLimit } from '../../../../helpers/string';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
-import Label from '../../../elements/image_cropper/Label';
+import Label from '../../../elements/label/Label';
 import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 
