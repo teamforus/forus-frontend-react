@@ -14,7 +14,7 @@ import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/image_cropper/Label';
+import Label from '../../elements/label/Label';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function FundProvider() {

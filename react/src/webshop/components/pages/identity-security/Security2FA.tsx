@@ -14,6 +14,7 @@ import Modal2FADeactivate from '../../modals/Modal2FADeactivate';
 import Modal2FASetup from '../../modals/Modal2FASetup';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import Label from '../../elements/label/Label';
 
 export default function Security2FA() {
     const openModal = useOpenModal();
@@ -169,9 +170,7 @@ export default function Security2FA() {
                                             </div>
                                         ) : (
                                             <div className="auth-2fa-item-label">
-                                                <div className="label label-light">
-                                                    {translate('security_2fa.disabled')}
-                                                </div>
+                                                <Label type="light">{translate('security_2fa.disabled')}</Label>
                                             </div>
                                         )}
                                     </div>
@@ -190,9 +189,9 @@ export default function Security2FA() {
                                                         {activeProvidersByKey[provider_type.type].phone}
                                                     </div>
                                                     <div className="label-group pull-right">
-                                                        <div className="label label-success">
+                                                        <Label type="success">
                                                             {translate('security_2fa.number_confirmed')}
-                                                        </div>
+                                                        </Label>
                                                     </div>
                                                 </div>
                                                 <div className="auth-phone-details-description">
