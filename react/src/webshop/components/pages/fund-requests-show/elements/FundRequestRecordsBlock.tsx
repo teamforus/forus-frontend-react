@@ -31,11 +31,7 @@ export default function FundRequestRecordsBlock({
             fundRequest?.fund?.criteria
                 ?.filter(
                     (criterion) =>
-                        ![
-                            'children_same_address_nth',
-                            'partner_same_address_nth',
-                            'partner_same_address_gender_female_nth',
-                        ].includes(criterion.record_type_key),
+                        !['children_same_address_nth', 'partner_same_address_nth'].includes(criterion.record_type_key),
                 )
                 .map((criterion) => criterion.record_type_key) || []
         );

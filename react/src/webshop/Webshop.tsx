@@ -114,7 +114,7 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
 
     return (
         <FrameDirectorProvider>
-            <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'}>
+            <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'} loadingElement={<></>}>
                 <PushNotificationsProvider
                     groups={{
                         webshop: {

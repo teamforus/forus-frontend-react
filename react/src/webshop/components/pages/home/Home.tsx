@@ -18,6 +18,7 @@ import Section from '../../elements/sections/Section';
 import BlockProductCategories from '../../elements/block-product-categories/BlockProductCategories';
 import RandomProductsBlock from './elements/RandomProductsBlock';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import Label from '../../elements/label/Label';
 
 export default function Home() {
     const envData = useEnvData();
@@ -178,7 +179,7 @@ export default function Home() {
                         <div className="pre-check-banner-content">
                             {appConfigs.pre_check_banner_label && (
                                 <h2 className="pre-check-banner-label">
-                                    <span className="label label-primary">{appConfigs.pre_check_banner_label}</span>
+                                    <Label type="primary">{appConfigs.pre_check_banner_label}</Label>
                                 </h2>
                             )}
                             {appConfigs.pre_check_banner_title && (
