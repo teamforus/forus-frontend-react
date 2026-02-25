@@ -7,7 +7,7 @@ import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import usePayReservationExtra from '../hooks/usePayReservationExtra';
 import useCancelReservation from '../hooks/useCancelReservation';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
-import classNames from 'classnames';
+import Label from '../../../elements/label/Label';
 
 export default function ReservationCard({
     reservation,
@@ -82,27 +82,18 @@ export default function ReservationCard({
                             <div className="reservation-overview">
                                 <div className="reservation-overview-status">
                                     {reservation.state === 'waiting' && stateData?.expiresIn > 0 && (
-                                        <div className="label label-default-outline nowrap">
+                                        <Label type="default-outline" nowrap={true}>
                                             <span className="label-blink label-blink-primary" aria-hidden="true" />
-                                            <span className="label-text">
+                                            <span>
                                                 {translate('reservations.card.remaining_minutes', {
                                                     minutes: stateData.expiresIn,
                                                 })}
                                             </span>
-                                        </div>
+                                        </Label>
                                     )}
-                                    <div
-                                        className={classNames(
-                                            'label',
-                                            stateData.stateClass === 'warning' && 'label-warning',
-                                            stateData.stateClass === 'success' && 'label-success',
-                                            stateData.stateClass === 'default' && 'label-default',
-                                            stateData.stateClass === 'waiting' && 'label-waiting',
-                                            stateData.stateClass === 'danger' && 'label-danger',
-                                        )}
-                                        data-dusk={stateData.stateDusk}>
+                                    <Label dusk={stateData.stateDusk} type={stateData.stateClass}>
                                         {stateData.stateText}
-                                    </div>
+                                    </Label>
                                 </div>
                                 <div className="reservation-overview-item hidden-xs hidden-sm">
                                     <div className="reservation-overview-label">
