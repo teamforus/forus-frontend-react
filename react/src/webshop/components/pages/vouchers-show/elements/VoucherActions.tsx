@@ -183,7 +183,7 @@ export default function VoucherActions({
                     <StateNavLink
                         className="voucher-actions-button"
                         name={WebshopRoutes.PRODUCTS}
-                        query={{ fund_id: voucher.fund_id }}>
+                        query={{ fund_ids: [voucher.fund_id] }}>
                         <em className="mdi mdi-tag-heart-outline" />
                         {translate('voucher.actions.view_all_products')}
                     </StateNavLink>

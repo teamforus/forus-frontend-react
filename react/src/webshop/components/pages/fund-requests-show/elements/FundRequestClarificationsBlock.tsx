@@ -3,6 +3,7 @@ import FundRequest from '../../../../../dashboard/props/models/FundRequest';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FundRequestClarification from '../../../../../dashboard/props/models/FundRequestClarification';
 import FundRequestRecord from '../../../../../dashboard/props/models/FundRequestRecord';
+import Label from '../../../elements/label/Label';
 
 export default function FundRequestClarificationsBlock({
     fundRequest,
@@ -116,12 +117,12 @@ export default function FundRequestClarificationsBlock({
                                     {translate('fund_request.clarifications.provide_info')}
                                 </button>
                             ) : (
-                                <div className="label label-light label-xl nowrap">
+                                <Label type="light" size="xl" nowrap={true}>
                                     {translate('fund_request.clarifications.info_responded_count', {
                                         count: item?.clarificationsResponded?.length,
                                     })}
                                     <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
-                                </div>
+                                </Label>
                             )}
                         </div>
                     </div>

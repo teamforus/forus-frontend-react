@@ -52,6 +52,7 @@ export default function Households() {
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
         fund_id?: number;
+        page?: number;
         per_page?: number;
         order_by?: string;
         order_dir?: string;
@@ -59,6 +60,7 @@ export default function Households() {
         {
             q: '',
             fund_id: null,
+            page: 1,
             order_by: 'created_at',
             order_dir: 'desc',
             per_page: paginatorService.getPerPage(paginatorTransactionsKey),
@@ -68,6 +70,7 @@ export default function Households() {
             queryParams: {
                 q: StringParam,
                 fund_id: NumberParam,
+                page: NumberParam,
                 per_page: NumberParam,
                 order_by: StringParam,
                 order_dir: StringParam,

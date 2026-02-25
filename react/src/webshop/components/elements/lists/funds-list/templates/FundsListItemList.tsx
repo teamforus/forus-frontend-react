@@ -7,6 +7,7 @@ import { strLimit } from '../../../../../../dashboard/helpers/string';
 import FundsListItemModel from '../../../../../services/types/FundsListItemModel';
 import { uniqueId } from 'lodash';
 import { WebshopRoutes } from '../../../../../modules/state_router/RouterBuilder';
+import Label from '../../../label/Label';
 
 export default function FundsListItemList({
     fund,
@@ -36,33 +37,23 @@ export default function FundsListItemList({
                 <div className="fund-details">
                     <div className="fund-status-label">
                         {fund.canApply && !fund.showActivateButton && (
-                            <div className="label label-light">
-                                {translate('list_blocks.fund_item_list.status.is_applicable')}
-                            </div>
+                            <Label type="light">{translate('list_blocks.fund_item_list.status.is_applicable')}</Label>
                         )}
 
                         {fund.showActivateButton && (
-                            <div className="label label-success">
-                                {translate('list_blocks.fund_item_list.status.activateable')}
-                            </div>
+                            <Label type="success">{translate('list_blocks.fund_item_list.status.activateable')}</Label>
                         )}
 
                         {fund.alreadyReceived && (
-                            <div className="label label-primary">
-                                {translate('list_blocks.fund_item_list.status.active')}
-                            </div>
+                            <Label type="primary">{translate('list_blocks.fund_item_list.status.active')}</Label>
                         )}
 
                         {fund.showPendingButton && (
-                            <div className="label label-warning">
-                                {translate('list_blocks.fund_item_list.status.is_pending')}
-                            </div>
+                            <Label type="warning">{translate('list_blocks.fund_item_list.status.is_pending')}</Label>
                         )}
 
                         {fund.showRequestButton && (
-                            <div className="label label-light">
-                                {translate('list_blocks.fund_item_list.status.is_applicable')}
-                            </div>
+                            <Label type="light">{translate('list_blocks.fund_item_list.status.is_applicable')}</Label>
                         )}
                     </div>
 
