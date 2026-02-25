@@ -12,6 +12,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
 import BlockWarning from '../block-warning/BlockWarning';
 import { isPreviewableExtension } from '../../../../dashboard/helpers/filePreview';
+import useFileTypeValidation from '../../../../dashboard/services/helpers/useFileTypeValidation';
 
 export type FileUploaderItem = {
     id?: string;
@@ -89,6 +90,7 @@ export default function FileUploader({
     const pushInfo = usePushInfo();
     const translate = useTranslate();
     const openModal = useOpenModal();
+    const fileTypeIsValid = useFileTypeValidation();
 
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -252,29 +254,9 @@ export default function FileUploader({
                 return [...files];
             }
 
-            const accepted = acceptedFiles.map((item) => item.toLowerCase());
-
-            return [...files].filter((file) => {
-                const fileName = file.name.toLowerCase();
-                const fileType = (file.type || '').toLowerCase();
-                const lastDotIndex = fileName.lastIndexOf('.');
-                const extension = lastDotIndex === -1 ? '' : fileName.slice(lastDotIndex);
-
-                return accepted.some((item) => {
-                    if (item.startsWith('.')) {
-                        return extension === item;
-                    }
-
-                    if (item.endsWith('/*')) {
-                        const prefix = item.slice(0, -1);
-                        return fileType.startsWith(prefix);
-                    }
-
-                    return fileType === item;
-                });
-            });
+            return [...files].filter((file) => fileTypeIsValid(file, acceptedFiles));
         },
-        [acceptedFiles],
+        [acceptedFiles, fileTypeIsValid],
     );
 
     const removeFile = useCallback(
