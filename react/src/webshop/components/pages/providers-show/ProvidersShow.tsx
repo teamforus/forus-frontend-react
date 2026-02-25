@@ -23,6 +23,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import Section from '../../elements/sections/Section';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import Label from '../../elements/label/Label';
 
 export default function ProvidersShow() {
     const { id } = useParams();
@@ -166,10 +167,10 @@ export default function ProvidersShow() {
                                                     {translate('provider.details.type')}
                                                 </div>
                                                 <div className="data-list-value">
-                                                    <div className="label label-default label-sm">
+                                                    <Label type="default" size="sm">
                                                         {provider.business_type?.name ||
                                                             translate('provider.details.type_none')}
-                                                    </div>
+                                                    </Label>
                                                 </div>
                                             </div>
                                         )}
@@ -233,10 +234,10 @@ export default function ProvidersShow() {
                                                             <div className="office-details">
                                                                 <div className="office-title">{office.address}</div>
                                                                 <div className="office-labels">
-                                                                    <div className="label label-default">
+                                                                    <Label type="default">
                                                                         {provider?.business_type?.name ||
                                                                             translate('provider.details.type_none')}
-                                                                    </div>
+                                                                    </Label>
                                                                 </div>
                                                                 {(office.phone || provider.phone || provider.email) && (
                                                                     <div>

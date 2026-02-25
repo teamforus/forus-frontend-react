@@ -72,12 +72,12 @@ export default function ImageCropper({
                     'cover',
                 ).toBlob(
                     (blob) => resolve({ ...item, blob, data: blob ? createObjectURL(blob) : null }),
-                    file.type,
+                    'image/jpeg',
                     quality,
                 );
             });
         },
-        [file.type, img, quality],
+        [img, quality],
     );
 
     const onComplete = useCallback(

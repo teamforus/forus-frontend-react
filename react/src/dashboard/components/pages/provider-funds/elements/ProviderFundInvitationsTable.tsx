@@ -15,7 +15,7 @@ import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import Label, { LabelType } from '../../../elements/image_cropper/Label';
+import Label, { LabelType } from '../../../elements/label/Label';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 
@@ -52,6 +52,7 @@ export default function ProviderFundInvitationsTable({
         from?: string;
         to?: string;
         state?: string;
+        page?: number;
         per_page?: number;
     }>(
         {
@@ -59,6 +60,7 @@ export default function ProviderFundInvitationsTable({
             from: '',
             to: '',
             state: null,
+            page: 1,
             per_page: paginatorService.getPerPage(paginatorKey),
         },
         {
@@ -67,6 +69,7 @@ export default function ProviderFundInvitationsTable({
                 from: StringParam,
                 to: StringParam,
                 state: StringParam,
+                page: NumberParam,
                 per_page: NumberParam,
             },
         },

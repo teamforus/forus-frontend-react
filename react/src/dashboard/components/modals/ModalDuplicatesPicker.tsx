@@ -20,13 +20,13 @@ export default function ModalDuplicatesPicker({
     hero_title = '',
     hero_subtitle = '',
     enableToggles = true,
-    label_on = '',
-    label_off = '',
+    label_on = 'Aanmaken',
+    label_off = 'Overslaan',
     items,
     onConfirm,
     onCancel,
     button_cancel = 'Annuleren',
-    button_none = 'Alles overslaan',
+    button_none = 'Alle overslaan',
     button_all = 'Ja op alles',
     button_confirm = 'Bevestigen',
 }: {
@@ -36,8 +36,8 @@ export default function ModalDuplicatesPicker({
     hero_title?: string;
     hero_subtitle: string | Array<string>;
     enableToggles: boolean;
-    label_on: string;
-    label_off: string;
+    label_on?: string;
+    label_off?: string;
     items: Array<ItemProp>;
     onConfirm: (data: { list: Array<ItemProp>; uids?: Array<string> }) => void;
     onCancel: () => void;

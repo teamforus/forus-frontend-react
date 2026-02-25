@@ -85,7 +85,7 @@ export default function Employees() {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [activeOrganization.id, employeeService, filterValuesActive, setProgress, pushApiError]);
+    }, [activeOrganization.id, employeeService, setProgress, pushApiError, filterValuesActive]);
 
     const fetchAdminEmployees = useCallback(() => {
         employeeService
@@ -115,27 +115,19 @@ export default function Employees() {
                     organization={activeOrganization}
                     employee={employee}
                     onSubmit={() => {
+                        fetchEmployees();
                         fetchAdminEmployees();
-                        filterUpdate({ page: employee ? employees.meta.current_page : employees.meta.last_page });
 
                         if (!employee) {
                             pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
                         } else {
-                            pushSuccess('Gelukt!', 'Employee updated.');
+                            pushSuccess('Gelukt!', 'De rollen zijn aagepast.');
                         }
                     }}
                 />
             ));
         },
-        [
-            openModal,
-            activeOrganization,
-            fetchAdminEmployees,
-            filterUpdate,
-            employees?.meta.current_page,
-            employees?.meta.last_page,
-            pushSuccess,
-        ],
+        [openModal, activeOrganization, fetchAdminEmployees, fetchEmployees, pushSuccess],
     );
 
     const exportEmployees = useCallback(() => {
@@ -178,7 +170,7 @@ export default function Employees() {
                             employeeService
                                 .delete(activeOrganization.id, employee.id)
                                 .then(() => {
-                                    filterUpdate({});
+                                    fetchEmployees();
                                     pushSuccess('Gelukt!', 'Medewerker verwijderd.');
                                     modal.close();
                                 })
@@ -189,7 +181,7 @@ export default function Employees() {
                 />
             ));
         },
-        [openModal, translate, employeeService, activeOrganization.id, filterUpdate, pushSuccess, pushApiError],
+        [openModal, translate, employeeService, activeOrganization.id, pushApiError, fetchEmployees, pushSuccess],
     );
 
     const canEditEmployee = useCallback(
@@ -332,10 +324,10 @@ export default function Employees() {
                             )}
                         </td>
                         <td>
-                            <TableDateTime value={employee.created_at_locale} />
+                            <TableDateTime value={employee.last_activity_at_locale} />
                         </td>
                         <td>
-                            <TableDateTime value={employee.last_activity_at_locale} />
+                            <TableDateTime value={employee.created_at_locale} />
                         </td>
 
                         {activeOrganization.identity_address != employee.identity_address ? (

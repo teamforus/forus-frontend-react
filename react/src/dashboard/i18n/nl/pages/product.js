@@ -16,6 +16,7 @@ export default {
         ean_placeholder: 'Voeg een Europees artikelnummer toe',
         sku: 'SKU',
         sku_placeholder: 'Voeg een voorraadbeheereenheidnummer toe',
+        expired: 'Verlopen',
     },
     tooltips: {
         ean: [

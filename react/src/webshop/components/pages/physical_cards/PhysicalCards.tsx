@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import { useNavigateState } from '../../../modules/state_router/Router';
@@ -14,6 +13,8 @@ import { usePhysicalCardsService } from '../../../services/PhysicalCardsService'
 import PhysicalCard from '../../../../dashboard/props/models/PhysicalCard';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
+import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function PhysicalCards() {
     const appConfigs = useAppConfigs();
@@ -26,29 +27,43 @@ export default function PhysicalCards() {
 
     const [physicalCards, setPhysicalCards] = useState<PaginationData<PhysicalCard>>(null);
 
-    const filter = useFilter<{
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        page: number;
+        per_page: number;
         archived: 0 | 1;
-        physical_card: 0 | 1;
-    }>({
-        per_page: 15,
-        archived: 0,
-        order_by: 'voucher_type',
-        order_dir: 'desc',
-        physical_card: 1,
-    });
+        order_by?: string;
+        order_dir?: string;
+    }>(
+        {
+            page: 1,
+            per_page: 15,
+            archived: 0,
+            order_by: 'voucher_type',
+            order_dir: 'desc',
+        },
+        {
+            queryParams: {
+                page: NumberParam,
+                archived: BooleanParam,
+                per_page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
 
-    const fetchVouchers = useCallback(() => {
+    const fetchPhysicalCards = useCallback(() => {
         setProgress(0);
 
         physicalCardService
-            .index(filter.activeValues)
+            .index({ ...filterValuesActive, archived: filterValuesActive?.archived ? 1 : 0 })
             .then((res) => setPhysicalCards(res.data))
             .finally(() => setProgress(100));
-    }, [filter.activeValues, setProgress, physicalCardService]);
+    }, [filterValuesActive, setProgress, physicalCardService]);
 
     useEffect(() => {
-        fetchVouchers();
-    }, [fetchVouchers]);
+        fetchPhysicalCards();
+    }, [fetchPhysicalCards]);
 
     useEffect(() => {
         if (!appConfigs.has_physical_cards) {
@@ -82,12 +97,12 @@ export default function PhysicalCards() {
                                     className={classNames(
                                         'label-tab',
                                         'label-tab-sm',
-                                        !filter.values.archived && 'active',
+                                        !filterValues.archived && 'active',
                                     )}
-                                    onClick={() => filter.update({ archived: 0 })}
+                                    onClick={() => filterUpdate({ archived: 0 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
-                                    aria-pressed={!filter.values.archived}
+                                    aria-pressed={!filterValues.archived}
                                     data-dusk="physicalCardsFilterActive"
                                     role="button">
                                     {translate('physical_cards.filters.active')}
@@ -96,12 +111,12 @@ export default function PhysicalCards() {
                                     className={classNames(
                                         'label-tab',
                                         'label-tab-sm',
-                                        filter.values.archived && 'active',
+                                        filterValues.archived && 'active',
                                     )}
-                                    onClick={() => filter.update({ archived: 1 })}
+                                    onClick={() => filterUpdate({ archived: 1 })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
-                                    aria-pressed={!!filter.values.archived}
+                                    aria-pressed={!!filterValues.archived}
                                     data-dusk="physicalCardsFilterArchived"
                                     role="button">
                                     {translate('physical_cards.filters.archive')}
@@ -120,7 +135,7 @@ export default function PhysicalCards() {
                                     type={'physical_card'}
                                     key={physicalCard.id}
                                     voucher={physicalCard.voucher}
-                                    onVoucherDestroyed={() => fetchVouchers()}
+                                    onVoucherDestroyed={() => fetchPhysicalCards()}
                                 />
                             ))}
 
@@ -128,8 +143,8 @@ export default function PhysicalCards() {
                                 <div className="card-section">
                                     <Paginator
                                         meta={physicalCards.meta}
-                                        filters={filter.values}
-                                        updateFilters={filter.update}
+                                        filters={filterValues}
+                                        updateFilters={filterUpdate}
                                     />
                                 </div>
                             </div>
