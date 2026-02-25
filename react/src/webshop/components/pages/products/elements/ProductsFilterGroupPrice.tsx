@@ -1,7 +1,7 @@
 import React from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormGroup from '../../../elements/forms/FormGroup';
-import FilterSetter from '../../../../../dashboard/types/FilterSetter';
+import { FilterSetter } from '../../../../../dashboard/modules/filter_next/types/FilterParams';
 import RangeControl from '../../../elements/forms/RangeControl';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 

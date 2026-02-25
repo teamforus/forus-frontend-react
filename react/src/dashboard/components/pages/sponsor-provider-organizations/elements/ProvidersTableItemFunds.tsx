@@ -11,7 +11,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
-import classNames from 'classnames';
+import Label from '../../../elements/label/Label';
 
 export default function ProvidersTableItemFunds({
     filterValues,
@@ -76,16 +76,20 @@ export default function ProvidersTableItemFunds({
                                             </div>
                                         </td>
                                         <td>
-                                            <div
-                                                className={classNames(
-                                                    'label',
-                                                    fundProvider.state === 'accepted' && 'label-success',
-                                                    fundProvider.state === 'pending' && 'label-default',
-                                                    fundProvider.state === 'rejected' && 'label-danger',
-                                                    fundProvider.state === 'unsubscribed' && 'label-danger-light',
-                                                )}>
+                                            <Label
+                                                type={
+                                                    fundProvider.state === 'accepted'
+                                                        ? 'success'
+                                                        : fundProvider.state === 'pending'
+                                                          ? 'default'
+                                                          : fundProvider.state === 'rejected'
+                                                            ? 'danger'
+                                                            : fundProvider.state === 'unsubscribed'
+                                                              ? 'danger-light'
+                                                              : undefined
+                                                }>
                                                 {fundProvider.state_locale}
-                                            </div>
+                                            </Label>
                                         </td>
                                         <td>
                                             <FundStateLabels fund={fundProvider.fund} />

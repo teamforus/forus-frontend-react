@@ -248,8 +248,6 @@ export default function ModalVoucherCreate({
                         'Deze e-mailadressen bezitten al een tegoed van dit fonds.',
                     ]}
                     enableToggles={true}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items}
                     onConfirm={onConfirm}
                     onCancel={onCancel}
@@ -276,8 +274,6 @@ export default function ModalVoucherCreate({
                         'Deze burgerservicenummers bezitten al een tegoed van dit fonds.',
                     ]}
                     enableToggles={true}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
                     items={items}
                     onConfirm={onConfirm}
                     onCancel={onCancel}

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormGroup from '../../../elements/forms/FormGroup';
-import FilterSetter from '../../../../../dashboard/types/FilterSetter';
+import { FilterSetter } from '../../../../../dashboard/modules/filter_next/types/FilterParams';
 import SelectControl from '../../../../../dashboard/components/elements/select-control/SelectControl';
 import Organization from '../../../../../dashboard/props/models/Organization';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';

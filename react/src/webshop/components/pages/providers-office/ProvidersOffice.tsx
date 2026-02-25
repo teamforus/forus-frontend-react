@@ -18,6 +18,7 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import Label from '../../elements/label/Label';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function ProvidersOffice() {
@@ -159,10 +160,10 @@ export default function ProvidersOffice() {
                                                 {translate('providers_office.details.type')}:
                                             </div>
                                             <div className="data-list-value">
-                                                <div className="label label-default label-sm">
+                                                <Label type="default" size="sm">
                                                     {provider.business_type.name ||
                                                         translate('providers_office.details.type_none')}
-                                                </div>
+                                                </Label>
                                             </div>
                                         </div>
                                     )}
@@ -284,12 +285,12 @@ export default function ProvidersOffice() {
                                                             <div className="office-details">
                                                                 <div className="office-title">{office.address}</div>
                                                                 <div className="office-labels">
-                                                                    <div className="label label-default">
+                                                                    <Label type="default">
                                                                         {provider.business_type?.name ||
                                                                             translate(
                                                                                 'providers_office.providers.type_none',
                                                                             )}
-                                                                    </div>
+                                                                    </Label>
                                                                 </div>
                                                                 {(office.phone || provider.phone || provider.email) && (
                                                                     <div>
