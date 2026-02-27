@@ -1,7 +1,6 @@
 import React from 'react';
 import Markdown from '../markdown/Markdown';
 import ImplementationPageBlock from '../../../props/models/ImplementationPageBlock';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import Label from '../label/Label';
 
 export default function CmsBlocksItem({
@@ -11,16 +10,13 @@ export default function CmsBlocksItem({
     block: ImplementationPageBlock;
     blocksPerRow: number;
 }) {
-    const assetUrl = useAssetUrl();
-
     return (
         <div className="fund-item">
-            <div className="fund-media">
-                <img
-                    src={block.media?.sizes?.public || assetUrl('/assets/img/placeholders/product-small.png')}
-                    alt=""
-                />
-            </div>
+            {block.media?.sizes?.public && (
+                <div className="fund-media">
+                    <img src={block.media.sizes.public} alt="" />
+                </div>
+            )}
             <div className="fund-information">
                 {block.title && <h2 className="fund-title">{block.title}</h2>}
                 {block.label && (

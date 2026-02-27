@@ -1,24 +1,20 @@
 import React from 'react';
 import Markdown from '../markdown/Markdown';
 import ImplementationPageBlock from '../../../props/models/ImplementationPageBlock';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import Label from '../label/Label';
 
 export default function CmsBlocksItemLink({ block }: { block: ImplementationPageBlock }) {
-    const assetUrl = useAssetUrl();
-
     return (
         <a
             target={block.button_target_blank ? '_blank' : '_self'}
             rel={block.button_target_blank ? 'noreferrer' : ''}
             href={block.button_link}
             className="fund-item">
-            <div className="fund-media">
-                <img
-                    src={block.media?.sizes?.public || assetUrl('/assets/img/placeholders/product-small.png')}
-                    alt=""
-                />
-            </div>
+            {block.media?.sizes?.public && (
+                <div className="fund-media">
+                    <img src={block.media.sizes.public} alt="" />
+                </div>
+            )}
             <div className="fund-information">
                 {block.title && <h2 className="fund-title">{block.title}</h2>}
                 {block.label && (
