@@ -29,9 +29,10 @@
             flex-direction: column;
             align-self: center;
             flex: 1;
+            gap: 20px;
 
             .fund-label {
-                margin: 0 0 5px;
+                margin: 0 0 -10px;
                 line-height: 20px;
                 order: 1;
                 font-size: var(--cms-funds-label-font-size);
@@ -41,13 +42,13 @@
             .fund-title {
                 font: var(--cms-funds-title-font);
                 color: var(--cms-funds-title-color);
-                margin: 0 0 20px;
+                margin: 0 0;
                 order: 2;
             }
     
             .fund-description {
                 font: 400 18px/28px var(--base-font);
-                margin: 0 0 20px;
+                margin: 0 0;
                 order: 3;
             }
     
@@ -121,8 +122,6 @@
                     flex-direction: column;
     
                     .fund-label {
-                        margin: 0 0 15px;
-    
                         .label {
                             font-size: 12px;
                         }
@@ -131,11 +130,9 @@
                     .fund-title {
                         font: var(--cms-funds-compact-title-font);
                         color: var(--cms-funds-compact-title-color);
-                        margin: 0 0 15px;
                     }
     
                     .fund-description {
-                        margin: 0 0 0;
                         display: flex;
 
                         .block.block-markdown ul, .block.block-markdown p {
@@ -146,8 +143,6 @@
                     }
     
                     .fund-button {
-                        padding-top: 15px;
-    
                         .fund-button-link {
                             padding: 0;
                             display: inline-block;
@@ -207,14 +202,10 @@
 
             .fund-information {
                 width: 100%;
+                gap: 15px;
 
                 .fund-title {
                     font: 400 20px/26px var(--base-font);
-                    margin: 0 0 10px;
-                }
-
-                .fund-description {
-                    margin: 0 0 10px;
                 }
 
                 .fund-button {
