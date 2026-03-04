@@ -356,14 +356,17 @@ export default function VouchersViewComponent() {
                     {hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
-                                {voucher.granted && !voucher?.external && voucher?.fund?.show_qr_code && (
-                                    <div
-                                        className="button button-primary button-sm"
-                                        onClick={sendVoucherByEmailToIdentity}>
-                                        <em className="mdi mdi-email icon-start " />
-                                        {translate('vouchers.labels.send_to_email')}
-                                    </div>
-                                )}
+                                {voucher.granted &&
+                                    voucher.state !== 'deactivated' &&
+                                    !voucher.external &&
+                                    voucher.fund?.show_qr_code && (
+                                        <div
+                                            className="button button-primary button-sm"
+                                            onClick={sendVoucherByEmailToIdentity}>
+                                            <em className="mdi mdi-email icon-start " />
+                                            {translate('vouchers.labels.send_to_email')}
+                                        </div>
+                                    )}
 
                                 {showMakeTransactionButton && fund?.allow_voucher_top_ups && (
                                     <div className="button button-default button-sm" onClick={makeTopUpTransaction}>
