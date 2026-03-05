@@ -140,7 +140,7 @@ export default function ImplementationsInlineBlockEditor({
                             id={id}
                             placeholder={'Paragraaf'}
                             className={'form-control'}
-                            value={pageBlock?.description}
+                            value={pageBlock?.description ?? ''}
                             onChange={(e) => setPageBlock({ ...pageBlock, description: e.target.value })}
                         />
                     )
