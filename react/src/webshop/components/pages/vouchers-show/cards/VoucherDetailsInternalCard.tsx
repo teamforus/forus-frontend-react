@@ -42,7 +42,7 @@ export default function VoucherDetailsInternalCard({
                                 <div className="card-subtitle">{voucherCard.product.organization.name}</div>
                             )}
 
-                            {voucherCard.type === 'regular' && (
+                            {voucherCard.type === 'regular' && !voucherCard.fund?.hide_voucher_amount && (
                                 <div>
                                     <div className="card-value euro">{voucherCard.amount_locale}</div>
                                 </div>
