@@ -181,7 +181,7 @@
                 gap: var(--gap);
 
                 .fund-item {
-                    flex: 0 1 calc((100% - (calc(var(--gap) * 2))) / 2);
+                    flex: 0 1 calc((100% - (calc(var(--gap)))) / 2);
                 }
             }
         }
