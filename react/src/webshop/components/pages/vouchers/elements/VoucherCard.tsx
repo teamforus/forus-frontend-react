@@ -89,7 +89,11 @@ export default function VoucherCard({
                     <span>{type === 'voucher' ? voucherCard.subtitle : voucherCard.physical_card?.code_locale}</span>
                 </div>
 
-                {voucherCard.type === 'regular' && <div className="voucher-value">{voucherCard.amount_locale}</div>}
+                {voucherCard.type === 'regular' && !voucherCard.fund?.hide_voucher_amount && (
+                    <div className="voucher-value" data-dusk="voucherAmount">
+                        {voucherCard.amount_locale}
+                    </div>
+                )}
 
                 {!voucher.deactivated && (
                     <div className="voucher-status-label">

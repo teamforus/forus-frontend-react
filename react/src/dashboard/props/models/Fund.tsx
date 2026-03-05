@@ -169,4 +169,5 @@ export default interface Fund {
     fund_request_physical_card_enable?: boolean;
     fund_request_physical_card_type_id?: number;
     fund_physical_card_types?: Array<InlineFundPhysicalCardType>;
+    hide_voucher_amount?: boolean;
 }

@@ -526,6 +526,7 @@ export default function ModalProductReserve({
                         onKeyDown={clickOnKeyEnter}
                         aria-label={translate('modal_reserve_product.close')}
                         role="button"
+                        data-dusk="closeModalButton"
                     />
 
                     <div className="modal-header">
@@ -599,7 +600,11 @@ export default function ModalProductReserve({
 
                                             <div className="voucher-amounts">
                                                 <div className="voucher-amount">
-                                                    <div className="voucher-value">{voucher?.amount_locale}</div>
+                                                    {!voucher?.fund?.hide_voucher_amount && (
+                                                        <div className="voucher-value" data-dusk="voucherAmount">
+                                                            {voucher?.amount_locale}
+                                                        </div>
+                                                    )}
                                                     <div className="voucher-value-date">
                                                         {voucher?.expire_at_locale}
                                                     </div>
@@ -1475,7 +1480,9 @@ export default function ModalProductReserve({
                                                 </div>
                                             </div>
                                             <div className="voucher-amounts">
-                                                <div className="voucher-value">{voucher.amount_locale}</div>
+                                                {!voucher?.fund?.hide_voucher_amount && (
+                                                    <div className="voucher-value">{voucher?.amount_locale}</div>
+                                                )}
                                                 <div className="voucher-value-date">{voucher.expire_at_locale}</div>
                                             </div>
                                         </div>
@@ -1489,12 +1496,14 @@ export default function ModalProductReserve({
                                     </div>
                                     <div className="payment-value">{product.price_locale}</div>
                                 </div>
-                                <div className="payment-amount">
-                                    <div className="payment-key">
-                                        {translate('modal_reserve_product.extra_payment.remaining_credit')}
+                                {!voucher?.fund?.hide_voucher_amount && (
+                                    <div className="payment-amount">
+                                        <div className="payment-key">
+                                            {translate('modal_reserve_product.extra_payment.remaining_credit')}
+                                        </div>
+                                        <div className="payment-value">{voucher.amount_locale}</div>
                                     </div>
-                                    <div className="payment-value">{voucher.amount_locale}</div>
-                                </div>
+                                )}
                                 <div className="divider" />
                                 <div className="payment-amount">
                                     <div className="payment-key">
