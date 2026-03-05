@@ -357,6 +357,7 @@ export default function VouchersViewComponent() {
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
                                 {voucher.granted &&
+                                    !voucher.expired &&
                                     voucher.state !== 'deactivated' &&
                                     !voucher.external &&
                                     voucher.fund?.show_qr_code && (
