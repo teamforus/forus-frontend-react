@@ -93,9 +93,33 @@ export default function ModalVoucherPayout({
     const selectedVoucherId = selectedVoucherItem?.id;
     const updateForm = form.update;
 
+    const partialPayoutAmounts = useMemo(() => {
+        return selectedVoucherItem?.voucher_payout_partial_amounts;
+    }, [selectedVoucherItem?.voucher_payout_partial_amounts]);
+
+    const partialPayoutOptions = useMemo(() => {
+        if (!Array.isArray(partialPayoutAmounts)) {
+            return [];
+        }
+
+        return partialPayoutAmounts.map((amount) => {
+            const amountNumber = parseFloat(amount);
+            const name = isNaN(amountNumber) ? amount : currencyFormat(amountNumber);
+
+            return {
+                id: amount,
+                name,
+            };
+        });
+    }, [partialPayoutAmounts]);
+
     const fixedPayoutAmount = useMemo(() => {
+        if (Array.isArray(partialPayoutAmounts)) {
+            return null;
+        }
+
         return selectedVoucherItem?.fund?.voucher_payout_fixed_amount;
-    }, [selectedVoucherItem?.fund?.voucher_payout_fixed_amount]);
+    }, [partialPayoutAmounts, selectedVoucherItem?.fund?.voucher_payout_fixed_amount]);
 
     const payoutCountWarning = useMemo(() => {
         if (!selectedVoucherItem) {
@@ -117,8 +141,20 @@ export default function ModalVoucherPayout({
         return null;
     }, [selectedVoucherItem, translate]);
 
+    const payoutPartialWarning = useMemo(() => {
+        if (!Array.isArray(partialPayoutAmounts)) {
+            return null;
+        }
+
+        return partialPayoutAmounts.length === 0 ? translate('voucher.payout.warning_no_partial_amounts') : null;
+    }, [partialPayoutAmounts, translate]);
+
     const payoutAmountWarning = useMemo(() => {
         if (!selectedVoucherItem) {
+            return null;
+        }
+
+        if (Array.isArray(partialPayoutAmounts)) {
             return null;
         }
 
@@ -139,12 +175,17 @@ export default function ModalVoucherPayout({
                   min: currencyFormat(0.1),
               })
             : null;
-    }, [fixedPayoutAmount, selectedVoucherItem, translate]);
+    }, [fixedPayoutAmount, partialPayoutAmounts, selectedVoucherItem, translate]);
 
-    const warningMessage = payoutCountWarning || payoutAmountWarning;
+    const warningMessage = payoutPartialWarning || payoutCountWarning || payoutAmountWarning;
 
     useEffect(() => {
         if (!selectedVoucherId) {
+            return;
+        }
+
+        if (Array.isArray(partialPayoutAmounts)) {
+            updateForm({ amount: partialPayoutAmounts[0] || '' });
             return;
         }
 
@@ -153,7 +194,7 @@ export default function ModalVoucherPayout({
         } else {
             updateForm({ amount: '' });
         }
-    }, [fixedPayoutAmount, selectedVoucherId, updateForm]);
+    }, [fixedPayoutAmount, partialPayoutAmounts, selectedVoucherId, updateForm]);
 
     useEffect(() => {
         if (!fundRequestAccounts?.length) {
@@ -275,6 +316,23 @@ export default function ModalVoucherPayout({
                                         required={true}
                                         error={form.errors?.amount}
                                         input={(id) => {
+                                            if (Array.isArray(partialPayoutAmounts)) {
+                                                return (
+                                                    <SelectControl
+                                                        id={id}
+                                                        className="form-control"
+                                                        propKey="id"
+                                                        propValue="name"
+                                                        allowSearch={false}
+                                                        options={partialPayoutOptions}
+                                                        value={form.values.amount ?? ''}
+                                                        onChange={(amount?: string) => form.update({ amount })}
+                                                        disabled={partialPayoutOptions.length === 0}
+                                                        dusk="voucherPayoutAmount"
+                                                    />
+                                                );
+                                            }
+
                                             if (fixedPayoutAmount !== null && fixedPayoutAmount !== undefined) {
                                                 const amountNumber = parseFloat(fixedPayoutAmount);
                                                 const displayValue = isNaN(amountNumber)
