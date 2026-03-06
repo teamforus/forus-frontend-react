@@ -18,6 +18,7 @@ import remove_mollie_connection from './modals/danger-zone/remove-mollie-connect
 import exclude_pre_check_fund from './modals/danger-zone/exclude_pre_check_fund';
 import remove_prevalidation_request from './modals/danger-zone/remove-prevalidation-request';
 import confirm_extra_payment_refund from './modals/danger-zone/confirm-extra-payment-refund';
+import send_voucher_by_email from './modals/danger-zone/send-voucher-by-email';
 
 export default {
     remove_provider_application,
@@ -40,4 +41,5 @@ export default {
     exclude_pre_check_fund,
     remove_prevalidation_request,
     confirm_extra_payment_refund,
+    send_voucher_by_email,
 };

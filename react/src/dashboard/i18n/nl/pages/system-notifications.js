@@ -254,8 +254,24 @@ export default {
             description: 'Deelnemers ontvangen dit bericht wanneer ze een fysieke pas bestellen.',
         },
         'notifications_identities.voucher_shared_by_email': {
-            title: 'Tegoed verstuurd naar zelf',
-            description: 'Deelnemers ontvangen dit bericht wanneer ze een tegoed naar zichzelf sturen.',
+            title: 'Financieel-tegoed naar zichzelf verstuurd',
+            description:
+                'Deelnemers ontvangen dit bericht wanneer ze de QR-code van een financieel-tegoed naar zichzelf hebben verstuurd.',
+        },
+        'notifications_identities.product_voucher_shared_by_email': {
+            title: 'Aanbod-tegoed naar zichzelf verstuurd',
+            description:
+                'Deelnemers ontvangen dit bericht wanneer ze de QR-code van een aanbod-tegoed naar zichzelf hebben verstuurd.',
+        },
+        'notifications_identities.sponsor_voucher_shared_by_email': {
+            title: 'Financieel-tegoed opnieuw verstuurd',
+            description:
+                'Deelnemers ontvangen dit bericht als de sponsor het financieel-tegoed opnieuw per e-mail verstuurt.',
+        },
+        'notifications_identities.sponsor_product_voucher_shared_by_email': {
+            title: 'Aanbod-tegoed opnieuw verstuurd',
+            description:
+                'Deelnemers ontvangen dit bericht als de sponsor het aanbod-tegoed opnieuw per e-mail verstuurt.',
         },
         'notifications_identities.voucher_budget_transaction': {
             title: 'Transactie van financieel-tegoed',
