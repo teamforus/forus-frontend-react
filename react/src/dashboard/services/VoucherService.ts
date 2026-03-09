@@ -76,7 +76,7 @@ export class VoucherService<T = SponsorVoucher> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/sponsor/vouchers/${voucher_id}`, query);
     }
 
-    public sendToEmail(organizationId: number, voucher_id: number, email: string): Promise<ApiResponseSingle<T>> {
+    public sendToEmail(organizationId: number, voucher_id: number, email?: string): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/vouchers/${voucher_id}/send`, {
             email,
         });
