@@ -116,4 +116,5 @@ export default interface Voucher {
         iban: string;
         iban_name: string;
     };
+    voucher_payout_partial_amounts?: Array<string> | null;
 }
