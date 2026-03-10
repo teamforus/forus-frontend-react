@@ -7645,7 +7645,7 @@
     ],
     [
         "reimbursements.details.code",
-        "Nummer: #:code"
+        "Nummer: #{{code}}"
     ],
     [
         "reimbursements.details.labels.amount",
@@ -9406,6 +9406,10 @@
     [
         "voucher.payout.warning_count_reached",
         "Het maximale aantal uitbetalingen voor dit tegoed is bereikt."
+    ],
+    [
+        "voucher.payout.warning_no_partial_amounts",
+        "Er is geen uitbetalingsbedrag beschikbaar voor dit tegoed."
     ],
     [
         "voucher.payout.warning_not_enough_amount_fixed",

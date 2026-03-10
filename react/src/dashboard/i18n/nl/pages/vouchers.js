@@ -46,6 +46,7 @@ export default {
         type_voucher: 'Soort tegoed',
         type_credit: 'Tegoed waarde',
         product: 'Aanbod',
+        send_to_email: 'Verstuur naar e-mail',
     },
     events: {
         created_budget: 'Aangemaakt',

@@ -269,6 +269,41 @@ export default function VouchersViewComponent() {
         [activeOrganization.id, openModal, pushApiError, pushSuccess, setProgress, translate, voucher, voucherService],
     );
 
+    const sendVoucherByEmailToIdentity = useCallback(() => {
+        openModal((modal) => (
+            <ModalDangerZone
+                modal={modal}
+                title={translate('modals.danger_zone.send_voucher_by_email.title')}
+                description={translate('modals.danger_zone.send_voucher_by_email.description')}
+                buttonCancel={{
+                    onClick: modal.close,
+                    text: translate('modals.danger_zone.send_voucher_by_email.buttons.cancel'),
+                }}
+                buttonSubmit={{
+                    onClick: () => {
+                        modal.close();
+
+                        voucherService
+                            .sendToEmail(activeOrganization.id, voucher.id)
+                            .then(() => pushSuccess('Opgeslagen!'))
+                            .catch(pushApiError)
+                            .finally(() => setProgress(100));
+                    },
+                    text: translate('modals.danger_zone.send_voucher_by_email.buttons.confirm'),
+                }}
+            />
+        ));
+    }, [
+        activeOrganization.id,
+        openModal,
+        pushApiError,
+        pushSuccess,
+        setProgress,
+        translate,
+        voucher?.id,
+        voucherService,
+    ]);
+
     useEffect(() => {
         fetchVoucher();
     }, [fetchVoucher]);
@@ -321,6 +356,19 @@ export default function VouchersViewComponent() {
                     {hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
+                                {voucher.granted &&
+                                    !voucher.expired &&
+                                    voucher.state !== 'deactivated' &&
+                                    !voucher.external &&
+                                    voucher.fund?.show_qr_code && (
+                                        <div
+                                            className="button button-primary button-sm"
+                                            onClick={sendVoucherByEmailToIdentity}>
+                                            <em className="mdi mdi-email icon-start " />
+                                            {translate('vouchers.labels.send_to_email')}
+                                        </div>
+                                    )}
+
                                 {showMakeTransactionButton && fund?.allow_voucher_top_ups && (
                                     <div className="button button-default button-sm" onClick={makeTopUpTransaction}>
                                         <em className="mdi mdi-cash-plus icon-start" />

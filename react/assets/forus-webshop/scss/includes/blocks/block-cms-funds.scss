@@ -7,12 +7,13 @@
     .fund-item {
         width: 100%;
         display: flex;
+        gap: 100px;
         padding: 0 0 40px;
         border-bottom: 1px solid var(--border-color);
         transition: box-shadow 0.4s;
 
         .fund-media {
-            width: 52%;
+            width: 42%;
             order: 1;
     
             img {
@@ -22,16 +23,16 @@
         }
     
         .fund-information {
-            width: 50%;
-            padding-left: 100px;
             text-align: left;
             order: 2;
             display: flex;
             flex-direction: column;
             align-self: center;
+            flex: 1;
+            gap: 20px;
 
             .fund-label {
-                margin: 0 0 5px;
+                margin: 0 0 -10px;
                 line-height: 20px;
                 order: 1;
                 font-size: var(--cms-funds-label-font-size);
@@ -41,13 +42,13 @@
             .fund-title {
                 font: var(--cms-funds-title-font);
                 color: var(--cms-funds-title-color);
-                margin: 0 0 20px;
+                margin: 0 0;
                 order: 2;
             }
     
             .fund-description {
                 font: 400 18px/28px var(--base-font);
-                margin: 0 0 20px;
+                margin: 0 0;
                 order: 3;
             }
     
@@ -70,8 +71,6 @@
     
             .fund-information {
                 order: 1;
-                padding-left: 0;
-                padding-right: 100px;
             }
         }
 
@@ -96,6 +95,7 @@
 
             .fund-item {
                 display: flex;
+                gap: 0;
                 flex-wrap: wrap;
                 flex-direction: column;
                 flex: 0 1 calc((100% - (calc(var(--gap) * 2))) / 3);
@@ -122,8 +122,6 @@
                     flex-direction: column;
     
                     .fund-label {
-                        margin: 0 0 15px;
-    
                         .label {
                             font-size: 12px;
                         }
@@ -132,14 +130,11 @@
                     .fund-title {
                         font: var(--cms-funds-compact-title-font);
                         color: var(--cms-funds-compact-title-color);
-                        margin: 0 0 15px;
                     }
     
                     .fund-description {
-                        margin: 0 0 0;
                         display: flex;
-                        flex-grow: 1;
-    
+
                         .block.block-markdown ul, .block.block-markdown p {
                             &:last-child {
                                 margin-bottom: 0;
@@ -148,8 +143,6 @@
                     }
     
                     .fund-button {
-                        padding-top: 15px;
-    
                         .fund-button-link {
                             padding: 0;
                             display: inline-block;
@@ -184,8 +177,11 @@
             }
     
             &.block-cms-funds-2-in-row {
+                --gap: 60px;
+                gap: var(--gap);
+
                 .fund-item {
-                    width: calc(calc(100% / 2) - var(--padding));
+                    flex: 0 1 calc((100% - (calc(var(--gap)))) / 2);
                 }
             }
         }
@@ -195,6 +191,7 @@
         gap: 30px;
 
         .fund-item {
+            gap: 0;
             padding: 0 0 30px;
             flex-direction: column;
 
@@ -205,15 +202,10 @@
 
             .fund-information {
                 width: 100%;
-                padding: 0;
+                gap: 15px;
 
                 .fund-title {
                     font: 400 20px/26px var(--base-font);
-                    margin: 0 0 10px;
-                }
-
-                .fund-description {
-                    margin: 0 0 10px;
                 }
 
                 .fund-button {
@@ -238,7 +230,6 @@
     
                 .fund-information {
                     order: 2;
-                    padding: 0;
                 }
             }
         }
