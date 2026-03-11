@@ -22,6 +22,7 @@ import NotificationTemplate from '../../../../props/models/NotificationTemplate'
 import { uniqueId } from 'lodash';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import SystemNotificationFundState from '../../../../props/models/SystemNotificationFundState';
 
 type Variables = { [key: string]: string };
 
@@ -33,10 +34,12 @@ export default function SystemNotificationTemplateEditor({
     onChange,
     template,
     notification,
+    implementationNotification,
     organization,
     onEditUpdated,
     implementation,
     variableValues,
+    fundState,
 }: {
     type: string;
     fund?: Partial<Fund>;
@@ -46,9 +49,11 @@ export default function SystemNotificationTemplateEditor({
     template: NotificationTemplate;
     organization: Organization;
     notification: SystemNotification;
+    implementationNotification?: SystemNotification;
     implementation: Implementation;
     onEditUpdated?: (editing: boolean) => void;
     variableValues?: Variables;
+    fundState?: SystemNotificationFundState;
 }) {
     const translate = useTranslate();
     const openModal = useOpenModal();
@@ -66,17 +71,25 @@ export default function SystemNotificationTemplateEditor({
     const [contentPreview, setContentPreview] = useState(null);
     const insertMarkdownTextRef = useRef<(text: string) => void>(null);
 
-    const [header] = useState({
-        icon: translate(`system_notifications.types.${type}.icon`),
-        title: translate(`system_notifications.types.${type}.title`),
-    });
+    const header = useMemo(() => {
+        return {
+            icon: translate(`system_notifications.types.${type}.icon`),
+            title: translate(`system_notifications.types.${type}.title`),
+        };
+    }, [translate, type]);
 
-    const [disabledNotes] = useState({
-        enable: `${header.title} staat nu aan.`,
-        disabled: `${header.title} staat nu uit.`,
-    });
+    const disabledNotes = useMemo(() => {
+        return {
+            enable: `${header.title} staat nu aan.`,
+            disabled: `${header.title} staat nu uit.`,
+        };
+    }, [header.title]);
 
-    const [variables] = useState(() => {
+    const implementationChannelEnabled =
+        implementationNotification?.['enable_' + type] ?? notification['enable_' + type];
+    const implementationNotificationEnabled = implementationNotification?.enable_all ?? notification.enable_all;
+
+    const variables = useMemo(() => {
         return notification.variables.map((variable) => ({
             id: variable,
             key: variablesMap[`:${variable}`],
@@ -85,7 +98,7 @@ export default function SystemNotificationTemplateEditor({
                 ? ['mail']
                 : ['mail', 'push', 'database'],
         }));
-    });
+    }, [implementationNotificationsService, notification.variables]);
 
     const titleId = useMemo(() => uniqueId('template_title_'), []);
     const descriptionId = useMemo(() => uniqueId('template_description_'), []);
@@ -141,7 +154,10 @@ export default function SystemNotificationTemplateEditor({
 
             const shouldReset = isSameTitle && isSameContent;
             data = {
-                ...(shouldReset ? { templates_remove: [{ formal, type: type }] } : { templates: [newTemplate] }),
+                ...(fund?.id ? { fund_id: fund.id } : {}),
+                ...(shouldReset
+                    ? { templates_remove: [{ formal, type: type, fund_id: fund?.id }] }
+                    : { templates: [newTemplate] }),
             };
         }
 
@@ -179,9 +195,10 @@ export default function SystemNotificationTemplateEditor({
             }
 
             setProgress(0);
+            const requestData = fund?.id ? { fund_id: fund.id, ...data } : data;
 
             implementationNotificationsService
-                .update(organization.id, implementation.id, notification.id, data)
+                .update(organization.id, implementation.id, notification.id, requestData)
                 .then((res) => {
                     setFormErrors(null);
                     onChange(res.data.data);
@@ -215,6 +232,7 @@ export default function SystemNotificationTemplateEditor({
             organization.id,
             notification.id,
             implementation.id,
+            fund?.id,
             cancelTemplateEdit,
             implementationNotificationsService,
         ],
@@ -298,7 +316,10 @@ export default function SystemNotificationTemplateEditor({
             const data = { ['enable_' + type]: enable };
 
             implementationNotificationsService
-                .update(organization.id, implementation.id, notification.id, data)
+                .update(organization.id, implementation.id, notification.id, {
+                    ...data,
+                    ...(fund?.id ? { fund_id: fund.id } : {}),
+                })
                 .then((res) => {
                     onChange(res.data.data);
                     pushSuccess('Opgeslagen', `${header.title} is nu ${enable ? 'ingeschakeld.' : 'uitgeschakeld.'}`);
@@ -312,6 +333,7 @@ export default function SystemNotificationTemplateEditor({
             header.title,
             organization.id,
             implementation.id,
+            fund?.id,
             implementationNotificationsService,
         ],
     );
@@ -338,6 +360,10 @@ export default function SystemNotificationTemplateEditor({
     useEffect(() => {
         updateTemplatePreview(template);
     }, [template, updateTemplatePreview, variableValues]);
+
+    useEffect(() => {
+        setEnable(notification['enable_' + type]);
+    }, [notification, type]);
 
     if (!template) {
         return <LoadingCard />;
@@ -375,7 +401,10 @@ export default function SystemNotificationTemplateEditor({
                 </div>
             ) : (
                 <div
-                    className={classNames('card-header', !(enable && notification.enable_all) && 'card-header-danger')}>
+                    className={classNames(
+                        'card-header',
+                        notification.optional && !(enable && notification.enable_all) && 'card-header-danger',
+                    )}>
                     <div className="flex flex-grow card-title">
                         <em className={`mdi mdi-${header.icon}`} />
                         <span>{header.title}</span>
@@ -383,23 +412,39 @@ export default function SystemNotificationTemplateEditor({
                         {fund && <span>({fund.name})</span>}
                     </div>
 
-                    {notification.editable && !edit && (
+                    {!edit && (
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
                                 <ToggleControl
                                     id={'enable_' + type}
                                     className={classNames(
                                         'form-toggle-danger',
-                                        !notification.enable_all && 'form-toggle-off',
+                                        notification.optional && !notification.enable_all && 'form-toggle-off',
                                     )}
-                                    title={!notification.enable_all || !enable ? disabledNotes.disabled : ''}
-                                    checked={enable}
-                                    disabled={!notification.enable_all}
+                                    title={
+                                        notification.optional
+                                            ? !notification.enable_all || !enable
+                                                ? disabledNotes.disabled
+                                                : ''
+                                            : 'Verplicht'
+                                    }
+                                    checked={notification.optional ? enable : true}
+                                    disabled={
+                                        !notification.editable ||
+                                        !notification.optional ||
+                                        !implementationNotificationEnabled ||
+                                        Boolean(fundState && !implementationChannelEnabled)
+                                    }
                                     labelRight={false}
                                     onChange={() => {
-                                        if (notification.enable_all) {
+                                        if (
+                                            notification.editable &&
+                                            notification.optional &&
+                                            implementationNotificationEnabled &&
+                                            !(fundState && !implementationChannelEnabled)
+                                        ) {
                                             setEnable(!enable);
-                                            toggleSwitched(!enable);
+                                            toggleSwitched(fundState ? !fundState['enable_' + type] : !enable);
                                         }
                                     }}
                                 />
@@ -432,7 +477,7 @@ export default function SystemNotificationTemplateEditor({
             <div
                 className={classNames(
                     'card-section',
-                    !((enable && notification.enable_all) || compose) && 'card-section-danger',
+                    notification.optional && !((enable && notification.enable_all) || compose) && 'card-section-danger',
                 )}>
                 <form onSubmit={form.submit}>
                     {!compose && notification.editable && !edit && (
