@@ -2719,7 +2719,7 @@
                 "title": "Titel"
             },
             "title": "Daten der Erklärung",
-            "code": "Nummer: #:code"
+            "code": "Nummer: #{{code}}"
         },
         "empty": {
             "button": "Coupon einreichen",
@@ -3510,7 +3510,8 @@
             "warning_not_enough_amount_fixed": "Dieses Guthaben muss mindestens {{ amount }} für eine Auszahlung umfassen.",
             "warning_not_enough_amount_min": "Dieses Guthaben muss mindestens {{ min }} für eine Auszahlung umfassen.",
             "accept_compliance_rules_info": "<p><strong>Ich erkläre, dass:</strong></p><ul><li>Ich verwende das Geld nur für diese Aktivität;</li><li>Ich verwende das Geld gemäß den Regeln des Programms;</li><li>ich verstehe, dass ich das Geld zurückzahlen muss, wenn ich es nicht ordnungsgemäß verwende.</li></ul>",
-            "accept_compliance_rules": "Ich erkläre mich mit den oben genannten Bestimmungen und Bedingungen einverstanden."
+            "accept_compliance_rules": "Ich erkläre mich mit den oben genannten Bestimmungen und Bedingungen einverstanden.",
+            "warning_no_partial_amounts": "Für diesen Kredit ist kein Auszahlungsbetrag verfügbar."
         }
     },
     "vouchers": {

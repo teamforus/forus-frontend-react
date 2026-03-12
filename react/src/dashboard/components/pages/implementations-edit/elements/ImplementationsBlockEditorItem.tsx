@@ -95,7 +95,7 @@ export default function ImplementationsBlockEditorItem({
 
             {!isCollapsed && (
                 <div className="block-body">
-                    <div className="form">
+                    <div className="form flex flex-gap flex-vertical">
                         <div className="form-group">
                             <PhotoSelector
                                 type={'implementation_block_media'}
