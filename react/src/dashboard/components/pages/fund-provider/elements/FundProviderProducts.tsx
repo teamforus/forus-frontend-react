@@ -103,7 +103,9 @@ export default function FundProviderProducts({
     return (
         <div className="card form">
             <div className="card-header">
-                <div className="flex flex-grow card-title">Aanbod in beheer van {fundProvider.organization.name}</div>
+                <div className="flex flex-grow card-title">
+                    Aanbod in beheer van {source === 'sponsor' ? organization.name : fundProvider.organization.name}
+                </div>
 
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
