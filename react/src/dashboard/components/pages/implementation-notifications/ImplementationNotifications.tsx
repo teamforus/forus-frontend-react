@@ -10,13 +10,14 @@ import useImplementationNotificationService from '../../../services/Implementati
 import SystemNotification from '../../../props/models/SystemNotification';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
-import Label from '../../elements/label/Label';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import InfoBox from '../../elements/info-box/InfoBox';
 import { useParams } from 'react-router';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import SystemNotificationChannelIcons from './elements/SystemNotificationChannelIcons';
+import SystemNotificationStatusLabel from './elements/SystemNotificationStatusLabel';
 
 export default function ImplementationNotifications() {
     const { id } = useParams();
@@ -28,7 +29,6 @@ export default function ImplementationNotifications() {
     const implementationService = useImplementationService();
     const implementationNotificationsService = useImplementationNotificationService();
 
-    const [channels] = useState<Array<'mail' | 'push' | 'database'>>(['mail', 'push', 'database']);
     const [notifications, setNotifications] = useState<PaginationData<SystemNotification>>(null);
     const [implementation, setImplementation] = useState<Implementation>(null);
 
@@ -52,7 +52,6 @@ export default function ImplementationNotifications() {
 
         const list = notifications?.data?.map((notification) => ({
             ...notification,
-            state: implementationNotificationsService.notificationToStateLabel(notification),
             title: translate(`system_notifications.notifications.${notification.key}.title`),
             description: translate(`system_notifications.notifications.${notification.key}.description`),
         }));
@@ -63,67 +62,7 @@ export default function ImplementationNotifications() {
             .map((group) => ({ group, groupLabel: groupLabels[group], notifications: grouped[group] }))
             .map((item) => ({ ...item, notifications: item.notifications.sort((a, b) => a.order - b.order) }))
             .sort((a, b) => groupOrder.indexOf(a.group) - groupOrder.indexOf(b.group));
-    }, [translate, groupLabels, notifications, implementationNotificationsService]);
-
-    const notificationIconColor = useCallback(
-        (notification: SystemNotification, type: 'database' | 'mail' | 'push') => {
-            const templateChanged = notification.templates.filter((item) => item.type == type).length > 0;
-
-            if (!notification.channels.includes(type)) {
-                return 'text-muted-light';
-            }
-
-            if (!notification.enable_all || !notification['enable_' + type]) {
-                return 'text-danger-dark';
-            }
-
-            return templateChanged ? 'text-primary-dark' : 'text-success-dark';
-        },
-        [],
-    );
-
-    const notificationIcon = useCallback((notification: SystemNotification, type: 'database' | 'mail' | 'push') => {
-        const iconOff = {
-            mail: 'email-off-outline',
-            push: 'cellphone-off',
-            database: 'bell-off-outline',
-        }[type];
-
-        const iconsOn = {
-            mail: 'email',
-            push: 'cellphone',
-            database: 'bell',
-        }[type];
-
-        if (!notification.channels.includes(type) || !notification.enable_all || !notification['enable_' + type]) {
-            return iconOff;
-        }
-
-        return iconsOn;
-    }, []);
-
-    const notificationIconTooltip = useCallback(
-        (notification: SystemNotification, type: 'database' | 'mail' | 'push') => {
-            const heading = translate(`system_notifications.types.${type}.title`);
-            const templateChanged = notification.templates.filter((item) => item.type == type).length > 0;
-
-            if (!notification.channels.includes(type)) {
-                return { heading, text: translate(`system_notifications.tooltips.channel_not_available`) };
-            }
-
-            if (!notification.enable_all || !notification[`enable_${type}`]) {
-                return { heading, text: translate(`system_notifications.tooltips.disabled_by_you`) };
-            }
-
-            return {
-                heading,
-                text: translate(
-                    'system_notifications.tooltips.' + (templateChanged ? 'enabled_edited' : 'enabled_default'),
-                ),
-            };
-        },
-        [translate],
-    );
+    }, [translate, groupLabels, notifications]);
 
     const fetchImplementationNotifications = useCallback(() => {
         implementationNotificationsService
@@ -214,7 +153,7 @@ export default function ImplementationNotifications() {
                                 customElement={'tr'}
                                 className={'tr-clickable'}>
                                 <td className="td-grow">
-                                    <div>
+                                    <div className="text-semibold">
                                         {notification.editable ? (
                                             <em className="mdi mdi-pencil-outline text-muted-dark"> </em>
                                         ) : (
@@ -222,46 +161,17 @@ export default function ImplementationNotifications() {
                                         )}
                                         <span>{notification.title}</span>
                                     </div>
-                                    <small>{notification.description}</small>
-                                </td>
-                                <td className="nowrap">
-                                    <div className="td-icons">
-                                        {channels.map((channel, index) => (
-                                            <em
-                                                key={index}
-                                                className={`block block-tooltip-details block-tooltip-hover mdi mdi-${notificationIcon(
-                                                    notification,
-                                                    channel,
-                                                )} ${notificationIconColor(notification, channel)}`}>
-                                                <div className="tooltip-content tooltip-content-fit tooltip-content-ghost">
-                                                    <div className="tooltip-heading text-left">
-                                                        {notificationIconTooltip(notification, channel).heading}
-                                                    </div>
-                                                    <div className="tooltip-text text-left">
-                                                        {notificationIconTooltip(notification, channel).text}
-                                                    </div>
-                                                </div>
-                                            </em>
-                                        ))}
+                                    <div className="text-white-space-normal text-muted-dark">
+                                        {notification.description}
                                     </div>
                                 </td>
+                                <td className="nowrap">{notification.optional ? 'Nee' : 'Ja'}</td>
+                                <td className="nowrap">
+                                    <SystemNotificationChannelIcons notification={notification} />
+                                </td>
 
                                 <td className="nowrap">
-                                    {notification.state?.state === 'active' && (
-                                        <Label type="success">{notification.state.stateLabel}</Label>
-                                    )}
-
-                                    {notification.state?.state === 'inactive' && (
-                                        <Label type="danger">{notification.state.stateLabel}</Label>
-                                    )}
-
-                                    {notification.state?.state === 'active_partly' && (
-                                        <Label type="warning">{notification.state.stateLabel}</Label>
-                                    )}
-
-                                    {!['active', 'inactive', 'active_partly'].includes(notification.state?.state) && (
-                                        <Label type="default">{notification.state.stateLabel}</Label>
-                                    )}
+                                    <SystemNotificationStatusLabel notification={notification} />
                                 </td>
 
                                 <td className={'td-narrow text-right'}>
