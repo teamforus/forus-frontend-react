@@ -111,6 +111,7 @@ export default function ImplementationNotifications() {
                                         id: implementation.id,
                                         organizationId: activeOrganization.id,
                                     }}
+                                    dataDusk="notificationSendBtn"
                                     className="button button-default">
                                     <em className="mdi mdi-email-outline icon-start" />
                                     Verstuur een aangepast bericht

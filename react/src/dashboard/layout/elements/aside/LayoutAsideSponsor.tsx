@@ -301,6 +301,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                     iconActive={<IconWebshopsActive />}
                     pinnedGroups={pinnedGroups}
                     setPinnedGroups={setPinnedGroups}
+                    dusk={'asideMenuGroupWebsites'}
                     items={[
                         {
                             name: 'Content',
@@ -343,6 +344,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                             show:
                                 organization?.implementations?.length === 1 &&
                                 hasPermission(organization, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS),
+                            dusk: 'implementationNotificationsPage',
                         },
                     ]}
                 />
