@@ -403,6 +403,47 @@ export default function ModalVouchersUpload({
         [openModal, pickSelectedOrUnflagged],
     );
 
+    const confirmDuplicateClientUidsEntries = useCallback(
+        (duplicateClientUidRows: RowDataProp[], targetFund: Partial<Fund>, originalRows: RowDataProp[]) => {
+            const options = duplicateClientUidRows.map((row) => ({
+                _uid: row._uid,
+                label: row.client_uid,
+                value: row.client_uid,
+                columns: [targetFund.name],
+            }));
+
+            const optionIds = options.map((opt) => opt._uid);
+
+            return new Promise<RowDataProp[] | 'canceled'>((resolve) => {
+                if (options.length === 0) {
+                    return resolve(originalRows);
+                }
+
+                openModal((modal) => (
+                    <ModalDuplicatesPicker
+                        modal={modal}
+                        hero_title={`Dubbele client(s) gedetecteerd voor "${targetFund.name}".`}
+                        hero_subtitle={[
+                            `Weet u zeker dat u voor ${options.length} klantnummer(s) een extra tegoed wilt aanmaken?`,
+                            'Deze klantnummer(s) bezitten al een tegoed van dit fonds.',
+                        ]}
+                        enableToggles={true}
+                        button_all={'Alle aanmaken'}
+                        items={options}
+                        onConfirm={(data) => {
+                            resolve(pickSelectedOrUnflagged(originalRows, data.uids, optionIds));
+                        }}
+                        onCancel={() => {
+                            window.setTimeout(() => setHideModal(false), 300);
+                            resolve('canceled');
+                        }}
+                    />
+                ));
+            });
+        },
+        [openModal, pickSelectedOrUnflagged],
+    );
+
     const findDuplicates = useCallback(
         async (fund: Partial<Fund>, list: Array<RowDataProp>) => {
             pushSuccess(
@@ -442,10 +483,15 @@ export default function ModalVouchersUpload({
                     ...data.map((voucher) => voucher.identity_bsn),
                 ];
 
+                const clientUids = data
+                    .map((voucher) => voucher.client_uid)
+                    .filter((client_uid) => Boolean(client_uid));
+
                 const existingEmails = list.filter((row) => emails.includes(row.email?.toLowerCase()));
                 const existingBsn = list.filter((csvRow) => bsnList.includes(csvRow.bsn));
+                const existingClientUids = list.filter((csvRow) => clientUids.includes(csvRow.client_uid));
 
-                if (existingEmails.length === 0 && existingBsn.length === 0) {
+                if (existingEmails.length === 0 && existingBsn.length === 0 && existingClientUids.length === 0) {
                     return list;
                 }
 
@@ -456,11 +502,16 @@ export default function ModalVouchersUpload({
                         ? await confirmDuplicateBsnEntries(existingBsn, fund, listFromEmails)
                         : null;
 
-                if (listFromEmails === 'canceled' || listFromBsn === 'canceled') {
+                const listFromClientUids =
+                    listFromEmails !== 'canceled' && listFromBsn !== 'canceled'
+                        ? await confirmDuplicateClientUidsEntries(existingClientUids, fund, listFromBsn)
+                        : null;
+
+                if (listFromEmails === 'canceled' || listFromBsn === 'canceled' || listFromClientUids === 'canceled') {
                     return 'canceled';
                 }
 
-                return listFromBsn;
+                return listFromClientUids;
             } catch (e) {
                 pushDanger('Error', 'Er is iets misgegaan bij het ophalen van de tegoeden.');
                 setProgress(100);
@@ -472,6 +523,7 @@ export default function ModalVouchersUpload({
             closeModal,
             confirmDuplicateBsnEntries,
             confirmDuplicateEmails,
+            confirmDuplicateClientUidsEntries,
             helperService,
             organization.id,
             pushDanger,
