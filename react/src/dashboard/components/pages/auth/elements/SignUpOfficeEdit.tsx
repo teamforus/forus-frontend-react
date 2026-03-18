@@ -29,7 +29,7 @@ export default function SignUpOfficeEdit({
     const translate = useTranslate();
     const [officeMediaFile, setOfficeMediaFile] = useState(null);
     const [autocomplete, setAutocomplete] = React.useState(null);
-    const addressInputRef = useRef<HTMLInputElement>();
+    const addressInputRef = useRef<HTMLInputElement | null>(null);
 
     const mediaService = useMediaService();
     const officeService = useOfficeService();
