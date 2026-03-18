@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .form {
     .form-label {
         display: block;
@@ -279,7 +281,7 @@
         appearance: none;
 
         &[disabled] {
-            background-color: darken($color: #fbfbfb, $amount: 4);
+            background-color: color.adjust(#fbfbfb, $lightness: -4%);
         }
 
         &[type='number'] {

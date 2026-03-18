@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .block.block-csv {
     background: #fff;
     margin-bottom: 20px;
@@ -140,7 +142,7 @@
     }
 
     &.on-dragover {
-        background: lighten($color: #9ca6af, $amount: 32);
+        background: color.adjust(#9ca6af, $lightness: 32%);
         border-color: #9ca6af;
     }
 

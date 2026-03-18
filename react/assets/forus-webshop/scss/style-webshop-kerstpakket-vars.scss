@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @import "style-webshop-general-vars";
 @import "./includes/fonts/montserrat";
 
@@ -145,8 +147,8 @@ $primaryColorLight: #9f3031;
 
     // Search bar
     --color-search-icon-medium: #{$primaryColor};
-    --color-search-icon-dark: #{darken($primaryColor, 10%)};
-    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+    --color-search-icon-dark: #{color.adjust($primaryColor, $lightness: -10%)};
+    --color-search-icon-light: #{color.adjust($primaryColor, $lightness: 25%)};
 
     --search-bar-point-color: #ececec;
     --search-bar-point-radius: 0px;
