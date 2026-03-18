@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
 import useImplementationNotificationService from '../../../../services/ImplementationNotificationService';
@@ -14,20 +14,15 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import Label from '../../../elements/label/Label';
+import SystemNotificationFundState from '../../../../props/models/SystemNotificationFundState';
+import SystemNotificationStatusLabel from './SystemNotificationStatusLabel';
 
 export default function SystemNotificationEditor({
-    fund,
-    funds,
-    setFund,
     notification,
     organization,
     implementation,
     setNotifications,
 }: {
-    fund: Partial<Fund>;
-    funds?: Array<Partial<Fund>>;
-    setFund?: React.Dispatch<React.SetStateAction<Partial<Fund>>>;
     notification: SystemNotification;
     organization: Organization;
     implementation: Implementation;
@@ -39,11 +34,46 @@ export default function SystemNotificationEditor({
 
     const implementationNotificationsService = useImplementationNotificationService();
 
+    const [fund, setFund] = useState<Partial<Fund>>(null);
     const [notificationToggleLabels] = useState({
         disabled: `Uitgezet, alle kanalen zijn uitgezet.`,
         enabled_all: 'Aangezet, alle kanalen zijn aangezet.',
         enabled_partial: 'Aangezet, sommige kanalen staan afzonderlijk uit.',
     });
+
+    const funds = useMemo<Array<Partial<Fund>>>(() => {
+        if (!implementation.allow_per_fund_notification_templates) {
+            return [];
+        }
+
+        return [
+            { id: null, name: 'Alle fondsen' },
+            ...(notification.funds || []).map((fundState) => ({
+                id: fundState.id,
+                name: fundState.name,
+            })),
+        ];
+    }, [implementation.allow_per_fund_notification_templates, notification.funds]);
+
+    const fundState = useMemo<SystemNotificationFundState>(() => {
+        return notification.funds?.find((fundState) => fundState.id === fund?.id) || null;
+    }, [fund?.id, notification.funds]);
+
+    const currentNotification = useMemo<SystemNotification>(() => {
+        if (!fundState) {
+            return notification;
+        }
+
+        return {
+            ...notification,
+            enable_all: notification.enable_all && fundState.enable_all,
+            enable_mail: notification.enable_mail && fundState.enable_mail,
+            enable_push: notification.enable_push && fundState.enable_push,
+            enable_database: notification.enable_database && fundState.enable_database,
+            last_sent_date: fundState.last_sent_date,
+            last_sent_date_locale: fundState.last_sent_date_locale,
+        };
+    }, [fundState, notification]);
 
     const templates = useMemo(() => {
         const channels: {
@@ -89,15 +119,16 @@ export default function SystemNotificationEditor({
         notification.templates_default,
     ]);
 
-    const state = useMemo(() => {
-        return implementationNotificationsService.notificationToStateLabel(notification);
-    }, [implementationNotificationsService, notification]);
+    useEffect(() => {
+        setFund(null);
+    }, [notification.id]);
 
     const toggleSwitched = useCallback(() => {
         setProgress(0);
 
-        const data = { enable_all: !notification.enable_all };
-        const hasDisabledChannels = implementationNotificationsService.notificationHasDisabledChannels(notification);
+        const data = { enable_all: fundState ? !fundState.enable_all : !notification.enable_all };
+        const hasDisabledChannels =
+            implementationNotificationsService.notificationHasDisabledChannels(currentNotification);
 
         const message = data.enable_all
             ? hasDisabledChannels
@@ -106,7 +137,10 @@ export default function SystemNotificationEditor({
             : notificationToggleLabels.disabled;
 
         implementationNotificationsService
-            .update(organization.id, implementation.id, notification.id, data)
+            .update(organization.id, implementation.id, notification.id, {
+                ...data,
+                ...(fund?.id ? { fund_id: fund.id } : {}),
+            })
             .then((res) => {
                 setNotifications(res.data.data);
                 pushSuccess('Opgeslagen', message);
@@ -119,6 +153,9 @@ export default function SystemNotificationEditor({
         notification,
         organization.id,
         implementation.id,
+        fund?.id,
+        fundState,
+        currentNotification,
         implementationNotificationsService,
         notificationToggleLabels.disabled,
         notificationToggleLabels.enabled_all,
@@ -132,36 +169,54 @@ export default function SystemNotificationEditor({
     return (
         <div className="block block-system-notification-editor">
             <div className="card card-collapsed">
-                <div className={classNames('card-header', !notification.enable_all && 'card-header-danger')}>
+                <div className={classNames('card-header', !currentNotification.enable_all && 'card-header-danger')}>
                     <div
                         className={classNames(
                             'flex',
                             'flex-grow',
                             'card-title',
-                            !notification.enable_all && 'text-muted-dark',
+                            !currentNotification.enable_all && 'text-muted-dark',
                         )}>
                         <em className="mdi mdi-web" />
-                        <span>{notification.title}</span>
                         <span>{translate(`system_notifications.notifications.${notification.key}.title`)}</span>
                     </div>
-                    {notification.editable && (
-                        <div className="card-header-filters">
-                            <div className="block block-inline-filters">
-                                <ToggleControl
-                                    id={'enable_all'}
-                                    className="form-toggle-danger"
-                                    checked={notification.enable_all}
-                                    title={notification.enable_all ? '' : notificationToggleLabels.disabled}
-                                    onChange={toggleSwitched}
-                                    labelRight={false}
-                                />
-                            </div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <ToggleControl
+                                id={'enable_all'}
+                                className="form-toggle-danger"
+                                checked={notification.optional ? currentNotification.enable_all : true}
+                                title={
+                                    notification.optional
+                                        ? currentNotification.enable_all
+                                            ? ''
+                                            : notificationToggleLabels.disabled
+                                        : 'Verplicht'
+                                }
+                                disabled={
+                                    !notification.editable ||
+                                    !notification.optional ||
+                                    Boolean(fundState && !notification.enable_all)
+                                }
+                                onChange={
+                                    notification.editable &&
+                                    notification.optional &&
+                                    !(fundState && !notification.enable_all)
+                                        ? toggleSwitched
+                                        : null
+                                }
+                                labelRight={false}
+                            />
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 {funds && funds.length > 0 && (
-                    <div className={classNames('card-section', !notification.enable_all && 'card-section-danger')}>
+                    <div
+                        className={classNames(
+                            'card-section',
+                            !currentNotification.enable_all && 'card-section-danger',
+                        )}>
                         <div className="card-block card-block-keyvalue">
                             <div className="keyvalue-item flex">
                                 <div className="keyvalue-key text-right flex flex-vertical flex-center">
@@ -184,20 +239,18 @@ export default function SystemNotificationEditor({
                     </div>
                 )}
 
-                <div className={classNames('card-section', !notification.enable_all && 'card-section-danger')}>
+                <div
+                    className={classNames(
+                        'card-section',
+                        notification.optional && !currentNotification.enable_all && 'card-section-danger',
+                    )}>
                     <div className="card-block card-block-keyvalue">
                         <div className="keyvalue-item">
                             <div className="keyvalue-key text-right">
                                 <div className="text-strong">Status</div>
                             </div>
                             <div className="keyvalue-value">
-                                {state?.state === 'active' && <Label type="success">{state.stateLabel}</Label>}
-                                {state?.state === 'inactive' && <Label type="danger">{state.stateLabel}</Label>}
-                                {state?.state === 'active_partly' && <Label type="warning">{state.stateLabel}</Label>}
-
-                                {!['active', 'inactive', 'active_partly'].includes(state?.state) && (
-                                    <Label type="default">{state.stateLabel}</Label>
-                                )}
+                                <SystemNotificationStatusLabel notification={notification} fundState={fundState} />
                             </div>
                         </div>
                         <div className="keyvalue-item">
@@ -223,7 +276,7 @@ export default function SystemNotificationEditor({
                                     <div className="text-strong">Laatste datum</div>
                                 </div>
                                 <div className="keyvalue-value">
-                                    {notification?.last_sent_date_locale || <TableEmptyValue />}
+                                    {currentNotification?.last_sent_date_locale || <TableEmptyValue />}
                                 </div>
                             </div>
                         )}
@@ -237,7 +290,9 @@ export default function SystemNotificationEditor({
                     fund={fund}
                     implementation={implementation}
                     organization={organization}
-                    notification={notification}
+                    notification={currentNotification}
+                    implementationNotification={notification}
+                    fundState={fundState}
                     template={templates.mail}
                     onChange={(data) => setNotifications({ ...notification, ...data })}
                 />
@@ -249,7 +304,9 @@ export default function SystemNotificationEditor({
                     implementation={implementation}
                     organization={organization}
                     fund={fund}
-                    notification={notification}
+                    notification={currentNotification}
+                    implementationNotification={notification}
+                    fundState={fundState}
                     template={templates.push}
                     onChange={(data) => setNotifications({ ...notification, ...data })}
                 />
@@ -261,7 +318,9 @@ export default function SystemNotificationEditor({
                     implementation={implementation}
                     organization={organization}
                     fund={fund}
-                    notification={notification}
+                    notification={currentNotification}
+                    implementationNotification={notification}
+                    fundState={fundState}
                     template={templates.database}
                     onChange={(data) => setNotifications({ ...notification, ...data })}
                 />

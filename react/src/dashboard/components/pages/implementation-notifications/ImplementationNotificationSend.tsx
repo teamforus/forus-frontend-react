@@ -477,6 +477,7 @@ export default function ImplementationNotificationSend() {
                                     hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                                         <div
                                             className="button button-primary button-sm"
+                                            data-dusk="showIdentitiesBtn"
                                             onClick={() => setShowIdentities(!showIdentities)}>
                                             <em className="mdi mdi-view-list icon-start" />
                                             {showIdentities
@@ -523,6 +524,7 @@ export default function ImplementationNotificationSend() {
                                 value={fund}
                                 onChange={(value: Fund) => setFund(value)}
                                 options={funds}
+                                dusk="selectControlFunds"
                             />
                         </div>
 
@@ -539,6 +541,7 @@ export default function ImplementationNotificationSend() {
                                         identitiesFilterUpdate({ target: value });
                                     }}
                                     options={identityTargets}
+                                    dusk="selectControlIdentityTargets"
                                 />
                             </div>
                         )}
@@ -562,7 +565,7 @@ export default function ImplementationNotificationSend() {
                     </div>
 
                     {targetGroup == 'identities' && identities && (
-                        <div>
+                        <div data-dusk="tableIdentityContent">
                             {showIdentities && (
                                 <div className="card-header">
                                     <div className="flex flex-grow">
@@ -580,6 +583,7 @@ export default function ImplementationNotificationSend() {
                                                         value={identitiesFilterValues.q}
                                                         placeholder="Zoeken"
                                                         className="form-control"
+                                                        data-dusk="tableIdentitySearch"
                                                         onChange={(e) => identitiesFilterUpdate({ q: e.target.value })}
                                                     />
                                                 </div>
@@ -612,7 +616,7 @@ export default function ImplementationNotificationSend() {
                                         filterUpdate: identitiesFilterUpdate,
                                     }}>
                                     {identities?.data?.map((identity) => (
-                                        <tr key={identity.id}>
+                                        <tr key={identity.id} data-dusk={`tableIdentityRow${identity.id}`}>
                                             <td>{identity.id}</td>
                                             <td>{identity.email}</td>
                                             <td>{identity.count_vouchers}</td>
@@ -631,21 +635,23 @@ export default function ImplementationNotificationSend() {
                                     <div className="keyvalue-item col col-lg-3">
                                         <div className="keyvalue-key">Met tegoeden</div>
                                         <div className="keyvalue-value">
-                                            <span>{identities.meta.counts.active}</span>
+                                            <span data-dusk="identityCountActive">{identities.meta.counts.active}</span>
                                             <span className="icon mdi mdi-account-multiple-outline" />
                                         </div>
                                     </div>
                                     <div className="keyvalue-item col col-lg-3">
                                         <div className="keyvalue-key">Binnen de doelgroep</div>
                                         <div className="keyvalue-value">
-                                            <span>{identities.meta.counts.selected}</span>
+                                            <span data-dusk="identityCountSelected">
+                                                {identities.meta.counts.selected}
+                                            </span>
                                             <span className="icon mdi mdi-account-multiple-check-outline" />
                                         </div>
                                     </div>
                                     <div className="keyvalue-item col col-lg-3">
                                         <div className="keyvalue-key">Uitgesloten gebruikers</div>
                                         <div className="keyvalue-value">
-                                            <span>
+                                            <span data-dusk="identityCountExcluded">
                                                 {identities.meta.counts.active -
                                                     identities.meta.counts.selected -
                                                     identities.meta.counts.without_email}
@@ -656,7 +662,9 @@ export default function ImplementationNotificationSend() {
                                     <div className="keyvalue-item col col-lg-3">
                                         <div className="keyvalue-key">Zonder e-mailadres</div>
                                         <div className="keyvalue-value">
-                                            <span>{identities.meta.counts.without_email}</span>
+                                            <span data-dusk="identityCountWithoutEmail">
+                                                {identities.meta.counts.without_email}
+                                            </span>
                                             <span className="icon mdi mdi-email-off-outline" />
                                         </div>
                                     </div>
