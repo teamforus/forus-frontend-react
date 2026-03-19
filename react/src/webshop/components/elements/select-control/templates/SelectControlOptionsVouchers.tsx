@@ -101,7 +101,11 @@ export default function SelectControlOptionsVouchers<T>({
                                     </div>
                                 </div>
                                 <div className="flex flex-vertical text-right">
-                                    <div className="voucher-value">{selectedVoucher?.amount_locale}</div>
+                                    {!selectedVoucher?.fund?.hide_voucher_amount && (
+                                        <div className="voucher-value" data-dusk="voucherAmount">
+                                            {selectedVoucher?.amount_locale}
+                                        </div>
+                                    )}
                                     <div className="voucher-date">{selectedVoucher?.expire_at_locale}</div>
                                 </div>
                             </div>

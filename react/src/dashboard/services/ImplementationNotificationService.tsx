@@ -180,22 +180,8 @@ export class ImplementationNotificationService<T = SystemNotification> {
         });
     }
 
-    public notificationToStateLabel(notification: SystemNotification) {
-        const notificationStateLabel = {
-            inactive: `Inactief`,
-            active: 'Actief',
-            active_partly: 'Gedeeltelijk',
-        };
-        const hasDisabledChannels = this.notificationHasDisabledChannels(notification);
-
-        const state = notification.enable_all ? (hasDisabledChannels ? 'active_partly' : 'active') : 'inactive';
-        const stateLabel = notificationStateLabel[state];
-
-        return { state, stateLabel };
-    }
-
     public getColumns(): Array<ConfigurableTableColumn> {
-        const list = ['description', 'channels', 'status'].filter((item) => item);
+        const list = ['description', 'required', 'channels', 'status'].filter((item) => item);
 
         return list.map((key) => ({
             key,

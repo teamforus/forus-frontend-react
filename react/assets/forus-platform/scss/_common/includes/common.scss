@@ -93,6 +93,10 @@ img {
     text-decoration: line-through;
 }
 
+.text-white-space-normal {
+    white-space: normal;
+}
+
 .text-pre {
     white-space: pre;
 }
@@ -176,10 +180,6 @@ img {
 
 .text-danger {
     color: #e63b3b !important;
-}
-
-.text-danger-dark {
-    color: #8b0f0f !important;
 }
 
 .text-dim {

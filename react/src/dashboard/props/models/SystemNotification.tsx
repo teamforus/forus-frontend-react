@@ -1,4 +1,5 @@
 import NotificationTemplate from './NotificationTemplate';
+import SystemNotificationFundState from './SystemNotificationFundState';
 
 export default interface SystemNotification {
     id?: number;
@@ -16,6 +17,7 @@ export default interface SystemNotification {
     channels?: Array<'database' | 'mail' | 'push'>;
     last_sent_date?: string;
     last_sent_date_locale?: string;
+    funds?: Array<SystemNotificationFundState> | null;
     templates?: Array<NotificationTemplate>;
     templates_default?: Array<NotificationTemplate>;
 }
