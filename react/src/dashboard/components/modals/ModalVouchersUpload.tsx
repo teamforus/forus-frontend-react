@@ -485,7 +485,7 @@ export default function ModalVouchersUpload({
                 const bsnList = [
                     ...data.map((voucher) => normalizeValue(voucher.relation_bsn)),
                     ...data.map((voucher) => normalizeValue(voucher.identity_bsn)),
-                ];
+                ]?.filter((bsn) => Boolean(bsn));
 
                 const clientUids = data
                     .map((voucher) => normalizeValue(voucher.client_uid))
