@@ -282,6 +282,10 @@ export default function ModalVouchersUpload({
         [],
     );
 
+    const normalizeValue = useCallback((value?: string) => {
+        return value?.trim().toLowerCase() || null;
+    }, []);
+
     const confirmLowAmountEntries = useCallback(
         (lowAmountRows: RowDataProp[], targetFund: Partial<Fund>, originalRows: RowDataProp[]) => {
             const lowAmountOptions = lowAmountRows.map((row) => ({
@@ -475,21 +479,21 @@ export default function ModalVouchersUpload({
                 );
 
                 const emails = data
-                    .map((voucher) => voucher.identity_email?.toLowerCase())
+                    .map((voucher) => normalizeValue(voucher.identity_email))
                     .filter((email) => Boolean(email));
 
                 const bsnList = [
-                    ...data.map((voucher) => voucher.relation_bsn),
-                    ...data.map((voucher) => voucher.identity_bsn),
+                    ...data.map((voucher) => normalizeValue(voucher.relation_bsn)),
+                    ...data.map((voucher) => normalizeValue(voucher.identity_bsn)),
                 ];
 
                 const clientUids = data
-                    .map((voucher) => voucher.client_uid)
+                    .map((voucher) => normalizeValue(voucher.client_uid))
                     .filter((client_uid) => Boolean(client_uid));
 
-                const existingEmails = list.filter((row) => emails.includes(row.email?.toLowerCase()));
-                const existingBsn = list.filter((csvRow) => bsnList.includes(csvRow.bsn));
-                const existingClientUids = list.filter((csvRow) => clientUids.includes(csvRow.client_uid));
+                const existingEmails = list.filter((row) => emails.includes(normalizeValue(row.email)));
+                const existingBsn = list.filter((row) => bsnList.includes(normalizeValue(row.bsn)));
+                const existingClientUids = list.filter((row) => clientUids.includes(normalizeValue(row.client_uid)));
 
                 if (existingEmails.length === 0 && existingBsn.length === 0 && existingClientUids.length === 0) {
                     return list;
@@ -525,6 +529,7 @@ export default function ModalVouchersUpload({
             confirmDuplicateEmails,
             confirmDuplicateClientUidsEntries,
             helperService,
+            normalizeValue,
             organization.id,
             pushDanger,
             pushSuccess,
