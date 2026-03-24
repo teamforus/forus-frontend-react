@@ -1,7 +1,7 @@
 @use "sass:color";
 
-@import "style-webshop-general-vars";
-@import "./includes/fonts/roboto";
+@use "style-webshop-general-vars";
+@use "./includes/fonts/roboto";
 
 // do not use these scss variables outside this file
 $primaryColor: #627c18;

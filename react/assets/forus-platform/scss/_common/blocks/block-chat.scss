@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-chat {
     display: flex;
     flex-direction: column;
@@ -10,7 +12,7 @@
         overflow: auto;
         margin-right: -20px;
         padding-right: 15px;
-        @include webkit_scrollbar();
+        @include helpers.webkit_scrollbar();
     }
 
     .chat-timeline {

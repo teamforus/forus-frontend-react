@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-faq-editor {
     display: flex;
     flex-direction: column;
@@ -41,7 +43,7 @@
                 font: 700 14px/30px var(--base-font);
                 margin: 0 0;
                 transition: line-height 0.4s;
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
 
             .question-actions {

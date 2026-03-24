@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-sessions {
     display: flex;
     flex-direction: column;
@@ -73,7 +75,7 @@
             .session-actions {
                 padding: 5px 0 0;
                 margin: 0 0 10px;
-                @include cf();
+                @include helpers.cf();
 
                 .session-action {
                     font: 500 13px/20px var(--base-font);

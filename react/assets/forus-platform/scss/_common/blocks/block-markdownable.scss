@@ -1,4 +1,6 @@
+@use "../includes/helpers";
 @use "sass:color";
+@use "markdown-content";
 
 .block.block-markdownable {
     .note-editor {
@@ -19,7 +21,7 @@
             }
 
             .dropdown-style {
-                @extend .block, .block-markdown;
+                @include markdown-content.block-markdown-content();
 
                 .note-dropdown-item {
                     * {
@@ -139,8 +141,8 @@
         }
 
         .note-editable {
-            @extend .block, .block-markdown;
-            @include webkit_scrollbar_gray();
+            @include markdown-content.block-markdown-content();
+            @include helpers.webkit_scrollbar_gray();
 
             table {
                 thead {

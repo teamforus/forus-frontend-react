@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 $pad: 10px;
 $columns: 12;
 $media_md: 1600px;
@@ -8,7 +10,7 @@ $media_xs: 1000px;
     margin-left: -$pad;
     margin-right: -$pad;
     display: block;
-    @include cf();
+    @include helpers.cf();
 }
 
 @mixin make-col($i, $columns) {

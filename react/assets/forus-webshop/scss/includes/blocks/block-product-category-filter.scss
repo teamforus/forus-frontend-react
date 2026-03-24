@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-product-category-filter {
     display: flex;
     flex-direction: column;
@@ -5,7 +7,7 @@
     max-height: 365px;
     overflow: auto;
     padding-right: 10px;
-    @include webkit_scrollbar();
+    @include helpers.webkit_scrollbar();
 
     .category-filter-item {
         display: flex;

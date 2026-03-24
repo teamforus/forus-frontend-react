@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 :root {
     --form-font: 500 16px/24px var(--base-font);
     --form-padding: 14px 15px;
@@ -273,7 +275,7 @@
             overflow: auto;
             max-height: calc(var(--option-height) * 5);
             margin-bottom: 30px;
-            @include webkit_scrollbar_gray();
+            @include helpers.webkit_scrollbar_gray();
 
             .select-control-option {
                 padding: calc(calc(var(--option-height) - 20px) / 2) 15px
@@ -593,7 +595,7 @@
 
     .form-group {
         margin-bottom: 10px;
-        @include cf();
+        @include helpers.cf();
 
         .checkbox-label {
             display: inline-block;
@@ -627,7 +629,7 @@
         display: inline-block;
         padding: 5px 15px 0 20px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .checkbox-box {
             float: left;
@@ -687,7 +689,7 @@
         padding-right: 15px;
         padding-left: 30px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .radio-circle {
             float: left;
@@ -864,7 +866,7 @@
                     position: relative;
 
                     .icon-disabled {
-                        @include fill_parent();
+                        @include helpers.fill_parent();
 
                         &:before,
                         &:after {

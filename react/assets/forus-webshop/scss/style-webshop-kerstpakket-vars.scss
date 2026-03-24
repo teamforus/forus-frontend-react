@@ -1,7 +1,7 @@
 @use "sass:color";
 
-@import "style-webshop-general-vars";
-@import "./includes/fonts/montserrat";
+@use "style-webshop-general-vars";
+@use "./includes/fonts/montserrat";
 
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #90191a;

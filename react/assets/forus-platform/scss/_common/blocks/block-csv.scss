@@ -1,3 +1,4 @@
+@use "../includes/helpers";
 @use "sass:color";
 
 .block.block-csv {
@@ -90,7 +91,7 @@
     .csv-upload-progress {
         .csv-upload-icon {
             .mdi {
-                @extend .spin;
+                @include helpers.anim_spin();
             }
         }
 
@@ -109,7 +110,7 @@
             position: relative;
 
             .csv-progress-bar-stick {
-                @include fill_parent();
+                @include helpers.fill_parent();
                 right: auto;
                 top: -1px;
                 bottom: -1px;

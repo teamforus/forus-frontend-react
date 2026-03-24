@@ -1,7 +1,7 @@
 @use "sass:color";
 
-@import "style-webshop-general-vars";
-@import "./includes/fonts/open-sans";
+@use "style-webshop-general-vars";
+@use "./includes/fonts/open-sans";
 
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #3558a2;

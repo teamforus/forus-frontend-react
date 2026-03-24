@@ -1,3 +1,4 @@
+@use "../includes/helpers";
 @use "sass:color";
 
 .form {
@@ -486,7 +487,7 @@
 
     .form-group {
         margin-bottom: 10px;
-        @include cf();
+        @include helpers.cf();
 
         .form-group-divider {
             padding-top: 10px;
@@ -638,7 +639,7 @@
                     background-color 0.4s,
                     color 0.4s;
                 height: var(--option-height);
-                @include ellipsis();
+                @include helpers.ellipsis();
 
                 strong,
                 b {
@@ -978,7 +979,7 @@
 
             &:after {
                 content: '';
-                @include fill_parent();
+                @include helpers.fill_parent();
             }
         }
     }
@@ -992,7 +993,7 @@
         padding: 10px 15px 10px 30px;
         vertical-align: middle;
         width: 100%;
-        @include cf();
+        @include helpers.cf();
 
         .radio-circle {
             float: left;
@@ -1007,7 +1008,7 @@
 
             &::before {
                 content: '';
-                @include fill_parent(-2px);
+                @include helpers.fill_parent(-2px);
                 border: 5px solid #305dfb;
                 border-radius: inherit;
                 opacity: 0;

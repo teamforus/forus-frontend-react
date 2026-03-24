@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-product {
     position: relative;
     display: flex;
@@ -51,7 +53,7 @@
                         justify-content: center;
                         gap: 8px;
                         min-width: 0;
-                        @include webkit_scrollbar_horizontal();
+                        @include helpers.webkit_scrollbar_horizontal();
                     }
 
                     .product-overview-media-item {

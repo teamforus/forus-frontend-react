@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-key-value-list {
     display: flex;
     flex-direction: column;
@@ -73,7 +75,7 @@
                     padding: 5px 15px;
                     max-height: 350px;
                     overflow: auto;
-                    @include webkit_scrollbar();
+                    @include helpers.webkit_scrollbar();
 
                     .key-value-list-item-value-history-body-item {
                         display: flex;

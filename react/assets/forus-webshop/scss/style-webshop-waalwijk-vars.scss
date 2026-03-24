@@ -1,7 +1,7 @@
 @use "sass:color";
 
-@import "style-webshop-general-vars";
-@import "./includes/fonts/lato";
+@use "style-webshop-general-vars";
+@use "./includes/fonts/lato";
 
 $primaryColor: #2a2a7f;
 $primaryColorLight: #2a2a7f;

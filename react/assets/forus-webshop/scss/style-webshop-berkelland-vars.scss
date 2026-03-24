@@ -1,7 +1,7 @@
 @use "sass:color";
 
-@import "style-webshop-general-vars";
-@import "./includes/fonts/source-sans-pro";
+@use "style-webshop-general-vars";
+@use "./includes/fonts/source-sans-pro";
 
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #041c37;

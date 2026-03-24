@@ -1,3 +1,5 @@
+@use "helpers";
+
 :focus-visible {
     outline: var(--focus-outline) !important;
     outline-offset: var(--focus-outline-offset) !important;
@@ -15,7 +17,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    @include webkit_scrollbar(#848588);
+    @include helpers.webkit_scrollbar(#848588);
 }
 
 .wrapper {
@@ -23,7 +25,7 @@ body {
     width: 1500px;
     max-width: 100%;
     padding: 0 30px 0;
-    @include cf();
+    @include helpers.cf();
 
     .wrapper-sm {
         width: 800px;
@@ -66,7 +68,7 @@ img {
 }
 
 .ellipsis {
-    @include ellipsis();
+    @include helpers.ellipsis();
 }
 
 .pull-right {
@@ -258,7 +260,7 @@ img {
 }
 
 .cf {
-    @include cf();
+    @include helpers.cf();
 }
 
 .flex-start {
@@ -476,13 +478,6 @@ img {
     to {
         transform: rotate(360deg);
     }
-}
-
-.spin {
-    animation-name: spin;
-    animation-duration: 2000ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
 }
 
 .row {

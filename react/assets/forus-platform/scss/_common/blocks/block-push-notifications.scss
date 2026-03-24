@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-push-notifications {
     position: fixed;
     right: 25px;
@@ -168,7 +170,7 @@
             overflow-x: hidden;
             overflow-y: scroll;
             padding-right: 7px;
-            @include webkit_scrollbar();
+            @include helpers.webkit_scrollbar();
         }
     }
 

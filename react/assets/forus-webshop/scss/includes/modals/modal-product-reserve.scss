@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .modal.modal-product-reserve {
     cursor: default;
 
@@ -5,7 +7,7 @@
         overflow: auto;
         box-shadow: none;
         background: none;
-        @include webkit_scrollbar();
+        @include helpers.webkit_scrollbar();
 
         .payment-details {
             border: 1px solid var(--border-color);
