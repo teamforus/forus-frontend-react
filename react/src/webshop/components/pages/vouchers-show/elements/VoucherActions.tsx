@@ -18,9 +18,6 @@ import useVoucherCard from '../hooks/useVoucherCard';
 import { makeQrCodeContent } from '../../../../../dashboard/helpers/utils';
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
-import ModalVoucherPayout from '../../../modals/ModalVoucherPayout';
-import usePayoutEligibleVouchers from '../hooks/usePayoutEligibleVouchers';
-import useFundRequestBankAccounts from '../../../../hooks/useFundRequestBankAccounts';
 
 export default function VoucherActions({
     voucher,
@@ -42,8 +39,6 @@ export default function VoucherActions({
 
     const voucherCard = useVoucherCard(voucher);
     const showPhysicalCardsOption = useShowPhysicalCardsOption(voucher);
-    const { fundRequestAccounts } = useFundRequestBankAccounts();
-    const payoutEligibleVouchers = usePayoutEligibleVouchers([voucher].filter(Boolean), fundRequestAccounts);
 
     const fundPhysicalCardTypes = useMemo(() => {
         return voucher?.fund?.fund_physical_card_types;
@@ -146,19 +141,6 @@ export default function VoucherActions({
             )),
         [navigateState, openModal, translate, voucherService],
     );
-
-    const canRequestPayout = payoutEligibleVouchers.length > 0;
-
-    const openPayoutModal = useCallback(() => {
-        openModal((modal) => (
-            <ModalVoucherPayout
-                modal={modal}
-                selectedVoucher={voucher}
-                onCreated={fetchVoucher}
-                vouchers={payoutEligibleVouchers}
-            />
-        ));
-    }, [fetchVoucher, openModal, payoutEligibleVouchers, voucher]);
 
     return (
         <div className="voucher-actions">
@@ -289,18 +271,6 @@ export default function VoucherActions({
                         onClick={() => deactivateVoucher(voucher)}>
                         <em className="mdi mdi-logout" />
                         {translate('voucher.card.stop_participation')}
-                    </button>
-                )}
-
-                {canRequestPayout && (
-                    <button
-                        type="button"
-                        className="voucher-actions-button"
-                        data-dusk="openVoucherPayoutModal"
-                        onKeyDown={clickOnKeyEnter}
-                        onClick={openPayoutModal}>
-                        <em className="mdi mdi-cash-refund" />
-                        {translate('voucher.actions.transfer_to_bank')}
                     </button>
                 )}
             </div>
