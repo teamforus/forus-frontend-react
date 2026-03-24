@@ -1,6 +1,6 @@
 import React from 'react';
-import 'react-range-slider-input/dist/style.css';
-import ReactSlider from 'react-slider';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function RangeControl({
@@ -21,39 +21,48 @@ export default function RangeControl({
     prefix?: string;
 }) {
     const translate = useTranslate();
+    const value: [number, number] = [from ?? min ?? 0, to ?? max ?? 0];
+
+    const formatAriaValue = (sliderValue: number) => {
+        return translate('form.range_control.aria_value', {
+            prefix: prefix?.trim(),
+            value: sliderValue,
+            min,
+            max,
+        });
+    };
 
     return (
         <div className="range-control">
-            <ReactSlider
+            <Slider
                 min={min}
                 max={max}
-                value={[from, to]}
-                onChange={([_from, _to]) => {
-                    setTo(_to);
-                    setFrom(_from);
+                range
+                value={value}
+                onChange={(nextValue) => {
+                    const [nextFrom, nextTo] = Array.isArray(nextValue) ? nextValue : [nextValue, nextValue];
+
+                    setTo?.(nextTo);
+                    setFrom?.(nextFrom);
                 }}
-                className="horizontal-slider"
-                thumbClassName="horizontal-slider-thumb"
-                trackClassName="horizontal-slider-track"
-                ariaLabel={[
+                className="range-control-slider"
+                allowCross={false}
+                pushable={0}
+                ariaLabelForHandle={[
                     translate('form.range_control.first_slider_aria_label'),
                     translate('form.range_control.second_slider_aria_label'),
                 ]}
-                ariaValuetext={(state) => {
-                    return translate('form.range_control.aria_value', {
-                        prefix: prefix?.trim(),
-                        value: state.valueNow,
-                        min,
-                        max,
-                    });
-                }}
-                renderThumb={(props, state) => (
-                    <div {...props}>
-                        <div className="horizontal-slider-thumb-text">{`${prefix}${state.valueNow}`}</div>
-                    </div>
-                )}
-                pearling
-                minDistance={0}
+                ariaValueTextFormatterForHandle={[formatAriaValue, formatAriaValue]}
+                handleRender={(node, { value: sliderValue }) =>
+                    React.cloneElement(
+                        node,
+                        node.props,
+                        <>
+                            {node.props.children}
+                            <div className="range-control-thumb-text">{`${prefix}${sliderValue}`}</div>
+                        </>,
+                    )
+                }
             />
         </div>
     );
