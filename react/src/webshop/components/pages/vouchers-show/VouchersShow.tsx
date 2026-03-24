@@ -181,8 +181,10 @@ export default function VouchersShow() {
                                                         date: voucherCard?.expire_at_locale,
                                                     })}
                                                 </div>
-                                                {!voucher?.product && (
-                                                    <div className="voucher-details-info-amount">
+                                                {!voucher?.product && !voucher?.fund?.hide_voucher_amount && (
+                                                    <div
+                                                        className="voucher-details-info-amount"
+                                                        data-dusk="voucherAmount">
                                                         {voucherCard?.amount_locale}
                                                     </div>
                                                 )}
