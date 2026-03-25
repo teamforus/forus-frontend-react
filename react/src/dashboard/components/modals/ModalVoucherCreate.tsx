@@ -308,7 +308,7 @@ export default function ModalVoucherCreate({
             openModal((modal) => (
                 <ModalDuplicatesPicker
                     modal={modal}
-                    hero_title={'Dubbele client(s) gedetecteerd.'}
+                    hero_title={'Dubbele nummers gedetecteerd.'}
                     hero_subtitle={[
                         `Weet u zeker dat u voor ${items.length} klantnummer(s) een extra tegoed wilt aanmaken?`,
                         'Deze klantnummer(s) bezitten al een tegoed van dit fonds.',
