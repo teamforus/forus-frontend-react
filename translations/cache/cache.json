@@ -9376,6 +9376,14 @@
         "Rekeninghouder"
     ],
     [
+        "voucher.payout.partial_amount_option_person_multiple",
+        "{{amount}} (voor {{persons}} personen)"
+    ],
+    [
+        "voucher.payout.partial_amount_option_person_single",
+        "{{amount}} (voor {{persons}} persoon)"
+    ],
+    [
         "voucher.payout.submit",
         "Overboeken"
     ],
