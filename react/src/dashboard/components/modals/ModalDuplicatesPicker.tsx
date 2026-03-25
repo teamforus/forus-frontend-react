@@ -188,7 +188,7 @@ export default function ModalDuplicatesPicker({
                                             }>
                                             <td>
                                                 <em className="mdi mdi-alert-outline text-warning switch-key-icon" />
-                                                <span>{item.label || item.value}</span>
+                                                <span data-dusk="duplicateItem">{item.label || item.value}</span>
                                             </td>
 
                                             {item?.columns?.map((column, index) => <td key={index}>{column}</td>)}
@@ -207,6 +207,7 @@ export default function ModalDuplicatesPicker({
                                                             <div className="form-group">
                                                                 <ToggleControl
                                                                     checked={item.model || false}
+                                                                    dusk={`toggle_duplicate_${index}`}
                                                                     onChange={(e) => {
                                                                         e.preventDefault();
                                                                         e.stopPropagation();
@@ -240,7 +241,10 @@ export default function ModalDuplicatesPicker({
                             </button>
                         )}
                         {enableToggles && list.length > 1 && (
-                            <button className="button button-default button-sm" onClick={toggleAllOn}>
+                            <button
+                                className="button button-default button-sm"
+                                onClick={toggleAllOn}
+                                data-dusk="modalDuplicatesPickerToggleAllOn">
                                 {labels.button_all}
                             </button>
                         )}
