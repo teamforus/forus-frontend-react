@@ -155,10 +155,59 @@ export default function ModalProductReserve({
         return !!(address?.city && address?.street && address?.house_nr && address?.postal_code);
     }, []);
 
+    const reservationAddressRequested = useMemo(() => {
+        return product.reservation.address !== 'no';
+    }, [product.reservation.address]);
+
+    const reservationPhoneRequested = useMemo(() => {
+        return product.reservation.phone !== 'no';
+    }, [product.reservation.phone]);
+
+    const reservationBirthDateRequested = useMemo(() => {
+        return product.reservation.birth_date !== 'no';
+    }, [product.reservation.birth_date]);
+
+    const buildReservationPayload = useCallback(
+        (
+            values: {
+                first_name?: string;
+                last_name?: string;
+                user_note?: string;
+                phone?: string;
+                birth_date?: string;
+                custom_fields?: { [key: string]: string | null };
+            },
+            includeUserNote: boolean = true,
+        ) => {
+            return {
+                first_name: values.first_name,
+                last_name: values.last_name,
+                ...(reservationPhoneRequested ? { phone: values.phone } : {}),
+                ...(reservationBirthDateRequested ? { birth_date: values.birth_date } : {}),
+                ...(includeUserNote ? { user_note: values.user_note } : { user_note: null }),
+                ...(!skipAddress && reservationAddressRequested ? address : {}),
+                custom_fields: values.custom_fields,
+                voucher_id: voucher.id,
+                product_id: product.id,
+            };
+        },
+        [
+            address,
+            product.id,
+            reservationAddressRequested,
+            reservationBirthDateRequested,
+            reservationPhoneRequested,
+            skipAddress,
+            voucher?.id,
+        ],
+    );
+
     const form = useFormBuilder<{
         first_name?: string;
         last_name?: string;
         user_note?: string;
+        phone?: string;
+        birth_date?: string;
         custom_fields?: { [key: string]: string | null };
     }>(
         {
@@ -170,7 +219,7 @@ export default function ModalProductReserve({
             setSubmitting(true);
 
             productReservationService
-                .reserve({ ...values, ...(skipAddress ? {} : address), voucher_id: voucher.id, product_id: product.id })
+                .reserve(buildReservationPayload(values))
                 .then((res) => {
                     setSubmitting(false);
                     setReservationId(res.data.id);
@@ -233,10 +282,7 @@ export default function ModalProductReserve({
         (include_note: boolean = true) => {
             productReservationService
                 .validateFields({
-                    ...form.values,
-                    voucher_id: voucher.id,
-                    product_id: product.id,
-                    user_note: include_note ? form.values.user_note : null,
+                    ...buildReservationPayload(form.values, include_note),
                     user_note_skip: !include_note,
                 })
                 .then(() => {
@@ -251,7 +297,7 @@ export default function ModalProductReserve({
                     ),
                 );
         },
-        [form, next, onError, product.id, productReservationService, voucher?.id],
+        [buildReservationPayload, form, next, onError, productReservationService],
     );
 
     const validateAddress = useCallback(
