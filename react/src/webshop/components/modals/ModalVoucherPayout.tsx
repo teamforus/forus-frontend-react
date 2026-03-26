@@ -38,8 +38,7 @@ export default function ModalVoucherPayout({
 
     const [state, setState] = useState<'form' | 'success'>('form');
     const [voucherList] = useState<Array<Voucher>>(vouchers || []);
-
-    const { fundRequestAccounts } = useFundRequestBankAccounts();
+    const fundRequestAccounts = useFundRequestBankAccounts();
     const eligibleVouchers = usePayoutEligibleVouchers(voucherList, fundRequestAccounts);
 
     const finish = useCallback(() => {
@@ -102,16 +101,23 @@ export default function ModalVoucherPayout({
             return [];
         }
 
-        return partialPayoutAmounts.map((amount) => {
+        return partialPayoutAmounts.map((amount, index) => {
             const amountNumber = parseFloat(amount);
-            const name = isNaN(amountNumber) ? amount : currencyFormat(amountNumber);
+            const baseName = isNaN(amountNumber) ? amount : currencyFormat(amountNumber);
+            const persons = index + 1;
+            const name =
+                selectedVoucherItem?.voucher_payout_partial_amounts_label_type === 'persons'
+                    ? translate(
+                          persons === 1
+                              ? 'voucher.payout.partial_amount_option_person_single'
+                              : 'voucher.payout.partial_amount_option_person_multiple',
+                          { amount: baseName, persons },
+                      )
+                    : baseName;
 
-            return {
-                id: amount,
-                name,
-            };
+            return { id: amount, name };
         });
-    }, [partialPayoutAmounts]);
+    }, [partialPayoutAmounts, selectedVoucherItem?.voucher_payout_partial_amounts_label_type, translate]);
 
     const fixedPayoutAmount = useMemo(() => {
         if (Array.isArray(partialPayoutAmounts)) {
@@ -212,11 +218,14 @@ export default function ModalVoucherPayout({
     }, [fundRequestAccounts, form.values.fund_request_id, updateForm]);
 
     useEffect(() => {
-        if (!eligibleVouchers.length || form.values.voucher_id) {
+        if (!eligibleVouchers.length) {
             return;
         }
 
-        updateForm({ voucher_id: eligibleVouchers[0].id });
+        if (!form.values.voucher_id || !eligibleVouchers.find((voucher) => voucher.id === form.values.voucher_id)) {
+            updateForm({ voucher_id: eligibleVouchers[0].id });
+            return;
+        }
     }, [eligibleVouchers, form.values.voucher_id, updateForm]);
 
     const disableSubmit = useMemo(() => {

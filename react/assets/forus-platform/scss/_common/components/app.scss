@@ -1,6 +1,8 @@
+@use "../includes/helpers";
+
 .app {
     flex: 1 0 auto;
-    @include webkit_scrollbar(#848588);
+    @include helpers.webkit_scrollbar(#848588);
 
     &.app-header {
         padding: 20px 0;
@@ -153,7 +155,7 @@
                     .notifications-menu-body {
                         max-height: 300px;
                         overflow-y: auto;
-                        @include webkit_scrollbar();
+                        @include helpers.webkit_scrollbar();
 
                         .notifications-menu-item {
                             padding: 15px 20px;
@@ -245,7 +247,7 @@
                 display: flex;
                 flex-direction: row;
                 cursor: pointer;
-                @include cf();
+                @include helpers.cf();
 
                 .auth-user-details {
                     display: flex;

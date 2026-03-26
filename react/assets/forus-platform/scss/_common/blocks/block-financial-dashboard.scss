@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-financial-dashboard {
     .financial-filters {
         display: flex;
@@ -65,7 +67,7 @@
                         border-bottom-left-radius: inherit;
                         border-bottom-right-radius: inherit;
                         overflow: auto;
-                        @include webkit_scrollbar();
+                        @include helpers.webkit_scrollbar();
 
                         .block-option {
                             font: 600 13px/15px var(--base-font);

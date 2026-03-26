@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-criteria-editor {
     display: flex;
     flex-direction: column;
@@ -22,13 +24,13 @@
             font: 600 16px/36px var(--base-font);
             margin: 0 0 0;
             transition: line-height 0.4s;
-            @include ellipsis();
+            @include helpers.ellipsis();
         }
 
         .criterion-subtitle {
             font: 600 14px/24px var(--base-font);
             margin: 0 0 10px;
-            @include ellipsis();
+            @include helpers.ellipsis();
         }
 
         .criterion-head {
@@ -76,7 +78,7 @@
             display: block;
             width: 100%;
             margin-bottom: 20px;
-            @include cf();
+            @include helpers.cf();
 
             .criterion-organization {
                 width: 190px;
@@ -102,7 +104,7 @@
                     color: #292b39;
                     float: left;
                     font: 600 13px/25px var(--base-font);
-                    @include ellipsis();
+                    @include helpers.ellipsis();
                     max-width: 150px;
                 }
 
@@ -136,7 +138,7 @@
                     border-bottom: 1px solid var(--border-color);
                     padding: 5px 10px;
                     cursor: default;
-                    @include cf();
+                    @include helpers.cf();
 
                     .criterion-organization-icon {
                         margin-right: 15px;
@@ -158,7 +160,7 @@
                         color: #292b39;
                         float: left;
                         font: 600 13px/25px var(--base-font);
-                        @include ellipsis();
+                        @include helpers.ellipsis();
                         max-width: 225px;
                     }
 

@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-export-options {
     .export-section {
         margin-bottom: 25px;
@@ -62,7 +64,7 @@
 
                         &::before {
                             content: '';
-                            @include fill_parent(2px);
+                            @include helpers.fill_parent(2px);
                             border: none;
                             border-radius: inherit;
                             opacity: 0;

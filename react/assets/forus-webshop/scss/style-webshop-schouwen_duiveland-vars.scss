@@ -1,5 +1,5 @@
-@import "style-webshop-general-vars";
-@import "./includes/fonts/open-sans";
+@use "style-webshop-general-vars";
+@use "./includes/fonts/open-sans";
 
 // do not use these scss variables outside this file
 $primaryColor: #1B7A00;

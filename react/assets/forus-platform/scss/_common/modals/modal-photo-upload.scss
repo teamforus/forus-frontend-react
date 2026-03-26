@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .modal.modal-photo-upload {
     cursor: default;
 
@@ -63,7 +65,7 @@
                         }
 
                         ui-cropper {
-                            @include fill_parent();
+                            @include helpers.fill_parent();
                         }
                     }
 

@@ -39,9 +39,9 @@ import RandomProductsBlock from '../home/elements/RandomProductsBlock';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
-import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleVouchers';
 import useIsPayoutInfoProduct from './hooks/useIsPayoutInfoProduct';
 import useFundRequestBankAccounts from '../../../hooks/useFundRequestBankAccounts';
+import usePayoutButtonVouchers from '../../../hooks/usePayoutButtonVouchers';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -71,8 +71,8 @@ export default function ProductsShow() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
     const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
-    const { fundRequestAccounts } = useFundRequestBankAccounts();
-    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers, fundRequestAccounts);
+    const fundRequestAccounts = useFundRequestBankAccounts();
+    const productPayoutEligibleVouchers = usePayoutButtonVouchers(vouchers, fundRequestAccounts, 'products');
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
     const price = useProductPriceMinLocale(product);
@@ -93,10 +93,10 @@ export default function ProductsShow() {
             <ModalVoucherPayout
                 modal={modal}
                 onCreated={() => navigateState(WebshopRoutes.PAYOUTS)}
-                vouchers={payoutEligibleVouchers}
+                vouchers={productPayoutEligibleVouchers}
             />
         ));
-    }, [navigateState, openModal, payoutEligibleVouchers]);
+    }, [navigateState, openModal, productPayoutEligibleVouchers]);
 
     const fetchProduct = useCallback(() => {
         setProgress(0);
@@ -260,7 +260,7 @@ export default function ProductsShow() {
                                                 </button>
                                             )}
 
-                                            {isPayoutInfoProduct && payoutEligibleVouchers.length > 0 && (
+                                            {isPayoutInfoProduct && productPayoutEligibleVouchers.length > 0 && (
                                                 <button
                                                     type="button"
                                                     className="button button-primary button-fill flex flex-center"

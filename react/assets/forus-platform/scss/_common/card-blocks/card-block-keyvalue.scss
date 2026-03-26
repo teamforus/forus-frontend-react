@@ -1,10 +1,12 @@
+@use "../includes/helpers";
+
 .card-block.card-block-keyvalue {
     margin-bottom: 10px;
-    @include cf();
+    @include helpers.cf();
 
     .keyvalue-item {
         padding-bottom: 10px;
-        @include cf();
+        @include helpers.cf();
 
         .keyvalue-key {
             float: left;
@@ -112,7 +114,7 @@
                     padding: 5px 15px;
                     max-height: 350px;
                     overflow: auto;
-                    @include webkit_scrollbar();
+                    @include helpers.webkit_scrollbar();
 
                     .keyvalue-value-history-body-item {
                         display: flex;

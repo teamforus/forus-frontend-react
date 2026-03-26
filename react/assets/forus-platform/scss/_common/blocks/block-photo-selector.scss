@@ -1,5 +1,7 @@
+@use "../includes/helpers";
+
 .block.block-photo-selector {
-    @include cf();
+    @include helpers.cf();
 
     .photo-img {
         float: left;

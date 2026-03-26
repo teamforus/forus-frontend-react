@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-pincode {
     margin: 0 auto 20px;
     padding: 0;
@@ -7,7 +9,7 @@
     display: flex;
     justify-items: center;
     justify-content: center;
-    @include cf();
+    @include helpers.cf();
 
     .hidden-input {
         opacity: 0;
@@ -49,7 +51,7 @@
             display: block;
             transform: translate(0, -50%);
             transition: opacity .4s;
-            @include anim_blink();
+            @include helpers.anim_blink();
         }
 
         &:last-of-type {

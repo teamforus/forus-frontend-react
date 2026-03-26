@@ -10,7 +10,7 @@ import useSortRectByOverlapArea from './helpers/useSortRectByOverlapArea';
 import useIsWithin from './helpers/useIsWithin';
 
 export default function useFDOffsetTableMenu(item: FDItem) {
-    const ref = useRef<HTMLDivElement>();
+    const ref = useRef<HTMLDivElement | null>(null);
     const { updateElement } = useContext(frameDirectorContext);
 
     const [elRect, setElRect] = useState<DOMRect>(null);
@@ -101,7 +101,13 @@ export default function useFDOffsetTableMenu(item: FDItem) {
 
     useEffect(() => {
         const observer = new ResizeObserver(() => setElRect(ref?.current?.getBoundingClientRect()));
-        observer.observe(ref?.current);
+        const currentElement = ref.current;
+
+        if (!currentElement) {
+            return () => observer.disconnect();
+        }
+
+        observer.observe(currentElement);
 
         return () => observer.disconnect();
     }, []);

@@ -1,4 +1,7 @@
-@import "style-webshop-general-vars";
+@use "sass:color";
+
+@use "style-webshop-general-vars";
+@use "./includes/fonts/source-sans-pro";
 
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #176b55;
@@ -102,8 +105,6 @@ $primaryColorLight: #2f7f6b;
     font-weight: 400;
     font-display: swap;
 }
-
-@import "./includes/fonts/source-sans-pro";
 
 :root {
     --zoom: 100%;
@@ -245,8 +246,8 @@ $primaryColorLight: #2f7f6b;
 
     // Search bar
     --color-search-icon-medium: #{$primaryColor};
-    --color-search-icon-dark: #{darken($primaryColor, 10%)};
-    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+    --color-search-icon-dark: #{color.adjust($primaryColor, $lightness: -10%)};
+    --color-search-icon-light: #{color.adjust($primaryColor, $lightness: 25%)};
 
     --search-bar-point-color: #ececec;
     --search-bar-point-radius: 0px;

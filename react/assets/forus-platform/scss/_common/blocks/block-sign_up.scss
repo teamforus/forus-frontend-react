@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-sign_up {
     --paginator-button-active-background: #305dfb;
 
@@ -256,10 +258,10 @@
                     position: relative;
 
                     .map {
-                        @include fill_parent();
+                        @include helpers.fill_parent();
 
                         .map-canvas {
-                            @include fill_parent();
+                            @include helpers.fill_parent();
                         }
                     }
                 }

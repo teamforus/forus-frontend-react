@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-copyrights {
     width: 100%;
     border-top: 1px solid var(--footer-copyright-border-color);
@@ -182,7 +184,7 @@
 
             &:after {
                 content: '';
-                @include fill_parent();
+                @include helpers.fill_parent();
                 border-radius: inherit;
                 border: 1px solid var(--footer_social_border_color);
                 opacity: 0.25;

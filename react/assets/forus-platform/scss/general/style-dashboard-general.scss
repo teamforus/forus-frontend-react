@@ -1,6 +1,7 @@
-@import '../_common/includes/fonts/montserrat';
-@import './vars';
-@import '../_common/dashboard';
+@use "sass:meta";
+@use '../_common/includes/fonts/montserrat';
+@use './vars';
+@use '../_common/dashboard';
 
 .landing-root {
     background: #f7f9fc linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
@@ -8,7 +9,7 @@
     min-height: 100vh;
     flex-direction: column;
     height: 100%;
-    @import '../_common/landing';
+    @include meta.load-css("../_common/landing");
 
     .app.app-container {
         padding: 0;
@@ -21,5 +22,5 @@
 }
 
 .landing-style {
-    @import '../_common/landing';
+    @include meta.load-css("../_common/landing");
 }

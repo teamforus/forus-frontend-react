@@ -1,7 +1,9 @@
+@use "../includes/helpers";
+
 .block.block-switch-table {
     max-height: 300px;
     overflow: auto;
-    @include webkit_scrollbar();
+    @include helpers.webkit_scrollbar();
 
     .table-wrapper {
         tr {

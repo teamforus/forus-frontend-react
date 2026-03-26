@@ -57,10 +57,10 @@ export default function ImplementationsPageForm({
     const [pageBlockProducts, setPageBlockProducts] = useState<ImplementationPage>(null);
     const [pageBlockProductCategories, setPageBlockProductCategories] = useState<ImplementationPage>(null);
 
-    const cmsBlockEditorRef = useRef<() => Promise<boolean>>();
-    const cmsBlockEditorRef2 = useRef<() => Promise<boolean>>();
-    const faqEditorValidateRef = useRef<() => Promise<boolean>>();
-    const blockEditorValidateRef = useRef<() => Promise<boolean>>();
+    const cmsBlockEditorRef = useRef<(() => Promise<boolean>) | null>(null);
+    const cmsBlockEditorRef2 = useRef<(() => Promise<boolean>) | null>(null);
+    const faqEditorValidateRef = useRef<(() => Promise<boolean>) | null>(null);
+    const blockEditorValidateRef = useRef<(() => Promise<boolean>) | null>(null);
 
     const pageTypeConfig = useMemo(
         () => implementation.page_types.find((type) => type.key === pageType),
