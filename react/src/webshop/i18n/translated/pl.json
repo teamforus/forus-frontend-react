@@ -3511,7 +3511,9 @@
             "warning_not_enough_amount_min": "Kredyt ten musi obejmować co najmniej {{ min }} do wypłaty.",
             "accept_compliance_rules_info": "<p><strong>Oświadczam, że:</strong></p><ul><li>Wykorzystuję pieniądze wyłącznie na tę działalność;</li><li>wykorzystuję pieniądze zgodnie z zasadami programu;</li><li>Rozumiem, że muszę zwrócić pieniądze, jeśli nie wykorzystam ich prawidłowo.</li></ul>",
             "accept_compliance_rules": "Zgadzam się na powyższe warunki.",
-            "warning_no_partial_amounts": "Kwota wypłaty nie jest dostępna dla tego kredytu."
+            "warning_no_partial_amounts": "Kwota wypłaty nie jest dostępna dla tego kredytu.",
+            "partial_amount_option_person_single": "{{amount}} (dla {{persons}} osoby)",
+            "partial_amount_option_person_multiple": "{{amount}} (dla {{persons}} osoby)"
         }
     },
     "vouchers": {
