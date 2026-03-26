@@ -1,3 +1,6 @@
+@use "../includes/helpers";
+@use "sass:color";
+
 .card {
     --card-margin: 20px;
     background: #ffffff;
@@ -495,7 +498,7 @@
         }
 
         &:not(.card-collapsed):hover {
-            background: lighten($color: #f3f4f5, $amount: 2);
+            background: color.adjust(#f3f4f5, $lightness: 2%);
         }
     }
 

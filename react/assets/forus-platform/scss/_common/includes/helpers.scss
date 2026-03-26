@@ -208,6 +208,13 @@
     }
 }
 
+@mixin anim_spin($duration: 2000ms) {
+    animation-name: spin;
+    animation-duration: $duration;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
 @function assetUrl($url) {
     @return url('./assets/' + $url);
 }

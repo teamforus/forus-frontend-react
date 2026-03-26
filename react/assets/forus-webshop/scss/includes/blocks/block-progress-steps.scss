@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-progress-steps {
     width: 50%;
     position: relative;
@@ -28,7 +30,7 @@
                 display: block;
                 border-radius: inherit;
                 background: #ebedf0;
-                @include fill_parent();
+                @include helpers.fill_parent();
             }
         }
 
@@ -78,7 +80,7 @@
                 &:before {
                     content: "";
                     display: block;
-                    @include fill_parent();
+                    @include helpers.fill_parent();
                     background-color: #cdced2;
                 }
             }

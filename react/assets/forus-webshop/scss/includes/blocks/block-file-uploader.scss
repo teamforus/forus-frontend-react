@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-file-uploader {
     display: flex;
     flex-direction: column;
@@ -131,7 +133,7 @@
                     width: 200px;
                     max-width: 100%;
                     flex-basis: 100%;
-                    @include ellipsis();
+                    @include helpers.ellipsis();
                 }
 
                 .file-item-progress {

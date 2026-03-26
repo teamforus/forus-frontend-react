@@ -7,14 +7,18 @@
         grid-template-columns: 200px 1fr;
 
         .datalist-key {
-            @extend .text-wrap;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
             font: 500 14px/20px var(--base-font);
             color: #646f79;
             padding: 7.5px 15px 7.5px 0;
         }
 
         .datalist-value {
-            @extend .text-wrap;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
             font: 500 14px/20px var(--base-font);
             color: #646f79;
             padding: 7.5px 0;

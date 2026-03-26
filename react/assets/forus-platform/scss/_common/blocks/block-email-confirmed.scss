@@ -1,8 +1,10 @@
+@use "../includes/helpers";
+
 .block.block-email-confirmed {
     flex-direction: column;
     justify-content: center;
     display: flex;
-    @include fill_parent();
+    @include helpers.fill_parent();
     background: #fff;
     cursor: default;
 

@@ -49,9 +49,9 @@ export default function VouchersViewComponent() {
     const voucherService = useVoucherService();
     const physicalCardService = usePhysicalCardService();
 
-    const eventLogsBlock = useRef<() => void>();
-    const transactionsBlock = useRef<() => void>();
-    const reservationsBlock = useRef<() => void>();
+    const eventLogsBlock = useRef<(() => void) | null>(null);
+    const transactionsBlock = useRef<(() => void) | null>(null);
+    const reservationsBlock = useRef<(() => void) | null>(null);
 
     const [fund, setFund] = useState<Fund>(null);
     const [voucher, setVoucher] = useState<SponsorVoucher>(null);

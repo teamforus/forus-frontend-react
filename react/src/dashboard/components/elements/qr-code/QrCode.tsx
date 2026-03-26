@@ -28,7 +28,7 @@ export default function QrCode({
     qrCodeAttrs?: DOMAttributes<HTMLDivElement> | HTMLAttributes<HTMLDivElement>;
     dusk?: string;
 }) {
-    const code = useRef<HTMLDivElement>();
+    const code = useRef<HTMLDivElement | null>(null);
     const [, setQrCode] = useState(null);
 
     useEffect(() => {

@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .card-block.card-block-notes {
     margin: -20px;
 
@@ -6,7 +8,7 @@
 
         .note-form-actions {
             padding-top: 10px;
-            @include cf();
+            @include helpers.cf();
 
             .note-form-desc {
                 float: left;

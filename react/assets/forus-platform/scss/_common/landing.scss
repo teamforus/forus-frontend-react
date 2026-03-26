@@ -1,3 +1,5 @@
+@use "./includes/helpers";
+
 .show-sm {
     display: none !important;
 }
@@ -149,14 +151,14 @@
 
     .form-group {
         margin-bottom: 10px;
-        @include cf();
+        @include helpers.cf();
     }
 
     .checkbox {
         display: inline-block;
         padding: 10px 15px 10px 30px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .checkbox-box {
             float: left;
@@ -210,7 +212,7 @@
         display: inline-block;
         padding: 10px 15px 10px 30px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .radio-circle {
             float: left;
@@ -448,7 +450,7 @@
     &.block-blogs {
         margin: 0 -45px 30px;
         display: block;
-        @include cf();
+        @include helpers.cf();
 
         .blog-item {
             margin: 0 0 50px;
@@ -473,7 +475,7 @@
                     content: '';
                     background: #394260;
                     opacity: 0;
-                    @include fill_parent();
+                    @include helpers.fill_parent();
                     transition: opacity 0.4s;
                 }
             }
@@ -501,7 +503,7 @@
                 position: relative;
                 transform: translate(0, 0);
                 box-shadow: 0 10px 25px rgba(#000000, 0.05);
-                @include cf();
+                @include helpers.cf();
 
                 &:hover {
                     box-shadow: 0 25px 40px rgba(#000, 0.15);
@@ -576,7 +578,7 @@
 
                 .contact-socials {
                     padding-top: 20px;
-                    @include cf();
+                    @include helpers.cf();
 
                     .contact-social {
                         display: block;
@@ -736,7 +738,7 @@
 
         .wrapper {
             height: 30px;
-            @include cf();
+            @include helpers.cf();
         }
 
         .copyrights {
@@ -783,7 +785,7 @@
         font-size: 0;
         padding: 0 0 20px;
         text-align: center;
-        @include cf();
+        @include helpers.cf();
 
         .auth_type-item {
             display: inline-block;
@@ -1032,7 +1034,7 @@
 
                     .auth_type-name {
                         font: 700 12px var(--base-font-landing);
-                        @include ellipsis();
+                        @include helpers.ellipsis();
                         margin: 0 -10px;
                     }
                 }

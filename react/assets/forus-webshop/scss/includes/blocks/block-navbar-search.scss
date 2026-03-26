@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-navbar-search {
     display: flex;
     flex-grow: 1;
@@ -145,7 +147,7 @@
                 padding: 10px 0;
                 position: relative;
                 border-bottom: 1px solid var(--border-color);
-                @include cf();
+                @include helpers.cf();
 
                 .search-result-group-icon {
                     padding-right: 10px;
@@ -182,7 +184,7 @@
                     font: 400 15px/24px var(--base-font);
                     padding: 8px 20px;
                     color: #666666;
-                    @include ellipsis();
+                    @include helpers.ellipsis();
 
                     strong {
                         font-weight: 700;
@@ -192,7 +194,7 @@
 
                         &::before {
                             content: '';
-                            @include fill_parent();
+                            @include helpers.fill_parent();
                             background: var(--color-primary);
                             opacity: 0.1;
                         }

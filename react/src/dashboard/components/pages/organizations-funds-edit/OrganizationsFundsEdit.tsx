@@ -77,7 +77,7 @@ export default function OrganizationsFundsEdit() {
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
     const [products, setProducts] = useState<Array<Partial<Product>>>(null);
     const [fundStates] = useState(fundService.getStates());
-    const faqEditorBlock = useRef<() => Promise<boolean>>();
+    const faqEditorBlock = useRef<(() => Promise<boolean>) | null>(null);
 
     const [fundTypeExternal] = useState([
         { value: false, name: 'Budget' },
@@ -239,7 +239,7 @@ export default function OrganizationsFundsEdit() {
             };
 
             try {
-                await faqEditorBlock.current();
+                await faqEditorBlock.current?.();
             } catch (e) {
                 pushDanger('Error!', typeof e == 'string' ? e : e.message || '');
                 return form.setIsLocked(false);

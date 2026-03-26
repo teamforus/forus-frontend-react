@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-vouchers {
     margin-bottom: 30px;
 
@@ -146,13 +148,13 @@
             & > .button {
                 padding-left: 50px;
                 padding-right: 50px;
-                @include float_center();
+                @include helpers.float_center();
             }
         }
 
         .voucher-item-overlay {
             position: absolute;
-            @include fill_parent();
+            @include helpers.fill_parent();
             display: none;
             background: transparent;
         }
@@ -345,7 +347,7 @@
             &:after {
                 content: '';
                 pointer-events: none;
-                @include fill_parent();
+                @include helpers.fill_parent();
                 background-color: #000;
                 opacity: 0;
                 transition: opacity 0.3s;
@@ -499,7 +501,7 @@
                             .voucher-name {
                                 font: 700 16px/20px var(--base-font);
                                 margin: 0 0 15px;
-                                @include ellipsis();
+                                @include helpers.ellipsis();
                                 padding-right: 0;
                             }
 

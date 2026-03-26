@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-office {
     width: 100%;
     margin: 0 0 30px;
@@ -16,11 +18,11 @@
         overflow: hidden;
 
         .block-google-map {
-            @include fill_parent();
+            @include helpers.fill_parent();
             position: absolute;
 
             iframe {
-                @include fill_parent();
+                @include helpers.fill_parent();
                 width: 100%;
                 height: 100%;
                 position: absolute;
@@ -28,7 +30,7 @@
             }
 
             .block-google-map-backdrop {
-                @include fill_parent();
+                @include helpers.fill_parent();
                 position: absolute;
                 background: rgba($color: #000000, $alpha: .1);
                 z-index: 1;

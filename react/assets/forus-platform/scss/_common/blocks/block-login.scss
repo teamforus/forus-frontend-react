@@ -1,8 +1,10 @@
+@use "../includes/helpers";
+
 .block.block-login {
     flex-direction: column;
     justify-content: center;
     display: flex;
-    @include fill_parent();
+    @include helpers.fill_parent();
     position: fixed;
     padding-bottom: 60px;
     cursor: default;
