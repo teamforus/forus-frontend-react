@@ -2155,7 +2155,9 @@
             "warning_not_enough_amount_min": "Bu kredi, ödeme için en az {{ min }} adresini içermelidir.",
             "accept_compliance_rules_info": "<p><strong>Bunu beyan ederim:</strong></p><ul><li>Parayı sadece bu faaliyet için kullanıyorum;</li><li>Parayı programın kurallarına uygun olarak kullanıyorum;</li><li>Parayı doğru kullanmadığım takdirde geri ödemem gerektiğini anlıyorum.</li></ul>",
             "accept_compliance_rules": "Yukarıdaki hüküm ve koşulları kabul ediyorum.",
-            "warning_no_partial_amounts": "Bu kredi için herhangi bir ödeme tutarı mevcut değildir."
+            "warning_no_partial_amounts": "Bu kredi için herhangi bir ödeme tutarı mevcut değildir.",
+            "partial_amount_option_person_single": "{{amount}} ({{persons}} kişi için)",
+            "partial_amount_option_person_multiple": "{{amount}} ({{persons}} kişi için)"
         }
     },
     "vouchers": {

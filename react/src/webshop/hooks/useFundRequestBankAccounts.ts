@@ -24,9 +24,7 @@ export default function useFundRequestBankAccounts() {
         fetchProfile();
     }, [authIdentity?.profile, fetchProfile]);
 
-    const fundRequestAccounts = useMemo(() => {
+    return useMemo(() => {
         return (bankAccounts || []).filter((account) => account.type === 'fund_request');
     }, [bankAccounts]);
-
-    return { bankAccounts, fundRequestAccounts };
 }
