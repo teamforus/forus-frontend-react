@@ -3511,7 +3511,9 @@
             "warning_not_enough_amount_min": "Ce crédit doit comprendre au moins {{ min }} pour un paiement.",
             "accept_compliance_rules_info": "<p><strong>Je déclare que :</strong></p><ul><li>J'utilise l'argent uniquement pour cette activité ;</li><li>J'utilise l'argent conformément aux règles du programme ;</li><li>Je comprends que je dois rembourser l'argent si je ne l'utilise pas correctement.</li></ul>",
             "accept_compliance_rules": "J'accepte les termes et conditions ci-dessus.",
-            "warning_no_partial_amounts": "Aucun montant de remboursement n'est disponible pour ce crédit."
+            "warning_no_partial_amounts": "Aucun montant de remboursement n'est disponible pour ce crédit.",
+            "partial_amount_option_person_single": "{{amount}} (pour {{persons}} personne)",
+            "partial_amount_option_person_multiple": "{{amount}} (pour {{persons}} personnes)"
         }
     },
     "vouchers": {

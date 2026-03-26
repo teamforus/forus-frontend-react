@@ -1856,7 +1856,9 @@
             "warning_not_enough_amount_min": "This credit must include a minimum of {{ min }} for a payout.",
             "accept_compliance_rules_info": "<p><strong>I declare that:</strong></p><ul><li>I am using the money only for this activity;</li><li>I am using the money according to the rules of the scheme;</li><li>I understand that I must repay the money if I do not use it correctly.</li></ul>",
             "accept_compliance_rules": "I agree to the above terms and conditions.",
-            "warning_no_partial_amounts": "There is no payout amount available for this credit."
+            "warning_no_partial_amounts": "There is no payout amount available for this credit.",
+            "partial_amount_option_person_single": "{{amount}} (for {{persons}} person)",
+            "partial_amount_option_person_multiple": "{{amount}} (for {{persons}} persons)"
         }
     },
     "vouchers": {

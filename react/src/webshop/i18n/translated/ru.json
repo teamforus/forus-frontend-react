@@ -3511,7 +3511,9 @@
             "warning_not_enough_amount_min": "Этот кредит должен включать в себя как минимум {{ min }} для выплаты.",
             "accept_compliance_rules_info": "<p><strong>Я заявляю, что:</strong></p><ul><li>Я использую деньги только для этой деятельности;</li><li>Я использую деньги в соответствии с правилами программы;</li><li>Я понимаю, что должен вернуть деньги, если использую их неправильно.</li></ul>",
             "accept_compliance_rules": "Я согласен с вышеуказанными условиями и положениями.",
-            "warning_no_partial_amounts": "Сумма выплаты по этому кредиту не предусмотрена."
+            "warning_no_partial_amounts": "Сумма выплаты по этому кредиту не предусмотрена.",
+            "partial_amount_option_person_single": "{{amount}} (для {{persons}} человека)",
+            "partial_amount_option_person_multiple": "{{amount}} (для {{persons}} человека)"
         }
     },
     "vouchers": {
