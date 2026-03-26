@@ -6,6 +6,12 @@ import Media from './Media';
 import OrganizationBasic from './OrganizationBasic';
 import Product from './Product';
 
+export interface VoucherFundPayoutButtons {
+    vouchers: boolean;
+    payouts: boolean;
+    products: boolean;
+}
+
 export interface VoucherProduct {
     id?: number;
     name?: string;
@@ -66,7 +72,10 @@ export default interface Voucher {
     address?: string;
     fund_id: number;
     expired?: boolean;
-    fund: Fund & { voucher_payout_fixed_amount?: string | null };
+    fund: Fund & {
+        voucher_payout_fixed_amount?: string | null;
+        allow_voucher_payout_buttons?: VoucherFundPayoutButtons;
+    };
     type?: 'regular' | 'product';
     state?: string;
     state_locale?: string;
@@ -117,4 +126,5 @@ export default interface Voucher {
         iban_name: string;
     };
     voucher_payout_partial_amounts?: Array<string> | null;
+    voucher_payout_partial_amounts_label_type?: 'persons' | null;
 }

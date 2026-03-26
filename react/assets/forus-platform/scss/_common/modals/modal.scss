@@ -1,5 +1,7 @@
+@use "../includes/helpers";
+
 .modal {
-    @include fill_parent();
+    @include helpers.fill_parent();
     position: fixed;
     z-index: 20;
     display: flex;
@@ -7,7 +9,7 @@
     cursor: default;
 
     .modal-backdrop {
-        @include fill_parent();
+        @include helpers.fill_parent();
         cursor: pointer;
         background: rgba(#192734, 0.5);
     }
@@ -82,7 +84,7 @@
             min-height: 20px;
             overflow: auto;
             position: relative;
-            @include webkit_scrollbar();
+            @include helpers.webkit_scrollbar();
 
             .signup-layout {
                 padding-top: 0;
@@ -103,14 +105,14 @@
                     background-color: var(--color-primary-light);
                     border-radius: 50%;
                     opacity: 0.1;
-                    @include fill_parent();
+                    @include helpers.fill_parent();
                 }
             }
 
             .modal-section {
                 padding: 25px;
                 border-bottom: 1px solid #d4d9dd;
-                @include cf();
+                @include helpers.cf();
 
                 .modal-section-separator {
                     display: block;

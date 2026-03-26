@@ -1,6 +1,8 @@
+@use "../includes/helpers";
+
 .modal {
     --modal-section-padding: 20px;
-    @include fill_parent();
+    @include helpers.fill_parent();
     position: fixed;
     z-index: 20;
     display: flex;
@@ -9,7 +11,7 @@
     cursor: default;
 
     .modal-backdrop {
-        @include fill_parent();
+        @include helpers.fill_parent();
         cursor: pointer;
         background: rgba(#192734, 0.5);
     }
@@ -65,7 +67,7 @@
             .modal-header-title {
                 font: inherit;
                 margin: 0 0;
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
         }
 
@@ -76,7 +78,7 @@
             background-color: #fff;
             overflow: auto;
             min-height: 0;
-            @include webkit_scrollbar();
+            @include helpers.webkit_scrollbar();
 
             .modal-section {
                 display: flex;

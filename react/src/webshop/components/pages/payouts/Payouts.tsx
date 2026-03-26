@@ -15,11 +15,11 @@ import UIControlText from '../../../../dashboard/components/elements/forms/ui-co
 import useEnvData from '../../../hooks/useEnvData';
 import { useVoucherService } from '../../../services/VoucherService';
 import Voucher from '../../../../dashboard/props/models/Voucher';
-import usePayoutEligibleVouchers from '../vouchers-show/hooks/usePayoutEligibleVouchers';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
 import IconPayout from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-payout.svg';
 import useFundRequestBankAccounts from '../../../hooks/useFundRequestBankAccounts';
+import usePayoutButtonVouchers from '../../../hooks/usePayoutButtonVouchers';
 
 export default function Payouts() {
     const envData = useEnvData();
@@ -34,8 +34,8 @@ export default function Payouts() {
     const [payouts, setPayoutTransactions] = useState<PaginationData<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
-    const { fundRequestAccounts } = useFundRequestBankAccounts();
-    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers, fundRequestAccounts);
+    const fundRequestAccounts = useFundRequestBankAccounts();
+    const payoutPageEligibleVouchers = usePayoutButtonVouchers(vouchers, fundRequestAccounts, 'payouts');
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string }>(
         { q: '' },
@@ -62,9 +62,13 @@ export default function Payouts() {
 
     const openPayoutModal = useCallback(() => {
         openModal((modal) => (
-            <ModalVoucherPayout modal={modal} vouchers={payoutEligibleVouchers} onCreated={() => fetchTransactions()} />
+            <ModalVoucherPayout
+                modal={modal}
+                vouchers={payoutPageEligibleVouchers}
+                onCreated={() => fetchTransactions()}
+            />
         ));
-    }, [fetchTransactions, openModal, payoutEligibleVouchers]);
+    }, [fetchTransactions, openModal, payoutPageEligibleVouchers]);
 
     useEffect(() => {
         fetchTransactions();
@@ -125,7 +129,7 @@ export default function Payouts() {
                         </div>
                     )}
 
-                    {payouts?.data?.length > 0 && payoutEligibleVouchers?.length > 0 && (
+                    {payouts?.data?.length > 0 && payoutPageEligibleVouchers.length > 0 && (
                         <div
                             className="block block-action-card block-action-card-compact"
                             data-dusk="payoutsCreateCard">
@@ -160,17 +164,17 @@ export default function Payouts() {
                             dataDusk="payoutsEmptyBlock"
                             button={{
                                 text:
-                                    payoutEligibleVouchers?.length > 0
+                                    payoutPageEligibleVouchers.length > 0
                                         ? translate('payouts.empty.button_payout')
                                         : translate('payouts.empty.button'),
-                                icon: payoutEligibleVouchers?.length > 0 ? 'plus' : 'arrow-right',
-                                iconEnd: payoutEligibleVouchers?.length <= 0,
+                                icon: payoutPageEligibleVouchers.length > 0 ? 'plus' : 'arrow-right',
+                                iconEnd: payoutPageEligibleVouchers.length <= 0,
                                 type: 'primary',
                                 onClick: (e) => {
                                     e?.preventDefault();
                                     e?.stopPropagation();
 
-                                    if (payoutEligibleVouchers?.length > 0) {
+                                    if (payoutPageEligibleVouchers.length > 0) {
                                         openPayoutModal();
                                         return;
                                     }

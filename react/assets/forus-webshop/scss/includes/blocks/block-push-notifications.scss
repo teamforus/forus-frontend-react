@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-push-notifications {
     position: fixed;
     right: 25px;
@@ -169,7 +171,7 @@
             overflow-x: hidden;
             overflow-y: scroll;
             padding-right: 7px;
-            @include webkit_scrollbar();
+            @include helpers.webkit_scrollbar();
         }
     }
 
@@ -224,13 +226,13 @@
             .notification-title {
                 font: 700 18px/24px var(--base-font);
                 color: #191a1c;
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
 
             .notification-description {
                 font: 400 14px/18px var(--base-font);
                 color: #4f4f4f;
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
 
             .notification-button {

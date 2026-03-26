@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .button {
     display: inline-flex;
     width: fit-content;
@@ -234,8 +236,8 @@
         color: #fff;
 
         &:hover {
-            background: darken($color: #bf0a0a, $amount: 2.5);
-            border-color: darken($color: #bf0a0a, $amount: 2.5);
+            background: color.adjust(#bf0a0a, $lightness: -2.5%);
+            border-color: color.adjust(#bf0a0a, $lightness: -2.5%);
         }
     }
 
@@ -245,8 +247,8 @@
         color: #fff;
 
         &:hover {
-            background: darken($color: #2cc6ab, $amount: 2.5);
-            border-color: darken($color: #2cc6ab, $amount: 2.5);
+            background: color.adjust(#2cc6ab, $lightness: -2.5%);
+            border-color: color.adjust(#2cc6ab, $lightness: -2.5%);
         }
     }
 

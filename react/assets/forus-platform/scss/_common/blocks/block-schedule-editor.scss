@@ -1,5 +1,7 @@
+@use "../includes/helpers";
+
 .block.block-schedule-editor {
-    @include cf();
+    @include helpers.cf();
 
     .schedule-editor-heading {
         font: 500 16px/20px var(--base-font);

@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .modal.modal-pin-code {
     .modal-window {
         width: 820px;
@@ -11,7 +13,7 @@
         .modal-body {
             background-color: #fff;
             overflow: auto;
-            @include webkit_scrollbar();
+            @include helpers.webkit_scrollbar();
         }
 
         .app-instructions {

@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .map-card {
     --office-card-media-size: 120px;
     --office-card-padding: 15px;
@@ -168,6 +170,6 @@
     .gm-style-iw-d {
         overflow: auto !important;
         max-height: initial !important;
-        @include webkit_scrollbar();
+        @include helpers.webkit_scrollbar();
     }
 }

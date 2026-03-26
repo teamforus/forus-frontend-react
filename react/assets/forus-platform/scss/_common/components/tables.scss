@@ -1,5 +1,7 @@
+@use "../includes/helpers";
+
 .table-wrapper {
-    @include webkit_scrollbar_gray();
+    @include helpers.webkit_scrollbar_gray();
 
     .table-container {
         width: 100%;
@@ -13,13 +15,13 @@
             position: absolute;
             left: 0;
             top: 28px;
-            @include webkit_scrollbar_table();
+            @include helpers.webkit_scrollbar_table();
         }
 
         .table-scroll {
             overflow: auto;
             z-index: 1;
-            @include webkit_scrollbar_table();
+            @include helpers.webkit_scrollbar_table();
 
             thead {
                 tr {
@@ -531,7 +533,7 @@
                         flex: 1 1 auto;
                         flex-direction: column;
                         justify-content: center;
-                        @include ellipsis();
+                        @include helpers.ellipsis();
                         display: flex;
                     }
 
@@ -652,7 +654,7 @@
 
     &.table-wrapper-scroll {
         overflow: auto;
-        @include webkit_scrollbar_table();
+        @include helpers.webkit_scrollbar_table();
     }
 
     @media screen and (max-width: 1000px) {

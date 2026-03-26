@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-pre-checks-blocks-editor {
     display: flex;
     flex-direction: column;
@@ -22,7 +24,7 @@
                 font: 700 14px/30px var(--base-font);
                 margin: 0 0;
                 transition: line-height 0.4s;
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
 
             .pre-check-item-header-drag {
@@ -177,13 +179,13 @@
                                     .pre-check-item-settings-item-fund-title {
                                         font: 500 13px/16px var(--base-font);
                                         color: #151b26;
-                                        @include ellipsis_inline();
+                                        @include helpers.ellipsis_inline();
                                     }
 
                                     .pre-check-item-settings-item-fund-subtitle {
                                         font: 500 11px/14px var(--base-font);
                                         color: #646f79;
-                                        @include ellipsis_inline();
+                                        @include helpers.ellipsis_inline();
                                     }
                                 }
                             }

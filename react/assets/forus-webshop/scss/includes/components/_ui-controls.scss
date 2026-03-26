@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 :root {
     --form-font: 600 16px/24px var(--base-font);
     --form-padding: 14px 15px;
@@ -127,7 +129,7 @@
             font-size: 24px;
             line-height: 20px;
             transition: opacity .4s;
-            @include cf();
+            @include helpers.cf();
 
             &:hover {
                 opacity: 1;
@@ -188,7 +190,7 @@
         padding-right: 15px;
         padding-left: 30px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .ui-checkbox-box {
             float: left;

@@ -159,7 +159,7 @@ export default function ModalVoucherCreate({
                 .storeValidate(organization.id, data)
                 .then(() => {
                     if (!['email', 'bsn'].includes(assignType.key)) {
-                        return makeRequest();
+                        return confirmClientUidAndCreate(makeRequest);
                     }
 
                     if (assignType.key === 'email') {
@@ -175,17 +175,22 @@ export default function ModalVoucherCreate({
                                 modal.close();
 
                                 if (res.data.meta.total === 0) {
-                                    return makeRequest();
+                                    return confirmClientUidAndCreate(makeRequest);
                                 }
 
                                 confirmEmailSkip(
                                     [form.values.email],
                                     ({ list }) => {
                                         if (list.filter((email) => email.model).length > 0) {
-                                            makeRequest();
+                                            return confirmClientUidAndCreate(makeRequest);
                                         }
+
+                                        form.setIsLocked(false);
                                     },
-                                    () => pushDanger('Geannuleerd'),
+                                    () => {
+                                        form.setIsLocked(false);
+                                        pushDanger('Geannuleerd');
+                                    },
                                 );
                             });
                     }
@@ -203,17 +208,22 @@ export default function ModalVoucherCreate({
                                 modal.close();
 
                                 if (res.data.meta.total === 0) {
-                                    return makeRequest();
+                                    return confirmClientUidAndCreate(makeRequest);
                                 }
 
                                 confirmBsnSkip(
                                     [form.values.bsn],
                                     ({ list }) => {
                                         if (list.filter((bsn) => bsn.model).length > 0) {
-                                            makeRequest();
+                                            return confirmClientUidAndCreate(makeRequest);
                                         }
+
+                                        form.setIsLocked(false);
                                     },
-                                    () => pushDanger('Geannuleerd'),
+                                    () => {
+                                        form.setIsLocked(false);
+                                        pushDanger('Geannuleerd');
+                                    },
                                 );
                             });
                     }
@@ -230,6 +240,10 @@ export default function ModalVoucherCreate({
     );
 
     const { update: formUpdate } = form;
+
+    const normalizeValue = useCallback((value?: string) => {
+        return value?.trim() || null;
+    }, []);
 
     const confirmEmailSkip = useCallback(
         (
@@ -281,6 +295,89 @@ export default function ModalVoucherCreate({
             ));
         },
         [openModal],
+    );
+
+    const confirmClientUidSkip = useCallback(
+        (
+            existingClientUids: Array<string>,
+            onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
+            onCancel = () => null,
+        ) => {
+            const items = existingClientUids.map((clientUid: string) => ({ value: clientUid }));
+
+            openModal((modal) => (
+                <ModalDuplicatesPicker
+                    modal={modal}
+                    hero_title={'Dubbele nummers gedetecteerd.'}
+                    hero_subtitle={[
+                        `Weet u zeker dat u voor ${items.length} klantnummer(s) een extra tegoed wilt aanmaken?`,
+                        'Deze klantnummer(s) bezitten al een tegoed van dit fonds.',
+                    ]}
+                    enableToggles={true}
+                    items={items}
+                    onConfirm={onConfirm}
+                    onCancel={onCancel}
+                />
+            ));
+        },
+        [openModal],
+    );
+
+    const confirmClientUidAndCreate = useCallback(
+        (onConfirm: () => void) => {
+            const clientUid = normalizeValue(form.values.client_uid);
+
+            if (!clientUid) {
+                return onConfirm();
+            }
+
+            voucherService
+                .index(organization.id, {
+                    type: form.values.type == 'vouchers' ? 'fund_voucher' : 'product_voucher',
+                    client_uid: clientUid,
+                    fund_id: fund.id,
+                    source: 'all',
+                    expired: 0,
+                })
+                .then((res) => {
+                    if (res.data.meta.total === 0) {
+                        return onConfirm();
+                    }
+
+                    modal.close();
+
+                    confirmClientUidSkip(
+                        [clientUid],
+                        ({ list }) => {
+                            if (list.filter((clientUid) => clientUid.model).length > 0) {
+                                return onConfirm();
+                            }
+
+                            form.setIsLocked(false);
+                        },
+                        () => {
+                            form.setIsLocked(false);
+                            pushDanger('Geannuleerd');
+                        },
+                    );
+                })
+                .catch((err: ResponseError) => {
+                    pushApiError(err);
+                    form.setErrors(err.data.errors);
+                    form.setIsLocked(false);
+                });
+        },
+        [
+            confirmClientUidSkip,
+            form,
+            fund.id,
+            modal,
+            normalizeValue,
+            organization.id,
+            pushApiError,
+            pushDanger,
+            voucherService,
+        ],
     );
 
     const fetchProducts = useCallback(() => {
@@ -355,7 +452,8 @@ export default function ModalVoucherCreate({
                 'modal-voucher-create',
                 modal.loading && 'modal-loading',
                 className,
-            )}>
+            )}
+            data-dusk="modalVoucherCreate">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -439,6 +537,7 @@ export default function ModalVoucherCreate({
                                             <input
                                                 type={'number'}
                                                 className="form-control"
+                                                data-dusk="voucherCreateAmount"
                                                 placeholder={translate('modals.modal_voucher_create.labels.amount')}
                                                 value={form.values.amount || ''}
                                                 step=".01"
@@ -483,6 +582,7 @@ export default function ModalVoucherCreate({
                                                 <SelectControl
                                                     value={assignType}
                                                     propValue={'label'}
+                                                    dusk={'voucherCreateAssignType'}
                                                     onChange={setAssignType}
                                                     options={assignTypes}
                                                     allowSearch={false}
@@ -521,6 +621,7 @@ export default function ModalVoucherCreate({
                                                 </div>
                                                 <input
                                                     className="form-control"
+                                                    data-dusk="voucherCreateAssignInput"
                                                     placeholder={assignType.inputLabel}
                                                     value={form.values[assignType.key] || ''}
                                                     onChange={(e) => form.update({ [assignType.key]: e.target.value })}
@@ -574,6 +675,7 @@ export default function ModalVoucherCreate({
 
                                             <input
                                                 className="form-control"
+                                                data-dusk="voucherCreateClientUid"
                                                 placeholder={translate('modals.modal_voucher_create.labels.client_uid')}
                                                 value={form.values.client_uid || ''}
                                                 onChange={(e) => form.update({ client_uid: e.target.value })}
@@ -750,7 +852,7 @@ export default function ModalVoucherCreate({
                         {translate('modals.modal_voucher_create.buttons.cancel')}
                     </button>
 
-                    <button type="submit" className="button button-primary">
+                    <button type="submit" className="button button-primary" data-dusk="voucherCreateSubmit">
                         {translate('modals.modal_voucher_create.buttons.submit')}
                     </button>
                 </div>

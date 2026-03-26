@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-table-settings {
     display: flex;
     border-bottom: 1px solid var(--border-color);
@@ -38,7 +40,7 @@
             }
 
             .table-setting-name {
-                @include ellipsis();
+                @include helpers.ellipsis();
                 font: 600 14px/21px var(--base-font);
                 color: #646f79;
             }
@@ -74,7 +76,7 @@
         z-index: 1;
         display: flex;
         flex: 1 1 auto;
-        @include webkit_scrollbar_horizontal();
+        @include helpers.webkit_scrollbar_horizontal();
 
         .table-settings-tooltip-list {
             display: flex;

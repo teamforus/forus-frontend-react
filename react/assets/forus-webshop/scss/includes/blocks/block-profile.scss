@@ -1,5 +1,7 @@
+@use "../includes/helpers";
+
 .block.block-profile {
-    @include cf();
+    @include helpers.cf();
 
     .profile-aside {
         width: 25%;

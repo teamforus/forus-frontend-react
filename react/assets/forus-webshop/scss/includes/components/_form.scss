@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 :root {
     --form-font: 500 16px/24px var(--base-font);
     --form-padding: 14px 15px;
@@ -273,7 +275,7 @@
             overflow: auto;
             max-height: calc(var(--option-height) * 5);
             margin-bottom: 30px;
-            @include webkit_scrollbar_gray();
+            @include helpers.webkit_scrollbar_gray();
 
             .select-control-option {
                 padding: calc(calc(var(--option-height) - 20px) / 2) 15px
@@ -539,52 +541,61 @@
 
     .range-control {
         display: block;
-        position: relative;
         padding-bottom: 25px;
+        position: relative;
+        padding-left: 10px;
+        padding-right: 10px;
 
-        .horizontal-slider {
-            position: relative;
+        .range-control-slider {
             border-radius: var(--border-radius);
             height: 24px;
+            padding: 0;
         }
 
-        .horizontal-slider-track {
-            top: 10px;
-            bottom: 10px;
+        .rc-slider-rail,
+        .rc-slider-track {
             border-radius: 999px;
-            background: #c0c5d4;
-
-            &.horizontal-slider-track-1 {
-                background: var(--color-primary);
-            }
+            height: 4px;
+            top: 10px;
         }
 
-        .horizontal-slider-thumb {
-            line-height: 25px;
-            text-align: center;
-            background-color: rgb(0, 0, 0);
-            border-radius: 50%;
-            cursor: grab;
-            display: block;
-            height: 24px;
-            width: 24px;
+        .rc-slider-rail {
+            background: #c0c5d4;
+        }
+
+        .rc-slider-track {
+            background: var(--color-primary);
+        }
+
+        .rc-slider-handle {
             background: var(--color-primary);
             border: 4px solid #fff;
+            box-shadow: none;
+            cursor: grab;
+            height: 24px;
+            margin-top: 0;
+            opacity: 1;
+            width: 24px;
 
-            .horizontal-slider-thumb-text {
-                position: absolute;
-                white-space: nowrap;
+            &:active,
+            &:focus-visible {
+                box-shadow: none;
+            }
+
+            .range-control-thumb-text {
+                font: 700 14px/20px var(--base-font);
                 left: 50%;
+                position: absolute;
                 top: 100%;
                 transform: translate(-50%, 7px);
-                font: 700 14px/20px var(--base-font);
+                white-space: nowrap;
             }
         }
     }
 
     .form-group {
         margin-bottom: 10px;
-        @include cf();
+        @include helpers.cf();
 
         .checkbox-label {
             display: inline-block;
@@ -618,7 +629,7 @@
         display: inline-block;
         padding: 5px 15px 0 20px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .checkbox-box {
             float: left;
@@ -678,7 +689,7 @@
         padding-right: 15px;
         padding-left: 30px;
         vertical-align: middle;
-        @include cf();
+        @include helpers.cf();
 
         .radio-circle {
             float: left;
@@ -855,7 +866,7 @@
                     position: relative;
 
                     .icon-disabled {
-                        @include fill_parent();
+                        @include helpers.fill_parent();
 
                         &:before,
                         &:after {

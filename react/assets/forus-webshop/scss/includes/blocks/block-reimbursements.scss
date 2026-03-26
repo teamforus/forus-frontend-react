@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .block.block-reimbursements {
     margin-bottom: 30px;
 
@@ -51,7 +53,7 @@
                 opacity: 0;
                 transition: opacity 0.4s;
                 width: 100%;
-                @include fill_parent();
+                @include helpers.fill_parent();
             }
 
             &.reimbursement-image-draft {
@@ -90,7 +92,7 @@
                 font: 700 18px/22px var(--heading-font-family);
                 margin: 0 0 5px;
                 color: #00122a;
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
 
             .reimbursement-organization {
@@ -261,7 +263,7 @@
                 .reimbursement-name {
                     font: 700 16px/24px var(--base-font);
                     margin: 0 0 0;
-                    @include ellipsis();
+                    @include helpers.ellipsis();
                 }
 
                 .reimbursement-organization {

@@ -12,12 +12,20 @@ export default function ModalReimbursementCategoriesEdit({
     onClose?: () => void;
     className?: string;
 }) {
-    const reimbursementsBlock = useRef<() => Promise<boolean>>();
+    const reimbursementsBlock = useRef<(() => Promise<boolean>) | null>(null);
     const [showModal, setShowModal] = useState(true);
 
     const createCategory = useCallback(() => {
         setShowModal(false);
-        reimbursementsBlock.current().then(() => setShowModal(true));
+
+        const createCategoryPromise = reimbursementsBlock.current?.();
+
+        if (createCategoryPromise) {
+            createCategoryPromise.then(() => setShowModal(true));
+            return;
+        }
+
+        setShowModal(true);
     }, []);
 
     const closeModal = useCallback(() => {

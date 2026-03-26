@@ -56,7 +56,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
     const navigateState = useNavigateState();
 
     const last401ErrorThreshold = useState<number>(10000)[0];
-    const last401ErrorTime = useRef<number>();
+    const last401ErrorTime = useRef<number | null>(null);
 
     const signOut = useCallback(
         (

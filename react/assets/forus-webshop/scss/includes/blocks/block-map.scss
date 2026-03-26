@@ -1,7 +1,9 @@
+@use "../includes/helpers";
+
 .block.block-map {
     background: url(./assets/img/sprite-map.png) no-repeat 100% 50%;
     background-size: auto 710px;
-    @include cf();
+    @include helpers.cf();
 
     .block-content {
         padding: 130px 0;

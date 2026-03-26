@@ -1,3 +1,5 @@
+@use "../includes/helpers";
+
 .select-control.select-control-organizations {
     --control-height: 50px;
     --control-line-height: 24px;
@@ -21,7 +23,7 @@
             padding-right: 6px;
             width: 40px;
             float: left;
-            @include cf();
+            @include helpers.cf();
 
             & > img,
             & > svg {
@@ -49,14 +51,14 @@
             position: relative;
             z-index: 101;
             border: 1px solid #d4d9dd;
-            @include cf();
+            @include helpers.cf();
 
             .select-control-search-icon,
             .select-control-search-clear {
                 padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
                 display: block;
                 float: left;
-                @include cf();
+                @include helpers.cf();
 
                 .mdi,
                 img {
@@ -154,7 +156,7 @@
                 font: 500 13px / var(--control-line-height) var(--base-font);
                 padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
                 width: calc(100% - 75px);
-                @include ellipsis();
+                @include helpers.ellipsis();
             }
 
             .select-control-icon {
@@ -200,7 +202,7 @@
                 padding: 8px 0;
                 max-height: calc(calc(var(--control-option-height) * 10) + 12px);
                 overflow: auto;
-                @include webkit_scrollbar(#009ef4, 3px solid #fff);
+                @include helpers.webkit_scrollbar(#009ef4, 3px solid #fff);
 
                 .select-control-option {
                     display: block;
@@ -212,7 +214,7 @@
                     border: 0;
                     overflow: initial;
                     position: relative;
-                    @include cf();
+                    @include helpers.cf();
 
                     .select-control-logo {
                         height: var(--control-option-height);
@@ -225,7 +227,7 @@
                         font-size: 12px;
                         line-height: calc(var(--control-option-height) - 10px);
                         padding: 5px 0;
-                        @include ellipsis();
+                        @include helpers.ellipsis();
                     }
 
                     &:hover {
