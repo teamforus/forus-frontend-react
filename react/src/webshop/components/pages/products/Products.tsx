@@ -27,12 +27,48 @@ import ProductsFilterGroupPrice from './elements/ProductsFilterGroupPrice';
 import ProductsFilterGroupFunds from './elements/ProductsFilterGroupFunds';
 import ProductsFilterGroupProviders from './elements/ProductsFilterGroupProviders';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLabelFilters from '../../../hooks/useLabelFilters';
+import useRootProductCategories from './hooks/useRootProductCategories';
+import Organization from '../../../../dashboard/props/models/Organization';
+import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
+import { useFundService } from '../../../services/FundService';
+import Fund from '../../../props/models/Fund';
+
+export type BaseTypeFilterProducts = {
+    fund_ids: number[];
+    organization_id: number;
+    product_category_ids: number[];
+    postcode: string;
+    distance: number;
+    from: number;
+    to: number;
+    qr?: boolean;
+    reservation?: boolean;
+    extra_payment?: boolean;
+    regular?: boolean;
+    discount_fixed?: boolean;
+    discount_percentage?: boolean;
+    free?: boolean;
+    informational?: boolean;
+    payout?: boolean;
+};
+
+export type TypeFilterProducts = BaseTypeFilterProducts & {
+    q: string;
+    page: number;
+    bookmarked: boolean;
+    display_type: 'list' | 'grid';
+    order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
+    order_dir: 'asc' | 'desc';
+};
 
 export default function Products() {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
 
+    const fundService = useFundService();
     const productService = useProductService();
+    const organizationService = useOrganizationService();
 
     const setTitle = useSetTitle();
     const translate = useTranslate();
@@ -43,6 +79,10 @@ export default function Products() {
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
 
     const [toMax, setToMax] = useState(0);
+
+    const [funds, setFunds] = useState<Array<Fund>>(null);
+    const [providers, setProviders] = useState<Array<Organization>>(null);
+    const { productCategoriesIconMap, productCategories } = useRootProductCategories();
 
     const activeFetchListRef = useRef<XMLHttpRequest | null>(null);
 
@@ -55,30 +95,7 @@ export default function Products() {
         });
     }, [appConfigs?.products_default_sorting, sortByOptions]);
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
-        q: string;
-        page: number;
-        fund_ids: number[];
-        organization_id: number;
-        product_category_ids: number[];
-        postcode: string;
-        distance: number;
-        from: number;
-        to: number;
-        qr?: boolean;
-        reservation?: boolean;
-        extra_payment?: boolean;
-        bookmarked: boolean;
-        display_type: 'list' | 'grid';
-        order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
-        order_dir: 'asc' | 'desc';
-        regular?: boolean;
-        discount_fixed?: boolean;
-        discount_percentage?: boolean;
-        free?: boolean;
-        informational?: boolean;
-        payout?: boolean;
-    }>(
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<TypeFilterProducts>(
         {
             q: '',
             page: 1,
@@ -132,6 +149,8 @@ export default function Products() {
             filterParams: ['display_type'],
         },
     );
+
+    const { labelsBlock } = useLabelFilters(filter, productCategories, funds, providers, null, toMax);
 
     const countFiltersApplied = useMemo(() => {
         return [
@@ -234,6 +253,32 @@ export default function Products() {
         [productService, setProgress],
     );
 
+    const fetchProviders = useCallback(() => {
+        setProgress(0);
+
+        organizationService
+            .list({ type: 'provider', per_page: 300, order_by: 'name' })
+            .then((res) => setProviders(res.data.data))
+            .then(() => setProgress(100));
+    }, [organizationService, setProgress]);
+
+    const fetchFunds = useCallback(() => {
+        setProgress(0);
+
+        fundService
+            .list({ has_providers: 1 })
+            .then((res) => setFunds(res.data.data))
+            .finally(() => setProgress(100));
+    }, [fundService, setProgress]);
+
+    useEffect(() => {
+        fetchFunds();
+    }, [fetchFunds]);
+
+    useEffect(() => {
+        fetchProviders();
+    }, [fetchProviders]);
+
     useEffect(() => {
         fetchProducts(buildQuery(filterValuesActive));
 
@@ -306,14 +351,19 @@ export default function Products() {
                         )}
                     />
 
+                    {labelsBlock}
+
                     <ProductsFilterGroupProductCategories
                         value={filterValues?.product_category_ids}
                         setValue={(product_category_ids) => filterUpdate({ product_category_ids })}
                         openByDefault={true}
+                        productCategories={productCategories}
+                        productCategoriesIconMap={productCategoriesIconMap}
                     />
 
                     <ProductsFilterGroupFunds
                         value={filterValues?.fund_ids}
+                        funds={funds}
                         setValue={(fund_ids) => filterUpdate({ fund_ids })}
                         openByDefault={true}
                         error={errors?.fund_ids}

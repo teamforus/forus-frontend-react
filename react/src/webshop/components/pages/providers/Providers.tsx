@@ -27,13 +27,37 @@ import FormGroup from '../../elements/forms/FormGroup';
 import ProductsFilterGroupFunds from '../products/elements/ProductsFilterGroupFunds';
 import ProvidersFilterGroupBusinessTypes from '../products/elements/ProvidersFilterGroupBusinessTypes';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useRootProductCategories from '../products/hooks/useRootProductCategories';
+import Fund from '../../../props/models/Fund';
+import { useFundService } from '../../../services/FundService';
+import useLabelFilters from '../../../hooks/useLabelFilters';
+import BusinessType from '../../../../dashboard/props/models/BusinessType';
+import { useBusinessTypeService } from '../../../../dashboard/services/BusinessTypeService';
+
+export type BaseTypeFilterProviders = {
+    fund_ids?: number[];
+    business_type_id?: number;
+    product_category_ids?: number[];
+    postcode?: string;
+    distance?: number;
+};
+
+export type TypeFilterProviders = BaseTypeFilterProviders & {
+    q?: string;
+    page?: number;
+    show_map?: boolean;
+    order_by?: 'name';
+    order_dir?: 'asc' | 'desc';
+};
 
 export default function Providers() {
     const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const setProgress = useSetProgress();
 
+    const fundService = useFundService();
     const providersService = useProviderService();
+    const businessTypeService = useBusinessTypeService();
 
     const [sortByOptions] = useState<
         Array<{
@@ -50,23 +74,14 @@ export default function Providers() {
 
     const [offices, setOffices] = useState<Array<Office>>(null);
     const [providers, setProviders] = useState<PaginationData<Provider>>(null);
+    const [funds, setFunds] = useState<Array<Fund>>(null);
+    const [businessTypes, setBusinessTypes] = useState<Array<BusinessType>>(null);
 
     const [showProviderSignUp, setShowProviderSignUp] = useState(false);
 
-    type ProviderFilters = {
-        q?: string;
-        page?: number;
-        fund_ids?: number[];
-        business_type_id?: number;
-        product_category_ids?: number[];
-        postcode?: string;
-        distance?: number;
-        show_map?: boolean;
-        order_by?: 'name';
-        order_dir?: 'asc' | 'desc';
-    };
+    const { productCategoriesIconMap, productCategories } = useRootProductCategories();
 
-    const [filterValues, filterActiveValues, filterUpdate] = useFilterNext<ProviderFilters>(
+    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<TypeFilterProviders>(
         {
             q: '',
             page: 1,
@@ -96,8 +111,10 @@ export default function Providers() {
         },
     );
 
+    const { labelsBlock } = useLabelFilters(filter, productCategories, funds, null, businessTypes);
+
     const buildQuery = useCallback(
-        (values: ProviderFilters) => ({
+        (values: TypeFilterProviders) => ({
             q: values.q,
             page: values.page,
             fund_ids: values.fund_ids?.length > 0 ? values.fund_ids : null,
@@ -118,7 +135,7 @@ export default function Providers() {
     }, [filterActiveValues]);
 
     const fetchProviders = useCallback(
-        (query: ProviderFilters) => {
+        (query: TypeFilterProviders) => {
             setErrors(null);
             setProgress(0);
 
@@ -147,6 +164,32 @@ export default function Providers() {
         },
         [providersService, setProgress],
     );
+
+    const fetchBusinessTypes = useCallback(() => {
+        setProgress(0);
+
+        businessTypeService
+            .list({ parent_id: 'null', per_page: 9999, used: 1 })
+            .then((res) => setBusinessTypes(res.data.data))
+            .finally(() => setProgress(100));
+    }, [businessTypeService, setProgress]);
+
+    const fetchFunds = useCallback(() => {
+        setProgress(0);
+
+        fundService
+            .list({ has_providers: 1 })
+            .then((res) => setFunds(res.data.data))
+            .finally(() => setProgress(100));
+    }, [fundService, setProgress]);
+
+    useEffect(() => {
+        fetchFunds();
+    }, [fetchFunds]);
+
+    useEffect(() => {
+        fetchBusinessTypes();
+    }, [fetchBusinessTypes]);
 
     useEffect(() => {
         if (filterValues.show_map) {
@@ -190,14 +233,19 @@ export default function Providers() {
                             )}
                         />
 
+                        {labelsBlock}
+
                         <ProductsFilterGroupProductCategories
                             value={filterValues?.product_category_ids}
                             setValue={(ids) => filterUpdate({ product_category_ids: ids })}
                             openByDefault={true}
+                            productCategories={productCategories}
+                            productCategoriesIconMap={productCategoriesIconMap}
                         />
 
                         <ProductsFilterGroupFunds
                             value={filterValues?.fund_ids}
+                            funds={funds}
                             setValue={(fund_ids) => filterUpdate({ fund_ids })}
                             openByDefault={true}
                             error={errors?.fund_ids}
@@ -206,6 +254,7 @@ export default function Providers() {
 
                         <ProvidersFilterGroupBusinessTypes
                             value={filterValues?.business_type_id}
+                            businessTypes={businessTypes}
                             setValue={(value) => filterUpdate({ business_type_id: value })}
                             error={errors?.business_type_id}
                         />

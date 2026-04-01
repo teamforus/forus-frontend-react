@@ -1,3 +1,9 @@
+.label-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
 .label {
     font: 600 11px/18px var(--base-font);
     display: flex;
@@ -14,6 +20,10 @@
         font-size: 14px;
         line-height: inherit;
         cursor: inherit;
+
+        &.clickable {
+            cursor: pointer;
+        }
     }
 
     .label-blink {
@@ -59,6 +69,11 @@
     &.label-primary {
         color: var(--label-primary-color);
         background: var(--label-primary-background);
+    }
+
+    &.label-primary-light {
+        color: #1572af;
+        background: #def1fb;
     }
 
     &.label-light {

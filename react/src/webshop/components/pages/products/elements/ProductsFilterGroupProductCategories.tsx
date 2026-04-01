@@ -3,19 +3,22 @@ import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import useRootProductCategories from '../hooks/useRootProductCategories';
+import ProductCategory from '../../../../../dashboard/props/models/ProductCategory';
 
 export default function ProductsFilterGroupProductCategories({
     value,
     setValue,
     openByDefault = false,
+    productCategoriesIconMap,
+    productCategories,
 }: {
     value: number[];
     setValue: (selected: number[]) => void;
     openByDefault?: boolean;
+    productCategoriesIconMap?: object;
+    productCategories: Array<ProductCategory>;
 }) {
     const translate = useTranslate();
-    const { productCategoriesIconMap, productCategories } = useRootProductCategories();
 
     if (productCategoriesIconMap === null) {
         return (

@@ -34,6 +34,7 @@ export default {
         all_providers: 'Selecteer aanbieder...',
         all_categories: 'Selecteer categorie...',
         all_sub_categories: 'Selecteer subcategorie...',
+        active_filters: 'Active filters',
     },
     sort: {
         created_at_desc: 'Nieuwe eerst',
@@ -58,5 +59,30 @@ export default {
     view: {
         list: 'Lijst',
         grid: "Foto's",
+    },
+    active_filters: {
+        reset_all: 'Verwijder alle filters',
+        distances: {
+            everywhere: 'Overal',
+            3: 'tot 3 km',
+            5: 'tot 5 km',
+            10: 'tot 10 km',
+            15: 'tot 15 km',
+            25: 'tot 25 km',
+            50: 'tot 50 km',
+            75: 'tot 75 km',
+        },
+        price_type_option: {
+            info: 'Aanbod: Lees meer over de soorten aanbod',
+            regular: 'Aanbod: Prijs',
+            discount_fixed: 'Aanbod: Korting in euro',
+            discount_percentage: 'Aanbod: Korting in procenten',
+            free: 'Aanbod: Gratis',
+            informational: 'Aanbod: Alleen in winkel',
+            payout: 'Aanbod: Uitbetaling naar bankrekening',
+        },
+        price: {
+            to: 'tot',
+        },
     },
 };
