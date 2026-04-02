@@ -37,7 +37,14 @@ export default {
             description: 'U kunt zich niet aanmelden voor {{name}}.',
             contacts: 'Neem contact op met {{name}}.',
         },
-        taken_by_partner: {
+        taken_by_partner_voucher: {
+            title: 'Dit tegoed is al geactiveerd',
+            heading: 'Aanvraag mislukt',
+            description:
+                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+            contacts: 'Neem voor vragen contact op met {{name}}.',
+        },
+        taken_by_partner_pending_fund_request: {
             title: 'Dit tegoed is al geactiveerd',
             heading: 'Aanvraag mislukt',
             description:
