@@ -1,8 +1,7 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useProductService } from '../../../services/ProductService';
 import { PaginationData, ResponseError } from '../../../../dashboard/props/ApiResponses';
 import Product from '../../../props/models/Product';
-import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
@@ -27,6 +26,7 @@ import ProductsFilterGroupPrice from './elements/ProductsFilterGroupPrice';
 import ProductsFilterGroupFunds from './elements/ProductsFilterGroupFunds';
 import ProductsFilterGroupProviders from './elements/ProductsFilterGroupProviders';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Products() {
     const appConfigs = useAppConfigs();
@@ -36,15 +36,11 @@ export default function Products() {
 
     const setTitle = useSetTitle();
     const translate = useTranslate();
-    const setProgress = useSetProgress();
-
-    const [sortByOptions] = useState(productService.getSortOptions(translate));
-
-    const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [toMax, setToMax] = useState(0);
-
-    const activeFetchListRef = useRef<XMLHttpRequest | null>(null);
+    const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
+    const [sortByOptions] = useState(productService.getSortOptions(translate));
 
     const defaultSortOption = useMemo(() => {
         return sortByOptions?.find((option) => {
@@ -211,35 +207,21 @@ export default function Products() {
 
     const fetchProducts = useCallback(
         (query: object) => {
-            activeFetchListRef.current?.abort();
-
             setErrors(null);
-            setProgress(0);
 
-            productService
-                .list({ ...query }, { onXhr: (xhr: XMLHttpRequest) => (activeFetchListRef.current = xhr) })
-                .then((res) => {
+            runLatestRequest((config) => productService.list({ ...query }, config), {
+                onSuccess: (res) => {
                     setProducts(res.data);
                     setToMax((max) => Math.max(res.data?.meta?.price_max, max));
-                })
-                .catch((e: ResponseError) => {
-                    if (e?.status === 0) {
-                        return;
-                    }
-
-                    setErrors(e.data?.errors);
-                })
-                .finally(() => setProgress(100));
+                },
+                onError: (e: ResponseError) => setErrors(e.data?.errors),
+            });
         },
-        [productService, setProgress],
+        [productService, runLatestRequest],
     );
 
     useEffect(() => {
         fetchProducts(buildQuery(filterValuesActive));
-
-        return () => {
-            activeFetchListRef.current?.abort();
-        };
     }, [fetchProducts, buildQuery, filterValuesActive]);
 
     useEffect(() => {

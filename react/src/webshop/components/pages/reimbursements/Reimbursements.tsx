@@ -24,6 +24,7 @@ import classNames from 'classnames';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Reimbursements() {
     const envData = useEnvData();
@@ -33,6 +34,7 @@ export default function Reimbursements() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const voucherService = useVoucherService();
@@ -93,26 +95,32 @@ export default function Reimbursements() {
         setProgress(0);
 
         voucherService
-            .list({ allow_reimbursements: 1, implementation_key: envData.client_key, per_page: 100 })
+            .list({
+                allow_reimbursements: 1,
+                implementation_key: envData.client_key,
+                per_page: 100,
+            })
             .then((res) => setVouchers(res.data.data))
             .finally(() => setProgress(100));
     }, [voucherService, setProgress, envData]);
 
     const fetchReimbursements = useCallback(() => {
-        setProgress(0);
-
-        reimbursementService
-            .list({
-                ...filterValuesActive,
-                state: filterValuesActive.archived
-                    ? null
-                    : filterValuesActive.state === 'all'
-                      ? null
-                      : filterValuesActive.state,
-            })
-            .then((res) => setReimbursements(res.data))
-            .finally(() => setProgress(100));
-    }, [setProgress, reimbursementService, filterValuesActive]);
+        runLatestRequest(
+            (config) =>
+                reimbursementService.list(
+                    {
+                        ...filterValuesActive,
+                        state: filterValuesActive.archived
+                            ? null
+                            : filterValuesActive.state === 'all'
+                              ? null
+                              : filterValuesActive.state,
+                    },
+                    config,
+                ),
+            { onSuccess: (res) => setReimbursements(res.data) },
+        );
+    }, [reimbursementService, filterValuesActive, runLatestRequest]);
 
     useEffect(() => {
         fetchFunds();

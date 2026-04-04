@@ -1,10 +1,10 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { PaginationData, ResponseError } from '../../../../dashboard/props/ApiResponses';
-import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useAppConfigs from '../../../hooks/useAppConfigs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -31,9 +31,9 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 export default function Providers() {
     const translate = useTranslate();
     const appConfigs = useAppConfigs();
-    const setProgress = useSetProgress();
 
     const providersService = useProviderService();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [sortByOptions] = useState<
         Array<{
@@ -47,7 +47,6 @@ export default function Providers() {
     ]);
 
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
-
     const [offices, setOffices] = useState<Array<Office>>(null);
     const [providers, setProviders] = useState<PaginationData<Provider>>(null);
 
@@ -120,32 +119,28 @@ export default function Providers() {
     const fetchProviders = useCallback(
         (query: ProviderFilters) => {
             setErrors(null);
-            setProgress(0);
 
-            providersService
-                .search(query)
-                .then((res) => setProviders(res.data))
-                .catch((err: ResponseError) => setErrors(err.data.errors))
-                .finally(() => setProgress(100));
+            runLatestRequest((config) => providersService.search(query, config), {
+                onSuccess: (res) => setProviders(res.data),
+                onError: (err: ResponseError) => setErrors(err.data.errors),
+            });
         },
-        [providersService, setProgress],
+        [providersService, runLatestRequest],
     );
 
     const fetchProvidersMap = useCallback(
-        (query: object) => {
+        (query: ProviderFilters) => {
             setErrors(null);
-            setProgress(0);
 
-            providersService
-                .search({ ...query, per_page: 1000 })
-                .then((res) => {
+            runLatestRequest((config) => providersService.search({ ...query, per_page: 1000 }, config), {
+                onSuccess: (res) => {
                     setProviders(res.data);
                     setOffices(res.data.data.reduce((arr, provider) => arr.concat(provider.offices), []));
-                })
-                .catch((err: ResponseError) => setErrors(err.data.errors))
-                .finally(() => setProgress(100));
+                },
+                onError: (err: ResponseError) => setErrors(err.data.errors),
+            });
         },
-        [providersService, setProgress],
+        [providersService, runLatestRequest],
     );
 
     useEffect(() => {
