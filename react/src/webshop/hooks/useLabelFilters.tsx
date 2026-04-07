@@ -29,19 +29,19 @@ export default function useLabelFilters(
     const makeLabel = useCallback(
         (type: string, firstValue?: string | number, secondValue?: string | number): string => {
             if (type === 'category') {
-                return categories?.filter((category) => category.id === firstValue)[0].name || '';
+                return categories?.find((category) => category.id === firstValue)?.name || '';
             }
 
             if (type === 'business_type') {
-                return businessTypes?.filter((type) => type.id === firstValue)[0].name || '';
+                return businessTypes?.find((type) => type.id === firstValue)?.name || '';
             }
 
             if (type === 'fund') {
-                return funds?.filter((fund) => fund.id === firstValue)[0].name || '';
+                return funds?.find((fund) => fund.id === firstValue)?.name || '';
             }
 
             if (type === 'organization') {
-                return organizations?.filter((organization) => organization.id === firstValue)[0].name || '';
+                return organizations?.find((organization) => organization.id === firstValue)?.name || '';
             }
 
             if (type === 'postcode') {
@@ -76,29 +76,25 @@ export default function useLabelFilters(
     );
 
     const labels: Array<Label> = useMemo(() => {
-        if (!categories || !funds || !(organizations || businessTypes)) {
-            return [];
-        }
-
         const labels = [];
+
+        const pushLabel = (type: string, key?: string | number, label?: string) => {
+            if (!label) {
+                return;
+            }
+
+            labels.push({ type, key, label });
+        };
 
         if (filter.activeValues.product_category_ids) {
             filter.activeValues.product_category_ids.forEach((id) => {
-                labels.push({
-                    type: 'category',
-                    key: id,
-                    label: makeLabel('category', id),
-                });
+                pushLabel('category', id, makeLabel('category', id));
             });
         }
 
         if (filter.activeValues.fund_ids) {
             filter.activeValues.fund_ids.forEach((id) => {
-                labels.push({
-                    type: 'fund',
-                    key: id,
-                    label: makeLabel('fund', id),
-                });
+                pushLabel('fund', id, makeLabel('fund', id));
             });
         }
 
@@ -111,19 +107,19 @@ export default function useLabelFilters(
         }
 
         if (filter.activeValues.organization_id) {
-            labels.push({
-                type: 'organization',
-                key: filter.activeValues.organization_id,
-                label: makeLabel('organization', filter.activeValues.organization_id),
-            });
+            pushLabel(
+                'organization',
+                filter.activeValues.organization_id,
+                makeLabel('organization', filter.activeValues.organization_id),
+            );
         }
 
         if (filter.activeValues.business_type_id) {
-            labels.push({
-                type: 'business_type',
-                key: filter.activeValues.business_type_id,
-                label: makeLabel('business_type', filter.activeValues.business_type_id),
-            });
+            pushLabel(
+                'business_type',
+                filter.activeValues.business_type_id,
+                makeLabel('business_type', filter.activeValues.business_type_id),
+            );
         }
 
         if (filter.activeValues.from || (filter.activeValues.to && filter.activeValues.to !== priceMax)) {
@@ -170,7 +166,7 @@ export default function useLabelFilters(
         }
 
         return labels;
-    }, [filter.activeValues, categories, funds, organizations, businessTypes, priceMax, makeLabel]);
+    }, [filter.activeValues, makeLabel, priceMax]);
 
     const resetLabel = useCallback(
         (label: Label) => {
