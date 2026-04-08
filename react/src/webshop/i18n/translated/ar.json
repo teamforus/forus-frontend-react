@@ -436,7 +436,8 @@
             "payment_options": "خيارات الدفع",
             "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
             "price_to": "إلى",
-            "price_type_option_payout": "الدفع إلى الحساب البنكي"
+            "price_type_option_payout": "الدفع إلى الحساب البنكي",
+            "active_filters": "المرشحات النشطة"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -452,6 +453,31 @@
         "view": {
             "grid": "الصور",
             "list": "القائمة"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "حتى 3 كم",
+                "5": "حتى 5 كم",
+                "10": "حتى 10 كم",
+                "15": "حتى 15 كم",
+                "25": "حتى 25 كم",
+                "50": "حتى 50 كم",
+                "75": "حتى 75 كم",
+                "everywhere": "في كل مكان"
+            },
+            "price_type_option": {
+                "discount_fixed": "العرض: خصم باليورو",
+                "discount_percentage": "العرض: الخصم بالنسبة المئوية",
+                "free": "العرض: مجاناً",
+                "info": "العروض: اقرأ المزيد عن أنواع العروض",
+                "informational": "العرض: في المتجر فقط",
+                "payout": "العرض: الدفع إلى الحساب البنكي",
+                "regular": "العرض: السعر"
+            },
+            "price": {
+                "to": "إلى"
+            },
+            "reset_all": "إزالة جميع الفلاتر"
         }
     },
     "provider_sign_up": {
