@@ -1,5 +1,5 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../../dashboard/props/ApiResponses';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import { PaginationData, ResponseError, ResponseErrorData } from '../../../../dashboard/props/ApiResponses';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
@@ -15,134 +15,44 @@ import { GoogleMap } from '../../../../dashboard/components/elements/google-map/
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import Provider from '../../../props/models/Provider';
 import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
-import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
-import { BooleanParam, NumberParam, NumericArrayParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
-import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
-import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import classNames from 'classnames';
-import ProductsFilterGroupProductCategories from '../products/elements/ProductsFilterGroupProductCategories';
-import ProductsFilterGroupDistance from '../products/elements/ProductsFilterGroupDistance';
-import FormGroup from '../../elements/forms/FormGroup';
-import ProductsFilterGroupFunds from '../products/elements/ProductsFilterGroupFunds';
-import ProvidersFilterGroupBusinessTypes from '../products/elements/ProvidersFilterGroupBusinessTypes';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import useRootProductCategories from '../products/hooks/useRootProductCategories';
-import Fund from '../../../props/models/Fund';
-import { useFundService } from '../../../services/FundService';
-import useLabelFilters from '../../../hooks/useLabelFilters';
-import BusinessType from '../../../../dashboard/props/models/BusinessType';
-import { useBusinessTypeService } from '../../../../dashboard/services/BusinessTypeService';
-
-export type BaseTypeFilterProviders = {
-    fund_ids?: number[];
-    business_type_id?: number;
-    product_category_ids?: number[];
-    postcode?: string;
-    distance?: number;
-};
-
-export type TypeFilterProviders = BaseTypeFilterProviders & {
-    q?: string;
-    page?: number;
-    show_map?: boolean;
-    order_by?: 'name';
-    order_dir?: 'asc' | 'desc';
-};
+import useProvidersPageFilters from './hooks/useProvidersPageFilters';
+import ProvidersSidebarFilters from './elements/ProvidersSidebarFilters';
 
 export default function Providers() {
-    const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const setProgress = useSetProgress();
-
-    const fundService = useFundService();
+    const translate = useTranslate();
     const providersService = useProviderService();
-    const businessTypeService = useBusinessTypeService();
-
-    const [sortByOptions] = useState<
-        Array<{
-            id: number;
-            label: string;
-            value: { order_by: 'name'; order_dir: 'asc' | 'desc' };
-        }>
-    >([
-        { id: 1, label: translate('providers.sort.name_asc'), value: { order_by: 'name', order_dir: 'asc' } },
-        { id: 2, label: translate('providers.sort.name_desc'), value: { order_by: 'name', order_dir: 'desc' } },
-    ]);
-
-    const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
+    const [errors, setErrors] = useState<ResponseErrorData>({});
 
     const [offices, setOffices] = useState<Array<Office>>(null);
     const [providers, setProviders] = useState<PaginationData<Provider>>(null);
-    const [funds, setFunds] = useState<Array<Fund>>(null);
-    const [businessTypes, setBusinessTypes] = useState<Array<BusinessType>>(null);
-
-    const [showProviderSignUp, setShowProviderSignUp] = useState(false);
-
-    const { productCategoriesIconMap, productCategories } = useRootProductCategories();
-
-    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<TypeFilterProviders>(
-        {
-            q: '',
-            page: 1,
-            fund_ids: [],
-            business_type_id: null,
-            product_category_ids: [],
-            postcode: '',
-            distance: null,
-            show_map: false,
-            order_by: sortByOptions[0]?.value.order_by,
-            order_dir: sortByOptions[0]?.value.order_dir,
-        },
-        {
-            queryParams: {
-                q: StringParam,
-                page: NumberParam,
-                fund_ids: NumericArrayParam,
-                business_type_id: NumberParam,
-                product_category_ids: NumericArrayParam,
-                postcode: StringParam,
-                distance: NumberParam,
-                show_map: BooleanParam,
-                order_by: StringParam,
-                order_dir: StringParam,
-            },
-            filterParams: ['show_map'],
-        },
-    );
-
-    const { labelsBlock } = useLabelFilters(filter, productCategories, funds, null, businessTypes);
-
-    const buildQuery = useCallback(
-        (values: TypeFilterProviders) => ({
-            q: values.q,
-            page: values.page,
-            fund_ids: values.fund_ids?.length > 0 ? values.fund_ids : null,
-            business_type_id: values.business_type_id || null,
-            product_category_ids: values.product_category_ids?.length > 0 ? values.product_category_ids : null,
-            postcode: values.postcode || '',
-            distance: values.distance || null,
-            order_by: values.order_by || null,
-            order_dir: values.order_dir || null,
-        }),
-        [],
-    );
-
-    const countFiltersApplied = useMemo(() => {
-        return [filterActiveValues.q, filterActiveValues.fund_id, filterActiveValues.business_type_id].filter(
-            (value) => value,
-        ).length;
-    }, [filterActiveValues]);
+    const {
+        businessTypes,
+        countFiltersApplied,
+        filter,
+        filterUpdate,
+        filterValues,
+        funds,
+        productCategories,
+        productCategoriesIconMap,
+        providersQuery,
+        showProviderSignUp,
+        sortByOptions,
+    } = useProvidersPageFilters();
 
     const fetchProviders = useCallback(
-        (query: TypeFilterProviders) => {
-            setErrors(null);
+        (query: object) => {
+            setErrors({});
             setProgress(0);
 
             providersService
                 .search(query)
                 .then((res) => setProviders(res.data))
-                .catch((err: ResponseError) => setErrors(err.data.errors))
+                .catch((err: ResponseError) => setErrors(err.data.errors || {}))
                 .finally(() => setProgress(100));
         },
         [providersService, setProgress],
@@ -150,7 +60,7 @@ export default function Providers() {
 
     const fetchProvidersMap = useCallback(
         (query: object) => {
-            setErrors(null);
+            setErrors({});
             setProgress(0);
 
             providersService
@@ -159,45 +69,19 @@ export default function Providers() {
                     setProviders(res.data);
                     setOffices(res.data.data.reduce((arr, provider) => arr.concat(provider.offices), []));
                 })
-                .catch((err: ResponseError) => setErrors(err.data.errors))
+                .catch((err: ResponseError) => setErrors(err.data.errors || {}))
                 .finally(() => setProgress(100));
         },
         [providersService, setProgress],
     );
 
-    const fetchBusinessTypes = useCallback(() => {
-        setProgress(0);
-
-        businessTypeService
-            .list({ parent_id: 'null', per_page: 9999, used: 1 })
-            .then((res) => setBusinessTypes(res.data.data))
-            .finally(() => setProgress(100));
-    }, [businessTypeService, setProgress]);
-
-    const fetchFunds = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .list({ has_providers: 1 })
-            .then((res) => setFunds(res.data.data))
-            .finally(() => setProgress(100));
-    }, [fundService, setProgress]);
-
-    useEffect(() => {
-        fetchFunds();
-    }, [fetchFunds]);
-
-    useEffect(() => {
-        fetchBusinessTypes();
-    }, [fetchBusinessTypes]);
-
     useEffect(() => {
         if (filterValues.show_map) {
-            fetchProvidersMap(buildQuery(filterActiveValues));
+            fetchProvidersMap(providersQuery);
         } else {
-            fetchProviders(buildQuery(filterActiveValues));
+            fetchProviders(providersQuery);
         }
-    }, [filterActiveValues, fetchProvidersMap, fetchProviders, buildQuery, filterValues?.show_map]);
+    }, [fetchProvidersMap, fetchProviders, filterValues?.show_map, providersQuery]);
 
     return (
         <BlockShowcaseList
@@ -213,63 +97,17 @@ export default function Providers() {
             }
             aside={
                 <Fragment>
-                    <div className="showcase-aside-block">
-                        {filterValues.show_map && (
-                            <div className="showcase-subtitle">{translate('providers.filters.map_title')}</div>
-                        )}
-
-                        <FormGroup
-                            id={'providers_search'}
-                            label={translate('providers.filters.search')}
-                            error={errors?.q}
-                            input={(id) => (
-                                <UIControlText
-                                    id={id}
-                                    value={filterValues.q}
-                                    onChangeValue={(q) => filterUpdate({ q })}
-                                    ariaLabel={translate('providers.filters.search')}
-                                    dataDusk="listProvidersSearch"
-                                />
-                            )}
-                        />
-
-                        {labelsBlock}
-
-                        <ProductsFilterGroupProductCategories
-                            value={filterValues?.product_category_ids}
-                            setValue={(ids) => filterUpdate({ product_category_ids: ids })}
-                            openByDefault={true}
-                            productCategories={productCategories}
-                            productCategoriesIconMap={productCategoriesIconMap}
-                        />
-
-                        <ProductsFilterGroupFunds
-                            value={filterValues?.fund_ids}
-                            funds={funds}
-                            setValue={(fund_ids) => filterUpdate({ fund_ids })}
-                            openByDefault={true}
-                            error={errors?.fund_ids}
-                            setShowProviderSignUp={setShowProviderSignUp}
-                        />
-
-                        <ProvidersFilterGroupBusinessTypes
-                            value={filterValues?.business_type_id}
-                            businessTypes={businessTypes}
-                            setValue={(value) => filterUpdate({ business_type_id: value })}
-                            error={errors?.business_type_id}
-                        />
-
-                        <ProductsFilterGroupDistance values={filterValues} setValues={filterUpdate} errors={errors} />
-
-                        {filterValues.show_map && (
-                            <TranslateHtml
-                                component={<div />}
-                                className={'showcase-result'}
-                                i18n={'providers.filters.result'}
-                                values={{ total: providers?.meta?.total }}
-                            />
-                        )}
-                    </div>
+                    <ProvidersSidebarFilters
+                        errors={errors}
+                        filter={filter}
+                        filterValues={filterValues}
+                        filterUpdate={filterUpdate}
+                        funds={funds}
+                        productCategories={productCategories}
+                        productCategoriesIconMap={productCategoriesIconMap}
+                        businessTypes={businessTypes}
+                        providersTotal={providers?.meta?.total}
+                    />
 
                     {!filterValues.show_map && appConfigs?.pages?.provider && showProviderSignUp && (
                         <StateNavLink
