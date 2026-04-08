@@ -1,15 +1,7 @@
 import classNames from 'classnames';
 import React, { ReactNode } from 'react';
 
-export type LabelType =
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'default'
-    | 'primary'
-    | 'primary-light'
-    | 'light'
-    | 'default-outline';
+export type LabelType = 'success' | 'warning' | 'danger' | 'default' | 'primary' | 'light' | 'default-outline';
 
 export default function Label({
     children,
@@ -26,7 +18,7 @@ export default function Label({
     dusk?: string;
     round?: boolean;
     nowrap?: boolean;
-    size?: 'sm' | 'xl';
+    size?: 'sm' | 'md' | 'xl';
 }) {
     return (
         <div
@@ -38,12 +30,12 @@ export default function Label({
                 type === 'danger' && 'label-danger',
                 type === 'default' && 'label-default',
                 type === 'primary' && 'label-primary',
-                type === 'primary-light' && 'label-primary-light',
                 type === 'light' && 'label-light',
                 type === 'default-outline' && 'label-default-outline',
                 round && 'label-round',
                 nowrap && 'nowrap',
                 size === 'sm' && 'label-sm',
+                size === 'md' && 'label-md',
                 size === 'xl' && 'label-xl',
                 className,
             )}>

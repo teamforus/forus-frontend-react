@@ -294,8 +294,8 @@ export default function ActiveFilterLabels({
                 {labels.map((label, index) => (
                     <Label
                         key={index}
-                        type="primary-light"
-                        size="xl"
+                        type={`${label.type === 'all' ? 'light' : 'primary'}`}
+                        size="md"
                         dusk={`activeFilter_${label.type}_${label.key || ''}`}>
                         <Fragment>
                             <span>{label.label}</span>
