@@ -6,6 +6,7 @@
     padding: 15px;
     max-width: 300px;
     z-index: 999;
+    pointer-events: none;
     box-shadow: 0 12px 30px 0 rgba(25, 39, 52, 0.18);
     border-radius: var(--border-radius);
 
