@@ -45,10 +45,10 @@ export default {
             contacts: 'Neem voor vragen contact op met {{name}}.',
         },
         taken_by_partner_pending_fund_request: {
-            title: 'Dit tegoed is al geactiveerd',
+            title: 'Er is al een aanvraag gedaan',
             heading: 'Aanvraag mislukt',
             description:
-                'U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd.',
+                'U krijgt deze melding omdat er al een aanvraag is gedaan door een <br /> familielid of voogd. <br /><br /> Mocht de aanvraag van uw familielid of voogd zijn goedgekeurd, dan <br /> zijn de tegoeden beschikbaar in dat account.',
             contacts: 'Neem voor vragen contact op met {{name}}.',
         },
         backoffice_error_not_resident: {
