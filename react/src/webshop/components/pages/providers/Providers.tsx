@@ -37,6 +37,7 @@ export default function Providers() {
         filterUpdate,
         filterValues,
         funds,
+        initialFilterValues,
         productCategories,
         productCategoriesIconMap,
         providersQuery,
@@ -106,6 +107,7 @@ export default function Providers() {
                         productCategories={productCategories}
                         productCategoriesIconMap={productCategoriesIconMap}
                         businessTypes={businessTypes}
+                        initialFilterValues={initialFilterValues}
                         providersTotal={providers?.meta?.total}
                     />
 

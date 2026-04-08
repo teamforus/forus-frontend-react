@@ -39,8 +39,8 @@ export default function useProvidersPageFilters() {
     const [businessTypes, setBusinessTypes] = useState<Array<BusinessType>>(null);
     const { productCategoriesIconMap, productCategories } = useRootProductCategories();
 
-    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<ProviderFilters>(
-        {
+    const initialFilterValues = useMemo<ProviderFilters>(() => {
+        return {
             q: '',
             page: 1,
             fund_ids: [],
@@ -51,7 +51,11 @@ export default function useProvidersPageFilters() {
             show_map: false,
             order_by: sortByOptions[0]?.value.order_by,
             order_dir: sortByOptions[0]?.value.order_dir,
-        },
+        };
+    }, [sortByOptions]);
+
+    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<ProviderFilters>(
+        initialFilterValues,
         {
             queryParams: {
                 q: StringParam,
@@ -122,6 +126,7 @@ export default function useProvidersPageFilters() {
         filterUpdate,
         filterValues,
         funds,
+        initialFilterValues,
         productCategories,
         productCategoriesIconMap,
         providersQuery,

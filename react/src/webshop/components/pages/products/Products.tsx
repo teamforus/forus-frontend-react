@@ -37,6 +37,7 @@ export default function Products() {
         filterUpdate,
         filterValues,
         funds,
+        initialFilterValues,
         productCategories,
         productCategoriesIconMap,
         productsQuery,
@@ -99,6 +100,7 @@ export default function Products() {
                     productCategories={productCategories}
                     productCategoriesIconMap={productCategoriesIconMap}
                     providers={providers}
+                    initialFilterValues={initialFilterValues}
                     showBookmarkTabs={!!authIdentity}
                     toMax={toMax}
                 />

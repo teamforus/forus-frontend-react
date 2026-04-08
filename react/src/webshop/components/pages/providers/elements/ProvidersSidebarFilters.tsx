@@ -24,6 +24,7 @@ export default function ProvidersSidebarFilters({
     productCategories,
     productCategoriesIconMap,
     businessTypes,
+    initialFilterValues,
     providersTotal,
 }: {
     errors: ResponseErrorData;
@@ -34,6 +35,7 @@ export default function ProvidersSidebarFilters({
     productCategories: Array<ProductCategory>;
     productCategoriesIconMap?: object;
     businessTypes: Array<BusinessType>;
+    initialFilterValues: Partial<ProviderFilters>;
     providersTotal?: number;
 }) {
     const translate = useTranslate();
@@ -65,6 +67,7 @@ export default function ProvidersSidebarFilters({
                     categories={productCategories}
                     funds={funds}
                     businessTypes={businessTypes}
+                    initialValues={initialFilterValues}
                 />
 
                 <ProductsFilterGroupProductCategories

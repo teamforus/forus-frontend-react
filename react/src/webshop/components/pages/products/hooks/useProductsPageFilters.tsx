@@ -44,8 +44,8 @@ export default function useProductsPageFilters() {
         });
     }, [appConfigs?.products_default_sorting, sortByOptions]);
 
-    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<ProductsPageFilters>(
-        {
+    const initialFilterValues = useMemo<ProductsPageFilters>(() => {
+        return {
             q: '',
             page: 1,
             fund_ids: [],
@@ -68,7 +68,11 @@ export default function useProductsPageFilters() {
             display_type: 'grid',
             order_by: (defaultSortOption || sortByOptions[0])?.value.order_by,
             order_dir: (defaultSortOption || sortByOptions[0])?.value.order_dir,
-        },
+        };
+    }, [defaultSortOption, sortByOptions]);
+
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<ProductsPageFilters>(
+        initialFilterValues,
         {
             throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment', 'postcode'],
             queryParams: {
@@ -181,6 +185,7 @@ export default function useProductsPageFilters() {
         filterUpdate,
         filterValues,
         funds,
+        initialFilterValues,
         productCategories,
         productCategoriesIconMap,
         productsQuery,

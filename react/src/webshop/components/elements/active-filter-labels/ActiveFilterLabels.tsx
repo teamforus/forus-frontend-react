@@ -6,7 +6,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import Label from '../label/Label';
 import BusinessType from '../../../../dashboard/props/models/BusinessType';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
-import { FilterScope } from '../../../../dashboard/modules/filter_next/types/FilterParams';
+import { FilterModel, FilterScope } from '../../../../dashboard/modules/filter_next/types/FilterParams';
 
 export type BaseTypeFilterProducts = {
     fund_ids: number[];
@@ -55,6 +55,25 @@ type ActiveFilterLabel = {
     label: string;
 };
 
+const resetKeysMap: Record<ActiveFilterLabelType, Array<string>> = {
+    all: [],
+    business_type: ['business_type_id'],
+    category: ['product_category_ids'],
+    fund: ['fund_ids'],
+    organization: ['organization_id'],
+    postcode: ['postcode', 'distance'],
+    price: ['from', 'to'],
+    qr: ['qr'],
+    reservation: ['reservation'],
+    extra_payment: ['extra_payment'],
+    regular: ['regular'],
+    discount_fixed: ['discount_fixed'],
+    discount_percentage: ['discount_percentage'],
+    free: ['free'],
+    informational: ['informational'],
+    payout: ['payout'],
+};
+
 export default function ActiveFilterLabels({
     filter,
     categories,
@@ -62,6 +81,7 @@ export default function ActiveFilterLabels({
     organizations,
     businessTypes,
     priceMax,
+    initialValues,
 }: {
     filter: FilterScope<BaseTypeFilterProviders & BaseTypeFilterProducts>;
     categories: Array<ProductCategory>;
@@ -69,6 +89,7 @@ export default function ActiveFilterLabels({
     organizations?: Array<Organization>;
     businessTypes?: Array<BusinessType>;
     priceMax?: number;
+    initialValues?: Partial<FilterModel & BaseTypeFilterProviders & BaseTypeFilterProducts>;
 }) {
     const translate = useTranslate();
 
@@ -237,10 +258,28 @@ export default function ActiveFilterLabels({
             }
 
             if (label.type === 'all') {
-                filter.resetFilters();
+                if (initialValues) {
+                    filter.update(
+                        labels
+                            .filter((item) => item.type !== 'all')
+                            .flatMap((item) => resetKeysMap[item.type])
+                            .reduce<Partial<FilterModel & BaseTypeFilterProviders & BaseTypeFilterProducts>>(
+                                (values, key) => {
+                                    if (key in initialValues) {
+                                        values[key] = initialValues[key];
+                                    }
+
+                                    return values;
+                                },
+                                {},
+                            ),
+                    );
+                } else {
+                    filter.resetFilters();
+                }
             }
         },
-        [filter, toggleKeys],
+        [filter, initialValues, labels, toggleKeys],
     );
 
     if (labels.length === 0) {

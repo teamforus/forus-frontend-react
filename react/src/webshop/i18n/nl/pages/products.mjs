@@ -34,7 +34,7 @@ export default {
         all_providers: 'Selecteer aanbieder...',
         all_categories: 'Selecteer categorie...',
         all_sub_categories: 'Selecteer subcategorie...',
-        active_filters: 'Active filters',
+        active_filters: 'Actieve filters',
     },
     sort: {
         created_at_desc: 'Nieuwe eerst',

@@ -28,6 +28,7 @@ export default function ProductsSidebarFilters({
     productCategories,
     productCategoriesIconMap,
     providers,
+    initialFilterValues,
     showBookmarkTabs = false,
     toMax,
 }: {
@@ -39,6 +40,7 @@ export default function ProductsSidebarFilters({
     productCategories: Array<ProductCategory>;
     productCategoriesIconMap?: object;
     providers: Array<Organization>;
+    initialFilterValues: Partial<ProductsPageFilters>;
     showBookmarkTabs?: boolean;
     toMax: number;
 }) {
@@ -94,6 +96,7 @@ export default function ProductsSidebarFilters({
                 funds={funds}
                 organizations={providers}
                 priceMax={toMax}
+                initialValues={initialFilterValues}
             />
 
             <ProductsFilterGroupProductCategories
