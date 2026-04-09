@@ -969,8 +969,6 @@ export default function OrganizationsFundsEdit() {
                                 </label>
                                 <DatePickerControl
                                     value={dateParse(form.values.start_date)}
-                                    dateFormat="dd-MM-yyyy"
-                                    placeholder={translate('dd-MM-yyyy')}
                                     disabled={
                                         form.values.state != 'waiting' ||
                                         !hasPermission(activeOrganization, Permission.MANAGE_FUNDS)
@@ -988,9 +986,7 @@ export default function OrganizationsFundsEdit() {
                                 </label>
                                 <DatePickerControl
                                     value={dateParse(form.values.end_date)}
-                                    dateFormat="dd-MM-yyyy"
                                     maxYear={new Date().getFullYear() + 10}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     disabled={
                                         form.values.state != 'waiting' ||
                                         !hasPermission(activeOrganization, Permission.MANAGE_FUNDS)

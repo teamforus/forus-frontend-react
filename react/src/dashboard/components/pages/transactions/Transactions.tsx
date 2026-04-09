@@ -571,7 +571,6 @@ export default function Transactions() {
                                 <FilterItemToggle label={translate('transactions.labels.from')}>
                                     <DatePickerControl
                                         value={dateParse(filterValues.from)}
-                                        placeholder={translate('jjjj-MM-dd')}
                                         onChange={(from: Date) => {
                                             filterUpdate({ from: dateFormat(from) });
                                         }}
@@ -581,7 +580,6 @@ export default function Transactions() {
                                 <FilterItemToggle label={translate('transactions.labels.to')}>
                                     <DatePickerControl
                                         value={dateParse(filterValues.to)}
-                                        placeholder={translate('jjjj-MM-dd')}
                                         onChange={(to: Date) => {
                                             filterUpdate({ to: dateFormat(to) });
                                         }}
@@ -626,7 +624,6 @@ export default function Transactions() {
                                         <FilterItemToggle label={translate('transactions.labels.non_cancelable_from')}>
                                             <DatePickerControl
                                                 value={dateParse(filterValues.non_cancelable_from)}
-                                                placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(from: Date) => {
                                                     filterUpdate({ non_cancelable_from: dateFormat(from) });
                                                 }}
@@ -636,7 +633,6 @@ export default function Transactions() {
                                         <FilterItemToggle label={translate('transactions.labels.non_cancelable_to')}>
                                             <DatePickerControl
                                                 value={dateParse(filterValues.non_cancelable_to)}
-                                                placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(to: Date) => {
                                                     filterUpdate({ non_cancelable_to: dateFormat(to) });
                                                 }}
@@ -646,7 +642,6 @@ export default function Transactions() {
                                         <FilterItemToggle label={translate('transactions.labels.execution_date_from')}>
                                             <DatePickerControl
                                                 value={dateParse(filterValues.execution_date_from)}
-                                                placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(from: Date) => {
                                                     filterUpdate({ execution_date_from: dateFormat(from) });
                                                 }}
@@ -656,7 +651,6 @@ export default function Transactions() {
                                         <FilterItemToggle label={translate('transactions.labels.execution_date_to')}>
                                             <DatePickerControl
                                                 value={dateParse(filterValues.execution_date_to)}
-                                                placeholder={translate('jjjj-MM-dd')}
                                                 onChange={(to: Date) => {
                                                     filterUpdate({ execution_date_to: dateFormat(to) });
                                                 }}
@@ -783,7 +777,6 @@ export default function Transactions() {
                                 <FilterItemToggle label={translate('transactions.labels.from')}>
                                     <DatePickerControl
                                         value={dateParse(bulkFilterValues.from)}
-                                        placeholder={translate('jjjj-MM-dd')}
                                         onChange={(from: Date) => {
                                             bulkFilterUpdate({ from: dateFormat(from) });
                                         }}
@@ -793,7 +786,6 @@ export default function Transactions() {
                                 <FilterItemToggle label={translate('transactions.labels.to')}>
                                     <DatePickerControl
                                         value={dateParse(bulkFilterValues.to)}
-                                        placeholder={translate('jjjj-MM-dd')}
                                         onChange={(to: Date) => {
                                             bulkFilterUpdate({ to: dateFormat(to) });
                                         }}

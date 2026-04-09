@@ -603,7 +603,6 @@ export default function FundsPreCheck() {
                                                                           )
                                                                         : null
                                                                 }
-                                                                format={'dd-MM-yyyy'}
                                                                 onChange={(date) => {
                                                                     setPreChecks((preChecks) => {
                                                                         preChecks[activeStepIndex].record_types[

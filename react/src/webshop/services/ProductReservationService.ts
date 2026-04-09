@@ -2,7 +2,6 @@ import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../../dashboard/
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import Reservation from '../../dashboard/props/models/Reservation';
-import { dateFormat, dateParse } from '../../dashboard/helpers/dates';
 
 export class ProductReservationService<T = Reservation> {
     /**
@@ -29,10 +28,10 @@ export class ProductReservationService<T = Reservation> {
     }
 
     public validate(data: object): Promise<null> {
-        return this.apiRequest.post(`${this.prefix}/validate`, this.apiFormToResource(data));
+        return this.apiRequest.post(`${this.prefix}/validate`, data);
     }
     public validateFields(data: object): Promise<null> {
-        return this.apiRequest.post(`${this.prefix}/validate-fields`, this.apiFormToResource(data));
+        return this.apiRequest.post(`${this.prefix}/validate-fields`, data);
     }
 
     public validateAddress(data: object): Promise<null> {
@@ -42,7 +41,7 @@ export class ProductReservationService<T = Reservation> {
     public reserve(
         data: object,
     ): Promise<ApiResponseSingle<T> & ResponseSimple<{ id?: number; checkout_url?: string }>> {
-        return this.apiRequest.post(`${this.prefix}`, this.apiFormToResource(data));
+        return this.apiRequest.post(`${this.prefix}`, data);
     }
 
     public cancel(id: number, values = {}): Promise<ApiResponseSingle<T>> {
@@ -51,18 +50,6 @@ export class ProductReservationService<T = Reservation> {
 
     public checkoutExtra(id: number): Promise<ResponseSimple<{ url: string }>> {
         return this.apiRequest.post(`${this.prefix}/${id}/extra-payment/checkout`);
-    }
-
-    public apiFormToResource(formData: object) {
-        if (formData['birth_date']) {
-            try {
-                return { ...formData, birth_date: dateFormat(dateParse(formData['birth_date'])) };
-            } catch {
-                //
-            }
-        }
-
-        return formData;
     }
 }
 
