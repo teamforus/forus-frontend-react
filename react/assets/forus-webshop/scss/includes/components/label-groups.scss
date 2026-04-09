@@ -1,0 +1,9 @@
+.label-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    .label {
+        margin: 0 0 !important;
+    }
+}
