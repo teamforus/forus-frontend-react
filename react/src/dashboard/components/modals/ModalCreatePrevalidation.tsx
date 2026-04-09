@@ -90,6 +90,12 @@ export default function ModalCreatePrevalidation({
         return criteriaRuleByKey;
     }, [fund.criteria]);
 
+    const normalizePrevalidationDate = useCallback((value?: string) => {
+        const parsedDate = dateParse(value) || dateParse(value, 'dd-MM-yyyy');
+
+        return parsedDate ? dateFormat(parsedDate, 'dd-MM-yyyy') : value;
+    }, []);
+
     const form = useFormBuilder(
         fund.criteria.reduce(
             (values, criteria) => ({
@@ -105,7 +111,7 @@ export default function ModalCreatePrevalidation({
 
             for (const valueKey in values) {
                 if (recordTypesByKey[valueKey]?.type == 'date') {
-                    dateValues[valueKey] = dateFormat(dateParse(values[valueKey]), 'dd-MM-yyyy');
+                    dateValues[valueKey] = normalizePrevalidationDate(values[valueKey]);
                 }
             }
 
@@ -301,7 +307,6 @@ export default function ModalCreatePrevalidation({
                                                                     <DatePickerControl
                                                                         id={id}
                                                                         value={dateParse(form.values[fundRecord])}
-                                                                        dateFormat="dd-MM-yyyy"
                                                                         placeholder={recordTypesByKey[fundRecord]?.name}
                                                                         onChange={(date) => {
                                                                             form.update({

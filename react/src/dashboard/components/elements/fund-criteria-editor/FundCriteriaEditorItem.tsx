@@ -369,7 +369,6 @@ export default function FundCriteriaEditorItem({
                                             {['date'].includes(recordType.type) && operators[recordType.key] != '*' && (
                                                 <DatePickerControl
                                                     value={dateParse(values[recordType.key], 'dd-MM-yyyy')}
-                                                    dateFormat={'dd-MM-yyyy'}
                                                     placeholder={'Kies een datum'}
                                                     onChange={(value: Date) => {
                                                         values[recordType.key] = dateFormat(value, 'dd-MM-yyyy');
@@ -466,7 +465,6 @@ export default function FundCriteriaEditorItem({
                                             {recordType.type == 'date' && (
                                                 <DatePickerControl
                                                     value={dateParse(validations[recordType.key].min, 'dd-MM-yyyy')}
-                                                    dateFormat={'dd-MM-yyyy'}
                                                     disabled={disabled}
                                                     onChange={(date) => {
                                                         validations[recordType.key].min = dateFormat(
@@ -503,7 +501,6 @@ export default function FundCriteriaEditorItem({
                                             {recordType.type == 'date' && (
                                                 <DatePickerControl
                                                     value={dateParse(validations[recordType.key].max, 'dd-MM-yyyy')}
-                                                    dateFormat={'dd-MM-yyyy'}
                                                     onChange={(date) => {
                                                         validations[recordType.key].max = dateFormat(
                                                             date,

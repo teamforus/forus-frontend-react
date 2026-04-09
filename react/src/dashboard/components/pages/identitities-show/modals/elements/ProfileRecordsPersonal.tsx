@@ -20,7 +20,9 @@ export default function ProfileRecordsPersonal({
     const translate = useTranslate();
 
     const calculatedAge = useCallback((value: string) => {
-        return value ? Math.max(differenceInYears(new Date(), dateParse(value)), 0) : null;
+        const birthDate = dateParse(value);
+
+        return birthDate ? Math.max(differenceInYears(new Date(), birthDate), 0) : null;
     }, []);
 
     return (
