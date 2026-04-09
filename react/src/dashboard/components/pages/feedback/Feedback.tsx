@@ -4,7 +4,6 @@ import useEnvData from '../../../hooks/useEnvData';
 import FormError from '../../elements/forms/errors/FormError';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useFeedbackService from '../../../services/FeedbackService';
-import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { ResponseError } from '../../../props/ApiResponses';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
@@ -35,15 +34,11 @@ export default function Feedback() {
             title: '',
             urgency: urgencyOptions[0].value,
             content: '',
-            use_customer_email: false,
             customer_email: authIdentity?.email || '',
         },
         (values) => {
             feedbackService
-                .store({
-                    ...values,
-                    customer_email: values.use_customer_email ? values.customer_email : null,
-                })
+                .store(values)
                 .then(() => setState('success'))
                 .catch((err: ResponseError) => {
                     if (err.status == 429) {
@@ -144,33 +139,21 @@ export default function Feedback() {
                                     </div>
 
                                     <div className="form-group">
-                                        <CheckboxControl
-                                            id="use_email"
-                                            title={translate('components.feedback.labels.use_customer_email')}
-                                            checked={form.values?.use_customer_email}
-                                            onChange={(e) => form.update({ use_customer_email: e.target.checked })}
+                                        <label className="form-label form-label-required">
+                                            {translate('components.feedback.labels.email')}
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            className="form-control r-n"
+                                            name="customer_email"
+                                            value={form.values.customer_email || ''}
+                                            onChange={(e) => form.update({ customer_email: e.target.value })}
+                                            autoComplete="email"
+                                            aria-label={translate('components.feedback.labels.email')}
                                         />
-                                        <FormError error={form.errors?.use_customer_email} />
+                                        <FormError error={form.errors?.customer_email} />
                                     </div>
-
-                                    {form.values?.use_customer_email && (
-                                        <div className="form-group">
-                                            <label className="form-label form-label-required">
-                                                {translate('components.feedback.labels.email')}
-                                            </label>
-
-                                            <input
-                                                type="text"
-                                                className="form-control r-n"
-                                                name="customer_email"
-                                                value={form.values.customer_email || ''}
-                                                onChange={(e) => form.update({ customer_email: e.target.value })}
-                                                autoComplete="email"
-                                                aria-label={translate('components.feedback.labels.email')}
-                                            />
-                                            <FormError error={form.errors?.customer_email} />
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </div>
@@ -182,9 +165,7 @@ export default function Feedback() {
                                     type="submit"
                                     className="button button-primary"
                                     disabled={
-                                        !form.values.title ||
-                                        !form.values.content ||
-                                        (form.values.use_customer_email && !form.values.customer_email)
+                                        !form.values.title || !form.values.content || !form.values.customer_email
                                     }>
                                     {translate('components.feedback.buttons.confirm')}
                                 </button>
@@ -236,14 +217,12 @@ export default function Feedback() {
                                             </div>
                                         )}
 
-                                        {form.values?.use_customer_email && (
-                                            <div className="form-group">
-                                                <label className="form-label">
-                                                    {translate('components.feedback.labels.email')}
-                                                </label>
-                                                <span className="form-input-data">{form.values?.customer_email}</span>
-                                            </div>
-                                        )}
+                                        <div className="form-group">
+                                            <label className="form-label">
+                                                {translate('components.feedback.labels.email')}
+                                            </label>
+                                            <span className="form-input-data">{form.values?.customer_email}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
