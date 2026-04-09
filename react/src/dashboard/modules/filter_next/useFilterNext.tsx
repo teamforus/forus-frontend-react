@@ -62,6 +62,8 @@ export default function useFilterNext<T = FilterModel>(
     const [show, setShow] = useState(false);
 
     const [stateValues, setValues] = useState<Partial<T & FilterModel>>({ ...initialValues, ...initialQueryValues });
+    const stateValuesRef = useRef(stateValues);
+    const querySyncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const [combinedInitialValues] = useState({
         ...initialValues,
@@ -75,8 +77,8 @@ export default function useFilterNext<T = FilterModel>(
     });
 
     const values = useMemo<T & FilterModel>(() => {
-        return (backendTypeQuery ? queryValues : stateValues) as T & FilterModel;
-    }, [queryValues, stateValues, backendTypeQuery]);
+        return stateValues as T & FilterModel;
+    }, [stateValues]);
 
     const _values = useMemo(
         () => removePrefix<Partial<T & FilterModel>>(values, queryParamsPrefix),
@@ -88,7 +90,21 @@ export default function useFilterNext<T = FilterModel>(
         [activeValues, queryParamsPrefix],
     );
 
-    const prevFilters = useRef(backendTypeQuery ? queryValues : stateValues);
+    const prevFilters = useRef(stateValues);
+
+    const pickQueryValues = useCallback(
+        (filters: Partial<T & FilterModel>): Partial<T & FilterModel> => {
+            if (!queryParams) {
+                return filters;
+            }
+
+            return Object.keys(queryParams).reduce(
+                (obj, key) => ({ ...obj, [key]: filters[key] }),
+                {} as Partial<T & FilterModel>,
+            );
+        },
+        [queryParams],
+    );
 
     const update = useCallback<FilterSetter<Partial<T>>>(
         (values, reset = false): void => {
@@ -123,23 +139,28 @@ export default function useFilterNext<T = FilterModel>(
                     : { ...filters, ...appendPrefix(values, queryParamsPrefix) };
             };
 
-            if (!backendTypeQuery) {
-                if (typeof values == 'function') {
-                    return setValues(callbackSetter);
-                }
+            const nextValues =
+                typeof values == 'function'
+                    ? callbackSetter(stateValuesRef.current)
+                    : valueSetter(stateValuesRef.current);
 
-                return setValues(valueSetter);
+            stateValuesRef.current = nextValues;
+            setValues(nextValues);
+
+            if (!backendTypeQuery) {
+                return;
             }
 
-            setTimeout(() => {
-                if (typeof values == 'function') {
-                    return setValuesQuery(callbackSetter, throttled ? 'replaceIn' : 'pushIn');
-                }
+            if (querySyncTimeoutRef.current) {
+                clearTimeout(querySyncTimeoutRef.current);
+            }
 
-                setValuesQuery(valueSetter, throttled ? 'replaceIn' : 'pushIn');
+            querySyncTimeoutRef.current = setTimeout(() => {
+                querySyncTimeoutRef.current = null;
+                setValuesQuery(pickQueryValues(nextValues), throttled ? 'replaceIn' : 'pushIn');
             });
         },
-        [backendTypeQuery, initialValues, setValuesQuery, throttledValues, queryParamsPrefix],
+        [backendTypeQuery, initialValues, setValuesQuery, throttledValues, queryParamsPrefix, pickQueryValues],
     );
 
     const resetFilters = useCallback((): void => {
@@ -167,6 +188,23 @@ export default function useFilterNext<T = FilterModel>(
         update(removePrefix({ ...initialValues, ...initialQueryValues }, queryParamsPrefix));
     }, [initialValues, initialQueryValues, update, queryParamsPrefix]);
 
+    useEffect(() => {
+        if (!backendTypeQuery || querySyncTimeoutRef.current) {
+            return;
+        }
+
+        setValues((currentValues) => {
+            const nextValues = { ...currentValues, ...queryValues };
+
+            if (isEqual(pickQueryValues(currentValues), pickQueryValues(nextValues))) {
+                return currentValues;
+            }
+
+            stateValuesRef.current = nextValues;
+            return nextValues;
+        });
+    }, [backendTypeQuery, pickQueryValues, queryValues]);
+
     useEffect(
         function () {
             const clear = setTimeout(
@@ -186,12 +224,21 @@ export default function useFilterNext<T = FilterModel>(
 
             return () => clearTimeout(clear);
         },
-        [values, getTimeout, backendTypeQuery, queryValues, filterParams],
+        [values, getTimeout, filterParams],
     );
 
     useEffect(() => {
+        stateValuesRef.current = values;
         prevFilters.current = values;
     }, [values]);
+
+    useEffect(() => {
+        return () => {
+            if (querySyncTimeoutRef.current) {
+                clearTimeout(querySyncTimeoutRef.current);
+            }
+        };
+    }, []);
 
     return [
         _values,
