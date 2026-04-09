@@ -472,8 +472,12 @@ export default function FundActivate() {
             const options = getAvailableOptions(fund);
 
             // The fund is already taken by identity partner
-            if (fund.taken_by_partner) {
-                return setState('taken_by_partner');
+            if (fund.taken_by_partner_voucher) {
+                return setState('taken_by_partner_voucher');
+            }
+
+            if (fund.taken_by_partner_pending_fund_request) {
+                return setState('taken_by_partner_pending_fund_request');
             }
 
             if (options.length == 0) {
@@ -540,8 +544,12 @@ export default function FundActivate() {
         }
 
         // The fund is already taken by identity partner
-        if (fund?.taken_by_partner) {
-            return setState('taken_by_partner');
+        if (fund?.taken_by_partner_voucher) {
+            return setState('taken_by_partner_voucher');
+        }
+
+        if (fund?.taken_by_partner_pending_fund_request) {
+            return setState('taken_by_partner_pending_fund_request');
         }
 
         // Voucher already received, go to the voucher
@@ -855,19 +863,21 @@ export default function FundActivate() {
                             </div>
                         )}
 
-                        {state == 'taken_by_partner' && (
-                            <div className="sign_up-pane">
+                        {state == 'taken_by_partner_voucher' && (
+                            <div className="sign_up-pane" data-dusk="takenByPartnerVoucher">
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
-                                        {translate('fund_activate.cards.taken_by_partner.title')}
+                                        {translate('fund_activate.cards.taken_by_partner_voucher.title')}
                                     </h2>
                                 </div>
                                 <div className="sign_up-pane-body text-center">
                                     <p className="sign_up-pane-heading sign_up-pane-heading-lg">
-                                        {translate('fund_activate.cards.taken_by_partner.heading')}
+                                        {translate('fund_activate.cards.taken_by_partner_voucher.heading')}
                                     </p>
                                     <p className="sign_up-pane-text">
-                                        <TranslateHtml i18n={'fund_activate.cards.taken_by_partner.description'} />
+                                        <TranslateHtml
+                                            i18n={'fund_activate.cards.taken_by_partner_voucher.description'}
+                                        />
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -876,9 +886,55 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        {translate('fund_activate.cards.taken_by_partner.contacts', {
+                                        {translate('fund_activate.cards.taken_by_partner_voucher.contacts', {
                                             name: fund.organization.name,
                                         })}
+                                    </p>
+                                    <div className="text-center">
+                                        <StateNavLink
+                                            name={WebshopRoutes.FUNDS}
+                                            className="button button-text button-text-primary button-text-padless">
+                                            {translate('fund_activate.cards.back')}
+                                        </StateNavLink>
+                                    </div>
+                                    <div className="form-group col col-lg-12 hidden-xs">
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {state == 'taken_by_partner_pending_fund_request' && (
+                            <div className="sign_up-pane" data-dusk="takenByPartnerPendingFundRequest">
+                                <div className="sign_up-pane-header">
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_activate.cards.taken_by_partner_pending_fund_request.title')}
+                                    </h2>
+                                </div>
+                                <div className="sign_up-pane-body text-center">
+                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">
+                                        {translate('fund_activate.cards.taken_by_partner_pending_fund_request.heading')}
+                                    </p>
+                                    <p className="sign_up-pane-text">
+                                        <TranslateHtml
+                                            i18n={
+                                                'fund_activate.cards.taken_by_partner_pending_fund_request.description'
+                                            }
+                                        />
+                                    </p>
+                                    <div className="block-icon">
+                                        <img
+                                            src={assetUrl('/assets/img/icon-sign_up-error.svg')}
+                                            alt="icon sign-up error"
+                                        />
+                                    </div>
+                                    <p className="sign_up-pane-text text-center">
+                                        {translate(
+                                            'fund_activate.cards.taken_by_partner_pending_fund_request.contacts',
+                                            {
+                                                name: fund.organization.name,
+                                            },
+                                        )}
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink

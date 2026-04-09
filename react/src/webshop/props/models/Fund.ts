@@ -9,6 +9,8 @@ export default interface Fund extends FundBase {
     has_pending_fund_requests: boolean;
     hide_meta?: boolean;
     taken_by_partner?: boolean;
+    taken_by_partner_voucher?: boolean;
+    taken_by_partner_pending_fund_request?: boolean;
     auto_validation?: boolean;
     bsn_confirmation_time?: number;
     criteria_steps?: Array<FundCriteriaStep>;
