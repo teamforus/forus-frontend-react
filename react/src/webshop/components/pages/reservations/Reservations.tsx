@@ -18,10 +18,12 @@ import UIControlText from '../../../../dashboard/components/elements/forms/ui-co
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Reservations() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const organizationService = useOrganizationService();
@@ -98,16 +100,18 @@ export default function Reservations() {
     }, [organizationService, setProgress, translate]);
 
     const fetchReservations = useCallback(() => {
-        setProgress(0);
-
-        productReservationService
-            .list({
-                ...filterValuesActive,
-                state: filterValuesActive?.state === 'all' ? null : filterValuesActive?.state,
-            })
-            .then((res) => setReservations(res.data))
-            .finally(() => setProgress(100));
-    }, [filterValuesActive, productReservationService, setProgress]);
+        runLatestRequest(
+            (config) =>
+                productReservationService.list(
+                    {
+                        ...filterValuesActive,
+                        state: filterValuesActive?.state === 'all' ? null : filterValuesActive?.state,
+                    },
+                    config,
+                ),
+            { onSuccess: (res) => setReservations(res.data) },
+        );
+    }, [filterValuesActive, productReservationService, runLatestRequest]);
 
     useEffect(() => {
         fetchFunds();

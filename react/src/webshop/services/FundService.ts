@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../../dashboard/props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import { format } from 'date-fns';
@@ -23,8 +23,8 @@ export class FundService<T = Fund> {
     /**
      * Fetch list
      */
-    public list(data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}`, data);
+    public list(data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}`, data, config);
     }
 
     public apply(id: number): Promise<ApiResponseSingle<Voucher>> {
