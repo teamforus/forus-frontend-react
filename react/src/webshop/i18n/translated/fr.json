@@ -2429,7 +2429,8 @@
             "payment_options": "Options de paiement",
             "payment_options_info": "En savoir plus sur les options de paiement",
             "price_to": "Pour",
-            "price_type_option_payout": "Versement sur le compte bancaire"
+            "price_type_option_payout": "Versement sur le compte bancaire",
+            "active_filters": "Filtres actifs"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2445,6 +2446,31 @@
         "view": {
             "grid": "Photos",
             "list": "Liste"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "jusqu'à 3 km",
+                "5": "jusqu'à 5 km",
+                "10": "jusqu'à 10 km",
+                "15": "jusqu'à 15 km",
+                "25": "jusqu'à 25 km",
+                "50": "jusqu'à 50 km",
+                "75": "jusqu'à 75 km",
+                "everywhere": "Partout"
+            },
+            "price_type_option": {
+                "discount_fixed": "Offre : Remise en euros",
+                "discount_percentage": "Offre : Remise en pourcentage",
+                "free": "Offre : Gratuit",
+                "info": "Offres : En savoir plus sur les types d'offres",
+                "informational": "Offre : En magasin uniquement",
+                "payout": "Offre : Paiement sur le compte bancaire",
+                "regular": "Offre : Prix"
+            },
+            "price": {
+                "to": "à"
+            },
+            "reset_all": "Supprimer tous les filtres"
         }
     },
     "profile_menu": {

@@ -153,7 +153,6 @@ export default function ReservationsTableFilters({
                 <FilterItemToggle label={translate('reservations.filters.from')}>
                     <DatePickerControl
                         value={dateParse(filter.values.from)}
-                        placeholder={translate('jjjj-MM-dd')}
                         onChange={(from: Date) => {
                             filterUpdate({ from: dateFormat(from) });
                         }}
@@ -163,7 +162,6 @@ export default function ReservationsTableFilters({
                 <FilterItemToggle label={translate('reservations.filters.to')}>
                     <DatePickerControl
                         value={dateParse(filter.values.to)}
-                        placeholder={translate('jjjj-MM-dd')}
                         onChange={(to: Date) => {
                             filterUpdate({ to: dateFormat(to) });
                         }}

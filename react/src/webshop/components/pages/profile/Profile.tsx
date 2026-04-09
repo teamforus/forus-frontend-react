@@ -37,9 +37,9 @@ export default function Profile() {
     }, [recordTypes]);
 
     const identityCalculatedAge = useMemo(() => {
-        return profile?.records?.birth_date?.[0]?.value
-            ? Math.max(differenceInYears(new Date(), dateParse(profile?.records?.birth_date?.[0]?.value)), 0)
-            : null;
+        const birthDate = dateParse(profile?.records?.birth_date?.[0]?.value);
+
+        return birthDate ? Math.max(differenceInYears(new Date(), birthDate), 0) : null;
     }, [profile?.records?.birth_date]);
 
     const fetchRecordTypes = useCallback(() => {

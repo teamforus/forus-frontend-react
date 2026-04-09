@@ -27,6 +27,7 @@ import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransact
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Funds() {
     const envData = useEnvData();
@@ -37,6 +38,7 @@ export default function Funds() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const tagService = useTagService();
     const fundService = useFundService();
@@ -99,13 +101,11 @@ export default function Funds() {
     }, [filterValues.organization_id, filterValues.q, filterValues.tag_id]);
 
     const fetchFunds = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .list({ ...filterValuesActive, with_external: 1, check_criteria: 1 })
-            .then((res) => setFunds(res.data))
-            .finally(() => setProgress(100));
-    }, [filterValuesActive, fundService, setProgress]);
+        runLatestRequest(
+            (config) => fundService.list({ ...filterValuesActive, with_external: 1, check_criteria: 1 }, config),
+            { onSuccess: (res) => setFunds(res.data) },
+        );
+    }, [filterValuesActive, fundService, runLatestRequest]);
 
     const fetchTags = useCallback(() => {
         setProgress(0);

@@ -256,9 +256,7 @@ export default function ImplementationAnnouncements() {
                                         error={form.errors['announcement.expire_at']}
                                         input={() => (
                                             <DatePickerControl
-                                                dateFormat={'dd-MM-yyyy'}
                                                 value={dateParse(form.values?.expire_at)}
-                                                placeholder="dd-MM-jjjj"
                                                 onChange={(value) => form.update({ expire_at: dateFormat(value) })}
                                             />
                                         )}

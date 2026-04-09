@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../../dashboard/props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import Voucher from '../../dashboard/props/models/Voucher';
@@ -19,8 +19,8 @@ export class VoucherService<T = Voucher> {
     /**
      * Fetch list
      */
-    public list(data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}`, data);
+    public list(data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}`, data, config);
     }
 
     public get(number: string): Promise<ApiResponseSingle<T>> {

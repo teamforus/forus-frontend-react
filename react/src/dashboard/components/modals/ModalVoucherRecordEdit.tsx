@@ -170,7 +170,6 @@ export default function ModalVoucherRecordEdit({
                                             <DatePickerControl
                                                 id={id}
                                                 value={dateParse(form.values.value)}
-                                                placeholder={'yyyy-MM-dd'}
                                                 onChange={(value: Date) => form.update({ value: dateFormat(value) })}
                                             />
                                         )
