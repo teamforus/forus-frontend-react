@@ -161,7 +161,6 @@ export default function FundRequestStepCriterion({
                 {criterion.control_type == 'ui_control_date' && (
                     <UIControlDate
                         value={criterion?.input_value ? dateParse(criterion?.input_value, 'dd-MM-yyyy') : new Date()}
-                        format={'dd-MM-yyyy'}
                         onChange={(date) => {
                             setCriterion(criterion.id, {
                                 input_value: date ? dateFormat(date, 'dd-MM-yyyy') : '',

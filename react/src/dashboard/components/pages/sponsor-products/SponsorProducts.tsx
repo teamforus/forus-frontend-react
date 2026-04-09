@@ -298,7 +298,6 @@ export default function SponsorProducts() {
                                             <FilterItemToggle label={translate('sponsor_products.labels.from')}>
                                                 <DatePickerControl
                                                     value={dateParse(filterValues.from)}
-                                                    placeholder={translate('dd-MM-yyyy')}
                                                     onChange={(from: Date) => filterUpdate({ from: dateFormat(from) })}
                                                 />
                                             </FilterItemToggle>
@@ -306,7 +305,6 @@ export default function SponsorProducts() {
                                             <FilterItemToggle label={translate('sponsor_products.labels.to')}>
                                                 <DatePickerControl
                                                     value={dateParse(filterValues.to)}
-                                                    placeholder={translate('dd-MM-yyyy')}
                                                     onChange={(to: Date) => filterUpdate({ to: dateFormat(to) })}
                                                 />
                                             </FilterItemToggle>

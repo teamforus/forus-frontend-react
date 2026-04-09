@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
-import ApiResponse, { ApiResponseSingle } from '../../dashboard/props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../../dashboard/props/ApiResponses';
 import Provider from '../props/models/Provider';
 
 export class ProviderService<T = Provider> {
@@ -16,8 +16,8 @@ export class ProviderService<T = Provider> {
      */
     public prefix = '/platform/providers';
 
-    public search(data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(this.prefix, data);
+    public search(data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(this.prefix, data, config);
     }
 
     public read(id: number): Promise<ApiResponseSingle<T>> {

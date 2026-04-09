@@ -350,7 +350,6 @@ export default function ModalFundProviderProductConfig({
                                                                             ? fund.end_date
                                                                             : form.values.expire_at,
                                                                     )}
-                                                                    placeholder={translate('jjjj-MM-dd')}
                                                                     onChange={(date) => {
                                                                         if (!form.values.expires_with_fund) {
                                                                             form.update({

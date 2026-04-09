@@ -3,15 +3,26 @@ import { getMonth, getYear } from 'date-fns';
 import { range } from 'lodash';
 import ReactDatePicker from 'react-datepicker';
 
+const defaultDateFormats = [
+    'dd-MM-yyyy',
+    'dd-M-yyyy',
+    'd-MM-yyyy',
+    'd-M-yyyy',
+    'yyyy-MM-dd',
+    'yyyy-MM-d',
+    'yyyy-M-dd',
+    'yyyy-M-d',
+];
+
 export default function DatePickerControl({
     id,
     value,
     onChange,
     disabled,
-    placeholder,
+    placeholder = 'dd-MM-jjjj',
     minYear = 1900,
     maxYear = getYear(new Date()) + 1,
-    dateFormat = 'yyyy-MM-dd',
+    dateFormat = defaultDateFormats,
     dateMin,
     dateMax,
     dateInitial = null,
@@ -23,26 +34,29 @@ export default function DatePickerControl({
     placeholder?: string;
     minYear?: number;
     maxYear?: number;
-    dateFormat?: string;
+    dateFormat?: string | string[];
     dateMin?: Date;
     dateMax?: Date;
     dateInitial?: Date;
 }) {
     const years = range(minYear, maxYear, 1);
+    const placeholderText = placeholder || (Array.isArray(dateFormat) ? dateFormat[0] : dateFormat);
+
     const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
+        'januari',
+        'februari',
+        'maart',
+        'april',
+        'mei',
+        'juni',
+        'juli',
+        'augustus',
+        'september',
+        'oktober',
+        'november',
+        'december',
     ];
+
     return (
         <ReactDatePicker
             id={id}
@@ -138,8 +152,9 @@ export default function DatePickerControl({
             selected={value}
             onChange={onChange}
             className={'form-control'}
+            strictParsing={true}
             dateFormat={dateFormat}
-            placeholderText={placeholder || dateFormat}
+            placeholderText={placeholderText}
             minDate={dateMin || undefined}
             maxDate={dateMax || undefined}
             startDate={dateInitial}

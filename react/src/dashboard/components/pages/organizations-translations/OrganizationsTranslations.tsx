@@ -107,8 +107,10 @@ export default function OrganizationsTranslations() {
     const rangeLabel = useMemo(() => {
         let label: string;
 
-        const to = filterValues?.to ? format(dateParse(filterValues?.to), 'd MMM, yyyy') : null;
-        const from = filterValues?.from ? format(dateParse(filterValues?.from), 'd MMM, yyyy') : null;
+        const parsedTo = dateParse(filterValues?.to);
+        const parsedFrom = dateParse(filterValues?.from);
+        const to = parsedTo ? format(parsedTo, 'd MMM, yyyy') : null;
+        const from = parsedFrom ? format(parsedFrom, 'd MMM, yyyy') : null;
 
         if (from && to) {
             label = from == to ? from : `${from} - ${to}`;
@@ -405,7 +407,6 @@ export default function OrganizationsTranslations() {
                                 <FilterItemToggle label={translate('transactions.labels.from')}>
                                     <DatePickerControl
                                         value={dateParse(filter.values.from)}
-                                        placeholder={translate('jjjj-MM-dd')}
                                         onChange={(from: Date) => {
                                             filter.update({ from: dateFormat(from) });
                                         }}
@@ -415,7 +416,6 @@ export default function OrganizationsTranslations() {
                                 <FilterItemToggle label={translate('transactions.labels.to')}>
                                     <DatePickerControl
                                         value={dateParse(filter.values.to)}
-                                        placeholder={translate('jjjj-MM-dd')}
                                         onChange={(to: Date) => {
                                             filter.update({ to: dateFormat(to) });
                                         }}
