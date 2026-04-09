@@ -25,7 +25,7 @@ export default function ModalReservationCustomFieldEdit({
     reservation,
 }: {
     modal: ModalState;
-    field: ReservationField & { value?: string; file?: FileModel };
+    field: ReservationField & { value?: string; files?: Array<FileModel> };
     onDone?: (reservation: Reservation) => void;
     organization: Organization;
     reservation: Reservation;
@@ -45,7 +45,7 @@ export default function ModalReservationCustomFieldEdit({
         ];
     }, [translate]);
 
-    const form = useFormBuilder<{ value: string }>({ value: field.value }, (values) => {
+    const form = useFormBuilder<{ value: Array<string> | string }>({ value: field.value }, (values) => {
         setProgress(0);
 
         productReservationService
@@ -114,7 +114,7 @@ export default function ModalReservationCustomFieldEdit({
                         {field.type === 'boolean' && (
                             <SelectControl
                                 propKey={'key'}
-                                value={form.values.value}
+                                value={form.values.value ? String(form.values.value) : null}
                                 onChange={(value: string) => form.update({ value })}
                                 options={customFieldBooleanOptions}
                             />
@@ -123,14 +123,17 @@ export default function ModalReservationCustomFieldEdit({
                         {field.type === 'file' && (
                             <FileUploader
                                 type="product_reservation_custom_field"
-                                files={field.file ? [field.file] : []}
+                                files={field.files || []}
                                 template="inline"
                                 cropMedia={false}
-                                allowMultiple={false}
+                                allowMultiple={true}
+                                maxFiles={5}
                                 hideDownloadButton={true}
                                 hideInlineTitle={true}
                                 acceptedFiles={['.jpg', '.jpeg', '.png']}
-                                onFilesChange={({ files }) => form.update({ value: files?.[0]?.uid || null })}
+                                onFilesChange={({ files }) =>
+                                    form.update({ value: files?.map((file) => file.uid) || null })
+                                }
                                 isRequired={field.required}
                                 isWebshop={false}
                             />

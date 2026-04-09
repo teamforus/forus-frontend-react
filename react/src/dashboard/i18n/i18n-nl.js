@@ -16,6 +16,11 @@ export default {
             attachments: 'Bijlagen',
         },
     },
+    form: {
+        placeholders: {
+            select_option: 'Selecteer optie',
+        },
+    },
     test: '{{name}} {{foo}}',
     permissions: {
         title: 'Geen rechten',

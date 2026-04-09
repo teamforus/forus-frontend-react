@@ -175,7 +175,7 @@ export default function ModalProductReserve({
                 user_note?: string;
                 phone?: string;
                 birth_date?: string;
-                custom_fields?: { [key: string]: string | null };
+                custom_fields?: { [key: string]: Array<string> | string | null };
             },
             includeUserNote: boolean = true,
         ) => {
@@ -208,7 +208,7 @@ export default function ModalProductReserve({
         user_note?: string;
         phone?: string;
         birth_date?: string;
-        custom_fields?: { [key: string]: string | null };
+        custom_fields?: { [key: string]: Array<string> | string | null };
     }>(
         {
             first_name: '',
@@ -848,16 +848,17 @@ export default function ModalProductReserve({
                                                             files={fieldFiles}
                                                             template="inline"
                                                             cropMedia={false}
-                                                            allowMultiple={false}
+                                                            allowMultiple={true}
+                                                            maxFiles={5}
                                                             hideDownloadButton={true}
                                                             hideInlineTitle={true}
                                                             acceptedFiles={['.jpg', '.jpeg', '.png']}
                                                             onFilesChange={({ files }) => {
-                                                                const file = files?.[0] || null;
-
                                                                 form.values.custom_fields =
                                                                     form.values.custom_fields || {};
-                                                                form.values.custom_fields[fieldKey] = file?.uid || null;
+                                                                form.values.custom_fields[fieldKey] = files.map(
+                                                                    (file) => file.uid,
+                                                                );
 
                                                                 setCustomFieldFiles((current) => ({
                                                                     ...current,
@@ -914,7 +915,9 @@ export default function ModalProductReserve({
                                                         {field.type === 'boolean' && (
                                                             <SelectControl
                                                                 propKey={'key'}
-                                                                value={customFieldValue ?? null}
+                                                                value={
+                                                                    customFieldValue ? String(customFieldValue) : null
+                                                                }
                                                                 onChange={(value: string) => {
                                                                     form.values.custom_fields =
                                                                         form.values.custom_fields || {};
@@ -1232,7 +1235,7 @@ export default function ModalProductReserve({
                                 {fields?.map((field) => {
                                     const fieldKey = String(field.key);
                                     const customFieldValue = form.values.custom_fields?.[fieldKey];
-                                    const customFieldFile = customFieldFiles?.[fieldKey]?.[0];
+                                    const customFieldFile = customFieldFiles?.[fieldKey] || [];
 
                                     return (
                                         <div
@@ -1270,10 +1273,10 @@ export default function ModalProductReserve({
                                                             'overview-item-value',
                                                             !customFieldValue && 'overview-item-value-empty',
                                                         )}>
-                                                        {field.type === 'file' && customFieldFile ? (
+                                                        {field.type === 'file' && customFieldFile.length ? (
                                                             <FileUploader
                                                                 type="product_reservation_custom_field"
-                                                                files={[customFieldFile]}
+                                                                files={customFieldFile}
                                                                 template="compact"
                                                                 readOnly={true}
                                                                 hideDownloadButton={true}

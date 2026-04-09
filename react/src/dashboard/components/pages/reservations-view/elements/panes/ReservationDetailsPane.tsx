@@ -39,7 +39,11 @@ export default function ReservationDetailsPane({
                 )}
                 {customFields?.map((field, index) => (
                     <KeyValueItem key={index} label={field.reservation_field.label}>
-                        {field.file ? <FileAttachmentsList attachments={[{ file: field.file }]} /> : field.value}
+                        {field.files?.length ? (
+                            <FileAttachmentsList attachments={field.files.map((file) => ({ file: file }))} />
+                        ) : (
+                            field.value
+                        )}
                     </KeyValueItem>
                 ))}
                 {reservation.user_note && (
