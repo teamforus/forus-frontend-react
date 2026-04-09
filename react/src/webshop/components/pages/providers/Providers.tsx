@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../../dashboard/props/ApiResponses';
-import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
@@ -18,18 +17,20 @@ import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import useProvidersPageFilters from './hooks/useProvidersPageFilters';
+import useProvidersPageFilters, { ProviderFilters } from './hooks/useProvidersPageFilters';
 import ProvidersSidebarFilters from './elements/ProvidersSidebarFilters';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Providers() {
     const appConfigs = useAppConfigs();
-    const setProgress = useSetProgress();
     const translate = useTranslate();
+    const runLatestRequest = useLatestRequestWithProgress();
     const providersService = useProviderService();
-    const [errors, setErrors] = useState<ResponseErrorData>({});
 
+    const [errors, setErrors] = useState<ResponseErrorData>({});
     const [offices, setOffices] = useState<Array<Office>>(null);
     const [providers, setProviders] = useState<PaginationData<Provider>>(null);
+
     const {
         businessTypes,
         countFiltersApplied,
@@ -46,34 +47,30 @@ export default function Providers() {
     } = useProvidersPageFilters();
 
     const fetchProviders = useCallback(
-        (query: object) => {
-            setErrors({});
-            setProgress(0);
+        (query: ProviderFilters) => {
+            setErrors(null);
 
-            providersService
-                .search(query)
-                .then((res) => setProviders(res.data))
-                .catch((err: ResponseError) => setErrors(err.data.errors || {}))
-                .finally(() => setProgress(100));
+            runLatestRequest((config) => providersService.search(query, config), {
+                onSuccess: (res) => setProviders(res.data),
+                onError: (err: ResponseError) => setErrors(err.data.errors),
+            });
         },
-        [providersService, setProgress],
+        [providersService, runLatestRequest],
     );
 
     const fetchProvidersMap = useCallback(
-        (query: object) => {
-            setErrors({});
-            setProgress(0);
+        (query: ProviderFilters) => {
+            setErrors(null);
 
-            providersService
-                .search({ ...query, per_page: 1000 })
-                .then((res) => {
+            runLatestRequest((config) => providersService.search({ ...query, per_page: 1000 }, config), {
+                onSuccess: (res) => {
                     setProviders(res.data);
                     setOffices(res.data.data.reduce((arr, provider) => arr.concat(provider.offices), []));
-                })
-                .catch((err: ResponseError) => setErrors(err.data.errors || {}))
-                .finally(() => setProgress(100));
+                },
+                onError: (err: ResponseError) => setErrors(err.data.errors),
+            });
         },
-        [providersService, setProgress],
+        [providersService, runLatestRequest],
     );
 
     useEffect(() => {

@@ -17,6 +17,7 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Vouchers() {
     const envData = useEnvData();
@@ -24,6 +25,7 @@ export default function Vouchers() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const voucherService = useVoucherService();
 
@@ -56,13 +58,10 @@ export default function Vouchers() {
     );
 
     const fetchVouchers = useCallback(() => {
-        setProgress(0);
-
-        voucherService
-            .list(filterValuesActive)
-            .then((res) => setVouchers(res.data))
-            .finally(() => setProgress(100));
-    }, [filterValuesActive, setProgress, voucherService]);
+        runLatestRequest((config) => voucherService.list(filterValuesActive, config), {
+            onSuccess: (res) => setVouchers(res.data),
+        });
+    }, [filterValuesActive, runLatestRequest, voucherService]);
 
     const fetchReimbursementVouchers = useCallback(() => {
         setProgress(0);

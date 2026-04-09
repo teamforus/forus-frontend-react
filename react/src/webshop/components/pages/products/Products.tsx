@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
@@ -14,22 +14,23 @@ import useProductsPageFilters from './hooks/useProductsPageFilters';
 import ProductsSidebarFilters from './elements/ProductsSidebarFilters';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useSetTitle from '../../../hooks/useSetTitle';
-import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useProductService } from '../../../services/ProductService';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../../dashboard/props/ApiResponses';
 import Product from '../../../props/models/Product';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Products() {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
     const productService = useProductService();
+    const runLatestRequest = useLatestRequestWithProgress();
+
     const setTitle = useSetTitle();
-    const setProgress = useSetProgress();
     const translate = useTranslate();
+
     const [errors, setErrors] = useState<ResponseErrorData>({});
     const [toMax, setToMax] = useState(0);
     const [products, setProducts] = useState<PaginationData<Product, { price_max: number }>>(null);
-    const activeFetchListRef = useRef<XMLHttpRequest | null>(null);
 
     const {
         countFiltersApplied,
@@ -47,35 +48,21 @@ export default function Products() {
 
     const fetchProducts = useCallback(
         (query: object) => {
-            activeFetchListRef.current?.abort();
+            setErrors(null);
 
-            setErrors({});
-            setProgress(0);
-
-            productService
-                .list({ ...query }, { onXhr: (xhr: XMLHttpRequest) => (activeFetchListRef.current = xhr) })
-                .then((res) => {
+            runLatestRequest((config) => productService.list({ ...query }, config), {
+                onSuccess: (res) => {
                     setProducts(res.data);
                     setToMax((max) => Math.max(res.data?.meta?.price_max, max));
-                })
-                .catch((e: ResponseError) => {
-                    if (e?.status === 0) {
-                        return;
-                    }
-
-                    setErrors(e.data?.errors || {});
-                })
-                .finally(() => setProgress(100));
+                },
+                onError: (e: ResponseError) => setErrors(e.data?.errors),
+            });
         },
-        [productService, setProgress],
+        [productService, runLatestRequest],
     );
 
     useEffect(() => {
         fetchProducts(productsQuery);
-
-        return () => {
-            activeFetchListRef.current?.abort();
-        };
     }, [fetchProducts, productsQuery]);
 
     useEffect(() => {
