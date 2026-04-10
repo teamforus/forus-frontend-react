@@ -284,7 +284,6 @@ export default function Payouts() {
                             <FilterItemToggle label={translate('payouts.labels.from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.from)}
-                                    placeholder={translate('jjjj-MM-dd')}
                                     onChange={(from: Date) => {
                                         filterUpdate({ from: dateFormat(from) });
                                     }}
@@ -294,7 +293,6 @@ export default function Payouts() {
                             <FilterItemToggle label={translate('payouts.labels.to')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.to)}
-                                    placeholder={translate('jjjj-MM-dd')}
                                     onChange={(to: Date) => {
                                         filterUpdate({ to: dateFormat(to) });
                                     }}
@@ -304,7 +302,6 @@ export default function Payouts() {
                             <FilterItemToggle label={translate('payouts.labels.non_cancelable_from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.non_cancelable_from)}
-                                    placeholder={translate('jjjj-MM-dd')}
                                     onChange={(from: Date) => {
                                         filterUpdate({ non_cancelable_from: dateFormat(from) });
                                     }}
@@ -314,7 +311,6 @@ export default function Payouts() {
                             <FilterItemToggle label={translate('payouts.labels.non_cancelable_to')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.non_cancelable_to)}
-                                    placeholder={translate('jjjj-MM-dd')}
                                     onChange={(to: Date) => {
                                         filterUpdate({ non_cancelable_to: dateFormat(to) });
                                     }}

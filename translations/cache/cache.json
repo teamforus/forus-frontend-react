@@ -6764,6 +6764,74 @@
         "Hoevaak je nog gebruik kunt maken van dit aanbod"
     ],
     [
+        "products.active_filters.distances.10",
+        "tot 10 km"
+    ],
+    [
+        "products.active_filters.distances.15",
+        "tot 15 km"
+    ],
+    [
+        "products.active_filters.distances.25",
+        "tot 25 km"
+    ],
+    [
+        "products.active_filters.distances.3",
+        "tot 3 km"
+    ],
+    [
+        "products.active_filters.distances.5",
+        "tot 5 km"
+    ],
+    [
+        "products.active_filters.distances.50",
+        "tot 50 km"
+    ],
+    [
+        "products.active_filters.distances.75",
+        "tot 75 km"
+    ],
+    [
+        "products.active_filters.distances.everywhere",
+        "Overal"
+    ],
+    [
+        "products.active_filters.price_type_option.discount_fixed",
+        "Aanbod: Korting in euro"
+    ],
+    [
+        "products.active_filters.price_type_option.discount_percentage",
+        "Aanbod: Korting in procenten"
+    ],
+    [
+        "products.active_filters.price_type_option.free",
+        "Aanbod: Gratis"
+    ],
+    [
+        "products.active_filters.price_type_option.info",
+        "Aanbod: Lees meer over de soorten aanbod"
+    ],
+    [
+        "products.active_filters.price_type_option.informational",
+        "Aanbod: Alleen in winkel"
+    ],
+    [
+        "products.active_filters.price_type_option.payout",
+        "Aanbod: Uitbetaling naar bankrekening"
+    ],
+    [
+        "products.active_filters.price_type_option.regular",
+        "Aanbod: Prijs"
+    ],
+    [
+        "products.active_filters.price.to",
+        "tot"
+    ],
+    [
+        "products.active_filters.reset_all",
+        "Verwijder alle filters"
+    ],
+    [
         "products.breadcrumbs.home",
         "Home"
     ],
@@ -6802,6 +6870,10 @@
     [
         "products.distances.everywhere",
         "Overal"
+    ],
+    [
+        "products.filters.active_filters",
+        "Active filters"
     ],
     [
         "products.filters.all_categories",

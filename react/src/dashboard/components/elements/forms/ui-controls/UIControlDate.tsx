@@ -30,7 +30,7 @@ export default function UIControlDate({
     return (
         <div id={id} className={classNames('ui-control', 'ui-control-date', className)} data-dusk={dataDusk}>
             <DatePickerControl
-                dateFormat={format || null}
+                dateFormat={format}
                 value={value}
                 dateMin={dateMin}
                 dateMax={dateMax}

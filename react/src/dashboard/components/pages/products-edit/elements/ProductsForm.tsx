@@ -1073,10 +1073,8 @@ export default function ProductsForm({
                                                 <DatePickerControl
                                                     id={id}
                                                     disabled={!isEditable}
-                                                    dateFormat={'dd-MM-yyyy'}
                                                     value={dateParse(form.values.expire_at)}
                                                     onChange={(date) => form.update({ expire_at: dateFormat(date) })}
-                                                    placeholder="dd-MM-jjjj"
                                                 />
                                             )
                                         }

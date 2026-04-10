@@ -271,7 +271,6 @@ export default function VouchersTableFilters({
                                 <FilterItemToggle label={translate('vouchers.labels.from')}>
                                     <DatePickerControl
                                         value={dateParse(filter.values.from)}
-                                        placeholder={translate('dd-MM-yyyy')}
                                         onChange={(from: Date) => filter.update({ from: dateFormat(from) })}
                                     />
                                 </FilterItemToggle>
@@ -279,7 +278,6 @@ export default function VouchersTableFilters({
                                 <FilterItemToggle label={translate('vouchers.labels.to')}>
                                     <DatePickerControl
                                         value={dateParse(filter.values.to)}
-                                        placeholder={translate('dd-MM-yyyy')}
                                         onChange={(to: Date) => filter.update({ to: dateFormat(to) })}
                                     />
                                 </FilterItemToggle>
