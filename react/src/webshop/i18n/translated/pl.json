@@ -390,9 +390,15 @@
                 "description": "{{name}}Nie można zarejestrować się na .",
                 "title": "Żądanie nie powiodło się"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}W razie pytań prosimy o kontakt.",
-                "description": "<br /> Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna. <br /><br /> <br /> Kredyt jest dostępny na koncie osoby, która aktywowała go jako pierwsza.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymasz to powiadomienie, ponieważ wniosek został już złożony przez członka rodziny lub opiekuna <br />. <br /><br /> Jeśli wniosek członka rodziny lub opiekuna zostanie zatwierdzony, <br /> kredyty będą dostępne na tym koncie.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Wniosek został już złożony"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna <br />. <br /><br /> Kredyt jest dostępny na koncie osoby, która <br /> aktywowała go jako pierwsza.",
                 "heading": "Żądanie nie powiodło się",
                 "title": "Ten kredyt został już aktywowany"
             }

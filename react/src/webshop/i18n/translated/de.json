@@ -390,9 +390,15 @@
                 "description": "{{name}}Sie können sich nicht für .",
                 "title": "Anfrage fehlgeschlagen"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}Bei Fragen wenden Sie sich bitte an .",
-                "description": "<br /> Sie erhalten diese Meldung, weil das Guthaben von einem Familienmitglied oder Erziehungsberechtigten aktiviert wurde. <br /><br /> <br /> Das Guthaben ist auf dem Konto der Person verfügbar, die es zuerst aktiviert hat.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Benachrichtigung, weil bereits ein Antrag von einem <br /> Familienmitglied oder Vormund gestellt wurde. <br /><br /> Sollte der Antrag Ihres Familienmitglieds oder Ihres Vormunds genehmigt werden, werden <br /> die Kredite auf diesem Konto verfügbar sein.",
+                "heading": "Anfrage fehlgeschlagen",
+                "title": "Es wurde bereits ein Antrag gestellt"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Meldung, weil das Guthaben von einem <br /> Familienmitglied oder Erziehungsberechtigten aktiviert wurde. <br /><br /> Das Guthaben ist auf dem Konto der Person verfügbar, die <br /> es zuerst aktiviert hat.",
                 "heading": "Anfrage fehlgeschlagen",
                 "title": "Dieser Kredit ist bereits aktiviert worden"
             }
