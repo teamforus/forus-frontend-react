@@ -3756,84 +3756,156 @@
         "Toon locaties"
     ],
     [
-        "logo_alt_text.berkelland",
+        "logo_alt_text.home.berkelland",
         "Gemeente Berkelland"
     ],
     [
-        "logo_alt_text.ede",
+        "logo_alt_text.home.default",
+        "Homepagina (home)"
+    ],
+    [
+        "logo_alt_text.home.ede",
         "Ede"
     ],
     [
-        "logo_alt_text.eemsdelta",
+        "logo_alt_text.home.eemsdelta",
         "Gemeente Eemsdelta"
     ],
     [
-        "logo_alt_text.geertruidenberg",
+        "logo_alt_text.home.geertruidenberg",
         "Gemeente Geertruidenberg"
     ],
     [
-        "logo_alt_text.general",
+        "logo_alt_text.home.general",
         "Forus"
     ],
     [
-        "logo_alt_text.goereeoverflakkee",
+        "logo_alt_text.home.goereeoverflakkee",
         "Gemeente Goeree-Overflakkee"
     ],
     [
-        "logo_alt_text.groningen",
+        "logo_alt_text.home.groningen",
         "Stadjerspas"
     ],
     [
-        "logo_alt_text.hartvanwestbrabant",
+        "logo_alt_text.home.hartvanwestbrabant",
         "Werkplein"
     ],
     [
-        "logo_alt_text.heumen",
+        "logo_alt_text.home.heumen",
         "Gemeente Heumen"
     ],
     [
-        "logo_alt_text.home",
-        "Naar de homepagina"
-    ],
-    [
-        "logo_alt_text.kerstpakket",
+        "logo_alt_text.home.kerstpakket",
         "Kerstpakket"
     ],
     [
-        "logo_alt_text.noordoostpolder",
+        "logo_alt_text.home.noordoostpolder",
         "Gemeente Noordoostpolder"
     ],
     [
-        "logo_alt_text.oostgelre",
+        "logo_alt_text.home.oostgelre",
         "Gemeente Oost Gelre"
     ],
     [
-        "logo_alt_text.potjeswijzer",
+        "logo_alt_text.home.potjeswijzer",
         "Potjeswijzer"
     ],
     [
-        "logo_alt_text.schagen",
+        "logo_alt_text.home.schagen",
         "Gemeente Schagen"
     ],
     [
-        "logo_alt_text.vergoedingen",
+        "logo_alt_text.home.vergoedingen",
         "logo Gemeente Nijmegen"
     ],
     [
-        "logo_alt_text.waalwijk",
+        "logo_alt_text.home.waalwijk",
         "Pas Wijzer"
     ],
     [
-        "logo_alt_text.westerkwartier",
+        "logo_alt_text.home.westerkwartier",
         "Gemeente Westerkwartier"
     ],
     [
-        "logo_alt_text.winterswijk",
+        "logo_alt_text.home.winterswijk",
         "Gemeente Winterswijk"
     ],
     [
-        "logo_title",
-        "Naar de homepagina van {{host}}"
+        "logo_alt_text.pages.berkelland",
+        "Gemeente Berkelland"
+    ],
+    [
+        "logo_alt_text.pages.default",
+        "Homepagina (non home)"
+    ],
+    [
+        "logo_alt_text.pages.ede",
+        "Ede"
+    ],
+    [
+        "logo_alt_text.pages.eemsdelta",
+        "Gemeente Eemsdelta"
+    ],
+    [
+        "logo_alt_text.pages.geertruidenberg",
+        "Gemeente Geertruidenberg"
+    ],
+    [
+        "logo_alt_text.pages.general",
+        "Forus"
+    ],
+    [
+        "logo_alt_text.pages.goereeoverflakkee",
+        "Gemeente Goeree-Overflakkee"
+    ],
+    [
+        "logo_alt_text.pages.groningen",
+        "Stadjerspas"
+    ],
+    [
+        "logo_alt_text.pages.hartvanwestbrabant",
+        "Werkplein"
+    ],
+    [
+        "logo_alt_text.pages.heumen",
+        "Gemeente Heumen"
+    ],
+    [
+        "logo_alt_text.pages.kerstpakket",
+        "Kerstpakket"
+    ],
+    [
+        "logo_alt_text.pages.noordoostpolder",
+        "Gemeente Noordoostpolder"
+    ],
+    [
+        "logo_alt_text.pages.oostgelre",
+        "Gemeente Oost Gelre"
+    ],
+    [
+        "logo_alt_text.pages.potjeswijzer",
+        "Potjeswijzer"
+    ],
+    [
+        "logo_alt_text.pages.schagen",
+        "Gemeente Schagen"
+    ],
+    [
+        "logo_alt_text.pages.vergoedingen",
+        "logo Gemeente Nijmegen"
+    ],
+    [
+        "logo_alt_text.pages.waalwijk",
+        "Pas Wijzer"
+    ],
+    [
+        "logo_alt_text.pages.westerkwartier",
+        "Gemeente Westerkwartier"
+    ],
+    [
+        "logo_alt_text.pages.winterswijk",
+        "Gemeente Winterswijk"
     ],
     [
         "maps.cancel",

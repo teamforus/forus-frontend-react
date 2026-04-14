@@ -288,27 +288,6 @@
             "payment_option_reservation_aria_label": "Online ödeme: daha fazla bilgi için tıklayın"
         }
     },
-    "logo_alt_text": {
-        "berkelland": "Berkelland Belediyesi",
-        "ede": "Ede",
-        "eemsdelta": "Eems Deltası Belediyesi",
-        "geertruidenberg": "Geertruidenberg Belediyesi",
-        "general": "Forus",
-        "goereeoverflakkee": "Goeree-Overflakkee Belediyesi",
-        "groningen": "Stadjerspas",
-        "hartvanwestbrabant": "İşyeri",
-        "heumen": "Heumen Belediyesi",
-        "kerstpakket": "Noel paketi",
-        "noordoostpolder": "Noordoostpolder Belediyesi",
-        "oostgelre": "Oost Gelre Belediyesi",
-        "potjeswijzer": "Tencere kılavuzu",
-        "schagen": "Schagen Belediyesi",
-        "vergoedingen": "logo Nijmegen Belediyesi",
-        "waalwijk": "Geçiş Noktası",
-        "westerkwartier": "Westerkwartier Belediyesi",
-        "winterswijk": "Winterswijk Belediyesi",
-        "home": "Ana sayfaya"
-    },
     "notifications": {
         "breadcrumbs": {
             "home": "Ev",
@@ -3758,7 +3737,6 @@
         "info_option_reservation_title": "Rezervasyon",
         "title": "Ödeme seçenekleri"
     },
-    "logo_title": "Ana sayfasına {{host}}",
     "modal_product_price_type_options_info": {
         "confirm": "Kapat",
         "description": "Web mağazasındaki ürünler farklı şekillerde sunulabilir. Aşağıda farklı teklif türlerinin ne anlama geldiği açıklanmaktadır.",
@@ -3809,5 +3787,49 @@
             "close": "Kapat"
         },
         "title": "Dosyayı görüntüle"
+    },
+    "logo_alt_text": {
+        "home": {
+            "berkelland": "Berkelland Belediyesi",
+            "default": "Anasayfa (ana sayfa)",
+            "ede": "Ede",
+            "eemsdelta": "Eems Deltası Belediyesi",
+            "geertruidenberg": "Geertruidenberg Belediyesi",
+            "general": "Forus",
+            "goereeoverflakkee": "Goeree-Overflakkee Belediyesi",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "İşyeri",
+            "heumen": "Heumen Belediyesi",
+            "kerstpakket": "Noel paketi",
+            "noordoostpolder": "Noordoostpolder Belediyesi",
+            "oostgelre": "Oost Gelre Belediyesi",
+            "potjeswijzer": "Tencere kılavuzu",
+            "schagen": "Schagen Belediyesi",
+            "vergoedingen": "logo Nijmegen Belediyesi",
+            "waalwijk": "Geçiş Noktası",
+            "westerkwartier": "Westerkwartier Belediyesi",
+            "winterswijk": "Winterswijk Belediyesi"
+        },
+        "pages": {
+            "berkelland": "Berkelland Belediyesi",
+            "default": "Ana sayfa (ev dışı)",
+            "ede": "Ede",
+            "eemsdelta": "Eems Deltası Belediyesi",
+            "geertruidenberg": "Geertruidenberg Belediyesi",
+            "general": "Forus",
+            "goereeoverflakkee": "Goeree-Overflakkee Belediyesi",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "İşyeri",
+            "heumen": "Heumen Belediyesi",
+            "kerstpakket": "Noel paketi",
+            "noordoostpolder": "Noordoostpolder Belediyesi",
+            "oostgelre": "Oost Gelre Belediyesi",
+            "potjeswijzer": "Tencere kılavuzu",
+            "schagen": "Schagen Belediyesi",
+            "vergoedingen": "logo Nijmegen Belediyesi",
+            "waalwijk": "Pass Wise",
+            "westerkwartier": "Westerkwartier Belediyesi",
+            "winterswijk": "Winterswijk Belediyesi"
+        }
     }
 }
