@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import useEnvData from '../../../hooks/useEnvData';
-import FormError from '../../elements/forms/errors/FormError';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useFeedbackService from '../../../services/FeedbackService';
 import useAssetUrl from '../../../hooks/useAssetUrl';
@@ -90,70 +90,76 @@ export default function Feedback() {
                         <div className="card-section card-section-primary">
                             <div className="row">
                                 <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            {translate('components.feedback.labels.title')}
-                                        </label>
-                                        <input
-                                            type="text"
-                                            maxLength={200}
-                                            className="form-control r-n"
-                                            name="name"
-                                            value={form.values?.title || ''}
-                                            onChange={(e) => form.update({ title: e.target.value })}
-                                            placeholder={translate('components.feedback.labels.title')}
-                                            aria-label={translate('components.feedback.labels.title')}
-                                        />
-                                        <FormError error={form.errors?.title} />
-                                    </div>
+                                    <FormGroup
+                                        required={true}
+                                        label={translate('components.feedback.labels.title')}
+                                        error={form.errors?.title}
+                                        input={(id) => (
+                                            <input
+                                                id={id}
+                                                type="text"
+                                                maxLength={200}
+                                                className="form-control r-n"
+                                                name="name"
+                                                value={form.values?.title || ''}
+                                                onChange={(e) => form.update({ title: e.target.value })}
+                                                placeholder={translate('components.feedback.labels.title')}
+                                                aria-label={translate('components.feedback.labels.title')}
+                                            />
+                                        )}
+                                    />
 
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            {translate('components.feedback.labels.urgency')}
-                                        </label>
-                                        <SelectControl
-                                            className="form-control"
-                                            propValue={'label'}
-                                            propKey={'value'}
-                                            allowSearch={false}
-                                            value={form.values?.urgency}
-                                            onChange={(urgency: string) => form.update({ urgency })}
-                                            options={urgencyOptions}
-                                        />
-                                        <FormError error={form.errors?.urgency} />
-                                    </div>
+                                    <FormGroup
+                                        label={translate('components.feedback.labels.urgency')}
+                                        error={form.errors?.urgency}
+                                        input={(id) => (
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propValue={'label'}
+                                                propKey={'value'}
+                                                allowSearch={false}
+                                                value={form.values?.urgency}
+                                                onChange={(urgency: string) => form.update({ urgency })}
+                                                options={urgencyOptions}
+                                            />
+                                        )}
+                                    />
 
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            {translate('components.feedback.labels.content')}
-                                        </label>
-                                        <textarea
-                                            maxLength={4000}
-                                            className="form-control r-n"
-                                            name="content"
-                                            value={form.values?.content || ''}
-                                            onChange={(e) => form.update({ content: e.target.value })}
-                                            placeholder={translate('components.feedback.labels.content')}
-                                        />
-                                        <FormError error={form.errors?.content} />
-                                    </div>
+                                    <FormGroup
+                                        required={true}
+                                        label={translate('components.feedback.labels.content')}
+                                        error={form.errors?.content}
+                                        input={(id) => (
+                                            <textarea
+                                                id={id}
+                                                maxLength={4000}
+                                                className="form-control r-n"
+                                                name="content"
+                                                value={form.values?.content || ''}
+                                                onChange={(e) => form.update({ content: e.target.value })}
+                                                placeholder={translate('components.feedback.labels.content')}
+                                            />
+                                        )}
+                                    />
 
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            {translate('components.feedback.labels.email')}
-                                        </label>
-
-                                        <input
-                                            type="text"
-                                            className="form-control r-n"
-                                            name="customer_email"
-                                            value={form.values.customer_email || ''}
-                                            onChange={(e) => form.update({ customer_email: e.target.value })}
-                                            autoComplete="email"
-                                            aria-label={translate('components.feedback.labels.email')}
-                                        />
-                                        <FormError error={form.errors?.customer_email} />
-                                    </div>
+                                    <FormGroup
+                                        required={true}
+                                        label={translate('components.feedback.labels.email')}
+                                        error={form.errors?.customer_email}
+                                        input={(id) => (
+                                            <input
+                                                id={id}
+                                                type="text"
+                                                className="form-control r-n"
+                                                name="customer_email"
+                                                value={form.values.customer_email || ''}
+                                                onChange={(e) => form.update({ customer_email: e.target.value })}
+                                                autoComplete="email"
+                                                aria-label={translate('components.feedback.labels.email')}
+                                            />
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>
