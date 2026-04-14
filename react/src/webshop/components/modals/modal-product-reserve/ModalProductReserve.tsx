@@ -984,7 +984,6 @@ export default function ModalProductReserve({
                                                     <DatePickerControl
                                                         value={dateParse(form.values[fieldKey])}
                                                         dateMax={dateMinLimit}
-                                                        dateFormat={'dd-MM-yyyy'}
                                                         onChange={(date: Date) => {
                                                             form.update({ [fieldKey]: dateFormat(date) });
                                                         }}

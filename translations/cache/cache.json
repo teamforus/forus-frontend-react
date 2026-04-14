@@ -1116,19 +1116,35 @@
         "Aanvraag mislukt"
     ],
     [
-        "fund_activate.cards.taken_by_partner.contacts",
+        "fund_activate.cards.taken_by_partner_pending_fund_request.contacts",
         "Neem voor vragen contact op met {{name}}."
     ],
     [
-        "fund_activate.cards.taken_by_partner.description",
-        "U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd."
+        "fund_activate.cards.taken_by_partner_pending_fund_request.description",
+        "U krijgt deze melding omdat er al een aanvraag is gedaan door een <br /> familielid of voogd. <br /><br /> Mocht de aanvraag van uw familielid of voogd zijn goedgekeurd, dan <br /> zijn de tegoeden beschikbaar in dat account."
     ],
     [
-        "fund_activate.cards.taken_by_partner.heading",
+        "fund_activate.cards.taken_by_partner_pending_fund_request.heading",
         "Aanvraag mislukt"
     ],
     [
-        "fund_activate.cards.taken_by_partner.title",
+        "fund_activate.cards.taken_by_partner_pending_fund_request.title",
+        "Er is al een aanvraag gedaan"
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.description",
+        "U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd."
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.title",
         "Dit tegoed is al geactiveerd"
     ],
     [
@@ -6764,6 +6780,74 @@
         "Hoevaak je nog gebruik kunt maken van dit aanbod"
     ],
     [
+        "products.active_filters.distances.10",
+        "tot 10 km"
+    ],
+    [
+        "products.active_filters.distances.15",
+        "tot 15 km"
+    ],
+    [
+        "products.active_filters.distances.25",
+        "tot 25 km"
+    ],
+    [
+        "products.active_filters.distances.3",
+        "tot 3 km"
+    ],
+    [
+        "products.active_filters.distances.5",
+        "tot 5 km"
+    ],
+    [
+        "products.active_filters.distances.50",
+        "tot 50 km"
+    ],
+    [
+        "products.active_filters.distances.75",
+        "tot 75 km"
+    ],
+    [
+        "products.active_filters.distances.everywhere",
+        "Overal"
+    ],
+    [
+        "products.active_filters.price_type_option.discount_fixed",
+        "Aanbod: Korting in euro"
+    ],
+    [
+        "products.active_filters.price_type_option.discount_percentage",
+        "Aanbod: Korting in procenten"
+    ],
+    [
+        "products.active_filters.price_type_option.free",
+        "Aanbod: Gratis"
+    ],
+    [
+        "products.active_filters.price_type_option.info",
+        "Aanbod: Lees meer over de soorten aanbod"
+    ],
+    [
+        "products.active_filters.price_type_option.informational",
+        "Aanbod: Alleen in winkel"
+    ],
+    [
+        "products.active_filters.price_type_option.payout",
+        "Aanbod: Uitbetaling naar bankrekening"
+    ],
+    [
+        "products.active_filters.price_type_option.regular",
+        "Aanbod: Prijs"
+    ],
+    [
+        "products.active_filters.price.to",
+        "tot"
+    ],
+    [
+        "products.active_filters.reset_all",
+        "Verwijder alle filters"
+    ],
+    [
         "products.breadcrumbs.home",
         "Home"
     ],
@@ -6802,6 +6886,10 @@
     [
         "products.distances.everywhere",
         "Overal"
+    ],
+    [
+        "products.filters.active_filters",
+        "Actieve filters"
     ],
     [
         "products.filters.all_categories",

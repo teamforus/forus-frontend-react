@@ -390,9 +390,15 @@
                 "description": "{{name}}Sie können sich nicht für .",
                 "title": "Anfrage fehlgeschlagen"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}Bei Fragen wenden Sie sich bitte an .",
-                "description": "<br /> Sie erhalten diese Meldung, weil das Guthaben von einem Familienmitglied oder Erziehungsberechtigten aktiviert wurde. <br /><br /> <br /> Das Guthaben ist auf dem Konto der Person verfügbar, die es zuerst aktiviert hat.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Benachrichtigung, weil bereits ein Antrag von einem <br /> Familienmitglied oder Vormund gestellt wurde. <br /><br /> Sollte der Antrag Ihres Familienmitglieds oder Ihres Vormunds genehmigt werden, werden <br /> die Kredite auf diesem Konto verfügbar sein.",
+                "heading": "Anfrage fehlgeschlagen",
+                "title": "Es wurde bereits ein Antrag gestellt"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "Bei Fragen wenden Sie sich bitte an {{name}}.",
+                "description": "Sie erhalten diese Meldung, weil das Guthaben von einem <br /> Familienmitglied oder Erziehungsberechtigten aktiviert wurde. <br /><br /> Das Guthaben ist auf dem Konto der Person verfügbar, die <br /> es zuerst aktiviert hat.",
                 "heading": "Anfrage fehlgeschlagen",
                 "title": "Dieser Kredit ist bereits aktiviert worden"
             }
@@ -2429,7 +2435,8 @@
             "payment_options": "Zahlungsmöglichkeiten",
             "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
             "price_to": "An",
-            "price_type_option_payout": "Auszahlung auf ein Bankkonto"
+            "price_type_option_payout": "Auszahlung auf ein Bankkonto",
+            "active_filters": "Aktive Filter"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -2445,6 +2452,31 @@
         "view": {
             "grid": "Fotos",
             "list": "Liste"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "bis zu 3 km",
+                "5": "bis zu 5 km",
+                "10": "bis zu 10 km",
+                "15": "bis zu 15 km",
+                "25": "bis zu 25 km",
+                "50": "bis zu 50 km",
+                "75": "bis zu 75 km",
+                "everywhere": "Überall"
+            },
+            "price_type_option": {
+                "discount_fixed": "Angebot: Rabatt in Euro",
+                "discount_percentage": "Angebot: Rabatt in Prozent",
+                "free": "Angebot: Kostenlos",
+                "info": "Angebote: Lesen Sie mehr über die Arten von Angeboten",
+                "informational": "Angebot: Nur im Geschäft",
+                "payout": "Angebot: Auszahlung auf Bankkonto",
+                "regular": "Angebot: Preis"
+            },
+            "price": {
+                "to": "zu"
+            },
+            "reset_all": "Alle Filter entfernen"
         }
     },
     "profile_menu": {

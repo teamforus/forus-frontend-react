@@ -1,19 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormGroup from '../../../elements/forms/FormGroup';
 import { FilterSetter } from '../../../../../dashboard/modules/filter_next/types/FilterParams';
 import SelectControl from '../../../../../dashboard/components/elements/select-control/SelectControl';
 import Organization from '../../../../../dashboard/props/models/Organization';
-import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
-import { useOrganizationService } from '../../../../../dashboard/services/OrganizationService';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 
 export default function ProductsFilterGroupProviders({
+    organizations,
     filterValues,
     filterUpdate,
     errors,
     openByDefault = false,
 }: {
+    organizations: Array<Organization>;
     filterValues: {
         organization_id?: number;
     };
@@ -26,26 +26,6 @@ export default function ProductsFilterGroupProviders({
     openByDefault?: boolean;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
-
-    const organizationService = useOrganizationService();
-
-    const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
-
-    const fetchOrganizations = useCallback(() => {
-        setProgress(0);
-
-        organizationService
-            .list({ type: 'provider', per_page: 300, order_by: 'name' })
-            .then((res) => {
-                setOrganizations([{ id: null, name: translate('products.filters.all_providers') }, ...res.data.data]);
-            })
-            .then(() => setProgress(100));
-    }, [organizationService, setProgress, translate]);
-
-    useEffect(() => {
-        fetchOrganizations();
-    }, [fetchOrganizations]);
 
     return (
         <ProductsFilterGroup
@@ -73,7 +53,10 @@ export default function ProductsFilterGroupProviders({
                                     multiline={true}
                                     allowSearch={true}
                                     onChange={(organization_id: number) => filterUpdate({ organization_id })}
-                                    options={organizations || []}
+                                    options={[
+                                        { id: null, name: translate('products.filters.all_providers') },
+                                        ...(organizations || []),
+                                    ]}
                                     dusk="selectControlOrganizations"
                                 />
                             )}

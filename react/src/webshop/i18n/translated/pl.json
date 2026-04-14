@@ -390,9 +390,15 @@
                 "description": "{{name}}Nie można zarejestrować się na .",
                 "title": "Żądanie nie powiodło się"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}W razie pytań prosimy o kontakt.",
-                "description": "<br /> Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna. <br /><br /> <br /> Kredyt jest dostępny na koncie osoby, która aktywowała go jako pierwsza.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymasz to powiadomienie, ponieważ wniosek został już złożony przez członka rodziny lub opiekuna <br />. <br /><br /> Jeśli wniosek członka rodziny lub opiekuna zostanie zatwierdzony, <br /> kredyty będą dostępne na tym koncie.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Wniosek został już złożony"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "W razie pytań prosimy o kontakt pod adresem {{name}}.",
+                "description": "Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna <br />. <br /><br /> Kredyt jest dostępny na koncie osoby, która <br /> aktywowała go jako pierwsza.",
                 "heading": "Żądanie nie powiodło się",
                 "title": "Ten kredyt został już aktywowany"
             }
@@ -2429,7 +2435,8 @@
             "payment_options": "Opcje płatności",
             "payment_options_info": "Więcej informacji o opcjach płatności",
             "price_to": "Do",
-            "price_type_option_payout": "Wypłata na konto bankowe"
+            "price_type_option_payout": "Wypłata na konto bankowe",
+            "active_filters": "Filtry aktywne"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -2445,6 +2452,31 @@
         "view": {
             "grid": "Zdjęcia",
             "list": "Lista"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "do 3 km",
+                "5": "do 5 km",
+                "10": "do 10 km",
+                "15": "do 15 km",
+                "25": "do 25 km",
+                "50": "do 50 km",
+                "75": "do 75 km",
+                "everywhere": "Wszędzie"
+            },
+            "price_type_option": {
+                "discount_fixed": "Oferta: Rabat w euro",
+                "discount_percentage": "Oferta: Rabat w procentach",
+                "free": "Oferta: Bezpłatnie",
+                "info": "Oferty: Dowiedz się więcej o rodzajach ofert",
+                "informational": "Oferta: Tylko w sklepie",
+                "payout": "Oferta: Wypłata na konto bankowe",
+                "regular": "Oferta: Cena"
+            },
+            "price": {
+                "to": "do"
+            },
+            "reset_all": "Usuń wszystkie filtry"
         }
     },
     "profile_menu": {

@@ -436,7 +436,8 @@
             "payment_options": "Ödeme seçenekleri",
             "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
             "price_to": "için",
-            "price_type_option_payout": "Banka hesabına ödeme"
+            "price_type_option_payout": "Banka hesabına ödeme",
+            "active_filters": "Aktif filtreler"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -452,6 +453,31 @@
         "view": {
             "grid": "Fotoğraflar",
             "list": "Liste"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "3 km'ye kadar",
+                "5": "5 km'ye kadar",
+                "10": "10 km'ye kadar",
+                "15": "15 km'ye kadar",
+                "25": "25 km'ye kadar",
+                "50": "50 km'ye kadar",
+                "75": "75 km'ye kadar",
+                "everywhere": "Her yerde"
+            },
+            "price_type_option": {
+                "discount_fixed": "Teklif: Euro cinsinden indirim",
+                "discount_percentage": "Teklif Yüzde olarak indirim",
+                "free": "Teklif: Ücretsiz",
+                "info": "Teklifler: Teklif türleri hakkında daha fazla bilgi edinin",
+                "informational": "Teklif: Sadece mağaza içi",
+                "payout": "Teklif: Banka hesabına ödeme",
+                "regular": "Teklif: Fiyat"
+            },
+            "price": {
+                "to": "için"
+            },
+            "reset_all": "Tüm filtreleri kaldır"
         }
     },
     "provider_sign_up": {
@@ -835,9 +861,15 @@
                 "description": "{{name}}için kayıt yaptıramazsınız.",
                 "title": "İstek başarısız oldu"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}Sorularınız için iletişime geçin.",
-                "description": "<br /> Kredi bir aile üyesi veya vasi tarafından etkinleştirildiği için bu mesajı alırsınız. <br /><br /> <br /> Kredi, ilk etkinleştiren kişinin hesabında kullanılabilir.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "Sorularınız için {{name}} ile iletişime geçebilirsiniz.",
+                "description": "Bu bildirimi alıyorsunuz çünkü bir <br /> aile üyesi veya vasisi tarafından zaten bir başvuru yapılmıştır. <br /><br /> Aile üyenizin veya vasinizin başvurusu onaylanırsa <br /> krediler bu hesapta kullanılabilir olacaktır.",
+                "heading": "İstek başarısız oldu",
+                "title": "Halihazırda bir başvuru yapılmıştır"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "Sorularınız için {{name}} ile iletişime geçebilirsiniz.",
+                "description": "Bu mesajı alıyorsunuz çünkü kredi bir <br /> aile üyesi veya vasisi tarafından etkinleştirildi. <br /><br /> Kredi <br /> ilk etkinleştiren kişinin hesabında kullanılabilir.",
                 "heading": "İstek başarısız oldu",
                 "title": "Bu kredi zaten etkinleştirildi"
             }
