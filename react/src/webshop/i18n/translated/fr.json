@@ -390,9 +390,15 @@
                 "description": "{{name}}Vous ne pouvez pas vous inscrire à .",
                 "title": "Échec de la demande"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}Pour toute question, veuillez contacter .",
-                "description": "<br /> Vous recevez ce message parce que le crédit a été activé par un membre de la famille ou un tuteur. <br /><br /> <br /> Le crédit est disponible sur le compte de la personne qui l'a activé en premier.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez cette notification parce qu'une demande a déjà été introduite par un membre de la famille ou un tuteur ( <br /> ). <br /><br /> Si la demande de votre membre de la famille ou de votre tuteur est approuvée, <br /> les crédits seront disponibles sur ce compte.",
+                "heading": "Échec de la demande",
+                "title": "Une demande a déjà été introduite"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez ce message parce que le crédit a été activé par un membre de la famille ou un tuteur <br />. <br /><br /> Le crédit est disponible sur le compte de la personne qui l'a activé en premier ( <br /> ).",
                 "heading": "Échec de la demande",
                 "title": "Ce crédit a déjà été activé"
             }
