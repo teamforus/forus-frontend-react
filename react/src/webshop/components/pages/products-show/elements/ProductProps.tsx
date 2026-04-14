@@ -20,11 +20,11 @@ export default function ProductProps({
     const showProductProps = useMemo(() => {
         return Boolean(
             product?.info_duration ||
-                product?.info_when ||
-                product?.info_more_info ||
-                product?.info_where ||
-                product?.info_attention ||
-                !isPayoutInfoProduct,
+            product?.info_when ||
+            product?.info_more_info ||
+            product?.info_where ||
+            product?.info_attention ||
+            !isPayoutInfoProduct,
         );
     }, [
         isPayoutInfoProduct,
