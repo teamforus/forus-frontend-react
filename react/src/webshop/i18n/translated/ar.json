@@ -288,27 +288,6 @@
             "payment_option_reservation_aria_label": "الدفع عبر الإنترنت: انقر للحصول على مزيد من المعلومات"
         }
     },
-    "logo_alt_text": {
-        "berkelland": "بلدية بيركيلاند",
-        "ede": "إيد",
-        "eemsdelta": "بلدية دلتا إيمز",
-        "geertruidenberg": "بلدية غيرترويدنبرغ",
-        "general": "فورس",
-        "goereeoverflakkee": "بلدية غويري-أوفرفلاكي",
-        "groningen": "ستادجرسباس",
-        "hartvanwestbrabant": "مكان العمل",
-        "heumen": "بلدية هيومين",
-        "kerstpakket": "باقة عيد الميلاد",
-        "noordoostpolder": "بلدية نوردوشتبولدر",
-        "oostgelre": "بلدية أوست جيلر",
-        "potjeswijzer": "دليل الأواني",
-        "schagen": "بلدية شاجن",
-        "vergoedingen": "شعار بلدية نايميخن",
-        "waalwijk": "مرر بحكمة",
-        "westerkwartier": "بلدية فيستركفارتييه",
-        "winterswijk": "بلدية وينترسفيك",
-        "home": "إلى الصفحة الرئيسية"
-    },
     "notifications": {
         "breadcrumbs": {
             "home": "الصفحة الرئيسية",
@@ -3762,7 +3741,6 @@
         "info_option_reservation_title": "الحجز",
         "title": "خيارات الدفع"
     },
-    "logo_title": "إلى الصفحة الرئيسية لـ {{host}}",
     "modal_product_price_type_options_info": {
         "confirm": "إغلاق",
         "description": "يمكن تقديم المنتجات في المتجر الإلكتروني بطرق مختلفة. فيما يلي ما تعنيه أنواع العروض المختلفة.",
@@ -3813,5 +3791,49 @@
             "close": "إغلاق"
         },
         "title": "عرض الملف"
+    },
+    "logo_alt_text": {
+        "home": {
+            "berkelland": "بلدية بيركيلاند",
+            "default": "الصفحة الرئيسية (الرئيسية)",
+            "ede": "إيد",
+            "eemsdelta": "بلدية دلتا إيمز",
+            "geertruidenberg": "بلدية غيرترويدنبرغ",
+            "general": "فورس",
+            "goereeoverflakkee": "بلدية غويري-أوفرفلاكي",
+            "groningen": "ستادجرسباس",
+            "hartvanwestbrabant": "مكان العمل",
+            "heumen": "بلدية هيومين",
+            "kerstpakket": "باقة عيد الميلاد",
+            "noordoostpolder": "بلدية نوردوشتبولدر",
+            "oostgelre": "بلدية أوست جيلر",
+            "potjeswijzer": "دليل الأواني",
+            "schagen": "بلدية شاجن",
+            "vergoedingen": "شعار بلدية نايميخن",
+            "waalwijk": "مرر أكثر حكمة",
+            "westerkwartier": "بلدية فيستركفارتييه",
+            "winterswijk": "بلدية وينترسفيك"
+        },
+        "pages": {
+            "berkelland": "بلدية بيركيلاند",
+            "default": "الصفحة الرئيسية (غير الرئيسية)",
+            "ede": "إيد",
+            "eemsdelta": "بلدية دلتا إيمز",
+            "geertruidenberg": "بلدية جيرترويدنبرغ",
+            "general": "فورس",
+            "goereeoverflakkee": "بلدية غويري-أوفرفلاكي",
+            "groningen": "ستادجرسباس",
+            "hartvanwestbrabant": "مكان العمل",
+            "heumen": "بلدية هيومين",
+            "kerstpakket": "باقة عيد الميلاد",
+            "noordoostpolder": "بلدية نوردوشتبولدر",
+            "oostgelre": "بلدية أوست جيلر",
+            "potjeswijzer": "دليل الأواني",
+            "schagen": "بلدية شاجن",
+            "vergoedingen": "شعار بلدية نايميخن",
+            "waalwijk": "مرر أكثر حكمة",
+            "westerkwartier": "بلدية فيستركفارتييه",
+            "winterswijk": "بلدية وينترسفيك"
+        }
     }
 }

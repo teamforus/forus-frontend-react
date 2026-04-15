@@ -1378,27 +1378,6 @@
             "payment_option_reservation_aria_label": "Сплачуйте онлайн: натисніть для отримання додаткової інформації"
         }
     },
-    "logo_alt_text": {
-        "berkelland": "Муніципалітет Беркелланд",
-        "ede": "Еде.",
-        "eemsdelta": "Муніципалітет Еемс Дельта",
-        "geertruidenberg": "Муніципалітет Гертруйденберг",
-        "general": "Форус",
-        "goereeoverflakkee": "Муніципалітет Гері-Оверфлакке",
-        "groningen": "Stadjerspas",
-        "hartvanwestbrabant": "Робоче місце",
-        "heumen": "Муніципалітет Хоймен",
-        "kerstpakket": "Різдвяний пакет",
-        "noordoostpolder": "Муніципалітет Норд-Остпольдер",
-        "oostgelre": "Муніципалітет Оост-Гелре",
-        "potjeswijzer": "Посібник для горщиків",
-        "schagen": "Муніципалітет Шаген",
-        "vergoedingen": "логотип Муніципалітет Неймеген",
-        "waalwijk": "Пропускний пункт",
-        "westerkwartier": "Муніципалітет Вестерквартьє",
-        "winterswijk": "Муніципалітет Вінтерсвейк",
-        "home": "На головну сторінку"
-    },
     "maps": {
         "cancel": "Скасувати",
         "labels": {
@@ -3762,7 +3741,6 @@
         "info_option_reservation_title": "Бронювання",
         "title": "Варіанти оплати"
     },
-    "logo_title": "На головну сторінку сайту {{host}}",
     "modal_product_price_type_options_info": {
         "confirm": "Закрити",
         "description": "Продукти в інтернет-магазині можна пропонувати різними способами. Нижче описано, що означають різні типи пропозицій.",
@@ -3813,5 +3791,49 @@
             "close": "Закрити"
         },
         "title": "Переглянути файл"
+    },
+    "logo_alt_text": {
+        "home": {
+            "berkelland": "Муніципалітет Беркелланд",
+            "default": "Головна сторінка (домашня сторінка)",
+            "ede": "Еде.",
+            "eemsdelta": "Муніципалітет Еемс Дельта",
+            "geertruidenberg": "Муніципалітет Гертруйденберг",
+            "general": "Форус",
+            "goereeoverflakkee": "Муніципалітет Гері-Оверфлакке",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Робоче місце",
+            "heumen": "Муніципалітет Хоймен",
+            "kerstpakket": "Різдвяний пакет",
+            "noordoostpolder": "Муніципалітет Норд-Остпольдер",
+            "oostgelre": "Муніципалітет Оост-Гелре",
+            "potjeswijzer": "Посібник для горщиків",
+            "schagen": "Муніципалітет Шаген",
+            "vergoedingen": "логотип Муніципалітет Неймеген",
+            "waalwijk": "Пропускний пункт",
+            "westerkwartier": "Муніципалітет Вестерквартір",
+            "winterswijk": "Муніципалітет Вінтерсвейк"
+        },
+        "pages": {
+            "berkelland": "Муніципалітет Беркелланд",
+            "default": "Домашня сторінка (не домашня)",
+            "ede": "Еде.",
+            "eemsdelta": "Муніципалітет Еемс Дельта",
+            "geertruidenberg": "Муніципалітет Гертруйденберг",
+            "general": "Форус",
+            "goereeoverflakkee": "Муніципалітет Гері-Оверфлакке",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Робоче місце",
+            "heumen": "Муніципалітет Хоймен",
+            "kerstpakket": "Різдвяний пакет",
+            "noordoostpolder": "Муніципалітет Норд-Остпольдер",
+            "oostgelre": "Муніципалітет Оост-Гелре",
+            "potjeswijzer": "Посібник для горщиків",
+            "schagen": "Муніципалітет Шаген",
+            "vergoedingen": "логотип Муніципалітет Неймеген",
+            "waalwijk": "Pass Wiser",
+            "westerkwartier": "Муніципалітет Вестерквартьє",
+            "winterswijk": "Муніципалітет Вінтерсвейк"
+        }
     }
 }

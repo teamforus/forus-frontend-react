@@ -1378,27 +1378,6 @@
             "payment_option_reservation_aria_label": "Płatność online: kliknij, aby uzyskać więcej informacji"
         }
     },
-    "logo_alt_text": {
-        "berkelland": "Gmina Berkelland",
-        "ede": "Ede",
-        "eemsdelta": "Gmina Eems Delta",
-        "geertruidenberg": "Gmina Geertruidenberg",
-        "general": "Forus",
-        "goereeoverflakkee": "Gmina Goeree-Overflakkee",
-        "groningen": "Stadjerspas",
-        "hartvanwestbrabant": "Miejsce pracy",
-        "heumen": "Gmina Heumen",
-        "kerstpakket": "Pakiet świąteczny",
-        "noordoostpolder": "Gmina Noordoostpolder",
-        "oostgelre": "Gmina Oost Gelre",
-        "potjeswijzer": "Przewodnik po garnkach",
-        "schagen": "Gmina Schagen",
-        "vergoedingen": "logo Gmina Nijmegen",
-        "waalwijk": "Pass Wise",
-        "westerkwartier": "Gmina Westerkwartier",
-        "winterswijk": "Gmina Winterswijk",
-        "home": "Do strony głównej"
-    },
     "maps": {
         "cancel": "Anuluj",
         "labels": {
@@ -3762,7 +3741,6 @@
         "info_option_reservation_title": "Rezerwacja",
         "title": "Opcje płatności"
     },
-    "logo_title": "Do strony głównej {{host}}",
     "modal_product_price_type_options_info": {
         "confirm": "Zamknij",
         "description": "Produkty w sklepie internetowym mogą być oferowane na różne sposoby. Poniżej przedstawiamy, co oznaczają różne rodzaje ofert.",
@@ -3813,5 +3791,49 @@
             "close": "Zamknij"
         },
         "title": "Wyświetl plik"
+    },
+    "logo_alt_text": {
+        "home": {
+            "berkelland": "Gmina Berkelland",
+            "default": "Strona główna",
+            "ede": "Ede",
+            "eemsdelta": "Gmina Eems Delta",
+            "geertruidenberg": "Gmina Geertruidenberg",
+            "general": "Forus",
+            "goereeoverflakkee": "Gmina Goeree-Overflakkee",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Miejsce pracy",
+            "heumen": "Gmina Heumen",
+            "kerstpakket": "Pakiet świąteczny",
+            "noordoostpolder": "Gmina Noordoostpolder",
+            "oostgelre": "Gmina Oost Gelre",
+            "potjeswijzer": "Przewodnik po garnkach",
+            "schagen": "Gmina Schagen",
+            "vergoedingen": "logo Gmina Nijmegen",
+            "waalwijk": "Pass Point",
+            "westerkwartier": "Gmina Westerkwartier",
+            "winterswijk": "Gmina Winterswijk"
+        },
+        "pages": {
+            "berkelland": "Gmina Berkelland",
+            "default": "Strona główna (nie-domowa)",
+            "ede": "Ede",
+            "eemsdelta": "Gmina Eems Delta",
+            "geertruidenberg": "Gmina Geertruidenberg",
+            "general": "Forus",
+            "goereeoverflakkee": "Gmina Goeree-Overflakkee",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Miejsce pracy",
+            "heumen": "Gmina Heumen",
+            "kerstpakket": "Pakiet świąteczny",
+            "noordoostpolder": "Gmina Noordoostpolder",
+            "oostgelre": "Gmina Oost Gelre",
+            "potjeswijzer": "Przewodnik po garnkach",
+            "schagen": "Gmina Schagen",
+            "vergoedingen": "logo Gmina Nijmegen",
+            "waalwijk": "Pass Point",
+            "westerkwartier": "Gmina Westerkwartier",
+            "winterswijk": "Gmina Winterswijk"
+        }
     }
 }
