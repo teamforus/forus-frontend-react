@@ -108,7 +108,7 @@ export default function ReservationExtraInformationPane({
                     <KeyValueItem key={index} label={field.reservation_field.label}>
                         <BlockInlineEdit
                             onClick={() => editCustomFieldValue(field)}
-                            className={classNames(field.files?.length && 'flex flex-grow')}
+                            className={classNames(field.files?.length && 'block-inline-edit-files')}
                             editDusk={`editCustomFieldBtn${field.id}`}>
                             {field.files?.length ? (
                                 <FileAttachmentsList attachments={field.files.map((file) => ({ file: file }))} />

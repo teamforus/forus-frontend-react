@@ -146,8 +146,8 @@ export default function ModalProductReserve({
     const customFieldBooleanOptions = useMemo(() => {
         return [
             { key: null, name: translate('form.placeholders.select_option') },
-            { key: 'Nee', name: 'Nee' },
-            { key: 'Ja', name: 'Ja' },
+            { key: 'Nee', name: translate('form.options.no') },
+            { key: 'Ja', name: translate('form.options.yes') },
         ];
     }, [translate]);
 
