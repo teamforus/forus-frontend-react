@@ -253,7 +253,6 @@ export default function FundRequests() {
                         </FilterItemToggle>
                         <FilterItemToggle label={translate('validation_requests.labels.from')}>
                             <DatePickerControl
-                                placeholder={'yyyy-MM-dd'}
                                 value={dateParse(filter.values.from?.toString())}
                                 onChange={(date) => filterUpdate({ from: dateFormat(date) })}
                             />
@@ -261,7 +260,6 @@ export default function FundRequests() {
 
                         <FilterItemToggle label={translate('validation_requests.labels.to')}>
                             <DatePickerControl
-                                placeholder={'yyyy-MM-dd'}
                                 value={dateParse(filter.values.to)}
                                 onChange={(date: Date) => filterUpdate({ to: dateFormat(date) })}
                             />

@@ -185,7 +185,6 @@ export default function OrganizationsFundsShowTopUpsCard({
                                 <FilterItemToggle label={translate('funds_show.top_up_table.filters.from')}>
                                     <DatePickerControl
                                         value={dateParse(filterValues.from)}
-                                        placeholder={translate('dd-MM-yyyy')}
                                         onChange={(from: Date) => {
                                             filterUpdate({
                                                 from: dateFormat(from),
@@ -197,7 +196,6 @@ export default function OrganizationsFundsShowTopUpsCard({
                                 <FilterItemToggle label={translate('funds_show.top_up_table.filters.to')}>
                                     <DatePickerControl
                                         value={dateParse(filterValues.to)}
-                                        placeholder={translate('dd-MM-yyyy')}
                                         onChange={(to: Date) => {
                                             filterUpdate({
                                                 to: dateFormat(to),

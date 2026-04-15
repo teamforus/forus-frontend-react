@@ -6,7 +6,6 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import FormError from '../../../elements/forms/errors/FormError';
 import { useRecordTypeService } from '../../../../services/RecordTypeService';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import RecordType from '../../../../props/models/RecordType';
 import usePushApiError from '../../../../hooks/usePushApiError';
@@ -20,7 +19,6 @@ export default function VoucherRecordsEditor({
     records: Array<Record>;
     setRecords: (records: Array<Record>) => void;
 }) {
-    const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
@@ -91,7 +89,6 @@ export default function VoucherRecordsEditor({
                                 ) : (
                                     <DatePickerControl
                                         value={dateParse(record.value)}
-                                        placeholder={translate('dd-MM-yyyy')}
                                         onChange={(value: Date) => {
                                             const recordsData = [...records];
                                             recordsData[index].value = dateFormat(value);

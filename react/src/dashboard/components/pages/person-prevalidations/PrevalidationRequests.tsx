@@ -330,8 +330,6 @@ export default function PrevalidationRequests() {
                                             <FilterItemToggle label={translate('prevalidation_requests.labels.from')}>
                                                 <DatePickerControl
                                                     value={dateParse(filter.values.from)}
-                                                    dateFormat="dd-MM-yyyy"
-                                                    placeholder={'dd-MM-jjjj'}
                                                     onChange={(from: Date) => filter.update({ from: dateFormat(from) })}
                                                 />
                                             </FilterItemToggle>
@@ -339,8 +337,6 @@ export default function PrevalidationRequests() {
                                             <FilterItemToggle label={translate('prevalidation_requests.labels.to')}>
                                                 <DatePickerControl
                                                     value={dateParse(filter.values.to)}
-                                                    dateFormat="dd-MM-yyyy"
-                                                    placeholder={'dd-MM-jjjj'}
                                                     onChange={(to: Date) => filter.update({ to: dateFormat(to) })}
                                                 />
                                             </FilterItemToggle>

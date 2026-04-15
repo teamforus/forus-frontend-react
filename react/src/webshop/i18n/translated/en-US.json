@@ -616,7 +616,13 @@
                 "description": "You cannot sign up for {{name}}.",
                 "title": "Application failed"
             },
-            "taken_by_partner": {
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You receive this notification because an application has already been made by a <br /> family member or guardian. <br /><br /> Should your family member or guardian's application be approved, <br /> the credits will be available in that account.",
+                "heading": "Application failed",
+                "title": "An application has already been made"
+            },
+            "taken_by_partner_voucher": {
                 "contacts": "For questions, contact {{name}}.",
                 "description": "You get this message because the credit was activated by a <br /> family member or guardian. <br /><br /> The credit is available in the account of the person who <br /> activated it first.",
                 "heading": "Application failed",
