@@ -3722,6 +3722,10 @@
             "aria_value": "Değer {{prefix}}{{value}} , minimum değer {{prefix}}{{min}} , maksimum değer {{prefix}}{{max}}",
             "first_slider_aria_label": "Minimum fiyat için kaydırıcı",
             "second_slider_aria_label": "Maksimum fiyat için kaydırıcı"
+        },
+        "options": {
+            "no": "Hayır",
+            "yes": "Evet"
         }
     },
     "modal_deactivate_voucher": {

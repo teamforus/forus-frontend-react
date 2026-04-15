@@ -37,6 +37,10 @@ export default {
             allow_attachments: 'Allow attachments',
         },
     },
+    dropdown: {
+        yes: 'Yes',
+        no: 'No',
+    },
     feedback: {
         title: 'Feedback',
         labels: {

@@ -25,7 +25,7 @@ export default function ModalReservationCustomFieldEdit({
     reservation,
 }: {
     modal: ModalState;
-    field: ReservationField & { value?: string; file?: FileModel };
+    field: ReservationField & { value?: string; files?: Array<FileModel> };
     onDone?: (reservation: Reservation) => void;
     organization: Organization;
     reservation: Reservation;
@@ -40,30 +40,33 @@ export default function ModalReservationCustomFieldEdit({
     const customFieldBooleanOptions = useMemo(() => {
         return [
             { key: null, name: translate('form.placeholders.select_option') },
-            { key: 'Nee', name: 'Nee' },
-            { key: 'Ja', name: 'Ja' },
+            { key: 'Nee', name: translate('components.dropdown.no') },
+            { key: 'Ja', name: translate('components.dropdown.yes') },
         ];
     }, [translate]);
 
-    const form = useFormBuilder<{ value: string }>({ value: field.value }, (values) => {
-        setProgress(0);
+    const form = useFormBuilder<{ value: Array<string> | string | null }>(
+        {
+            value: field.type === 'file' ? field.files?.map((file) => file.uid) || [] : field.value || null,
+        },
+        (values) => {
+            setProgress(0);
 
-        productReservationService
-            .updateCustomField(organization.id, reservation.id, field.id, values)
-            .then((res) => {
-                pushSuccess('Opgeslagen!');
-                onDone?.(res.data.data);
-                modal.close();
-            })
-            .catch((err: ResponseError) => {
-                form.setErrors(err?.data?.errors);
-                form.setIsLocked(false);
-                pushApiError(err);
-            })
-            .finally(() => {
-                setProgress(100);
-            });
-    });
+            productReservationService
+                .updateCustomField(organization.id, reservation.id, field.id, values)
+                .then((res) => {
+                    pushSuccess('Opgeslagen!');
+                    onDone?.(res.data.data);
+                    modal.close();
+                })
+                .catch((err: ResponseError) => {
+                    form.setErrors(err?.data?.errors);
+                    form.setIsLocked(false);
+                    pushApiError(err);
+                })
+                .finally(() => setProgress(100));
+        },
+    );
 
     return (
         <Modal
@@ -114,7 +117,7 @@ export default function ModalReservationCustomFieldEdit({
                         {field.type === 'boolean' && (
                             <SelectControl
                                 propKey={'key'}
-                                value={form.values.value}
+                                value={form.values.value ? String(form.values.value) : null}
                                 onChange={(value: string) => form.update({ value })}
                                 options={customFieldBooleanOptions}
                             />
@@ -123,14 +126,15 @@ export default function ModalReservationCustomFieldEdit({
                         {field.type === 'file' && (
                             <FileUploader
                                 type="product_reservation_custom_field"
-                                files={field.file ? [field.file] : []}
+                                files={field.files || []}
                                 template="inline"
                                 cropMedia={false}
-                                allowMultiple={false}
+                                allowMultiple={true}
+                                maxFiles={5}
                                 hideDownloadButton={true}
                                 hideInlineTitle={true}
                                 acceptedFiles={['.jpg', '.jpeg', '.png']}
-                                onFilesChange={({ files }) => form.update({ value: files?.[0]?.uid || null })}
+                                onFilesChange={({ files }) => form.update({ value: files.map((file) => file.uid) })}
                                 isRequired={field.required}
                                 isWebshop={false}
                             />

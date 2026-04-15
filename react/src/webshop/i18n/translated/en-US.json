@@ -3722,6 +3722,10 @@
             "aria_value": "Value {{prefix}}{{value}} , minimum value {{prefix}}{{min}} , maximum value {{prefix}}{{max}}",
             "first_slider_aria_label": "Slider for minimum price",
             "second_slider_aria_label": "Slider for maximum price"
+        },
+        "options": {
+            "no": "No",
+            "yes": "Yes"
         }
     },
     "modal_deactivate_voucher": {
