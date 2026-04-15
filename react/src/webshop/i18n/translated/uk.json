@@ -3722,6 +3722,10 @@
             "aria_value": "Значення {{prefix}}{{value}} , мінімальне значення {{prefix}}{{min}} , максимальне значення {{prefix}}{{max}}",
             "first_slider_aria_label": "Слайдер за мінімальною ціною",
             "second_slider_aria_label": "Повзунок для максимальної ціни"
+        },
+        "options": {
+            "no": "Ні.",
+            "yes": "Так."
         }
     },
     "modal_deactivate_voucher": {
