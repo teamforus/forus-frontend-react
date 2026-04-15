@@ -204,7 +204,7 @@ export default {
     },
     logo_alt_text: {
         home: {
-            default: 'Homepagina (home)',
+            default: 'Homepagina',
             general: 'Forus',
             berkelland: 'Gemeente Berkelland',
             ede: 'Ede',
@@ -223,9 +223,10 @@ export default {
             vergoedingen: 'logo Gemeente Nijmegen',
             schagen: 'Gemeente Schagen',
             goereeoverflakkee: 'Gemeente Goeree-Overflakkee',
+            isd: 'ISD Intergemeentelijke Sociale Dienst Brabantse Wal',
         },
         pages: {
-            default: 'Homepagina (non home)',
+            default: 'Ga naar de homepagina',
             general: 'Forus',
             berkelland: 'Gemeente Berkelland',
             ede: 'Ede',
@@ -244,6 +245,7 @@ export default {
             vergoedingen: 'logo Gemeente Nijmegen',
             schagen: 'Gemeente Schagen',
             goereeoverflakkee: 'Gemeente Goeree-Overflakkee',
+            isd: 'ISD Intergemeentelijke Sociale Dienst Brabantse Wal',
         },
     },
 
