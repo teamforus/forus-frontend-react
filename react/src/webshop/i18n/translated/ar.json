@@ -3701,6 +3701,10 @@
             "aria_value": "القيمة {{prefix}}{{value}} ، القيمة الدنيا {{prefix}}{{min}} ، القيمة القصوى  ، القيمة القصوى {{prefix}}{{max}}",
             "first_slider_aria_label": "شريط تمرير الحد الأدنى للسعر",
             "second_slider_aria_label": "شريط التمرير لأقصى سعر"
+        },
+        "options": {
+            "no": "لا يوجد",
+            "yes": "نعم"
         }
     },
     "modal_deactivate_voucher": {

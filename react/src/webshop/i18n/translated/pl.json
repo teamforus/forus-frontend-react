@@ -3701,6 +3701,10 @@
             "aria_value": "Wartość {{prefix}}{{value}} , wartość minimalna {{prefix}}{{min}} , wartość maksymalna {{prefix}}{{max}}",
             "first_slider_aria_label": "Suwak ceny minimalnej",
             "second_slider_aria_label": "Suwak ceny maksymalnej"
+        },
+        "options": {
+            "no": "Nie",
+            "yes": "Tak"
         }
     },
     "modal_deactivate_voucher": {

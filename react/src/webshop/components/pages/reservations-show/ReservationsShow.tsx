@@ -393,10 +393,10 @@ export default function ReservationsShow() {
                                     <div className="block-key-value-list-item" key={`${field.id}-${idx}`}>
                                         <div className="key-value-list-item-label">{field.reservation_field.label}</div>
                                         <div className="key-value-list-item-value">
-                                            {field.file ? (
+                                            {field.files?.length ? (
                                                 <FileUploader
                                                     type="product_reservation_custom_field"
-                                                    files={[field.file]}
+                                                    files={field.files}
                                                     template="compact"
                                                     readOnly={true}
                                                     hideDownloadButton={true}
@@ -436,10 +436,10 @@ export default function ReservationsShow() {
                                                 {field.reservation_field.label}
                                             </div>
                                             <div className="key-value-list-item-value">
-                                                {field.file ? (
+                                                {field.files?.length ? (
                                                     <FileUploader
                                                         type="product_reservation_custom_field"
-                                                        files={[field.file]}
+                                                        files={field.files}
                                                         template="compact"
                                                         readOnly={true}
                                                         hideDownloadButton={true}
