@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import useEnvData from '../../../hooks/useEnvData';
-import FormError from '../../elements/forms/errors/FormError';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useFeedbackService from '../../../services/FeedbackService';
-import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { ResponseError } from '../../../props/ApiResponses';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
@@ -35,15 +34,11 @@ export default function Feedback() {
             title: '',
             urgency: urgencyOptions[0].value,
             content: '',
-            use_customer_email: false,
             customer_email: authIdentity?.email || '',
         },
         (values) => {
             feedbackService
-                .store({
-                    ...values,
-                    customer_email: values.use_customer_email ? values.customer_email : null,
-                })
+                .store(values)
                 .then(() => setState('success'))
                 .catch((err: ResponseError) => {
                     if (err.status == 429) {
@@ -95,71 +90,66 @@ export default function Feedback() {
                         <div className="card-section card-section-primary">
                             <div className="row">
                                 <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            {translate('components.feedback.labels.title')}
-                                        </label>
-                                        <input
-                                            type="text"
-                                            maxLength={200}
-                                            className="form-control r-n"
-                                            name="name"
-                                            value={form.values?.title || ''}
-                                            onChange={(e) => form.update({ title: e.target.value })}
-                                            placeholder={translate('components.feedback.labels.title')}
-                                            aria-label={translate('components.feedback.labels.title')}
-                                        />
-                                        <FormError error={form.errors?.title} />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            {translate('components.feedback.labels.urgency')}
-                                        </label>
-                                        <SelectControl
-                                            className="form-control"
-                                            propValue={'label'}
-                                            propKey={'value'}
-                                            allowSearch={false}
-                                            value={form.values?.urgency}
-                                            onChange={(urgency: string) => form.update({ urgency })}
-                                            options={urgencyOptions}
-                                        />
-                                        <FormError error={form.errors?.urgency} />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            {translate('components.feedback.labels.content')}
-                                        </label>
-                                        <textarea
-                                            maxLength={4000}
-                                            className="form-control r-n"
-                                            name="content"
-                                            value={form.values?.content || ''}
-                                            onChange={(e) => form.update({ content: e.target.value })}
-                                            placeholder={translate('components.feedback.labels.content')}
-                                        />
-                                        <FormError error={form.errors?.content} />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <CheckboxControl
-                                            id="use_email"
-                                            title={translate('components.feedback.labels.use_customer_email')}
-                                            checked={form.values?.use_customer_email}
-                                            onChange={(e) => form.update({ use_customer_email: e.target.checked })}
-                                        />
-                                        <FormError error={form.errors?.use_customer_email} />
-                                    </div>
-
-                                    {form.values?.use_customer_email && (
-                                        <div className="form-group">
-                                            <label className="form-label form-label-required">
-                                                {translate('components.feedback.labels.email')}
-                                            </label>
-
+                                    <FormGroup
+                                        required={true}
+                                        label={translate('components.feedback.labels.title')}
+                                        error={form.errors?.title}
+                                        input={(id) => (
                                             <input
+                                                id={id}
+                                                type="text"
+                                                maxLength={200}
+                                                className="form-control r-n"
+                                                name="name"
+                                                value={form.values?.title || ''}
+                                                onChange={(e) => form.update({ title: e.target.value })}
+                                                placeholder={translate('components.feedback.labels.title')}
+                                                aria-label={translate('components.feedback.labels.title')}
+                                            />
+                                        )}
+                                    />
+
+                                    <FormGroup
+                                        label={translate('components.feedback.labels.urgency')}
+                                        error={form.errors?.urgency}
+                                        input={(id) => (
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propValue={'label'}
+                                                propKey={'value'}
+                                                allowSearch={false}
+                                                value={form.values?.urgency}
+                                                onChange={(urgency: string) => form.update({ urgency })}
+                                                options={urgencyOptions}
+                                            />
+                                        )}
+                                    />
+
+                                    <FormGroup
+                                        required={true}
+                                        label={translate('components.feedback.labels.content')}
+                                        error={form.errors?.content}
+                                        input={(id) => (
+                                            <textarea
+                                                id={id}
+                                                maxLength={4000}
+                                                className="form-control r-n"
+                                                name="content"
+                                                value={form.values?.content || ''}
+                                                onChange={(e) => form.update({ content: e.target.value })}
+                                                placeholder={translate('components.feedback.labels.content')}
+                                            />
+                                        )}
+                                    />
+
+                                    <FormGroup
+                                        required={true}
+                                        label={translate('components.feedback.labels.email')}
+                                        error={form.errors?.customer_email}
+                                        input={(id) => (
+                                            <input
+                                                id={id}
                                                 type="text"
                                                 className="form-control r-n"
                                                 name="customer_email"
@@ -168,9 +158,8 @@ export default function Feedback() {
                                                 autoComplete="email"
                                                 aria-label={translate('components.feedback.labels.email')}
                                             />
-                                            <FormError error={form.errors?.customer_email} />
-                                        </div>
-                                    )}
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -182,9 +171,7 @@ export default function Feedback() {
                                     type="submit"
                                     className="button button-primary"
                                     disabled={
-                                        !form.values.title ||
-                                        !form.values.content ||
-                                        (form.values.use_customer_email && !form.values.customer_email)
+                                        !form.values.title || !form.values.content || !form.values.customer_email
                                     }>
                                     {translate('components.feedback.buttons.confirm')}
                                 </button>
@@ -236,14 +223,12 @@ export default function Feedback() {
                                             </div>
                                         )}
 
-                                        {form.values?.use_customer_email && (
-                                            <div className="form-group">
-                                                <label className="form-label">
-                                                    {translate('components.feedback.labels.email')}
-                                                </label>
-                                                <span className="form-input-data">{form.values?.customer_email}</span>
-                                            </div>
-                                        )}
+                                        <div className="form-group">
+                                            <label className="form-label">
+                                                {translate('components.feedback.labels.email')}
+                                            </label>
+                                            <span className="form-input-data">{form.values?.customer_email}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
