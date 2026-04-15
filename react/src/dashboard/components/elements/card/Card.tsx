@@ -32,7 +32,9 @@ export default function Card({
                         <div className="button-group">
                             {buttons
                                 ?.filter((button) => button)
-                                ?.map((button, index) => <Button key={index} {...button} size={'sm'} />)}
+                                ?.map((button, index) => (
+                                    <Button key={index} {...button} size={'sm'} />
+                                ))}
                         </div>
                     )}
                 </div>

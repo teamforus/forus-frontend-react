@@ -29,15 +29,15 @@ export default function SystemNotificationChannelIcon({
     const hasAllFundsChannelDisabled = useMemo(() => {
         return Boolean(
             notification.funds?.length &&
-                notification.funds.every((fund) => {
-                    const enabled = {
-                        database: fund.enable_database,
-                        mail: fund.enable_mail,
-                        push: fund.enable_push,
-                    }[type];
+            notification.funds.every((fund) => {
+                const enabled = {
+                    database: fund.enable_database,
+                    mail: fund.enable_mail,
+                    push: fund.enable_push,
+                }[type];
 
-                    return !fund.enable_all || !enabled;
-                }),
+                return !fund.enable_all || !enabled;
+            }),
         );
     }, [notification.funds, type]);
 

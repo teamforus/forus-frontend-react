@@ -1,5 +1,6 @@
 # Generated in development files #
 /dist
+/dist.*
 /.idea
 /.vscode
 env.js

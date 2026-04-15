@@ -103,15 +103,9 @@ export default function SelectControlOptionsCountryCodes<T>({
                                 e.stopPropagation();
                                 setShowOptions(false);
                             }}>
-                            {optionsFiltered
-                                .slice(0, visibleCount)
-                                ?.map((option) => (
-                                    <SelectControlOptionItem
-                                        key={option.id}
-                                        option={option}
-                                        selectOption={selectOption}
-                                    />
-                                ))}
+                            {optionsFiltered.slice(0, visibleCount)?.map((option) => (
+                                <SelectControlOptionItem key={option.id} option={option} selectOption={selectOption} />
+                            ))}
                         </ClickOutside>
                     </div>
                 )}
