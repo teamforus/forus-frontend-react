@@ -3722,6 +3722,10 @@
             "aria_value": "Wert {{prefix}}{{value}} , Mindestwert {{prefix}}{{min}} , Höchstwert {{prefix}}{{max}}",
             "first_slider_aria_label": "Schieberegler für den Mindestpreis",
             "second_slider_aria_label": "Schieberegler für den Höchstpreis"
+        },
+        "options": {
+            "no": "Nein",
+            "yes": "Ja"
         }
     },
     "modal_deactivate_voucher": {

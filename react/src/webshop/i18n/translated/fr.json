@@ -3722,6 +3722,10 @@
             "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}",
             "first_slider_aria_label": "Curseur pour le prix minimum",
             "second_slider_aria_label": "Curseur pour le prix maximum"
+        },
+        "options": {
+            "no": "Non",
+            "yes": "Oui"
         }
     },
     "modal_deactivate_voucher": {

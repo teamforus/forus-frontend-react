@@ -1008,6 +1008,14 @@
         "Optioneel"
     ],
     [
+        "form.options.no",
+        "Nee"
+    ],
+    [
+        "form.options.yes",
+        "Ja"
+    ],
+    [
         "form.placeholders.select_option",
         "Selecteer optie"
     ],

@@ -1,11 +1,12 @@
 import { FallbackNs, useTranslation } from 'react-i18next';
 import type { FlatNamespace, KeyPrefix } from 'i18next';
-import type { $Tuple } from 'react-i18next/helpers';
 import { useCallback, useContext } from 'react';
 import { mainContext } from '../../webshop/contexts/MainContext';
 
+type Tuple<T> = readonly [T?, ...T[]];
+
 export default function useTranslate<
-    Ns extends FlatNamespace | $Tuple<FlatNamespace>,
+    Ns extends FlatNamespace | Tuple<FlatNamespace>,
     KPref extends KeyPrefix<FallbackNs<Ns>>,
 >() {
     const { t } = useTranslation();
