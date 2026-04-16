@@ -63,27 +63,6 @@
         "westerkwartier": "Westerkwartier",
         "winterswijk": "Winterswijk"
     },
-    "logo_alt_text": {
-        "berkelland": "Municipality of Berkelland",
-        "ede": "Ede",
-        "eemsdelta": "Municipality of Eemsdelta",
-        "geertruidenberg": "Municipality of Geertruidenberg",
-        "general": "Forus",
-        "goereeoverflakkee": "Municipality of Goeree-Overflakkee",
-        "groningen": "Stadjerspas",
-        "hartvanwestbrabant": "Workplace",
-        "heumen": "Municipality of Heumen",
-        "kerstpakket": "Christmas Package",
-        "noordoostpolder": "Municipality of Northeast Polder",
-        "oostgelre": "Municipality of Oost Gelre",
-        "potjeswijzer": "Potting Guide",
-        "schagen": "Municipality of Schagen",
-        "vergoedingen": "logo Municipality of Nijmegen",
-        "waalwijk": "Pass Wiser",
-        "westerkwartier": "Municipality of Westerkwartier",
-        "winterswijk": "Municipality of Winterswijk",
-        "home": "To home page"
-    },
     "page_state_loading_titles": {
         "actions": "Offer{{pageTitleSuffix}}",
         "fund": "Fund{{pageTitleSuffix}}",
@@ -483,7 +462,8 @@
             "payment_options": "Payment options",
             "payment_options_info": "Learn more about payment options",
             "price_to": "To",
-            "price_type_option_payout": "Payout to bank account"
+            "price_type_option_payout": "Payout to bank account",
+            "active_filters": "Active filters"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -499,6 +479,31 @@
         "view": {
             "grid": "Photos",
             "list": "List"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "up to 3 km",
+                "5": "up to 5 km",
+                "10": "up to 10 km",
+                "15": "up to 15 km",
+                "25": "up to 25 km",
+                "50": "up to 50 km",
+                "75": "up to 75 km",
+                "everywhere": "Everywhere"
+            },
+            "price_type_option": {
+                "discount_fixed": "Offer: Discount in euro",
+                "discount_percentage": "Offer: Discount in percent",
+                "free": "Offer: Free",
+                "info": "Offerings: Learn more about the types of offerings",
+                "informational": "Offerings: In-store only",
+                "payout": "Offer: Disbursement to bank account",
+                "regular": "Offer: Price"
+            },
+            "price": {
+                "to": "to"
+            },
+            "reset_all": "Remove all filters"
         }
     },
     "provider_sign_up": {
@@ -590,7 +595,13 @@
                 "description": "You cannot sign up for {{name}}.",
                 "title": "Application failed"
             },
-            "taken_by_partner": {
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "For questions, contact {{name}}.",
+                "description": "You receive this notification because an application has already been made by a <br /> family member or guardian. <br /><br /> Should your family member or guardian's application be approved, <br /> the credits will be available in that account.",
+                "heading": "Application failed",
+                "title": "An application has already been made"
+            },
+            "taken_by_partner_voucher": {
                 "contacts": "For questions, contact {{name}}.",
                 "description": "You get this message because the credit was activated by a <br /> family member or guardian. <br /><br /> The credit is available in the account of the person who <br /> activated it first.",
                 "heading": "Application failed",
@@ -3690,6 +3701,10 @@
             "aria_value": "Value {{prefix}}{{value}} , minimum value {{prefix}}{{min}} , maximum value {{prefix}}{{max}}",
             "first_slider_aria_label": "Slider for minimum price",
             "second_slider_aria_label": "Slider for maximum price"
+        },
+        "options": {
+            "no": "No",
+            "yes": "Yes"
         }
     },
     "modal_deactivate_voucher": {
@@ -3726,7 +3741,6 @@
         "info_option_reservation_title": "Reservation",
         "title": "Payment options"
     },
-    "logo_title": "To the home page of {{host}}",
     "modal_product_price_type_options_info": {
         "confirm": "Close",
         "description": "Products in the web shop can be offered in different ways. Below is what the different types of offers mean.",
@@ -3777,5 +3791,49 @@
             "close": "Close"
         },
         "title": "View file"
+    },
+    "logo_alt_text": {
+        "home": {
+            "berkelland": "Municipality of Berkelland",
+            "default": "Home page (home)",
+            "ede": "Ede",
+            "eemsdelta": "Municipality of Eemsdelta",
+            "geertruidenberg": "Municipality of Geertruidenberg",
+            "general": "Forus",
+            "goereeoverflakkee": "Municipality of Goeree-Overflakkee",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Workplace",
+            "heumen": "Municipality of Heumen",
+            "kerstpakket": "Christmas Package",
+            "noordoostpolder": "Municipality of Northeast Polder",
+            "oostgelre": "Municipality of Oost Gelre",
+            "potjeswijzer": "Potting Guide",
+            "schagen": "Municipality of Schagen",
+            "vergoedingen": "logo Municipality of Nijmegen",
+            "waalwijk": "Pass Wiser",
+            "westerkwartier": "Municipality of Westerkwartier",
+            "winterswijk": "Municipality of Winterswijk"
+        },
+        "pages": {
+            "berkelland": "Municipality of Berkelland",
+            "default": "Home page (non home)",
+            "ede": "Ede",
+            "eemsdelta": "Municipality of Eemsdelta",
+            "geertruidenberg": "Municipality of Geertruidenberg",
+            "general": "Forus",
+            "goereeoverflakkee": "Municipality of Goeree-Overflakkee",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Workplace",
+            "heumen": "Municipality of Heumen",
+            "kerstpakket": "Christmas Package",
+            "noordoostpolder": "Municipality of Northeast Polder",
+            "oostgelre": "Municipality of Oost Gelre",
+            "potjeswijzer": "Potting Guide",
+            "schagen": "Municipality of Schagen",
+            "vergoedingen": "logo Municipality of Nijmegen",
+            "waalwijk": "Pass Wiser",
+            "westerkwartier": "Municipality of Westerkwartier",
+            "winterswijk": "Municipality of Winterswijk"
+        }
     }
 }

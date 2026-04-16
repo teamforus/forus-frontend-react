@@ -390,9 +390,15 @@
                 "description": "{{name}}Vous ne pouvez pas vous inscrire à .",
                 "title": "Échec de la demande"
             },
-            "taken_by_partner": {
-                "contacts": "{{name}}Pour toute question, veuillez contacter .",
-                "description": "<br /> Vous recevez ce message parce que le crédit a été activé par un membre de la famille ou un tuteur. <br /><br /> <br /> Le crédit est disponible sur le compte de la personne qui l'a activé en premier.",
+            "taken_by_partner_pending_fund_request": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez cette notification parce qu'une demande a déjà été introduite par un membre de la famille ou un tuteur ( <br /> ). <br /><br /> Si la demande de votre membre de la famille ou de votre tuteur est approuvée, <br /> les crédits seront disponibles sur ce compte.",
+                "heading": "Échec de la demande",
+                "title": "Une demande a déjà été introduite"
+            },
+            "taken_by_partner_voucher": {
+                "contacts": "Pour toute question, veuillez contacter {{name}}.",
+                "description": "Vous recevez ce message parce que le crédit a été activé par un membre de la famille ou un tuteur <br />. <br /><br /> Le crédit est disponible sur le compte de la personne qui l'a activé en premier ( <br /> ).",
                 "heading": "Échec de la demande",
                 "title": "Ce crédit a déjà été activé"
             }
@@ -1371,27 +1377,6 @@
             "payment_option_reservation": "Payer en ligne",
             "payment_option_reservation_aria_label": "Payer en ligne : cliquez pour plus d'informations"
         }
-    },
-    "logo_alt_text": {
-        "berkelland": "Municipalité de Berkelland",
-        "ede": "Ede",
-        "eemsdelta": "Municipalité d'Eems Delta",
-        "geertruidenberg": "Commune de Geertruidenberg",
-        "general": "Forus",
-        "goereeoverflakkee": "Municipalité de Goeree-Overflakkee",
-        "groningen": "Stadjerspas",
-        "hartvanwestbrabant": "Lieu de travail",
-        "heumen": "Municipalité de Heumen",
-        "kerstpakket": "Paquet de Noël",
-        "noordoostpolder": "Municipalité de Noordoostpolder",
-        "oostgelre": "Municipalité d'Oost Gelre",
-        "potjeswijzer": "Guide des pots",
-        "schagen": "Municipalité de Schagen",
-        "vergoedingen": "logo Municipalité de Nijmegen",
-        "waalwijk": "Point de passage",
-        "westerkwartier": "Municipalité de Westerkwartier",
-        "winterswijk": "Commune de Winterswijk",
-        "home": "Vers la page d'accueil"
     },
     "maps": {
         "cancel": "Annuler",
@@ -2429,7 +2414,8 @@
             "payment_options": "Options de paiement",
             "payment_options_info": "En savoir plus sur les options de paiement",
             "price_to": "Pour",
-            "price_type_option_payout": "Versement sur le compte bancaire"
+            "price_type_option_payout": "Versement sur le compte bancaire",
+            "active_filters": "Filtres actifs"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2445,6 +2431,31 @@
         "view": {
             "grid": "Photos",
             "list": "Liste"
+        },
+        "active_filters": {
+            "distances": {
+                "3": "jusqu'à 3 km",
+                "5": "jusqu'à 5 km",
+                "10": "jusqu'à 10 km",
+                "15": "jusqu'à 15 km",
+                "25": "jusqu'à 25 km",
+                "50": "jusqu'à 50 km",
+                "75": "jusqu'à 75 km",
+                "everywhere": "Partout"
+            },
+            "price_type_option": {
+                "discount_fixed": "Offre : Remise en euros",
+                "discount_percentage": "Offre : Remise en pourcentage",
+                "free": "Offre : Gratuit",
+                "info": "Offres : En savoir plus sur les types d'offres",
+                "informational": "Offre : En magasin uniquement",
+                "payout": "Offre : Paiement sur le compte bancaire",
+                "regular": "Offre : Prix"
+            },
+            "price": {
+                "to": "à"
+            },
+            "reset_all": "Supprimer tous les filtres"
         }
     },
     "profile_menu": {
@@ -3690,6 +3701,10 @@
             "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}",
             "first_slider_aria_label": "Curseur pour le prix minimum",
             "second_slider_aria_label": "Curseur pour le prix maximum"
+        },
+        "options": {
+            "no": "Non",
+            "yes": "Oui"
         }
     },
     "modal_deactivate_voucher": {
@@ -3726,7 +3741,6 @@
         "info_option_reservation_title": "Réservation",
         "title": "Options de paiement"
     },
-    "logo_title": "Vers la page d'accueil de {{host}}",
     "modal_product_price_type_options_info": {
         "confirm": "Fermer",
         "description": "Les produits de la boutique en ligne peuvent être proposés de différentes manières. Vous trouverez ci-dessous la signification des différents types d'offres.",
@@ -3777,5 +3791,49 @@
             "close": "Fermer"
         },
         "title": "Voir le fichier"
+    },
+    "logo_alt_text": {
+        "home": {
+            "berkelland": "Municipalité de Berkelland",
+            "default": "Page d'accueil (home)",
+            "ede": "Ede",
+            "eemsdelta": "Municipalité d'Eems Delta",
+            "geertruidenberg": "Commune de Geertruidenberg",
+            "general": "Forus",
+            "goereeoverflakkee": "Municipalité de Goeree-Overflakkee",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Lieu de travail",
+            "heumen": "Municipalité de Heumen",
+            "kerstpakket": "Paquet de Noël",
+            "noordoostpolder": "Municipalité de Noordoostpolder",
+            "oostgelre": "Municipalité d'Oost Gelre",
+            "potjeswijzer": "Guide des pots",
+            "schagen": "Municipalité de Schagen",
+            "vergoedingen": "logo Municipalité de Nijmegen",
+            "waalwijk": "Passez plus sagement",
+            "westerkwartier": "Municipalité de Westerkwartier",
+            "winterswijk": "Commune de Winterswijk"
+        },
+        "pages": {
+            "berkelland": "Municipalité de Berkelland",
+            "default": "Page d'accueil (non-home)",
+            "ede": "Ede",
+            "eemsdelta": "Municipalité d'Eems Delta",
+            "geertruidenberg": "Commune de Geertruidenberg",
+            "general": "Forus",
+            "goereeoverflakkee": "Municipalité de Goeree-Overflakkee",
+            "groningen": "Stadjerspas",
+            "hartvanwestbrabant": "Lieu de travail",
+            "heumen": "Municipalité de Heumen",
+            "kerstpakket": "Paquet de Noël",
+            "noordoostpolder": "Municipalité de Noordoostpolder",
+            "oostgelre": "Municipalité d'Oost Gelre",
+            "potjeswijzer": "Guide des pots",
+            "schagen": "Municipalité de Schagen",
+            "vergoedingen": "logo Municipalité de Nijmegen",
+            "waalwijk": "Point de passage",
+            "westerkwartier": "Municipalité de Westerkwartier",
+            "winterswijk": "Commune de Winterswijk"
+        }
     }
 }

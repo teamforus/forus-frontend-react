@@ -1,19 +1,30 @@
-const fs = require('fs');
-const _path = require('path');
-const { set } = require('lodash');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { DefinePlugin, ProvidePlugin } = require('webpack');
+import fs from 'fs';
+import lodash from 'lodash';
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import webpack from 'webpack';
+
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const { DefinePlugin, ProvidePlugin } = webpack;
+
+const { set } = lodash;
+const envData = require('./env.js');
 const timestamp = new Date().getTime();
 const isDevServer = process.env.WEBPACK_SERVE;
-const CopyPlugin = require('copy-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const envData = require('./env.js');
 const { info: logInfo } = console;
 
-module.exports = (env, argv) => {
+// noinspection JSUnusedGlobalSymbols
+export default (env = {}, argv = {}) => {
     const {
         fronts,
         enableOnly = null,
@@ -64,7 +75,7 @@ module.exports = (env, argv) => {
     const scriptPath = `app-${timestamp}.js`;
 
     const entry = configs.reduce((entry, item) => {
-        return { ...entry, [item.out]: ['@babel/polyfill', `./index-${item.type}.js`] };
+        return { ...entry, [item.out]: `./index-${item.type}.tsx` };
     }, {});
 
     const outPlugins = configs
@@ -100,8 +111,8 @@ module.exports = (env, argv) => {
         })
         .filter((i) => i !== null);
 
-    const resolvePath = (path) => {
-        return _path.resolve(__dirname, path);
+    const resolvePath = (relativePath) => {
+        return path.resolve(__dirname, relativePath);
     };
 
     const copyPlugins = configs.map((item) => {
@@ -204,29 +215,23 @@ module.exports = (env, argv) => {
         },
 
         resolve: {
-            extensions: ['.ts', '.js', '.jsx', '.tsx'],
+            extensions: ['.ts', '.tsx', '.js'],
         },
 
         module: {
             rules: [
                 {
-                    test: /\.(ts|tsx)$/i,
+                    test: /\.(ts|tsx|js)$/i,
                     loader: 'ts-loader',
                     exclude: /node_modules/,
+                    options: {
+                        compilerOptions: { noEmit: false },
+                    },
                 },
-                /* {
-                    test: /\.html$/i,
-                    loader: 'html-loader',
-                }, */
                 {
                     test: /\.css$/i,
                     use: [
-                        {
-                            loader: 'style-loader',
-                            options: {
-                                attributes: nonce ? { nonce } : undefined,
-                            },
-                        },
+                        { loader: 'style-loader', options: { attributes: nonce ? { nonce } : undefined } },
                         'css-loader',
                     ],
                 },
@@ -236,66 +241,41 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.svg$/i,
-                    issuer: /\.[jt]sx?$/,
-                    use: [{ loader: '@svgr/webpack', options: { svgo: false } }],
-                },
-                {
-                    test: /\.s[ac]ss$/i,
-                    use: [
-                        // MiniCssExtractPlugin.loader,
-                        // Creates `style` nodes from JS strings
+                    oneOf: [
                         {
-                            loader: 'style-loader',
-                            options: {
-                                esModule: true /*, injectType: 'linkTag'*/,
-                                attributes: nonce ? { nonce } : undefined,
-                            },
+                            issuer: /\.[jt]sx?$/,
+                            use: [{ loader: '@svgr/webpack', options: { svgo: false } }],
                         },
-                        // Translates CSS into CommonJS
-                        { loader: 'css-loader', options: { url: false, sourceMap: true } },
-                        /*{
-                            loader: 'resolve-url-loader',
-                            options: { webpackImporter: false },
-                        },*/
                         {
-                            // Compiles Sass to CSS
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: true,
-                                implementation: require('sass'),
-                                webpackImporter: true,
-                                warnRuleAsWarning: false,
-                                sassOptions: { quietDeps: true },
-                            },
+                            type: 'asset/resource',
                         },
                     ],
                 },
                 {
-                    test: /\.m?(js|jsx)$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-                            plugins: [
-                                '@babel/plugin-syntax-jsx',
-                                '@babel/plugin-transform-react-jsx',
-                                '@babel/plugin-transform-flow-strip-types',
-                                'syntax-trailing-function-commas',
-                                ['@babel/plugin-transform-template-literals', { loose: true }],
-                                '@babel/plugin-transform-literals',
-                                '@babel/plugin-transform-arrow-functions',
-                                '@babel/plugin-transform-block-scoped-functions',
-                                '@babel/plugin-transform-object-super',
-                                '@babel/plugin-transform-shorthand-properties',
-                                '@babel/plugin-transform-computed-properties',
-                                '@babel/plugin-transform-for-of',
-                                ['@babel/plugin-transform-spread', { loose: true, useBuiltIns: true }],
-                                '@babel/plugin-transform-parameters',
-                                ['@babel/plugin-transform-destructuring', { loose: true, useBuiltIns: true }],
-                            ],
+                    test: /\.s[ac]ss$/i,
+                    use: [
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                attributes: nonce ? { nonce } : undefined,
+                                esModule: true,
+                            },
                         },
-                    },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                                url: false,
+                            },
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                api: 'modern',
+                                sourceMap: true,
+                            },
+                        },
+                    ],
                 },
             ],
         },
@@ -308,12 +288,11 @@ module.exports = (env, argv) => {
             new DefinePlugin({ __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })' }),
             new ProvidePlugin({ React: 'react' }),
             new ESLintPlugin({
-                extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+                extensions: ['js', 'mjs', 'ts', 'tsx'],
                 eslintPath: require.resolve('eslint'),
                 failOnError: true,
                 failOnWarning: true,
                 cache: true,
-                configType: 'eslintrc',
             }),
         ].filter((plugin) => plugin),
 
@@ -322,6 +301,19 @@ module.exports = (env, argv) => {
             minimizer: [new TerserPlugin({ extractComments: false })],
         },
 
+        performance: {
+            hints: mode === 'development' ? false : 'warning',
+            maxEntrypointSize: 3 * 1024 * 1024,
+            maxAssetSize: 3 * 1024 * 1024,
+        },
+
         devtool: mode === 'development' ? 'eval-source-map' : false,
+
+        // https://github.com/Hacker0x01/react-datepicker/issues/6181
+        ignoreWarnings: [
+            (w) =>
+                w.message?.includes('Critical dependency: the request of a dependency is an expression') &&
+                /react-datepicker[/\\]dist[/\\]index\.es\.js/.test(w.module?.resource || ''),
+        ],
     };
 };

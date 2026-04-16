@@ -18,7 +18,7 @@ export default function Label({
     dusk?: string;
     round?: boolean;
     nowrap?: boolean;
-    size?: 'sm' | 'xl';
+    size?: 'sm' | 'md' | 'xl';
 }) {
     return (
         <div
@@ -35,6 +35,7 @@ export default function Label({
                 round && 'label-round',
                 nowrap && 'nowrap',
                 size === 'sm' && 'label-sm',
+                size === 'md' && 'label-md',
                 size === 'xl' && 'label-xl',
                 className,
             )}>

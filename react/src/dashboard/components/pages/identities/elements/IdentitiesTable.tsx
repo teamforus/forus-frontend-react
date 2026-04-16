@@ -178,7 +178,6 @@ export default function IdentitiesTable() {
                             <FilterItemToggle label={translate('sponsor_products.filters.birth_date_from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.birth_date_from)}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     onChange={(from: Date) => filterUpdate({ birth_date_from: dateFormat(from) })}
                                 />
                             </FilterItemToggle>
@@ -186,7 +185,6 @@ export default function IdentitiesTable() {
                             <FilterItemToggle label={translate('sponsor_products.filters.birth_date_to')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.birth_date_to)}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     onChange={(to: Date) => filterUpdate({ birth_date_to: dateFormat(to) })}
                                 />
                             </FilterItemToggle>
@@ -221,7 +219,6 @@ export default function IdentitiesTable() {
                             <FilterItemToggle label={translate('sponsor_products.filters.last_activity_from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.last_activity_from)}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     onChange={(from: Date) => filterUpdate({ last_activity_from: dateFormat(from) })}
                                 />
                             </FilterItemToggle>
@@ -229,7 +226,6 @@ export default function IdentitiesTable() {
                             <FilterItemToggle label={translate('sponsor_products.filters.last_activity_to')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.last_activity_to)}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     onChange={(to: Date) => filterUpdate({ last_activity_to: dateFormat(to) })}
                                 />
                             </FilterItemToggle>
@@ -237,7 +233,6 @@ export default function IdentitiesTable() {
                             <FilterItemToggle label={translate('sponsor_products.filters.last_login_from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.last_login_from)}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     onChange={(from: Date) => filterUpdate({ last_login_from: dateFormat(from) })}
                                 />
                             </FilterItemToggle>
@@ -245,7 +240,6 @@ export default function IdentitiesTable() {
                             <FilterItemToggle label={translate('sponsor_products.filters.last_login_to')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.last_login_to)}
-                                    placeholder={translate('dd-MM-yyyy')}
                                     onChange={(to: Date) => filterUpdate({ last_login_to: dateFormat(to) })}
                                 />
                             </FilterItemToggle>

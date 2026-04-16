@@ -152,9 +152,7 @@ export class ProductService<T = Product> {
     }
 
     public transformProductAlternativeText(product: Product): string {
-        return product.alternative_text
-            ? 'De aanbieder omschrijft het aanbod als volgt: ' + product.alternative_text
-            : '';
+        return product.alternative_text || '';
     }
 }
 

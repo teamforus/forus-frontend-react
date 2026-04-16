@@ -1,24 +1,22 @@
 {
     "compilerOptions": {
         "strict": false,
-        "outDir": "./dist-react",
         "module": "esnext",
-        "target": "es6",
-        "jsx": "react",
+        "target": "es2022",
+        "jsx": "react-jsx",
         "lib": ["dom", "dom.iterable", "esnext"],
+        "types": ["node", "jquery", "lodash", "papaparse", "file-saver", "turndown"],
         "allowJs": true,
         "skipLibCheck": true,
-        "noImplicitAny": false,
         "esModuleInterop": true,
-        "moduleResolution": "Node",
-        "allowSyntheticDefaultImports": true,
-        "downlevelIteration": true,
+        "moduleResolution": "bundler",
+        "useDefineForClassFields": false,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "sourceMap": true,
-        "noEmit": false
+        "noEmit": true
     },
-    "include": ["react", "custom.d.ts", "env.js"]
+    "include": ["react", "custom.d.ts"]
 }
