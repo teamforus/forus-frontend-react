@@ -25,12 +25,14 @@ import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransact
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const searchService = useSearchService();
@@ -125,14 +127,11 @@ export default function Search() {
 
     const doSearch = useCallback(
         (query: object, stateParams?: object) => {
-            setProgress(0);
-
-            searchService
-                .search(query)
-                .then((res) => setSearchItems(transformItems(res.data, stateParams)))
-                .finally(() => setProgress(100));
+            runLatestRequest((config) => searchService.search(query, config), {
+                onSuccess: (res) => setSearchItems(transformItems(res.data, stateParams)),
+            });
         },
-        [searchService, transformItems, setProgress],
+        [runLatestRequest, searchService, transformItems],
     );
 
     const countFiltersApplied = useMemo(() => {

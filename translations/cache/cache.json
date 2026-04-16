@@ -1008,6 +1008,14 @@
         "Optioneel"
     ],
     [
+        "form.options.no",
+        "Nee"
+    ],
+    [
+        "form.options.yes",
+        "Ja"
+    ],
+    [
         "form.placeholders.select_option",
         "Selecteer optie"
     ],
@@ -1116,19 +1124,35 @@
         "Aanvraag mislukt"
     ],
     [
-        "fund_activate.cards.taken_by_partner.contacts",
+        "fund_activate.cards.taken_by_partner_pending_fund_request.contacts",
         "Neem voor vragen contact op met {{name}}."
     ],
     [
-        "fund_activate.cards.taken_by_partner.description",
-        "U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd."
+        "fund_activate.cards.taken_by_partner_pending_fund_request.description",
+        "U krijgt deze melding omdat er al een aanvraag is gedaan door een <br /> familielid of voogd. <br /><br /> Mocht de aanvraag van uw familielid of voogd zijn goedgekeurd, dan <br /> zijn de tegoeden beschikbaar in dat account."
     ],
     [
-        "fund_activate.cards.taken_by_partner.heading",
+        "fund_activate.cards.taken_by_partner_pending_fund_request.heading",
         "Aanvraag mislukt"
     ],
     [
-        "fund_activate.cards.taken_by_partner.title",
+        "fund_activate.cards.taken_by_partner_pending_fund_request.title",
+        "Er is al een aanvraag gedaan"
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.contacts",
+        "Neem voor vragen contact op met {{name}}."
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.description",
+        "U krijgt deze melding omdat het tegoed is geactiveerd door een <br /> familielid of voogd. <br /><br /> De tegoeden zijn beschikbaar in het account van de persoon die <br /> deze als eerste heeft geactiveerd."
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.heading",
+        "Aanvraag mislukt"
+    ],
+    [
+        "fund_activate.cards.taken_by_partner_voucher.title",
         "Dit tegoed is al geactiveerd"
     ],
     [
@@ -3740,84 +3764,156 @@
         "Toon locaties"
     ],
     [
-        "logo_alt_text.berkelland",
+        "logo_alt_text.home.berkelland",
         "Gemeente Berkelland"
     ],
     [
-        "logo_alt_text.ede",
+        "logo_alt_text.home.default",
+        "Homepagina (home)"
+    ],
+    [
+        "logo_alt_text.home.ede",
         "Ede"
     ],
     [
-        "logo_alt_text.eemsdelta",
+        "logo_alt_text.home.eemsdelta",
         "Gemeente Eemsdelta"
     ],
     [
-        "logo_alt_text.geertruidenberg",
+        "logo_alt_text.home.geertruidenberg",
         "Gemeente Geertruidenberg"
     ],
     [
-        "logo_alt_text.general",
+        "logo_alt_text.home.general",
         "Forus"
     ],
     [
-        "logo_alt_text.goereeoverflakkee",
+        "logo_alt_text.home.goereeoverflakkee",
         "Gemeente Goeree-Overflakkee"
     ],
     [
-        "logo_alt_text.groningen",
+        "logo_alt_text.home.groningen",
         "Stadjerspas"
     ],
     [
-        "logo_alt_text.hartvanwestbrabant",
+        "logo_alt_text.home.hartvanwestbrabant",
         "Werkplein"
     ],
     [
-        "logo_alt_text.heumen",
+        "logo_alt_text.home.heumen",
         "Gemeente Heumen"
     ],
     [
-        "logo_alt_text.home",
-        "Naar de homepagina"
-    ],
-    [
-        "logo_alt_text.kerstpakket",
+        "logo_alt_text.home.kerstpakket",
         "Kerstpakket"
     ],
     [
-        "logo_alt_text.noordoostpolder",
+        "logo_alt_text.home.noordoostpolder",
         "Gemeente Noordoostpolder"
     ],
     [
-        "logo_alt_text.oostgelre",
+        "logo_alt_text.home.oostgelre",
         "Gemeente Oost Gelre"
     ],
     [
-        "logo_alt_text.potjeswijzer",
+        "logo_alt_text.home.potjeswijzer",
         "Potjeswijzer"
     ],
     [
-        "logo_alt_text.schagen",
+        "logo_alt_text.home.schagen",
         "Gemeente Schagen"
     ],
     [
-        "logo_alt_text.vergoedingen",
+        "logo_alt_text.home.vergoedingen",
         "logo Gemeente Nijmegen"
     ],
     [
-        "logo_alt_text.waalwijk",
+        "logo_alt_text.home.waalwijk",
         "Pas Wijzer"
     ],
     [
-        "logo_alt_text.westerkwartier",
+        "logo_alt_text.home.westerkwartier",
         "Gemeente Westerkwartier"
     ],
     [
-        "logo_alt_text.winterswijk",
+        "logo_alt_text.home.winterswijk",
         "Gemeente Winterswijk"
     ],
     [
-        "logo_title",
-        "Naar de homepagina van {{host}}"
+        "logo_alt_text.pages.berkelland",
+        "Gemeente Berkelland"
+    ],
+    [
+        "logo_alt_text.pages.default",
+        "Homepagina (non home)"
+    ],
+    [
+        "logo_alt_text.pages.ede",
+        "Ede"
+    ],
+    [
+        "logo_alt_text.pages.eemsdelta",
+        "Gemeente Eemsdelta"
+    ],
+    [
+        "logo_alt_text.pages.geertruidenberg",
+        "Gemeente Geertruidenberg"
+    ],
+    [
+        "logo_alt_text.pages.general",
+        "Forus"
+    ],
+    [
+        "logo_alt_text.pages.goereeoverflakkee",
+        "Gemeente Goeree-Overflakkee"
+    ],
+    [
+        "logo_alt_text.pages.groningen",
+        "Stadjerspas"
+    ],
+    [
+        "logo_alt_text.pages.hartvanwestbrabant",
+        "Werkplein"
+    ],
+    [
+        "logo_alt_text.pages.heumen",
+        "Gemeente Heumen"
+    ],
+    [
+        "logo_alt_text.pages.kerstpakket",
+        "Kerstpakket"
+    ],
+    [
+        "logo_alt_text.pages.noordoostpolder",
+        "Gemeente Noordoostpolder"
+    ],
+    [
+        "logo_alt_text.pages.oostgelre",
+        "Gemeente Oost Gelre"
+    ],
+    [
+        "logo_alt_text.pages.potjeswijzer",
+        "Potjeswijzer"
+    ],
+    [
+        "logo_alt_text.pages.schagen",
+        "Gemeente Schagen"
+    ],
+    [
+        "logo_alt_text.pages.vergoedingen",
+        "logo Gemeente Nijmegen"
+    ],
+    [
+        "logo_alt_text.pages.waalwijk",
+        "Pas Wijzer"
+    ],
+    [
+        "logo_alt_text.pages.westerkwartier",
+        "Gemeente Westerkwartier"
+    ],
+    [
+        "logo_alt_text.pages.winterswijk",
+        "Gemeente Winterswijk"
     ],
     [
         "maps.cancel",
@@ -6764,6 +6860,74 @@
         "Hoevaak je nog gebruik kunt maken van dit aanbod"
     ],
     [
+        "products.active_filters.distances.10",
+        "tot 10 km"
+    ],
+    [
+        "products.active_filters.distances.15",
+        "tot 15 km"
+    ],
+    [
+        "products.active_filters.distances.25",
+        "tot 25 km"
+    ],
+    [
+        "products.active_filters.distances.3",
+        "tot 3 km"
+    ],
+    [
+        "products.active_filters.distances.5",
+        "tot 5 km"
+    ],
+    [
+        "products.active_filters.distances.50",
+        "tot 50 km"
+    ],
+    [
+        "products.active_filters.distances.75",
+        "tot 75 km"
+    ],
+    [
+        "products.active_filters.distances.everywhere",
+        "Overal"
+    ],
+    [
+        "products.active_filters.price_type_option.discount_fixed",
+        "Aanbod: Korting in euro"
+    ],
+    [
+        "products.active_filters.price_type_option.discount_percentage",
+        "Aanbod: Korting in procenten"
+    ],
+    [
+        "products.active_filters.price_type_option.free",
+        "Aanbod: Gratis"
+    ],
+    [
+        "products.active_filters.price_type_option.info",
+        "Aanbod: Lees meer over de soorten aanbod"
+    ],
+    [
+        "products.active_filters.price_type_option.informational",
+        "Aanbod: Alleen in winkel"
+    ],
+    [
+        "products.active_filters.price_type_option.payout",
+        "Aanbod: Uitbetaling naar bankrekening"
+    ],
+    [
+        "products.active_filters.price_type_option.regular",
+        "Aanbod: Prijs"
+    ],
+    [
+        "products.active_filters.price.to",
+        "tot"
+    ],
+    [
+        "products.active_filters.reset_all",
+        "Verwijder alle filters"
+    ],
+    [
         "products.breadcrumbs.home",
         "Home"
     ],
@@ -6802,6 +6966,10 @@
     [
         "products.distances.everywhere",
         "Overal"
+    ],
+    [
+        "products.filters.active_filters",
+        "Actieve filters"
     ],
     [
         "products.filters.all_categories",

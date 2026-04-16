@@ -7,7 +7,7 @@ import ReservationField from './ReservationField';
 export interface ReservationCustomFieldValue {
     id?: number;
     value?: string;
-    file?: FileModel;
+    files?: Array<FileModel>;
     reservation_field: ReservationField;
 }
 

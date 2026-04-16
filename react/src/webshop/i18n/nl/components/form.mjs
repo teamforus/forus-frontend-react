@@ -1,6 +1,10 @@
 export default {
     required: 'Verplicht',
     optional: 'Optioneel',
+    options: {
+        yes: 'Ja',
+        no: 'Nee',
+    },
     placeholders: {
         select_option: 'Selecteer optie',
     },

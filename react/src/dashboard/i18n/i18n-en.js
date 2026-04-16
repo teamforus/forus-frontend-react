@@ -6,6 +6,11 @@ export default {
     organizations: {
         title: 'Kies een organisatie om in te loggen',
     },
+    form: {
+        placeholders: {
+            select_option: 'Select option',
+        },
+    },
 
     components,
 

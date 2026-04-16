@@ -51,7 +51,7 @@ export default function ReservationExtraInformationPane({
     }, [setReservation, openModal, reservation, organization]);
 
     const openEditCustomFieldValueModal = useCallback(
-        (field: ReservationField & { value?: string; file?: FileModel }) => {
+        (field: ReservationField & { value?: string; files?: Array<FileModel> }) => {
             openModal((modal) => (
                 <ModalReservationCustomFieldEdit
                     modal={modal}
@@ -74,7 +74,7 @@ export default function ReservationExtraInformationPane({
                 description: field.description,
                 required: field.required,
                 value: null,
-                file: null,
+                files: [],
             });
         },
         [openEditCustomFieldValueModal],
@@ -89,7 +89,7 @@ export default function ReservationExtraInformationPane({
                 description: field.reservation_field.description,
                 required: field.reservation_field.required,
                 value: field.value,
-                file: field.file,
+                files: field.files,
             });
         },
         [openEditCustomFieldValueModal],
@@ -108,10 +108,10 @@ export default function ReservationExtraInformationPane({
                     <KeyValueItem key={index} label={field.reservation_field.label}>
                         <BlockInlineEdit
                             onClick={() => editCustomFieldValue(field)}
-                            className={classNames(field.file && 'flex flex-grow')}
+                            className={classNames(field.files?.length && 'block-inline-edit-files')}
                             editDusk={`editCustomFieldBtn${field.id}`}>
-                            {field.file ? (
-                                <FileAttachmentsList attachments={[{ file: field.file }]} />
+                            {field.files?.length ? (
+                                <FileAttachmentsList attachments={field.files.map((file) => ({ file: file }))} />
                             ) : (
                                 field.value || <EmptyValue />
                             )}

@@ -44,9 +44,9 @@ export default function IdentitiesShow() {
     }, [identity?.email_verified]);
 
     const identityCalculatedAge = useMemo(() => {
-        return identity?.records?.birth_date?.[0]?.value
-            ? Math.max(differenceInYears(new Date(), dateParse(identity?.records?.birth_date?.[0]?.value)), 0)
-            : null;
+        const birthDate = dateParse(identity?.records?.birth_date?.[0]?.value);
+
+        return birthDate ? Math.max(differenceInYears(new Date(), birthDate), 0) : null;
     }, [identity?.records?.birth_date]);
 
     const fetchIdentity = useCallback(() => {

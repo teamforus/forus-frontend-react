@@ -94,7 +94,19 @@ export const TopNavbarMobile = () => {
                     tabIndex={0}>
                     <img
                         src={assetUrl(`/assets/img/logo-normal-mobile.svg`)}
-                        alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
+                        alt={
+                            route?.state?.name === WebshopRoutes.HOME
+                                ? translate(
+                                      `logo_alt_text.home.${envData.client_key}`,
+                                      {},
+                                      'logo_alt_text.home.default',
+                                  )
+                                : translate(
+                                      `logo_alt_text.pages.${envData.client_key}`,
+                                      {},
+                                      'logo_alt_text.pages.default',
+                                  )
+                        }
                     />
                 </StateNavLink>
 

@@ -1,49 +1,31 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
 import Fund from '../../../../props/models/Fund';
-import { useFundService } from '../../../../services/FundService';
-import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import FormError from '../../../../../dashboard/components/elements/forms/errors/FormError';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 
 export default function ProductsFilterGroupFunds({
     value,
+    funds,
     setValue,
     openByDefault = false,
     setShowProviderSignUp = null,
     error = null,
 }: {
     value: number[];
+    funds: Array<Fund>;
     setValue: (ids: number[]) => void;
     openByDefault?: boolean;
     setShowProviderSignUp?: Dispatch<SetStateAction<boolean>>;
     error?: string | string[];
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
-
-    const fundService = useFundService();
-
-    const [funds, setFunds] = useState<Array<Fund>>(null);
-
-    const fetchFunds = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .list({ has_providers: 1 })
-            .then((res) => setFunds(res.data.data))
-            .finally(() => setProgress(100));
-    }, [fundService, setProgress]);
 
     useEffect(() => {
         setShowProviderSignUp?.(funds?.filter((fund) => fund.allow_provider_sign_up).length > 0);
     }, [funds, setShowProviderSignUp]);
-
-    useEffect(() => {
-        fetchFunds();
-    }, [fetchFunds]);
 
     return (
         <ProductsFilterGroup
