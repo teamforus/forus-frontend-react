@@ -1056,7 +1056,8 @@
         },
         "steps": {
             "step": "Adım {{step}}",
-            "step_out_of": "Adım {{step}}"
+            "info_label": "Başvuru hakkında bilgi",
+            "step_out_of": "Adım {{step}} of {{total}}"
         },
         "title": "İstek #{{ id }}",
         "clarifications": {
@@ -3795,7 +3796,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Berkelland Belediyesi",
-            "default": "Anasayfa (ana sayfa)",
             "ede": "Ede",
             "eemsdelta": "Eems Deltası Belediyesi",
             "geertruidenberg": "Geertruidenberg Belediyesi",
@@ -3812,11 +3812,12 @@
             "vergoedingen": "logo Nijmegen Belediyesi",
             "waalwijk": "Geçiş Noktası",
             "westerkwartier": "Westerkwartier Belediyesi",
-            "winterswijk": "Winterswijk Belediyesi"
+            "winterswijk": "Winterswijk Belediyesi",
+            "default": "Anasayfa",
+            "isd": "ISD Belediyeler Arası Sosyal Hizmet Brabantse Wal"
         },
         "pages": {
             "berkelland": "Berkelland Belediyesi",
-            "default": "Ana sayfa (ev dışı)",
             "ede": "Ede",
             "eemsdelta": "Eems Deltası Belediyesi",
             "geertruidenberg": "Geertruidenberg Belediyesi",
@@ -3833,7 +3834,9 @@
             "vergoedingen": "logo Nijmegen Belediyesi",
             "waalwijk": "Pass Wise",
             "westerkwartier": "Westerkwartier Belediyesi",
-            "winterswijk": "Winterswijk Belediyesi"
+            "winterswijk": "Winterswijk Belediyesi",
+            "default": "Ana sayfaya git",
+            "isd": "ISD Belediyeler Arası Sosyal Hizmet Brabantse Wal"
         }
     }
 }

@@ -44,7 +44,7 @@ export default function FundRequestProgress({
             ))}
 
             <li className="sign_up-progress-overview" aria-hidden="true">
-                {translate('fund_request.steps.step_out_of', { step, total: steps.length })}
+                {translate('fund_request.steps.step_out_of', { step: step + 1, total: steps.length })}
             </li>
         </ul>
     );
