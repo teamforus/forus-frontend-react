@@ -9,7 +9,7 @@ export default {
     info_option_reservation_title: 'Online reserveren',
     info_option_reservation_description:
         'Betaal via deze website door een aanbod te bestellen. Klik hiervoor op de knop reserveren en vul de gevraagde gegevens in. Het bedrag wordt direct van het beschikbare tegoed afgetrokken. De aanbieder ontvangt de reservering en neemt indien nodig contact met u op.',
-    info_option_extra_payment_ideal_title: 'Online bijbetalen (iDeal)',
+    info_option_extra_payment_ideal_title: 'Online bijbetalen (iDEAL | Wero)',
     info_option_extra_payment_ideal_description:
-        'Is uw tegoed niet voldoende voor een online reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL.',
+        'Is uw tegoed niet voldoende voor een online reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL | Wero.',
 };

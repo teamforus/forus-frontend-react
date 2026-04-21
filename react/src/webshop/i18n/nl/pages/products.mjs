@@ -20,7 +20,7 @@ export default {
         payment_options_info: 'Lees meer over de betaalopties',
         payment_option_qr: 'QR-code tonen bij de aanbieder',
         payment_option_reservation: 'Online reserveren',
-        payment_option_extra_payment: 'Online bijbetalen met iDeal',
+        payment_option_extra_payment: 'Online bijbetalen met iDEAL | Wero',
         price_type_options: 'Soort aanbod',
         price_type_options_info: 'Lees meer over de soorten aanbod',
         price_type_option_regular: 'Prijs',
