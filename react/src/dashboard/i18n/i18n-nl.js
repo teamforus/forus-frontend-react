@@ -2037,8 +2037,9 @@ export default {
         types: {
             digest: {
                 daily_sponsor: {
-                    title: 'Dagelijkse samenvatting omtrent aanmeldingen aanbieders',
-                    description: 'Notificaties omtrent aanmeldingen van aanbieders worden gegroepeerd toegestuurd.',
+                    title: 'Dagelijkse samenvatting over aanbieders',
+                    description:
+                        'Een bericht met nieuwe aanmeldingen van aanbieders, nieuwe producten die zijn geplaatst of nog goedgekeurd moeten worden en chatberichten van aanbieders.',
                 },
                 daily_provider_funds: {
                     title: 'Dagelijkse samenvatting omtrent uw aanmeldingen bij fondsen',
@@ -2049,13 +2050,14 @@ export default {
                     description:
                         'Een dagelijkse samenvatting van alle notificaties omtrent product en diensten die zijn gereserveerd.',
                 },
-                daily_validator: {
-                    title: 'Dagelijkse samenvatting omtrent aanvragen voor fondsen',
-                    description: 'Notificaties omtrent aanvragen worden gegroepeerd toegestuurd.',
-                },
                 daily_sponsor_product_updates: {
                     title: 'Dagelijkse samenvatting over wijzigingen in aanbiedingen',
-                    description: 'Notificaties over wijzigingen in aanbiedingen die zijn goedgekeurd.',
+                    description:
+                        'Een bericht over wijzigingen in aanbiedingen die eerder zijn goedgekeurd en op de website staan.',
+                },
+                daily_validator: {
+                    title: 'Dagelijkse samenvatting over aanvragen van inwoners',
+                    description: 'Een bericht over nieuwe aanvragen van inwoners per regeling.',
                 },
             },
             funds: {
