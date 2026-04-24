@@ -37,6 +37,9 @@ import Employee from '../../../props/models/Employee';
 import classNames from 'classnames';
 import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
 import FundRequestGroupRow from './elements/FundRequestGroupRow';
+import FundRequestMissedRecords from './elements/FundRequestMissedRecords';
+import ModalFundRequestApproveMissedRecords from '../../modals/ModalFundRequestApproveMissedRecords';
+import useFundRequestMissedRecords from '../../../hooks/useFundRequestMissedRecords';
 
 export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
 
@@ -81,6 +84,8 @@ export default function FundRequestsView() {
     const [showCriteria, setShowCriteria] = useState(null);
     const [uncollapsedRecords, setUncollapsedRecords] = useState<Array<number>>([]);
     const [uncollapsedRecordGroups, setUncollapsedRecordGroups] = useState<Array<number>>([]);
+
+    const { hasWarningMissedRecords } = useFundRequestMissedRecords(fundRequest);
 
     const fund = useMemo(() => {
         return fundRequest?.fund;
@@ -225,72 +230,84 @@ export default function FundRequestsView() {
         }, pushApiError);
     }, [activeOrganization.id, fundRequestMeta?.id, fundRequestService, pushApiError]);
 
-    const requestApprove = useCallback(() => {
-        if (!enableCustomConfirmationModal) {
-            return openModal((modal) => (
-                <ModalNotification
-                    modal={modal}
-                    className={'modal-md'}
-                    title={'Weet u zeker dat u deze persoonsgegeven wil goedkeuren?'}
-                    description={
-                        'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.'
-                    }
-                    buttonCancel={{ onClick: modal.close }}
-                    buttonSubmit={{
-                        onClick: (_e, setDisabled) => {
-                            setDisabled(true);
-                            modal.setProcessing(true);
-
-                            fundRequestService
-                                .approve(activeOrganization.id, fundRequestMeta.id)
-                                .then(() => {
-                                    modal.setProcessing(false);
-                                    reloadRequest();
-                                })
-                                .catch((err: ResponseError) => {
-                                    modal.setProcessing(false);
-                                    setDisabled(false);
-
-                                    showInfoModal(
-                                        'Validatie van persoonsgegeven mislukt.',
-                                        `Reden: ${err.data.message}`,
-                                    );
-                                })
-                                .finally(() => setTimeout(() => modal.close()));
-                        },
-                    }}
-                />
-            ));
-        }
-
-        fundRequestService
-            .formula(activeOrganization.id, fundRequest?.id)
-            .then((res) => {
-                openModal((modal) => (
-                    <ModalApproveFundRequest
-                        modal={modal}
-                        formula={res.data}
-                        fundRequest={fundRequest}
-                        onError={(err: ResponseError) => {
+    const requestApprove = useCallback(
+        (skipConfirmation = false) => {
+            if (!enableCustomConfirmationModal) {
+                if (skipConfirmation) {
+                    return fundRequestService
+                        .approve(activeOrganization.id, fundRequestMeta.id)
+                        .then(() => reloadRequest())
+                        .catch((err: ResponseError) => {
                             showInfoModal('Validatie van persoonsgegeven mislukt.', `Reden: ${err.data.message}`);
+                        });
+                }
+
+                return openModal((modal) => (
+                    <ModalNotification
+                        modal={modal}
+                        className={'modal-md'}
+                        title={'Weet u zeker dat u deze persoonsgegeven wil goedkeuren?'}
+                        description={
+                            'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.'
+                        }
+                        buttonCancel={{ onClick: modal.close }}
+                        buttonSubmit={{
+                            onClick: (_e, setDisabled) => {
+                                setDisabled(true);
+                                modal.setProcessing(true);
+
+                                fundRequestService
+                                    .approve(activeOrganization.id, fundRequestMeta.id)
+                                    .then(() => {
+                                        modal.setProcessing(false);
+                                        reloadRequest();
+                                    })
+                                    .catch((err: ResponseError) => {
+                                        modal.setProcessing(false);
+                                        setDisabled(false);
+
+                                        showInfoModal(
+                                            'Validatie van persoonsgegeven mislukt.',
+                                            `Reden: ${err.data.message}`,
+                                        );
+                                    })
+                                    .finally(() => setTimeout(() => modal.close()));
+                            },
                         }}
-                        onDone={reloadRequest}
-                        activeOrganization={activeOrganization}
                     />
                 ));
-            })
-            .catch(pushApiError);
-    }, [
-        enableCustomConfirmationModal,
-        fundRequestService,
-        activeOrganization,
-        fundRequest,
-        pushApiError,
-        openModal,
-        fundRequestMeta,
-        reloadRequest,
-        showInfoModal,
-    ]);
+            }
+
+            fundRequestService
+                .formula(activeOrganization.id, fundRequest?.id)
+                .then((res) => {
+                    openModal((modal) => (
+                        <ModalApproveFundRequest
+                            modal={modal}
+                            formula={res.data}
+                            fundRequest={fundRequest}
+                            onError={(err: ResponseError) => {
+                                showInfoModal('Validatie van persoonsgegeven mislukt.', `Reden: ${err.data.message}`);
+                            }}
+                            onDone={reloadRequest}
+                            activeOrganization={activeOrganization}
+                        />
+                    ));
+                })
+                .catch(pushApiError);
+        },
+        [
+            enableCustomConfirmationModal,
+            fundRequestService,
+            activeOrganization,
+            fundRequest,
+            pushApiError,
+            openModal,
+            fundRequestMeta,
+            reloadRequest,
+            showInfoModal,
+        ],
+    );
 
     const requestDecline = useCallback(() => {
         openModal((modal) => (
@@ -458,6 +475,26 @@ export default function FundRequestsView() {
         (data: object) => fundRequestService.storeNote(activeOrganization.id, fundRequestMeta.id, data),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
+
+    const requestApproveMissedRecords = useCallback(() => {
+        fundRequestService.approveMissedRecords(activeOrganization.id, fundRequest.id).then((res) => {
+            setFundRequest(res.data.data);
+            fetchEmailsRef?.current?.();
+            updateNotesRef?.current?.();
+            requestApprove(true);
+        });
+    }, [fundRequestService, activeOrganization?.id, fundRequest?.id, requestApprove]);
+
+    const resolveMissingRecords = useCallback(() => {
+        openModal((modal) => (
+            <ModalFundRequestApproveMissedRecords
+                modal={modal}
+                fundRequest={fundRequest}
+                storeNote={storeNote}
+                onSubmit={() => requestApproveMissedRecords()}
+            />
+        ));
+    }, [openModal, fundRequest, storeNote, requestApproveMissedRecords]);
 
     useEffect(() => {
         fetchFundRequest();
@@ -638,6 +675,8 @@ export default function FundRequestsView() {
                             className={classNames(fundRequestMeta.bsn ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.bsn || 'Geen BSN'}
                         </KeyValueItem>
+
+                        {hasWarningMissedRecords && <FundRequestMissedRecords fundRequest={fundRequest} />}
                     </div>
                 </div>
 
@@ -649,7 +688,9 @@ export default function FundRequestsView() {
                                 !fundRequestMeta.can_disregarded_undo && (
                                     <button
                                         className="button button-primary"
-                                        onClick={requestApprove}
+                                        onClick={() =>
+                                            hasWarningMissedRecords ? resolveMissingRecords() : requestApprove()
+                                        }
                                         data-dusk="fundRequestApproveBtn">
                                         <em className="mdi mdi-check icon-start" />
                                         {translate('validation_requests.buttons.accept_all')}

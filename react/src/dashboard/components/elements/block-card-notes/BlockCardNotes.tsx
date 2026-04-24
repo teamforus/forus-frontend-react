@@ -145,11 +145,13 @@ export default function BlockCardNotes({
                         <td className="nowrap">{note.created_at_locale}</td>
                         <td className="nowrap text-primary">{note.employee.email}</td>
                         <td>
-                            {note.description?.split('\n').map((line: string, index) => (
-                                <div key={index} className="td-text">
-                                    {line}
-                                </div>
-                            ))}
+                            <div className="td-text-wrap">
+                                {note.description?.split('\n').map((line: string, index) => (
+                                    <div key={index} className="td-text">
+                                        {line}
+                                    </div>
+                                ))}
+                            </div>
                         </td>
 
                         <td className="td-narrow text-right">

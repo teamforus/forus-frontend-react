@@ -291,6 +291,11 @@
                     }
                 }
 
+                .td-text-wrap {
+                    display: flex;
+                    flex-direction: column;
+                }
+
                 .td-icon-text {
                     display: inline-flex;
                     flex-direction: row;
