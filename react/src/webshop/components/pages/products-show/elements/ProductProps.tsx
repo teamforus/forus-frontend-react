@@ -89,7 +89,7 @@ export default function ProductProps({
                                         role="img"
                                         aria-label={translate('product.labels.payment_option_ideal')}>
                                         <img
-                                            src={assetUrl('/assets/img/icon-ideal.svg')}
+                                            src={assetUrl('/assets/img/icon-ideal-wero-square.svg')}
                                             alt={translate('product.labels.ideal_logo_alt')}
                                         />
                                     </div>

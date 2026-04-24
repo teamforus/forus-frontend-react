@@ -450,7 +450,6 @@
             "payment_option_reservation": "Online booking",
             "price": "Price (€)",
             "price_from": "From",
-            "payment_option_extra_payment": "Online additional payment with iDeal",
             "price_type_option_discount_fixed": "Discount in euro",
             "price_type_option_discount_percentage": "Discount in percent",
             "price_type_option_free": "Free",
@@ -463,7 +462,8 @@
             "payment_options_info": "Learn more about payment options",
             "price_to": "To",
             "price_type_option_payout": "Payout to bank account",
-            "active_filters": "Active filters"
+            "active_filters": "Active filters",
+            "payment_option_extra_payment": "Online top-up payments with iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -1614,7 +1614,6 @@
             "max_limit": "Maximum per person:",
             "pay_from_voucher": "You pay from the credit:",
             "price": "Price:",
-            "payment_option_ideal": "Online additional payment (iDEAL)",
             "payment_option_reservation": "Online booking",
             "payment_options": "Payment options",
             "payment_option_link": "Read more about payment options",
@@ -1640,11 +1639,12 @@
             "when": "When",
             "where": "Where",
             "add_to_favorites": "Add to Favorites",
-            "ideal_logo_alt": "iDEAL logo",
             "remove_from_favorites": "Remove from favorites",
             "duration_of_promotion": "Duration",
             "login_to_order": "Log in to order",
-            "request_one_now": "Make an inquiry"
+            "request_one_now": "Make an inquiry",
+            "ideal_logo_alt": "iDEAL | Wero logo",
+            "payment_option_ideal": "Online additional payment (iDEAL | Wero)"
         },
         "low_amount": "You do not have a credit with sufficient balance.",
         "map": {
@@ -3236,12 +3236,12 @@
         },
         "product_item": {
             "bookmark": "Add to wish list",
-            "payment_option_ideal": "Additional payment possible",
-            "payment_option_ideal_aria_label": "Additional payment possible: click for more information",
             "payment_option_qr": "QR payment",
             "payment_option_qr_aria_label": "QR payment: click for more information",
             "payment_option_reservation": "Pay online",
-            "payment_option_reservation_aria_label": "Paying online: click for more information"
+            "payment_option_reservation_aria_label": "Paying online: click for more information",
+            "payment_option_ideal": "Online additional payment (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Online additional payment (iDEAL | Wero): click for more information"
         }
     },
     "security_2fa": {
@@ -3733,13 +3733,13 @@
         "confirm": "It is clear!",
         "description": "Payment options vary by product. Payment can be made in several ways:",
         "header": "Payment options",
-        "info_option_extra_payment_ideal_description": "Is your credit not enough for a reservation? For some products, you can safely top up the remaining amount online via iDEAL.",
-        "info_option_extra_payment_ideal_title": "Additional payment (iDeal)",
         "info_option_qr_description": "Pay easily at the provider's location by showing the QR code you received at checkout. The provider scans the code, then the payment is processed immediately.",
         "info_option_qr_title": "QR code",
         "info_option_reservation_description": "Pay through this website by ordering an offer. To do so, click on the reserve button and enter the requested information. The amount will be deducted directly from the available credit. The provider will receive the reservation and contact you if necessary.",
         "info_option_reservation_title": "Reservation",
-        "title": "Payment options"
+        "title": "Payment options",
+        "info_option_extra_payment_ideal_description": "Is your credit not enough for an online reservation? For some products, you can safely top up the remaining amount online via iDEAL | Wero.",
+        "info_option_extra_payment_ideal_title": "Online additional payment (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Close",
@@ -3795,7 +3795,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Municipality of Berkelland",
-            "default": "Home page (home)",
             "ede": "Ede",
             "eemsdelta": "Municipality of Eemsdelta",
             "geertruidenberg": "Municipality of Geertruidenberg",
@@ -3812,11 +3811,12 @@
             "vergoedingen": "logo Municipality of Nijmegen",
             "waalwijk": "Pass Wiser",
             "westerkwartier": "Municipality of Westerkwartier",
-            "winterswijk": "Municipality of Winterswijk"
+            "winterswijk": "Municipality of Winterswijk",
+            "default": "Homepage",
+            "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         },
         "pages": {
             "berkelland": "Municipality of Berkelland",
-            "default": "Home page (non home)",
             "ede": "Ede",
             "eemsdelta": "Municipality of Eemsdelta",
             "geertruidenberg": "Municipality of Geertruidenberg",
@@ -3833,7 +3833,9 @@
             "vergoedingen": "logo Municipality of Nijmegen",
             "waalwijk": "Pass Wiser",
             "westerkwartier": "Municipality of Westerkwartier",
-            "winterswijk": "Municipality of Winterswijk"
+            "winterswijk": "Municipality of Winterswijk",
+            "default": "Go to the homepage",
+            "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         }
     }
 }

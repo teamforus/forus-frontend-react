@@ -40,7 +40,7 @@ export default function useShowProductPaymentOptionsInfoModal() {
                 </div>
                 <div className="products-payment-option-info">
                     <div className="products-payment-option-icon">
-                        <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" aria-hidden="true" />
+                        <img src={assetUrl('/assets/img/icon-ideal-wero-square.svg')} alt="" aria-hidden="true" />
                     </div>
                     <div className="products-payment-option-content">
                         <div className="products-payment-option-title">

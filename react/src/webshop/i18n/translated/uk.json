@@ -1370,12 +1370,12 @@
         },
         "product_item": {
             "bookmark": "Додати до списку бажань",
-            "payment_option_ideal": "Можлива додаткова оплата",
-            "payment_option_ideal_aria_label": "Можлива додаткова оплата: натисніть для отримання додаткової інформації",
             "payment_option_qr": "QR-платіж",
             "payment_option_qr_aria_label": "QR-платіж: натисніть для отримання додаткової інформації",
             "payment_option_reservation": "Оплачуйте онлайн",
-            "payment_option_reservation_aria_label": "Сплачуйте онлайн: натисніть для отримання додаткової інформації"
+            "payment_option_reservation_aria_label": "Сплачуйте онлайн: натисніть для отримання додаткової інформації",
+            "payment_option_ideal": "Оплачуйте онлайн (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Оплата онлайн (iDEAL | Wero): натисніть для отримання додаткової інформації"
         }
     },
     "maps": {
@@ -2325,7 +2325,6 @@
             "max_limit": "Максимум на одну людину:",
             "pay_from_voucher": "Ви платите з кредиту:",
             "price": "Ціна:",
-            "payment_option_ideal": "Сплачуйте онлайн (iDEAL)",
             "payment_option_reservation": "Бронюйте онлайн",
             "payment_options": "Варіанти оплати",
             "payment_option_link": "Дізнайтеся більше про способи оплати",
@@ -2351,11 +2350,12 @@
             "when": "Коли",
             "where": "Де",
             "add_to_favorites": "Додати в обране Обране",
-            "ideal_logo_alt": "Логотип iDEAL",
             "remove_from_favorites": "Видалити з обраного",
             "duration_of_promotion": "Тривалість",
             "login_to_order": "Увійдіть, щоб замовити",
-            "request_one_now": "Зробити запит"
+            "request_one_now": "Зробити запит",
+            "ideal_logo_alt": "iDEAL | логотип Wero",
+            "payment_option_ideal": "Оплачуйте онлайн (iDEAL | Wero)"
         },
         "low_amount": "У вас немає кредиту з достатнім балансом.",
         "map": {
@@ -2402,7 +2402,6 @@
             "payment_option_reservation": "Бронюйте онлайн",
             "price": "Ціна (€)",
             "price_from": "Від",
-            "payment_option_extra_payment": "Оплата в Інтернеті за допомогою iDeal",
             "price_type_option_discount_fixed": "Знижка в євро",
             "price_type_option_discount_percentage": "Знижка у відсотках",
             "price_type_option_free": "Безкоштовно",
@@ -2415,7 +2414,8 @@
             "payment_options_info": "Дізнайтеся більше про способи оплати",
             "price_to": "До",
             "price_type_option_payout": "Виплата на банківський рахунок",
-            "active_filters": "Активні фільтри"
+            "active_filters": "Активні фільтри",
+            "payment_option_extra_payment": "Оплата в Інтернеті за допомогою iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -3733,13 +3733,13 @@
         "confirm": "Все ясно!",
         "description": "Варіанти оплати залежать від товару. Оплату можна здійснити кількома способами:",
         "header": "Варіанти оплати",
-        "info_option_extra_payment_ideal_description": "Вашого кредиту недостатньо для бронювання? Для деяких товарів ви можете безпечно доплатити решту суми онлайн через iDEAL.",
-        "info_option_extra_payment_ideal_title": "Додатковий платіж (iDeal)",
         "info_option_qr_description": "Сплачуйте легко в офісі провайдера, показавши QR-код, який ви отримали на касі. Провайдер відсканує код, і платіж буде негайно оброблено.",
         "info_option_qr_title": "QR-код",
         "info_option_reservation_description": "Сплатіть через цей сайт, замовивши пропозицію. Для цього натисніть на кнопку зарезервувати та заповніть необхідні дані. Сума буде списана безпосередньо з наявного кредиту. Постачальник отримає замовлення і зв'яжеться з вами у разі необхідності.",
         "info_option_reservation_title": "Бронювання",
-        "title": "Варіанти оплати"
+        "title": "Варіанти оплати",
+        "info_option_extra_payment_ideal_description": "Вашого кредиту недостатньо для онлайн-бронювання? Для деяких товарів ви можете безпечно доплатити решту суми онлайн через iDEAL | Wero.",
+        "info_option_extra_payment_ideal_title": "Оплачуйте онлайн (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Закрити",
@@ -3795,7 +3795,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Муніципалітет Беркелланд",
-            "default": "Головна сторінка (домашня сторінка)",
             "ede": "Еде.",
             "eemsdelta": "Муніципалітет Еемс Дельта",
             "geertruidenberg": "Муніципалітет Гертруйденберг",
@@ -3812,11 +3811,12 @@
             "vergoedingen": "логотип Муніципалітет Неймеген",
             "waalwijk": "Пропускний пункт",
             "westerkwartier": "Муніципалітет Вестерквартір",
-            "winterswijk": "Муніципалітет Вінтерсвейк"
+            "winterswijk": "Муніципалітет Вінтерсвейк",
+            "default": "Головна сторінка",
+            "isd": "ISD Міжмуніципальна соціальна служба Brabantse Wal"
         },
         "pages": {
             "berkelland": "Муніципалітет Беркелланд",
-            "default": "Домашня сторінка (не домашня)",
             "ede": "Еде.",
             "eemsdelta": "Муніципалітет Еемс Дельта",
             "geertruidenberg": "Муніципалітет Гертруйденберг",
@@ -3833,7 +3833,9 @@
             "vergoedingen": "логотип Муніципалітет Неймеген",
             "waalwijk": "Pass Wiser",
             "westerkwartier": "Муніципалітет Вестерквартьє",
-            "winterswijk": "Муніципалітет Вінтерсвейк"
+            "winterswijk": "Муніципалітет Вінтерсвейк",
+            "default": "Перейдіть на головну сторінку",
+            "isd": "ISD Міжмуніципальна соціальна служба Brabantse Wal"
         }
     }
 }

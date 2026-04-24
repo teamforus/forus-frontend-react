@@ -3729,11 +3729,11 @@
     ],
     [
         "list_blocks.product_item.payment_option_ideal",
-        "Online bijbetalen"
+        "Online bijbetalen (iDEAL | Wero)"
     ],
     [
         "list_blocks.product_item.payment_option_ideal_aria_label",
-        "Online bijbetalen: klik voor meer informatie"
+        "Online bijbetalen (iDEAL | Wero): klik voor meer informatie"
     ],
     [
         "list_blocks.product_item.payment_option_qr",
@@ -3769,7 +3769,7 @@
     ],
     [
         "logo_alt_text.home.default",
-        "Homepagina (home)"
+        "Homepagina"
     ],
     [
         "logo_alt_text.home.ede",
@@ -3802,6 +3802,10 @@
     [
         "logo_alt_text.home.heumen",
         "Gemeente Heumen"
+    ],
+    [
+        "logo_alt_text.home.isd",
+        "ISD Intergemeentelijke Sociale Dienst Brabantse Wal"
     ],
     [
         "logo_alt_text.home.kerstpakket",
@@ -3845,7 +3849,7 @@
     ],
     [
         "logo_alt_text.pages.default",
-        "Homepagina (non home)"
+        "Ga naar de homepagina"
     ],
     [
         "logo_alt_text.pages.ede",
@@ -3878,6 +3882,10 @@
     [
         "logo_alt_text.pages.heumen",
         "Gemeente Heumen"
+    ],
+    [
+        "logo_alt_text.pages.isd",
+        "ISD Intergemeentelijke Sociale Dienst Brabantse Wal"
     ],
     [
         "logo_alt_text.pages.kerstpakket",
@@ -4693,11 +4701,11 @@
     ],
     [
         "modal_product_payment_options_info.info_option_extra_payment_ideal_description",
-        "Is uw tegoed niet voldoende voor een online reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL."
+        "Is uw tegoed niet voldoende voor een online reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL | Wero."
     ],
     [
         "modal_product_payment_options_info.info_option_extra_payment_ideal_title",
-        "Online bijbetalen (iDeal)"
+        "Online bijbetalen (iDEAL | Wero)"
     ],
     [
         "modal_product_payment_options_info.info_option_qr_description",
@@ -6733,7 +6741,7 @@
     ],
     [
         "product.labels.ideal_logo_alt",
-        "iDEAL logo"
+        "iDEAL | Wero logo"
     ],
     [
         "product.labels.limit",
@@ -6765,7 +6773,7 @@
     ],
     [
         "product.labels.payment_option_ideal",
-        "Online bijbetalen (iDEAL)"
+        "Online bijbetalen (iDEAL | Wero)"
     ],
     [
         "product.labels.payment_option_link",
@@ -7009,7 +7017,7 @@
     ],
     [
         "products.filters.payment_option_extra_payment",
-        "Online bijbetalen met iDeal"
+        "Online bijbetalen met iDEAL | Wero"
     ],
     [
         "products.filters.payment_option_qr",
