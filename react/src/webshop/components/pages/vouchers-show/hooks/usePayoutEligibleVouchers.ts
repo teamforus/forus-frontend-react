@@ -4,14 +4,14 @@ import { ProfileBankAccount } from '../../../../../dashboard/props/models/Sponso
 
 export default function usePayoutEligibleVouchers(
     vouchers?: Array<Voucher> | null,
-    fundRequestAccounts?: Array<ProfileBankAccount> | null,
+    bankAccounts?: Array<ProfileBankAccount> | null,
 ): Array<Voucher> {
     return useMemo(() => {
         if (!Array.isArray(vouchers) || vouchers.length === 0) {
             return [];
         }
 
-        if (!Array.isArray(fundRequestAccounts) || fundRequestAccounts.length === 0) {
+        if (!Array.isArray(bankAccounts) || bankAccounts.length === 0) {
             return [];
         }
 
@@ -20,5 +20,5 @@ export default function usePayoutEligibleVouchers(
             .filter((voucher) => voucher?.type !== 'product')
             .filter((voucher) => !voucher?.product_reservation?.id)
             .filter((voucher) => !voucher?.expired && !voucher?.deactivated && !voucher?.external);
-    }, [fundRequestAccounts, vouchers]);
+    }, [bankAccounts, vouchers]);
 }
