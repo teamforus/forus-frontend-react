@@ -20,6 +20,7 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function ExtraPayments() {
     const activeOrganization = useActiveOrganization();
@@ -27,6 +28,7 @@ export default function ExtraPayments() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError(DashboardRoutes.ORGANIZATION_NO_PERMISSIONS);
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
@@ -66,18 +68,16 @@ export default function ExtraPayments() {
     );
 
     const fetchExtraPayments = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        extraPaymentService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setExtraPayments(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [extraPaymentService, activeOrganization.id, setProgress, filterValuesActive, pushApiError]);
+        runLatestRequest(
+            (config) => extraPaymentService.list(activeOrganization.id, { ...filterValuesActive }, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setExtraPayments(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [extraPaymentService, activeOrganization.id, runLatestRequest, filterValuesActive, pushApiError]);
 
     const fetchFunds = useCallback(
         async (query: object): Promise<Array<Fund>> => {

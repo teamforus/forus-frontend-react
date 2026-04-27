@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import useSetProgress from '../../dashboard/hooks/useSetProgress';
-import useLatestRequest, { LatestRequestRunner } from './useLatestRequest';
+import useLatestRequest, { LatestRequestRunner } from '../../dashboard/hooks/useLatestRequest';
 
 export default function useLatestRequestWithProgress(): LatestRequestRunner {
     const setProgress = useSetProgress();

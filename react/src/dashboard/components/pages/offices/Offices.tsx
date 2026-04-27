@@ -13,7 +13,6 @@ import useOfficeService from '../../../services/OfficeService';
 import OfficeSchedule from '../../../props/models/OfficeSchedule';
 import ModalNotification from '../../modals/ModalNotification';
 import ModalDangerZone from '../../modals/ModalDangerZone';
-import useSetProgress from '../../../hooks/useSetProgress';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useTranslate from '../../../hooks/useTranslate';
@@ -21,6 +20,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 interface OfficeLocal extends Office {
     scheduleByDay: { [key: string]: OfficeSchedule };
@@ -34,9 +34,9 @@ export default function Offices() {
     const navigate = useNavigate();
 
     const officeService = useOfficeService();
-    const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [weekDays] = useState(officeService.scheduleWeekDays());
     const [offices, setOffices] = useState<Array<OfficeLocal>>(null);
@@ -47,11 +47,8 @@ export default function Offices() {
     });
 
     const fetchOffices = useCallback(() => {
-        setProgress(0);
-
-        officeService
-            .list(organization.id, filterValuesActive)
-            .then((res) => {
+        runLatestRequest((config) => officeService.list(organization.id, { ...filterValuesActive }, config), {
+            onSuccess: (res) =>
                 setOffices(
                     res.data.data.map((office) => ({
                         ...office,
@@ -60,10 +57,10 @@ export default function Offices() {
                             {},
                         ),
                     })),
-                );
-            })
-            .finally(() => setProgress(100));
-    }, [setProgress, officeService, organization.id, filterValuesActive]);
+                ),
+            onError: pushApiError,
+        });
+    }, [runLatestRequest, pushApiError, officeService, organization.id, filterValuesActive]);
 
     const confirmDelete = useCallback(
         (office: Office) => {

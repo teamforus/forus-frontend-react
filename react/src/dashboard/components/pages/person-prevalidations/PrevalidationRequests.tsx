@@ -33,6 +33,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import ModalDangerZone from '../../modals/ModalDangerZone';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function PrevalidationRequests() {
     const translate = useTranslate();
@@ -42,6 +43,7 @@ export default function PrevalidationRequests() {
     const pushSuccess = usePushSuccess();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
@@ -96,17 +98,15 @@ export default function PrevalidationRequests() {
 
     const fetchPrevalidationRequests = useCallback(() => {
         if (activeOrganization?.allow_prevalidation_requests) {
-            setProgress(0);
-
-            prevalidationRequestService
-                .list(activeOrganization.id, { ...filterValuesActive })
-                .then((res) => setPrevalidationRequests(res.data))
-                .finally(() => setProgress(100));
+            runLatestRequest(
+                (config) => prevalidationRequestService.list(activeOrganization.id, { ...filterValuesActive }, config),
+                { onSuccess: (res) => setPrevalidationRequests(res.data) },
+            );
         }
     }, [
         activeOrganization?.allow_prevalidation_requests,
         activeOrganization.id,
-        setProgress,
+        runLatestRequest,
         prevalidationRequestService,
         filterValuesActive,
     ]);

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import useSetProgress from '../../../hooks/useSetProgress';
 import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
 import { PaginationData } from '../../../props/ApiResponses';
@@ -20,6 +19,8 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 type ProductsDataLocal = PaginationData<
     Product,
@@ -36,7 +37,8 @@ export default function Products() {
 
     const openModal = useOpenModal();
     const appConfigs = useAppConfigs();
-    const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState<ProductsDataLocal>(null);
@@ -104,20 +106,25 @@ export default function Products() {
     );
 
     const fetchProducts = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        productService
-            .list(activeOrganization.id, {
-                ...filterValuesActive,
-                order_by: filterValuesActive.order_by === 'expired_at' ? 'expire_at' : filterValuesActive.order_by,
-            })
-            .then((res) => setProducts(res.data))
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [productService, activeOrganization.id, setProgress, filterValuesActive]);
+        runLatestRequest(
+            (config) =>
+                productService.list(
+                    activeOrganization.id,
+                    {
+                        ...filterValuesActive,
+                        order_by:
+                            filterValuesActive.order_by === 'expired_at' ? 'expire_at' : filterValuesActive.order_by,
+                    },
+                    config,
+                ),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setProducts(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [productService, activeOrganization.id, runLatestRequest, pushApiError, filterValuesActive]);
 
     useEffect(() => {
         fetchProducts();

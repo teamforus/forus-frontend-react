@@ -5,7 +5,6 @@ import SponsorVoucher from '../../../props/models/Sponsor/SponsorVoucher';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useVoucherService from '../../../services/VoucherService';
-import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import VouchersTableNoFundsBlock from './elements/VouchersTableNoFundsBlock';
 import useVoucherTableOptions from './hooks/useVoucherTableOptions';
@@ -22,6 +21,8 @@ import ModalVoucherCreate from '../../modals/ModalVoucherCreate';
 import ModalVouchersUpload from '../../modals/ModalVouchersUpload';
 import VouchersTable from './elements/VouchersTable';
 import { Permission } from '../../../props/models/Organization';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
@@ -29,7 +30,8 @@ export default function Vouchers() {
     const translate = useTranslate();
 
     const openModal = useOpenModal();
-    const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const voucherService = useVoucherService();
     const paginatorService = usePaginatorService();
@@ -104,29 +106,27 @@ export default function Vouchers() {
     );
 
     const fetchVouchers = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
         const values = filterValuesActive;
 
-        voucherService
-            .index(activeOrganization.id, {
-                ...values,
-                date_type: null,
-                in_use: values.in_use == null ? null : values.in_use ? 1 : 0,
-                granted: values.granted == null ? null : values.granted ? 1 : 0,
-                has_payouts: values.has_payouts == null ? null : values.has_payouts ? 1 : 0,
-                from: values.date_type === 'created_at' ? values.from : null,
-                to: values.date_type === 'created_at' ? values.to : null,
-                in_use_from: values.date_type === 'used_at' ? values.from : null,
-                in_use_to: values.date_type === 'used_at' ? values.to : null,
-            })
-            .then((res) => setVouchers(res.data))
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [activeOrganization.id, filterValuesActive, setProgress, voucherService]);
+        const query = {
+            ...values,
+            date_type: null,
+            in_use: values.in_use == null ? null : values.in_use ? 1 : 0,
+            granted: values.granted == null ? null : values.granted ? 1 : 0,
+            has_payouts: values.has_payouts == null ? null : values.has_payouts ? 1 : 0,
+            from: values.date_type === 'created_at' ? values.from : null,
+            to: values.date_type === 'created_at' ? values.to : null,
+            in_use_from: values.date_type === 'used_at' ? values.from : null,
+            in_use_to: values.date_type === 'used_at' ? values.to : null,
+        };
+
+        runLatestRequest((config) => voucherService.index(activeOrganization.id, query, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setVouchers(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [activeOrganization.id, filterValuesActive, runLatestRequest, pushApiError, voucherService]);
 
     const createVoucher = useCallback(
         (funds: Array<Partial<Fund>>, fundId?: number, onCreate?: () => void) => {

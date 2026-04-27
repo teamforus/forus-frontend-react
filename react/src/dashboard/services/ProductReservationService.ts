@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Papa from 'papaparse';
 import Reservation from '../props/models/Reservation';
-import { ApiResponse, ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import { ApiResponse, ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import Note from '../props/models/Note';
@@ -20,8 +20,8 @@ export class ProductReservationService<T = Reservation> {
      */
     public prefix = '/platform/organizations';
 
-    public list(organization_id: number, data: object): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/product-reservations`, data);
+    public list(organization_id: number, data: object, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/product-reservations`, data, config);
     }
 
     public store(organization_id: number, data = {}): Promise<ApiResponseSingle<T>> {

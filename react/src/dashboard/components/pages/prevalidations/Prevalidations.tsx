@@ -36,6 +36,7 @@ import Label from '../../elements/label/Label';
 import { Permission } from '../../../props/models/Organization';
 import { uniq } from 'lodash';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Prevalidations() {
     const translate = useTranslate();
@@ -43,6 +44,7 @@ export default function Prevalidations() {
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const employeeService = useEmployeeService();
@@ -152,13 +154,11 @@ export default function Prevalidations() {
     }, [activeOrganization.id, filterValuesActive, filter.activeValues, prevalidationExporter]);
 
     const fetchPrevalidations = useCallback(() => {
-        setProgress(0);
-
-        prevalidationService
-            .list(activeOrganization.id, { ...filterValuesActive })
-            .then((res) => setPrevalidations(res.data))
-            .finally(() => setProgress(100));
-    }, [setProgress, prevalidationService, filterValuesActive, activeOrganization.id]);
+        runLatestRequest(
+            (config) => prevalidationService.list(activeOrganization.id, { ...filterValuesActive }, config),
+            { onSuccess: (res) => setPrevalidations(res.data) },
+        );
+    }, [runLatestRequest, prevalidationService, activeOrganization.id, filterValuesActive]);
 
     const fetchEmployees = useCallback(() => {
         setProgress(0);

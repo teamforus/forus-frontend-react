@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -26,8 +26,8 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/identities`, data);
     }
 
-    public list(organizationId: number, query: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities`, query);
+    public list(organizationId: number, query: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities`, query, config);
     }
 
     public read(organizationId: number, identityId: number): Promise<ApiResponseSingle<T>> {

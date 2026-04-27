@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { strLimit } from '../../../../helpers/string';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
@@ -22,6 +21,7 @@ import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
 import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function ProviderFundsAvailableTable({
     organization,
@@ -35,8 +35,8 @@ export default function ProviderFundsAvailableTable({
     const [loading, setLoading] = useState(true);
 
     const assetUrl = useAssetUrl();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const successApplying = useProviderFundsApplySuccess();
     const failOfficesCheck = useProviderFundsFailOfficesCheck();
@@ -93,56 +93,62 @@ export default function ProviderFundsAvailableTable({
     const { resetFilters: resetFilters } = filter;
 
     const fetchFunds = useCallback(() => {
-        setSelected([]);
-        setLoading(true);
-        setProgress(0);
+        runLatestRequest(
+            (config) => providerFundService.listAvailableFunds(organization.id, { ...filterValuesActive }, config),
+            {
+                onStart: () => {
+                    setSelected([]);
+                    setLoading(true);
+                },
+                onSuccess: (res) => {
+                    setFunds(res.data);
 
-        providerFundService
-            .listAvailableFunds(organization.id, {
-                ...filterValuesActive,
-            })
-            .then((res) => {
-                setFunds(res.data);
+                    setTags((tags) => {
+                        if (tags) {
+                            return tags;
+                        }
 
-                setTags((tags) => {
-                    if (tags) {
-                        return tags;
-                    }
+                        return [
+                            { key: null, name: translate('provider_funds.filters.options.all_labels') },
+                            ...res.data.meta.tags,
+                        ];
+                    });
 
-                    return [
-                        { key: null, name: translate('provider_funds.filters.options.all_labels') },
-                        ...res.data.meta.tags,
-                    ];
-                });
+                    setOrganizations((organizations) => {
+                        if (organizations) {
+                            return organizations;
+                        }
 
-                setOrganizations((organizations) => {
-                    if (organizations) {
-                        return organizations;
-                    }
+                        return [
+                            { id: null, name: translate('provider_funds.filters.options.all_organizations') },
+                            ...res.data.meta.organizations,
+                        ];
+                    });
 
-                    return [
-                        { id: null, name: translate('provider_funds.filters.options.all_organizations') },
-                        ...res.data.meta.organizations,
-                    ];
-                });
+                    setImplementations((implementations) => {
+                        if (implementations) {
+                            return implementations;
+                        }
 
-                setImplementations((implementations) => {
-                    if (implementations) {
-                        return implementations;
-                    }
-
-                    return [
-                        { id: null, name: translate('provider_funds.filters.options.all_implementations') },
-                        ...res.data.meta.implementations,
-                    ];
-                });
-            })
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [filterValuesActive, organization.id, providerFundService, pushApiError, setProgress, setSelected, translate]);
+                        return [
+                            { id: null, name: translate('provider_funds.filters.options.all_implementations') },
+                            ...res.data.meta.implementations,
+                        ];
+                    });
+                },
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [
+        filterValuesActive,
+        organization.id,
+        providerFundService,
+        pushApiError,
+        runLatestRequest,
+        setSelected,
+        translate,
+    ]);
 
     const applyFunds = useCallback(
         (funds: Array<Fund>) => {

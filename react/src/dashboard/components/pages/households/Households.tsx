@@ -27,6 +27,7 @@ import useEditHousehold from './hooks/useEditHousehold';
 import useDeleteHousehold from './hooks/useDeleteHousehold';
 import TableRowActionItem from '../../elements/tables/TableRowActionItem';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Households() {
     const translate = useTranslate();
@@ -34,6 +35,7 @@ export default function Households() {
     const pushApiError = usePushApiError();
     const paginatorService = usePaginatorService();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const identityExporter = useIdentityExporter();
@@ -100,18 +102,13 @@ export default function Households() {
     }, [activeOrganization.id, fundService, setProgress, pushApiError]);
 
     const fetchHouseholds = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        householdsService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setHouseholds(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [activeOrganization.id, setProgress, householdsService, pushApiError, filterValuesActive]);
+        runLatestRequest((config) => householdsService.list(activeOrganization.id, { ...filterValuesActive }, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setHouseholds(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [activeOrganization.id, runLatestRequest, householdsService, pushApiError, filterValuesActive]);
 
     useEffect(() => {
         fetchHouseholds();

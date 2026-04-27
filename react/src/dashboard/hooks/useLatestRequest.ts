@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { RequestConfigData } from '../../dashboard/props/ApiResponses';
+import { RequestConfigData } from '../props/ApiResponses';
 
 export type LatestRequestHandlers<T> = {
     onStart?: () => void;

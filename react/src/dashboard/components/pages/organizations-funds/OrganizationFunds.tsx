@@ -31,6 +31,7 @@ import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -39,6 +40,7 @@ export default function OrganizationFunds() {
     const openModal = useOpenModal();
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
@@ -91,21 +93,23 @@ export default function OrganizationFunds() {
     const { resetFilters: resetFilters } = filter;
 
     const fetchFunds = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .list(activeOrganization.id, {
-                ...filterValuesActive,
-                with_archived: 1,
-                with_external: 1,
-                stats: 'min',
-                archived: filterValuesActive.funds_type == 'archived' ? 1 : 0,
-                per_page: filterValuesActive.per_page,
-            })
-            .then((res) => setFunds(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [activeOrganization.id, filterValuesActive, fundService, pushApiError, setProgress]);
+        runLatestRequest(
+            (config) =>
+                fundService.list(
+                    activeOrganization.id,
+                    {
+                        ...filterValuesActive,
+                        with_archived: 1,
+                        with_external: 1,
+                        stats: 'min',
+                        archived: filterValuesActive.funds_type == 'archived' ? 1 : 0,
+                        per_page: filterValuesActive.per_page,
+                    },
+                    config,
+                ),
+            { onSuccess: (res) => setFunds(res.data), onError: pushApiError },
+        );
+    }, [activeOrganization.id, filterValuesActive, fundService, pushApiError, runLatestRequest]);
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);

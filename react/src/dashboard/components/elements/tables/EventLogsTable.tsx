@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
 import LoadingCard from '../loading-card/LoadingCard';
 import FilterItemToggle from './elements/FilterItemToggle';
@@ -21,6 +20,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { ArrayParam, NumberParam, StringParam } from 'use-query-params';
 import FormGroup from '../forms/elements/FormGroup';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function EventLogsTable({
     organization,
@@ -45,8 +45,8 @@ export default function EventLogsTable({
 }) {
     const translate = useTranslate();
 
-    const setProgress = useSetProgress();
     const appConfigs = useAppConfigs();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const eventLogService = useEventLogService();
     const paginatorService = usePaginatorService();
@@ -126,23 +126,24 @@ export default function EventLogsTable({
     }, [organization.id, filterValuesActive, eventLogsExporter, loggableId]);
 
     const fetchLogs = useCallback(() => {
-        setProgress(0);
+        runLatestRequest(
+            (config) =>
+                eventLogService.list(organization.id, { ...filterValuesActive, loggable_id: loggableId }, config),
+            {
+                onSuccess: (res) => {
+                    const logs = {
+                        ...res.data,
+                        data: res.data.data.map((item) => ({
+                            ...item,
+                            note_substr: item.note ? strLimit(item.note, 40) : null,
+                        })),
+                    };
 
-        eventLogService
-            .list(organization.id, { ...filterValuesActive, loggable_id: loggableId })
-            .then((res) => {
-                const logs = {
-                    ...res.data,
-                    data: res.data.data.map((item) => ({
-                        ...item,
-                        note_substr: item.note ? strLimit(item.note, 40) : null,
-                    })),
-                };
-
-                setLogs(logs);
-            })
-            .finally(() => setProgress(100));
-    }, [organization.id, setProgress, eventLogService, filterValuesActive, loggableId]);
+                    setLogs(logs);
+                },
+            },
+        );
+    }, [organization.id, runLatestRequest, eventLogService, filterValuesActive, loggableId]);
 
     useEffect(() => {
         fetchLogs();
