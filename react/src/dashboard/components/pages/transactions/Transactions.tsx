@@ -48,6 +48,7 @@ export default function Transactions() {
     const navigateState = useNavigateState();
     const confirmDangerAction = useConfirmDangerAction();
     const runLatestRequest = useLatestRequestWithProgress();
+    const runLatestRequestPendingBulking = useLatestRequestWithProgress();
 
     const activeOrganization = useActiveOrganization();
     const transactionExporter = useTransactionExporter();
@@ -285,7 +286,7 @@ export default function Transactions() {
     }, [activeOrganization.id, bulkFilterValuesActive, setShowBulk, transactionBulkExporter]);
 
     const updateHasPendingBulking = useCallback(() => {
-        runLatestRequest(
+        runLatestRequestPendingBulking(
             (config) =>
                 transactionService.list(
                     envData.client_type,
@@ -307,7 +308,7 @@ export default function Transactions() {
         envData.client_type,
         filterValuesActive,
         pushApiError,
-        runLatestRequest,
+        runLatestRequestPendingBulking,
         transactionService,
     ]);
 
