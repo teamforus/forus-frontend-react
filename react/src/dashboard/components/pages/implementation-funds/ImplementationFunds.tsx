@@ -55,18 +55,12 @@ export default function ImplementationFunds() {
     }, [activeOrganization.id, id, implementationService, navigate, pushApiError]);
 
     const fetchFunds = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                fundService.list(
-                    activeOrganization.id,
-                    { implementation_id: parseInt(id), ...filterValuesActive },
-                    config,
-                ),
-            {
-                onSuccess: (res) => setFunds(res.data),
-                onError: pushApiError,
-            },
-        );
+        const filters = { implementation_id: parseInt(id), ...filterValuesActive };
+
+        runLatestRequest((config) => fundService.list(activeOrganization.id, filters, config), {
+            onSuccess: (res) => setFunds(res.data),
+            onError: pushApiError,
+        });
     }, [runLatestRequest, fundService, activeOrganization.id, id, filterValuesActive, pushApiError]);
 
     useEffect(() => {

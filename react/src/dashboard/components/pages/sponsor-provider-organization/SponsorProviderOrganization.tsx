@@ -65,18 +65,12 @@ export default function SponsorProviderOrganization() {
     );
 
     const fetchFundProviders = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                organizationService.listProviders(
-                    activeOrganization.id,
-                    { ...filterValuesActive, organization_id: id },
-                    config,
-                ),
-            {
-                onSuccess: (res) => setFundProviders(res.data),
-                onError: pushApiError,
-            },
-        );
+        const filters = { ...filterValuesActive, organization_id: id };
+
+        runLatestRequest((config) => organizationService.listProviders(activeOrganization.id, filters, config), {
+            onSuccess: (res) => setFundProviders(res.data),
+            onError: pushApiError,
+        });
     }, [runLatestRequest, organizationService, activeOrganization.id, filterValuesActive, id, pushApiError]);
 
     const fetchProviderOrganization = useCallback(() => {

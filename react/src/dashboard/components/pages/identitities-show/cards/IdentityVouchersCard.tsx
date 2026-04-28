@@ -4,13 +4,13 @@ import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import useVoucherService from '../../../../services/VoucherService';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import Card from '../../../elements/card/Card';
 import VouchersTable from '../../vouchers/elements/VouchersTable';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import useVoucherTableOptions from '../../vouchers/hooks/useVoucherTableOptions';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function IdentityVouchersCard({
     identity,
@@ -19,8 +19,8 @@ export default function IdentityVouchersCard({
     identity: SponsorIdentity;
     organization: Organization;
 }) {
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const voucherService = useVoucherService();
 
     const { funds } = useVoucherTableOptions(organization);
@@ -38,18 +38,13 @@ export default function IdentityVouchersCard({
     });
 
     const fetchVouchers = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        voucherService
-            .index(organization.id, filterValuesActive)
-            .then((res) => setVouchers(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [filterValuesActive, organization.id, pushApiError, voucherService, setProgress]);
+        runLatestRequest((config) => voucherService.index(organization.id, filterValuesActive, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setVouchers(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [filterValuesActive, organization.id, pushApiError, runLatestRequest, voucherService]);
 
     useEffect(() => {
         fetchVouchers();

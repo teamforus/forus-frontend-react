@@ -95,12 +95,20 @@ export class FundService<T = Fund> {
         return this.apiRequest.post(`${this.prefix}/${company_id}/funds/${id}/backoffice-test`);
     }
 
-    public readFinances(company_id: number, data: object = {}): Promise<ResponseSimple<ProviderFinancialStatistics>> {
-        return this.apiRequest.get(`${this.prefix}/${company_id}/sponsor/finances`, data);
+    public readFinances(
+        company_id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ResponseSimple<ProviderFinancialStatistics>> {
+        return this.apiRequest.get(`${this.prefix}/${company_id}/sponsor/finances`, data, config);
     }
 
-    public financialOverview(company_id: number, data: object = {}): Promise<ResponseSimple<FinancialOverview>> {
-        return this.apiRequest.get(`${this.prefix}/${company_id}/sponsor/finances-overview`, data);
+    public financialOverview(
+        company_id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ResponseSimple<FinancialOverview>> {
+        return this.apiRequest.get(`${this.prefix}/${company_id}/sponsor/finances-overview`, data, config);
     }
 
     public financialOverviewExportFields(
@@ -124,16 +132,18 @@ export class FundService<T = Fund> {
         company_id: number,
         fund_id: number,
         data: object = {},
+        config: RequestConfig = {},
     ): Promise<ApiResponse<FundTopUpTransaction>> {
-        return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/top-up-transactions`, data);
+        return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/top-up-transactions`, data, config);
     }
 
     public listIdentities(
         company_id: number,
         fund_id: number,
         data: object = {},
+        config: RequestConfig = {},
     ): Promise<ApiResponse<SponsorIdentity, { counts: SponsorIdentityCounts }>> {
-        return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities`, data);
+        return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities`, data, config);
     }
 
     public archive(company_id: number, fund_id: number): Promise<ApiResponse<T>> {

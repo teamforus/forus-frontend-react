@@ -286,18 +286,10 @@ export default function Transactions() {
     }, [activeOrganization.id, bulkFilterValuesActive, setShowBulk, transactionBulkExporter]);
 
     const updateHasPendingBulking = useCallback(() => {
+        const filters = { ...filterValuesActive, pending_bulking: 1, per_page: 1 };
+
         runLatestRequestPendingBulking(
-            (config) =>
-                transactionService.list(
-                    envData.client_type,
-                    activeOrganization.id,
-                    {
-                        ...filterValuesActive,
-                        pending_bulking: 1,
-                        per_page: 1,
-                    },
-                    config,
-                ),
+            (config) => transactionService.list(envData.client_type, activeOrganization.id, filters, config),
             {
                 onSuccess: (res) => setPendingBulkingMeta(res.data.meta),
                 onError: pushApiError,

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import { PaginationData } from '../../../../props/ApiResponses';
 import useProductReservationService from '../../../../services/ProductReservationService';
 import Reservation from '../../../../props/models/Reservation';
@@ -9,6 +8,7 @@ import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import Organization from '../../../../props/models/Organization';
 import ReservationsTable from '../../reservations/elements/ReservationsTable';
 import Voucher from '../../../../props/models/Voucher';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function VoucherReservationsCard({
     voucher,
@@ -20,7 +20,7 @@ export default function VoucherReservationsCard({
     fetchReservationsRef?: React.MutableRefObject<() => void>;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const productReservationService = useProductReservationService();
 
@@ -41,20 +41,14 @@ export default function VoucherReservationsCard({
     });
 
     const fetchReservations = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
+        const filters = { ...filterValuesActive, voucher_id: voucher.id };
 
-        productReservationService
-            .listSponsor(organization.id, {
-                ...filterValuesActive,
-                voucher_id: voucher.id,
-            })
-            .then((res) => setReservations(res.data))
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [organization.id, voucher.id, filterValuesActive, productReservationService, setProgress]);
+        runLatestRequest((config) => productReservationService.listSponsor(organization.id, filters, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setReservations(res.data),
+            onFinally: () => setLoading(false),
+        });
+    }, [organization.id, voucher.id, filterValuesActive, productReservationService, runLatestRequest]);
 
     useEffect(() => {
         fetchReservations();

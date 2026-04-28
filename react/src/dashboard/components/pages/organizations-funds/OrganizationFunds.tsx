@@ -93,22 +93,19 @@ export default function OrganizationFunds() {
     const { resetFilters: resetFilters } = filter;
 
     const fetchFunds = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                fundService.list(
-                    activeOrganization.id,
-                    {
-                        ...filterValuesActive,
-                        with_archived: 1,
-                        with_external: 1,
-                        stats: 'min',
-                        archived: filterValuesActive.funds_type == 'archived' ? 1 : 0,
-                        per_page: filterValuesActive.per_page,
-                    },
-                    config,
-                ),
-            { onSuccess: (res) => setFunds(res.data), onError: pushApiError },
-        );
+        const filters = {
+            ...filterValuesActive,
+            with_archived: 1,
+            with_external: 1,
+            stats: 'min',
+            archived: filterValuesActive.funds_type == 'archived' ? 1 : 0,
+            per_page: filterValuesActive.per_page,
+        };
+
+        runLatestRequest((config) => fundService.list(activeOrganization.id, filters, config), {
+            onSuccess: (res) => setFunds(res.data),
+            onError: pushApiError,
+        });
     }, [activeOrganization.id, filterValuesActive, fundService, pushApiError, runLatestRequest]);
 
     const fetchImplementations = useCallback(() => {

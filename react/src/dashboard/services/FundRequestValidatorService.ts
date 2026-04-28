@@ -107,8 +107,13 @@ export class FundRequestValidatorService<T = FundRequest> {
         });
     }
 
-    public notes(organizationId: number, id: number, data: object = {}): Promise<ApiResponse<Note>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data);
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data, config);
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

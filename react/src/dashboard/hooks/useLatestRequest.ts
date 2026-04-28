@@ -67,7 +67,10 @@ export default function useLatestRequest(): LatestRequestRunner {
         } finally {
             if (isLatestRequestIndex()) {
                 xhrRef.current = null;
-                handlers.onFinally?.();
+
+                if (mountedRef.current) {
+                    handlers.onFinally?.();
+                }
             }
         }
     }, []);

@@ -31,6 +31,7 @@ import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
 import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
+import { RequestConfig } from '../../../props/ApiResponses';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -158,8 +159,8 @@ export default function ReservationsView() {
     }, [fetchReservation, fetchTransaction, reservation?.id, reservation?.voucher_transaction?.address]);
 
     const fetchNotes = useCallback(
-        (query = {}) => {
-            return productReservationService.notes(activeOrganization.id, reservation?.id, query);
+        (query = {}, config: RequestConfig = {}) => {
+            return productReservationService.notes(activeOrganization.id, reservation?.id, query, config);
         },
         [activeOrganization.id, reservation?.id, productReservationService],
     );

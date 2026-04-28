@@ -81,8 +81,8 @@ export class ProductReservationService<T = Reservation> {
         );
     }
 
-    public listSponsor(organization_id: number, data: object): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/product-reservations`, data);
+    public listSponsor(organization_id: number, data: object, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/product-reservations`, data, config);
     }
 
     public update(organization_id: number, id: number, data = {}): Promise<ApiResponseSingle<T>> {
@@ -108,8 +108,13 @@ export class ProductReservationService<T = Reservation> {
         return Papa.unparse([headers, values]);
     };
 
-    public notes(organizationId: number, id: number, data: object): Promise<ApiResponse<Note>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/product-reservations/${id}/notes`, data);
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object,
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/product-reservations/${id}/notes`, data, config);
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

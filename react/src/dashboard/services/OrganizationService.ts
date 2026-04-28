@@ -137,8 +137,12 @@ export class OrganizationService<T = Organization> {
         });
     }
 
-    public financeProviders(id: number, data = {}): Promise<ApiResponse<ProviderFinancial>> {
-        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/finances`, data);
+    public financeProviders(
+        id: number,
+        data = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<ProviderFinancial>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/finances`, data, config);
     }
 
     public financeProvidersExportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {

@@ -91,10 +91,16 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
      * @param identityId
      * @param query
      */
-    public listRelations(organizationId: number, identityId: number, query: object = {}): Promise<ApiResponse<R>> {
+    public listRelations(
+        organizationId: number,
+        identityId: number,
+        query: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<R>> {
         return this.apiRequest.get(
             `${this.prefix}/${organizationId}/sponsor/identities/${identityId}/relations`,
             query,
+            config,
         );
     }
 
@@ -152,8 +158,13 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/identities/export-fields`);
     }
 
-    public notes(organizationId: number, id: number, data: object): Promise<ApiResponse<Note>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes`, data);
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object,
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes`, data, config);
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

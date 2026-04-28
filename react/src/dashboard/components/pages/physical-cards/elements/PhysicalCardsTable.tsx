@@ -70,17 +70,11 @@ export default function PhysicalCardsTable({
     );
 
     const fetchPhysicalCards = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                physicalCardService.list(
-                    organization.id,
-                    { ...filterActiveValues, physical_card_type_id: physicalCardType?.id },
-                    config,
-                ),
-            {
-                onSuccess: (res) => setPhysicalCards(res.data),
-            },
-        );
+        const filters = { ...filterActiveValues, physical_card_type_id: physicalCardType?.id };
+
+        runLatestRequest((config) => physicalCardService.list(organization.id, filters, config), {
+            onSuccess: (res) => setPhysicalCards(res.data),
+        });
     }, [physicalCardService, organization.id, runLatestRequest, filterActiveValues, physicalCardType?.id]);
 
     useEffect(() => {

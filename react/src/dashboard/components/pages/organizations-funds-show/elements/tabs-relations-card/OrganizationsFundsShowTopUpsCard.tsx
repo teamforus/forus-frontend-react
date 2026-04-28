@@ -7,7 +7,6 @@ import { dateFormat, dateParse } from '../../../../../helpers/dates';
 import FundTopUpTransaction from '../../../../../props/models/FundTopUpTransaction';
 import LoaderTableCard from '../../../../elements/loader-table-card/LoaderTableCard';
 import useTranslate from '../../../../../hooks/useTranslate';
-import useSetProgress from '../../../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import { useFundService } from '../../../../../services/FundService';
 import usePaginatorService from '../../../../../modules/paginator/services/usePaginatorService';
@@ -16,6 +15,7 @@ import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyVa
 import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 import BlockLabelTabs from '../../../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../../../hooks/useLatestRequestWithProgress';
 
 export default function OrganizationsFundsShowTopUpsCard({
     fund,
@@ -29,7 +29,7 @@ export default function OrganizationsFundsShowTopUpsCard({
     viewTypes: Array<{ key: 'top_ups' | 'implementations' | 'identities'; name: string }>;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -69,16 +69,16 @@ export default function OrganizationsFundsShowTopUpsCard({
             return;
         }
 
-        setProgress(0);
-
-        fundService
-            .listTopUpTransactions(activeOrganization.id, fund.id, filterValuesActive)
-            .then((res) => {
-                setTopUpTransactions(res.data);
-                setLastQueryTopUpTransactions(filterValuesActive.q);
-            })
-            .finally(() => setProgress(100));
-    }, [fund?.is_configured, setProgress, fundService, activeOrganization.id, fund.id, filterValuesActive]);
+        runLatestRequest(
+            (config) => fundService.listTopUpTransactions(activeOrganization.id, fund.id, filterValuesActive, config),
+            {
+                onSuccess: (res) => {
+                    setTopUpTransactions(res.data);
+                    setLastQueryTopUpTransactions(filterValuesActive.q);
+                },
+            },
+        );
+    }, [fund?.is_configured, runLatestRequest, fundService, activeOrganization.id, fund.id, filterValuesActive]);
 
     useEffect(() => {
         fetchTopUps();

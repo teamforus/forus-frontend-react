@@ -8,7 +8,6 @@ import { useReimbursementCategoryService } from '../../../services/Reimbursement
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import ModalReimbursementCategoryEdit from '../../modals/ModalReimbursementCategoryEdit';
 import useConfirmReimbursementCategoryDelete from './hooks/useConfirmReimbursementCategoryDelete';
-import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import LoadingCard from '../loading-card/LoadingCard';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
@@ -16,6 +15,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import TableRowActions from '../tables/TableRowActions';
 import classNames from 'classnames';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function BlockReimbursementCategories({
     compact = false,
@@ -30,7 +30,7 @@ export default function BlockReimbursementCategories({
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const reimbursementCategoryService = useReimbursementCategoryService();
@@ -46,18 +46,16 @@ export default function BlockReimbursementCategories({
     });
 
     const fetchReimbursementCategories = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        reimbursementCategoryService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setCategories(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [setProgress, activeOrganization.id, filterValuesActive, pushApiError, reimbursementCategoryService]);
+        runLatestRequest(
+            (config) => reimbursementCategoryService.list(activeOrganization.id, filterValuesActive, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setCategories(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [runLatestRequest, activeOrganization.id, filterValuesActive, pushApiError, reimbursementCategoryService]);
 
     const editReimbursementCategory = useCallback(
         async (category: ReimbursementCategory = null): Promise<boolean> => {

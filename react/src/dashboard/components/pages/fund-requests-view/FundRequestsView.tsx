@@ -13,7 +13,7 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import ModalNotification from '../../modals/ModalNotification';
 import FundRequestRecord from '../../../props/models/FundRequestRecord';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
-import { ResponseError } from '../../../props/ApiResponses';
+import { RequestConfig, ResponseError } from '../../../props/ApiResponses';
 import ModalFundRequestDecline from '../../modals/ModalFundRequestDecline';
 import ModalFundRequestRecordCreate from '../../modals/ModalFundRequestRecordCreate';
 import ModalFundRequestDisregard from '../../modals/ModalFundRequestDisregard';
@@ -436,16 +436,14 @@ export default function FundRequestsView() {
     }, [activeOrganization, fundRequestMeta, openModal, pushSuccess, reloadRequest]);
 
     const fetchNotes = useCallback(
-        (query = {}) => fundRequestService.notes(activeOrganization.id, fundRequestMeta.id, query),
+        (query = {}, config: RequestConfig = {}) =>
+            fundRequestService.notes(activeOrganization.id, fundRequestMeta.id, query, config),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
 
     const fetchEmailLogs = useCallback(
-        (query = {}) =>
-            emailLogService.list(activeOrganization.id, {
-                fund_request_id: fundRequestMeta.id,
-                ...query,
-            }),
+        (query = {}, config: RequestConfig = {}) =>
+            emailLogService.list(activeOrganization.id, { fund_request_id: fundRequestMeta.id, ...query }, config),
         [activeOrganization?.id, fundRequestMeta?.id, emailLogService],
     );
 

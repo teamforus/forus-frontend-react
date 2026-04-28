@@ -17,11 +17,13 @@ import useProviderFinancialExporter from '../../../../services/exporters/useProv
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
 export default function ProviderFinancialTable({ externalFilters }: { externalFilters?: FinancialFiltersQuery }) {
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const activeOrganization = useActiveOrganization();
     const providerFinancialExporter = useProviderFinancialExporter();
@@ -59,18 +61,27 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     }, []);
 
     const fetchProviderFinances = useCallback(() => {
-        organizationService
-            .financeProviders(activeOrganization.id, { ...externalFilters, ...filterValuesActive })
-            .then((res) => {
+        const filters = { ...externalFilters, ...filterValuesActive };
+
+        runLatestRequest((config) => organizationService.financeProviders(activeOrganization.id, filters, config), {
+            onSuccess: (res) => {
                 setShowTransactions([]);
 
                 setProvidersFinances({
                     ...res.data,
                     data: res.data.data.map((provider) => ({ id: uniqueId(), ...provider })),
                 });
-            })
-            .catch(pushApiError);
-    }, [organizationService, activeOrganization?.id, filterValuesActive, externalFilters, pushApiError]);
+            },
+            onError: pushApiError,
+        });
+    }, [
+        organizationService,
+        activeOrganization?.id,
+        filterValuesActive,
+        externalFilters,
+        pushApiError,
+        runLatestRequest,
+    ]);
 
     useEffect(() => fetchProviderFinances(), [fetchProviderFinances]);
 

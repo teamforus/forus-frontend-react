@@ -69,8 +69,13 @@ export class ProductService<T = Product> {
     /**
      * Fetch the list of product funds
      */
-    public listProductFunds(organization_id: number, id: number, data: object = {}): Promise<ApiResponse<ProductFund>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/products/${id}/funds`, data);
+    public listProductFunds(
+        organization_id: number,
+        id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<ProductFund>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/products/${id}/funds`, data, config);
     }
 
     /**

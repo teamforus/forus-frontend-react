@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import Card from '../../../elements/card/Card';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import ReimbursementsTable from '../../reimbursements/elements/ReimbursementsTable';
 import { useReimbursementsService } from '../../../../services/ReimbursementService';
 import Reimbursement from '../../../../props/models/Reimbursement';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function IdentityReimbursementsCard({
     organization,
@@ -17,8 +17,8 @@ export default function IdentityReimbursementsCard({
     organization: Organization;
     identity: SponsorIdentity;
 }) {
-    const setProgress = useSetProgress();
     const reimbursementService = useReimbursementsService();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [paginatorKey] = useState('reimbursements');
@@ -30,17 +30,12 @@ export default function IdentityReimbursementsCard({
     });
 
     const fetchReimbursements = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        reimbursementService
-            .list(organization.id, filterValuesActive)
-            .then((res) => setReimbursements(res.data))
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [setProgress, organization.id, filterValuesActive, reimbursementService]);
+        runLatestRequest((config) => reimbursementService.list(organization.id, filterValuesActive, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setReimbursements(res.data),
+            onFinally: () => setLoading(false),
+        });
+    }, [runLatestRequest, organization.id, filterValuesActive, reimbursementService]);
 
     useEffect(() => {
         fetchReimbursements();

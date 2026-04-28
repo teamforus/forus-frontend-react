@@ -87,29 +87,23 @@ export default function ProviderFundsTable({
     );
 
     const fetchFunds = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                providerFundService.listFunds(
-                    organization.id,
-                    {
-                        active: type == 'active' ? 1 : 0,
-                        pending: type == 'pending_rejected' ? 1 : 0,
-                        unsubscribed: type == 'unsubscribed' ? 1 : 0,
-                        archived: type == 'archived' ? 1 : 0,
-                        ...filterValuesActive,
-                    },
-                    config,
-                ),
-            {
-                onStart: () => {
-                    setSelected([]);
-                    setLoading(true);
-                },
-                onSuccess: (res) => setProviderFunds(res.data),
-                onError: pushApiError,
-                onFinally: () => setLoading(false),
+        const filters = {
+            active: type == 'active' ? 1 : 0,
+            pending: type == 'pending_rejected' ? 1 : 0,
+            unsubscribed: type == 'unsubscribed' ? 1 : 0,
+            archived: type == 'archived' ? 1 : 0,
+            ...filterValuesActive,
+        };
+
+        runLatestRequest((config) => providerFundService.listFunds(organization.id, filters, config), {
+            onStart: () => {
+                setSelected([]);
+                setLoading(true);
             },
-        );
+            onSuccess: (res) => setProviderFunds(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
     }, [filterValuesActive, organization.id, providerFundService, pushApiError, runLatestRequest, setSelected, type]);
 
     const cancelApplications = useCallback(

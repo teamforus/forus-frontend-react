@@ -8,7 +8,7 @@ import useProductChatService from '../../../services/ProductChatService';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useOpenModal from '../../../hooks/useOpenModal';
 import Product from '../../../props/models/Product';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData, RequestConfig, ResponseError } from '../../../props/ApiResponses';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import ModalNotification from '../../modals/ModalNotification';
 import FundProviderChat from '../../../props/models/FundProviderChat';
@@ -27,6 +27,7 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -41,6 +42,7 @@ export default function ProductView() {
     const productService = useProductService();
     const paginatorService = usePaginatorService();
     const productChatService = useProductChatService();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const navigateState = useNavigateState();
     const openModal = useOpenModal();
@@ -132,8 +134,8 @@ export default function ProductView() {
     }, [activeOrganization, id, productService]);
 
     const fetchChats = useCallback(
-        async (product: Product) => {
-            return (await productChatService.list(product.organization_id, product.id, { per_page: 100 })).data;
+        async (product: Product, config: RequestConfig = {}) => {
+            return (await productChatService.list(product.organization_id, product.id, { per_page: 100 }, config)).data;
         },
         [productChatService],
     );
@@ -143,11 +145,19 @@ export default function ProductView() {
             return;
         }
 
-        productService
-            .listProductFunds(product.organization_id, product.id, { ...filterValuesActive, organization_id: null })
-            .then(async (res) => setFunds(mapFundsWithChats(res.data, await fetchChats(product))))
-            .catch(console.error);
-    }, [fetchChats, filterValuesActive, mapFundsWithChats, product, productService]);
+        runLatestRequest(
+            async (config) => {
+                const filters = { ...filterValuesActive, organization_id: null };
+                const res = await productService.listProductFunds(product.organization_id, product.id, filters, config);
+
+                return mapFundsWithChats(res.data, await fetchChats(product, config));
+            },
+            {
+                onSuccess: (funds) => setFunds(funds),
+                onError: console.error,
+            },
+        );
+    }, [fetchChats, filterValuesActive, mapFundsWithChats, product, productService, runLatestRequest]);
 
     const showTheChat = (fund: ProductFundLocal) => {
         if (!fund.chat) {

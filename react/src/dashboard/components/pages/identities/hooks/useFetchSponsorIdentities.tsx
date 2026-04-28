@@ -92,15 +92,7 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
 
     const fetchIdentities = useCallback(() => {
         runLatestRequest(
-            (config) =>
-                sponsorIdentitiesService.list(
-                    organization.id,
-                    {
-                        ...filterValuesActive,
-                        ...extra,
-                    },
-                    config,
-                ),
+            (config) => sponsorIdentitiesService.list(organization.id, { ...filterValuesActive, ...extra }, config),
             {
                 onStart: () => setLoading(true),
                 onSuccess: (res) => setIdentities(res.data),

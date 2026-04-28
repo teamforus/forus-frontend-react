@@ -40,8 +40,7 @@ export default function Reservations() {
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
-    const runLatestRequestActive = useLatestRequestWithProgress();
-    const runLatestRequestArchived = useLatestRequestWithProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
@@ -101,58 +100,44 @@ export default function Reservations() {
         },
     );
 
-    const fetchReservations = useCallback(
-        (query: object) => {
-            runLatestRequestActive(
-                (config) =>
-                    productReservationService.list(
-                        activeOrganization.id,
-                        {
-                            ...query,
-                            archived: 0,
-                        },
-                        config,
-                    ),
-                {
-                    onStart: () => setLoading(true),
-                    onSuccess: (res) => setActiveReservations(res.data),
-                    onError: pushApiError,
-                    onFinally: () => setLoading(false),
-                },
-            );
-        },
-        [activeOrganization.id, productReservationService, pushApiError, runLatestRequestActive],
-    );
-
-    const fetchArchivedReservations = useCallback(
-        (query: object) => {
-            runLatestRequestArchived(
-                (config) =>
-                    productReservationService.list(
-                        activeOrganization.id,
-                        {
-                            ...query,
-                            archived: 1,
-                        },
-                        config,
-                    ),
-                {
-                    onStart: () => setLoading(true),
-                    onSuccess: (res) => setArchivedReservations(res.data),
-                    onError: pushApiError,
-                    onFinally: () => setLoading(false),
-                },
-            );
-        },
-        [activeOrganization.id, productReservationService, pushApiError, runLatestRequestArchived],
-    );
-
     const fetchAllReservations = useCallback(() => {
         setSelected([]);
 
-        fetchReservations(filterValuesActive);
-        fetchArchivedReservations(filterValuesActive);
-    }, [fetchArchivedReservations, fetchReservations, filterValuesActive, setSelected]);
+        runLatestRequest(
+            async (config) => {
+                const [active, archived] = await Promise.all([
+                    productReservationService.list(
+                        activeOrganization.id,
+                        { ...filterValuesActive, archived: 0 },
+                        config,
+                    ),
+                    productReservationService.list(
+                        activeOrganization.id,
+                        { ...filterValuesActive, archived: 1 },
+                        config,
+                    ),
+                ]);
+
+                return { active: active.data, archived: archived.data };
+            },
+            {
+                onStart: () => setLoading(true),
+                onSuccess: ({ active, archived }) => {
+                    setActiveReservations(active);
+                    setArchivedReservations(archived);
+                },
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [
+        activeOrganization.id,
+        filterValuesActive,
+        productReservationService,
+        pushApiError,
+        runLatestRequest,
+        setSelected,
+    ]);
 
     const selectedMeta = useReservationSelectedTableMeta(reservations?.data || [], selected);
 

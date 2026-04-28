@@ -106,24 +106,17 @@ export default function Products() {
     );
 
     const fetchProducts = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                productService.list(
-                    activeOrganization.id,
-                    {
-                        ...filterValuesActive,
-                        order_by:
-                            filterValuesActive.order_by === 'expired_at' ? 'expire_at' : filterValuesActive.order_by,
-                    },
-                    config,
-                ),
-            {
-                onStart: () => setLoading(true),
-                onSuccess: (res) => setProducts(res.data),
-                onError: pushApiError,
-                onFinally: () => setLoading(false),
-            },
-        );
+        const filters = {
+            ...filterValuesActive,
+            order_by: filterValuesActive.order_by === 'expired_at' ? 'expire_at' : filterValuesActive.order_by,
+        };
+
+        runLatestRequest((config) => productService.list(activeOrganization.id, filters, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setProducts(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
     }, [productService, activeOrganization.id, runLatestRequest, pushApiError, filterValuesActive]);
 
     useEffect(() => {

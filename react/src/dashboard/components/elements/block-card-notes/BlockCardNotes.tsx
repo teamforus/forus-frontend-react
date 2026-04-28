@@ -1,6 +1,6 @@
 import FormValuesModel from '../../../types/FormValuesModel';
 import { useCallback, useEffect, useState } from 'react';
-import { ApiResponse, ApiResponseSingle, PaginationData } from '../../../props/ApiResponses';
+import { ApiResponse, ApiResponseSingle, PaginationData, RequestConfig } from '../../../props/ApiResponses';
 import React from 'react';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalDangerZone from '../../modals/ModalDangerZone';
@@ -18,6 +18,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function BlockCardNotes({
     showCreate,
@@ -27,7 +28,7 @@ export default function BlockCardNotes({
     fetchNotesRef,
 }: {
     showCreate: boolean;
-    fetchNotes: (value: FilterModel) => Promise<ApiResponse<Note>>;
+    fetchNotes: (value: FilterModel, config?: RequestConfig) => Promise<ApiResponse<Note>>;
     deleteNote: (note: Note) => Promise<ApiResponseSingle<null>>;
     storeNote: (values: FormValuesModel) => Promise<ApiResponseSingle<Note>>;
     fetchNotesRef?: React.MutableRefObject<() => void>;
@@ -39,6 +40,7 @@ export default function BlockCardNotes({
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
@@ -51,12 +53,11 @@ export default function BlockCardNotes({
     });
 
     const updateNotes = useCallback(() => {
-        setProgress(0);
-
-        fetchNotes(filterValuesActive)
-            .then((res) => setNotes(res.data))
-            .finally(() => setProgress(100));
-    }, [fetchNotes, filterValuesActive, setProgress]);
+        runLatestRequest((config) => fetchNotes(filterValuesActive, config), {
+            onSuccess: (res) => setNotes(res.data),
+            onError: pushApiError,
+        });
+    }, [fetchNotes, filterValuesActive, pushApiError, runLatestRequest]);
 
     const onDeleteNote = useCallback(
         (note: Note) => {

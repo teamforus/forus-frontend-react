@@ -112,30 +112,24 @@ export default function ProviderFundInvitationsTable({
     );
 
     const fetchInvitations = useCallback(() => {
-        runLatestRequest(
-            (config) =>
-                fundProviderInvitationsService.listInvitations(
-                    organization.id,
-                    {
-                        ...filterValuesActive,
-                        expired: type == 'invitations_archived' ? 1 : 0,
-                    },
-                    config,
-                ),
-            {
-                onStart: () => {
-                    setSelected([]);
-                    setLoading(true);
-                },
-                onSuccess: (res) =>
-                    setInvitations({
-                        data: mapProviderFunds(res.data.data),
-                        meta: res.data.meta,
-                    }),
-                onError: pushApiError,
-                onFinally: () => setLoading(false),
+        const filters = {
+            ...filterValuesActive,
+            expired: type == 'invitations_archived' ? 1 : 0,
+        };
+
+        runLatestRequest((config) => fundProviderInvitationsService.listInvitations(organization.id, filters, config), {
+            onStart: () => {
+                setSelected([]);
+                setLoading(true);
             },
-        );
+            onSuccess: (res) =>
+                setInvitations({
+                    data: mapProviderFunds(res.data.data),
+                    meta: res.data.meta,
+                }),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
     }, [
         setSelected,
         runLatestRequest,
