@@ -11,7 +11,7 @@ export default interface ExtraPayment {
     is_pending?: boolean;
     amount_locale?: string;
     paid_at_locale?: string;
-    method?: 'iDEAL | Wero';
+    method?: 'ideal';
     refunds?: Array<ExtraPaymentRefund>;
     reservation?: Reservation;
 }
