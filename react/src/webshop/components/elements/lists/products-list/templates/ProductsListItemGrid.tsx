@@ -87,7 +87,7 @@ export default function ProductsListItemGrid({
                     )}
                     {productFeatures?.feature_reservation_extra_payments_enabled && (
                         <div className="product-icons-item">
-                            <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" aria-hidden="true" />
+                            <img src={assetUrl('/assets/img/icon-ideal-wero-square.svg')} alt="" aria-hidden="true" />
                             <span className="sr-only">
                                 {translate('list_blocks.product_item.payment_option_ideal_aria_label')}
                             </span>

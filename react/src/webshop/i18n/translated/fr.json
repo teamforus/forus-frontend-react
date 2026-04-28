@@ -1371,12 +1371,12 @@
         },
         "product_item": {
             "bookmark": "Ajouter à la liste de souhaits",
-            "payment_option_ideal": "Possibilité de paiement supplémentaire",
-            "payment_option_ideal_aria_label": "Paiement supplémentaire possible : cliquez pour plus d'informations",
             "payment_option_qr": "Paiement QR",
             "payment_option_qr_aria_label": "Paiement QR : cliquez pour plus d'informations",
             "payment_option_reservation": "Payer en ligne",
-            "payment_option_reservation_aria_label": "Payer en ligne : cliquez pour plus d'informations"
+            "payment_option_reservation_aria_label": "Payer en ligne : cliquez pour plus d'informations",
+            "payment_option_ideal": "Payer en ligne (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Paiement en ligne (iDEAL | Wero) : cliquez pour plus d'informations"
         }
     },
     "maps": {
@@ -2326,7 +2326,6 @@
             "max_limit": "Maximum par personne :",
             "pay_from_voucher": "Vous payez à partir du crédit :",
             "price": "Prix :",
-            "payment_option_ideal": "Payer en ligne (iDEAL)",
             "payment_option_reservation": "Réserver en ligne",
             "payment_options": "Options de paiement",
             "payment_option_link": "En savoir plus sur les options de paiement",
@@ -2352,11 +2351,12 @@
             "when": "Quand",
             "where": "Où",
             "add_to_favorites": "Ajouter aux favoris",
-            "ideal_logo_alt": "Logo iDEAL",
             "remove_from_favorites": "Supprimer des favoris",
             "duration_of_promotion": "Durée de l'accord",
             "login_to_order": "Se connecter pour commander",
-            "request_one_now": "Faire une demande de renseignements"
+            "request_one_now": "Faire une demande de renseignements",
+            "ideal_logo_alt": "iDEAL | Logo Wero",
+            "payment_option_ideal": "Payer en ligne (iDEAL | Wero)"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
@@ -2403,7 +2403,6 @@
             "payment_option_reservation": "Réserver en ligne",
             "price": "Prix (€)",
             "price_from": "De",
-            "payment_option_extra_payment": "Payer en ligne avec iDeal",
             "price_type_option_discount_fixed": "Remise en euros",
             "price_type_option_discount_percentage": "Remise en pourcentage",
             "price_type_option_free": "Gratuit",
@@ -2416,7 +2415,8 @@
             "payment_options_info": "En savoir plus sur les options de paiement",
             "price_to": "Pour",
             "price_type_option_payout": "Versement sur le compte bancaire",
-            "active_filters": "Filtres actifs"
+            "active_filters": "Filtres actifs",
+            "payment_option_extra_payment": "Payer en ligne avec iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -3734,13 +3734,13 @@
         "confirm": "C'est clair !",
         "description": "Les options de paiement varient selon les produits. Le paiement peut être effectué de plusieurs manières :",
         "header": "Options de paiement",
-        "info_option_extra_payment_ideal_description": "Votre crédit n'est pas suffisant pour une réservation ? Pour certains produits, vous pouvez payer en toute sécurité le montant restant en ligne via iDEAL.",
-        "info_option_extra_payment_ideal_title": "Paiement supplémentaire (iDeal)",
         "info_option_qr_description": "Payez facilement dans les locaux du prestataire en montrant le code QR que vous avez reçu au moment du paiement. Le fournisseur scannera le code et le paiement sera traité immédiatement.",
         "info_option_qr_title": "Code QR",
         "info_option_reservation_description": "Payez via ce site web en commandant une offre. Pour ce faire, cliquez sur le bouton de réservation et remplissez les données demandées. Le montant sera directement déduit du crédit disponible. Le fournisseur recevra la réservation et vous contactera si nécessaire.",
         "info_option_reservation_title": "Réservation",
-        "title": "Options de paiement"
+        "title": "Options de paiement",
+        "info_option_extra_payment_ideal_description": "Votre crédit n'est pas suffisant pour une réservation en ligne ? Pour certains produits, vous pouvez payer en toute sécurité le montant restant en ligne via iDEAL | Wero.",
+        "info_option_extra_payment_ideal_title": "Payer en ligne (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Fermer",

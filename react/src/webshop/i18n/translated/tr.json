@@ -280,12 +280,12 @@
         },
         "product_item": {
             "bookmark": "İstek listesine ekle",
-            "payment_option_ideal": "Ek ödeme mümkün",
-            "payment_option_ideal_aria_label": "Ek ödeme mümkün: daha fazla bilgi için tıklayın",
             "payment_option_qr": "QR ödeme",
             "payment_option_qr_aria_label": "QR ödemesi: daha fazla bilgi için tıklayın",
             "payment_option_reservation": "Online ödeme",
-            "payment_option_reservation_aria_label": "Online ödeme: daha fazla bilgi için tıklayın"
+            "payment_option_reservation_aria_label": "Online ödeme: daha fazla bilgi için tıklayın",
+            "payment_option_ideal": "Online ödeme (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Online ödeme (iDEAL | Wero): daha fazla bilgi için tıklayın"
         }
     },
     "notifications": {
@@ -403,7 +403,6 @@
             "payment_option_reservation": "Online rezervasyon",
             "price": "Fiyat (€)",
             "price_from": "Kimden",
-            "payment_option_extra_payment": "iDeal ile çevrimiçi ödeme",
             "price_type_option_discount_fixed": "Euro cinsinden indirim",
             "price_type_option_discount_percentage": "Yüzde olarak indirim",
             "price_type_option_free": "Ücretsiz",
@@ -416,7 +415,8 @@
             "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
             "price_to": "için",
             "price_type_option_payout": "Banka hesabına ödeme",
-            "active_filters": "Aktif filtreler"
+            "active_filters": "Aktif filtreler",
+            "payment_option_extra_payment": "iDEAL | Wero ile online ödeme"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -1914,7 +1914,6 @@
             "max_limit": "Kişi başına maksimum:",
             "pay_from_voucher": "Krediden ödeme yaparsınız:",
             "price": "Fiyat:",
-            "payment_option_ideal": "Online ödeme (iDEAL)",
             "payment_option_reservation": "Online rezervasyon",
             "payment_options": "Ödeme seçenekleri",
             "payment_option_link": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
@@ -1940,11 +1939,12 @@
             "when": "Ne zaman",
             "where": "Nerede",
             "add_to_favorites": "Favorilere ekle",
-            "ideal_logo_alt": "iDEAL logosu",
             "remove_from_favorites": "Sık kullanılanlardan kaldır",
             "duration_of_promotion": "Süre",
             "login_to_order": "Sipariş vermek için giriş yapın",
-            "request_one_now": "Bir soruşturma yapın"
+            "request_one_now": "Bir soruşturma yapın",
+            "ideal_logo_alt": "iDEAL | Wero logosu",
+            "payment_option_ideal": "Online ödeme (iDEAL | Wero)"
         },
         "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
         "map": {
@@ -3734,13 +3734,13 @@
         "confirm": "Bu çok açık!",
         "description": "Ödeme seçenekleri ürüne göre değişir. Ödeme çeşitli şekillerde yapılabilir:",
         "header": "Ödeme seçenekleri",
-        "info_option_extra_payment_ideal_description": "Krediniz rezervasyon için yeterli değil mi? Bazı ürünler için kalan tutarı iDEAL üzerinden online olarak güvenle ödeyebilirsiniz.",
-        "info_option_extra_payment_ideal_title": "Ek ödeme (iDeal)",
         "info_option_qr_description": "Ödeme sırasında aldığınız QR kodunu göstererek sağlayıcının bulunduğu yerde kolayca ödeme yapın. Sağlayıcı kodu tarayacak ve ödeme hemen işleme alınacaktır.",
         "info_option_qr_title": "QR kodu",
         "info_option_reservation_description": "Bir teklif sipariş ederek bu web sitesi üzerinden ödeme yapın. Bunun için rezerve et butonuna tıklayın ve istenen bilgileri doldurun. Tutar doğrudan mevcut krediden düşülecektir. Sağlayıcı rezervasyonu alacak ve gerekirse sizinle iletişime geçecektir.",
         "info_option_reservation_title": "Rezervasyon",
-        "title": "Ödeme seçenekleri"
+        "title": "Ödeme seçenekleri",
+        "info_option_extra_payment_ideal_description": "Krediniz online rezervasyon için yeterli değil mi? Bazı ürünler için kalan tutarı iDEAL | Wero aracılığıyla çevrimiçi olarak güvenle ödeyebilirsiniz.",
+        "info_option_extra_payment_ideal_title": "Online ödeme (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Kapat",

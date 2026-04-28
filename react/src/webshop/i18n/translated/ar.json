@@ -280,12 +280,12 @@
         },
         "product_item": {
             "bookmark": "إضافة إلى قائمة الرغبات",
-            "payment_option_ideal": "إمكانية الدفع الإضافي",
-            "payment_option_ideal_aria_label": "إمكانية الدفع الإضافي: انقر للحصول على مزيد من المعلومات",
             "payment_option_qr": "مدفوعات QR",
             "payment_option_qr_aria_label": "دفع QR: انقر للحصول على مزيد من المعلومات",
             "payment_option_reservation": "الدفع عبر الإنترنت",
-            "payment_option_reservation_aria_label": "الدفع عبر الإنترنت: انقر للحصول على مزيد من المعلومات"
+            "payment_option_reservation_aria_label": "الدفع عبر الإنترنت: انقر للحصول على مزيد من المعلومات",
+            "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "الدفع عبر الإنترنت (iDEAL | Wero): انقر لمزيد من المعلومات"
         }
     },
     "notifications": {
@@ -403,7 +403,6 @@
             "payment_option_reservation": "احجز عبر الإنترنت",
             "price": "السعر (€)",
             "price_from": "من",
-            "payment_option_extra_payment": "الدفع عبر الإنترنت باستخدام iDeal",
             "price_type_option_discount_fixed": "الخصم باليورو",
             "price_type_option_discount_percentage": "الخصم بالنسبة المئوية",
             "price_type_option_free": "مجاناً",
@@ -416,7 +415,8 @@
             "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
             "price_to": "إلى",
             "price_type_option_payout": "الدفع إلى الحساب البنكي",
-            "active_filters": "المرشحات النشطة"
+            "active_filters": "المرشحات النشطة",
+            "payment_option_extra_payment": "الدفع عبر الإنترنت باستخدام iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -1914,7 +1914,6 @@
             "max_limit": "الحد الأقصى للشخص الواحد:",
             "pay_from_voucher": "أنت تدفع من الرصيد",
             "price": "السعر:",
-            "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL)",
             "payment_option_reservation": "احجز عبر الإنترنت",
             "payment_options": "خيارات الدفع",
             "payment_option_link": "اقرأ المزيد عن خيارات الدفع",
@@ -1940,11 +1939,12 @@
             "when": "عندما",
             "where": "المكان",
             "add_to_favorites": "إضافة إلى المفضلة",
-            "ideal_logo_alt": "شعار iDEAL",
             "remove_from_favorites": "إزالة من المفضلة",
             "duration_of_promotion": "المدة",
             "login_to_order": "تسجيل الدخول للطلب",
-            "request_one_now": "قم بإجراء استفسار"
+            "request_one_now": "قم بإجراء استفسار",
+            "ideal_logo_alt": "iDEAL | شعار ويرو",
+            "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL | Wero)"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -3734,13 +3734,13 @@
         "confirm": "الأمر واضح!",
         "description": "تختلف خيارات الدفع حسب المنتج. يمكن الدفع بعدة طرق:",
         "header": "خيارات الدفع",
-        "info_option_extra_payment_ideal_description": "هل رصيدك لا يكفي للحجز؟ بالنسبة لبعض المنتجات، يمكنك دفع المبلغ المتبقي بأمان عبر الإنترنت من خلال iDEAL.",
-        "info_option_extra_payment_ideal_title": "دفعة إضافية (iDeal)",
         "info_option_qr_description": "ادفع بسهولة في موقع مقدم الخدمة من خلال إظهار رمز الاستجابة السريعة الذي تلقيته عند الدفع. سيقوم مقدم الخدمة بمسح الرمز ضوئياً وستتم معالجة الدفع فوراً.",
         "info_option_qr_title": "رمز الاستجابة السريعة",
         "info_option_reservation_description": "ادفع عبر هذا الموقع الإلكتروني عن طريق طلب عرض. للقيام بذلك، انقر على زر الحجز واملأ التفاصيل المطلوبة. سيتم خصم المبلغ مباشرةً من الرصيد المتاح. سيتلقى مقدم الخدمة الحجز ويتصل بك إذا لزم الأمر.",
         "info_option_reservation_title": "الحجز",
-        "title": "خيارات الدفع"
+        "title": "خيارات الدفع",
+        "info_option_extra_payment_ideal_description": "هل رصيدك غير كافٍ للحجز عبر الإنترنت؟ بالنسبة لبعض المنتجات، يمكنك دفع المبلغ المتبقي بأمان عبر الإنترنت من خلال iDEAL | Wero.",
+        "info_option_extra_payment_ideal_title": "الدفع عبر الإنترنت (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "إغلاق",
