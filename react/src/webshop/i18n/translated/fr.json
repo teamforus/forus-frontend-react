@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Étape {{step}}",
-            "step_out_of": "Étape {{step}}"
+            "info_label": "Informations sur la demande",
+            "step_out_of": "Étape {{step}} de {{total}}"
         },
         "title": "Demande #{{ id }}",
         "clarifications": {

@@ -1908,12 +1908,16 @@
         "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan."
     ],
     [
+        "fund_request.steps.info_label",
+        "Informatie over aanvraag"
+    ],
+    [
         "fund_request.steps.step",
         "Stap {{step}}"
     ],
     [
         "fund_request.steps.step_out_of",
-        "Stap {{step}}"
+        "Stap {{step}} van {{total}}"
     ],
     [
         "fund_request.subtitle",

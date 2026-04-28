@@ -1056,7 +1056,8 @@
         },
         "steps": {
             "step": "Adım {{step}}",
-            "step_out_of": "Adım {{step}}"
+            "info_label": "Başvuru hakkında bilgi",
+            "step_out_of": "Adım {{step}} of {{total}}"
         },
         "title": "İstek #{{ id }}",
         "clarifications": {

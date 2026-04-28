@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Шаг {{step}}",
-            "step_out_of": "Шаг {{step}}"
+            "info_label": "Информация о заявке",
+            "step_out_of": "Шаг {{step}} из {{total}}"
         },
         "title": "Запрос #{{ id }}",
         "clarifications": {

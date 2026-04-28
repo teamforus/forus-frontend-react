@@ -1077,7 +1077,8 @@
         },
         "steps": {
             "step": "الخطوة {{step}}",
-            "step_out_of": "الخطوة {{step}}"
+            "info_label": "معلومات عن التطبيق",
+            "step_out_of": "الخطوة {{step}} من {{total}}"
         },
         "title": "طلب # طلب{{ id }}",
         "clarifications": {

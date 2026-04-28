@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Schritt {{step}}",
-            "step_out_of": "Schritt {{step}}"
+            "info_label": "Informationen zur Bewerbung",
+            "step_out_of": "Schritt {{step}} von {{total}}"
         },
         "title": "Anfrage #{{ id }}",
         "clarifications": {

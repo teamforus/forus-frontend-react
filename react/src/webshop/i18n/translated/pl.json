@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Krok {{step}}",
-            "step_out_of": "Krok {{step}}"
+            "info_label": "Informacje dotyczące aplikacji",
+            "step_out_of": "Krok {{step}} z {{total}}"
         },
         "title": "Żądanie #{{ id }}",
         "clarifications": {

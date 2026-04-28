@@ -832,7 +832,8 @@
         },
         "steps": {
             "step": "Step {{step}}",
-            "step_out_of": "Step {{step}}"
+            "info_label": "Information about application",
+            "step_out_of": "Step {{step}} of {{total}}"
         },
         "title": "Request #{{ id }}",
         "clarifications": {

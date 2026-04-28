@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Крок {{step}}",
-            "step_out_of": "Крок {{step}}"
+            "info_label": "Інформація про застосування",
+            "step_out_of": "Крок {{step}} від {{total}}"
         },
         "title": "Запит №{{ id }}",
         "clarifications": {
