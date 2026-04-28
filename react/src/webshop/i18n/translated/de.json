@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Schritt {{step}}",
-            "step_out_of": "Schritt {{step}}"
+            "info_label": "Informationen zur Bewerbung",
+            "step_out_of": "Schritt {{step}} von {{total}}"
         },
         "title": "Anfrage #{{ id }}",
         "clarifications": {
@@ -3795,7 +3796,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Gemeinde Berkelland",
-            "default": "Startseite (Home)",
             "ede": "Ede",
             "eemsdelta": "Gemeinde Eems Delta",
             "geertruidenberg": "Gemeinde Geertruidenberg",
@@ -3812,11 +3812,12 @@
             "vergoedingen": "Logo Stadtverwaltung Nijmegen",
             "waalwijk": "Passpunkt",
             "westerkwartier": "Gemeinde Westerkwartier",
-            "winterswijk": "Gemeinde Winterswijk"
+            "winterswijk": "Gemeinde Winterswijk",
+            "default": "Homepage",
+            "isd": "ISD Interkommunaler Sozialdienst Brabantse Wal"
         },
         "pages": {
             "berkelland": "Gemeinde Berkelland",
-            "default": "Homepage (Nicht-Homepage)",
             "ede": "Ede",
             "eemsdelta": "Gemeinde Eems Delta",
             "geertruidenberg": "Gemeinde Geertruidenberg",
@@ -3833,7 +3834,9 @@
             "vergoedingen": "Logo Stadtverwaltung Nijmegen",
             "waalwijk": "Passpunkt",
             "westerkwartier": "Gemeinde Westerkwartier",
-            "winterswijk": "Gemeinde Winterswijk"
+            "winterswijk": "Gemeinde Winterswijk",
+            "default": "Zur Homepage gehen",
+            "isd": "ISD Interkommunaler Sozialdienst Brabantse Wal"
         }
     }
 }
