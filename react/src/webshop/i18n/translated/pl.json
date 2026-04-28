@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Krok {{step}}",
-            "step_out_of": "Krok {{step}}"
+            "info_label": "Informacje dotyczące aplikacji",
+            "step_out_of": "Krok {{step}} z {{total}}"
         },
         "title": "Żądanie #{{ id }}",
         "clarifications": {
@@ -1370,12 +1371,12 @@
         },
         "product_item": {
             "bookmark": "Dodaj do listy życzeń",
-            "payment_option_ideal": "Możliwa dodatkowa płatność",
-            "payment_option_ideal_aria_label": "Możliwa dodatkowa płatność: kliknij, aby uzyskać więcej informacji",
             "payment_option_qr": "Płatność QR",
             "payment_option_qr_aria_label": "Płatność QR: kliknij, aby uzyskać więcej informacji",
             "payment_option_reservation": "Płatność online",
-            "payment_option_reservation_aria_label": "Płatność online: kliknij, aby uzyskać więcej informacji"
+            "payment_option_reservation_aria_label": "Płatność online: kliknij, aby uzyskać więcej informacji",
+            "payment_option_ideal": "Płatność online (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Płatność online (iDEAL | Wero): kliknij, aby uzyskać więcej informacji"
         }
     },
     "maps": {
@@ -2325,7 +2326,6 @@
             "max_limit": "Maksymalnie na osobę:",
             "pay_from_voucher": "Płacisz z kredytu:",
             "price": "Cena:",
-            "payment_option_ideal": "Płatność online (iDEAL)",
             "payment_option_reservation": "Zarezerwuj online",
             "payment_options": "Opcje płatności",
             "payment_option_link": "Więcej informacji o opcjach płatności",
@@ -2351,11 +2351,12 @@
             "when": "Kiedy",
             "where": "Gdzie",
             "add_to_favorites": "Dodaj do ulubionych",
-            "ideal_logo_alt": "Logo iDEAL",
             "remove_from_favorites": "Usuń z ulubionych",
             "duration_of_promotion": "Czas trwania",
             "login_to_order": "Zaloguj się, aby zamówić",
-            "request_one_now": "Złóż zapytanie"
+            "request_one_now": "Złóż zapytanie",
+            "ideal_logo_alt": "iDEAL | Logo Wero",
+            "payment_option_ideal": "Płatność online (iDEAL | Wero)"
         },
         "low_amount": "Nie masz kredytu z wystarczającym saldem.",
         "map": {
@@ -2402,7 +2403,6 @@
             "payment_option_reservation": "Zarezerwuj online",
             "price": "Cena (€)",
             "price_from": "Od",
-            "payment_option_extra_payment": "Płatność online za pomocą iDeal",
             "price_type_option_discount_fixed": "Rabat w euro",
             "price_type_option_discount_percentage": "Rabat w procentach",
             "price_type_option_free": "Darmowy",
@@ -2415,7 +2415,8 @@
             "payment_options_info": "Więcej informacji o opcjach płatności",
             "price_to": "Do",
             "price_type_option_payout": "Wypłata na konto bankowe",
-            "active_filters": "Filtry aktywne"
+            "active_filters": "Filtry aktywne",
+            "payment_option_extra_payment": "Płatność online za pomocą iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -3733,13 +3734,13 @@
         "confirm": "To jasne!",
         "description": "Opcje płatności różnią się w zależności od produktu. Płatności można dokonać na kilka sposobów:",
         "header": "Opcje płatności",
-        "info_option_extra_payment_ideal_description": "Twój kredyt nie wystarcza na rezerwację? W przypadku niektórych produktów możesz bezpiecznie zapłacić pozostałą kwotę online za pośrednictwem iDEAL.",
-        "info_option_extra_payment_ideal_title": "Dodatkowa płatność (iDeal)",
         "info_option_qr_description": "Zapłać z łatwością w lokalizacji dostawcy, pokazując kod QR otrzymany przy kasie. Dostawca usług zeskanuje kod, a płatność zostanie natychmiast przetworzona.",
         "info_option_qr_title": "Kod QR",
         "info_option_reservation_description": "Zapłać za pośrednictwem tej strony, zamawiając ofertę. W tym celu należy kliknąć przycisk rezerwacji i podać wymagane dane. Kwota zostanie potrącona bezpośrednio z dostępnego kredytu. Dostawca otrzyma rezerwację i w razie potrzeby skontaktuje się z Tobą.",
         "info_option_reservation_title": "Rezerwacja",
-        "title": "Opcje płatności"
+        "title": "Opcje płatności",
+        "info_option_extra_payment_ideal_description": "Twój kredyt nie wystarcza na rezerwację online? W przypadku niektórych produktów możesz bezpiecznie zapłacić pozostałą kwotę online za pośrednictwem iDEAL | Wero.",
+        "info_option_extra_payment_ideal_title": "Płatność online (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Zamknij",
@@ -3795,7 +3796,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Gmina Berkelland",
-            "default": "Strona główna",
             "ede": "Ede",
             "eemsdelta": "Gmina Eems Delta",
             "geertruidenberg": "Gmina Geertruidenberg",
@@ -3812,11 +3812,12 @@
             "vergoedingen": "logo Gmina Nijmegen",
             "waalwijk": "Pass Point",
             "westerkwartier": "Gmina Westerkwartier",
-            "winterswijk": "Gmina Winterswijk"
+            "winterswijk": "Gmina Winterswijk",
+            "default": "Strona główna",
+            "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         },
         "pages": {
             "berkelland": "Gmina Berkelland",
-            "default": "Strona główna (nie-domowa)",
             "ede": "Ede",
             "eemsdelta": "Gmina Eems Delta",
             "geertruidenberg": "Gmina Geertruidenberg",
@@ -3833,7 +3834,9 @@
             "vergoedingen": "logo Gmina Nijmegen",
             "waalwijk": "Pass Point",
             "westerkwartier": "Gmina Westerkwartier",
-            "winterswijk": "Gmina Winterswijk"
+            "winterswijk": "Gmina Winterswijk",
+            "default": "Przejdź do strony głównej",
+            "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         }
     }
 }
