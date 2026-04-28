@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
@@ -95,6 +95,10 @@ export default function PrevalidationRequests() {
             },
         },
     );
+
+    const fundOptions = useMemo(() => {
+        return [{ id: null, name: 'Selecteer fonds' }, ...funds];
+    }, [funds]);
 
     const fetchPrevalidationRequests = useCallback(() => {
         if (activeOrganization?.allow_prevalidation_requests) {
@@ -263,7 +267,7 @@ export default function PrevalidationRequests() {
                             <SelectControl
                                 className="form-control inline-filter-control"
                                 propKey={'id'}
-                                options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                                options={fundOptions}
                                 value={filter.activeValues.fund_id}
                                 placeholder={translate('prevalidation_requests.labels.fund')}
                                 allowSearch={false}

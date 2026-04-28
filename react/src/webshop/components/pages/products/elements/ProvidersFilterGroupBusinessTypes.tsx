@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormGroup from '../../../elements/forms/FormGroup';
 import SelectControl from '../../../../../dashboard/components/elements/select-control/SelectControl';
@@ -19,6 +19,10 @@ export default function ProvidersFilterGroupBusinessTypes({
     openByDefault?: boolean;
 }) {
     const translate = useTranslate();
+
+    const businessTypeOptions = useMemo(() => {
+        return [{ id: null, name: translate('providers.filters.all_types') }, ...(businessTypes || [])];
+    }, [businessTypes, translate]);
 
     return (
         <ProductsFilterGroup
@@ -42,10 +46,7 @@ export default function ProvidersFilterGroupBusinessTypes({
                                 <SelectControl
                                     id={id}
                                     propKey={'id'}
-                                    options={[
-                                        { id: null, name: translate('providers.filters.all_types') },
-                                        ...businessTypes,
-                                    ]}
+                                    options={businessTypeOptions}
                                     value={value}
                                     onChange={setValue}
                                     multiline={true}

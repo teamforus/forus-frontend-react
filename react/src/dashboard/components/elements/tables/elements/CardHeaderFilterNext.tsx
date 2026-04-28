@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FilterModel, FilterScope } from '../../../../modules/filter_next/types/FilterParams';
 import CardHeaderFilter from './CardHeaderFilter';
 import Fund from '../../../../props/models/Fund';
@@ -20,6 +20,10 @@ export default function CardHeaderFilterNext({
 }) {
     const translate = useTranslate();
 
+    const fundOptions = useMemo(() => {
+        return [{ id: null, name: 'Selecteer fonds' }, ...(funds || [])];
+    }, [funds]);
+
     return (
         <div className="block block-inline-filters">
             {funds?.length > 0 && (
@@ -29,7 +33,7 @@ export default function CardHeaderFilterNext({
                             id={id}
                             className="form-control inline-filter-control"
                             propKey={'id'}
-                            options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                            options={fundOptions}
                             value={filter.activeValues.fund_id}
                             placeholder={translate('vouchers.labels.fund')}
                             allowSearch={false}

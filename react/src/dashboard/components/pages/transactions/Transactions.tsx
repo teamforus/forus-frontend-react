@@ -222,6 +222,10 @@ export default function Transactions() {
         },
     );
 
+    const fundOptions = useMemo(() => {
+        return [{ id: null, name: 'Selecteer fonds' }, ...(funds || [])];
+    }, [funds]);
+
     const fetchFunds = useCallback(
         async (query: object): Promise<Array<Fund>> => {
             setProgress(0);
@@ -577,7 +581,7 @@ export default function Transactions() {
                                             className="form-control"
                                             propKey={'id'}
                                             allowSearch={false}
-                                            options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                                            options={fundOptions}
                                             dusk="fundSelect"
                                             value={filterValues.fund_id}
                                             onChange={(fund_id: number) => filterUpdate({ fund_id })}

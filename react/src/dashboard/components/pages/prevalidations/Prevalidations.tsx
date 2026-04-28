@@ -115,6 +115,10 @@ export default function Prevalidations() {
         },
     );
 
+    const fundOptions = useMemo(() => {
+        return [{ id: null, name: 'Selecteer fonds' }, ...funds];
+    }, [funds]);
+
     const headers = useMemo(() => {
         const headers: string[] = prevalidations?.data
             ?.reduce((headers, prevalidation) => {
@@ -303,7 +307,7 @@ export default function Prevalidations() {
                             <SelectControl
                                 className="form-control inline-filter-control"
                                 propKey={'id'}
-                                options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                                options={fundOptions}
                                 value={filter.activeValues.fund_id}
                                 placeholder={translate('vouchers.labels.fund')}
                                 allowSearch={false}
