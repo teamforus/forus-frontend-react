@@ -19,7 +19,7 @@ import { makeQrCodeContent } from '../../../../../dashboard/helpers/utils';
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import ModalVoucherPayout from '../../../modals/ModalVoucherPayout';
-import useFundRequestBankAccounts from '../../../../hooks/useFundRequestBankAccounts';
+import useBankAccountsForPayout from '../../../../hooks/useBankAccountsForPayout';
 import usePayoutButtonVouchers from '../../../../hooks/usePayoutButtonVouchers';
 
 export default function VoucherActions({
@@ -42,8 +42,8 @@ export default function VoucherActions({
 
     const voucherCard = useVoucherCard(voucher);
     const showPhysicalCardsOption = useShowPhysicalCardsOption(voucher);
-    const fundRequestAccounts = useFundRequestBankAccounts();
-    const voucherPageEligibleVouchers = usePayoutButtonVouchers([voucher], fundRequestAccounts, 'vouchers');
+    const bankAccounts = useBankAccountsForPayout();
+    const voucherPageEligibleVouchers = usePayoutButtonVouchers([voucher], bankAccounts, 'vouchers');
 
     const fundPhysicalCardTypes = useMemo(() => {
         return voucher?.fund?.fund_physical_card_types;

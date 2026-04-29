@@ -50,7 +50,7 @@ export default {
     bank_accounts: {
         title: 'Bankrekening',
         iban: 'IBAN',
-        name: 'Tenaam stelling',
+        name: 'Tenaamstelling',
         source: 'Bron',
     },
 };
