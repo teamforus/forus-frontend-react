@@ -91,7 +91,7 @@ export default function ModalVoucherPayout({
     const bankAccountOptions = useMemo(() => {
         return (bankAccounts || []).map((account) => ({
             id: `${account.type}_${account.type_id}`,
-            name: `${account.created_by_locale} #${account.type_id} - ${account.iban} / ${account.name}`,
+            name: `${account.iban} / ${account.name}`,
         }));
     }, [bankAccounts]);
 
