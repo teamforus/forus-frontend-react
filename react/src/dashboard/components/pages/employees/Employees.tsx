@@ -19,7 +19,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import useSetProgress from '../../../hooks/useSetProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useIsProviderPanel from '../../../hooks/useIsProviderPanel';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
@@ -30,6 +29,7 @@ import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -39,8 +39,8 @@ export default function Employees() {
     const translate = useTranslate();
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const authIdentity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
@@ -74,18 +74,13 @@ export default function Employees() {
     );
 
     const fetchEmployees = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        employeeService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setEmployees(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [activeOrganization.id, employeeService, setProgress, pushApiError, filterValuesActive]);
+        runLatestRequest((config) => employeeService.list(activeOrganization.id, { ...filterValuesActive }, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setEmployees(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [activeOrganization.id, employeeService, runLatestRequest, pushApiError, filterValuesActive]);
 
     const fetchAdminEmployees = useCallback(() => {
         employeeService

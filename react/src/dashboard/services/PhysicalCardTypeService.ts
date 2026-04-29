@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import PhysicalCardType from '../props/models/PhysicalCardType';
@@ -20,8 +20,8 @@ export class PhysicalCardTypeService<T = PhysicalCardType> {
     /**
      * Fetch list
      */
-    public list(organization_id: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/physical-card-types`, data);
+    public list(organization_id: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/physical-card-types`, data, config);
     }
 
     public read(organization_id: number, id: number, data: object = {}): Promise<ApiResponseSingle<T>> {

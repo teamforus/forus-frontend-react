@@ -14,6 +14,7 @@ import usePaginatorService from '../../../../modules/paginator/services/usePagin
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import { useFundService } from '../../../../services/FundService';
 import usePayoutTransactionService from '../../../../services/PayoutTransactionService';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function IdentityPayoutsCard({
     identity,
@@ -24,6 +25,7 @@ export default function IdentityPayoutsCard({
 }) {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const paginatorService = usePaginatorService();
     const activeOrganization = useActiveOrganization();
 
@@ -55,19 +57,14 @@ export default function IdentityPayoutsCard({
 
     const fetchTransactions = useCallback(
         (query = {}) => {
-            setProgress(0);
-            setLoading(true);
-
-            payoutTransactionService
-                .list(activeOrganization.id, { ...query })
-                .then((res) => setTransactions(res.data))
-                .catch(pushApiError)
-                .finally(() => {
-                    setProgress(100);
-                    setLoading(false);
-                });
+            runLatestRequest((config) => payoutTransactionService.list(activeOrganization.id, { ...query }, config), {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setTransactions(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            });
         },
-        [activeOrganization.id, setProgress, payoutTransactionService, pushApiError],
+        [activeOrganization.id, runLatestRequest, payoutTransactionService, pushApiError],
     );
 
     useEffect(() => {

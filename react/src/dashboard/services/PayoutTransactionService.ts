@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Transaction from '../props/models/Transaction';
@@ -20,8 +20,8 @@ export class PayoutTransactionService<T = PayoutTransaction> {
      */
     public prefix = '/platform/organizations';
 
-    public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/payouts`, data);
+    public list(organizationId: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/payouts`, data, config);
     }
 
     public bankAccounts(organizationId: number, data: object = {}): Promise<ApiResponse<PayoutBankAccount>> {

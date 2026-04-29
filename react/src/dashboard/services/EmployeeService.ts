@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import Employee from '../props/models/Employee';
 import ApiRequestService from './ApiRequestService';
@@ -21,8 +21,8 @@ export class EmployeeService<T = Employee> {
     /**
      * Fetch list
      */
-    public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/employees`, data);
+    public list(organizationId: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/employees`, data, config);
     }
 
     /**

@@ -14,7 +14,7 @@ import TransactionDetailsPane from '../transactions-view/elements/panes/Transact
 import { hasPermission } from '../../../helpers/utils';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
-import { ApiResponseSingle } from '../../../props/ApiResponses';
+import { ApiResponseSingle, RequestConfig } from '../../../props/ApiResponses';
 import ModalReimbursementResolve from '../../modals/ModalReimbursementResolve';
 import ModalReimbursementDetailsEdit from '../../modals/ModalReimbursementDetailsEdit';
 import useFilePreview from '../../../services/helpers/useFilePreview';
@@ -139,8 +139,8 @@ export default function ReimbursementsView() {
     }, [fetchReimbursement]);
 
     const fetchNotes = useCallback(
-        (query = {}) => {
-            return reimbursementService.notes(activeOrganization.id, reimbursement?.id, query);
+        (query = {}, config: RequestConfig = {}) => {
+            return reimbursementService.notes(activeOrganization.id, reimbursement?.id, query, config);
         },
         [activeOrganization.id, reimbursement?.id, reimbursementService],
     );

@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import ImplementationSocialMedia from '../props/models/ImplementationSocialMedia';
@@ -19,10 +19,16 @@ export class ImplementationSocialMediaService<T = ImplementationSocialMedia> {
     /**
      * Fetch list
      */
-    public list(organizationId: number, implementationId: number, data: object = {}): Promise<ApiResponse<T>> {
+    public list(
+        organizationId: number,
+        implementationId: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<T>> {
         return this.apiRequest.get(
             `${this.prefix}/${organizationId}/implementations/${implementationId}/social-medias`,
             data,
+            config,
         );
     }
 

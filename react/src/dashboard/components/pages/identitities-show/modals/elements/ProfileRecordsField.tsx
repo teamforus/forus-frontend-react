@@ -1,5 +1,5 @@
 import FormBuilder from '../../../../../types/FormBuilder';
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import FormGroup from '../../../../elements/forms/elements/FormGroup';
 import DatePickerControl from '../../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../../helpers/dates';
@@ -16,6 +16,10 @@ export default function ProfileRecordsField({
     form: FormBuilder<Partial<{ [key in ProfileRecordType]: string }>>;
 }) {
     const translate = useTranslate();
+
+    const recordOptions = useMemo(() => {
+        return [{ value: '', name: 'Selecteer...' }, ...(recordType.options || [])];
+    }, [recordType.options]);
 
     return (
         <FormGroup
@@ -38,7 +42,7 @@ export default function ProfileRecordsField({
                                 value={form.values[recordType.key] || ''}
                                 propKey={'value'}
                                 propValue={'name'}
-                                options={[{ value: '', name: 'Selecteer...' }, ...recordType.options]}
+                                options={recordOptions}
                                 multiline={true}
                                 placeholder={recordType.name}
                                 onChange={(value: string) => form.update({ [recordType.key]: value })}

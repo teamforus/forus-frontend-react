@@ -4,6 +4,7 @@ import React, {
     UIEventHandler,
     useCallback,
     useEffect,
+    useMemo,
     useState,
 } from 'react';
 import './styles/ui-select.scss';
@@ -37,9 +38,10 @@ type SelectControlProps<T> = {
 export interface OptionType<T> {
     raw: T;
     id: string;
-    label: number;
+    label: string;
+    value: unknown;
     _index: number;
-    labelFormat?: Array<{ id: number; value: string }>;
+    labelFormat?: Array<{ id: string; value: string }>;
 }
 
 export type SelectControlOptionsProp<T> = {
@@ -96,11 +98,21 @@ export default function SelectControl<T>({
     const [modelValue, setModelValue] = useState(null);
     const [showOptions, setShowOptions] = useState(false);
     const [visibleCount, setVisibleCount] = useState(scrollSize);
-    const [optionsPrepared, setOptionsPrepared] = useState([]);
-    const [optionsFiltered, setOptionsFiltered] = useState([]);
     const [scrollEndThreshold] = useState(10);
 
     const [placeholderValue, setPlaceholderValue] = useState('');
+
+    const optionsPrepared = useMemo(() => {
+        return (
+            options?.map((option) => ({
+                id: uniqueId(),
+                label: option[propValue]?.toString()?.toLowerCase() || '',
+                value: null,
+                raw: option,
+                _index: -1,
+            })) || []
+        );
+    }, [options, propValue]);
 
     const findValue = useCallback(
         (value: T | string | number | boolean) => {
@@ -130,33 +142,31 @@ export default function SelectControl<T>({
         [optionsPrepared],
     );
 
-    const buildSearchedOptions = useCallback(() => {
+    const optionsFiltered = useMemo(() => {
         const search = query.toLowerCase().trim();
         const search_len = search.length;
         const options = allowSearch ? prepareOptions(search) : optionsPrepared;
 
-        setOptionsFiltered(
-            options.map((option: OptionType<T>) => {
-                const end = -(option.raw[propValue]?.length - (option._index + search_len));
-                const labelFormat = allowSearch
-                    ? [
-                          { id: uniqueId(), value: option.raw[propValue].slice(0, option._index) },
-                          {
-                              id: uniqueId(),
-                              value: option.raw[propValue].slice(option._index, option._index + search_len),
-                          },
-                          { id: uniqueId(), value: end < 0 ? option.raw[propValue].slice(end) : '' },
-                      ]
-                    : [{ id: uniqueId(), value: option.raw[propValue] }];
+        return options.map((option: OptionType<T>) => {
+            const end = -(option.raw[propValue]?.length - (option._index + search_len));
+            const labelFormat = allowSearch
+                ? [
+                      { id: uniqueId(), value: option.raw[propValue].slice(0, option._index) },
+                      {
+                          id: uniqueId(),
+                          value: option.raw[propValue].slice(option._index, option._index + search_len),
+                      },
+                      { id: uniqueId(), value: end < 0 ? option.raw[propValue].slice(end) : '' },
+                  ]
+                : [{ id: uniqueId(), value: option.raw[propValue] }];
 
-                return { ...option, labelFormat };
-            }),
-        );
+            return { ...option, labelFormat };
+        });
     }, [query, allowSearch, prepareOptions, optionsPrepared, propValue]);
 
     const searchInputChanged = useCallback(() => {
-        buildSearchedOptions();
-    }, [buildSearchedOptions]);
+        setVisibleCount(scrollSize);
+    }, [scrollSize]);
 
     const onInputClick = useCallback(
         (e: React.MouseEvent<HTMLInputElement>) => {
@@ -183,8 +193,8 @@ export default function SelectControl<T>({
             setQuery(modelValue[propValue]);
         }
 
-        buildSearchedOptions();
-    }, [disabled, showOptions, allowSearch, strict, modelValue, propValue, buildSearchedOptions]);
+        searchInputChanged();
+    }, [disabled, showOptions, allowSearch, strict, modelValue, propValue, searchInputChanged]);
 
     const selectOption = useCallback(
         (option: OptionType<T>) => {
@@ -213,22 +223,21 @@ export default function SelectControl<T>({
     );
 
     useEffect(() => {
-        setOptionsPrepared(
-            options?.map((option) => ({
-                id: uniqueId(),
-                label: option[propValue]?.toString()?.toLowerCase() || '',
-                value: null,
-                raw: option,
-            })) || [],
-        );
-    }, [options, propValue]);
-
-    useEffect(() => {
-        setModelValue((oldValue: T) => {
+        setModelValue((oldValue: OptionType<T>) => {
             const newValue = findValue(value);
+
+            if (
+                oldValue &&
+                newValue &&
+                (propKey ? oldValue.raw[propKey] == newValue.raw[propKey] : oldValue.raw == newValue.raw) &&
+                (propValue ? oldValue.raw[propValue] == newValue.raw[propValue] : oldValue.label == newValue.label)
+            ) {
+                return oldValue;
+            }
+
             return oldValue != newValue ? newValue : oldValue;
         });
-    }, [findValue, value]);
+    }, [findValue, propKey, propValue, value]);
 
     useEffect(() => {
         if (modelValue) {

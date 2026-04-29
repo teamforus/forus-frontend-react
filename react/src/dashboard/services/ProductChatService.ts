@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundProviderChat from '../props/models/FundProviderChat';
@@ -17,8 +17,13 @@ export class ProductChatService<T = FundProviderChat> {
      */
     public constructor(protected apiRequest: ApiRequestService<T> = new ApiRequestService<T>()) {}
 
-    public list(organization_id: number, product_id: number, query: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/products/${product_id}/chats`, query);
+    public list(
+        organization_id: number,
+        product_id: number,
+        query: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/products/${product_id}/chats`, query, config);
     }
 
     public show(

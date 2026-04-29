@@ -4,15 +4,16 @@ import { useCallback, useState } from 'react';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
 import Organization from '../../../../props/models/Organization';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function useFetchSponsorIdentities(organization: Organization, extraFilters?: { household_id: number }) {
     const [loading, setLoading] = useState(false);
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
+
     const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
     const [extra] = useState(extraFilters ?? []);
 
@@ -90,21 +91,16 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
     );
 
     const fetchIdentities = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        sponsorIdentitiesService
-            .list(organization.id, {
-                ...filterValuesActive,
-                ...extra,
-            })
-            .then((res) => setIdentities(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [setProgress, sponsorIdentitiesService, organization.id, filterValuesActive, extra, pushApiError]);
+        runLatestRequest(
+            (config) => sponsorIdentitiesService.list(organization.id, { ...filterValuesActive, ...extra }, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setIdentities(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [runLatestRequest, sponsorIdentitiesService, organization.id, filterValuesActive, extra, pushApiError]);
 
     return { filter, filterValues, filterUpdate, loading, identities, fetchIdentities, paginatorKey };
 }

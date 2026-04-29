@@ -27,6 +27,7 @@ import { hasPermission } from '../../../helpers/utils';
 import { Permission } from '../../../props/models/Organization';
 import { useFundService } from '../../../services/FundService';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function FundRequests() {
     const appConfigs = useAppConfigs();
@@ -37,6 +38,7 @@ export default function FundRequests() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [funds, setFunds] = useState<Array<Fund>>([]);
@@ -142,18 +144,16 @@ export default function FundRequests() {
     }, [setProgress, fundService, activeOrganization?.id]);
 
     const fetchFundRequests = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        fundRequestService
-            .index(activeOrganization.id, filterActiveValues)
-            .then((res) => setFundRequests(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [setProgress, fundRequestService, activeOrganization.id, filterActiveValues, pushApiError]);
+        runLatestRequest(
+            (config) => fundRequestService.index(activeOrganization.id, { ...filterActiveValues }, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setFundRequests(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [runLatestRequest, fundRequestService, activeOrganization.id, filterActiveValues, pushApiError]);
 
     const fetchEmployees = useCallback(() => {
         setProgress(0);

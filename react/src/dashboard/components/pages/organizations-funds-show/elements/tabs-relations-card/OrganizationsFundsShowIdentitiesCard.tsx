@@ -8,7 +8,6 @@ import { PaginationData } from '../../../../../props/ApiResponses';
 import LoadingCard from '../../../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import SponsorIdentity from '../../../../../props/models/Sponsor/SponsorIdentity';
-import useSetProgress from '../../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../../services/FundService';
 import useFundIdentitiesExporter from '../../../../../services/exporters/useFundIdentitiesExporter';
 import { hasPermission } from '../../../../../helpers/utils';
@@ -19,6 +18,7 @@ import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
 import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 import BlockLabelTabs from '../../../../elements/block-label-tabs/BlockLabelTabs';
 import LoaderTableCard from '../../../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../../../hooks/useLatestRequestWithProgress';
 
 export default function OrganizationsFundsShowIdentitiesCard({
     fund,
@@ -32,7 +32,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
     viewTypes: Array<{ key: 'top_ups' | 'implementations' | 'identities'; name: string }>;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const activeOrganization = useActiveOrganization();
     const fundIdentitiesExporter = useFundIdentitiesExporter();
@@ -53,18 +53,18 @@ export default function OrganizationsFundsShowIdentitiesCard({
     });
 
     const fetchIdentities = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .listIdentities(activeOrganization.id, fund.id, filterValuesActive)
-            .then((res) => {
-                setIdentities(res.data);
-                setIdentitiesActive(res.data.meta.counts['active']);
-                setIdentitiesWithoutEmail(res.data.meta.counts['without_email']);
-                setLastQueryIdentities(filterValuesActive.q);
-            })
-            .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, fund.id, filterValuesActive]);
+        runLatestRequest(
+            (config) => fundService.listIdentities(activeOrganization.id, fund.id, filterValuesActive, config),
+            {
+                onSuccess: (res) => {
+                    setIdentities(res.data);
+                    setIdentitiesActive(res.data.meta.counts['active']);
+                    setIdentitiesWithoutEmail(res.data.meta.counts['without_email']);
+                    setLastQueryIdentities(filterValuesActive.q);
+                },
+            },
+        );
+    }, [runLatestRequest, fundService, activeOrganization.id, fund.id, filterValuesActive]);
 
     const exportIdentities = useCallback(() => {
         fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, filterValuesActive);

@@ -6,13 +6,13 @@ import { useNotificationService } from '../../../services/NotificationService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
-import useSetProgress from '../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function OrganizationsNotifications() {
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
     const paginatorService = usePaginatorService();
     const activeOrganization = useActiveOrganization();
     const notificationsService = useNotificationService();
@@ -27,21 +27,20 @@ export default function OrganizationsNotifications() {
 
     const fetchNotifications = useCallback(
         (mark_read = false) => {
-            setProgress(0);
+            const filters = {
+                ...filterValuesActive,
+                organization_id: activeOrganization?.id,
+                mark_read: mark_read ? 1 : 0,
+            };
 
-            notificationsService
-                .list({
-                    ...filterValuesActive,
-                    organization_id: activeOrganization?.id,
-                    mark_read: mark_read ? 1 : 0,
-                })
-                .then((res) => {
+            runLatestRequest((config) => notificationsService.list(filters, config), {
+                onSuccess: (res) => {
                     res.data.data = res.data.data.map((item) => ({ ...item, seen: item.seen || mark_read }));
                     setNotifications(res.data);
-                })
-                .finally(() => setProgress(100));
+                },
+            });
         },
-        [notificationsService, filterValuesActive, setProgress, activeOrganization],
+        [notificationsService, filterValuesActive, runLatestRequest, activeOrganization],
     );
 
     useEffect(() => {

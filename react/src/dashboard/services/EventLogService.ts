@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import EventLog from '../props/models/EventLog';
 import ApiRequestService from './ApiRequestService';
@@ -21,8 +21,8 @@ export class EventLogService<T = EventLog> {
     /**
      * Fetch list
      */
-    public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/logs`, data) as Promise<ApiResponse<T>>;
+    public list(organizationId: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/logs`, data, config) as Promise<ApiResponse<T>>;
     }
 
     public exportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {

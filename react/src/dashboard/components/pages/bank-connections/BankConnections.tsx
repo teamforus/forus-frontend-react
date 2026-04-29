@@ -24,6 +24,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import Label from '../../elements/label/Label';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function BankConnections() {
     const activeOrganization = useActiveOrganization();
@@ -33,6 +34,7 @@ export default function BankConnections() {
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const confirmBankNewConnection = useConfirmBankNewConnection();
     const confirmBankConnectionDisable = useConfirmBankConnectionDisable();
@@ -82,12 +84,16 @@ export default function BankConnections() {
 
     const fetchBankConnections = useCallback(
         (query: object = {}) => {
-            bankConnectionService
-                .list(activeOrganization.id, { ...query, ...filterValuesActive })
-                .then((res) => setBankConnections(res.data))
-                .catch(onRequestError);
+            runLatestRequest(
+                (config) =>
+                    bankConnectionService.list(activeOrganization.id, { ...query, ...filterValuesActive }, config),
+                {
+                    onSuccess: (res) => setBankConnections(res.data),
+                    onError: onRequestError,
+                },
+            );
         },
-        [activeOrganization.id, bankConnectionService, filterValuesActive, onRequestError],
+        [runLatestRequest, activeOrganization.id, bankConnectionService, filterValuesActive, onRequestError],
     );
 
     const fetchActiveBankConnection = useCallback(
