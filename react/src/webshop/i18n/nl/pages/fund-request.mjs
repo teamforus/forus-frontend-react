@@ -78,8 +78,9 @@ export default {
     },
 
     steps: {
+        info_label: 'Informatie over aanvraag',
         step: 'Stap {{step}}',
-        step_out_of: 'Stap {{step}}',
+        step_out_of: 'Stap {{step}} van {{total}}',
     },
 
     buttons: {

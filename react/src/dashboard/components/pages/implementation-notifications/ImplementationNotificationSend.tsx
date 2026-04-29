@@ -33,6 +33,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import { useMarkdownService } from '../../../services/MarkdownService';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function ImplementationNotificationSend() {
     const { id } = useParams();
@@ -46,6 +47,7 @@ export default function ImplementationNotificationSend() {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
+    const runLatestRequestIdentities = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
@@ -388,21 +390,25 @@ export default function ImplementationNotificationSend() {
 
     const fetchFundIdentities = useCallback(() => {
         if (fund) {
-            setProgress(0);
+            const filters = { ...identitiesFilterValuesActive, with_reservations: 1 };
 
-            fundService
-                .listIdentities(activeOrganization.id, fund.id, {
-                    ...identitiesFilterValuesActive,
-                    with_reservations: 1,
-                })
-                .then((res) => setIdentities(res.data))
-                .catch(pushApiError)
-                .finally(() => {
-                    setLastIdentitiesQuery(identitiesFilterValuesActive.q);
-                    setProgress(100);
-                });
+            runLatestRequestIdentities(
+                (config) => fundService.listIdentities(activeOrganization.id, fund.id, filters, config),
+                {
+                    onSuccess: (res) => setIdentities(res.data),
+                    onError: pushApiError,
+                    onFinally: () => setLastIdentitiesQuery(identitiesFilterValuesActive.q),
+                },
+            );
         }
-    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilterValuesActive, pushApiError]);
+    }, [
+        fund,
+        runLatestRequestIdentities,
+        fundService,
+        activeOrganization.id,
+        identitiesFilterValuesActive,
+        pushApiError,
+    ]);
 
     useEffect(() => {
         if (implementation) {

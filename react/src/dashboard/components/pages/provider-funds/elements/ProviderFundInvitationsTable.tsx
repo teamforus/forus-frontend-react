@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
@@ -18,6 +17,7 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import Label, { LabelType } from '../../../elements/label/Label';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_type?: LabelType;
@@ -38,8 +38,8 @@ export default function ProviderFundInvitationsTable({
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const fundProviderInvitationsService = useFundProviderInvitationsService();
@@ -112,29 +112,27 @@ export default function ProviderFundInvitationsTable({
     );
 
     const fetchInvitations = useCallback(() => {
-        setSelected([]);
-        setLoading(true);
-        setProgress(0);
+        const filters = {
+            ...filterValuesActive,
+            expired: type == 'invitations_archived' ? 1 : 0,
+        };
 
-        fundProviderInvitationsService
-            .listInvitations(organization.id, {
-                ...filterValuesActive,
-                expired: type == 'invitations_archived' ? 1 : 0,
-            })
-            .then((res) =>
+        runLatestRequest((config) => fundProviderInvitationsService.listInvitations(organization.id, filters, config), {
+            onStart: () => {
+                setSelected([]);
+                setLoading(true);
+            },
+            onSuccess: (res) =>
                 setInvitations({
                     data: mapProviderFunds(res.data.data),
                     meta: res.data.meta,
                 }),
-            )
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
     }, [
         setSelected,
-        setProgress,
+        runLatestRequest,
         fundProviderInvitationsService,
         organization.id,
         filterValuesActive,

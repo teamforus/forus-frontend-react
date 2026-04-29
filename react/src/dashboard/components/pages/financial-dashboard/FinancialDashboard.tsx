@@ -6,17 +6,17 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import FinancialChart from './elements/FinancialChart';
 import FinancialFilters, { FinancialFiltersQuery } from './elements/FinancialFilters';
 import { useFundService } from '../../../services/FundService';
-import useSetProgress from '../../../hooks/useSetProgress';
 import { ProviderFinancialStatistics, ProviderFinancialFilterOptions } from './types/FinancialStatisticTypes';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function FinancialDashboard() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
 
@@ -27,15 +27,12 @@ export default function FinancialDashboard() {
     useEffect(() => {
         // wait for external filters to prevent not filtered requests
         if (externalFilters) {
-            setProgress(0);
-
-            fundService
-                .readFinances(activeOrganization.id, externalFilters)
-                .then((res) => setChartData(res.data))
-                .catch(pushApiError)
-                .finally(() => setProgress(100));
+            runLatestRequest((config) => fundService.readFinances(activeOrganization.id, externalFilters, config), {
+                onSuccess: (res) => setChartData(res.data),
+                onError: pushApiError,
+            });
         }
-    }, [activeOrganization.id, fundService, externalFilters, setProgress, pushApiError]);
+    }, [activeOrganization.id, fundService, externalFilters, pushApiError, runLatestRequest]);
 
     useEffect(() => {
         fundService

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import SponsorPhysicalCard from '../props/models/Sponsor/SponsorPhysicalCard';
 
@@ -27,8 +27,8 @@ export class PhysicalCardService<T = SponsorPhysicalCard> {
     /**
      * Fetch list
      */
-    public list(organization_id: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix2}/${organization_id}/physical-cards`, data);
+    public list(organization_id: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix2}/${organization_id}/physical-cards`, data, config);
     }
 
     public read(organization_id: number, id: number, data: object = {}): Promise<ApiResponseSingle<T>> {

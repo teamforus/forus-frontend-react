@@ -10,7 +10,6 @@ import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import useSetProgress from '../../../hooks/useSetProgress';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../elements/tables/TableRowActions';
@@ -21,13 +20,14 @@ import { strLimit } from '../../../helpers/string';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function ImplementationFunds() {
     const { id } = useParams();
 
     const navigate = useNavigate();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const activeOrganization = useActiveOrganization();
 
@@ -55,14 +55,13 @@ export default function ImplementationFunds() {
     }, [activeOrganization.id, id, implementationService, navigate, pushApiError]);
 
     const fetchFunds = useCallback(() => {
-        setProgress(0);
+        const filters = { implementation_id: parseInt(id), ...filterValuesActive };
 
-        fundService
-            .list(activeOrganization.id, { implementation_id: parseInt(id), ...filterValuesActive })
-            .then((res) => setFunds(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, id, filterValuesActive, pushApiError]);
+        runLatestRequest((config) => fundService.list(activeOrganization.id, filters, config), {
+            onSuccess: (res) => setFunds(res.data),
+            onError: pushApiError,
+        });
+    }, [runLatestRequest, fundService, activeOrganization.id, id, filterValuesActive, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();

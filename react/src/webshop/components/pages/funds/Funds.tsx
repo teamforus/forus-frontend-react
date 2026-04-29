@@ -27,7 +27,7 @@ import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransact
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
-import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 
 export default function Funds() {
     const envData = useEnvData();

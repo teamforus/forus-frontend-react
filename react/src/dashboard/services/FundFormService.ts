@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundForm from '../props/models/FundForm';
@@ -23,8 +23,9 @@ export class FundFormService<T = FundForm> {
     public list(
         organization_id: number,
         query: object = {},
+        config: RequestConfig = {},
     ): Promise<ApiResponse<T, { unarchived_funds_total: number; archived_funds_total: number }>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/fund-forms`, query);
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/fund-forms`, query, config);
     }
 
     public read(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {

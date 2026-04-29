@@ -35,6 +35,7 @@ import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import TransactionsTableSection from './elements/TransactionsTableSection';
 import TransactionBulksTableSection from './elements/TransactionBulksTableSection';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -46,6 +47,8 @@ export default function Transactions() {
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const confirmDangerAction = useConfirmDangerAction();
+    const runLatestRequest = useLatestRequestWithProgress();
+    const runLatestRequestPendingBulking = useLatestRequestWithProgress();
 
     const activeOrganization = useActiveOrganization();
     const transactionExporter = useTransactionExporter();
@@ -219,6 +222,10 @@ export default function Transactions() {
         },
     );
 
+    const fundOptions = useMemo(() => {
+        return [{ id: null, name: 'Selecteer fonds' }, ...(funds || [])];
+    }, [funds]);
+
     const fetchFunds = useCallback(
         async (query: object): Promise<Array<Fund>> => {
             setProgress(0);
@@ -239,23 +246,26 @@ export default function Transactions() {
     );
 
     const fetchTransactions = useCallback(
-        async (query: object) => {
-            setProgress(0);
-
-            return transactionService
-                .list(envData.client_type, activeOrganization.id, query)
-                .finally(() => setProgress(100));
+        (query: object) => {
+            runLatestRequest(
+                (config) => transactionService.list(envData.client_type, activeOrganization.id, query, config),
+                {
+                    onSuccess: (res) => setTransactions(res.data),
+                    onError: pushApiError,
+                },
+            );
         },
-        [activeOrganization.id, envData.client_type, setProgress, transactionService],
+        [activeOrganization.id, envData.client_type, runLatestRequest, pushApiError, transactionService],
     );
 
     const fetchTransactionBulks = useCallback(
-        async (query: object) => {
-            setProgress(0);
-
-            return transactionBulkService.list(activeOrganization.id, query).finally(() => setProgress(100));
+        (query: object) => {
+            runLatestRequest((config) => transactionBulkService.list(activeOrganization.id, query, config), {
+                onSuccess: (res) => setTransactionBulks(res.data),
+                onError: pushApiError,
+            });
         },
-        [activeOrganization.id, setProgress, transactionBulkService],
+        [activeOrganization.id, pushApiError, runLatestRequest, transactionBulkService],
     );
 
     const { resetFilters: resetFilters, setShow } = filter;
@@ -280,12 +290,23 @@ export default function Transactions() {
     }, [activeOrganization.id, bulkFilterValuesActive, setShowBulk, transactionBulkExporter]);
 
     const updateHasPendingBulking = useCallback(() => {
-        fetchTransactions({
-            ...filterValuesActive,
-            pending_bulking: 1,
-            per_page: 1,
-        }).then((res) => setPendingBulkingMeta(res.data.meta));
-    }, [fetchTransactions, filterValuesActive]);
+        const filters = { ...filterValuesActive, pending_bulking: 1, per_page: 1 };
+
+        runLatestRequestPendingBulking(
+            (config) => transactionService.list(envData.client_type, activeOrganization.id, filters, config),
+            {
+                onSuccess: (res) => setPendingBulkingMeta(res.data.meta),
+                onError: pushApiError,
+            },
+        );
+    }, [
+        activeOrganization.id,
+        envData.client_type,
+        filterValuesActive,
+        pushApiError,
+        runLatestRequestPendingBulking,
+        transactionService,
+    ]);
 
     const uploadTransactions = useCallback(() => {
         openModal((modal) => (
@@ -293,7 +314,7 @@ export default function Transactions() {
                 modal={modal}
                 organization={activeOrganization}
                 onCreated={() => {
-                    fetchTransactions(filterValuesActive).then((res) => setTransactions(res.data));
+                    fetchTransactions(filterValuesActive);
 
                     if (isSponsor && activeOrganization?.has_bank_connection) {
                         updateHasPendingBulking();
@@ -369,9 +390,9 @@ export default function Transactions() {
 
     useEffect(() => {
         if (viewType.key === 'bulks') {
-            fetchTransactionBulks(bulkFilterValuesActive).then((res) => setTransactionBulks(res.data));
+            fetchTransactionBulks(bulkFilterValuesActive);
         } else {
-            fetchTransactions(filterValuesActive).then((res) => setTransactions(res.data));
+            fetchTransactions(filterValuesActive);
 
             if (isSponsor && activeOrganization?.has_bank_connection) {
                 updateHasPendingBulking();
@@ -560,7 +581,7 @@ export default function Transactions() {
                                             className="form-control"
                                             propKey={'id'}
                                             allowSearch={false}
-                                            options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                                            options={fundOptions}
                                             dusk="fundSelect"
                                             value={filterValues.fund_id}
                                             onChange={(fund_id: number) => filterUpdate({ fund_id })}

@@ -11,7 +11,7 @@ import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../tables/TableRowActions';
 import ModalLogEmailShow from '../../modals/ModalLogEmailShow';
-import { ApiResponse, PaginationData } from '../../../props/ApiResponses';
+import { ApiResponse, PaginationData, RequestConfig } from '../../../props/ApiResponses';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { trimStart } from 'lodash';
 import { extractText } from '../../../helpers/utils';
@@ -21,6 +21,7 @@ import { useFileService } from '../../../services/FileService';
 import Organization from '../../../props/models/Organization';
 import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
 import FormGroup from '../forms/elements/FormGroup';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function BlockCardEmails({
     organization,
@@ -28,12 +29,13 @@ export default function BlockCardEmails({
     fetchEmailsRef,
 }: {
     organization: Organization;
-    fetchLogEmails: (value: FilterModel) => Promise<ApiResponse<EmailLog>>;
+    fetchLogEmails: (value: FilterModel, config?: RequestConfig) => Promise<ApiResponse<EmailLog>>;
     fetchEmailsRef?: React.MutableRefObject<() => void>;
 }) {
     const openModal = useOpenModal();
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fileService = useFileService();
     const paginatorService = usePaginatorService();
@@ -76,13 +78,11 @@ export default function BlockCardEmails({
     );
 
     const fetchEmails = useCallback(() => {
-        setProgress(0);
-
-        fetchLogEmails(filterValuesActive)
-            .then((res) => setEmailLogs(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [fetchLogEmails, filterValuesActive, setProgress, pushApiError]);
+        runLatestRequest((config) => fetchLogEmails(filterValuesActive, config), {
+            onSuccess: (res) => setEmailLogs(res.data),
+            onError: pushApiError,
+        });
+    }, [fetchLogEmails, filterValuesActive, pushApiError, runLatestRequest]);
 
     useEffect(() => {
         fetchEmails();

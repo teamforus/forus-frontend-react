@@ -73,7 +73,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(
                             organization,
-                            [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+                            [Permission.VALIDATE_RECORDS, Permission.MANAGE_ORGANIZATION],
                             false,
                         ),
                     },
@@ -87,7 +87,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                             organization.allow_prevalidation_requests &&
                             hasPermission(
                                 organization,
-                                [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+                                [Permission.VALIDATE_RECORDS, Permission.MANAGE_ORGANIZATION],
                                 false,
                             ),
                     },

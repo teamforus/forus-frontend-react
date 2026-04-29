@@ -18,7 +18,7 @@ import UIControlText from '../../../../dashboard/components/elements/forms/ui-co
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
-import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 
 export default function Reservations() {
     const translate = useTranslate();

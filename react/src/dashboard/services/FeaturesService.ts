@@ -85,10 +85,11 @@ export class FeatureService {
             },
             {
                 key: 'extra_payments',
-                name: 'Bijbetalen met iDEAL',
-                description: 'De mogelijkheid om met iDEAL bij te betalen bij kosten hoger dan het resterende tegoed.',
+                name: 'Bijbetalen met iDEAL | Wero',
+                description:
+                    'De mogelijkheid om met iDEAL | Wero bij te betalen bij kosten hoger dan het resterende tegoed.',
                 overview_description:
-                    'Geef deelnemers de optie om met iDEAL bij te betalen bij kosten hoger dan het resterende tegoed.',
+                    'Geef deelnemers de optie om met iDEAL | Wero bij te betalen bij kosten hoger dan het resterende tegoed.',
                 labels: ['Integratie', 'Financieel'],
             },
             {

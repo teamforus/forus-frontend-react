@@ -30,7 +30,7 @@ export default {
         provider_name: 'Naam van de aanbieder.',
         price: 'Bedrag dat is betaald vanuit het tegoed.',
         paid_at: 'Datum en tijdstip van de bijbetaling.',
-        method: 'Methode van bijbetaling (bijv. iDeal).',
+        method: 'Methode van bijbetaling (bijv. iDEAL | Wero).',
         amount: 'Bedrag dat is bijbetaald.',
     },
     buttons: {

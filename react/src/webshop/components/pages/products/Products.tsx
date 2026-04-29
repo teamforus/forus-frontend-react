@@ -17,7 +17,7 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import { useProductService } from '../../../services/ProductService';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../../dashboard/props/ApiResponses';
 import Product from '../../../props/models/Product';
-import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 
 export default function Products() {
     const appConfigs = useAppConfigs();

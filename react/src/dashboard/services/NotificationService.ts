@@ -1,6 +1,6 @@
 import ApiRequestService from './ApiRequestService';
 import { useState } from 'react';
-import ApiResponse from '../props/ApiResponses';
+import ApiResponse, { RequestConfig } from '../props/ApiResponses';
 import Notification from '../props/models/Notification';
 
 export class NotificationService<T = Notification> {
@@ -16,8 +16,8 @@ export class NotificationService<T = Notification> {
      */
     public prefix = '/platform/notifications';
 
-    public list(data = {}): Promise<ApiResponse<T, { total_unseen: number }>> {
-        return this.apiRequest.get(`${this.prefix}`, data);
+    public list(data = {}, config: RequestConfig = {}): Promise<ApiResponse<T, { total_unseen: number }>> {
+        return this.apiRequest.get(`${this.prefix}`, data, config);
     }
 }
 

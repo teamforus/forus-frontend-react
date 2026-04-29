@@ -18,6 +18,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/label/Label';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
@@ -25,6 +26,7 @@ export default function SecuritySessions() {
     const setProgress = useSetProgress();
     const navigate = useNavigate();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const authIdentity2FAState = useAuthIdentity2FAState();
 
     const { signOut } = useContext(authContext);
@@ -49,13 +51,11 @@ export default function SecuritySessions() {
     });
 
     const fetchSessions = useCallback(() => {
-        setProgress(0);
-
-        sessionService
-            .list(filterValuesActive)
-            .then((res) => setSessions(res.data))
-            .finally(() => setProgress(100));
-    }, [setProgress, sessionService, filterValuesActive]);
+        runLatestRequest((config) => sessionService.list(filterValuesActive, config), {
+            onSuccess: (res) => setSessions(res.data),
+            onError: pushApiError,
+        });
+    }, [runLatestRequest, sessionService, filterValuesActive, pushApiError]);
 
     const findIcon = useCallback((session: Session) => {
         const device = session.last_request.device?.device;

@@ -16,6 +16,7 @@ import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 import Label from '../elements/label/Label';
 import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../hooks/useLatestRequestWithProgress';
 
 type LocalProduct = Product & {
     offer: {
@@ -40,6 +41,7 @@ export default function ModalFundOffers({
     className?: string;
 }) {
     const translate = useTranslate();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const productService = useProductService();
     const paginatorService = usePaginatorService();
@@ -90,10 +92,10 @@ export default function ModalFundOffers({
     }, [organization.id, providerFund.id, providerFundService]);
 
     useEffect(() => {
-        productService.list(organization.id, filterValuesActive).then((res) => {
-            setOffers(mapOffersAllowedProperty(res.data));
+        runLatestRequest((config) => productService.list(organization.id, filterValuesActive, config), {
+            onSuccess: (res) => setOffers(mapOffersAllowedProperty(res.data)),
         });
-    }, [filterValuesActive, mapOffersAllowedProperty, organization.id, productService]);
+    }, [filterValuesActive, mapOffersAllowedProperty, organization.id, productService, runLatestRequest]);
 
     return (
         <div

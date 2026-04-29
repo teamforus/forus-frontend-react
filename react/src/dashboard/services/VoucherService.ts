@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Papa from 'papaparse';
@@ -24,8 +24,8 @@ export class VoucherService<T = SponsorVoucher> {
     /**
      * Fetch list
      */
-    public index(organizationId: number, query: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/vouchers`, query);
+    public index(organizationId: number, query: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/vouchers`, query, config);
     }
 
     public readProvider(address: string): Promise<ApiResponseSingle<T>> {

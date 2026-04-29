@@ -13,12 +13,12 @@ import ModalDangerZone from '../../../modals/ModalDangerZone';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import { hasPermission } from '../../../../helpers/utils';
 import useTranslate from '../../../../hooks/useTranslate';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function VoucherRecordsCard({
     voucher,
@@ -31,8 +31,8 @@ export default function VoucherRecordsCard({
 
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const voucherRecordService = useVoucherRecordService();
@@ -53,14 +53,14 @@ export default function VoucherRecordsCard({
     });
 
     const fetchRecords = useCallback(() => {
-        setProgress(0);
-
-        voucherRecordService
-            .list(organization.id, voucher.id, filterValuesActive)
-            .then((res) => setRecords(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [filterValuesActive, organization.id, setProgress, voucher.id, voucherRecordService, pushApiError]);
+        runLatestRequest(
+            (config) => voucherRecordService.list(organization.id, voucher.id, filterValuesActive, config),
+            {
+                onSuccess: (res) => setRecords(res.data),
+                onError: pushApiError,
+            },
+        );
+    }, [filterValuesActive, organization.id, runLatestRequest, voucher.id, voucherRecordService, pushApiError]);
 
     const editRecord = useCallback(
         (record: VoucherRecord = null) => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import ApiRequestService from './ApiRequestService';
 import Session from '../props/models/Session';
 
@@ -19,8 +19,8 @@ export class SessionService<T = Session> {
     /**
      * Fetch list
      */
-    public list(data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}`, data);
+    public list(data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}`, data, config);
     }
 
     public read(uid: string): Promise<ApiResponseSingle<Session>> {

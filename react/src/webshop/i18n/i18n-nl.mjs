@@ -380,8 +380,8 @@ export default {
             payment_option_qr_aria_label: 'QR-code: klik voor meer informatie',
             payment_option_reservation: 'Online reserveren',
             payment_option_reservation_aria_label: 'Online reserveren: klik voor meer informatie',
-            payment_option_ideal: 'Online bijbetalen',
-            payment_option_ideal_aria_label: 'Online bijbetalen: klik voor meer informatie',
+            payment_option_ideal: 'Online bijbetalen (iDEAL | Wero)',
+            payment_option_ideal_aria_label: 'Online bijbetalen (iDEAL | Wero): klik voor meer informatie',
         },
         product_item_search: {
             free: 'Gratis',

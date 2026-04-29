@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter';
@@ -22,10 +21,11 @@ import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import useHouseholdProfilesService from '../../../../services/HouseholdProfilesService';
 import HouseholdProfile from '../../../../props/models/Sponsor/HouseholdProfile';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function HouseholdIdentitiesCard({ household }: { household: Household }) {
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const activeOrganization = useActiveOrganization();
 
     const sponsorIdentitiesService = useSponsorIdentitiesService();
@@ -56,19 +56,18 @@ export default function HouseholdIdentitiesCard({ household }: { household: Hous
     });
 
     const fetchHouseholdMembers = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        householdProfilesService
-            .list(household?.organization_id, household?.id, filterValuesActive)
-            .then((res) => setHouseholdMembers(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
+        runLatestRequest(
+            (config) =>
+                householdProfilesService.list(household?.organization_id, household?.id, filterValuesActive, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setHouseholdMembers(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
     }, [
-        setProgress,
+        runLatestRequest,
         householdProfilesService,
         household?.organization_id,
         household?.id,

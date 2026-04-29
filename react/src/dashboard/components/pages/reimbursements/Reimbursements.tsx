@@ -14,7 +14,6 @@ import useImplementationService from '../../../services/ImplementationService';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import Implementation from '../../../props/models/Implementation';
-import useSetProgress from '../../../hooks/useSetProgress';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
@@ -24,13 +23,16 @@ import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReimbursementsTable from './elements/ReimbursementsTable';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
     const reimbursementsExporter = useReimbursementsExporter();
 
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
@@ -115,17 +117,16 @@ export default function Reimbursements() {
     }, [activeOrganization.id, fundService]);
 
     const fetchReimbursements = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        reimbursementService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setReimbursements(res.data))
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [setProgress, activeOrganization.id, filterValuesActive, reimbursementService]);
+        runLatestRequest(
+            (config) => reimbursementService.list(activeOrganization.id, { ...filterValuesActive }, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setReimbursements(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [runLatestRequest, pushApiError, activeOrganization.id, filterValuesActive, reimbursementService]);
 
     const fetchImplementations = useCallback(() => {
         implementationService
