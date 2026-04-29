@@ -65,7 +65,7 @@ export default {
     bank_accounts: {
         labels: {
             iban: 'IBAN',
-            iban_name: 'Te naam stelling',
+            iban_name: 'Tenaamstelling',
             updated_at: 'Laatst aangepast',
             created_by: 'Verkregen via',
         },
@@ -115,7 +115,7 @@ export default {
             tooltip: 'Bankrekeningnummer (IBAN)',
         },
         iban_name: {
-            label: 'Te naam stelling',
+            label: 'Tenaamstelling',
             tooltip: 'Tenaamstelling',
         },
     },
