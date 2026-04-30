@@ -33,6 +33,13 @@ export interface FundRequestRecordGroup {
     record_ids: Array<number>;
 }
 
+export interface FundRequestMissedRecord {
+    id: number;
+    group: string;
+    type: string;
+    field: string;
+}
+
 export default interface FundRequest {
     id: number;
     bsn?: string | null;
@@ -66,4 +73,6 @@ export default interface FundRequest {
     current_period?: boolean;
     active_vouchers?: Array<Voucher>;
     identity_id?: number;
+    missed_records?: Array<FundRequestMissedRecord>;
+    missing_records_approved?: boolean;
 }

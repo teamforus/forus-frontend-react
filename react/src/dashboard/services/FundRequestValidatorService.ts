@@ -124,6 +124,13 @@ export class FundRequestValidatorService<T = FundRequest> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data);
     }
 
+    public approveMissedRecords(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(
+            `${this.prefix}/${organizationId}/fund-requests/${id}/approve-missed-records`,
+            data,
+        );
+    }
+
     public getColumns(): Array<ConfigurableTableColumn> {
         const list = ['id', 'requester_email', 'fund_name', 'created_at', 'assignee_email', 'state'].filter(
             (item) => item,

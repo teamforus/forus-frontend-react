@@ -14,6 +14,7 @@ import ModalNotification from '../../../modals/ModalNotification';
 import useTranslate from '../../../../hooks/useTranslate';
 import Label from '../../../elements/label/Label';
 import EmptyValue from '../../../elements/empty-value/EmptyValue';
+import Tooltip from '../../../elements/tooltip/Tooltip';
 
 export default function FundRequestGroupRecordRow({
     organization,
@@ -139,7 +140,10 @@ export default function FundRequestGroupRecordRow({
                     </td>
                 )}
 
-                <td>{translate(`validation_requests.sources.${record.source}`)}</td>
+                <td>
+                    {translate(`validation_requests.sources.${record.source}`)}
+                    {record.changed && <Tooltip size="sm" text="Edited" />}
+                </td>
                 <td>{record.files.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}</td>
                 <td>
                     {record.clarifications.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}

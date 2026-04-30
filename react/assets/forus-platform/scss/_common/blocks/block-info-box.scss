@@ -73,6 +73,16 @@
         }
     }
 
+    &.block-info-box-danger {
+        background-color: #FFF3F5;
+        border-style: solid;
+        border-color: #ED133C;
+
+        .info-box-icon {
+            color: #ED133C;
+        }
+    }
+
     &.block-info-box-dashed {
         border-style: dashed;
     }

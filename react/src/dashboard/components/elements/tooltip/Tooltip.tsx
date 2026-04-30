@@ -7,12 +7,14 @@ export default function Tooltip({
     text,
     type = 'default',
     position = 'right',
+    size = 'md',
     maxLength = 128,
     children,
 }: {
     text?: Array<string> | string | ReactNode;
     type?: 'default' | 'primary';
     position?: 'right' | 'bottom';
+    size?: 'sm' | 'md';
     maxLength?: number;
     children?: ReactNode | Array<ReactNode>;
 }) {
@@ -51,7 +53,7 @@ export default function Tooltip({
     }
 
     return (
-        <div className="block block-form_tooltip">
+        <div className={classNames('block', 'block-form_tooltip', size === 'sm' && 'block-form_tooltip-sm')}>
             <div className="tooltip-icon">
                 <em className="mdi mdi-information" />
             </div>
