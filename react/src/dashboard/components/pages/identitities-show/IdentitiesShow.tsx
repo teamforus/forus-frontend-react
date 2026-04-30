@@ -27,6 +27,7 @@ import ProfileRelationsCard from './elements/ProfileRelationsCard';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import { RequestConfig } from '../../../props/ApiResponses';
 
 export default function IdentitiesShow() {
     const setProgress = useSetProgress();
@@ -61,17 +62,14 @@ export default function IdentitiesShow() {
     const editProfileRecords = useEditProfileRecords(activeOrganization, recordTypes);
 
     const fetchEmailLogs = useCallback(
-        (query = {}) =>
-            emailLogService.list(activeOrganization.id, {
-                identity_id: identity.id,
-                ...query,
-            }),
+        (query = {}, config: RequestConfig = {}) =>
+            emailLogService.list(activeOrganization.id, { identity_id: identity.id, ...query }, config),
         [activeOrganization?.id, identity?.id, emailLogService],
     );
 
     const fetchNotes = useCallback(
-        (query = {}) => {
-            return sponsorIdentitiesService.notes(activeOrganization.id, identity?.id, query);
+        (query = {}, config: RequestConfig = {}) => {
+            return sponsorIdentitiesService.notes(activeOrganization.id, identity?.id, query, config);
         },
         [activeOrganization.id, identity?.id, sponsorIdentitiesService],
     );

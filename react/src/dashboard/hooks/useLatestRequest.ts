@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { RequestConfigData } from '../../dashboard/props/ApiResponses';
+import { RequestConfigData } from '../props/ApiResponses';
 
 export type LatestRequestHandlers<T> = {
     onStart?: () => void;
@@ -67,7 +67,10 @@ export default function useLatestRequest(): LatestRequestRunner {
         } finally {
             if (isLatestRequestIndex()) {
                 xhrRef.current = null;
-                handlers.onFinally?.();
+
+                if (mountedRef.current) {
+                    handlers.onFinally?.();
+                }
             }
         }
     }, []);

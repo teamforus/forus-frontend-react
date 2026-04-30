@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Schritt {{step}}",
-            "step_out_of": "Schritt {{step}}"
+            "info_label": "Informationen zur Bewerbung",
+            "step_out_of": "Schritt {{step}} von {{total}}"
         },
         "title": "Anfrage #{{ id }}",
         "clarifications": {
@@ -1370,12 +1371,12 @@
         },
         "product_item": {
             "bookmark": "Zur Wunschliste hinzufügen",
-            "payment_option_ideal": "Zusätzliche Zahlung möglich",
-            "payment_option_ideal_aria_label": "Zusätzliche Zahlung möglich: Klicken Sie für weitere Informationen",
             "payment_option_qr": "QR-Zahlung",
             "payment_option_qr_aria_label": "QR-Zahlung: Klicken Sie für weitere Informationen",
             "payment_option_reservation": "Online bezahlen",
-            "payment_option_reservation_aria_label": "Online bezahlen: Klicken Sie für weitere Informationen"
+            "payment_option_reservation_aria_label": "Online bezahlen: Klicken Sie für weitere Informationen",
+            "payment_option_ideal": "Online bezahlen (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Online-Zahlung (iDEAL | Wero): Klicken Sie für weitere Informationen"
         }
     },
     "maps": {
@@ -2325,7 +2326,6 @@
             "max_limit": "Maximal pro Person:",
             "pay_from_voucher": "Sie zahlen aus dem Guthaben:",
             "price": "Preis:",
-            "payment_option_ideal": "Online bezahlen (iDEAL)",
             "payment_option_reservation": "Online buchen",
             "payment_options": "Zahlungsmöglichkeiten",
             "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten",
@@ -2351,11 +2351,12 @@
             "when": "Wenn",
             "where": "Wo",
             "add_to_favorites": "Zu Favoriten hinzufügen",
-            "ideal_logo_alt": "iDEAL-Logo",
             "remove_from_favorites": "Aus den Favoriten entfernen",
             "duration_of_promotion": "Dauer",
             "login_to_order": "Zum Bestellen anmelden",
-            "request_one_now": "Eine Anfrage stellen"
+            "request_one_now": "Eine Anfrage stellen",
+            "ideal_logo_alt": "iDEAL | Wero-Logo",
+            "payment_option_ideal": "Online bezahlen (iDEAL | Wero)"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2402,7 +2403,6 @@
             "payment_option_reservation": "Online buchen",
             "price": "Preis (€)",
             "price_from": "Von",
-            "payment_option_extra_payment": "Online-Bezahlung mit iDeal",
             "price_type_option_discount_fixed": "Rabatt in Euro",
             "price_type_option_discount_percentage": "Rabatt in Prozent",
             "price_type_option_free": "Kostenlos",
@@ -2415,7 +2415,8 @@
             "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
             "price_to": "An",
             "price_type_option_payout": "Auszahlung auf ein Bankkonto",
-            "active_filters": "Aktive Filter"
+            "active_filters": "Aktive Filter",
+            "payment_option_extra_payment": "Online bezahlen mit iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -3733,13 +3734,13 @@
         "confirm": "Es ist klar!",
         "description": "Die Zahlungsmöglichkeiten variieren je nach Produkt. Die Bezahlung kann auf verschiedene Arten erfolgen:",
         "header": "Zahlungsmöglichkeiten",
-        "info_option_extra_payment_ideal_description": "Reicht Ihr Guthaben für eine Reservierung nicht aus? Für einige Produkte können Sie den Restbetrag sicher online über iDEAL bezahlen.",
-        "info_option_extra_payment_ideal_title": "Zusätzliche Zahlung (iDeal)",
         "info_option_qr_description": "Bezahlen Sie ganz einfach vor Ort beim Anbieter, indem Sie den QR-Code zeigen, den Sie an der Kasse erhalten haben. Der Anbieter scannt den Code und die Zahlung wird sofort verarbeitet.",
         "info_option_qr_title": "QR-Code",
         "info_option_reservation_description": "Bezahlen Sie über diese Website, indem Sie ein Angebot bestellen. Klicken Sie dazu auf die Schaltfläche \"Reservieren\" und geben Sie die erforderlichen Daten ein. Der Betrag wird direkt von Ihrem Guthaben abgezogen. Der Anbieter wird die Reservierung erhalten und Sie gegebenenfalls kontaktieren.",
         "info_option_reservation_title": "Buchung",
-        "title": "Zahlungsmöglichkeiten"
+        "title": "Zahlungsmöglichkeiten",
+        "info_option_extra_payment_ideal_description": "Reicht Ihr Guthaben für eine Online-Buchung nicht aus? Bei einigen Produkten können Sie den Restbetrag sicher online über iDEAL | Wero bezahlen.",
+        "info_option_extra_payment_ideal_title": "Online bezahlen (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Schließen Sie",
@@ -3795,7 +3796,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Gemeinde Berkelland",
-            "default": "Startseite (Home)",
             "ede": "Ede",
             "eemsdelta": "Gemeinde Eems Delta",
             "geertruidenberg": "Gemeinde Geertruidenberg",
@@ -3812,11 +3812,12 @@
             "vergoedingen": "Logo Stadtverwaltung Nijmegen",
             "waalwijk": "Passpunkt",
             "westerkwartier": "Gemeinde Westerkwartier",
-            "winterswijk": "Gemeinde Winterswijk"
+            "winterswijk": "Gemeinde Winterswijk",
+            "default": "Homepage",
+            "isd": "ISD Interkommunaler Sozialdienst Brabantse Wal"
         },
         "pages": {
             "berkelland": "Gemeinde Berkelland",
-            "default": "Homepage (Nicht-Homepage)",
             "ede": "Ede",
             "eemsdelta": "Gemeinde Eems Delta",
             "geertruidenberg": "Gemeinde Geertruidenberg",
@@ -3833,7 +3834,9 @@
             "vergoedingen": "Logo Stadtverwaltung Nijmegen",
             "waalwijk": "Passpunkt",
             "westerkwartier": "Gemeinde Westerkwartier",
-            "winterswijk": "Gemeinde Winterswijk"
+            "winterswijk": "Gemeinde Winterswijk",
+            "default": "Zur Homepage gehen",
+            "isd": "ISD Interkommunaler Sozialdienst Brabantse Wal"
         }
     }
 }

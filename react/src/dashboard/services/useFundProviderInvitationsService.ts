@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundProviderInvitation from '../props/models/FundProviderInvitation';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class FundProviderInvitationsService<T = FundProviderInvitation> {
@@ -40,8 +40,12 @@ export class FundProviderInvitationsService<T = FundProviderInvitation> {
         return this.apiRequest.patch(`/platform/provider-invitations/${token}`);
     }
 
-    public listInvitations = (organization_id: number, filters: object = {}): Promise<ApiResponse<T>> => {
-        return this.apiRequest.get(`/platform/organizations/${organization_id}/provider-invitations`, filters);
+    public listInvitations = (
+        organization_id: number,
+        filters: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<T>> => {
+        return this.apiRequest.get(`/platform/organizations/${organization_id}/provider-invitations`, filters, config);
     };
 
     public acceptInvitationById(organization_id: number, invitation_id: number): Promise<ApiResponseSingle<T>> {

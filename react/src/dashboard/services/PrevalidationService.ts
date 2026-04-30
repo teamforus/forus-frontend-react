@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import Prevalidation from '../props/models/Prevalidation';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
@@ -18,12 +18,8 @@ export class PrevalidationService<T = Prevalidation> {
      */
     public prefix = '/platform/organizations';
 
-    /**
-     * @param organization_id
-     * @param filters
-     */
-    public list(organization_id: number, filters: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidations`, filters);
+    public list(organization_id: number, filters: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidations`, filters, config);
     }
 
     public store(organization_id: number, data: object = {}, fund_id: number = null): Promise<ApiResponseSingle<T>> {

@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import Organization from '../../../../props/models/Organization';
 import useTranslate from '../../../../hooks/useTranslate';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 import PhysicalCardType from '../../../../props/models/PhysicalCardType';
 import { usePhysicalCardTypeService } from '../../../../services/PhysicalCardTypeService';
@@ -24,6 +23,7 @@ import { useDeletePhysicalCardType } from '../hooks/useDeletePhysicalCardType';
 import classNames from 'classnames';
 import { useEditPhysicalCardType } from '../hooks/useEditPhysicalCardType';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function PhysicalCardTypesTable({
     tab = 'physical_cards',
@@ -43,7 +43,7 @@ export default function PhysicalCardTypesTable({
     filterUseQueryParams?: boolean;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const editPhysicalCardType = useEditPhysicalCardType();
     const deletePhysicalCardType = useDeletePhysicalCardType();
@@ -64,13 +64,16 @@ export default function PhysicalCardTypesTable({
     );
 
     const fetchPhysicalCardTypes = useCallback(() => {
-        setProgress(0);
-
-        physicalCardTypeService
-            .list(organization.id, { ...filterActiveValues, ...(fundId ? { fund_id: fundId } : {}) })
-            .then((res) => setPhysicalCardTypes(res.data))
-            .finally(() => setProgress(100));
-    }, [physicalCardTypeService, organization.id, setProgress, filterActiveValues, fundId]);
+        runLatestRequest(
+            (config) =>
+                physicalCardTypeService.list(
+                    organization.id,
+                    { ...filterActiveValues, ...(fundId ? { fund_id: fundId } : {}) },
+                    config,
+                ),
+            { onSuccess: (res) => setPhysicalCardTypes(res.data) },
+        );
+    }, [physicalCardTypeService, organization.id, runLatestRequest, filterActiveValues, fundId]);
 
     useEffect(() => {
         fetchPhysicalCardTypes();

@@ -65,15 +65,15 @@ export default function ModalEditProfileBankAccount({
     return (
         <Modal
             modal={modal}
-            title={id ? 'Edit bank account' : 'Add bank account'}
+            title={id ? 'Wijzig bankrekening' : 'Voeg bankrekening toe'}
             onSubmit={formSubmit}
             footer={
                 <Fragment>
                     <button type="button" className="button button-default" onClick={modal.close}>
-                        Cancel
+                        Annuleren
                     </button>
                     <button type="submit" className="button button-primary">
-                        Submit
+                        Bevestigen
                     </button>
                 </Fragment>
             }>

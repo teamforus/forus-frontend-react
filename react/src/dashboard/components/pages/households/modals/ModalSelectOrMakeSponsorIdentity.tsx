@@ -21,6 +21,7 @@ import IdentitiesTableRowItems from '../../identities/elements/IdentitiesTableRo
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import ProfileRecordsPersonal from '../../identitities-show/modals/elements/ProfileRecordsPersonal';
 import Household from '../../../../props/models/Sponsor/Household';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function ModalSelectOrMakeSponsorIdentity({
     modal,
@@ -41,6 +42,7 @@ export default function ModalSelectOrMakeSponsorIdentity({
 }) {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [action, setAction] = useState<'find' | 'create'>('find');
@@ -99,15 +101,15 @@ export default function ModalSelectOrMakeSponsorIdentity({
     );
 
     const fetchIdentities = useCallback(() => {
-        setSelected([]);
-        setProgress(0);
-
-        sponsorIdentitiesService
-            .list(organization.id, { ...filterActiveValues })
-            .then((res) => setIdentities(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [setSelected, setProgress, sponsorIdentitiesService, organization.id, filterActiveValues, pushApiError]);
+        runLatestRequest(
+            (config) => sponsorIdentitiesService.list(organization.id, { ...filterActiveValues }, config),
+            {
+                onStart: () => setSelected([]),
+                onSuccess: (res) => setIdentities(res.data),
+                onError: pushApiError,
+            },
+        );
+    }, [setSelected, runLatestRequest, sponsorIdentitiesService, organization.id, filterActiveValues, pushApiError]);
 
     const { headElement } = useConfigurableTable(sponsorIdentitiesService.getColumns(organization), {
         filter: filter,

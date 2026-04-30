@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Transaction from '../props/models/Transaction';
@@ -26,12 +26,13 @@ export class TransactionService<T = Transaction> {
         type: string,
         organizationId: number,
         data: object = {},
+        config: RequestConfig = {},
     ): Promise<
         ApiResponse<T> & {
             data: { meta: { total_amount_locale?: string; total_amount?: string } };
         }
     > {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/${type}/transactions`, data);
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/${type}/transactions`, data, config);
     }
 
     /**

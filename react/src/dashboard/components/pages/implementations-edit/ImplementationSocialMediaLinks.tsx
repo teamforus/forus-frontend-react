@@ -22,6 +22,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import ImplementationsRootBreadcrumbs from '../implementations/elements/ImplementationsRootBreadcrumbs';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function ImplementationSocialMediaLinks() {
     const { id } = useParams();
@@ -30,6 +31,7 @@ export default function ImplementationSocialMediaLinks() {
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const navigateState = useNavigateState();
     const openModal = useOpenModal();
     const activeOrganization = useActiveOrganization();
@@ -71,13 +73,19 @@ export default function ImplementationSocialMediaLinks() {
 
     const fetchSocialMedias = useCallback(() => {
         if (implementation) {
-            setProgress(0);
-
-            implementationSocialMediaService
-                .list(activeOrganization.id, implementation.id, filterActiveValues)
-                .then((res) => setSocialMedias(res.data))
-                .catch(pushApiError)
-                .finally(() => setProgress(100));
+            runLatestRequest(
+                (config) =>
+                    implementationSocialMediaService.list(
+                        activeOrganization.id,
+                        implementation.id,
+                        filterActiveValues,
+                        config,
+                    ),
+                {
+                    onSuccess: (res) => setSocialMedias(res.data),
+                    onError: pushApiError,
+                },
+            );
         }
     }, [
         activeOrganization.id,
@@ -85,7 +93,7 @@ export default function ImplementationSocialMediaLinks() {
         implementation,
         implementationSocialMediaService,
         pushApiError,
-        setProgress,
+        runLatestRequest,
     ]);
 
     const editSocialMedia = useCallback(

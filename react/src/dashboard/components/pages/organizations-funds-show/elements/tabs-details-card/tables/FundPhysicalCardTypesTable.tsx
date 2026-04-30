@@ -6,7 +6,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import usePaginatorService from '../../../../../../modules/paginator/services/usePaginatorService';
 import Organization from '../../../../../../props/models/Organization';
 import useTranslate from '../../../../../../hooks/useTranslate';
-import useSetProgress from '../../../../../../hooks/useSetProgress';
 import CardHeaderFilterNext from '../../../../../elements/tables/elements/CardHeaderFilterNext';
 import FilterItemToggle from '../../../../../elements/tables/elements/FilterItemToggle';
 import useFilterNext from '../../../../../../modules/filter_next/useFilterNext';
@@ -19,10 +18,11 @@ import { useFundPhysicalCardTypeService } from '../../../../../../services/FundP
 import FundPhysicalCardType from '../../../../../../props/models/FundPhysicalCardType';
 import { useDeleteFundPhysicalCardType } from '../../../hooks/useDeleteFundPhysicalCardType';
 import { DashboardRoutes } from '../../../../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../../../../hooks/useLatestRequestWithProgress';
 
 export default function FundPhysicalCardTypesTable({ fund, organization }: { fund: Fund; organization: Organization }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [paginatorKey] = useState('physical-card-types');
     const [fundPhysicalCardTypes, setFundPhysicalCardTypes] = useState<PaginationData<FundPhysicalCardType>>(null);
@@ -37,13 +37,10 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
     }>({ q: '', fund_id: fund?.id, per_page: paginatorService.getPerPage(paginatorKey) });
 
     const fetchPhysicalCardTypes = useCallback(() => {
-        setProgress(0);
-
-        fundPhysicalCardTypeService
-            .list(organization.id, filterActiveValues)
-            .then((res) => setFundPhysicalCardTypes(res.data))
-            .finally(() => setProgress(100));
-    }, [fundPhysicalCardTypeService, organization.id, setProgress, filterActiveValues]);
+        runLatestRequest((config) => fundPhysicalCardTypeService.list(organization.id, filterActiveValues, config), {
+            onSuccess: (res) => setFundPhysicalCardTypes(res.data),
+        });
+    }, [fundPhysicalCardTypeService, organization.id, runLatestRequest, filterActiveValues]);
 
     const storeFundPhysicalCardType = useEditFundPhysicalCardType();
     const deleteFundPhysicalCardType = useDeleteFundPhysicalCardType();

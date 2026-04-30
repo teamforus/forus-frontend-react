@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -26,8 +26,8 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/identities`, data);
     }
 
-    public list(organizationId: number, query: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities`, query);
+    public list(organizationId: number, query: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities`, query, config);
     }
 
     public read(organizationId: number, identityId: number): Promise<ApiResponseSingle<T>> {
@@ -91,10 +91,16 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
      * @param identityId
      * @param query
      */
-    public listRelations(organizationId: number, identityId: number, query: object = {}): Promise<ApiResponse<R>> {
+    public listRelations(
+        organizationId: number,
+        identityId: number,
+        query: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<R>> {
         return this.apiRequest.get(
             `${this.prefix}/${organizationId}/sponsor/identities/${identityId}/relations`,
             query,
+            config,
         );
     }
 
@@ -152,8 +158,13 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/identities/export-fields`);
     }
 
-    public notes(organizationId: number, id: number, data: object): Promise<ApiResponse<Note>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes`, data);
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object,
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes`, data, config);
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

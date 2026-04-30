@@ -21,12 +21,16 @@ import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function SponsorProducts() {
     const activeOrganization = useActiveOrganization();
 
     const setProgress = useSetProgress();
     const translate = useTranslate();
+    const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const productService = useProductService();
     const paginatorService = usePaginatorService();
@@ -103,9 +107,6 @@ export default function SponsorProducts() {
     const columns = productService.getColumnsSponsor(view);
 
     const fetchProducts = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
         const values = {
             ...filterActiveValues,
             date_type: null,
@@ -116,14 +117,13 @@ export default function SponsorProducts() {
             order_by: view === 'products' ? 'name' : 'last_monitored_change_at',
         };
 
-        productService
-            .sponsorProducts(activeOrganization.id, values)
-            .then((res) => setProducts(res.data))
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [setProgress, filterActiveValues, view, productService, activeOrganization.id]);
+        runLatestRequest((config) => productService.sponsorProducts(activeOrganization.id, values, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setProducts(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [runLatestRequest, pushApiError, filterActiveValues, view, productService, activeOrganization.id]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);

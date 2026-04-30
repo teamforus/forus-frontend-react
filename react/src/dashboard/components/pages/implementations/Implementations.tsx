@@ -17,14 +17,14 @@ import Media from '../../../props/models/Media';
 import ImplementationsRootBreadcrumbs from './elements/ImplementationsRootBreadcrumbs';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
-import useSetProgress from '../../../hooks/useSetProgress';
 import { ConfigurableTableColumn } from '../vouchers/hooks/useConfigurableTable';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Implementations() {
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
@@ -56,14 +56,14 @@ export default function Implementations() {
     );
 
     const fetchImplementations = useCallback(() => {
-        setProgress(0);
-
-        implementationService
-            .list(activeOrganization.id, filterValuesActive)
-            .then((res) => setImplementations(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [activeOrganization.id, filterValuesActive, implementationService, pushApiError, setProgress]);
+        runLatestRequest(
+            (config) => implementationService.list(activeOrganization.id, { ...filterValuesActive }, config),
+            {
+                onSuccess: (res) => setImplementations(res.data),
+                onError: pushApiError,
+            },
+        );
+    }, [activeOrganization.id, filterValuesActive, implementationService, pushApiError, runLatestRequest]);
 
     useEffect(() => {
         fetchImplementations();

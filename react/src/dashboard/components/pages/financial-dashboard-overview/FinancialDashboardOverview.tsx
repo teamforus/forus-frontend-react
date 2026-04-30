@@ -6,13 +6,12 @@ import useTranslate from '../../../hooks/useTranslate';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { FinancialOverview } from '../financial-dashboard/types/FinancialStatisticTypes';
-import usePushApiError from '../../../hooks/usePushApiError';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam } from 'use-query-params';
+import { RequestConfig } from '../../../props/ApiResponses';
 
 export default function FinancialDashboardOverview() {
     const translate = useTranslate();
-    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
     const activeOrganization = useActiveOrganization();
@@ -35,27 +34,23 @@ export default function FinancialDashboardOverview() {
     }, []);
 
     const fetchFunds = useCallback(
-        (year?: number): Promise<Array<Fund>> => {
-            return new Promise((resolve) =>
-                fundService
-                    .list(activeOrganization.id, { stats: 'all', per_page: 100, year: year })
-                    .then((res) => resolve(res.data.data.filter((fund) => fund.state !== 'waiting')))
-                    .catch(pushApiError),
+        async (year?: number, config: RequestConfig = {}): Promise<Array<Fund>> => {
+            const res = await fundService.list(
+                activeOrganization.id,
+                { stats: 'all', per_page: 100, year: year },
+                config,
             );
+
+            return res.data.data.filter((fund) => fund.state !== 'waiting');
         },
-        [activeOrganization.id, fundService, pushApiError],
+        [activeOrganization.id, fundService],
     );
 
     const fetchFinancialOverview = useCallback(
-        (year?: number): Promise<FinancialOverview> => {
-            return new Promise((resolve) => {
-                fundService
-                    .financialOverview(activeOrganization.id, { stats: 'all', year })
-                    .then((res) => resolve(res.data))
-                    .catch(pushApiError);
-            });
+        async (year?: number, config: RequestConfig = {}): Promise<FinancialOverview> => {
+            return (await fundService.financialOverview(activeOrganization.id, { stats: 'all', year }, config)).data;
         },
-        [activeOrganization.id, fundService, pushApiError],
+        [activeOrganization.id, fundService],
     );
 
     return (

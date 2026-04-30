@@ -26,12 +26,14 @@ import FundFormStateLabels from '../../elements/resource-states/FundFormStateLab
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import { NumberParam, StringParam } from 'use-query-params';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function FundForms() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundFormService = useFundFormService();
     const paginatorService = usePaginatorService();
@@ -75,18 +77,13 @@ export default function FundForms() {
     );
 
     const fetchFunds = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        fundFormService
-            .list(activeOrganization.id, filterActiveValues)
-            .then((res) => setFundForms(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [activeOrganization.id, filterActiveValues, fundFormService, setProgress, pushApiError]);
+        runLatestRequest((config) => fundFormService.list(activeOrganization.id, { ...filterActiveValues }, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setFundForms(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [activeOrganization.id, filterActiveValues, fundFormService, runLatestRequest, pushApiError]);
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);

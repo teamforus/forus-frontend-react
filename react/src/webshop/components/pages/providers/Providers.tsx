@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useProvidersPageFilters, { ProviderFilters } from './hooks/useProvidersPageFilters';
 import ProvidersSidebarFilters from './elements/ProvidersSidebarFilters';
-import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 
 export default function Providers() {
     const appConfigs = useAppConfigs();

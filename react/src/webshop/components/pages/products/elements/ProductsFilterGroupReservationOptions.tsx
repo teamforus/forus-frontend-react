@@ -38,7 +38,7 @@ export default function ProductsFilterGroupReservationOptions({
         },
         {
             value: 'extra_payment',
-            icon: <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" aria-hidden="true" />,
+            icon: <img src={assetUrl('/assets/img/icon-ideal-wero-square.svg')} alt="" aria-hidden="true" />,
             dusk: 'paymentOptionIdeal',
         },
     ]);

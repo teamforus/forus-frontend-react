@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Organization, { Permission, SponsorProviderOrganization, TranslationStats } from '../props/models/Organization';
@@ -100,12 +100,16 @@ export class OrganizationService<T = Organization> {
         return this.apiRequest.patch(`${this.prefix}/${id}/transfer-ownership`, data);
     }
 
-    public listProviders(id: number, data = {}): Promise<ApiResponse<FundProvider>> {
-        return this.apiRequest.get(`${this.prefix}/${id}/providers`, data);
+    public listProviders(id: number, data = {}, config: RequestConfig = {}): Promise<ApiResponse<FundProvider>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/providers`, data, config);
     }
 
-    public providerOrganizations(id: number, data = {}): Promise<ApiResponse<SponsorProviderOrganization>> {
-        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers`, data);
+    public providerOrganizations(
+        id: number,
+        data = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<SponsorProviderOrganization>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers`, data, config);
     }
 
     public translationStats(
@@ -133,8 +137,12 @@ export class OrganizationService<T = Organization> {
         });
     }
 
-    public financeProviders(id: number, data = {}): Promise<ApiResponse<ProviderFinancial>> {
-        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/finances`, data);
+    public financeProviders(
+        id: number,
+        data = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<ProviderFinancial>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/finances`, data, config);
     }
 
     public financeProvidersExportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {

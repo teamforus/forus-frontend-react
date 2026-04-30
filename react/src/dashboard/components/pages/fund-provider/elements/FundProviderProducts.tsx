@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState, MouseEvent } from 'react';
 import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
@@ -15,6 +14,7 @@ import FundProviderProductRowData from './FundProviderProductRowData';
 import useUpdateProduct from '../hooks/useUpdateProduct';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 type ProductLocal = SponsorProduct & {
     allowed?: boolean;
@@ -34,8 +34,8 @@ export default function FundProviderProducts({
     source: 'sponsor' | 'provider';
     fund: Fund;
 }) {
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const { mapProduct } = useUpdateProduct();
     const { openProductChat, makeProductChat } = useProductChat(fund, fundProvider, organization);
@@ -55,24 +55,25 @@ export default function FundProviderProducts({
     });
 
     const fetchProducts = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .listProviderProducts(
-                fundProvider.fund.organization_id,
-                fundProvider.fund.id,
-                fundProvider.id,
-                filterValuesActive,
-            )
-            .then((res) =>
-                setProducts({
-                    ...res.data,
-                    data: res.data.data.map((product) => mapProduct(fundProvider, product)),
-                }),
-            )
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [setProgress, fundService, fundProvider, filterValuesActive, mapProduct, pushApiError]);
+        runLatestRequest(
+            (config) =>
+                fundService.listProviderProducts(
+                    fundProvider.fund.organization_id,
+                    fundProvider.fund.id,
+                    fundProvider.id,
+                    filterValuesActive,
+                    config,
+                ),
+            {
+                onSuccess: (res) =>
+                    setProducts({
+                        ...res.data,
+                        data: res.data.data.map((product) => mapProduct(fundProvider, product)),
+                    }),
+                onError: pushApiError,
+            },
+        );
+    }, [runLatestRequest, fundService, fundProvider, filterValuesActive, mapProduct, pushApiError]);
 
     const onStartChat = useCallback(
         (e: MouseEvent<HTMLAnchorElement>, product: SponsorProduct) => {

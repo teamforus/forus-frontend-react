@@ -649,7 +649,8 @@
         },
         "steps": {
             "step": "Шаг {{step}}",
-            "step_out_of": "Шаг {{step}}"
+            "info_label": "Информация о заявке",
+            "step_out_of": "Шаг {{step}} из {{total}}"
         },
         "title": "Запрос #{{ id }}",
         "clarifications": {
@@ -1370,12 +1371,12 @@
         },
         "product_item": {
             "bookmark": "Добавить в список желаний",
-            "payment_option_ideal": "Возможна дополнительная оплата",
-            "payment_option_ideal_aria_label": "Возможна дополнительная оплата: нажмите для получения дополнительной информации",
             "payment_option_qr": "QR-платеж",
             "payment_option_qr_aria_label": "QR-платеж: нажмите для получения дополнительной информации",
             "payment_option_reservation": "Оплатить онлайн",
-            "payment_option_reservation_aria_label": "Оплата онлайн: нажмите для получения дополнительной информации"
+            "payment_option_reservation_aria_label": "Оплата онлайн: нажмите для получения дополнительной информации",
+            "payment_option_ideal": "Оплатить онлайн (iDEAL | Wero)",
+            "payment_option_ideal_aria_label": "Оплата онлайн (iDEAL | Wero): нажмите для получения дополнительной информации"
         }
     },
     "maps": {
@@ -2325,7 +2326,6 @@
             "max_limit": "Максимум на человека:",
             "pay_from_voucher": "Вы платите из кредита:",
             "price": "Цена:",
-            "payment_option_ideal": "Оплатить онлайн (iDEAL)",
             "payment_option_reservation": "Забронировать онлайн",
             "payment_options": "Варианты оплаты",
             "payment_option_link": "Подробнее о вариантах оплаты",
@@ -2351,11 +2351,12 @@
             "when": "Когда",
             "where": "Где",
             "add_to_favorites": "Добавить в избранное",
-            "ideal_logo_alt": "Логотип iDEAL",
             "remove_from_favorites": "Удалить из избранного",
             "duration_of_promotion": "Продолжительность",
             "login_to_order": "Войдите в систему, чтобы заказать",
-            "request_one_now": "Сделать запрос"
+            "request_one_now": "Сделать запрос",
+            "ideal_logo_alt": "Логотип iDEAL | Wero",
+            "payment_option_ideal": "Оплатить онлайн (iDEAL | Wero)"
         },
         "low_amount": "У вас нет кредита с достаточным балансом.",
         "map": {
@@ -2402,7 +2403,6 @@
             "payment_option_reservation": "Забронировать онлайн",
             "price": "Цена (€)",
             "price_from": "С сайта",
-            "payment_option_extra_payment": "Оплата онлайн с помощью iDeal",
             "price_type_option_discount_fixed": "Скидка в евро",
             "price_type_option_discount_percentage": "Скидка в процентах",
             "price_type_option_free": "Бесплатно",
@@ -2415,7 +2415,8 @@
             "payment_options_info": "Подробнее о вариантах оплаты",
             "price_to": "На",
             "price_type_option_payout": "Выплата на банковский счет",
-            "active_filters": "Активные фильтры"
+            "active_filters": "Активные фильтры",
+            "payment_option_extra_payment": "Оплата онлайн с помощью iDEAL | Wero"
         },
         "sort": {
             "created_at_asc": "Самый старый первый",
@@ -3733,13 +3734,13 @@
         "confirm": "Все ясно!",
         "description": "Варианты оплаты зависят от товара. Оплата может быть произведена несколькими способами:",
         "header": "Варианты оплаты",
-        "info_option_extra_payment_ideal_description": "Вашего кредита недостаточно для бронирования? Для некоторых продуктов вы можете спокойно оплатить оставшуюся сумму онлайн через iDEAL.",
-        "info_option_extra_payment_ideal_title": "Дополнительная оплата (iDeal)",
         "info_option_qr_description": "Легко оплатите услугу в месте нахождения поставщика, предъявив QR-код, полученный при оформлении заказа. Поставщик отсканирует код, и платеж будет немедленно обработан.",
         "info_option_qr_title": "QR-код",
         "info_option_reservation_description": "Оплатите заказ через этот сайт, заказав предложение. Для этого нажмите на кнопку резервирования и заполните необходимые данные. Сумма будет вычтена непосредственно из доступного кредита. Поставщик получит заказ и при необходимости свяжется с вами.",
         "info_option_reservation_title": "Бронирование",
-        "title": "Варианты оплаты"
+        "title": "Варианты оплаты",
+        "info_option_extra_payment_ideal_description": "Ваш кредит недостаточен для онлайн-бронирования? Для некоторых товаров вы можете спокойно оплатить оставшуюся сумму онлайн через iDEAL | Wero.",
+        "info_option_extra_payment_ideal_title": "Оплатить онлайн (iDEAL | Wero)"
     },
     "modal_product_price_type_options_info": {
         "confirm": "Закрыть",
@@ -3795,7 +3796,6 @@
     "logo_alt_text": {
         "home": {
             "berkelland": "Муниципалитет Беркелланд",
-            "default": "Домашняя страница (home)",
             "ede": "Эде",
             "eemsdelta": "Муниципалитет Эемс Дельта",
             "geertruidenberg": "Муниципалитет Гертруйденберг",
@@ -3812,11 +3812,12 @@
             "vergoedingen": "логотип Муниципалитет Неймегена",
             "waalwijk": "Пункт пропуска",
             "westerkwartier": "Муниципалитет Вестерквартье",
-            "winterswijk": "Муниципалитет Винтерсвейк"
+            "winterswijk": "Муниципалитет Винтерсвейк",
+            "default": "Домашняя страница",
+            "isd": "ISD Межмуниципальная социальная служба Brabantse Wal"
         },
         "pages": {
             "berkelland": "Муниципалитет Беркелланд",
-            "default": "Домашняя страница (не домашняя)",
             "ede": "Эде",
             "eemsdelta": "Муниципалитет Эемс Дельта",
             "geertruidenberg": "Муниципалитет Гертруйденберг",
@@ -3833,7 +3834,9 @@
             "vergoedingen": "логотип Муниципалитет Неймегена",
             "waalwijk": "Пункт пропуска",
             "westerkwartier": "Муниципалитет Вестерквартье",
-            "winterswijk": "Муниципалитет Винтерсвейк"
+            "winterswijk": "Муниципалитет Винтерсвейк",
+            "default": "Перейти на главную страницу",
+            "isd": "ISD Межмуниципальная социальная служба Brabantse Wal"
         }
     }
 }

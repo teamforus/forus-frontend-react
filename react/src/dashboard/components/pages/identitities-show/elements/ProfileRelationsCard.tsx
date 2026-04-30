@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter';
@@ -20,6 +19,7 @@ import SponsorProfileRelation from '../../../../props/models/Sponsor/SponsorProf
 import ProfileRelationsTableRowItem from './ProfileRelationsTableRowItem';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function ProfileRelationsCard({
     organization,
@@ -28,8 +28,8 @@ export default function ProfileRelationsCard({
     organization: Organization;
     identity: SponsorIdentity;
 }) {
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const activeOrganization = useActiveOrganization();
 
     const sponsorIdentitiesService = useSponsorIdentitiesService();
@@ -59,18 +59,17 @@ export default function ProfileRelationsCard({
     });
 
     const fetchIdentityRelations = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        sponsorIdentitiesService
-            .listRelations(organization.id, identity?.id, filterValuesActive)
-            .then((res) => setRelations(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [filterValuesActive, identity?.id, organization.id, pushApiError, setProgress, sponsorIdentitiesService]);
+        runLatestRequest(
+            (config) =>
+                sponsorIdentitiesService.listRelations(organization.id, identity?.id, filterValuesActive, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setRelations(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [filterValuesActive, identity?.id, organization.id, pushApiError, runLatestRequest, sponsorIdentitiesService]);
 
     useEffect(() => {
         fetchIdentityRelations();

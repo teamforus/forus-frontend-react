@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import PrevalidationRequest from '../props/models/PrevalidationRequest';
 
@@ -17,8 +17,8 @@ export class PrevalidationRequestService<T = PrevalidationRequest> {
      */
     public prefix = '/platform/organizations';
 
-    public list(organization_id: number, filters: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidation-requests`, filters);
+    public list(organization_id: number, filters: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidation-requests`, filters, config);
     }
 
     public storeBatch(

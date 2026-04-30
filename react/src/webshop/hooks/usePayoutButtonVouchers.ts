@@ -6,10 +6,10 @@ import { filterVouchersByVoucherPayoutButton, VoucherPayoutButtonType } from '..
 
 export default function usePayoutButtonVouchers(
     vouchers: Array<Voucher> | null | undefined,
-    fundRequestAccounts: Array<ProfileBankAccount> | null | undefined,
+    bankAccounts: Array<ProfileBankAccount> | null | undefined,
     buttonType: VoucherPayoutButtonType,
 ): Array<Voucher> {
-    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers?.filter(Boolean), fundRequestAccounts);
+    const payoutEligibleVouchers = usePayoutEligibleVouchers(vouchers?.filter(Boolean), bankAccounts);
 
     return useMemo(() => {
         return filterVouchersByVoucherPayoutButton(payoutEligibleVouchers, buttonType);

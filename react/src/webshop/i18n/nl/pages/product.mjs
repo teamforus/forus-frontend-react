@@ -34,7 +34,7 @@ export default {
         payment_options: 'Betaalopties',
         payment_option_qr: 'QR-code tonen bij aanbieder',
         payment_option_reservation: 'Online reserveren',
-        payment_option_ideal: 'Online bijbetalen (iDEAL)',
+        payment_option_ideal: 'Online bijbetalen (iDEAL | Wero)',
         payment_option_link: 'Lees meer over de betaalmogelijkheden',
 
         buy_now: 'Koop nu!',
@@ -63,7 +63,7 @@ export default {
 
         remove_from_favorites: 'Verwijder uit favorieten',
         add_to_favorites: 'Toevoegen aan favorieten',
-        ideal_logo_alt: 'iDEAL logo',
+        ideal_logo_alt: 'iDEAL | Wero logo',
     },
     price: {
         free: 'Gratis',

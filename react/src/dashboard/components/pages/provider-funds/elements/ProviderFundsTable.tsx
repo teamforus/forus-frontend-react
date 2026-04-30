@@ -25,6 +25,7 @@ import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
 import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function ProviderFundsTable({
     type,
@@ -43,6 +44,7 @@ export default function ProviderFundsTable({
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const successApplying = useProviderFundsApplySuccess();
     const failOfficesCheck = useProviderFundsFailOfficesCheck();
@@ -85,25 +87,24 @@ export default function ProviderFundsTable({
     );
 
     const fetchFunds = useCallback(() => {
-        setSelected([]);
-        setLoading(true);
-        setProgress(0);
+        const filters = {
+            active: type == 'active' ? 1 : 0,
+            pending: type == 'pending_rejected' ? 1 : 0,
+            unsubscribed: type == 'unsubscribed' ? 1 : 0,
+            archived: type == 'archived' ? 1 : 0,
+            ...filterValuesActive,
+        };
 
-        providerFundService
-            .listFunds(organization.id, {
-                active: type == 'active' ? 1 : 0,
-                pending: type == 'pending_rejected' ? 1 : 0,
-                unsubscribed: type == 'unsubscribed' ? 1 : 0,
-                archived: type == 'archived' ? 1 : 0,
-                ...filterValuesActive,
-            })
-            .then((res) => setProviderFunds(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [filterValuesActive, organization.id, providerFundService, pushApiError, setProgress, setSelected, type]);
+        runLatestRequest((config) => providerFundService.listFunds(organization.id, filters, config), {
+            onStart: () => {
+                setSelected([]);
+                setLoading(true);
+            },
+            onSuccess: (res) => setProviderFunds(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [filterValuesActive, organization.id, providerFundService, pushApiError, runLatestRequest, setSelected, type]);
 
     const cancelApplications = useCallback(
         (providerFunds: Array<FundProvider>) => {

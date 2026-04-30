@@ -7,12 +7,14 @@ import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import useFundExporter from '../../../../services/exporters/useFundExporter';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
+import { RequestConfig } from '../../../../props/ApiResponses';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function FinancialOverviewFundsBudgetTable({
     years,
@@ -24,15 +26,16 @@ export default function FinancialOverviewFundsBudgetTable({
     loaded,
 }: {
     years: Array<{ id: number; name: string }>;
-    fetchFunds: (year: number) => Promise<Array<Fund>>;
-    fetchFinancialOverview: (year: number) => Promise<FinancialOverview>;
+    fetchFunds: (year: number, config?: RequestConfig) => Promise<Array<Fund>>;
+    fetchFinancialOverview: (year: number, config?: RequestConfig) => Promise<FinancialOverview>;
     organization: Organization;
     year: number;
     setYear: (year: number) => void;
     loaded: boolean;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundExporter = useFundExporter();
 
@@ -52,13 +55,22 @@ export default function FinancialOverviewFundsBudgetTable({
     useEffect(() => {
         if (!loaded) return;
 
-        setProgress(0);
-
-        Promise.all([
-            fetchFinancialOverview(year).then(setFinancialOverview),
-            fetchFunds(year).then((funds) => setFunds(funds)),
-        ]).finally(() => setProgress(100));
-    }, [fetchFinancialOverview, fetchFunds, year, setProgress, loaded]);
+        runLatestRequest(
+            async (config) => {
+                return {
+                    financialOverview: await fetchFinancialOverview(year, config),
+                    funds: await fetchFunds(year, config),
+                };
+            },
+            {
+                onSuccess: (res) => {
+                    setFinancialOverview(res.financialOverview);
+                    setFunds(res.funds);
+                },
+                onError: pushApiError,
+            },
+        );
+    }, [fetchFinancialOverview, fetchFunds, year, pushApiError, runLatestRequest, loaded]);
 
     if (!budgetFunds?.length || !years.length) {
         return loaded ? <LoadingCard /> : null;

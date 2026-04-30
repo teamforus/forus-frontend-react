@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Product from '../props/models/Product';
@@ -32,8 +32,9 @@ export class ProductService<T = Product> {
     public list(
         organizationId: number,
         data: object = {},
+        config: RequestConfig = {},
     ): Promise<ApiResponse<T, { total_archived: number; total_provider: number; total_sponsor: number }>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/products`, data);
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/products`, data, config);
     }
 
     /**
@@ -46,8 +47,12 @@ export class ProductService<T = Product> {
     /**
      * Fetch list sponsor products
      */
-    public sponsorProducts(sponsor_organization_id: number, data = {}): Promise<ApiResponse<SponsorProduct>> {
-        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products`, data);
+    public sponsorProducts(
+        sponsor_organization_id: number,
+        data = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<SponsorProduct>> {
+        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products`, data, config);
     }
 
     /**
@@ -64,8 +69,13 @@ export class ProductService<T = Product> {
     /**
      * Fetch the list of product funds
      */
-    public listProductFunds(organization_id: number, id: number, data: object = {}): Promise<ApiResponse<ProductFund>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/products/${id}/funds`, data);
+    public listProductFunds(
+        organization_id: number,
+        id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<ProductFund>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/products/${id}/funds`, data, config);
     }
 
     /**

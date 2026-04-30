@@ -33,11 +33,11 @@ export default function ExtraPayments({
                         <p>
                             In sommige gevallen heeft een deelnemer het grootste gedeelte van een toegekend tegoed al
                             besteed. Er blijft een klein restant bedrag over. Om het budget toch volledig te kunnen
-                            uitnutten komt er een bijbetaal met iDEAL optie beschikbaar. Door middel van de
+                            uitnutten komt er een bijbetaal met iDEAL | Wero optie beschikbaar. Door middel van de
                             bijbetaaloptie kunnen deelnemers die nog een (klein) bedrag resterend hebben, toch
                             gebruikmaken van het aanbod op de website. In dit geval betalen ze een gedeelte van de
-                            kosten met het toegekende tegoed en een gedeelte zelfstandig met iDEAL. Deze mogelijkheid
-                            wordt geboden door de integratie met Mollie, een payment service provider.
+                            kosten met het toegekende tegoed en een gedeelte zelfstandig met iDEAL | Wero. Deze
+                            mogelijkheid wordt geboden door de integratie met Mollie, een payment service provider.
                         </p>
 
                         <img
@@ -54,9 +54,9 @@ export default function ExtraPayments({
                                 </div>
                                 <h4>Maximale benutting van het budget</h4>
                                 <p>
-                                    De bijbetaaloptie met iDEAL stelt deelnemers in staat om het toegekende tegoed
-                                    volledig te benutten, zelfs als er slechts een klein bedrag over is. Hierdoor kunnen
-                                    ze optimaal profiteren van alle beschikbare aanbiedingen.
+                                    De bijbetaaloptie met iDEAL | Wero stelt deelnemers in staat om het toegekende
+                                    tegoed volledig te benutten, zelfs als er slechts een klein bedrag over is. Hierdoor
+                                    kunnen ze optimaal profiteren van alle beschikbare aanbiedingen.
                                 </p>
                             </div>
                             <div className="block-feature-icons-item">
@@ -76,9 +76,10 @@ export default function ExtraPayments({
                                 </div>
                                 <h4>Gebruiksgemak</h4>
                                 <p>
-                                    Met de bijbetaaloptie met iDEAL kunnen deelnemers gemakkelijk en snel bijbetalen.
-                                    iDEAL is een bekende en gebruiksvriendelijke betaaloptie. Deze toevoeging verbetert
-                                    de gebruikerservaring en draagt bij aan een hogere tevredenheid onder de deelnemers.
+                                    Met de bijbetaaloptie met iDEAL | Wero kunnen deelnemers gemakkelijk en snel
+                                    bijbetalen. iDEAL | Wero is een bekende en gebruiksvriendelijke betaaloptie. Deze
+                                    toevoeging verbetert de gebruikerservaring en draagt bij aan een hogere tevredenheid
+                                    onder de deelnemers.
                                 </p>
                             </div>
                             <div className="block-feature-icons-item">
@@ -87,9 +88,9 @@ export default function ExtraPayments({
                                 </div>
                                 <h4>Beheersbaarheid</h4>
                                 <p>
-                                    De sponsor heeft volledige controle over betalingen via iDEAL. Dit stelt de sponsor
-                                    in staat om de optie om bij te betalen per aanbieder in- of uit te schakelen,
-                                    waardoor flexibiliteit en gemak worden geboden.
+                                    De sponsor heeft volledige controle over betalingen via iDEAL | Wero. Dit stelt de
+                                    sponsor in staat om de optie om bij te betalen per aanbieder in- of uit te
+                                    schakelen, waardoor flexibiliteit en gemak worden geboden.
                                 </p>
                             </div>
                         </div>
@@ -100,13 +101,13 @@ export default function ExtraPayments({
                                 <p>
                                     Mollie is een payment service provider (PSP) die online transacties afhandelt voor
                                     webwinkels en andere organisaties. Ze bieden een breed scala aan betaalmethoden,
-                                    zoals iDEAL. In Nederland is Mollie een van de meest populaire payment service
-                                    providers, vooral voor webwinkels en andere organisaties die online betalingen
-                                    willen accepteren. Mollie biedt een eenvoudige, veilige en betrouwbare manier om
-                                    betalingen te ontvangen. Door de integratie met Mollie wordt het mogelijk om
-                                    bijbetalingen met iDEAL te verwerken, wat zorgt voor een gebruiksvriendelijke en
-                                    veilige betalingservaring. Hierdoor wordt het Forus-platform nog toegankelijker en
-                                    efficiënter voor zowel aanbieders als deelnemers.
+                                    zoals iDEAL | Wero. In Nederland is Mollie een van de meest populaire payment
+                                    service providers, vooral voor webwinkels en andere organisaties die online
+                                    betalingen willen accepteren. Mollie biedt een eenvoudige, veilige en betrouwbare
+                                    manier om betalingen te ontvangen. Door de integratie met Mollie wordt het mogelijk
+                                    om bijbetalingen met iDEAL | Wero te verwerken, wat zorgt voor een
+                                    gebruiksvriendelijke en veilige betalingservaring. Hierdoor wordt het Forus-platform
+                                    nog toegankelijker en efficiënter voor zowel aanbieders als deelnemers.
                                 </p>
                             </div>
                             <div className="block-feature-text-image-columns-img">
@@ -137,9 +138,9 @@ export default function ExtraPayments({
                 </div>
                 <div className="card-section card-section-padless">
                     <div className="block block-feature-faq">
-                        <FaqItem title="Wat zijn de kosten per transactie via iDEAL?">
+                        <FaqItem title="Wat zijn de kosten per transactie via iDEAL | Wero?">
                             <p>
-                                De iDEAL-kosten per transactie kunt u terugvinden op:
+                                De iDEAL | Wero-kosten per transactie kunt u terugvinden op:
                                 <a href="https://www.mollie.com/nl/pricing" target="_blank" rel="noreferrer">
                                     https://www.mollie.com/nl/pricing
                                 </a>
@@ -154,12 +155,12 @@ export default function ExtraPayments({
                             </p>
                         </FaqItem>
 
-                        <FaqItem title="Is het ook mogelijk om te kiezen voor een ander betaalmiddel zoals Mastercard, Visa of Klarna i.p.v. iDEAL?">
-                            <p>Nee, op dit moment ondersteunen we alleen iDEAL via Mollie.</p>
+                        <FaqItem title="Is het ook mogelijk om te kiezen voor een ander betaalmiddel zoals Mastercard, Visa of Klarna i.p.v. iDEAL | Wero?">
+                            <p>Nee, op dit moment ondersteunen we alleen iDEAL | Wero via Mollie.</p>
                         </FaqItem>
 
-                        <FaqItem title="Kan ik als sponsor zelf bepalen welke aanbieder gebruik mag maken van iDEAL?">
-                            <p>Ja, het is mogelijk om per aanbieder iDEAL in- of uit te schakelen.</p>
+                        <FaqItem title="Kan ik als sponsor zelf bepalen welke aanbieder gebruik mag maken van iDEAL | Wero?">
+                            <p>Ja, het is mogelijk om per aanbieder iDEAL | Wero in- of uit te schakelen.</p>
                         </FaqItem>
 
                         <FaqItem title="Biedt Forus ook ondersteuning bij problemen met het Mollie-account?">
@@ -190,10 +191,12 @@ export default function ExtraPayments({
                         }}>
                         <div className="features-demo-banner-info-wrapper">
                             <div className="features-demo-banner-info">
-                                <div className="features-demo-banner-title">Bijbetalen met iDEAL uitproberen</div>
+                                <div className="features-demo-banner-title">
+                                    Bijbetalen met iDEAL | Wero uitproberen
+                                </div>
                                 <div className="features-demo-banner-details">
-                                    Wilt u zien hoe bijbetalen met iDEAL werkt? Neem dan contact met ons op voor een
-                                    persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+                                    Wilt u zien hoe bijbetalen met iDEAL | Wero werkt? Neem dan contact met ons op voor
+                                    een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
                                 </div>
                             </div>
                             <div className="features-demo-banner-action">
