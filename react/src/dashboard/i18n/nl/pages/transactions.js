@@ -63,7 +63,9 @@ export default {
             'Het unieke UID-nummer dat is toegevoegd aan de transactie binnen het Forus platform.' +
             ' Dit nummer wordt automatisch gegenereerd bij het handmatig aanmaken van een transactie.',
         amount: 'Het bedrag die gekoppeld staat aan de transactie.',
-        method: 'Het soort transactie. Dit kan bijvoorbeeld een transactie zijn vanuit een tegoed en/of een bijbetaling met iDeal.',
+        method:
+            'Het soort transactie. Dit kan bijvoorbeeld een transactie zijn vanuit een tegoed en/of een ' +
+            'bijbetaling met iDEAL | Wero.',
         branch_name: 'De naam van de vestiging die is aangemaakt door de aanbieder.',
         branch_number:
             'Een uniek 12-cijferig nummer dat door de Kamer van Koophandel aan elke vestiging wordt toegekend. Let op: Dit nummer verschilt van het KVK-nummer.',

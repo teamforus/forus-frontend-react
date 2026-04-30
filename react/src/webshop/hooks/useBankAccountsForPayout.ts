@@ -3,7 +3,7 @@ import { useProfileService } from '../../dashboard/services/ProfileService';
 import { ProfileBankAccount } from '../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useAuthIdentity from './useAuthIdentity';
 
-export default function useFundRequestBankAccounts() {
+export default function useBankAccountsForPayout() {
     const profileService = useProfileService();
     const authIdentity = useAuthIdentity();
     const [bankAccounts, setBankAccounts] = useState<Array<ProfileBankAccount>>(null);
@@ -25,6 +25,8 @@ export default function useFundRequestBankAccounts() {
     }, [authIdentity?.profile, fetchProfile]);
 
     return useMemo(() => {
-        return (bankAccounts || []).filter((account) => account.type === 'fund_request');
+        return (bankAccounts || []).filter((account) =>
+            ['profile_bank_account', 'fund_request'].includes(account.type),
+        );
     }, [bankAccounts]);
 }

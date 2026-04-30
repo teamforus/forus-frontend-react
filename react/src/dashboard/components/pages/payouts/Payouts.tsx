@@ -22,6 +22,7 @@ import PayoutTransaction from '../../../props/models/PayoutTransaction';
 import usePushApiError from '../../../hooks/usePushApiError';
 import PayoutsTable from './elements/PayoutsTable';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Payouts() {
     const openModal = useOpenModal();
@@ -30,6 +31,7 @@ export default function Payouts() {
     const pushApiError = usePushApiError();
     const paginatorService = usePaginatorService();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const payoutTransactionService = usePayoutTransactionService();
@@ -122,19 +124,14 @@ export default function Payouts() {
 
     const fetchTransactions = useCallback(
         (query = {}) => {
-            setLoading(true);
-            setProgress(0);
-
-            payoutTransactionService
-                .list(activeOrganization.id, { ...query })
-                .then((res) => setTransactions(res.data))
-                .catch(pushApiError)
-                .finally(() => {
-                    setLoading(false);
-                    setProgress(100);
-                });
+            runLatestRequest((config) => payoutTransactionService.list(activeOrganization.id, { ...query }, config), {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setTransactions(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            });
         },
-        [activeOrganization.id, setProgress, payoutTransactionService, pushApiError],
+        [activeOrganization.id, runLatestRequest, payoutTransactionService, pushApiError],
     );
 
     const { resetFilters: resetFilters } = filter;

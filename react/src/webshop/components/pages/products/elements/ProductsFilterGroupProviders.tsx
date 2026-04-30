@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormGroup from '../../../elements/forms/FormGroup';
 import { FilterSetter } from '../../../../../dashboard/modules/filter_next/types/FilterParams';
@@ -27,6 +27,10 @@ export default function ProductsFilterGroupProviders({
 }) {
     const translate = useTranslate();
 
+    const providerOptions = useMemo(() => {
+        return [{ id: null, name: translate('products.filters.all_providers') }, ...(organizations || [])];
+    }, [organizations, translate]);
+
     return (
         <ProductsFilterGroup
             dusk={'productFiltersGroupProviders'}
@@ -53,10 +57,7 @@ export default function ProductsFilterGroupProviders({
                                     multiline={true}
                                     allowSearch={true}
                                     onChange={(organization_id: number) => filterUpdate({ organization_id })}
-                                    options={[
-                                        { id: null, name: translate('products.filters.all_providers') },
-                                        ...(organizations || []),
-                                    ]}
+                                    options={providerOptions}
                                     dusk="selectControlOrganizations"
                                 />
                             )}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import ApiRequestService from './ApiRequestService';
 import ReimbursementCategory from '../props/models/ReimbursementCategory';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -17,8 +17,8 @@ export class ReimbursementCategoryService<T = ReimbursementCategory> {
      */
     public prefix = '/platform/organizations';
 
-    public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/reimbursement-categories`, data);
+    public list(organizationId: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/reimbursement-categories`, data, config);
     }
 
     public show(organizationId: number, id: number): Promise<ApiResponseSingle<T>> {

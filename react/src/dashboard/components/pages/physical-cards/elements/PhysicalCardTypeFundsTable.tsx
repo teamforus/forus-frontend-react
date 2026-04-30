@@ -5,7 +5,6 @@ import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../../hooks/useTranslate';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import PhysicalCardType from '../../../../props/models/PhysicalCardType';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
@@ -23,11 +22,12 @@ import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { Permission } from '../../../../props/models/Organization';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physicalCardType: PhysicalCardType }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -63,22 +63,27 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
     });
 
     const fetchFunds = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .list(activeOrganization.id, {
-                ...filterActiveValues,
-                with_archived: 1,
-                with_external: 1,
-                stats: 'min',
-                archived: filterActiveValues?.funds_type == 'archived' ? 1 : 0,
-                per_page: filterActiveValues.per_page,
-                physical_card_type_id: physicalCardType?.id,
-            })
-            .then((res) => setFunds(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [activeOrganization.id, filterActiveValues, fundService, pushApiError, setProgress, physicalCardType?.id]);
+        runLatestRequest(
+            (config) =>
+                fundService.list(
+                    activeOrganization.id,
+                    {
+                        ...filterActiveValues,
+                        with_archived: 1,
+                        with_external: 1,
+                        stats: 'min',
+                        archived: filterActiveValues?.funds_type == 'archived' ? 1 : 0,
+                        per_page: filterActiveValues.per_page,
+                        physical_card_type_id: physicalCardType?.id,
+                    },
+                    config,
+                ),
+            {
+                onSuccess: (res) => setFunds(res.data),
+                onError: pushApiError,
+            },
+        );
+    }, [activeOrganization.id, filterActiveValues, fundService, pushApiError, runLatestRequest, physicalCardType?.id]);
 
     useEffect(() => {
         fetchFunds();

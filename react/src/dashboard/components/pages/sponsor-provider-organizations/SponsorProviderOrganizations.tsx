@@ -24,12 +24,14 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useProviderExporter from '../../../services/exporters/useProviderExporter';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
 
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const activeOrganization = useActiveOrganization();
     const providerExporter = useProviderExporter();
@@ -125,9 +127,6 @@ export default function SponsorProviderOrganizations() {
     }, [activeOrganization.id, fundService, pushApiError, setProgress]);
 
     const fetchProviderOrganizations = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
         const query = {
             ...filterActiveValues,
             ...{
@@ -136,15 +135,13 @@ export default function SponsorProviderOrganizations() {
             },
         };
 
-        organizationService
-            .providerOrganizations(activeOrganization.id, query)
-            .then((res) => setProviderOrganizations(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [activeOrganization.id, filterActiveValues, organizationService, pushApiError, setProgress]);
+        runLatestRequest((config) => organizationService.providerOrganizations(activeOrganization.id, query, config), {
+            onStart: () => setLoading(true),
+            onSuccess: (res) => setProviderOrganizations(res.data),
+            onError: pushApiError,
+            onFinally: () => setLoading(false),
+        });
+    }, [activeOrganization.id, filterActiveValues, organizationService, pushApiError, runLatestRequest]);
 
     const exportList = useCallback(() => {
         providerExporter.exportData(activeOrganization.id, {

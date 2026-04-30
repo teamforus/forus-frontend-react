@@ -1,4 +1,4 @@
-import ApiResponse, { ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -20,8 +20,8 @@ export class EmailLogService<T = EmailLog> {
     /**
      * Fetch list
      */
-    public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/email-logs`, data);
+    public list(organizationId: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/email-logs`, data, config);
     }
 
     /**

@@ -17,7 +17,7 @@ import UIControlCheckbox from '../../../dashboard/components/elements/forms/ui-c
 import { currencyFormat } from '../../../dashboard/helpers/string';
 import BlockWarning from '../elements/block-warning/BlockWarning';
 import TranslateHtml from '../../../dashboard/components/elements/translate-html/TranslateHtml';
-import useFundRequestBankAccounts from '../../hooks/useFundRequestBankAccounts';
+import useBankAccountsForPayout from '../../hooks/useBankAccountsForPayout';
 
 export default function ModalVoucherPayout({
     modal,
@@ -38,8 +38,8 @@ export default function ModalVoucherPayout({
 
     const [state, setState] = useState<'form' | 'success'>('form');
     const [voucherList] = useState<Array<Voucher>>(vouchers || []);
-    const fundRequestAccounts = useFundRequestBankAccounts();
-    const eligibleVouchers = usePayoutEligibleVouchers(voucherList, fundRequestAccounts);
+    const bankAccounts = useBankAccountsForPayout();
+    const eligibleVouchers = usePayoutEligibleVouchers(voucherList, bankAccounts);
 
     const finish = useCallback(() => {
         modal.close();
@@ -51,16 +51,22 @@ export default function ModalVoucherPayout({
             voucher_id: selectedVoucher?.id || eligibleVouchers?.[0]?.id || null,
             amount: '',
             accept_compliance_rules: false,
-            fund_request_id: fundRequestAccounts?.[0]?.type_id || null,
+            bank_account:
+                bankAccounts && bankAccounts?.[0] ? `${bankAccounts[0].type}_${bankAccounts[0].type_id}` : null,
         },
         (values) => {
             setProgress(0);
+
+            const account = bankAccounts.find(
+                (account) => `${account.type}_${account.type_id}` === values.bank_account,
+            );
 
             payoutService
                 .store({
                     voucher_id: values.voucher_id,
                     amount: values.amount,
-                    fund_request_id: values.fund_request_id,
+                    fund_request_id: account.type === 'fund_request' ? account.type_id : null,
+                    profile_bank_account_id: account.type === 'profile_bank_account' ? account.type_id : null,
                 })
                 .then(() => {
                     setState('success');
@@ -79,15 +85,15 @@ export default function ModalVoucherPayout({
     }, [eligibleVouchers, form.values.voucher_id]);
 
     const selectedBankAccount = useMemo(() => {
-        return fundRequestAccounts?.find((account) => account.type_id === form.values.fund_request_id);
-    }, [fundRequestAccounts, form.values.fund_request_id]);
+        return bankAccounts?.find((account) => `${account.type}_${account.type_id}` === form.values.bank_account);
+    }, [bankAccounts, form.values.bank_account]);
 
-    const fundRequestOptions = useMemo(() => {
-        return (fundRequestAccounts || []).map((account) => ({
-            id: account.type_id,
-            name: `${account.created_by_locale} #${account.type_id} - ${account.iban} / ${account.name}`,
+    const bankAccountOptions = useMemo(() => {
+        return (bankAccounts || []).map((account) => ({
+            id: `${account.type}_${account.type_id}`,
+            name: `${account.iban} / ${account.name}`,
         }));
-    }, [fundRequestAccounts]);
+    }, [bankAccounts]);
 
     const selectedVoucherId = selectedVoucherItem?.id;
     const updateForm = form.update;
@@ -203,19 +209,23 @@ export default function ModalVoucherPayout({
     }, [fixedPayoutAmount, partialPayoutAmounts, selectedVoucherId, updateForm]);
 
     useEffect(() => {
-        if (!fundRequestAccounts?.length) {
+        if (!bankAccounts?.length) {
             return;
         }
 
-        if (!form.values.fund_request_id) {
-            updateForm({ fund_request_id: fundRequestAccounts[0].type_id });
+        if (!form.values.bank_account) {
+            updateForm({
+                bank_account: `${bankAccounts[0].type}_${bankAccounts[0].type_id}`,
+            });
             return;
         }
 
-        if (!fundRequestAccounts.find((account) => account.type_id === form.values.fund_request_id)) {
-            updateForm({ fund_request_id: fundRequestAccounts[0].type_id });
+        if (!bankAccounts.find((account) => `${account.type}_${account.type_id}` === form.values.bank_account)) {
+            updateForm({
+                bank_account: `${bankAccounts[0].type}_${bankAccounts[0].type_id}`,
+            });
         }
-    }, [fundRequestAccounts, form.values.fund_request_id, updateForm]);
+    }, [bankAccounts, form.values.bank_account, updateForm]);
 
     useEffect(() => {
         if (!eligibleVouchers.length) {
@@ -233,7 +243,7 @@ export default function ModalVoucherPayout({
             form.isLocked ||
             !form.values.voucher_id ||
             !form.values.amount ||
-            !form.values.fund_request_id ||
+            !form.values.bank_account ||
             !form.values.accept_compliance_rules ||
             Boolean(warningMessage)
         );
@@ -241,7 +251,7 @@ export default function ModalVoucherPayout({
         form.isLocked,
         form.values.accept_compliance_rules,
         form.values.amount,
-        form.values.fund_request_id,
+        form.values.bank_account,
         form.values.voucher_id,
         warningMessage,
     ]);
@@ -298,10 +308,10 @@ export default function ModalVoucherPayout({
 
                             {!warningMessage && (
                                 <Fragment>
-                                    {fundRequestOptions.length > 1 && (
+                                    {bankAccountOptions.length > 1 && (
                                         <FormGroup
                                             label={translate('profile.bank_accounts.source')}
-                                            error={form.errors?.fund_request_id}
+                                            error={form.errors?.fund_request_id || form.errors?.profile_bank_account_id}
                                             input={(id) => (
                                                 <SelectControl
                                                     id={id}
@@ -309,11 +319,9 @@ export default function ModalVoucherPayout({
                                                     propKey="id"
                                                     propValue="name"
                                                     allowSearch={false}
-                                                    options={fundRequestOptions}
-                                                    value={form.values.fund_request_id ?? ''}
-                                                    onChange={(fund_request_id?: number) =>
-                                                        form.update({ fund_request_id })
-                                                    }
+                                                    options={bankAccountOptions}
+                                                    value={form.values.bank_account ?? ''}
+                                                    onChange={(bank_account?: string) => form.update({ bank_account })}
                                                     dusk="voucherPayoutFundRequestSelect"
                                                 />
                                             )}

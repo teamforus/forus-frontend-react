@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import ApiRequestService from './ApiRequestService';
 import Reimbursement from '../props/models/Reimbursement';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import Note from '../props/models/Note';
 
 export class ReimbursementService<T = Reimbursement> {
     /**
@@ -21,8 +22,8 @@ export class ReimbursementService<T = Reimbursement> {
     /**
      * Fetch list
      */
-    public list(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/reimbursements`, data);
+    public list(organizationId: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/reimbursements`, data, config);
     }
 
     /**
@@ -98,8 +99,13 @@ export class ReimbursementService<T = Reimbursement> {
         ];
     }
 
-    public notes(organizationId: number, id: number, data: object): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/reimbursements/${id}/notes`, data);
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object,
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/reimbursements/${id}/notes`, data, config);
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

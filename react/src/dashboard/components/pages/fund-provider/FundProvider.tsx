@@ -162,7 +162,7 @@ export default function FundProvider() {
                     <div className="card-footer card-footer-warning card-footer-sm">
                         <div className="card-title">
                             <div className="text-small">
-                                Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,32 cent (excl. btw).
+                                Wij gebruiken uitsluitend iDEAL | Wero. Per transactie betaalt u 0,32 cent (excl. btw).
                             </div>
                         </div>
                     </div>

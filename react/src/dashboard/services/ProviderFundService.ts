@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundProvider from '../props/models/FundProvider';
@@ -27,6 +27,7 @@ export class ProviderFundService<T = FundProvider> {
     public listAvailableFunds(
         organizationId: number,
         data: object = {},
+        config: RequestConfig = {},
     ): Promise<
         ApiResponse<Fund> & {
             data: {
@@ -47,7 +48,7 @@ export class ProviderFundService<T = FundProvider> {
             };
         }
     > {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/provider/funds-available`, data);
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/provider/funds-available`, data, config);
     }
 
     public listFundsProviderProductsRequired(organizationId: number, query: object = {}): Promise<ApiResponse<Fund>> {
@@ -60,8 +61,12 @@ export class ProviderFundService<T = FundProvider> {
     /**
      * Fetch list
      */
-    public listFunds(organizationId: number, data: object = {}): Promise<ApiResponse<FundProvider>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/provider/funds`, data);
+    public listFunds(
+        organizationId: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<FundProvider>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/provider/funds`, data, config);
     }
 
     /**

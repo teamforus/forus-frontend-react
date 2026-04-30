@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import Card from '../../../elements/card/Card';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
@@ -10,6 +9,7 @@ import FundRequestsTable from '../../fund-requests/elements/FundRequestsTable';
 import FundRequest from '../../../../props/models/FundRequest';
 import { FundRequestTotals, useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function IdentityFundRequestsCard({
     organization,
@@ -18,8 +18,8 @@ export default function IdentityFundRequestsCard({
     organization: Organization;
     identity: SponsorIdentity;
 }) {
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundRequestService = useFundRequestValidatorService();
 
@@ -34,18 +34,17 @@ export default function IdentityFundRequestsCard({
     });
 
     const fetchFundRequests = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        fundRequestService
-            .index(organization.id, { ...filterValuesActive, identity_id: identity.id })
-            .then((res) => setFundRequests(res.data))
-            .catch(pushApiError)
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [setProgress, fundRequestService, organization.id, filterValuesActive, pushApiError, identity.id]);
+        runLatestRequest(
+            (config) =>
+                fundRequestService.index(organization.id, { ...filterValuesActive, identity_id: identity.id }, config),
+            {
+                onStart: () => setLoading(true),
+                onSuccess: (res) => setFundRequests(res.data),
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [runLatestRequest, fundRequestService, organization.id, filterValuesActive, pushApiError, identity.id]);
 
     useEffect(() => {
         fetchFundRequests();

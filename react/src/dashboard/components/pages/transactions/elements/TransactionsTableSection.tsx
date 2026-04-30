@@ -86,8 +86,9 @@ export default function TransactionsTableSection({
                             </StateNavLink>
                         </td>
                         {isProvider && (
-                            <td>{transaction?.reservation?.amount_extra > 0 ? 'iDeal + Tegoed' : 'Tegoed'}</td>
+                            <td>{transaction?.reservation?.amount_extra > 0 ? 'iDEAL | Wero + Tegoed' : 'Tegoed'}</td>
                         )}
+
                         {isProvider && (
                             <td>
                                 {transaction?.branch_name && (

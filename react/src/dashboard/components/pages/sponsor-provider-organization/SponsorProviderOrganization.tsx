@@ -19,6 +19,7 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function SponsorProviderOrganization() {
     const { id } = useParams();
@@ -27,6 +28,7 @@ export default function SponsorProviderOrganization() {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
     const organizationService = useOrganizationService();
@@ -63,14 +65,13 @@ export default function SponsorProviderOrganization() {
     );
 
     const fetchFundProviders = useCallback(() => {
-        setProgress(0);
+        const filters = { ...filterValuesActive, organization_id: id };
 
-        organizationService
-            .listProviders(activeOrganization.id, { ...filterValuesActive, organization_id: id })
-            .then((res) => setFundProviders(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
-    }, [setProgress, organizationService, activeOrganization.id, filterValuesActive, id, pushApiError]);
+        runLatestRequest((config) => organizationService.listProviders(activeOrganization.id, filters, config), {
+            onSuccess: (res) => setFundProviders(res.data),
+            onError: pushApiError,
+        });
+    }, [runLatestRequest, organizationService, activeOrganization.id, filterValuesActive, id, pushApiError]);
 
     const fetchProviderOrganization = useCallback(() => {
         setProgress(0);

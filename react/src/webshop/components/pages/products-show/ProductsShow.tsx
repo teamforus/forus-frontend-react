@@ -40,7 +40,7 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
 import useIsPayoutInfoProduct from './hooks/useIsPayoutInfoProduct';
-import useFundRequestBankAccounts from '../../../hooks/useFundRequestBankAccounts';
+import useBankAccountsForPayout from '../../../hooks/useBankAccountsForPayout';
 import usePayoutButtonVouchers from '../../../hooks/usePayoutButtonVouchers';
 
 export default function ProductsShow() {
@@ -71,8 +71,8 @@ export default function ProductsShow() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
     const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
-    const fundRequestAccounts = useFundRequestBankAccounts();
-    const productPayoutEligibleVouchers = usePayoutButtonVouchers(vouchers, fundRequestAccounts, 'products');
+    const bankAccounts = useBankAccountsForPayout();
+    const productPayoutEligibleVouchers = usePayoutButtonVouchers(vouchers, bankAccounts, 'products');
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
     const price = useProductPriceMinLocale(product);

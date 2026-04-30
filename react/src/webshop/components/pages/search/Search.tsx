@@ -25,7 +25,7 @@ import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransact
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();

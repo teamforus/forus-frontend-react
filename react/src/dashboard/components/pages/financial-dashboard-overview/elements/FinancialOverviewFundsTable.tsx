@@ -7,10 +7,12 @@ import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import useFundExporter from '../../../../services/exporters/useFundExporter';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
+import { RequestConfig } from '../../../../props/ApiResponses';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -22,15 +24,16 @@ export default function FinancialOverviewFundsTable({
     setLoaded,
 }: {
     years: Array<{ id: number; name: string }>;
-    fetchFunds: (year?: number) => Promise<Array<Fund>>;
-    fetchFinancialOverview: (year?: number) => Promise<FinancialOverview>;
+    fetchFunds: (year?: number, config?: RequestConfig) => Promise<Array<Fund>>;
+    fetchFinancialOverview: (year?: number, config?: RequestConfig) => Promise<FinancialOverview>;
     organization: Organization;
     year: number;
     setYear: (year: number) => void;
     setLoaded?: () => void;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const fundExporter = useFundExporter();
 
@@ -44,13 +47,22 @@ export default function FinancialOverviewFundsTable({
     }, [fundExporter, organization.id, year]);
 
     useEffect(() => {
-        setProgress(0);
-
-        Promise.all([
-            fetchFinancialOverview(year).then(setFinancialOverview),
-            fetchFunds(year).then((funds) => setFunds(funds.filter((fund) => fund.budget))),
-        ]).finally(() => setProgress(100));
-    }, [fetchFinancialOverview, fetchFunds, year, setProgress]);
+        runLatestRequest(
+            async (config) => {
+                return {
+                    financialOverview: await fetchFinancialOverview(year, config),
+                    funds: (await fetchFunds(year, config)).filter((fund) => fund.budget),
+                };
+            },
+            {
+                onSuccess: (res) => {
+                    setFinancialOverview(res.financialOverview);
+                    setFunds(res.funds);
+                },
+                onError: pushApiError,
+            },
+        );
+    }, [fetchFinancialOverview, fetchFunds, year, pushApiError, runLatestRequest]);
 
     useEffect(() => {
         if (funds && financialOverview) {

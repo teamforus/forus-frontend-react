@@ -9,7 +9,6 @@ import usePaginatorService from '../../../../modules/paginator/services/usePagin
 import Organization from '../../../../props/models/Organization';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTransactionService from '../../../../services/TransactionService';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
@@ -17,6 +16,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function ProviderFinancialTablesTransactions({
     provider,
@@ -29,9 +29,9 @@ export default function ProviderFinancialTablesTransactions({
 }) {
     const envData = useEnvData();
 
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const transactionService = useTransactionService();
@@ -64,15 +64,14 @@ export default function ProviderFinancialTablesTransactions({
     );
 
     const fetchTransactions = useCallback(() => {
-        setProgress(0);
+        const filters = { ...externalFilters, ...filterValuesActive };
 
-        transactionService
-            .list(panelType, organization.id, { ...externalFilters, ...filterValuesActive })
-            .then((res) => setTransactions(res.data))
-            .catch(pushApiError)
-            .finally(() => setProgress(100));
+        runLatestRequest((config) => transactionService.list(panelType, organization.id, filters, config), {
+            onSuccess: (res) => setTransactions(res.data),
+            onError: pushApiError,
+        });
     }, [
-        setProgress,
+        runLatestRequest,
         transactionService,
         panelType,
         organization.id,

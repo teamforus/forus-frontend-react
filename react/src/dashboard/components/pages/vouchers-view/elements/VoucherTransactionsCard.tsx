@@ -8,13 +8,13 @@ import useTransactionService from '../../../../services/TransactionService';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import Label from '../../../elements/label/Label';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { FilterModel } from '../../../../modules/filter_next/types/FilterParams';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function VoucherTransactionsCard({
     blockTitle,
@@ -28,8 +28,8 @@ export default function VoucherTransactionsCard({
     fetchTransactionsRef?: React.MutableRefObject<() => void>;
 }) {
     const envData = useEnvData();
-    const setProgress = useSetProgress();
     const transactionService = useTransactionService();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
     const [paginatorKey] = useState('voucher_transactions');
@@ -41,13 +41,13 @@ export default function VoucherTransactionsCard({
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext(filters);
 
     const fetchTransactions = useCallback(() => {
-        setProgress(100);
-
-        transactionService
-            .list(envData.client_type, organization.id, filterValuesActive)
-            .then((res) => setTransactions(res.data))
-            .finally(() => setProgress(100));
-    }, [envData.client_type, filterValuesActive, organization.id, transactionService, setProgress]);
+        runLatestRequest(
+            (config) => transactionService.list(envData.client_type, organization.id, filterValuesActive, config),
+            {
+                onSuccess: (res) => setTransactions(res.data),
+            },
+        );
+    }, [envData.client_type, filterValuesActive, organization.id, runLatestRequest, transactionService]);
 
     useEffect(() => {
         fetchTransactions();

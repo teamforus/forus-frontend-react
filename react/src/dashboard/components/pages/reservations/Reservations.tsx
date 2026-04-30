@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -30,6 +29,7 @@ import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
 export default function Reservations() {
     const identity = useAuthIdentity();
@@ -39,8 +39,8 @@ export default function Reservations() {
     const openModal = useOpenModal();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
@@ -100,29 +100,44 @@ export default function Reservations() {
         },
     );
 
-    const fetchReservations = useCallback(
-        (query: object, archived = false) => {
-            return productReservationService.list(activeOrganization.id, {
-                ...query,
-                archived: archived ? 1 : 0,
-            });
-        },
-        [activeOrganization.id, productReservationService],
-    );
-
     const fetchAllReservations = useCallback(() => {
         setSelected([]);
-        setLoading(true);
-        setProgress(0);
 
-        Promise.all([
-            fetchReservations(filterValuesActive).then((res) => setActiveReservations(res.data)),
-            fetchReservations(filterValuesActive, true).then((res) => setArchivedReservations(res.data)),
-        ]).finally(() => {
-            setLoading(false);
-            setProgress(100);
-        });
-    }, [fetchReservations, filterValuesActive, setProgress, setSelected]);
+        runLatestRequest(
+            async (config) => {
+                const [active, archived] = await Promise.all([
+                    productReservationService.list(
+                        activeOrganization.id,
+                        { ...filterValuesActive, archived: 0 },
+                        config,
+                    ),
+                    productReservationService.list(
+                        activeOrganization.id,
+                        { ...filterValuesActive, archived: 1 },
+                        config,
+                    ),
+                ]);
+
+                return { active: active.data, archived: archived.data };
+            },
+            {
+                onStart: () => setLoading(true),
+                onSuccess: ({ active, archived }) => {
+                    setActiveReservations(active);
+                    setArchivedReservations(archived);
+                },
+                onError: pushApiError,
+                onFinally: () => setLoading(false),
+            },
+        );
+    }, [
+        activeOrganization.id,
+        filterValuesActive,
+        productReservationService,
+        pushApiError,
+        runLatestRequest,
+        setSelected,
+    ]);
 
     const selectedMeta = useReservationSelectedTableMeta(reservations?.data || [], selected);
 

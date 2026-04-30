@@ -8,7 +8,6 @@ import { usePhysicalCardService } from '../../../../services/PhysicalCardService
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import Organization from '../../../../props/models/Organization';
 import useTranslate from '../../../../hooks/useTranslate';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptionsFund from '../../../elements/select-control/templates/SelectControlOptionsFund';
@@ -22,6 +21,7 @@ import { strLimit } from '../../../../helpers/string';
 import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy';
 import PhysicalCardType from '../../../../props/models/PhysicalCardType';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function PhysicalCardsTable({
     tab,
@@ -39,7 +39,7 @@ export default function PhysicalCardsTable({
     physicalCardType?: PhysicalCardType;
 }) {
     const translate = useTranslate();
-    const setProgress = useSetProgress();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const [paginatorKey] = useState('physical-cards');
     const [physicalCards, setPhysicalCards] = useState<PaginationData<SponsorPhysicalCard>>(null);
@@ -70,13 +70,12 @@ export default function PhysicalCardsTable({
     );
 
     const fetchPhysicalCards = useCallback(() => {
-        setProgress(0);
+        const filters = { ...filterActiveValues, physical_card_type_id: physicalCardType?.id };
 
-        physicalCardService
-            .list(organization.id, { ...filterActiveValues, physical_card_type_id: physicalCardType?.id })
-            .then((res) => setPhysicalCards(res.data))
-            .finally(() => setProgress(100));
-    }, [physicalCardService, organization.id, setProgress, filterActiveValues, physicalCardType?.id]);
+        runLatestRequest((config) => physicalCardService.list(organization.id, filters, config), {
+            onSuccess: (res) => setPhysicalCards(res.data),
+        });
+    }, [physicalCardService, organization.id, runLatestRequest, filterActiveValues, physicalCardType?.id]);
 
     useEffect(() => {
         fetchPhysicalCards();

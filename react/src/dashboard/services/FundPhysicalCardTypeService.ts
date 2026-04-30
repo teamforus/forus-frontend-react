@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundPhysicalCardType from '../props/models/FundPhysicalCardType';
@@ -17,8 +17,8 @@ export class FundPhysicalCardTypeService<T = FundPhysicalCardType> {
      */
     public prefix = '/platform/organizations';
 
-    public list(organization_id: number, data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/fund-physical-card-types`, data);
+    public list(organization_id: number, data: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/fund-physical-card-types`, data, config);
     }
 
     public store(organization_id: number, data: object = {}): Promise<ApiResponseSingle<T>> {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import ApiRequestService from './ApiRequestService';
 import BankConnection from '../props/models/BankConnection';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -20,8 +20,8 @@ export class BankConnectionService<T = BankConnection> {
     /**
      * Fetch list
      */
-    public list(organization_id: number, query: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/bank-connections`, query);
+    public list(organization_id: number, query: object = {}, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/bank-connections`, query, config);
     }
 
     public store(organization_id: number, query: object = {}): Promise<ApiResponseSingle<T>> {

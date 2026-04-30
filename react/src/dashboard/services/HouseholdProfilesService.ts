@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import HouseholdProfile from '../props/models/Sponsor/HouseholdProfile';
@@ -22,10 +22,16 @@ export class HouseholdProfilesService<T = HouseholdProfile> {
      * @param householdId
      * @param query
      */
-    public list(organizationId: number, householdId: number, query: object = {}): Promise<ApiResponse<T>> {
+    public list(
+        organizationId: number,
+        householdId: number,
+        query: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<T>> {
         return this.apiRequest.get(
             `${this.prefix}/${organizationId}/sponsor/households/${householdId}/household-profiles`,
             query,
+            config,
         );
     }
 

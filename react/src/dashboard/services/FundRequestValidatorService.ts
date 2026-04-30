@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundRequest, { FundRequestFormula } from '../props/models/FundRequest';
-import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import Note from '../props/models/Note';
 import FundRequestRecord from '../props/models/FundRequestRecord';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -30,8 +30,9 @@ export class FundRequestValidatorService<T = FundRequest> {
     public index(
         organizationId: number,
         data: object = {},
+        config: RequestConfig = {},
     ): Promise<ApiResponse<FundRequest, { totals: FundRequestTotals }>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests`, data);
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests`, data, config);
     }
 
     public exportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
@@ -106,8 +107,13 @@ export class FundRequestValidatorService<T = FundRequest> {
         });
     }
 
-    public notes(organizationId: number, id: number, data: object = {}): Promise<ApiResponse<Note>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data);
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data, config);
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

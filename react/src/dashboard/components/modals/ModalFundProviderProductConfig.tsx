@@ -56,6 +56,13 @@ export default function ModalFundProviderProductConfig({
         return product.price_type === 'informational';
     }, [product.price_type]);
 
+    const paymentTypeOptions = useMemo(() => {
+        return [
+            { key: 'budget', label: 'Budget' },
+            fund?.show_subsidies && !isInformationalProduct ? { key: 'subsidy', label: 'Subsidie' } : null,
+        ].filter((item) => item);
+    }, [fund?.show_subsidies, isInformationalProduct]);
+
     const form = useFormBuilder<{
         expire_at?: string;
         expires_with_fund?: 0 | 1;
@@ -201,12 +208,7 @@ export default function ModalFundProviderProductConfig({
                                         multiline={true}
                                         allowSearch={true}
                                         onChange={(payment_type: 'budget' | 'subsidy') => form.update({ payment_type })}
-                                        options={[
-                                            { key: 'budget', label: 'Budget' },
-                                            fund?.show_subsidies && !isInformationalProduct
-                                                ? { key: 'subsidy', label: 'Subsidie' }
-                                                : null,
-                                        ].filter((item) => item)}
+                                        options={paymentTypeOptions}
                                     />
                                 </FormGroupInfo>
 

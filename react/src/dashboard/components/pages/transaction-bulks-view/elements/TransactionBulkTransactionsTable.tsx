@@ -9,7 +9,6 @@ import Organization from '../../../../props/models/Organization';
 import TransactionBulk from '../../../../props/models/TransactionBulk';
 import useTransactionService from '../../../../services/TransactionService';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
-import useSetProgress from '../../../../hooks/useSetProgress';
 import useEnvData from '../../../../hooks/useEnvData';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -19,6 +18,7 @@ import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder'
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
+import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -30,8 +30,8 @@ export default function TransactionBulkTransactionsTable({
     const envData = useEnvData();
 
     const translate = useTranslate();
-    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const runLatestRequest = useLatestRequestWithProgress();
 
     const transactionExporter = useTransactionExporter();
 
@@ -72,18 +72,17 @@ export default function TransactionBulkTransactionsTable({
 
     const fetchTransactions = useCallback(
         (id: number) => {
-            setProgress(0);
+            const filters = { ...filterValuesActive, voucher_transaction_bulk_id: id };
 
-            transactionService
-                .list(envData.client_type, organization.id, {
-                    ...filterValuesActive,
-                    voucher_transaction_bulk_id: id,
-                })
-                .then((res) => setTransactions(res.data))
-                .catch(pushApiError)
-                .finally(() => setProgress(100));
+            runLatestRequest(
+                (config) => transactionService.list(envData.client_type, organization.id, filters, config),
+                {
+                    onSuccess: (res) => setTransactions(res.data),
+                    onError: pushApiError,
+                },
+            );
         },
-        [setProgress, transactionService, envData.client_type, organization.id, filterValuesActive, pushApiError],
+        [runLatestRequest, transactionService, envData.client_type, organization.id, filterValuesActive, pushApiError],
     );
 
     useEffect(() => {
