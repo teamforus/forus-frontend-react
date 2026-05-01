@@ -67,7 +67,7 @@
     "@mdi/font": "^7.2.96",
     "@react-google-maps/api": "^2.20.3",
     "@uiw/react-color": "^2.4.1",
-    "aws-rum-web": "^2.0.0",
+    "aws-rum-web": "^3.0.0",
     "chart.js": "^4.4.1",
     "classnames": "^2.5.1",
     "clean-webpack-plugin": "^4.0.0",
