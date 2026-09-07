@@ -59,7 +59,7 @@ export default function FormGroupInfo({
                 </div>
             </div>
 
-            <FormError error={error} />
+            <FormError error={error} duskPrefix={duskPrefix ? `${duskPrefix}Error` : null} />
 
             {showInfo && (
                 <div

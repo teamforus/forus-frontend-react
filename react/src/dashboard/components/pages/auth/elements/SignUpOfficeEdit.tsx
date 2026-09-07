@@ -113,7 +113,7 @@ export default function SignUpOfficeEdit({
                                 />
                             )}
 
-                            <FormError error={form.errors.address} />
+                            <FormError error={form.errors.address} duskPrefix="addressError" />
                         </div>
                         <div className="form-group">
                             <label className="form-label">Telefoonnummer</label>
@@ -125,7 +125,7 @@ export default function SignUpOfficeEdit({
                                 autoComplete={'tel'}
                                 dataDusk="phoneInput"
                             />
-                            <FormError error={form.errors.phone} />
+                            <FormError error={form.errors.phone} duskPrefix="phoneError" />
                         </div>
                     </div>
                     <div className="sign_up-pane-col sign_up-pane-col-1">

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, SubmitEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -267,7 +267,7 @@ export default function SignUpProvider() {
     });
 
     const saveEmployee = useCallback(
-        (e: React.SubmitEvent) => {
+        (e: SubmitEvent) => {
             e?.preventDefault();
 
             openModal((modal) => (
@@ -1480,6 +1480,7 @@ export default function SignUpProvider() {
                                         <div className="sign_up-pane-col sign_up-pane-col-2">
                                             <FormGroup
                                                 label={translate('organization_edit.labels.name')}
+                                                dusk="name"
                                                 error={formOrganization.errors.name}
                                                 info={translate('organization_edit.tooltips.name')}
                                                 input={(id) => (
@@ -1498,6 +1499,7 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.bank')}
+                                                dusk="iban"
                                                 error={formOrganization.errors.iban}
                                                 info={translate('organization_edit.tooltips.bank')}
                                                 input={(id) => (
@@ -1547,11 +1549,13 @@ export default function SignUpProvider() {
                                         <div className="sign_up-pane-col">
                                             <FormGroup
                                                 label={translate('organization_edit.labels.mail')}
+                                                dusk="email"
                                                 input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.email}
+                                                                duskPrefix="email"
                                                                 info={translate('organization_edit.tooltips.email')}>
                                                                 <UIControlText
                                                                     id={id}
@@ -1591,11 +1595,13 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.phone')}
+                                                dusk="phone"
                                                 input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.phone}
+                                                                duskPrefix="phone"
                                                                 info={translate('organization_edit.tooltips.phone')}>
                                                                 <UIControlText
                                                                     id={id}
@@ -1634,11 +1640,13 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.website')}
+                                                dusk="website"
                                                 input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.website}
+                                                                duskPrefix="website"
                                                                 info={translate('organization_edit.tooltips.website')}>
                                                                 <UIControlText
                                                                     id={id}
@@ -1705,6 +1713,7 @@ export default function SignUpProvider() {
 
                                                     <FormGroup
                                                         label={translate('organization_edit.labels.kvk')}
+                                                        dusk="kvk"
                                                         error={formOrganization.errors.kvk}
                                                         info={translate('organization_edit.tooltips.kvk')}
                                                         input={(id) => (
@@ -1836,7 +1845,7 @@ export default function SignUpProvider() {
                                                             {translate('organization_edit.buttons.edit_location')}
                                                         </a>
 
-                                                        {index !== 0 && (
+                                                        {offices.length > 1 && (
                                                             <a
                                                                 className="office-action"
                                                                 data-dusk="deleteOffice"
