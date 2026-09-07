@@ -43,7 +43,7 @@ export default function Funds({ pageType }: { pageType: FundsPageType }) {
     const payoutTransactionService = usePayoutTransactionService();
 
     const [errors, setErrors] = useState<ResponseErrorData>({});
-    const [funds, setFunds] = useState<PaginationData<Fund>>(null);
+    const [funds, setFunds] = useState<PaginationData<Fund> & { searchQuery: string }>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
@@ -69,12 +69,12 @@ export default function Funds({ pageType }: { pageType: FundsPageType }) {
             : '';
 
     const fetchFunds = useCallback(
-        (query: object) => {
+        (query: typeof fundsQuery) => {
             setErrors(null);
             setFunds(null);
 
             runLatestRequest((config) => fundService.list({ ...query, with_external: 1, check_criteria: 1 }, config), {
-                onSuccess: (res) => setFunds(res.data),
+                onSuccess: (res) => setFunds({ ...res.data, searchQuery: query.q }),
                 onError: (e: ResponseError) => setErrors(e.data?.errors),
             });
         },
@@ -196,7 +196,7 @@ export default function Funds({ pageType }: { pageType: FundsPageType }) {
                     )}
 
                     {funds?.data?.length > 0 && (
-                        <div className="block block-funds" id="funds_list">
+                        <div className="block block-funds" id="funds_list" data-search-query={funds.searchQuery}>
                             {funds?.data.map((fund) => (
                                 <FundsListItem
                                     key={fund.id}
