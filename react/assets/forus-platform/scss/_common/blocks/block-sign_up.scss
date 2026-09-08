@@ -530,6 +530,7 @@
 
                 &.card-section-fund {
                     display: flex;
+                    flex-direction: row;
                     align-items: center;
 
                     .card-section-actions {

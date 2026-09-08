@@ -62,9 +62,9 @@ export default function FundsListItem({
                         <img
                             className="funds-photo-img"
                             src={
+                                fundMeta?.logo?.sizes?.large ||
                                 fundMeta?.logo?.sizes?.thumbnail ||
-                                fundMeta?.logo?.sizes?.small ||
-                                assetUrl('/assets/img/placeholders/fund-thumbnail.png')
+                                assetUrl('/assets/img/placeholders/fund-large.png')
                             }
                             alt=""
                         />
