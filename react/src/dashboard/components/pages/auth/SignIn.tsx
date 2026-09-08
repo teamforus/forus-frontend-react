@@ -67,7 +67,7 @@ export default function SignIn() {
     }, [token, navigate]);
 
     return (
-        <div className="block block-login">
+        <div className="block block-login" data-dusk="loginPage">
             {signInForm.state == 'pending' && (
                 <div className="block-login-window">
                     <div className="block-login-content">

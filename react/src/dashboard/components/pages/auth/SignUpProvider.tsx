@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, SubmitEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -166,7 +166,7 @@ export default function SignUpProvider() {
                 signUpForm.setErrors(err.data?.errors || { email: err?.data?.message });
             };
 
-            return identityService
+            identityService
                 .make(values)
                 .then(() => setAuthEmailSent(true))
                 .catch((err) => resolveErrors(err));
@@ -267,7 +267,7 @@ export default function SignUpProvider() {
     });
 
     const saveEmployee = useCallback(
-        (e: React.FormEvent) => {
+        (e: SubmitEvent) => {
             e?.preventDefault();
 
             openModal((modal) => (
@@ -305,7 +305,7 @@ export default function SignUpProvider() {
     }, []);
 
     const deleteEmployee = useCallback(
-        function (employee) {
+        function (employee: Employee) {
             employeesService.delete(organization.id, employee.id).then(() => {
                 setEmployees((employees) => {
                     return employees.filter((_employee) => {
@@ -317,8 +317,13 @@ export default function SignUpProvider() {
         [employeesService, organization?.id],
     );
 
+    const cancelOfficeAdd = useCallback(() => {
+        setIsAddingNewOffice(false);
+        setShowAddOfficeBtn(true);
+    }, []);
+
     const deleteOffice = useCallback(
-        (office) => {
+        (office: OfficeLocal) => {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
@@ -340,6 +345,8 @@ export default function SignUpProvider() {
                                             return typeof _office.id == 'undefined' || _office.id != office.id;
                                         });
                                     });
+
+                                    cancelOfficeAdd();
                                 })
                                 .catch(pushApiError);
                         },
@@ -347,7 +354,7 @@ export default function SignUpProvider() {
                 />
             ));
         },
-        [officeService, openModal, pushApiError],
+        [cancelOfficeAdd, officeService, openModal, pushApiError],
     );
 
     const addOffice = useCallback(() => {
@@ -365,7 +372,7 @@ export default function SignUpProvider() {
     }, [organizationService]);
 
     const loadOrganizationOffices = useCallback(
-        (organization) => {
+        (organization: Organization) => {
             officeService.list(organization.id, { per_page: 100 }).then((res) => {
                 if (!res.data.data.length) {
                     return addOffice();
@@ -377,7 +384,7 @@ export default function SignUpProvider() {
         [addOffice, officeService],
     );
     const loadOrganizationEmployees = useCallback(
-        (organization) => {
+        (organization: Organization) => {
             employeesService.list(organization.id, { per_page: 100 }).then((res) => {
                 setEmployees(res.data.data.filter((item) => item.identity_address !== authIdentity?.address));
             });
@@ -385,7 +392,7 @@ export default function SignUpProvider() {
         [authIdentity?.address, employeesService],
     );
 
-    const editOffice = useCallback((office) => {
+    const editOffice = useCallback((office: OfficeLocal) => {
         setIsAddingNewOffice(false);
         setShowAddOfficeBtn(false);
 
@@ -401,7 +408,7 @@ export default function SignUpProvider() {
     }, []);
 
     const officeUpdated = useCallback(
-        (office) => {
+        (office: Office) => {
             setOffices((offices) => {
                 return offices.map((_office) => {
                     if (_office.id == office.id) {
@@ -413,31 +420,32 @@ export default function SignUpProvider() {
             });
 
             loadOrganizationOffices(organization);
+            cancelOfficeAdd();
         },
-        [loadOrganizationOffices, organization],
+        [cancelOfficeAdd, loadOrganizationOffices, organization],
     );
-
-    const cancelOfficeAdd = useCallback(() => {
-        setIsAddingNewOffice(false);
-        setShowAddOfficeBtn(true);
-    }, []);
 
     const officeCreated = useCallback(() => {
         loadOrganizationOffices(organization);
         cancelOfficeAdd();
     }, [cancelOfficeAdd, loadOrganizationOffices, organization]);
 
-    const cancelOfficeEdit = useCallback((office) => {
-        setOffices((offices) => {
-            return offices.map((_office) => {
-                if (_office.id == office.id) {
-                    _office.edit = false;
-                }
+    const cancelOfficeEdit = useCallback(
+        (office: OfficeLocal) => {
+            setOffices((offices) => {
+                return offices.map((_office) => {
+                    if (_office.id == office.id) {
+                        _office.edit = false;
+                    }
 
-                return _office;
+                    return _office;
+                });
             });
-        });
-    }, []);
+
+            cancelOfficeAdd();
+        },
+        [cancelOfficeAdd],
+    );
 
     const goToStep = useCallback(
         (targetStep: string) => {
@@ -479,8 +487,10 @@ export default function SignUpProvider() {
     );
 
     const addOrganization = useCallback(() => {
+        formOrganization.reset();
+        progressStorage.delete('organizationForm');
         goToStep('STEP_ORGANIZATION_ADD');
-    }, [goToStep]);
+    }, [formOrganization, goToStep, progressStorage]);
 
     const next = useCallback(
         function () {
@@ -494,12 +504,12 @@ export default function SignUpProvider() {
     );
 
     const back = useCallback(() => {
-        if (step == 'STEP_OFFICES') {
+        if (step == 'STEP_OFFICES' || (step == 'STEP_ORGANIZATION_ADD' && organizationsList?.length > 0)) {
             return goToStep('STEP_SELECT_ORGANIZATION');
         }
 
         goToStep(STEPS[STEPS.indexOf(step) - 1]);
-    }, [STEPS, goToStep, step]);
+    }, [STEPS, goToStep, organizationsList?.length, step]);
 
     const finish = useCallback(() => {
         navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATION, { organizationId: organization.id }));
@@ -768,7 +778,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepGeneral">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_1')}
                             </div>
@@ -820,6 +830,7 @@ export default function SignUpProvider() {
                                         className="button button-text button-text-padless"
                                         type={'button'}
                                         onClick={next}
+                                        data-dusk="nextBtn"
                                         tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
@@ -838,7 +849,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepInfoMeApp">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_2')}
                             </div>
@@ -863,7 +874,11 @@ export default function SignUpProvider() {
                                     </div>
                                 }
                                 endActions={
-                                    <div className="button button-text button-text-padless" onClick={next} tabIndex={0}>
+                                    <div
+                                        className="button button-text button-text-padless"
+                                        data-dusk="nextBtn"
+                                        onClick={next}
+                                        tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
                                     </div>
@@ -881,7 +896,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepCreateProfile">
                             {hasApp && (
                                 <div className="sign_up-pane-header">
                                     {translate('sign_up_provider.header.title_step_3')}
@@ -912,6 +927,7 @@ export default function SignUpProvider() {
                                                 <select
                                                     className="form-control"
                                                     value={selectedOption}
+                                                    data-dusk="deviceOptionSelect"
                                                     onChange={(e) => setSelectedOption(e.target.value)}>
                                                     <option value="null">Selecteer uw apparaat</option>
                                                     <option value="iphone">iPhone</option>
@@ -1017,6 +1033,7 @@ export default function SignUpProvider() {
                                                             <PhoneControl
                                                                 className="visible-md visible-lg"
                                                                 onChange={onPhoneChange}
+                                                                dusk="phoneInput"
                                                             />
                                                             <div className="pincode-errors">
                                                                 <FormError error={phoneForm.errors.phone} />
@@ -1027,6 +1044,7 @@ export default function SignUpProvider() {
                                                         <button
                                                             className="button button-primary-outline"
                                                             type="button"
+                                                            data-dusk="phoneFormSubmitBtn"
                                                             onClick={() => phoneForm.submit()}>
                                                             {translate('sign_up_provider.download.download_link')}
                                                         </button>
@@ -1147,6 +1165,7 @@ export default function SignUpProvider() {
                                                 <span>&nbsp;</span>
                                                 <a
                                                     className="app_download-link text-muted"
+                                                    data-dusk="signupByEmail"
                                                     onClick={(e) => {
                                                         e?.preventDefault();
                                                         setHasApp(false);
@@ -1161,7 +1180,7 @@ export default function SignUpProvider() {
 
                             {/* Sms sent message */}
                             {!authEmailSent && shareSmsSent && (
-                                <div className="sign_up-pane-body">
+                                <div className="sign_up-pane-body" data-dusk="smsSent">
                                     <div className="sign_up-pane-heading">
                                         {`U heeft een SMS ontvangen op ${phoneNumberFormat(phoneForm.values.phone)}`}
                                     </div>
@@ -1264,7 +1283,7 @@ export default function SignUpProvider() {
                             )}
 
                             {!authEmailSent && !hasApp && (
-                                <div className="sign_up-pane-body">
+                                <div className="sign_up-pane-body" data-dusk="emailForm">
                                     <div className="sign_up-pane-heading visible-md visible-lg">
                                         {translate('sign_up_provider.no_app.enter_email')}
                                     </div>
@@ -1283,6 +1302,7 @@ export default function SignUpProvider() {
                                                         placeholder={'e-mail@e-mail.nl'}
                                                         autoComplete={'email'}
                                                         type="email"
+                                                        dataDusk="emailInput"
                                                     />
                                                     <FormError error={signUpForm.errors?.email} />
                                                 </div>
@@ -1293,6 +1313,7 @@ export default function SignUpProvider() {
                                                     <button
                                                         className="button button-primary button-fill"
                                                         type="submit"
+                                                        data-dusk="emailFormSubmit"
                                                         disabled={!signUpForm.values.email || signUpForm.isLocked}>
                                                         {translate('sign_up_provider.app_instruction.create_profile')}
                                                     </button>
@@ -1309,7 +1330,7 @@ export default function SignUpProvider() {
                             )}
 
                             {authEmailSent && (
-                                <div className="sign_up-pane-body text-center">
+                                <div className="sign_up-pane-body text-center" data-dusk="authEmailSent">
                                     <div className="sign_up-pane-media">
                                         <img src={assetUrl('/assets/img/email_confirmed.svg')} alt={''} />
                                     </div>
@@ -1368,7 +1389,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepSelectOrganization">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_4')}
                             </div>
@@ -1378,13 +1399,14 @@ export default function SignUpProvider() {
                                 </div>
                                 <br />
                                 <div className="sign_up-organizations">
-                                    {organizationsList?.map((item) => (
+                                    {organizationsList?.map((item, index) => (
                                         <a
                                             key={item.id}
                                             className={classNames(
                                                 'sign_up-organization',
                                                 item.id == organization?.id && 'active',
                                             )}
+                                            data-dusk={`organizationItem${index}`}
                                             onClick={(e) => {
                                                 e?.preventDefault();
                                                 selectOrganization(item);
@@ -1410,7 +1432,10 @@ export default function SignUpProvider() {
                                 </div>
                             </div>
                             <div className="sign_up-pane-body visible-md visible-lg">
-                                <div className="button button-primary-outline" onClick={addOrganization}>
+                                <div
+                                    className="button button-primary-outline"
+                                    data-dusk="addOrganizationBtn"
+                                    onClick={addOrganization}>
                                     <div className="mdi mdi-plus-circle-outline icon-start" />
                                     {translate('sign_up_sponsor.buttons.organization_add')}
                                 </div>
@@ -1435,7 +1460,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepOrganizationAdd">
                             <form
                                 className="form"
                                 onSubmit={(e) => {
@@ -1455,6 +1480,7 @@ export default function SignUpProvider() {
                                         <div className="sign_up-pane-col sign_up-pane-col-2">
                                             <FormGroup
                                                 label={translate('organization_edit.labels.name')}
+                                                dusk="name"
                                                 error={formOrganization.errors.name}
                                                 info={translate('organization_edit.tooltips.name')}
                                                 input={(id) => (
@@ -1466,12 +1492,14 @@ export default function SignUpProvider() {
                                                         }
                                                         placeholder={'Bedrijfsnaam'}
                                                         autoComplete={'organization'}
+                                                        dataDusk="nameInput"
                                                     />
                                                 )}
                                             />
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.bank')}
+                                                dusk="iban"
                                                 error={formOrganization.errors.iban}
                                                 info={translate('organization_edit.tooltips.bank')}
                                                 input={(id) => (
@@ -1481,6 +1509,7 @@ export default function SignUpProvider() {
                                                         onChange={(e) =>
                                                             formOrganization.update({ iban: e.target.value })
                                                         }
+                                                        dataDusk="ibanInput"
                                                         placeholder={'Voorbeeld: NL123456789B01'}
                                                     />
                                                 )}
@@ -1499,6 +1528,7 @@ export default function SignUpProvider() {
                                                                 iban_confirmation: e.target.value,
                                                             })
                                                         }
+                                                        dataDusk="ibanConfirmationInput"
                                                         placeholder={'Voorbeeld: NL123456789B01'}
                                                     />
                                                 )}
@@ -1519,11 +1549,13 @@ export default function SignUpProvider() {
                                         <div className="sign_up-pane-col">
                                             <FormGroup
                                                 label={translate('organization_edit.labels.mail')}
+                                                dusk="email"
                                                 input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.email}
+                                                                duskPrefix="email"
                                                                 info={translate('organization_edit.tooltips.email')}>
                                                                 <UIControlText
                                                                     id={id}
@@ -1536,6 +1568,7 @@ export default function SignUpProvider() {
                                                                     placeholder={'Voorbeeld: info@bedrijfsnaam.nl'}
                                                                     autoComplete={'email'}
                                                                     type="email"
+                                                                    dataDusk="emailInput"
                                                                 />
                                                             </FormGroupInfo>
                                                         </div>
@@ -1553,6 +1586,7 @@ export default function SignUpProvider() {
                                                                         email_public: e.target.checked,
                                                                     })
                                                                 }
+                                                                dataDusk="emailPublicCheckbox"
                                                             />
                                                         </div>
                                                     </div>
@@ -1561,11 +1595,13 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.phone')}
+                                                dusk="phone"
                                                 input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.phone}
+                                                                duskPrefix="phone"
                                                                 info={translate('organization_edit.tooltips.phone')}>
                                                                 <UIControlText
                                                                     id={id}
@@ -1577,6 +1613,7 @@ export default function SignUpProvider() {
                                                                     }
                                                                     placeholder={'Voorbeeld: 06 123 45 678'}
                                                                     autoComplete={'tel'}
+                                                                    dataDusk="phoneInput"
                                                                 />
                                                             </FormGroupInfo>
                                                         </div>
@@ -1594,6 +1631,7 @@ export default function SignUpProvider() {
                                                                         phone_public: e.target.checked,
                                                                     })
                                                                 }
+                                                                dataDusk="phonePublicCheckbox"
                                                             />
                                                         </div>
                                                     </div>
@@ -1602,11 +1640,13 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.website')}
+                                                dusk="website"
                                                 input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.website}
+                                                                duskPrefix="website"
                                                                 info={translate('organization_edit.tooltips.website')}>
                                                                 <UIControlText
                                                                     id={id}
@@ -1618,6 +1658,7 @@ export default function SignUpProvider() {
                                                                     }
                                                                     placeholder={'Voorbeeld: https://bedrijfsnaam.nl'}
                                                                     autoComplete={'url'}
+                                                                    dataDusk="websiteInput"
                                                                 />
                                                             </FormGroupInfo>
                                                         </div>
@@ -1635,6 +1676,7 @@ export default function SignUpProvider() {
                                                                         website_public: e.target.checked,
                                                                     })
                                                                 }
+                                                                dataDusk="websitePublicCheckbox"
                                                             />
                                                         </div>
                                                     </div>
@@ -1664,12 +1706,14 @@ export default function SignUpProvider() {
                                                                 options={businessTypes || []}
                                                                 placeholder={'Selecteer organisatie type...'}
                                                                 allowSearch={true}
+                                                                dusk="businessTypeSelect"
                                                             />
                                                         )}
                                                     />
 
                                                     <FormGroup
                                                         label={translate('organization_edit.labels.kvk')}
+                                                        dusk="kvk"
                                                         error={formOrganization.errors.kvk}
                                                         info={translate('organization_edit.tooltips.kvk')}
                                                         input={(id) => (
@@ -1680,6 +1724,7 @@ export default function SignUpProvider() {
                                                                     formOrganization.update({ kvk: e.target.value })
                                                                 }
                                                                 placeholder={'Voorbeeld: 12345678'}
+                                                                dataDusk="kvkInput"
                                                             />
                                                         )}
                                                     />
@@ -1697,6 +1742,7 @@ export default function SignUpProvider() {
                                                                     formOrganization.update({ btw: e.target.value })
                                                                 }
                                                                 placeholder={'Voorbeeld: NL123456789B01'}
+                                                                dataDusk="btwInput"
                                                             />
                                                         )}
                                                     />
@@ -1711,6 +1757,7 @@ export default function SignUpProvider() {
                                             type={'button'}
                                             className="button button-text button-text-padless"
                                             onClick={cancelAddOrganization}
+                                            data-dusk="previousBtn"
                                             tabIndex={0}>
                                             <em className="mdi mdi-chevron-left icon-left" />
                                             {translate('sign_up_provider.buttons.back')}
@@ -1720,7 +1767,8 @@ export default function SignUpProvider() {
                                         <button
                                             type={'submit'}
                                             className="button button-text button-text-padless"
-                                            tabIndex={0}>
+                                            tabIndex={0}
+                                            data-dusk="nextBtn">
                                             {translate('sign_up_provider.buttons.next')}
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </button>
@@ -1739,7 +1787,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepOffices">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_6')}
                             </div>
@@ -1750,7 +1798,7 @@ export default function SignUpProvider() {
                             </div>
                             <div className="sign_up-pane-body sign_up-pane-body-padless">
                                 {offices?.map((office, index) => (
-                                    <div className="sign_up-offices" key={index}>
+                                    <div className="sign_up-offices" key={index} data-dusk={`office${index}`}>
                                         {!office.edit ? (
                                             <div className="sign_up-office">
                                                 <div
@@ -1788,6 +1836,7 @@ export default function SignUpProvider() {
                                                     <div className="office-actions">
                                                         <a
                                                             className="office-action"
+                                                            data-dusk="editOffice"
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 editOffice(office);
@@ -1795,15 +1844,19 @@ export default function SignUpProvider() {
                                                             <em className="edit mdi mdi-pencil-outline" />
                                                             {translate('organization_edit.buttons.edit_location')}
                                                         </a>
-                                                        <a
-                                                            className="office-action"
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                deleteOffice(office);
-                                                            }}>
-                                                            <em className="delete mdi mdi-trash-can-outline" />
-                                                            {translate('organization_edit.buttons.delete_location')}
-                                                        </a>
+
+                                                        {offices.length > 1 && (
+                                                            <a
+                                                                className="office-action"
+                                                                data-dusk="deleteOffice"
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    deleteOffice(office);
+                                                                }}>
+                                                                <em className="delete mdi mdi-trash-can-outline" />
+                                                                {translate('organization_edit.buttons.delete_location')}
+                                                            </a>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1837,6 +1890,7 @@ export default function SignUpProvider() {
                                         <div className="flex-col">
                                             <button
                                                 className="button button-primary-outline button-fill button-sm"
+                                                data-dusk="addOfficeBtn"
                                                 onClick={addOffice}>
                                                 <em className="mdi mdi-plus-circle-outline icon-start" />
                                                 {translate('organization_edit.buttons.add_location')}
@@ -1851,6 +1905,7 @@ export default function SignUpProvider() {
                                     <div
                                         className="button button-text button-text-padless"
                                         onClick={() => back()}
+                                        data-dusk="previousBtn"
                                         tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
@@ -1862,6 +1917,7 @@ export default function SignUpProvider() {
                                         className="button button-text button-text-padless"
                                         disabled={!offices || offices?.length == 0}
                                         onClick={() => next()}
+                                        data-dusk="nextBtn"
                                         tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
@@ -1880,7 +1936,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepEmployees">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_7')}
                             </div>
@@ -1901,6 +1957,7 @@ export default function SignUpProvider() {
                                             </span>
                                             <div className="sign_up-employee-actions">
                                                 <a
+                                                    data-dusk={`deleteEmployeeBtn${index}`}
                                                     onClick={() => deleteEmployee(employee)}
                                                     className="mdi mdi-trash-can-outline"
                                                 />
@@ -1921,6 +1978,7 @@ export default function SignUpProvider() {
                                                     placeholder={'Voorbeeld: e-mail@e-mail.nl'}
                                                     autoComplete={'email'}
                                                     type="email"
+                                                    dataDusk="emailInput"
                                                 />
                                                 <FormError error={employeeForm.errors.email} />
                                             </div>
@@ -1931,6 +1989,7 @@ export default function SignUpProvider() {
                                                 <button
                                                     className="button button-primary button-fill"
                                                     type="submit"
+                                                    data-dusk="submitEmployeeForm"
                                                     disabled={!employeeForm.values.email || employeeForm.isLocked}>
                                                     {translate('organization_edit.buttons.add_employee')}
                                                 </button>
@@ -1941,13 +2000,21 @@ export default function SignUpProvider() {
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
+                                    <div
+                                        className="button button-text button-text-padless"
+                                        data-dusk="previousBtn"
+                                        onClick={back}
+                                        tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
                                 }
                                 endActions={
-                                    <div className="button button-text button-text-padless" onClick={next} tabIndex={0}>
+                                    <div
+                                        className="button button-text button-text-padless"
+                                        data-dusk="nextBtn"
+                                        onClick={next}
+                                        tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
                                     </div>
@@ -1965,7 +2032,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepFundApply">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_8')}
                             </div>
@@ -1987,12 +2054,17 @@ export default function SignUpProvider() {
                                         )}
                                         checked={skipFundApplications}
                                         onChange={(e) => setSkipFundApplications(e.target.checked)}
+                                        dataDusk="skipFundApplicationsCheckbox"
                                     />
                                 )}
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
+                                    <div
+                                        className="button button-text button-text-padless"
+                                        data-dusk="previousBtn"
+                                        onClick={back}
+                                        tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
@@ -2002,6 +2074,7 @@ export default function SignUpProvider() {
                                         <div
                                             className="button button-text button-text-padless"
                                             onClick={next}
+                                            data-dusk="nextBtn"
                                             tabIndex={0}>
                                             {translate('sign_up_provider.buttons.next')}
                                             <em className="mdi mdi-chevron-right icon-right" />
@@ -2021,7 +2094,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepProcessNotice">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_9')}
                             </div>
@@ -2039,7 +2112,10 @@ export default function SignUpProvider() {
                                         </p>
                                         <div className="text-center">
                                             {loggedWithApp && (
-                                                <div className="button button-primary-variant" onClick={() => next()}>
+                                                <div
+                                                    className="button button-primary-variant"
+                                                    data-dusk="nextBtn"
+                                                    onClick={() => next()}>
                                                     {translate('sign_up_provider.buttons.go_test_screen')}
                                                 </div>
                                             )}
@@ -2050,7 +2126,11 @@ export default function SignUpProvider() {
 
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
+                                    <div
+                                        className="button button-text button-text-padless"
+                                        data-dusk="previousBtn"
+                                        onClick={back}
+                                        tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
@@ -2060,6 +2140,7 @@ export default function SignUpProvider() {
                                         <div
                                             className="button button-text button-text-padless"
                                             onClick={finish}
+                                            data-dusk="finishBtn"
                                             tabIndex={0}>
                                             {translate('sign_up_provider.buttons.go_to_dashboard')}
                                             <em className="mdi mdi-chevron-right icon-right" />
@@ -2127,7 +2208,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepDemoTransaction">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_10')}
                             </div>
@@ -2165,6 +2246,7 @@ export default function SignUpProvider() {
                                         <div
                                             className="button button-text button-text-padless"
                                             onClick={finish}
+                                            data-dusk="finishBtn"
                                             tabIndex={0}>
                                             Doorgaan naar de beheeromgeving
                                             <em className="mdi mdi-chevron-right icon-right" />
@@ -2198,7 +2280,7 @@ export default function SignUpProvider() {
                             shownSteps={STEPS.slice(INFO_STEPS).map((_, index) => index + 1)}
                         />
 
-                        <div className="sign_up-pane">
+                        <div className="sign_up-pane" data-dusk="stepFinished">
                             <div className="sign_up-pane-header">
                                 {translate('sign_up_provider.header.title_step_11')}
                             </div>
@@ -2215,7 +2297,10 @@ export default function SignUpProvider() {
                                             {translate('sign_up_provider.header.subtitle_step_11')}
                                         </p>
                                         <div className="text-center">
-                                            <div className="button button-primary-variant" onClick={() => finish()}>
+                                            <div
+                                                className="button button-primary-variant"
+                                                data-dusk="finishBtn"
+                                                onClick={() => finish()}>
                                                 {translate('sign_up_provider.buttons.go_to_dashboard')}
                                             </div>
                                         </div>

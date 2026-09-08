@@ -12,6 +12,7 @@ import useOfficeService from '../../../../services/OfficeService';
 import { ApiResponseSingle, ResponseError } from '../../../../props/ApiResponses';
 import { Autocomplete } from '@react-google-maps/api';
 import useTranslate from '../../../../hooks/useTranslate';
+import useEnvData from '../../../../hooks/useEnvData';
 
 export default function SignUpOfficeEdit({
     office,
@@ -26,6 +27,7 @@ export default function SignUpOfficeEdit({
     created?: (office: Office) => void;
     updated?: (office: Office) => void;
 }) {
+    const envData = useEnvData();
     const translate = useTranslate();
     const [officeMediaFile, setOfficeMediaFile] = useState(null);
     const [autocomplete, setAutocomplete] = React.useState(null);
@@ -81,13 +83,25 @@ export default function SignUpOfficeEdit({
     }, [autocomplete, formUpdate]);
 
     return (
-        <div className="sign_up-office-edit">
+        <div className="sign_up-office-edit" data-dusk="officeEditForm">
             <form className="form" onSubmit={form.submit}>
                 <div className="sign_up-pane-section">
                     <div className="sign_up-pane-col sign_up-pane-col-2">
                         <div className="form-group">
                             <label className="form-label form-label-required">Adres</label>
-                            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                            {envData.config.google_maps_api_key ? (
+                                <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                                    <UIControlText
+                                        value={form.values.address}
+                                        id="office_address"
+                                        placeholder="Adres"
+                                        inputRef={addressInputRef}
+                                        onChangeValue={(address) => form.update({ address })}
+                                        autoComplete={'street-address'}
+                                        dataDusk="addressInput"
+                                    />
+                                </Autocomplete>
+                            ) : (
                                 <UIControlText
                                     value={form.values.address}
                                     id="office_address"
@@ -95,9 +109,11 @@ export default function SignUpOfficeEdit({
                                     inputRef={addressInputRef}
                                     onChangeValue={(address) => form.update({ address })}
                                     autoComplete={'street-address'}
+                                    dataDusk="addressInput"
                                 />
-                            </Autocomplete>
-                            <FormError error={form.errors.address} />
+                            )}
+
+                            <FormError error={form.errors.address} duskPrefix="addressError" />
                         </div>
                         <div className="form-group">
                             <label className="form-label">Telefoonnummer</label>
@@ -107,8 +123,9 @@ export default function SignUpOfficeEdit({
                                 placeholder="Telefoonnummer"
                                 onChangeValue={(phone) => form.update({ phone })}
                                 autoComplete={'tel'}
+                                dataDusk="phoneInput"
                             />
-                            <FormError error={form.errors.phone} />
+                            <FormError error={form.errors.phone} duskPrefix="phoneError" />
                         </div>
                     </div>
                     <div className="sign_up-pane-col sign_up-pane-col-1">
@@ -137,6 +154,7 @@ export default function SignUpOfficeEdit({
                                     <button
                                         className="button button-primary button-fill button-sm"
                                         type="button"
+                                        data-dusk="cancelAddressBtn"
                                         onClick={() => cancel()}>
                                         {translate('organization_edit.buttons.cancel')}
                                     </button>
@@ -146,6 +164,7 @@ export default function SignUpOfficeEdit({
                                 <div className="flex-col">
                                     <button
                                         className="button button-primary-variant button-fill button-sm"
+                                        data-dusk="saveAddressBtn"
                                         type="submit">
                                         {translate('organization_edit.buttons.save_location')}
                                     </button>
