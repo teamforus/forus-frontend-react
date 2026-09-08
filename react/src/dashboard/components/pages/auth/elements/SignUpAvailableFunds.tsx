@@ -27,8 +27,8 @@ export default function SignUpAvailableFunds({
 }) {
     const translate = useTranslate();
 
-    const [tags, setTags] = useState<Array<Partial<Tag>>>([]);
-    const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>([]);
+    const [tags, setTags] = useState<Array<Partial<Tag>>>(null);
+    const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
 
     const [funds, setFunds] = useState<PaginationData<FundLocal>>(null);
     const [selected, setSelected] = useState([]);
@@ -108,11 +108,11 @@ export default function SignUpAvailableFunds({
                 };
 
                 setTags((tags) => {
-                    return tags.length > 0 ? tags : [allTags, ...res.data.meta.tags];
+                    return tags && tags.length > 0 ? tags : [allTags, ...res.data.meta.tags];
                 });
 
                 setOrganizations((organizations) => {
-                    return organizations.length > 0
+                    return organizations && organizations.length > 0
                         ? organizations
                         : [allOrganizations, ...res.data.meta.organizations];
                 });
@@ -126,40 +126,47 @@ export default function SignUpAvailableFunds({
                 <div className="sign_up-funds-section">
                     <div className="form">
                         <div className="row">
-                            <div className="form-group col col-lg-6 col-xs-12">
-                                <label className="form-label">
-                                    {translate('sign_up_provider.filters.labels.organizations')}
-                                </label>
-                                <select
-                                    className="form-control"
-                                    value={filterValues.organization_id || ''}
-                                    onChange={(e) => {
-                                        filterUpdate({ organization_id: parseInt(e.target.value) || null });
-                                    }}>
-                                    {organizations.map((organization) => (
-                                        <option key={organization.id} value={organization.id}>
-                                            {organization.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="form-group col col-lg-6 col-xs-12">
-                                <label className="form-label">
-                                    {translate('sign_up_provider.filters.labels.tags')}
-                                </label>
-                                <select
-                                    className="form-control"
-                                    value={filterValues.tag || ''}
-                                    onChange={(e) => {
-                                        filterUpdate({ tag: e.target.value === 'all' ? null : e.target.value });
-                                    }}>
-                                    {tags.map((tag) => (
-                                        <option key={tag.key || 'all'} value={tag.key || 'all'}>
-                                            {tag.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                            {organizations && (
+                                <div className="form-group col col-lg-6 col-xs-12">
+                                    <label className="form-label">
+                                        {translate('sign_up_provider.filters.labels.organizations')}
+                                    </label>
+                                    <select
+                                        className="form-control"
+                                        data-dusk="organizationFilterSelect"
+                                        value={filterValues.organization_id || ''}
+                                        onChange={(e) => {
+                                            filterUpdate({ organization_id: parseInt(e.target.value) || null });
+                                        }}>
+                                        {organizations.map((organization) => (
+                                            <option key={organization.id} value={organization.id}>
+                                                {organization.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
+
+                            {tags && (
+                                <div className="form-group col col-lg-6 col-xs-12">
+                                    <label className="form-label">
+                                        {translate('sign_up_provider.filters.labels.tags')}
+                                    </label>
+                                    <select
+                                        className="form-control"
+                                        data-dusk="tagFilterSelect"
+                                        value={filterValues.tag || ''}
+                                        onChange={(e) => {
+                                            filterUpdate({ tag: e.target.value === 'all' ? null : e.target.value });
+                                        }}>
+                                        {tags.map((tag) => (
+                                            <option key={tag.key || 'all'} value={tag.key || 'all'}>
+                                                {tag.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -173,14 +180,19 @@ export default function SignUpAvailableFunds({
                                 {selected?.length > 0 ? (
                                     <span className="total-count">{`${selected.length}/${funds?.data.length}`}</span>
                                 ) : (
-                                    <span className="total-count">{funds?.meta.total}</span>
+                                    <span data-dusk="totalCount" className="total-count">
+                                        {funds?.meta.total}
+                                    </span>
                                 )}
                             </div>
                         </div>
                         <div className="flex">
                             <div className="block block-inline-filters">
                                 {selected.length > 0 && (
-                                    <div className="button button-primary" onClick={() => applyFunds()}>
+                                    <div
+                                        className="button button-primary"
+                                        data-dusk="applyFundsBtn"
+                                        onClick={() => applyFunds()}>
                                         {translate('sign_up_provider.buttons.join')}
                                     </div>
                                 )}
@@ -188,6 +200,7 @@ export default function SignUpAvailableFunds({
                                 {selected.length !== funds?.data.length && (
                                     <div
                                         className="button button-secondary button-sm"
+                                        data-dusk="selectAllFundsBtn"
                                         onClick={(e) => toggleAll(e, funds.data)}>
                                         {translate('sign_up_provider.buttons.select_all')}
                                     </div>
@@ -205,7 +218,7 @@ export default function SignUpAvailableFunds({
                     </div>
                 </div>
                 {funds?.data.map((fund) => (
-                    <div className="card" key={fund.id}>
+                    <div className="card" key={fund.id} data-dusk={`fundRow${fund.id}`}>
                         <div
                             className={classNames(
                                 'card-section',

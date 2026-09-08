@@ -21,11 +21,13 @@ export default function PhoneControl({
     onChange,
     placeholder = 'Voer telefoonnummer in',
     className = '',
+    dusk = null,
 }: {
     id?: string;
     onChange: (value: string) => void;
     placeholder?: string;
     className?: string;
+    dusk?: string;
 }) {
     const [regEx] = useState(/[^- ()0-9]+/g);
     const [regExSpace] = useState(/  +/g);
@@ -66,6 +68,7 @@ export default function PhoneControl({
             <input
                 className="form-control phone-control-input"
                 type="tel"
+                data-dusk={dusk}
                 maxLength={20}
                 autoFocus={true}
                 value={phoneNumber}

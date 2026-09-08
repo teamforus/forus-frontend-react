@@ -258,6 +258,7 @@ export default function ScheduleControl({
                     label={translate('organization_edit.labels.weekdays_same_hours')}
                     onChange={(e) => toggleSameCheckboxes(e.target.checked, true)}
                     checked={sameHours}
+                    dataDusk="officeSameHours"
                 />
             </div>
             <div>
@@ -268,6 +269,7 @@ export default function ScheduleControl({
                     label={translate('organization_edit.labels.weekends_same_hours')}
                     onChange={(e) => toggleSameCheckboxes(e.target.checked, false)}
                     checked={sameHoursWeekend}
+                    dataDusk="weekendSameHours"
                 />
             </div>
             <div className="visible-md visible-lg">
@@ -284,7 +286,7 @@ export default function ScheduleControl({
                         </tr>
                     </thead>
                     {weekDaysKeys.map((weekDayNumber) => (
-                        <tbody key={weekDayNumber}>
+                        <tbody key={weekDayNumber} data-dusk={`weekDay${weekDayNumber}`}>
                             <tr>
                                 <td className={classNames('schedule-day-name', weekDayNumber >= 5 && 'weekend')}>
                                     {weekDays[weekDayNumber]}
@@ -301,6 +303,7 @@ export default function ScheduleControl({
                                             });
                                         }}
                                         checked={scheduleData[weekDayNumber].is_closed}
+                                        dataDusk="weekDayClosedCheckbox"
                                     />
                                 </td>
                                 <td>
@@ -310,6 +313,7 @@ export default function ScheduleControl({
                                         <select
                                             className="form-control form-control-sm"
                                             value={scheduleData[weekDayNumber].start_time}
+                                            data-dusk="weekDayStartTime"
                                             onChange={(e) =>
                                                 setDateTime(
                                                     weekDayNumber,
@@ -330,6 +334,7 @@ export default function ScheduleControl({
                                     {!scheduleData[weekDayNumber].is_closed && (
                                         <select
                                             className="form-control form-control-sm"
+                                            data-dusk="weekDayEndTime"
                                             value={scheduleData[weekDayNumber].end_time}
                                             onChange={(e) =>
                                                 setDateTime(
@@ -352,6 +357,7 @@ export default function ScheduleControl({
                                         <div className="col col-sm-6">
                                             {!scheduleData[weekDayNumber].is_closed && (
                                                 <select
+                                                    data-dusk="weekDayBreakStartTime"
                                                     className="form-control form-control-sm"
                                                     value={scheduleData[weekDayNumber].break_start_time}
                                                     onChange={(e) =>
@@ -375,6 +381,7 @@ export default function ScheduleControl({
                                         <div className="col col-sm-6">
                                             {!scheduleData[weekDayNumber].is_closed && (
                                                 <select
+                                                    data-dusk="weekDayBreakEndTime"
                                                     className="form-control form-control-sm"
                                                     value={scheduleData[weekDayNumber].break_end_time}
                                                     onChange={(e) => {

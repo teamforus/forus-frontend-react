@@ -19,7 +19,7 @@ export default function ProviderNotificationProductRequired() {
     const [funds, setFunds] = useState<Array<Fund>>(null);
 
     useEffect(() => {
-        if (providerWarningModalCanOpen) {
+        if (providerWarningModalCanOpen && activeOrganization?.id) {
             providerFundService.listFundsProviderProductsRequired(activeOrganization.id).then((res) => {
                 if (res.data.data.length > 0) {
                     openModal((modal) => <ModalFundsProviderProductsRequired modal={modal} funds={res.data.data} />);
