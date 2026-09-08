@@ -14,6 +14,8 @@ import useTranslate from '../../hooks/useTranslate';
 import useSetProgress from '../../hooks/useSetProgress';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 
+import BlockDangerZone from '../elements/block-danger-zone/BlockDangerZone';
+
 export default function ModalReservationExtraPaymentRefund({
     modal,
     onDone,
@@ -65,42 +67,39 @@ export default function ModalReservationExtraPaymentRefund({
             <div className="modal-window">
                 <div className="modal-body form">
                     <div className="modal-section">
-                        <div className="block block-danger_zone">
-                            <div className="danger_zone-title">
-                                <em className="mdi mdi-alert" />
-                                {translate('modals.modal_extra_payment_refund.title')}
+                        <BlockDangerZone title={translate('modals.modal_extra_payment_refund.title')}>
+                            <div className="modal-text">
+                                {translate('modals.modal_extra_payment_refund.description')}
                             </div>
-                        </div>
 
-                        <div className="modal-text">{translate('modals.modal_extra_payment_refund.description')}</div>
+                            <FormGroup
+                                label="Notitie"
+                                error={form.errors.note}
+                                input={(id) => (
+                                    <textarea
+                                        id={id}
+                                        className="form-control r-n"
+                                        rows={3}
+                                        defaultValue={form.values.note}
+                                        onChange={(e) => form.update({ note: e.target.value })}
+                                        placeholder="Notitie"
+                                    />
+                                )}
+                            />
 
-                        <FormGroup
-                            label="Notitie"
-                            error={form.errors.note}
-                            input={(id) => (
-                                <textarea
-                                    id={id}
-                                    className="form-control r-n"
-                                    rows={3}
-                                    defaultValue={form.values.note}
-                                    onChange={(e) => form.update({ note: e.target.value })}
-                                    placeholder="Notitie"
-                                />
-                            )}
-                        />
-
-                        <FormGroup
-                            error={form.errors.share_note_by_email}
-                            input={(id) => (
-                                <CheckboxControl
-                                    id={id}
-                                    title={'Verstuur een bericht naar de inwoner'}
-                                    narrow={true}
-                                    checked={form.values.share_note_by_email}
-                                    onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
-                                />
-                            )}
-                        />
+                            <FormGroup
+                                error={form.errors.share_note_by_email}
+                                input={(id) => (
+                                    <CheckboxControl
+                                        id={id}
+                                        title={'Verstuur een bericht naar de inwoner'}
+                                        narrow={true}
+                                        checked={form.values.share_note_by_email}
+                                        onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
+                                    />
+                                )}
+                            />
+                        </BlockDangerZone>
                     </div>
                 </div>
 

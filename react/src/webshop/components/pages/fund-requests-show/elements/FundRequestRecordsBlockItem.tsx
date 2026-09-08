@@ -38,23 +38,23 @@ export default function FundRequestRecordsBlockItem({
             )}
             id={`fundRequestRecords${record.id}`}>
             <div className="fund-request-record-header">
-                <div className="fund-request-record-header-details">
-                    <div className="fund-request-record-header-title">{record.record_type.name}</div>
-                    <div className="fund-request-record-header-value">{record.value}</div>
+                <div className="fund-request-record-details">
+                    <div className="fund-request-record-title">{record.record_type.name}</div>
+                    <div className="fund-request-record-value">{record.value}</div>
                 </div>
 
-                <div className="fund-request-record-header-actions">
-                    {notAnsweredCount === 0 && answered.length > 0 && (
-                        <Label type="light" size="xl" nowrap={true}>
-                            {translate('fund_request.record.answer')}
-                            <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
-                        </Label>
-                    )}
+                {answered.length > 0 && (
+                    <div className="fund-request-record-actions">
+                        {notAnsweredCount === 0 && (
+                            <Label type="light" size="xl" nowrap={true}>
+                                {translate('fund_request.record.answer')}
+                                <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
+                            </Label>
+                        )}
 
-                    {answered.length > 0 && (
                         <button
                             type="button"
-                            className="fund-request-record-header-view"
+                            className="fund-request-record-toggle"
                             data-dusk={`toggleClarifications${record.id}`}
                             onClick={() => {
                                 setShownRecords((records) => {
@@ -64,28 +64,21 @@ export default function FundRequestRecordsBlockItem({
                                 });
                             }}>
                             {translate('fund_request.record.view')}
-                            <em
-                                className="mdi mdi-chevron-down fund-request-record-header-view-arrow"
-                                aria-hidden="true"
-                            />
+                            <em className="mdi mdi-chevron-down fund-request-record-toggle-icon" aria-hidden="true" />
                         </button>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
 
             {shownRecords?.includes(record?.id) && (
-                <div className="flex flex-vertical">
-                    <div className="block block-fund-request-conversations">
-                        {answered.map((clarification) => (
-                            <div className="block-fund-request-conversation" key={clarification.id}>
-                                <FundRequestClarificationAnswered
-                                    key={clarification.id}
-                                    fundRequest={fundRequest}
-                                    clarification={clarification}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                <div className="fund-request-conversations">
+                    {answered.map((clarification) => (
+                        <FundRequestClarificationAnswered
+                            key={clarification.id}
+                            fundRequest={fundRequest}
+                            clarification={clarification}
+                        />
+                    ))}
                 </div>
             )}
         </div>

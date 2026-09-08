@@ -9,10 +9,12 @@ import FundRequestClarification from '../../../../props/models/FundRequestClarif
 
 export default function FundRequestRecordTabs({
     fundRequestRecord,
+    canManageClarifications,
     editClarification,
     closeClarification,
 }: {
     fundRequestRecord: FundRequestRecord;
+    canManageClarifications: boolean;
     editClarification: (clarification: FundRequestClarification) => void;
     closeClarification: (clarification: FundRequestClarification) => void;
 }) {
@@ -74,6 +76,7 @@ export default function FundRequestRecordTabs({
             {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
                 <FundRequestRecordClarificationsTab
                     fundRequestRecord={fundRequestRecord}
+                    canManageClarifications={canManageClarifications}
                     editClarification={editClarification}
                     closeClarification={closeClarification}
                 />

@@ -7,11 +7,13 @@ import FundRequestClarification from '../../../../../props/models/FundRequestCla
 export default function FundRequestRecordClarificationsTabItem({
     index,
     clarification,
+    canManageClarifications,
     editClarification,
     closeClarification,
 }: {
     index: number;
     clarification: FundRequestClarification;
+    canManageClarifications: boolean;
     editClarification: () => void;
     closeClarification: () => void;
 }) {
@@ -170,18 +172,24 @@ export default function FundRequestRecordClarificationsTabItem({
                             </div>
                         </div>
 
-                        <div className="clarification-item-section">
-                            <div className="flex">
-                                <button className="button button-primary button-sm" onClick={() => editClarification()}>
-                                    Wijzigen
-                                </button>
-                                <button
-                                    className="button button-primary button-sm"
-                                    onClick={() => closeClarification()}>
-                                    Sluiten
-                                </button>
+                        {canManageClarifications && (
+                            <div className="clarification-item-section">
+                                <div className="flex">
+                                    <button
+                                        className="button button-primary button-sm"
+                                        onClick={() => editClarification()}>
+                                        <em className="mdi mdi-pencil-outline icon-start" aria-hidden="true" />
+                                        Wijzigen
+                                    </button>
+                                    <button
+                                        className="button button-default button-sm"
+                                        onClick={() => closeClarification()}>
+                                        <em className="mdi mdi-close icon-start" aria-hidden="true" />
+                                        Sluiten
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </>
                 )}
             </div>

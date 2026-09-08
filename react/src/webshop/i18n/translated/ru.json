@@ -475,8 +475,10 @@
         },
         "details": {
             "created_at": "Представлено на:",
-            "fund_name": "Название фонда:",
-            "status": "Запрос статуса:"
+            "status": "Запрос статуса:",
+            "fund_name": "Порядок:",
+            "last_answered": "Последнее обновление:",
+            "number": "Номер заявки:"
         },
         "fund_not_active": "Фонд, на который вы пытаетесь подать заявку, не активен.",
         "invalid_endpoint": "Нет доступа к этому приложению",
@@ -486,7 +488,6 @@
         },
         "record": {
             "answer": "Ответил",
-            "cancel_btn": "Отмена",
             "new": "новое сообщение",
             "new_message": "Новый запрос",
             "send_btn": "Отправить",
@@ -638,12 +639,16 @@
             "provide_info": "Ответьте на вопрос",
             "subtitle": "Заявка еще не заполнена. Необходима дополнительная информация. Пожалуйста, ознакомьтесь с вопросом ниже и нажмите на кнопку, чтобы ответить.",
             "title": "Открытые вопросы ({{ count }})",
-            "info_responded_count": "{{count}} сообщение"
+            "info_responded_count": "{{count}} сообщение",
+            "info_pending": "Нужен ответ"
         },
         "labels": {
             "question_from": "Вопрос от {{ name }}",
             "date": "Дата:",
-            "question": "Вопрос задан"
+            "question": "Вопрос задан",
+            "closed_by_sponsor": "Закрыто {{ sponsor_name }}",
+            "edited": "Отредактировано",
+            "your_answer": "Ваш ответ:"
         },
         "records": {
             "title": "Мои данные ({{ count }})",
@@ -714,6 +719,9 @@
                 }
             },
             "title": "Подтверждение BSN истекло"
+        },
+        "state": {
+            "answer_needed": "Нам нужна дополнительная информация от вас"
         }
     },
     "fund_requests": {
@@ -821,7 +829,7 @@
                 "title": "Схемы"
             },
             "potjeswijzer": {
-                "title": "Муниципальные фонды"
+                "title": "Банки"
             }
         },
         "header": {
@@ -907,6 +915,9 @@
             "potjeswijzer": {
                 "description": "Наши партнеры также предлагают жителям различные программы помощи. У вас небольшой доход? В таком случае вам может быть предоставлена дополнительная помощь.",
                 "title": "Партнеры «Potjes»"
+            },
+            "eemsdelta": {
+                "title": "Партнеры"
             }
         }
     },
@@ -2003,7 +2014,10 @@
         },
         "header": {
             "title": "Образец PDF"
-        }
+        },
+        "loading": "Загрузка предварительного просмотра PDF.",
+        "page_alt": "Страница PDF {{page}}",
+        "unavailable": "Предварительный просмотр в формате PDF отсутствует."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3254,7 @@
                 "activate": "Запрос"
             },
             "potjeswijzer": {
-                "activate": "Муниципальные фонды"
+                "activate": "Банки"
             }
         },
         "items": {
@@ -3249,7 +3263,8 @@
                 "funds": "Жители объяснений"
             },
             "eemsdelta": {
-                "funds": "Схемы"
+                "funds": "Схемы",
+                "partner_funds": "Партнеры"
             },
             "explanation": "Пояснение",
             "geertruidenberg": {
@@ -3305,11 +3320,11 @@
             "funds": "Правила",
             "partner_funds": "Социальные партнеры",
             "potjeswijzer": {
-                "funds": "Муниципальные фонды",
-                "partner_funds": "Партнеры «Potjes»"
+                "partner_funds": "Партнеры «Potjes»",
+                "funds": "Банки"
             },
             "westerkwartier": {
-                "funds": "Муниципальные фонды"
+                "funds": "Банки"
             }
         },
         "user_menu": {
@@ -3631,6 +3646,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Схемы"
+        },
+        "potjeswijzer": {
+            "funds": "Банки",
+            "funds_kindpakket": "Набор для детей",
+            "partner_funds": "Партнеры «Potjes»"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3869,10 @@
             "default": "Перейти на главную страницу",
             "isd": "ISD Межмуниципальная социальная служба Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Отправить",
+        "description": "Убедитесь, что вы ответили на все вопросы и приложили все подтверждающие документы.",
+        "title": "Ответ полный?"
     }
 }

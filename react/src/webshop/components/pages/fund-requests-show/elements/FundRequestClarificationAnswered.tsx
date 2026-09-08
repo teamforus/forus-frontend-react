@@ -15,10 +15,10 @@ export default function FundRequestClarificationAnswered({
     const translate = useTranslate();
 
     return (
-        <div className="conversation-item-body" data-dusk={`clarificationCard${clarification.id}`}>
-            <div className="conversation-item-section conversation-item-section-question">
-                <div className="conversation-item-section-header">
-                    <div className="conversation-item-section-header-date">
+        <div className="fund-request-conversation" data-dusk={`clarificationCard${clarification.id}`}>
+            <div className="fund-request-conversation-section fund-request-conversation-question">
+                <div className="fund-request-conversation-header">
+                    <div className="fund-request-conversation-date">
                         {clarification?.created_at_locale}
                         {!!clarification?.changed_at && (
                             <span>
@@ -28,29 +28,25 @@ export default function FundRequestClarificationAnswered({
                     </div>
                 </div>
 
-                <div className="conversation-item-section-body">
-                    <div className="conversation-item-section-body-bubble">
-                        <div className="conversation-item-section-body-label">
-                            {fundRequest?.fund?.organization_name}:
-                        </div>
-                        <div
-                            className="conversation-item-section-body-bubble-content"
-                            data-dusk="clarificationQuestion">
+                <div className="fund-request-conversation-content">
+                    <div className="fund-request-conversation-bubble">
+                        <div className="fund-request-conversation-label">{fundRequest?.fund?.organization_name}:</div>
+                        <div className="fund-request-conversation-text" data-dusk="clarificationQuestion">
                             <MultilineText text={clarification.question} />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="conversation-item-section conversation-item-section-answer">
-                <div className="conversation-item-section-header">
-                    <div className="conversation-item-section-header-date">{clarification?.resolved_at_locale}</div>
+            <div className="fund-request-conversation-section fund-request-conversation-answer">
+                <div className="fund-request-conversation-header">
+                    <div className="fund-request-conversation-date">{clarification?.resolved_at_locale}</div>
                 </div>
 
                 {clarification.state === 'closed' ? (
-                    <div className="conversation-item-section-body" data-dusk="clarificationAnswer">
-                        <div className="conversation-item-section-body-bubble">
-                            <div className="conversation-item-section-body-label">
+                    <div className="fund-request-conversation-content" data-dusk="clarificationAnswer">
+                        <div className="fund-request-conversation-bubble">
+                            <div className="fund-request-conversation-label">
                                 {translate('fund_request.labels.closed_by_sponsor', {
                                     sponsor_name: fundRequest?.fund?.organization_name,
                                 })}
@@ -58,22 +54,23 @@ export default function FundRequestClarificationAnswered({
                         </div>
                     </div>
                 ) : (
-                    <div className="conversation-item-section-body" data-dusk="clarificationAnswer">
-                        <div className="conversation-item-section-body-bubble">
-                            <div className="conversation-item-section-body-label">
+                    <div className="fund-request-conversation-content" data-dusk="clarificationAnswer">
+                        <div className="fund-request-conversation-bubble">
+                            <div className="fund-request-conversation-label">
                                 {translate('fund_request.labels.your_answer')}:
                             </div>
 
                             {clarification.answer && (
-                                <div className="conversation-item-section-body-bubble-content">
+                                <div className="fund-request-conversation-text">
                                     <MultilineText text={clarification.answer} />
                                 </div>
                             )}
 
                             {clarification.files?.length > 0 && (
-                                <div className="conversation-item-section-body-bubble-files">
+                                <div className="fund-request-conversation-files">
                                     <FileUploader
                                         type="fund_request_clarification_proof"
+                                        className="block-file-uploader-stacked-mobile"
                                         files={clarification.files}
                                         template={'compact'}
                                         readOnly={true}

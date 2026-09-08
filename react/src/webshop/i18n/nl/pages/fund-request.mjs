@@ -48,7 +48,6 @@ export default {
         answer_btn: 'Beantwoord deze vraag',
         answer_btn_info:
             'Klik op de button ”<strong>Beantwoord deze vraag</strong>” om de extra informatie te versturen. De informatie wordt toegevoegd aan de aanvraag.',
-        cancel_btn: 'Annuleer',
         send_btn: 'Verzend',
         answer_question_label: 'Beantwoord de vraag',
         add_document_label: 'Voeg een document toe',
@@ -64,7 +63,7 @@ export default {
         question_from: 'Vraag van {{ name }}',
         date: 'Datum:',
         your_answer: 'Uw antwoord:',
-        closed_by_sponsor: 'Beantwoord door {{ sponsor_name }}',
+        closed_by_sponsor: 'Gesloten door {{ sponsor_name }}',
         edited: 'Edited',
     },
 

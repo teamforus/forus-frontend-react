@@ -1,5 +1,5 @@
-.block.block-danger_zone {
-    .danger_zone-header {
+.block.block-danger-zone {
+    .danger-zone-header {
         display: flex;
         flex-direction: column;
         border: 1px solid var(--color-danger);
@@ -9,7 +9,7 @@
         margin-bottom: 20px;
         cursor: default;
 
-        .danger_zone-title {
+        .danger-zone-title {
             display: flex;
             flex-direction: row;
             font: 600 16px/20px var(--base-font);
@@ -17,22 +17,21 @@
             color: var(--color-danger);
             width: 100%;
             text-align: center;
+            gap: 10px;
 
-            .mdi {
+            .danger-zone-icon {
                 display: flex;
                 color: var(--color-danger);
                 font-size: 20px;
                 line-height: 20px;
-                margin: 0 10px 0 0;
-                vertical-align: bottom;
 
-                &:before {
+                &::before {
                     line-height: inherit;
                 }
             }
         }
 
-        .danger_zone-description {
+        .danger-zone-description {
             font: 500 14px/20px var(--base-font);
             color: #646f79;
             border-top: 1px solid #d4d9dd;
@@ -43,21 +42,9 @@
         &:last-child {
             margin-bottom: 0;
         }
-
-        &.block-danger_zone-success {
-            border-color: var(--color-primary);
-
-            .danger_zone-title {
-                color: var(--color-primary);
-
-                .mdi {
-                    color: rgba($color: #000000, $alpha: 0.4);
-                }
-            }
-        }
     }
 
-    .danger_zone-overview {
+    .danger-zone-overview {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -67,8 +54,8 @@
         padding: 10px;
         font: 500 13px / 20px var(--base-font);
 
-        .danger_zone-overview-item {
-            .danger_zone-overview-title {
+        .danger-zone-overview-item {
+            .danger-zone-overview-title {
                 font-weight: 700;
             }
         }

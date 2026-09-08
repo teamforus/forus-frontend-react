@@ -1,17 +1,19 @@
 import React from 'react';
-import { ModalState } from '../../modules/modals/context/ModalContext';
-import useFormBuilder from '../../hooks/useFormBuilder';
-import { ResponseError } from '../../props/ApiResponses';
-import useSetProgress from '../../hooks/useSetProgress';
-import FundRequest from '../../props/models/FundRequest';
-import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
-import Organization from '../../props/models/Organization';
+import { ModalState } from '../../../modules/modals/context/ModalContext';
+import useFormBuilder from '../../../hooks/useFormBuilder';
+import { ResponseError } from '../../../props/ApiResponses';
+import useSetProgress from '../../../hooks/useSetProgress';
+import FundRequest from '../../../props/models/FundRequest';
+import { useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
+import Organization from '../../../props/models/Organization';
 import classNames from 'classnames';
-import FormGroup from '../elements/forms/elements/FormGroup';
-import FormPane from '../elements/forms/elements/FormPane';
-import InfoBox from '../elements/info-box/InfoBox';
-import FundRequestClarification from '../../props/models/FundRequestClarification';
-import CheckboxControl from '../elements/forms/controls/CheckboxControl';
+import FormGroup from '../../elements/forms/elements/FormGroup';
+import FormPane from '../../elements/forms/elements/FormPane';
+import InfoBox from '../../elements/info-box/InfoBox';
+import FundRequestClarification from '../../../props/models/FundRequestClarification';
+import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
+
+import BlockDangerZone from '../../elements/block-danger-zone/BlockDangerZone';
 
 export default function ModalFundRequestClarificationClose({
     modal,
@@ -69,14 +71,7 @@ export default function ModalFundRequestClarificationClose({
             <form className="modal-window form" onSubmit={form.submit}>
                 <div className="modal-body form">
                     <div className="modal-section modal-section-pad flex flex-vertical flex-gap">
-                        <div className="block block-danger_zone">
-                            <div className="danger_zone-header">
-                                <div className="danger_zone-title">
-                                    <em className="mdi mdi-alert" />
-                                    Weet u zeker dat u dit verzoek wilt sluiten?
-                                </div>
-                            </div>
-                        </div>
+                        <BlockDangerZone title="Weet u zeker dat u dit verzoek wilt sluiten?" />
 
                         <div className="text-center">
                             <div className="modal-text">

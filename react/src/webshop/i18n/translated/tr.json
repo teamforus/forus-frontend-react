@@ -679,7 +679,7 @@
                 "activate": "İstek"
             },
             "potjeswijzer": {
-                "activate": "Belediye kasaları"
+                "activate": "Kavanozlar"
             }
         },
         "items": {
@@ -688,7 +688,8 @@
                 "funds": "Açıklama sakinleri"
             },
             "eemsdelta": {
-                "funds": "Şemalar"
+                "funds": "Şemalar",
+                "partner_funds": "Ortaklar"
             },
             "explanation": "Açıklama",
             "geertruidenberg": {
@@ -744,11 +745,11 @@
             "funds": "Düzenlemeler",
             "partner_funds": "Sosyal taraflar",
             "potjeswijzer": {
-                "funds": "Belediye kasaları",
-                "partner_funds": "Potjes ortakları"
+                "partner_funds": "Potjes ortakları",
+                "funds": "Kavanozlar"
             },
             "westerkwartier": {
-                "funds": "Belediye kasaları"
+                "funds": "Kavanozlar"
             }
         },
         "user_menu": {
@@ -888,8 +889,10 @@
         },
         "details": {
             "created_at": "Gönderilme tarihi:",
-            "fund_name": "Fon adı:",
-            "status": "Durum Talebi:"
+            "status": "Durum Talebi:",
+            "fund_name": "Düzenleme:",
+            "last_answered": "Son güncelleme:",
+            "number": "Başvuru numarası:"
         },
         "fund_not_active": "Başvurmaya çalıştığınız fon aktif değil.",
         "invalid_endpoint": "Bu uygulamaya erişim yok",
@@ -899,7 +902,6 @@
         },
         "record": {
             "answer": "Cevaplandı",
-            "cancel_btn": "İptal",
             "new": "yeni mesaj",
             "new_message": "Yeni istek",
             "send_btn": "Gönder",
@@ -1051,12 +1053,16 @@
             "provide_info": "Soruyu cevaplayın",
             "subtitle": "Başvuru henüz tamamlanmamıştır. Ek bilgiye ihtiyaç vardır. Lütfen aşağıdaki soruyu inceleyin ve yanıtlamak için düğmeye tıklayın.",
             "title": "Açık sorular ({{ count }})",
-            "info_responded_count": "{{count}} mesaj"
+            "info_responded_count": "{{count}} mesaj",
+            "info_pending": "Cevap gerekiyor"
         },
         "labels": {
             "question_from": "Bir soru {{ name }}",
             "date": "Tarih:",
-            "question": "Soru soruldu"
+            "question": "Soru soruldu",
+            "closed_by_sponsor": "Kapatıldı: {{ sponsor_name }}",
+            "edited": "Düzenlendi",
+            "your_answer": "Cevabınız:"
         },
         "records": {
             "title": "Bilgilerim ({{ count }})",
@@ -1127,6 +1133,9 @@
                 }
             },
             "title": "BSN onayının süresi doldu"
+        },
+        "state": {
+            "answer_needed": "Sizden daha fazla bilgiye ihtiyacımız var"
         }
     },
     "fund": {
@@ -1285,7 +1294,7 @@
                 "title": "Şemalar"
             },
             "potjeswijzer": {
-                "title": "Belediye kasaları"
+                "title": "Kavanozlar"
             }
         },
         "header": {
@@ -1371,6 +1380,9 @@
             "potjeswijzer": {
                 "description": "Ortaklarımız da bölge sakinleri için çeşitli yardım fonları sunmaktadır. Geliriniz düşük mü? O halde ek bir yardım alabilirsiniz.",
                 "title": "Potjes ortakları"
+            },
+            "eemsdelta": {
+                "title": "Ortaklar"
             }
         }
     },
@@ -3346,7 +3358,10 @@
         },
         "header": {
             "title": "PDF örneği"
-        }
+        },
+        "loading": "PDF önizlemesi yükleniyor.",
+        "page_alt": "PDF sayfası {{page}}",
+        "unavailable": "PDF önizlemesi mevcut değil."
     },
     "popup_auth": {
         "buttons": {
@@ -3631,6 +3646,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Şemalar"
+        },
+        "potjeswijzer": {
+            "funds": "Kavanozlar",
+            "funds_kindpakket": "Çocuk Paketi",
+            "partner_funds": "Potjes ortakları"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3869,10 @@
             "default": "Ana sayfaya git",
             "isd": "ISD Belediyeler Arası Sosyal Hizmet Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Gönder",
+        "description": "Tüm soruları yanıtladığını ve tüm destekleyici belgeleri eklediğini kontrol et.",
+        "title": "Cevap tam mı?"
     }
 }

@@ -5,7 +5,7 @@ import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue
 import FundRequestRecordTabs from './FundRequestRecordTabs';
 import FundRequestRecord from '../../../../props/models/FundRequestRecord';
 import { FundRequestLocal, FundRequestRecordGroupLocal, FundRequestRecordLocal } from '../FundRequestsView';
-import ModalFundRequestClarificationEdit from '../../../modals/ModalFundRequestClarificationEdit';
+import ModalFundRequestClarificationEdit from '../../../modals/fund-request-clarification/ModalFundRequestClarificationEdit';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
@@ -16,7 +16,7 @@ import Label from '../../../elements/label/Label';
 import EmptyValue from '../../../elements/empty-value/EmptyValue';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import FundRequestClarification from '../../../../props/models/FundRequestClarification';
-import ModalFundRequestClarificationClose from '../../../modals/ModalFundRequestClarificationClose';
+import ModalFundRequestClarificationClose from '../../../modals/fund-request-clarification/ModalFundRequestClarificationClose';
 
 export default function FundRequestGroupRecordRow({
     organization,
@@ -116,7 +116,7 @@ export default function FundRequestGroupRecordRow({
                         }
 
                         reloadRequest();
-                        pushSuccess('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
+                        pushSuccess('Gelukt!', 'Aanvullingsverzoek gesloten.');
                     }}
                 />
             ));
@@ -272,6 +272,7 @@ export default function FundRequestGroupRecordRow({
                     <td className="collapse-content" colSpan={7}>
                         <FundRequestRecordTabs
                             fundRequestRecord={record}
+                            canManageClarifications={fundRequest.is_assigned}
                             editClarification={(clarification) => clarifyRecord(record, clarification)}
                             closeClarification={(clarification) => closeClarification(clarification)}
                         />

@@ -1,4 +1,4 @@
-@use "../includes/helpers";
+@use '../includes/helpers';
 
 .block.block-file-uploader {
     display: flex;
@@ -270,6 +270,25 @@
 
                 &:last-child {
                     margin-bottom: 0;
+                }
+            }
+        }
+
+        &.block-file-uploader-stacked-mobile {
+            @media screen and (max-width: 1000px) {
+                .uploader-droparea {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    align-items: flex-start;
+
+                    .droparea-button {
+                        width: 100%;
+
+                        .button {
+                            width: 100%;
+                        }
+                    }
                 }
             }
         }

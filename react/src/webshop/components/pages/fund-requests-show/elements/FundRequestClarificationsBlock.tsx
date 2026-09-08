@@ -68,35 +68,32 @@ export default function FundRequestClarificationsBlock({
 
     return (
         <div className="card">
-            <div className="card-section card-section-md">
-                <div className="profile-content-header">
-                    <h2 className="profile-content-title profile-content-title-sm" id="clarificationsBlockTitle">
+            <div className="card-section">
+                <div className="card-section-header">
+                    <h2 className="card-section-title" id="clarificationsBlockTitle">
                         {translate('fund_request.clarifications.title', {
                             count: records?.length,
                         })}
                     </h2>
 
-                    <p className="profile-content-subtitle">{translate('fund_request.clarifications.subtitle')}</p>
+                    <p className="card-section-subtitle">{translate('fund_request.clarifications.subtitle')}</p>
                 </div>
 
-                <div
-                    className="block block-fund-request-clarifications"
-                    role="region"
-                    aria-labelledby="clarificationsBlockTitle">
+                <div className="fund-request-clarifications" role="region" aria-labelledby="clarificationsBlockTitle">
                     {records.map((item, index) => (
-                        <div className="clarification-item" key={item.record.id}>
-                            <div className="clarification-header" key={item.record.id}>
-                                <div className="clarification-item-icon">{index + 1}</div>
+                        <div className="fund-request-clarification" key={item.record.id}>
+                            <div className="fund-request-clarification-header" key={item.record.id}>
+                                <div className="fund-request-clarification-number">{index + 1}</div>
 
-                                <div className="clarification-item-content">
+                                <div className="fund-request-clarification-title">
                                     <span>{item.record?.record_type?.name}</span>
-                                    <span className="clarification-item-content-dot" aria-hidden="true">
+                                    <span className="fund-request-clarification-separator" aria-hidden="true">
                                         •
                                     </span>
                                     <span>{item.record?.value}</span>
                                 </div>
 
-                                <div className="clarification-item-actions">
+                                <div className="fund-request-clarification-actions">
                                     {item?.clarificationsPending?.length > 0 ? (
                                         <Label type="warning" nowrap={true}>
                                             {translate('fund_request.clarifications.info_pending')}
@@ -113,27 +110,25 @@ export default function FundRequestClarificationsBlock({
                             </div>
 
                             {item?.clarificationsPending?.length > 0 && (
-                                <div className="flex flex-vertical">
-                                    <div className="block block-fund-request-conversations">
-                                        {item.clarifications.map((clarification) => (
-                                            <div className="block-fund-request-conversation" key={clarification.id}>
-                                                {clarification.state === 'pending' ? (
-                                                    <FundRequestClarificationPending
-                                                        record={item.record}
-                                                        clarification={clarification}
-                                                        fundRequest={fundRequest}
-                                                        setFundRequest={setFundRequest}
-                                                        setClarificationsResponded={setClarificationsResponded}
-                                                    />
-                                                ) : (
-                                                    <FundRequestClarificationAnswered
-                                                        clarification={clarification}
-                                                        fundRequest={fundRequest}
-                                                    />
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
+                                <div className="fund-request-conversations">
+                                    {item.clarifications.map((clarification) =>
+                                        clarification.state === 'pending' ? (
+                                            <FundRequestClarificationPending
+                                                key={clarification.id}
+                                                record={item.record}
+                                                clarification={clarification}
+                                                fundRequest={fundRequest}
+                                                setFundRequest={setFundRequest}
+                                                setClarificationsResponded={setClarificationsResponded}
+                                            />
+                                        ) : (
+                                            <FundRequestClarificationAnswered
+                                                key={clarification.id}
+                                                clarification={clarification}
+                                                fundRequest={fundRequest}
+                                            />
+                                        ),
+                                    )}
                                 </div>
                             )}
                         </div>

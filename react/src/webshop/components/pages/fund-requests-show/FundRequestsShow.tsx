@@ -43,7 +43,7 @@ export default function FundRequestsShow() {
                 }),
             )
             .flat()
-            .sort((a, b) => new Date(a.resolved_at).getTime() - new Date(b.resolved_at).getTime())?.[0];
+            .sort((a, b) => new Date(b.resolved_at).getTime() - new Date(a.resolved_at).getTime())?.[0];
     }, [fundRequest?.records]);
 
     const hasNotAnswered = useMemo(() => {
@@ -109,29 +109,31 @@ export default function FundRequestsShow() {
             {fundRequest && (
                 <div className={'block block-fund-request'}>
                     <div className="card">
-                        <div className="card-section card-section-md">
-                            <div className="flex flex-gap-lg flex-vertical">
-                                {fundRequest.state === 'pending' && !hasNotAnswered && (
-                                    <StatusBanner type="pending">{fundRequest.state_locale}</StatusBanner>
-                                )}
+                        <div className="card-section">
+                            <div className="fund-request-summary">
+                                <div className="fund-request-summary-status">
+                                    {fundRequest.state === 'pending' && !hasNotAnswered && (
+                                        <StatusBanner type="pending">{fundRequest.state_locale}</StatusBanner>
+                                    )}
 
-                                {fundRequest.state === 'pending' && hasNotAnswered && (
-                                    <StatusBanner type="warning">
-                                        {translate('fund_request.state.answer_needed')}
-                                    </StatusBanner>
-                                )}
+                                    {fundRequest.state === 'pending' && hasNotAnswered && (
+                                        <StatusBanner type="warning">
+                                            {translate('fund_request.state.answer_needed')}
+                                        </StatusBanner>
+                                    )}
 
-                                {fundRequest.state === 'approved' && (
-                                    <StatusBanner type="success">{fundRequest.state_locale}</StatusBanner>
-                                )}
+                                    {fundRequest.state === 'approved' && (
+                                        <StatusBanner type="success">{fundRequest.state_locale}</StatusBanner>
+                                    )}
 
-                                {fundRequest.state === 'disregarded' && (
-                                    <StatusBanner type="danger">{fundRequest.state_locale}</StatusBanner>
-                                )}
+                                    {fundRequest.state === 'disregarded' && (
+                                        <StatusBanner type="danger">{fundRequest.state_locale}</StatusBanner>
+                                    )}
 
-                                {fundRequest.state === 'declined' && (
-                                    <StatusBanner type="default">{fundRequest.state_locale}</StatusBanner>
-                                )}
+                                    {fundRequest.state === 'declined' && (
+                                        <StatusBanner type="default">{fundRequest.state_locale}</StatusBanner>
+                                    )}
+                                </div>
 
                                 <div className="fund-request-props">
                                     <div className="fund-request-prop">

@@ -58,6 +58,26 @@
         cursor: inherit;
         @include helpers.cf();
 
+        .card-section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+
+            .card-section-title {
+                font: 700 18px/27px var(--heading-font-family);
+                color: var(--tc);
+                width: 100%;
+                margin: 0;
+            }
+
+            .card-section-subtitle {
+                font: 400 14px/22px var(--base-font);
+                color: var(--tc);
+                width: 100%;
+                margin: 0;
+            }
+        }
+
         .card-title {
             font: 500 16px/30px var(--heading-font-family);
             color: var(--tc);
@@ -297,6 +317,15 @@
 
         .card-section {
             padding: 20px;
+
+            .card-section-header {
+                display: flex;
+                flex-direction: column;
+
+                .card-section-subtitle {
+                    padding: 10px 0;
+                }
+            }
         }
     }
 }
