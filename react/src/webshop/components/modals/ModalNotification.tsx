@@ -79,6 +79,7 @@ export default function ModalNotification({
 
     return (
         <div
+            data-dusk="modalNotification"
             className={classNames(
                 'modal',
                 'modal-notification',
@@ -151,7 +152,11 @@ export default function ModalNotification({
                     )}
 
                     {showCancelBtn && (
-                        <button className="button button-sm button-light" data-cancel="data-cancel" onClick={cancel}>
+                        <button
+                            className="button button-sm button-light"
+                            data-dusk="btnNotificationCancel"
+                            data-cancel="data-cancel"
+                            onClick={cancel}>
                             {cancelBtnText || translate('modal.buttons.cancel')}
                         </button>
                     )}
@@ -160,6 +165,7 @@ export default function ModalNotification({
                         <button
                             className="button button-sm button-primary"
                             data-confirm="data-confirm"
+                            data-dusk="btnNotificationConfirm"
                             onClick={confirm}>
                             {confirmBtnText || translate('modal.buttons.confirm')}
                         </button>

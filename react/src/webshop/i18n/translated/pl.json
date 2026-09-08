@@ -475,8 +475,10 @@
         },
         "details": {
             "created_at": "Zgłoszono dnia:",
-            "fund_name": "Nazwa funduszu:",
-            "status": "Wniosek o status:"
+            "status": "Wniosek o status:",
+            "fund_name": "Przepisy:",
+            "last_answered": "Ostatnia aktualizacja:",
+            "number": "Numer wniosku:"
         },
         "fund_not_active": "Fundusz, którego dotyczy wniosek, jest nieaktywny.",
         "invalid_endpoint": "Brak dostępu do tej aplikacji",
@@ -486,7 +488,6 @@
         },
         "record": {
             "answer": "Odpowiedź",
-            "cancel_btn": "Anuluj",
             "new": "nowa wiadomość",
             "new_message": "Nowe żądanie",
             "send_btn": "Wyślij",
@@ -638,12 +639,16 @@
             "provide_info": "Odpowiedz na pytanie",
             "subtitle": "Aplikacja nie jest jeszcze kompletna. Potrzebne są dodatkowe informacje. Zapoznaj się z poniższym pytaniem i kliknij przycisk, aby odpowiedzieć.",
             "title": "Pytania otwarte ({{ count }})",
-            "info_responded_count": "{{count}} wiadomość"
+            "info_responded_count": "{{count}} wiadomość",
+            "info_pending": "Potrzebna odpowiedź"
         },
         "labels": {
             "question_from": "Pytanie od {{ name }}",
             "date": "Data:",
-            "question": "Zadane pytanie"
+            "question": "Zadane pytanie",
+            "closed_by_sponsor": "Zamknięte przez {{ sponsor_name }}",
+            "edited": "Edytowano",
+            "your_answer": "Pańska odpowiedź:"
         },
         "records": {
             "title": "Moje dane ({{ count }})",
@@ -714,6 +719,9 @@
                 }
             },
             "title": "Potwierdzenie BSN straciło ważność"
+        },
+        "state": {
+            "answer_needed": "Potrzebujemy od Państwa dodatkowych informacji"
         }
     },
     "fund_requests": {
@@ -821,7 +829,7 @@
                 "title": "Programy"
             },
             "potjeswijzer": {
-                "title": "Fundusze gminne"
+                "title": "Słoiczki"
             }
         },
         "header": {
@@ -907,6 +915,9 @@
             "potjeswijzer": {
                 "description": "Również nasi partnerzy oferują mieszkańcom różne formy pomocy. Czy Państwa dochody są niskie? W takim razie mogą Państwo liczyć na dodatkowe wsparcie.",
                 "title": "Partnerzy Potjes"
+            },
+            "eemsdelta": {
+                "title": "Partnerzy"
             }
         }
     },
@@ -2003,7 +2014,10 @@
         },
         "header": {
             "title": "Próbka PDF"
-        }
+        },
+        "loading": "Ładowanie podglądu pliku PDF.",
+        "page_alt": "Strona PDF {{page}}",
+        "unavailable": "Nie ma dostępnego podglądu w formacie PDF."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3254,7 @@
                 "activate": "Żądanie"
             },
             "potjeswijzer": {
-                "activate": "Fundusze gminne"
+                "activate": "Słoiczki"
             }
         },
         "items": {
@@ -3249,7 +3263,8 @@
                 "funds": "Wyjaśnienie mieszkańców"
             },
             "eemsdelta": {
-                "funds": "Programy"
+                "funds": "Programy",
+                "partner_funds": "Partnerzy"
             },
             "explanation": "Wyjaśnienie",
             "geertruidenberg": {
@@ -3305,11 +3320,11 @@
             "funds": "Przepisy",
             "partner_funds": "Partnerzy społeczni",
             "potjeswijzer": {
-                "funds": "Fundusze gminne",
-                "partner_funds": "Partnerzy Potjes"
+                "partner_funds": "Partnerzy Potjes",
+                "funds": "Słoiczki"
             },
             "westerkwartier": {
-                "funds": "Fundusze gminne"
+                "funds": "Słoiczki"
             }
         },
         "user_menu": {
@@ -3631,6 +3646,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Programy"
+        },
+        "potjeswijzer": {
+            "funds": "Słoiczki",
+            "funds_kindpakket": "Zestaw dla dzieci",
+            "partner_funds": "Partnerzy Potjes"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3869,10 @@
             "default": "Przejdź do strony głównej",
             "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Wyślij",
+        "description": "Sprawdź, czy odpowiedziałeś na wszystkie pytania i załączyłeś wszystkie dokumenty potwierdzające.",
+        "title": "Czy odpowiedź jest kompletna?"
     }
 }

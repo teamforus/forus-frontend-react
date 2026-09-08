@@ -12,7 +12,7 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
 
     const notAnsweredCount = useMemo(() => {
         return fundRequest?.records
-            .map((record) => record.clarifications.filter((item) => item.state !== 'answered').length)
+            .map((record) => record.clarifications.filter((item) => item.state === 'pending').length)
             .reduce((a, b) => a + b, 0);
     }, [fundRequest?.records]);
 

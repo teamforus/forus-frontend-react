@@ -1645,6 +1645,7 @@ export default {
         clarification_states: {
             pending: 'Wachten',
             answered: 'Beantwoord',
+            closed: 'Gesloten',
         },
         missed_records: {
             labels: {

@@ -87,7 +87,10 @@ export default function FundRequestRecordsHasClarifications({
                                                     record.clarifications[record.clarifications.length - 1].state ==
                                                     'pending'
                                                         ? 'default'
-                                                        : 'success'
+                                                        : record.clarifications[record.clarifications.length - 1]
+                                                                .state == 'closed'
+                                                          ? 'primary-light'
+                                                          : 'success'
                                                 }>
                                                 {translate(
                                                     `validation_requests.clarification_states.${record.clarifications[record.clarifications.length - 1].state}`,

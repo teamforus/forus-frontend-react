@@ -101,6 +101,20 @@ export class FundRequestValidatorService<T = FundRequest> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, data);
     }
 
+    public updateRecordClarification(organizationId: number, id: number, clarificationId: number, data: object) {
+        return this.apiRequest.patch(
+            `${this.prefix}/${organizationId}/fund-requests/${id}/clarifications/${clarificationId}`,
+            data,
+        );
+    }
+
+    public closeRecordClarification(organizationId: number, id: number, clarificationId: number, data: object) {
+        return this.apiRequest.post(
+            `${this.prefix}/${organizationId}/fund-requests/${id}/clarifications/${clarificationId}/close`,
+            data,
+        );
+    }
+
     public recordClarifications(organizationId: number, id: number, record_id: number) {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, {
             fund_request_record_id: record_id,

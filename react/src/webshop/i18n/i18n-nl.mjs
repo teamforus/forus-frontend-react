@@ -438,6 +438,12 @@ export default {
         confirm_btn: 'Bevestigen',
     },
 
+    confirm_fund_request_clarification_submit: {
+        title: 'Is het antwoord compleet?',
+        description: 'Controleer of je alle vragen hebt beantwoord en alle bewijsstukken hebt toegevoegd.',
+        confirm_btn: 'Versturen',
+    },
+
     confirm_taken_by_partner: {
         title: 'Tegoed activeren',
         header: 'Dit tegoed is al geactiveerd',

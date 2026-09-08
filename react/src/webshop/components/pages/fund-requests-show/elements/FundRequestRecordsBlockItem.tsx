@@ -1,47 +1,32 @@
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import FundRequestRecord from '../../../../../dashboard/props/models/FundRequestRecord';
 import FundRequest from '../../../../../dashboard/props/models/FundRequest';
-import FundRequestRecordsBlockItemDetails from './FundRequestRecordsBlockItemDetails';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
 import { uniq } from 'lodash';
-import useIsMobile from '../../../../hooks/useIsMobile';
-import FundRequestClarification from '../../../../../dashboard/props/models/FundRequestClarification';
 import Label from '../../../elements/label/Label';
+import FundRequestClarificationAnswered from './FundRequestClarificationAnswered';
 
 export default function FundRequestRecordsBlockItem({
     record,
-    inline = false,
     fundRequest,
-    setFundRequest,
     shownRecords,
     setShownRecords,
-    setClarificationsResponded,
-    shownClarificationForms,
-    setShownClarificationForms,
-    openResponseModal,
 }: {
     record: FundRequestRecord;
-    inline?: boolean;
     fundRequest: FundRequest;
-    setFundRequest: React.Dispatch<React.SetStateAction<FundRequest>>;
     shownRecords: Array<number>;
     setShownRecords: Dispatch<SetStateAction<Array<number>>>;
-    setClarificationsResponded: Dispatch<SetStateAction<Array<number>>>;
-    shownClarificationForms: Array<number>;
-    setShownClarificationForms: Dispatch<SetStateAction<Array<number>>>;
-    openResponseModal?: (record: FundRequestRecord, clarification?: FundRequestClarification) => void;
 }) {
-    const isMobile = useIsMobile();
     const translate = useTranslate();
 
-    const answeredCount = useMemo(
-        () => record.clarifications.filter((item) => item.state === 'answered').length,
+    const answered = useMemo(
+        () => record.clarifications.filter((item) => ['answered', 'closed'].includes(item.state)),
         [record.clarifications],
     );
 
     const notAnsweredCount = useMemo(
-        () => record.clarifications.filter((item) => item.state !== 'answered').length,
+        () => record.clarifications.filter((item) => item.state === 'pending').length,
         [record.clarifications],
     );
 
@@ -49,51 +34,29 @@ export default function FundRequestRecordsBlockItem({
         <div
             className={classNames(
                 'fund-request-record',
-                inline && 'fund-request-record-inline',
                 shownRecords?.includes(record?.id) && 'fund-request-record-open',
-            )}>
+            )}
+            id={`fundRequestRecords${record.id}`}>
             <div className="fund-request-record-header">
-                <div className="fund-request-record-header-main">
-                    <div className="fund-request-record-header-icon">
-                        <em className="mdi mdi-card-account-details-outline" aria-hidden="true" />
-                    </div>
-                    <div className="fund-request-record-header-content">
-                        <h3 className="fund-request-record-header-title">
-                            <span>{record.record_type.name}</span>
-                            <span className="fund-request-record-header-title-dot" aria-hidden="true">
-                                •
-                            </span>
-                            <span>{record.value}</span>
-                        </h3>
-                        <div className="fund-request-record-header-subtitle">{record.created_at_locale}</div>
-                    </div>
+                <div className="fund-request-record-details">
+                    <div className="fund-request-record-title">{record.record_type.name}</div>
+                    <div className="fund-request-record-value">{record.value}</div>
                 </div>
 
-                <div className="fund-request-record-header-actions">
-                    {notAnsweredCount > 0 && (
-                        <Label type="primary" size="xl" nowrap={true}>
-                            <span className="label-blink" aria-hidden="true" />
-                            {notAnsweredCount} <span>{translate('fund_request.record.new')}</span>
-                        </Label>
-                    )}
+                {answered.length > 0 && (
+                    <div className="fund-request-record-actions">
+                        {notAnsweredCount === 0 && (
+                            <Label type="light" size="xl" nowrap={true}>
+                                {translate('fund_request.record.answer')}
+                                <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
+                            </Label>
+                        )}
 
-                    {notAnsweredCount === 0 && answeredCount > 0 && (
-                        <Label type="light" size="xl" nowrap={true}>
-                            {translate('fund_request.record.answer')}
-                            <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
-                        </Label>
-                    )}
-
-                    {record.clarifications.length > 0 && !inline && (
                         <button
                             type="button"
-                            className="fund-request-record-header-view"
+                            className="fund-request-record-toggle"
                             data-dusk={`toggleClarifications${record.id}`}
                             onClick={() => {
-                                if (isMobile) {
-                                    return openResponseModal?.(record);
-                                }
-
                                 setShownRecords((records) => {
                                     return records?.includes(record?.id)
                                         ? records.filter((id) => id !== record.id)
@@ -101,31 +64,21 @@ export default function FundRequestRecordsBlockItem({
                                 });
                             }}>
                             {translate('fund_request.record.view')}
-                            <em
-                                className="mdi mdi-chevron-down fund-request-record-header-view-arrow"
-                                aria-hidden="true"
-                            />
+                            <em className="mdi mdi-chevron-down fund-request-record-toggle-icon" aria-hidden="true" />
                         </button>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
 
             {shownRecords?.includes(record?.id) && (
-                <div className="fund-request-record-section">
-                    <div className="block block-fund-request-conversations">
-                        {record.clarifications.map((clarification) => (
-                            <FundRequestRecordsBlockItemDetails
-                                key={clarification.id}
-                                record={record}
-                                fundRequest={fundRequest}
-                                setFundRequest={setFundRequest}
-                                clarification={clarification}
-                                setClarificationsResponded={setClarificationsResponded}
-                                shownClarificationForms={shownClarificationForms}
-                                setShownClarificationForms={setShownClarificationForms}
-                            />
-                        ))}
-                    </div>
+                <div className="fund-request-conversations">
+                    {answered.map((clarification) => (
+                        <FundRequestClarificationAnswered
+                            key={clarification.id}
+                            fundRequest={fundRequest}
+                            clarification={clarification}
+                        />
+                    ))}
                 </div>
             )}
         </div>

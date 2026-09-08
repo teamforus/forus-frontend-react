@@ -3,6 +3,7 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ModalButton } from './elements/ModalButton';
 import classNames from 'classnames';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
+import BlockDangerZone from '../elements/block-danger-zone/BlockDangerZone';
 
 export default function ModalDangerZone({
     modal,
@@ -11,6 +12,7 @@ export default function ModalDangerZone({
     description,
     description_title,
     description_text,
+    overview,
     confirmation,
     buttonCancel,
     buttonSubmit,
@@ -22,6 +24,7 @@ export default function ModalDangerZone({
     description?: string | Array<string>;
     description_title?: string;
     description_text?: string | Array<string> | ReactNode;
+    overview?: Array<{ title: string; description: string }>;
     confirmation?: string;
     buttonCancel?: ModalButton;
     buttonSubmit?: ModalButton;
@@ -37,49 +40,38 @@ export default function ModalDangerZone({
             <div className="modal-window">
                 <div className="modal-body form">
                     <div className="modal-section">
-                        {(title || description) && (
-                            <div className="block block-danger_zone">
-                                <div className="danger_zone-title">
-                                    <em className="mdi mdi-alert" />
-                                    {title}
-                                </div>
-
-                                {description && (
-                                    <div className="danger_zone-description">
-                                        {Array.isArray(description)
-                                            ? description
-                                            : [description].map((value, index) => <div key={index}>{value}</div>)}
+                        <BlockDangerZone
+                            title={title}
+                            description={description}
+                            overview={overview}
+                            footer={
+                                confirmation && (
+                                    <div className="form text-center">
+                                        <CheckboxControl
+                                            checked={confirmed}
+                                            dusk="dangerZoneConfirmation"
+                                            narrow={true}
+                                            onChange={(_, checked) => setConfirmed(checked)}
+                                            title={confirmation}
+                                        />
                                     </div>
-                                )}
-                            </div>
-                        )}
+                                )
+                            }>
+                            {description_title && <div className="modal-heading">{description_title}</div>}
 
-                        {description_title && <div className="modal-heading">{description_title}</div>}
-
-                        {typeof description_text === 'string' || Array.isArray(description_text) ? (
-                            <div className="modal-text">
-                                {(Array.isArray(description_text)
-                                    ? description_text
-                                    : description_text.split('\n')
-                                ).map((value: string, index: number) =>
-                                    value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
-                                )}
-                            </div>
-                        ) : (
-                            <div className="modal-text">{description_text}</div>
-                        )}
-
-                        {confirmation && (
-                            <div className="form text-center">
-                                <CheckboxControl
-                                    checked={confirmed}
-                                    dusk="dangerZoneConfirmation"
-                                    narrow={true}
-                                    onChange={(_, checked) => setConfirmed(checked)}
-                                    title={confirmation}
-                                />
-                            </div>
-                        )}
+                            {typeof description_text === 'string' || Array.isArray(description_text) ? (
+                                <div className="modal-text">
+                                    {(Array.isArray(description_text)
+                                        ? description_text
+                                        : description_text.split('\n')
+                                    ).map((value: string, index: number) =>
+                                        value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="modal-text">{description_text}</div>
+                            )}
+                        </BlockDangerZone>
                     </div>
                 </div>
 

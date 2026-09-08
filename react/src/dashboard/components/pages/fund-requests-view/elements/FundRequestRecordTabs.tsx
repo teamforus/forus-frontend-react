@@ -5,8 +5,19 @@ import FundRequestRecordClarificationsTab from './record-tabs/FundRequestRecordC
 import FundRequestRecord from '../../../../props/models/FundRequestRecord';
 import useTranslate from '../../../../hooks/useTranslate';
 import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
+import FundRequestClarification from '../../../../props/models/FundRequestClarification';
 
-export default function FundRequestRecordTabs({ fundRequestRecord }: { fundRequestRecord: FundRequestRecord }) {
+export default function FundRequestRecordTabs({
+    fundRequestRecord,
+    canManageClarifications,
+    editClarification,
+    closeClarification,
+}: {
+    fundRequestRecord: FundRequestRecord;
+    canManageClarifications: boolean;
+    editClarification: (clarification: FundRequestClarification) => void;
+    closeClarification: (clarification: FundRequestClarification) => void;
+}) {
     const contentMap = useMemo(
         () => [
             fundRequestRecord.files.length > 0 ? 'files' : null,
@@ -63,7 +74,12 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
             )}
 
             {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
-                <FundRequestRecordClarificationsTab fundRequestRecord={fundRequestRecord} />
+                <FundRequestRecordClarificationsTab
+                    fundRequestRecord={fundRequestRecord}
+                    canManageClarifications={canManageClarifications}
+                    editClarification={editClarification}
+                    closeClarification={closeClarification}
+                />
             )}
 
             {shownType == 'history' && fundRequestRecord.history.length > 0 && (

@@ -1,0 +1,63 @@
+.block.block-danger-zone {
+    .danger-zone-header {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--color-danger);
+        border-radius: var(--border-radius);
+        background: #fff;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: default;
+
+        .danger-zone-title {
+            display: flex;
+            flex-direction: row;
+            font: 600 16px/20px var(--base-font);
+            padding: 15px;
+            color: var(--color-danger);
+            width: 100%;
+            text-align: center;
+            gap: 10px;
+
+            .danger-zone-icon {
+                display: flex;
+                color: var(--color-danger);
+                font-size: 20px;
+                line-height: 20px;
+
+                &::before {
+                    line-height: inherit;
+                }
+            }
+        }
+
+        .danger-zone-description {
+            font: 500 14px/20px var(--base-font);
+            color: #646f79;
+            border-top: 1px solid #d4d9dd;
+            width: 100%;
+            padding: 15px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .danger-zone-overview {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: #fff;
+        padding: 10px;
+        font: 500 13px / 20px var(--base-font);
+
+        .danger-zone-overview-item {
+            .danger-zone-overview-title {
+                font-weight: 700;
+            }
+        }
+    }
+}

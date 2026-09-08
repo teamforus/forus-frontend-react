@@ -475,8 +475,10 @@
         },
         "details": {
             "created_at": "Eingereicht am:",
-            "fund_name": "Name des Fonds:",
-            "status": "Statusanfrage:"
+            "status": "Statusanfrage:",
+            "fund_name": "Regelung:",
+            "last_answered": "Zuletzt geändert:",
+            "number": "Antragsnummer:"
         },
         "fund_not_active": "Der Fonds, für den Sie einen Antrag stellen möchten, ist nicht aktiv.",
         "invalid_endpoint": "Kein Zugang zu dieser Anwendung",
@@ -486,7 +488,6 @@
         },
         "record": {
             "answer": "Antwortet",
-            "cancel_btn": "Abbrechen",
             "new": "neue Nachricht",
             "new_message": "Neue Anfrage",
             "send_btn": "Senden Sie",
@@ -638,12 +639,16 @@
             "provide_info": "Beantworten Sie die Frage",
             "subtitle": "Der Antrag ist noch nicht vollständig. Es werden zusätzliche Informationen benötigt. Bitte lesen Sie die nachstehende Frage und klicken Sie auf die Schaltfläche, um zu antworten.",
             "title": "Offene Fragen ({{ count }})",
-            "info_responded_count": "{{count}} Nachricht"
+            "info_responded_count": "{{count}} Nachricht",
+            "info_pending": "Antwort erforderlich"
         },
         "labels": {
             "question_from": "Frage von {{ name }}",
             "date": "Datum:",
-            "question": "Frage gestellt"
+            "question": "Frage gestellt",
+            "closed_by_sponsor": "Geschlossen von {{ sponsor_name }}",
+            "edited": "Bearbeitet",
+            "your_answer": "Ihre Antwort:"
         },
         "records": {
             "title": "Meine Daten ({{ count }})",
@@ -714,6 +719,9 @@
                 }
             },
             "title": "BSN-Bestätigung abgelaufen"
+        },
+        "state": {
+            "answer_needed": "Wir benötigen weitere Informationen von Ihnen"
         }
     },
     "fund_requests": {
@@ -821,7 +829,7 @@
                 "title": "Schemata"
             },
             "potjeswijzer": {
-                "title": "Gemeindekasse"
+                "title": "Töpfchen"
             }
         },
         "header": {
@@ -907,6 +915,9 @@
             "potjeswijzer": {
                 "description": "Auch unsere Partner bieten verschiedene Förderprogramme für Einwohner an. Haben Sie ein geringes Einkommen? Dann ist möglicherweise eine zusätzliche Unterstützung möglich.",
                 "title": "Partner von Potjes"
+            },
+            "eemsdelta": {
+                "title": "Partner"
             }
         }
     },
@@ -2003,7 +2014,10 @@
         },
         "header": {
             "title": "PDF-Muster"
-        }
+        },
+        "loading": "Die PDF-Vorschau wird geladen.",
+        "page_alt": "PDF-Seite {{page}}",
+        "unavailable": "Es ist keine PDF-Vorschau verfügbar."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3254,7 @@
                 "activate": "Anfrage"
             },
             "potjeswijzer": {
-                "activate": "Gemeindekasse"
+                "activate": "Töpfchen"
             }
         },
         "items": {
@@ -3249,7 +3263,8 @@
                 "funds": "Erläuterung Bewohner"
             },
             "eemsdelta": {
-                "funds": "Schemata"
+                "funds": "Schemata",
+                "partner_funds": "Partner"
             },
             "explanation": "Erläuterung",
             "geertruidenberg": {
@@ -3305,11 +3320,11 @@
             "funds": "Regelungen",
             "partner_funds": "Sozialpartner",
             "potjeswijzer": {
-                "funds": "Gemeindekasse",
-                "partner_funds": "Partner von Potjes"
+                "partner_funds": "Partner von Potjes",
+                "funds": "Töpfchen"
             },
             "westerkwartier": {
-                "funds": "Gemeindekasse"
+                "funds": "Töpfchen"
             }
         },
         "user_menu": {
@@ -3631,6 +3646,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Schemata"
+        },
+        "potjeswijzer": {
+            "funds": "Töpfchen",
+            "funds_kindpakket": "Kinderpaket",
+            "partner_funds": "Partner von Potjes"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3869,10 @@
             "default": "Zur Homepage gehen",
             "isd": "ISD Interkommunaler Sozialdienst Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Senden",
+        "description": "Überprüfe, ob du alle Fragen beantwortet und alle Belege beigefügt hast.",
+        "title": "Ist die Antwort vollständig?"
     }
 }

@@ -1,18 +1,22 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import FundRequest from '../../../../../dashboard/props/models/FundRequest';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FundRequestClarification from '../../../../../dashboard/props/models/FundRequestClarification';
 import FundRequestRecord from '../../../../../dashboard/props/models/FundRequestRecord';
 import Label from '../../../elements/label/Label';
+import FundRequestClarificationPending from './FundRequestClarificationPending';
+import FundRequestClarificationAnswered from './FundRequestClarificationAnswered';
 
 export default function FundRequestClarificationsBlock({
     fundRequest,
+    setFundRequest,
     clarificationsResponded,
-    onRespond,
+    setClarificationsResponded,
 }: {
     fundRequest: FundRequest;
+    setFundRequest: Dispatch<FundRequest>;
     clarificationsResponded: Array<number>;
-    onRespond: (record: FundRequestRecord, clarification: FundRequestClarification) => void;
+    setClarificationsResponded: Dispatch<SetStateAction<Array<number>>>;
 }) {
     const translate = useTranslate();
 
@@ -63,71 +67,74 @@ export default function FundRequestClarificationsBlock({
     }
 
     return (
-        <Fragment>
-            <div className="profile-content-header">
-                <h2 className="profile-content-title profile-content-title-sm" id="clarificationsBlockTitle">
-                    {translate('fund_request.clarifications.title', {
-                        count: records?.length,
-                    })}
-                </h2>
+        <div className="card">
+            <div className="card-section">
+                <div className="card-section-header">
+                    <h2 className="card-section-title" id="clarificationsBlockTitle">
+                        {translate('fund_request.clarifications.title', {
+                            count: records?.length,
+                        })}
+                    </h2>
 
-                <p className="profile-content-subtitle">{translate('fund_request.clarifications.subtitle')}</p>
-            </div>
+                    <p className="card-section-subtitle">{translate('fund_request.clarifications.subtitle')}</p>
+                </div>
 
-            <div
-                className="block block-fund-request-clarifications"
-                role="region"
-                aria-labelledby="clarificationsBlockTitle">
-                {records.map((item) => (
-                    <div
-                        className="clarification-item"
-                        id={
-                            item?.clarificationsPending?.length > 0
-                                ? `clarificationsRecords${item.record.id}`
-                                : `clarificationsRecordsSuccess${item.record.id}`
-                        }
-                        key={item.record.id}>
-                        {item?.clarificationsPending?.length > 0 ? (
-                            <div className="clarification-item-icon clarification-item-icon-primary">
-                                <em className="mdi mdi-email-outline" aria-hidden="true" />
+                <div className="fund-request-clarifications" role="region" aria-labelledby="clarificationsBlockTitle">
+                    {records.map((item, index) => (
+                        <div className="fund-request-clarification" key={item.record.id}>
+                            <div className="fund-request-clarification-header" key={item.record.id}>
+                                <div className="fund-request-clarification-number">{index + 1}</div>
+
+                                <div className="fund-request-clarification-title">
+                                    <span>{item.record?.record_type?.name}</span>
+                                    <span className="fund-request-clarification-separator" aria-hidden="true">
+                                        •
+                                    </span>
+                                    <span>{item.record?.value}</span>
+                                </div>
+
+                                <div className="fund-request-clarification-actions">
+                                    {item?.clarificationsPending?.length > 0 ? (
+                                        <Label type="warning" nowrap={true}>
+                                            {translate('fund_request.clarifications.info_pending')}
+                                        </Label>
+                                    ) : (
+                                        <Label type="light" nowrap={true}>
+                                            {translate('fund_request.clarifications.info_responded_count', {
+                                                count: item?.clarificationsResponded?.length,
+                                            })}
+                                            <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
+                                        </Label>
+                                    )}
+                                </div>
                             </div>
-                        ) : (
-                            <div className="clarification-item-icon">
-                                <em className="mdi mdi-check" aria-hidden="true" />
-                            </div>
-                        )}
 
-                        <div className="clarification-item-content">
-                            <div className="clarification-item-content-title">{item.record?.record_type?.name}</div>
-                            <div className="clarification-item-content-subtitle">
-                                {translate('fund_request.clarifications.info_requested')}
-                            </div>
-                        </div>
-
-                        <div className="clarification-item-actions">
-                            {item?.clarificationsPending?.length > 0 ? (
-                                <button
-                                    className="button button-primary button-sm"
-                                    onClick={() => onRespond(item.record, item.clarificationsPending?.[0])}
-                                    aria-describedby={
-                                        item?.clarificationsPending?.length > 0
-                                            ? `clarificationsRecords${item.record.id}`
-                                            : undefined
-                                    }>
-                                    {translate('fund_request.clarifications.provide_info')}
-                                </button>
-                            ) : (
-                                <Label type="light" size="xl" nowrap={true}>
-                                    {translate('fund_request.clarifications.info_responded_count', {
-                                        count: item?.clarificationsResponded?.length,
-                                    })}
-                                    <em className="mdi mdi-check-bold icon-end" aria-hidden="true" />
-                                </Label>
+                            {item?.clarificationsPending?.length > 0 && (
+                                <div className="fund-request-conversations">
+                                    {item.clarifications.map((clarification) =>
+                                        clarification.state === 'pending' ? (
+                                            <FundRequestClarificationPending
+                                                key={clarification.id}
+                                                record={item.record}
+                                                clarification={clarification}
+                                                fundRequest={fundRequest}
+                                                setFundRequest={setFundRequest}
+                                                setClarificationsResponded={setClarificationsResponded}
+                                            />
+                                        ) : (
+                                            <FundRequestClarificationAnswered
+                                                key={clarification.id}
+                                                clarification={clarification}
+                                                fundRequest={fundRequest}
+                                            />
+                                        ),
+                                    )}
+                                </div>
                             )}
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </Fragment>
+        </div>
     );
 }

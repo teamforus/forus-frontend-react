@@ -475,8 +475,10 @@
         },
         "details": {
             "created_at": "Подав далі:",
-            "fund_name": "Назва фонду:",
-            "status": "Запит статусу:"
+            "status": "Запит статусу:",
+            "fund_name": "Порядок:",
+            "last_answered": "Останнє оновлення:",
+            "number": "Номер заявки:"
         },
         "fund_not_active": "Фонд, до якого ви намагаєтеся подати заявку, не активний.",
         "invalid_endpoint": "Немає доступу до цієї програми",
@@ -486,7 +488,6 @@
         },
         "record": {
             "answer": "Відповідаю.",
-            "cancel_btn": "Скасувати",
             "new": "нове повідомлення",
             "new_message": "Новий запит",
             "send_btn": "Надіслати",
@@ -638,12 +639,16 @@
             "provide_info": "Дайте відповідь на запитання",
             "subtitle": "Заявка ще не заповнена. Потрібна додаткова інформація. Будь ласка, перегляньте питання нижче і натисніть кнопку, щоб відповісти.",
             "title": "Відкриті питання ({{ count }})",
-            "info_responded_count": "{{count}} повідомлення"
+            "info_responded_count": "{{count}} повідомлення",
+            "info_pending": "Потрібна відповідь"
         },
         "labels": {
             "question_from": "Питання від {{ name }}",
             "date": "Побачення:",
-            "question": "Поставлене запитання"
+            "question": "Поставлене запитання",
+            "closed_by_sponsor": "Закрито {{ sponsor_name }}",
+            "edited": "Відредаговано",
+            "your_answer": "Ваша відповідь:"
         },
         "records": {
             "title": "Мої дані ({{ count }})",
@@ -714,6 +719,9 @@
                 }
             },
             "title": "Закінчився термін дії підтвердження BSN"
+        },
+        "state": {
+            "answer_needed": "Нам потрібна від вас додаткова інформація"
         }
     },
     "fund_requests": {
@@ -821,7 +829,7 @@
                 "title": "Схеми"
             },
             "potjeswijzer": {
-                "title": "Місцеві бюджети"
+                "title": "Банки"
             }
         },
         "header": {
@@ -907,6 +915,9 @@
             "potjeswijzer": {
                 "description": "Наші партнери також пропонують різні програми допомоги для мешканців. Якщо у вас невеликий дохід, то ви можете отримати додаткову допомогу.",
                 "title": "Партнери «Potjes»"
+            },
+            "eemsdelta": {
+                "title": "Партнери"
             }
         }
     },
@@ -2003,7 +2014,10 @@
         },
         "header": {
             "title": "Зразок PDF"
-        }
+        },
+        "loading": "Завантажується попередній перегляд PDF-файлу.",
+        "page_alt": "Сторінка PDF-файлу {{page}}",
+        "unavailable": "Попередній перегляд у форматі PDF недоступний."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3254,7 @@
                 "activate": "Запит"
             },
             "potjeswijzer": {
-                "activate": "Місцеві бюджети"
+                "activate": "Банки"
             }
         },
         "items": {
@@ -3249,7 +3263,8 @@
                 "funds": "Пояснення резидентів"
             },
             "eemsdelta": {
-                "funds": "Схеми"
+                "funds": "Схеми",
+                "partner_funds": "Партнери"
             },
             "explanation": "Пояснення",
             "geertruidenberg": {
@@ -3305,11 +3320,11 @@
             "funds": "Правила",
             "partner_funds": "Соціальні партнери",
             "potjeswijzer": {
-                "funds": "Місцеві бюджети",
-                "partner_funds": "Партнери «Potjes»"
+                "partner_funds": "Партнери «Potjes»",
+                "funds": "Банки"
             },
             "westerkwartier": {
-                "funds": "Місцеві бюджети"
+                "funds": "Банки"
             }
         },
         "user_menu": {
@@ -3631,6 +3646,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Схеми"
+        },
+        "potjeswijzer": {
+            "funds": "Банки",
+            "funds_kindpakket": "Набір для дитини",
+            "partner_funds": "Партнери «Potjes»"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3869,10 @@
             "default": "Перейдіть на головну сторінку",
             "isd": "ISD Міжмуніципальна соціальна служба Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Надіслати",
+        "description": "Перевірте, чи відповіли ви на всі запитання та чи додали всі підтверджуючі документи.",
+        "title": "Чи є відповідь повною?"
     }
 }

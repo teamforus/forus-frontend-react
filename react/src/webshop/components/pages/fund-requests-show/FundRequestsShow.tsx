@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FundRequest from '../../../../dashboard/props/models/FundRequest';
 import { useFundRequestService } from '../../../services/FundRequestService';
@@ -13,20 +13,13 @@ import { authContext } from '../../../contexts/AuthContext';
 import FundRequestClarificationsBlock from './elements/FundRequestClarificationsBlock';
 import FundRequestRecordsBlock from './elements/FundRequestRecordsBlock';
 import classNames from 'classnames';
-import { uniq } from 'lodash';
-import FundRequestRecord from '../../../../dashboard/props/models/FundRequestRecord';
-import ModalFundRequestClarificationResponse from '../../modals/ModalFundRequestClarificationResponse';
-import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
-import useIsMobile from '../../../hooks/useIsMobile';
-import FundRequestClarification from '../../../../dashboard/props/models/FundRequestClarification';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import Label from '../../elements/label/Label';
+import EmptyValue from '../../../../dashboard/components/elements/empty-value/EmptyValue';
+import StatusBanner from '../../elements/status-banner/StatusBanner';
 
 export default function FundRequestsShow() {
     const { id } = useParams();
 
-    const isMobile = useIsMobile();
-    const openModal = useOpenModal();
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
@@ -38,10 +31,32 @@ export default function FundRequestsShow() {
     const [showCreditInfo, setShowCreditInfo] = useState(true);
 
     const [shownRecords, setShownRecords] = useState([]);
-    const [shownClarificationForms, setShownClarificationForms] = useState([]);
     const [clarificationsResponded, setClarificationsResponded] = useState([]);
 
     const fundRequestService = useFundRequestService();
+
+    const latestAnswered = useMemo(() => {
+        return fundRequest?.records
+            ?.map((current) =>
+                current?.clarifications.filter((clarification) => {
+                    return clarification?.state === 'answered' || clarification?.state === 'closed';
+                }),
+            )
+            .flat()
+            .sort((a, b) => new Date(b.resolved_at).getTime() - new Date(a.resolved_at).getTime())?.[0];
+    }, [fundRequest?.records]);
+
+    const hasNotAnswered = useMemo(() => {
+        return (
+            fundRequest?.records?.filter((current) => {
+                return (
+                    current?.clarifications.filter((clarification) => {
+                        return clarification?.state === 'pending';
+                    }).length > 0
+                );
+            }).length > 0
+        );
+    }, [fundRequest?.records]);
 
     const fetchFundRequest = useCallback(() => {
         setProgress(0);
@@ -51,44 +66,6 @@ export default function FundRequestsShow() {
             .then((res) => setFundRequest(res.data.data))
             .finally(() => setProgress(100));
     }, [fundRequestService, setProgress, id]);
-
-    const scrollToAndFocus = useCallback(
-        (idCard: string, idTextarea: string, ms: number = 500, delay: number = 100) => {
-            setTimeout(() => {
-                const elCard = document.getElementById(idCard);
-                const elInput = document.getElementById(idTextarea);
-
-                if (!elCard) {
-                    return;
-                }
-
-                elCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                setTimeout(() => {
-                    if (elInput) {
-                        elInput.focus({ preventScroll: true });
-                    }
-                }, ms);
-            }, delay);
-        },
-        [],
-    );
-
-    const openResponseModal = useCallback(
-        (record: FundRequestRecord, clarification?: FundRequestClarification) => {
-            openModal((modal) => (
-                <ModalFundRequestClarificationResponse
-                    modal={modal}
-                    record={record}
-                    fundRequest={fundRequest}
-                    setFundRequest={setFundRequest}
-                    clarification={clarification}
-                    setClarificationsResponded={setClarificationsResponded}
-                />
-            ));
-        },
-        [fundRequest, openModal, setClarificationsResponded, setFundRequest],
-    );
 
     useEffect(() => {
         if (identity) {
@@ -132,42 +109,61 @@ export default function FundRequestsShow() {
             {fundRequest && (
                 <div className={'block block-fund-request'}>
                     <div className="card">
-                        <div className="card-section card-section-md">
-                            <div className="fund-request-props">
-                                <div className="fund-request-prop">
-                                    <div className="fund-request-prop-label">
-                                        {translate('fund_request.details.status')}
-                                    </div>
-                                    <div className="fund-request-prop-value" aria-live="polite">
-                                        <Label
-                                            type={
-                                                fundRequest.state === 'pending'
-                                                    ? 'warning'
-                                                    : fundRequest.state === 'approved'
-                                                      ? 'success'
-                                                      : fundRequest.state === 'declined'
-                                                        ? 'default'
-                                                        : fundRequest.state === 'disregarded'
-                                                          ? 'danger'
-                                                          : undefined
-                                            }>
-                                            {fundRequest.state_locale}
-                                        </Label>
-                                    </div>
+                        <div className="card-section">
+                            <div className="fund-request-summary">
+                                <div className="fund-request-summary-status">
+                                    {fundRequest.state === 'pending' && !hasNotAnswered && (
+                                        <StatusBanner type="pending">{fundRequest.state_locale}</StatusBanner>
+                                    )}
+
+                                    {fundRequest.state === 'pending' && hasNotAnswered && (
+                                        <StatusBanner type="warning">
+                                            {translate('fund_request.state.answer_needed')}
+                                        </StatusBanner>
+                                    )}
+
+                                    {fundRequest.state === 'approved' && (
+                                        <StatusBanner type="success">{fundRequest.state_locale}</StatusBanner>
+                                    )}
+
+                                    {fundRequest.state === 'disregarded' && (
+                                        <StatusBanner type="danger">{fundRequest.state_locale}</StatusBanner>
+                                    )}
+
+                                    {fundRequest.state === 'declined' && (
+                                        <StatusBanner type="default">{fundRequest.state_locale}</StatusBanner>
+                                    )}
                                 </div>
-                                <div className="fund-request-prop">
-                                    <div className="fund-request-prop-label">
-                                        {translate('fund_request.details.fund_name')}
+
+                                <div className="fund-request-props">
+                                    <div className="fund-request-prop">
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.number')}
+                                        </div>
+                                        <div className="fund-request-prop-value">{fundRequest.id}</div>
                                     </div>
-                                    <div className="fund-request-prop-value" data-dusk="fundRequestFund">
-                                        {fundRequest.fund.name}
+                                    <div className="fund-request-prop">
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.fund_name')}
+                                        </div>
+                                        <div className="fund-request-prop-value" data-dusk="fundRequestFund">
+                                            {fundRequest.fund.name}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="fund-request-prop">
-                                    <div className="fund-request-prop-label">
-                                        {translate('fund_request.details.created_at')}
+                                    <div className="fund-request-prop">
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.created_at')}
+                                        </div>
+                                        <div className="fund-request-prop-value">{fundRequest.created_at_locale}</div>
                                     </div>
-                                    <div className="fund-request-prop-value">{fundRequest.created_at_locale}</div>
+                                    <div className="fund-request-prop">
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.last_answered')}
+                                        </div>
+                                        <div className="fund-request-prop-value">
+                                            {latestAnswered?.resolved_at_locale || <EmptyValue />}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -230,34 +226,14 @@ export default function FundRequestsShow() {
                     <FundRequestClarificationsBlock
                         fundRequest={fundRequest}
                         clarificationsResponded={clarificationsResponded}
-                        onRespond={(record, clarification) => {
-                            if (isMobile) {
-                                openResponseModal(record, clarification);
-                            } else {
-                                setShownRecords((records) => uniq([...records, record.id]));
-                                setShownClarificationForms((clarifications) =>
-                                    uniq([...clarifications, clarification.id]),
-                                );
-                            }
-
-                            scrollToAndFocus(
-                                `clarificationCard${clarification.id}`,
-                                `answerInput${clarification.id}`,
-                                500,
-                                isMobile ? 500 : 100,
-                            );
-                        }}
+                        setFundRequest={setFundRequest}
+                        setClarificationsResponded={setClarificationsResponded}
                     />
 
                     <FundRequestRecordsBlock
                         fundRequest={fundRequest}
-                        setFundRequest={setFundRequest}
                         shownRecords={shownRecords}
                         setShownRecords={setShownRecords}
-                        setClarificationsResponded={setClarificationsResponded}
-                        shownClarificationForms={shownClarificationForms}
-                        setShownClarificationForms={setShownClarificationForms}
-                        openResponseModal={openResponseModal}
                     />
 
                     {fundRequest.state === 'declined' && (

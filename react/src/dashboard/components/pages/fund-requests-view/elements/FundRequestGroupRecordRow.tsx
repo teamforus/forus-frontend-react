@@ -5,7 +5,7 @@ import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue
 import FundRequestRecordTabs from './FundRequestRecordTabs';
 import FundRequestRecord from '../../../../props/models/FundRequestRecord';
 import { FundRequestLocal, FundRequestRecordGroupLocal, FundRequestRecordLocal } from '../FundRequestsView';
-import ModalFundRequestClarify from '../../../modals/ModalFundRequestClarify';
+import ModalFundRequestClarificationEdit from '../../../modals/fund-request-clarification/ModalFundRequestClarificationEdit';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
@@ -15,6 +15,8 @@ import useTranslate from '../../../../hooks/useTranslate';
 import Label from '../../../elements/label/Label';
 import EmptyValue from '../../../elements/empty-value/EmptyValue';
 import Tooltip from '../../../elements/tooltip/Tooltip';
+import FundRequestClarification from '../../../../props/models/FundRequestClarification';
+import ModalFundRequestClarificationClose from '../../../modals/fund-request-clarification/ModalFundRequestClarificationClose';
 
 export default function FundRequestGroupRecordRow({
     organization,
@@ -48,6 +50,20 @@ export default function FundRequestGroupRecordRow({
         );
     }, [fundRequest, record]);
 
+    const pendingClarification = useMemo(() => {
+        return record.clarifications.find((clarification) => clarification.state === 'pending');
+    }, [record.clarifications]);
+
+    const stateLabelType = useMemo(() => {
+        const state = record.clarifications[record.clarifications.length - 1]?.state;
+
+        if (!state) {
+            return undefined;
+        }
+
+        return state == 'pending' ? 'default' : state == 'closed' ? 'primary-light' : 'success';
+    }, [record?.clarifications]);
+
     const showInfoModal = useCallback(
         (title: string, message: string) => {
             openModal((modal) => (
@@ -64,12 +80,13 @@ export default function FundRequestGroupRecordRow({
     );
 
     const clarifyRecord = useCallback(
-        (requestRecord: FundRequestRecord) => {
+        (requestRecord: FundRequestRecord, clarification?: FundRequestClarification) => {
             openModal((modal) => (
-                <ModalFundRequestClarify
+                <ModalFundRequestClarificationEdit
                     modal={modal}
                     fundRequest={fundRequest}
                     organization={organization}
+                    clarification={clarification}
                     fundRequestRecord={requestRecord}
                     onSubmitted={(err) => {
                         if (err) {
@@ -78,6 +95,28 @@ export default function FundRequestGroupRecordRow({
 
                         reloadRequest();
                         pushSuccess('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
+                    }}
+                />
+            ));
+        },
+        [organization, fundRequest, openModal, pushSuccess, reloadRequest, showInfoModal],
+    );
+
+    const closeClarification = useCallback(
+        (clarification: FundRequestClarification) => {
+            openModal((modal) => (
+                <ModalFundRequestClarificationClose
+                    modal={modal}
+                    fundRequest={fundRequest}
+                    organization={organization}
+                    clarification={clarification}
+                    onSubmitted={(err) => {
+                        if (err) {
+                            return showInfoModal('Error', `Reden: ${err.data.message}`);
+                        }
+
+                        reloadRequest();
+                        pushSuccess('Gelukt!', 'Aanvullingsverzoek gesloten.');
                     }}
                 />
             ));
@@ -166,12 +205,7 @@ export default function FundRequestGroupRecordRow({
 
                 <td>
                     {record.clarifications.length > 0 ? (
-                        <Label
-                            type={
-                                record.clarifications[record.clarifications.length - 1].state == 'pending'
-                                    ? 'default'
-                                    : 'success'
-                            }>
+                        <Label type={stateLabelType}>
                             {translate(
                                 `validation_requests.clarification_states.${record.clarifications[record.clarifications.length - 1].state}`,
                             )}
@@ -188,15 +222,29 @@ export default function FundRequestGroupRecordRow({
                             content={(e) => (
                                 <div className="dropdown dropdown-actions">
                                     {recordHasCriterion && (
-                                        <div
-                                            className="dropdown-item"
-                                            onClick={() => {
-                                                e.close();
-                                                clarifyRecord(record);
-                                            }}>
-                                            <em className="mdi mdi-message-text icon-start" />
-                                            Aanvullingsverzoek
-                                        </div>
+                                        <>
+                                            {pendingClarification ? (
+                                                <div
+                                                    className="dropdown-item"
+                                                    onClick={() => {
+                                                        e.close();
+                                                        clarifyRecord(record, pendingClarification);
+                                                    }}>
+                                                    <em className="mdi mdi-message-text icon-start" />
+                                                    Wijzig aanvulverzoek
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className="dropdown-item"
+                                                    onClick={() => {
+                                                        e.close();
+                                                        clarifyRecord(record);
+                                                    }}>
+                                                    <em className="mdi mdi-message-text icon-start" />
+                                                    Aanvullingsverzoek
+                                                </div>
+                                            )}
+                                        </>
                                     )}
                                     {organization.allow_fund_request_record_edit && (
                                         <div
@@ -222,7 +270,12 @@ export default function FundRequestGroupRecordRow({
                 <tr className="tr-dim">
                     {group.hasContent && <td className="td-narrow"></td>}
                     <td className="collapse-content" colSpan={7}>
-                        <FundRequestRecordTabs fundRequestRecord={record} />
+                        <FundRequestRecordTabs
+                            fundRequestRecord={record}
+                            canManageClarifications={fundRequest.is_assigned}
+                            editClarification={(clarification) => clarifyRecord(record, clarification)}
+                            closeClarification={(clarification) => closeClarification(clarification)}
+                        />
                     </td>
                 </tr>
             )}

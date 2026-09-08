@@ -4,9 +4,9 @@ export default interface FundRequestClarification {
     id?: number;
     answer?: string;
     question?: string;
-    answered_at?: string;
-    answered_at_locale?: string;
-    state?: 'pending' | 'answered';
+    resolved_at?: string;
+    resolved_at_locale?: string;
+    state?: 'pending' | 'answered' | 'closed';
     files?: Array<File>;
     text_requirement?: 'no' | 'optional' | 'required';
     files_requirement?: 'no' | 'optional' | 'required';
@@ -14,6 +14,8 @@ export default interface FundRequestClarification {
     created_at_locale?: string;
     updated_at?: string;
     updated_at_locale?: string;
+    changed_at?: string;
+    changed_at_locale?: string;
     fund_request_record_id?: number;
     fund_request_record_name?: string;
 }

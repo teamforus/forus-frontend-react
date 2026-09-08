@@ -48,6 +48,7 @@ type FileItemEventsListener = {
 export default function FileUploader({
     type,
     title,
+    className,
     files = null,
     template = 'default',
     hideInlineTitle = false,
@@ -73,6 +74,7 @@ export default function FileUploader({
         | 'fund_request_record_proof'
         | 'product_reservation_custom_field';
     title?: string;
+    className?: string;
     files?: Array<FileModel>;
     template?: 'default' | 'compact' | 'inline' | 'group';
     hideInlineTitle?: boolean;
@@ -331,7 +333,7 @@ export default function FileUploader({
 
     return (
         <div
-            className={classNames('block', 'block-file-uploader', {
+            className={classNames('block', 'block-file-uploader', className, {
                 'block-file-uploader-compact': template === 'compact',
                 'block-file-uploader-inline': template === 'inline',
                 'block-file-uploader-group': template === 'group',

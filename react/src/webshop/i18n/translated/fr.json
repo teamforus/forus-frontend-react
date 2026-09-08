@@ -475,8 +475,10 @@
         },
         "details": {
             "created_at": "Soumis le :",
-            "fund_name": "Nom du fonds :",
-            "status": "Demande de statut :"
+            "status": "Demande de statut :",
+            "fund_name": "Règlement :",
+            "last_answered": "Dernière modification :",
+            "number": "Numéro de demande :"
         },
         "fund_not_active": "Le fonds que vous essayez de solliciter n'est pas actif.",
         "invalid_endpoint": "Pas d'accès à cette application",
@@ -486,7 +488,6 @@
         },
         "record": {
             "answer": "Répondu",
-            "cancel_btn": "Annuler",
             "new": "nouveau message",
             "new_message": "Nouvelle demande",
             "send_btn": "Envoyer",
@@ -638,12 +639,16 @@
             "provide_info": "Répondre à la question",
             "subtitle": "La demande n'est pas encore complète. Des informations supplémentaires sont nécessaires. Veuillez lire la question ci-dessous et cliquer sur le bouton pour répondre.",
             "title": "Questions ouvertes ({{ count }})",
-            "info_responded_count": "{{count}} message"
+            "info_responded_count": "{{count}} message",
+            "info_pending": "J'ai besoin d'une réponse"
         },
         "labels": {
             "question_from": "Question de {{ name }}",
             "date": "Date :",
-            "question": "Question posée"
+            "question": "Question posée",
+            "closed_by_sponsor": "Fermé par {{ sponsor_name }}",
+            "edited": "Modifié",
+            "your_answer": "Votre réponse :"
         },
         "records": {
             "title": "Mes coordonnées ({{ count }})",
@@ -714,6 +719,9 @@
                 }
             },
             "title": "Confirmation du BSN expirée"
+        },
+        "state": {
+            "answer_needed": "Nous avons besoin de plus d'informations de votre part"
         }
     },
     "fund_requests": {
@@ -821,7 +829,7 @@
                 "title": "Régimes"
             },
             "potjeswijzer": {
-                "title": "Caisses communales"
+                "title": "Petits pots"
             }
         },
         "header": {
@@ -907,6 +915,9 @@
             "potjeswijzer": {
                 "description": "Nos partenaires proposent également différentes aides financières aux habitants. Vous disposez d'un faible revenu ? Dans ce cas, vous pouvez bénéficier d'une aide supplémentaire.",
                 "title": "Partenaires de Potjes"
+            },
+            "eemsdelta": {
+                "title": "Partenaires"
             }
         }
     },
@@ -2003,7 +2014,10 @@
         },
         "header": {
             "title": "Échantillon PDF"
-        }
+        },
+        "loading": "L'aperçu du fichier PDF est en cours de chargement.",
+        "page_alt": "Page PDF {{page}}",
+        "unavailable": "Aucun aperçu PDF n'est disponible."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3254,7 @@
                 "activate": "Demande"
             },
             "potjeswijzer": {
-                "activate": "Caisses communales"
+                "activate": "Petits pots"
             }
         },
         "items": {
@@ -3249,7 +3263,8 @@
                 "funds": "Explication des résidents"
             },
             "eemsdelta": {
-                "funds": "Régimes"
+                "funds": "Régimes",
+                "partner_funds": "Partenaires"
             },
             "explanation": "Explication",
             "geertruidenberg": {
@@ -3305,11 +3320,11 @@
             "funds": "Dispositions",
             "partner_funds": "Partenaires sociaux",
             "potjeswijzer": {
-                "funds": "Caisses communales",
-                "partner_funds": "Partenaires de Potjes"
+                "partner_funds": "Partenaires de Potjes",
+                "funds": "Petits pots"
             },
             "westerkwartier": {
-                "funds": "Caisses communales"
+                "funds": "Petits pots"
             }
         },
         "user_menu": {
@@ -3631,6 +3646,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Régimes"
+        },
+        "potjeswijzer": {
+            "funds": "Petits pots",
+            "funds_kindpakket": "Kit pour enfants",
+            "partner_funds": "Partenaires de « Potjes »"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3869,10 @@
             "default": "Aller à la page d'accueil",
             "isd": "ISD Service social intercommunal Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Envoyer",
+        "description": "Vérifie que tu as répondu à toutes les questions et joint tous les justificatifs.",
+        "title": "La réponse est-elle complète ?"
     }
 }

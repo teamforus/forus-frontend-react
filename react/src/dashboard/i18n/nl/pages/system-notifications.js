@@ -108,9 +108,19 @@ export default {
                 'Aanvragers ontvangen dit bericht wanneer een onderdeel van hun aanvraag voor een fonds is geweigerd door de beoordelaar.',
         },
         'notifications_identities.fund_request_feedback_requested': {
-            title: 'Aanvulverzoek op aanvraag',
+            title: 'Nieuw aanvulverzoek op de aanvraag',
             description:
-                'Aanvragers ontvangen dit bericht wanneer een aanvulling op de aanvraag voor een fonds is verzocht door de beoordelaar.',
+                'Aanvragers ontvangen dit bericht wanneer de beoordelaar een nieuw aanvulverzoek op de aanvraag heeft ingediend.',
+        },
+        'notifications_identities.fund_request_clarification_updated': {
+            title: 'Aanvulverzoek op de aanvraag gewijzigd',
+            description:
+                'Aanvragers ontvangen dit bericht wanneer de beoordelaar het aanvulverzoek op de aanvraag heeft gewijzigd.',
+        },
+        'notifications_identities.fund_request_clarification_closed': {
+            title: 'Aanvulverzoek op de aanvraag gesloten',
+            description:
+                'Aanvragers ontvangen dit bericht wanneer de beoordelaar het aanvulverzoek op de aanvraag heeft gesloten. ',
         },
         'notifications_identities.reimbursement_submitted': {
             title: 'Declaratie verstuurd',
